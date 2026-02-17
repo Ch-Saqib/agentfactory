@@ -1,6 +1,6 @@
 # Python for the New AI Era: Course Architecture Plan
 
-**Version:** 2.5
+**Version:** 2.6
 **Status:** Draft
 **Date:** 2026-02-17
 **Branch:** `learn-python`
@@ -18,9 +18,9 @@ Traditional Python education teaches **bottom-up**: syntax first, verification l
 
 This course inverts that order.
 
-**Our approach**: Teach reading and verification first, writing second.
+**Our approach**: Teach reading and verification first. "Writing" means specifying (types + tests) and verifying AI output — never typing implementation from a blank page.
 
-**Core belief**: A student who can read typed Python and write precise tests is more valuable in 2026 than one who memorized list comprehension syntax.
+**Core belief**: A student who can read typed Python, write precise test specifications, and drive AI to correct implementations is more valuable in 2026 than one who memorized list comprehension syntax.
 
 ---
 
@@ -35,7 +35,7 @@ This course inverts that order.
 | **Testing** | Chapter 11 (afterthought) | Chapter 3 (foundational) |
 | **Types** | Optional / "dynamic typing interlude" | Non-negotiable from line 1 |
 | **OOP** | Part VI, 7 chapters of theory-first | Integrated: dataclasses early, full OOP after testing mastery |
-| **Code authoring** | Student writes everything | AI generates, student verifies |
+| **Code authoring** | Student writes everything | Student specifies (types + tests), AI implements, student verifies |
 | **First project** | Alien invasion game | Typed CLI tool with CI pipeline |
 | **"Done" means** | It runs | Types pass, tests pass, CI green |
 | **Entry point** | Writing from blank page | Reading AI-generated output |
@@ -44,7 +44,7 @@ This course inverts that order.
 
 ```
 OLD:  Write syntax → Build things → Maybe test → Ship
-NEW:  Read code → Specify with types → Test first → AI implements → Verify → Ship
+NEW:  Read code → Specify with types → Write tests → Prompt AI → Verify → Iterate → Ship
 ```
 
 ---
@@ -67,25 +67,27 @@ Every Python feature follows this 5-step progression:
 1. SEE it     → AI generates code containing the feature
 2. READ it    → Lesson explains what it does and why
 3. PREDICT it → "What will this output?" exercises
-4. TEST it    → Student writes a test that exercises the feature
-5. WRITE it   → Student writes the feature themselves (later chapters)
+4. TEST it    → Student defines expected behavior → prompts AI to help structure the test → verifies test correctness
+5. BUILD it   → Student specifies (types + tests) → prompts AI to implement → verifies and iterates (TDG cycle)
 ```
 
-### The Writing Gradient
+**Critical principle**: Steps 4 and 5 are done WITH AI, not manually. The student's job is to **specify and verify**, never to write implementation from a blank page. "Writing" in the AI era means defining types, writing test specifications, prompting AI, and verifying output.
 
-Student writing responsibility increases across phases:
+### The Specification Sophistication Gradient
+
+Student specification ability increases across phases:
 
 ```
-Phase 1 (Ch 1-3):    10% writes / 90% reads   ← "Understand AI output"
-Phase 2 (Ch 4-7):    30% writes / 70% reads   ← "Specify with types"
-Phase 3 (Ch 8-11):   50% writes / 50% reads   ← "Test and verify"
-Phase 4 (Ch 12-15):  60% writes / 40% reads   ← "Understand the object model"
-Phase 5 (Ch 16-19):  70% writes / 30% reads   ← "Write real systems"
-Phase 6 (Ch 20-23):  80% writes / 20% reads   ← "Build production software"
-Phase 7 (Ch 24-25):  90% writes / 10% reads   ← "Architect complete systems"
+Phase 1 (Ch 1-3):    Read + Understand          ← "I can read AI output"
+Phase 2 (Ch 4-7):    Specify with types          ← "I can tell AI what shape data has"
+Phase 3 (Ch 8-11):   Specify with tests          ← "I can define what correct means"
+Phase 4 (Ch 12-15):  Design object models        ← "I can design systems for AI to implement"
+Phase 5 (Ch 16-19):  Architect components        ← "I can spec real-world features via TDG"
+Phase 6 (Ch 20-23):  Ship production systems     ← "I can spec + ship complete software via TDG"
+Phase 7 (Ch 24-25):  Full system architecture    ← "I can architect and deliver via TDG"
 ```
 
-By Phase 5, students have seen every Python feature 50+ times in AI output. Writing it themselves feels natural, not forced.
+By Phase 5, students have seen every Python feature 50+ times in AI output. Specifying it precisely for AI feels natural, not forced.
 
 ---
 
@@ -102,7 +104,7 @@ The course serves **two audiences simultaneously**:
 
 ### How both are served
 
-- **Beginners** follow the full progression: read → specify → test → write
+- **Beginners** follow the full progression: read → specify → test → prompt AI → verify
 - **Experienced coders** can skim reading chapters but gain the TDG workflow, typed Python discipline, and AI collaboration patterns they've never seen before
 
 Each chapter includes:
@@ -207,8 +209,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - First run: `uv run ruff check .` → clean output
 - Git init: every project is version-controlled from minute one
 
-**Student writes**: `pyproject.toml` configuration only
-**Student reads**: Tool output, error messages, configuration files
+**Student does**: Configures `pyproject.toml`, runs tools, reads output
+**AI role**: Generates project scaffolding; student reads and understands the structure
 
 ---
 
@@ -226,8 +228,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - How AI generates Python (demystifying the process)
 - Python's dynamic typing vs our typed discipline (Lutz Ch 6 reframed)
 
-**Student writes**: Predictions and annotations only
-**Student reads**: AI-generated Python code samples
+**Student does**: Predicts output, annotates code, traces execution
+**AI role**: Generates typed Python samples; student reads, predicts, and explains
 
 ---
 
@@ -244,8 +246,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - The first taste: 5 lines of student code → 20 lines of working implementation
 - Why this changes everything
 
-**Student writes**: One test function (5-10 lines)
-**Student reads**: AI-generated implementation (~20 lines)
+**Student does**: Specifies behavior via one test function (5-10 lines), prompts AI, verifies output
+**AI role**: Generates implementation (~20 lines) from student's test specification
 
 ---
 
@@ -268,8 +270,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Type narrowing: what Pyright catches for you
 - Common type errors and how to fix them
 
-**Student writes**: Type-annotated variable declarations, simple expressions
-**Student reads**: AI-generated programs using these types
+**Student does**: Writes type annotations as specifications, reads AI-generated programs using those types
+**AI role**: Generates programs using student-defined types; student verifies type correctness
 
 ---
 
@@ -289,8 +291,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Nested collections: `list[dict[str, int]]`
 - Type safety: why `list[Any]` is banned
 
-**Student writes**: Collection type annotations, simple data definitions
-**Student reads**: AI-generated code that processes collections
+**Student does**: Defines collection types as specifications, predicts behavior of AI-generated collection code
+**AI role**: Generates collection processing code; student verifies type safety and correctness
 
 ---
 
@@ -311,8 +313,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Preview: dataclasses are simplified classes (full classes come in Phase 4)
 - TDG exercise: define models, write tests, AI implements logic
 
-**Student writes**: Dataclass and Pydantic model definitions + tests
-**Student reads**: AI-generated business logic using those models
+**Student does**: Defines dataclass/Pydantic models (the spec) + writes tests → prompts AI to implement logic → verifies
+**AI role**: Generates business logic from student's typed models and tests
 
 ---
 
@@ -334,8 +336,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Docstrings as specification (what, not how)
 - TDG exercise: write signatures + tests, AI implements body
 
-**Student writes**: Function signatures, docstrings, and tests
-**Student reads**: AI-generated function implementations
+**Student does**: Defines function signatures + docstrings (the contract) + writes tests → prompts AI to implement → verifies
+**AI role**: Generates function bodies from student's signatures and test specifications
 
 ---
 
@@ -360,8 +362,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Testing loops: boundary conditions, empty inputs, single items
 - The connection: control flow understanding enables better tests
 
-**Student writes**: Tests that exercise branching and iteration
-**Student reads**: AI-generated implementations with control flow
+**Student does**: Writes tests that specify branch/loop behavior → prompts AI to implement → verifies all paths covered
+**AI role**: Generates control flow implementations; student verifies branch coverage
 
 ---
 
@@ -380,8 +382,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Testing objects: verifying class behavior through tests
 - Writing tests as specifications: the test IS the requirement document
 
-**Student writes**: Complete test suites (20-40 lines per exercise)
-**Student reads**: AI-generated implementations that satisfy tests
+**Student does**: Writes complete test suites as specifications (20-40 lines) → AI implements against those specs → student verifies
+**AI role**: Generates implementations that must pass student-written test suites
 
 ---
 
@@ -399,8 +401,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Running the full verification stack: `ruff` → `pyright` → `pytest`
 - Capstone exercise: complete TDG cycle for a real problem
 
-**Student writes**: Full specs, types, tests, and review comments
-**Student reads**: AI-generated implementations, iterating until green
+**Student does**: Full TDG cycle — specs + types + tests → prompts AI → reviews output → iterates until green
+**AI role**: Generates complete implementations; student drives the specify-verify loop
 
 ---
 
@@ -424,8 +426,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Edge case thinking: empty inputs, None, negative numbers, huge values
 - Defensive vs offensive programming (trust types internally)
 
-**Student writes**: Exception hierarchies, context managers, error-path tests
-**Student reads**: AI-generated error handling patterns
+**Student does**: Designs exception hierarchies + writes error-path tests → prompts AI to implement handling → verifies edge cases
+**AI role**: Generates error handling patterns; student specifies what errors should occur and verifies
 
 ---
 
@@ -468,8 +470,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Testing classes: creating instances, calling methods, asserting state
 - TDG exercise: define a class interface (types + tests), AI implements
 
-**Student writes**: Class definitions with types, tests for class behavior
-**Student reads**: AI-generated class implementations
+**Student does**: Defines class interfaces (types + method signatures) + writes behavioral tests → prompts AI to implement → verifies
+**AI role**: Generates class implementations from student's typed interfaces and test specifications
 
 ---
 
@@ -503,8 +505,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Real-world example: building a system with inheritance AND composition
 - Testing OOP designs: testing interfaces, not implementations
 
-**Student writes**: Class hierarchies with inheritance and composition, tests
-**Student reads**: AI-generated implementations, refactoring suggestions
+**Student does**: Designs class hierarchies (inheritance vs composition decisions) + writes interface tests → prompts AI to implement → verifies design
+**AI role**: Generates implementations and refactoring suggestions; student makes design decisions and verifies
 
 ---
 
@@ -539,8 +541,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Testing special methods: verify operator behavior through tests
 - The principle: special methods make objects feel "Pythonic"
 
-**Student writes**: Classes with special methods, operator tests
-**Student reads**: AI-generated implementations with rich object protocols
+**Student does**: Specifies special method behavior via tests (e.g., `__eq__`, `__iter__`) → prompts AI to implement → verifies Pythonic behavior
+**AI role**: Generates special method implementations; student specifies expected operator behavior via tests
 
 ---
 
@@ -599,14 +601,14 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Testing advanced patterns: decorators, properties, protocols
 - TDG exercise: build a system using decorators, properties, and protocols
 
-**Student writes**: Decorators, properties, protocol-based designs, tests
-**Student reads**: AI-generated framework patterns, decorator implementations
+**Student does**: Designs protocol interfaces + writes decorator specs + tests → prompts AI to implement patterns → verifies
+**AI role**: Generates decorator implementations, protocol-based designs; student architects the patterns and verifies
 
 ---
 
-### Phase 5: Real-World Python (Write)
+### Phase 5: Real-World Python (Architect + TDG)
 
-> Student role: **Writer** — "I can write Python for real problems"
+> Student role: **Practitioner** — "I can spec real-world features via TDG"
 
 #### Chapter 16: Files and Data Processing
 
@@ -624,8 +626,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Error handling for I/O operations
 - TDG exercise: build a data processing tool
 
-**Student writes**: Complete file processing programs
-**Student reads**: AI-generated optimizations and patterns
+**Student does**: Specifies file processing pipelines (types + tests) → prompts AI to implement → verifies I/O correctness
+**AI role**: Generates file processing code; student designs the pipeline and verifies data integrity
 
 ---
 
@@ -658,8 +660,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Circular imports: why they happen, how to fix them
 - TDG exercise: refactor a single-file project into a proper package
 
-**Student writes**: Multi-module projects with clean imports
-**Student reads**: AI-generated project structures
+**Student does**: Designs module/package architecture → prompts AI to generate structure → verifies imports and organization
+**AI role**: Generates project scaffolding and module organization; student architects the structure
 
 ---
 
@@ -683,8 +685,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Testing database code with fixtures and in-memory SQLite
 - When to use SQLite vs PostgreSQL (complexity threshold)
 
-**Student writes**: SQL queries, repository classes, database tests
-**Student reads**: AI-generated schema designs and complex queries
+**Student does**: Designs schemas + repository Protocol interfaces + writes database tests → prompts AI to implement → verifies queries
+**AI role**: Generates SQL implementations and repository code; student designs the data layer and verifies correctness
 
 ---
 
@@ -708,8 +710,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - When comprehensions help vs when they hurt readability
 - Performance: generators vs lists for large datasets
 
-**Student writes**: Complex data transformations, generators, processing pipelines
-**Student reads**: AI-generated optimized versions for comparison
+**Student does**: Specifies transformation pipelines (types + tests) → prompts AI to implement → compares AI versions, verifies correctness
+**AI role**: Generates comprehensions, generators, and pipelines; student specifies expected transformations and reviews efficiency
 
 ---
 
@@ -730,8 +732,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Building a real CLI tool end-to-end with TDG
 - Packaging and distributing CLI tools
 
-**Student writes**: Complete CLI applications
-**AI assists**: Boilerplate, argument parsing setup
+**Student does**: Designs CLI interface (commands, flags, types) + writes integration tests → prompts AI to implement → verifies end-to-end
+**AI role**: Generates CLI boilerplate, argument parsing, command handlers; student architects the user experience
 
 ---
 
@@ -769,8 +771,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - **Testing async code**: `pytest-asyncio`, `@pytest.mark.asyncio`
 - **Why this matters for Part 5**: FastAPI is async, agent SDKs are async, MCP is async
 
-**Student writes**: Async functions, concurrent data fetchers, async tests
-**AI assists**: Event loop patterns, error handling in async code
+**Student does**: Specifies async interfaces (typed coroutines + tests) → prompts AI to implement concurrent logic → verifies async behavior
+**AI role**: Generates async implementations, event loop patterns; student designs concurrency architecture and verifies
 
 ---
 
@@ -788,8 +790,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Middleware and error handling
 - Full TDG cycle for API development
 
-**Student writes**: API routes, models, tests
-**AI assists**: Boilerplate, configuration, documentation
+**Student does**: Designs API contracts (Pydantic models + route specs + tests) → prompts AI to implement → verifies with TestClient
+**AI role**: Generates FastAPI routes, middleware, configuration; student designs the API contract and verifies
 
 ---
 
@@ -805,8 +807,8 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Error tracking basics
 - The complete professional workflow: branch → code → test → CI → review → merge
 
-**Student writes**: CI configuration, logging setup, health checks
-**AI assists**: Pipeline YAML, monitoring configuration
+**Student does**: Designs CI pipeline stages + observability requirements → prompts AI to generate configs → verifies pipeline is green
+**AI role**: Generates CI YAML, logging setup, monitoring configs; student architects the verification pipeline
 
 ---
 
@@ -849,13 +851,13 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 ## 8. The Student Journey Summary
 
 ```
-Ch 1-3:    READER      → "I understand what AI generates"
-Ch 4-7:    SPECIFIER   → "I can tell AI precisely what to build"
-Ch 8-11:   VERIFIER    → "I can prove code is correct"
-Ch 12-15:  MODELER     → "I can design objects that model real domains"
-Ch 16-19:  WRITER      → "I can write Python for real problems"
-Ch 20-23:  BUILDER     → "I can ship production software"
-Ch 24-25:  ARCHITECT   → "I can design and build complete systems"
+Ch 1-3:    READER       → "I can read and understand AI-generated typed Python"
+Ch 4-7:    SPECIFIER    → "I can tell AI precisely what to build using types"
+Ch 8-11:   VERIFIER     → "I can prove code is correct with tests"
+Ch 12-15:  MODELER      → "I can design object models for AI to implement"
+Ch 16-19:  PRACTITIONER → "I can spec real-world features via TDG"
+Ch 20-23:  BUILDER      → "I can spec + ship production software via TDG"
+Ch 24-25:  ARCHITECT    → "I can architect and deliver complete systems via TDG"
 ```
 
 ---
@@ -979,23 +981,23 @@ Every chapter draws from these 5 exercise types in varying proportions:
 | 2 | **Spot the Bug** | AI-generated code with intentional errors | Find type errors, logic bugs, edge case failures | Verification, code review |
 | 3 | **Write the Test** | Problem description + function/class signature | Write pytest tests that specify correct behavior | Specification, testing |
 | 4 | **TDG Cycle** | Problem statement in plain English | Define types → write tests → prompt AI → verify → iterate | Full AI-era workflow |
-| 5 | **Build It** | A spec with tests already written (provided) | Write the implementation themselves, no AI allowed | Deep understanding, writing |
+| 5 | **Build It** | A spec with tests already written (provided) | Specify approach → prompt AI to implement → review, debug, and iterate until all tests pass | Full TDG ownership, end-to-end delivery |
 
 ### Exercise Mix by Phase
 
 The proportion of each exercise type shifts across phases, tracking the writing gradient:
 
 ```
-                        Type 1      Type 2      Type 3      Type 4      Type 5
-                        Read &      Spot the    Write the   TDG         Build It
-                        Predict     Bug         Test        Cycle       (No AI)
-Phase 1 (Reader)      : ████████    ██          ░           ░           ░
-Phase 2 (Specifier)   : ████        ████        ████        ██          ░
-Phase 3 (Verifier)    : ██          ██          ████████    ████        ██
-Phase 4 (Modeler)     : ██          ██          ████        ████        ████
-Phase 5 (Writer)      : █           █           ██          ████        ██████
-Phase 6 (Builder)     : █           █           ██          ██████      ████
-Phase 7 (Architect)   : Full capstone project combining all types
+                           Type 1      Type 2      Type 3      Type 4      Type 5
+                           Read &      Spot the    Write the   TDG         Build It
+                           Predict     Bug         Test        Cycle       (Full TDG)
+Phase 1 (Reader)         : ████████    ██          ░           ░           ░
+Phase 2 (Specifier)      : ████        ████        ████        ██          ░
+Phase 3 (Verifier)       : ██          ██          ████████    ████        ██
+Phase 4 (Modeler)        : ██          ██          ████        ████        ████
+Phase 5 (Practitioner)   : █           █           ██          ████        ██████
+Phase 6 (Builder)        : █           █           ██          ██████      ████
+Phase 7 (Architect)      : Full capstone project combining all types
 ```
 
 ### Per-Chapter Exercise Structure
@@ -1026,9 +1028,9 @@ END-OF-CHAPTER EXERCISES (after lesson content)
 │   Purpose: Practice the complete AI-era workflow
 │
 └── Build It (1 per chapter, starting Phase 3)
-    Format: Tests are provided → write implementation, no AI
-    Purpose: Prove understanding by writing code yourself
-    Rule: If you can't pass the tests without AI, you don't understand yet
+    Format: Tests are provided → student drives full TDG cycle to make them pass
+    Purpose: Prove you can own the entire specify-prompt-verify loop end-to-end
+    Rule: Student must understand every line AI generates — if you can't explain it, iterate
 ```
 
 ### Exercise Quantity Per Chapter
@@ -1047,15 +1049,15 @@ END-OF-CHAPTER EXERCISES (after lesson content)
 
 ### The "Build It" Rule
 
-Starting Phase 3, every chapter includes at least one exercise where **AI is not allowed**. Tests are provided. Student must write the implementation.
+Starting Phase 3, every chapter includes at least one exercise where **the student owns the entire TDG cycle end-to-end**. Tests are provided. The student must drive the full loop: analyze what the tests require → specify the approach → prompt AI effectively → review every line of AI output → iterate until all tests pass.
 
-**Why this matters**: This proves the student actually understands the concept, not just how to prompt AI. It resolves the pedagogical tension — "you can't verify what you don't understand" — by requiring proof of understanding through writing.
+**Why this matters**: This proves the student can **own delivery** — the real AI-era skill. It's not about typing code manually; it's about understanding what the tests demand, prompting AI precisely, and verifying that the output is correct. If the student can't explain every line AI generated, they iterate until they can.
 
 **The progression**:
-- Phase 3: Build a small function (10-20 lines)
-- Phase 4: Build a class with methods (30-50 lines)
-- Phase 5: Build a module with multiple functions/classes (50-100 lines)
-- Phase 6: Build a component of a system (100+ lines)
+- Phase 3: Drive TDG for a small function (10-20 lines of AI output to review)
+- Phase 4: Drive TDG for a class with methods (30-50 lines, design decisions matter)
+- Phase 5: Drive TDG for a module with multiple components (50-100 lines, architecture matters)
+- Phase 6: Drive TDG for a system component (100+ lines, orchestrating multiple AI prompts)
 
 ### The TDG Challenge Format
 
@@ -1096,12 +1098,12 @@ Exercises build on each other. Later chapters reference and extend earlier work:
 ```
 Ch 6:  Define a Note dataclass              → TDG: build note parser
 Ch 9:  Write comprehensive tests for Note   → TDG: test edge cases
-Ch 12: Convert Note to a full class         → BUILD IT: add behavior (tags, links)
-Ch 13: Add inheritance (SourceNote, etc.)   → BUILD IT: design note hierarchy
-Ch 14: Add __repr__, __eq__, __iter__       → BUILD IT: make notes Pythonic
+Ch 12: Convert Note to a full class         → BUILD IT (TDG): add behavior (tags, links)
+Ch 13: Add inheritance (SourceNote, etc.)   → BUILD IT (TDG): design note hierarchy
+Ch 14: Add __repr__, __eq__, __iter__       → BUILD IT (TDG): make notes Pythonic
 Ch 18: Store Notes in SQLite                → TDG: repository pattern
 Ch 22: Expose Notes via FastAPI             → TDG: knowledge API service
-Ch 24: Full SmartNotes Knowledge Base          → CAPSTONE
+Ch 24: Full SmartNotes Knowledge Base       → CAPSTONE (full TDG orchestration)
 ```
 
 This creates a **running project thread** that students evolve across the course.
@@ -1133,7 +1135,7 @@ Traditional books teach syntax through repetition. Our course teaches through re
 CHAPTER N: [Title]
 ├── Lesson content
 ├── Inline exercises (Read & Predict, Spot the Bug)
-├── End-of-chapter exercises (Write Test, TDG, Build It)
+├── End-of-chapter exercises (Write Test, TDG Challenge, Build It)
 │
 └── 📋 SYNTAX CARD           ← Last section, always
     Half-page, no prose
@@ -1295,7 +1297,7 @@ Students don't build seven throwaway projects. They build **one real application
 
 #### Phase 5: Build & Persist (Ch 16-19) — "SmartNotes v0.5: Store It"
 
-**Student role**: Writer — write Python that handles real data
+**Student role**: Practitioner — spec real-world features via TDG
 
 **What students build**:
 - File-based export: save notes as Markdown files, JSON backup
@@ -1393,3 +1395,4 @@ smartnotes/
 | 2.3 | 2026-02-17 | Added Per-Phase Projects direction (Section 15): each phase gets its own project, capstone beginner/experienced question resolved |
 | 2.4 | 2026-02-17 | Added Concurrency chapter (Ch 21: async/await + threading), expanded to 25 chapters. Placed before FastAPI. Resolved Crash Course Bridge question (no). Added curriculum integration as open question. |
 | 2.5 | 2026-02-17 | Designed "SmartNotes" Personal AI Knowledge Base as the running project across all 7 phases. Updated Section 15 with phase-by-phase deliverables. Updated exercise thread from Order domain to Note/SmartNotes domain. Updated capstone to reference SmartNotes. |
+| 2.6 | 2026-02-17 | AI-first philosophy applied throughout entire plan. Steps 4-5 of learning progression now explicitly done WITH AI. Renamed "Writing Gradient" to "Specification Sophistication Gradient". All chapter "Student writes/reads" lines replaced with "Student does/AI role" format reflecting TDG workflow. Phase 5 role renamed from "Writer" to "Practitioner". Exercise Type 5 "Build It" reframed from "no AI" to "full TDG ownership". "Build It Rule" rewritten. Student Journey Summary updated. |
