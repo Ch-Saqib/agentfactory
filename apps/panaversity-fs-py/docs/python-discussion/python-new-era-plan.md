@@ -818,7 +818,7 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 
 **Goal**: Student builds a complete, production-grade application using everything learned.
 
-**Project**: **Synapse** — the Personal AI Knowledge Base the student has been building since Phase 1, now fully integrated.
+**Project**: **SmartNotes** — the Personal AI Knowledge Base the student has been building since Phase 1, now fully integrated.
 
 | Component | Technologies | Chapters Applied |
 |---|---|---|
@@ -828,7 +828,7 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 | Data Layer | SQLite, repository pattern | Ch 18 |
 | Business Logic | Typed functions, composition | Ch 7, 19 |
 | Concurrency | async/await for API + SDK calls | Ch 21 |
-| CLI Interface | `synapse` CLI tool | Ch 20 |
+| CLI Interface | `smartnotes` CLI tool | Ch 20 |
 | API Service | FastAPI (async) | Ch 22 |
 | AI Integration | Anthropic SDK (async) — semantic search, summaries | Ch 10, 21 |
 | Test Suite | pytest (80%+ coverage) | Ch 9, 10 |
@@ -842,7 +842,7 @@ def calculate_total(items, tax_rate=0.0):  # No types = not allowed
 - Test suites (passing, 80%+ coverage)
 - Implementation (AI-generated, student-reviewed)
 - CI pipeline (green)
-- Deployed Synapse application with CLI + API + AI features
+- Deployed SmartNotes application with CLI + API + AI features
 
 ---
 
@@ -1101,7 +1101,7 @@ Ch 13: Add inheritance (SourceNote, etc.)   → BUILD IT: design note hierarchy
 Ch 14: Add __repr__, __eq__, __iter__       → BUILD IT: make notes Pythonic
 Ch 18: Store Notes in SQLite                → TDG: repository pattern
 Ch 22: Expose Notes via FastAPI             → TDG: knowledge API service
-Ch 24: Full Synapse Knowledge Base          → CAPSTONE
+Ch 24: Full SmartNotes Knowledge Base          → CAPSTONE
 ```
 
 This creates a **running project thread** that students evolve across the course.
@@ -1215,35 +1215,35 @@ Students get:
 
 ---
 
-## 15. The Synapse Project — One Running Project Across All Phases
+## 15. The SmartNotes Project — One Running Project Across All Phases
 
 ### Why One Project, Not Seven
 
-Students don't build seven throwaway projects. They build **one real application** — **Synapse**, a Personal AI Knowledge Base — that grows with them across all 7 phases. Each phase adds a layer that exercises that phase's core skills.
+Students don't build seven throwaway projects. They build **one real application** — **SmartNotes**, a Personal AI Knowledge Base — that grows with them across all 7 phases. Each phase adds a layer that exercises that phase's core skills.
 
-**Why Synapse?**:
+**Why SmartNotes?**:
 1. **Students USE it while learning** — they capture their own notes, code snippets, and learnings as they go through the course
 2. **AI integration is natural** — semantic search, auto-tagging, and summarization are genuine AI features (not bolted on)
 3. **It shows thinking to interviewers** — a portfolio project that demonstrates typed Python, testing, OOP design, async APIs, and AI integration
 4. **Every phase has a real deliverable** — not "exercise 3.2" but "my knowledge base now has search"
 
-### Phase-by-Phase Synapse Evolution
+### Phase-by-Phase SmartNotes Evolution
 
-#### Phase 1: Read & Understand (Ch 1-3) — "Synapse v0.1: Explore"
+#### Phase 1: Read & Understand (Ch 1-3) — "SmartNotes v0.1: Explore"
 
 **Student role**: Reader — understand what AI generates
 
-**What students get**: A pre-built Synapse prototype (AI-generated, ~200 lines). Students DON'T build it yet. They:
+**What students get**: A pre-built SmartNotes prototype (AI-generated, ~200 lines). Students DON'T build it yet. They:
 - Read the code: understand `Note` dataclass, `add_note()`, `search_notes()`
 - Predict behavior: "What does this function return for this input?"
-- Trace execution: follow `uv run synapse add "My first note" --tags python`
+- Trace execution: follow `uv run smartnotes add "My first note" --tags python`
 - Verify with tests: run `uv run pytest` and read what each test checks
 
 **Deliverable**: An annotated code walkthrough — student adds comments explaining every function
 
 ---
 
-#### Phase 2: Specify & Model (Ch 4-7) — "Synapse v0.2: Type It"
+#### Phase 2: Specify & Model (Ch 4-7) — "SmartNotes v0.2: Type It"
 
 **Student role**: Specifier — define the domain precisely
 
@@ -1251,7 +1251,7 @@ Students don't build seven throwaway projects. They build **one real application
 - `Note` dataclass with typed fields: `title: str`, `body: str`, `tags: list[str]`, `created_at: datetime`
 - `NoteCollection` with typed methods: `add()`, `search()`, `filter_by_tag()`
 - Pydantic models for input validation: `NoteCreate`, `NoteUpdate`
-- Type-safe configuration: `SynapseConfig` dataclass
+- Type-safe configuration: `SmartNotesConfig` dataclass
 
 **Key learning**: The types ARE the specification. Pyright enforces the contract before a single test is written.
 
@@ -1259,7 +1259,7 @@ Students don't build seven throwaway projects. They build **one real application
 
 ---
 
-#### Phase 3: Test & Verify (Ch 8-11) — "Synapse v0.3: Prove It"
+#### Phase 3: Test & Verify (Ch 8-11) — "SmartNotes v0.3: Prove It"
 
 **Student role**: Verifier — prove correctness before implementation
 
@@ -1276,7 +1276,7 @@ Students don't build seven throwaway projects. They build **one real application
 
 ---
 
-#### Phase 4: Design & Model (Ch 12-15) — "Synapse v0.4: Architect"
+#### Phase 4: Design & Model (Ch 12-15) — "SmartNotes v0.4: Architect"
 
 **Student role**: Modeler — design objects that represent real concepts
 
@@ -1287,13 +1287,13 @@ Students don't build seven throwaway projects. They build **one real application
 - Special methods: `Note.__repr__()`, `Note.__eq__()`, `NoteCollection.__iter__()`
 - Decorators: `@log_action` for tracking changes, `@validate_input`
 
-**Key learning**: OOP is about modeling real domains, not abstract theory. Synapse notes ARE the domain.
+**Key learning**: OOP is about modeling real domains, not abstract theory. SmartNotes notes ARE the domain.
 
-**Deliverable**: Refactored Synapse with proper object model, all previous tests still passing
+**Deliverable**: Refactored SmartNotes with proper object model, all previous tests still passing
 
 ---
 
-#### Phase 5: Build & Persist (Ch 16-19) — "Synapse v0.5: Store It"
+#### Phase 5: Build & Persist (Ch 16-19) — "SmartNotes v0.5: Store It"
 
 **Student role**: Writer — write Python that handles real data
 
@@ -1301,21 +1301,21 @@ Students don't build seven throwaway projects. They build **one real application
 - File-based export: save notes as Markdown files, JSON backup
 - SQLite persistence: `NoteRepository` with SQL storage (repository pattern)
 - Import/export: read notes from Markdown files, CSV, JSON
-- Modular architecture: `synapse/models/`, `synapse/storage/`, `synapse/export/`
+- Modular architecture: `smartnotes/models/`, `smartnotes/storage/`, `smartnotes/export/`
 - Data transformations: filter, sort, group notes by date/tag/type
 
 **Key learning**: Real applications persist data. The `Repository` Protocol from Phase 4 now gets a real SQLite implementation.
 
-**Deliverable**: Synapse that persists to SQLite, imports/exports files, organized as a proper Python package
+**Deliverable**: SmartNotes that persists to SQLite, imports/exports files, organized as a proper Python package
 
 ---
 
-#### Phase 6: Ship & Serve (Ch 20-23) — "Synapse v0.6: Ship It"
+#### Phase 6: Ship & Serve (Ch 20-23) — "SmartNotes v0.6: Ship It"
 
 **Student role**: Builder — ship production software
 
 **What students build**:
-- `synapse` CLI tool: `synapse add`, `synapse search`, `synapse export` (using typer)
+- `smartnotes` CLI tool: `smartnotes add`, `smartnotes search`, `smartnotes export` (using typer)
 - FastAPI async API: `POST /notes`, `GET /notes/search?q=`, `GET /notes/{id}`
 - Async AI integration: semantic search using embeddings, auto-summarization
 - CI pipeline: GitHub Actions running format → lint → type check → test on every push
@@ -1323,11 +1323,11 @@ Students don't build seven throwaway projects. They build **one real application
 
 **Key learning**: Everything connects. Types define API contracts. Tests verify endpoints. Async handles AI calls without blocking.
 
-**Deliverable**: Deployed Synapse with CLI + REST API + CI pipeline, all green
+**Deliverable**: Deployed SmartNotes with CLI + REST API + CI pipeline, all green
 
 ---
 
-#### Phase 7: Integrate & Polish (Ch 24-25) — "Synapse v1.0: Complete"
+#### Phase 7: Integrate & Polish (Ch 24-25) — "SmartNotes v1.0: Complete"
 
 **Student role**: Architect — design and build complete systems
 
@@ -1337,14 +1337,14 @@ Students don't build seven throwaway projects. They build **one real application
 - Performance optimization and refactoring
 - Documentation and deployment
 
-**Deliverable**: Production-grade Synapse v1.0 — a portfolio-ready application demonstrating every skill in the course
+**Deliverable**: Production-grade SmartNotes v1.0 — a portfolio-ready application demonstrating every skill in the course
 
-### The Synapse Stack (Final)
+### The SmartNotes Stack (Final)
 
 ```
-synapse/
+smartnotes/
 ├── pyproject.toml          # uv project (Ch 1)
-├── src/synapse/
+├── src/smartnotes/
 │   ├── models/             # Note, NoteCollection, types (Ch 6, 12-14)
 │   ├── storage/            # Repository protocol + SQLite impl (Ch 15, 18)
 │   ├── search/             # AI-powered semantic search (Ch 10, 21)
@@ -1358,7 +1358,7 @@ synapse/
 
 ### Why This Works
 
-| Concern | How Synapse Addresses It |
+| Concern | How SmartNotes Addresses It |
 |---|---|
 | "Exercises feel disconnected" | Every exercise adds to the same project |
 | "I never finish anything" | Each phase has a working, shippable version |
@@ -1374,7 +1374,7 @@ synapse/
 - [x] ~~Python Crash Course Bridge chapter?~~ → Resolved: No. Dual-track callouts within chapters are sufficient. No extra chapter needed.
 - [ ] Integration with the broader Agent Factory curriculum (Parts 1-6)?
 - [ ] Should metaclasses get a dedicated advanced appendix?
-- [x] ~~Specific project designs for each phase (Section 15)?~~ → Resolved: "Synapse" Personal AI Knowledge Base — one running project across all 7 phases
+- [x] ~~Specific project designs for each phase (Section 15)?~~ → Resolved: "SmartNotes" Personal AI Knowledge Base — one running project across all 7 phases
 - [x] ~~Concurrency chapter?~~ → Resolved: Yes, Ch 21 (async/await + threading) placed before FastAPI
 - [x] ~~Exercises format: inline vs separate exercise packs?~~ → Resolved: inline + end-of-chapter (Section 13)
 - [x] ~~Python Quick Reference appendix?~~ → Resolved: per-chapter Syntax Cards + combined PDF (Section 14)
@@ -1392,4 +1392,4 @@ synapse/
 | 2.2 | 2026-02-17 | Added Syntax Card Strategy (Section 14): per-chapter half-page reference cards replacing traditional appendix, with combined downloadable PDF |
 | 2.3 | 2026-02-17 | Added Per-Phase Projects direction (Section 15): each phase gets its own project, capstone beginner/experienced question resolved |
 | 2.4 | 2026-02-17 | Added Concurrency chapter (Ch 21: async/await + threading), expanded to 25 chapters. Placed before FastAPI. Resolved Crash Course Bridge question (no). Added curriculum integration as open question. |
-| 2.5 | 2026-02-17 | Designed "Synapse" Personal AI Knowledge Base as the running project across all 7 phases. Updated Section 15 with phase-by-phase deliverables. Updated exercise thread from Order domain to Note/Synapse domain. Updated capstone to reference Synapse. |
+| 2.5 | 2026-02-17 | Designed "SmartNotes" Personal AI Knowledge Base as the running project across all 7 phases. Updated Section 15 with phase-by-phase deliverables. Updated exercise thread from Order domain to Note/SmartNotes domain. Updated capstone to reference SmartNotes. |
