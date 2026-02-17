@@ -1372,8 +1372,8 @@ smartnotes/
 ## 16. Open Questions
 
 - [x] ~~Python Crash Course Bridge chapter?~~ → Resolved: No. Dual-track callouts within chapters are sufficient. No extra chapter needed.
-- [ ] Integration with the broader Agent Factory curriculum (Parts 1-6)?
-- [ ] Should metaclasses get a dedicated advanced appendix?
+- [x] ~~Integration with the broader Agent Factory curriculum (Parts 1-6)?~~ → Resolved: Ch 14 (Ten Axioms) bridges Part 3 into this Python course; course output (typed Python + testing + OOP) feeds directly into Part 5 (building agents). No extra integration chapter needed.
+- [x] ~~Should metaclasses get a dedicated advanced appendix?~~ → Resolved: No. Reference-only coverage in Ch 15 is sufficient. Metaclasses are for framework authors, not our audience.
 - [x] ~~Specific project designs for each phase (Section 15)?~~ → Resolved: "SmartNotes" Personal AI Knowledge Base — one running project across all 7 phases
 - [x] ~~Concurrency chapter?~~ → Resolved: Yes, Ch 21 (async/await + threading) placed before FastAPI
 - [x] ~~Exercises format: inline vs separate exercise packs?~~ → Resolved: inline + end-of-chapter (Section 13)
