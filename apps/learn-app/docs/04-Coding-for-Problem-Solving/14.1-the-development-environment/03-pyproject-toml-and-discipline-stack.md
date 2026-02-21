@@ -63,7 +63,7 @@ James opens his terminal inside the `smartnotes` directory. His instinct says `p
 
 "You already have uv," she says. "Use it."
 
-James replaces the command: `uv add --dev pytest pyright ruff`. Three tools, one command, under a second. He opens `pyproject.toml` and sees all three listed in a new section called `[dependency-groups]`. Then Emma shows him something he did not expect. She adds configuration sections for each tool -- pyright strictness, ruff rules, pytest test paths -- all inside the same file. James stares at it. "Everything I need to know about SmartNotes is right here?" Emma nods. "That is Axiom II. Knowledge is markdown. Or in this case, TOML."
+James replaces the command: `uv add --dev pytest pyright ruff`. Three tools, one command, under a second. He opens `pyproject.toml` and sees all three listed in a new section called `[dependency-groups]`. Then Emma shows him something he did not expect. She adds configuration sections for each tool -- pyright strictness, ruff rules, pytest test paths -- all inside the same file. James stares at it. "Everything I need to know about SmartNotes is right here?" Emma nods. "One file. Every dependency, every tool setting, every project detail. That is what a central configuration gives you."
 
 ## The Problem Without a Central Config
 
@@ -113,13 +113,9 @@ This is the project's identity card. Every field answers a specific question:
 
 This is the `[project]` section. It follows PEP 621, a Python standard that all modern tools agree on. Poetry reads it. Hatch reads it. uv reads it. pip reads it. No tool-specific format, no lock-in.
 
-## From Axiom to Practice
-
-In Axiom II from Chapter 14, you learned that all persistent knowledge belongs in a format that is human-readable, version-controllable, AI-parseable, and tool-agnostic. `pyproject.toml` is exactly that format for your Python project.
+## From Scattered Files to One Source of Truth
 
 Consider what happens when you add a tool to your project. Without a central config, that knowledge splits: the dependency goes in one file, the configuration goes in another, and the version constraint goes in a third. Three files, three formats, one decision. With `pyproject.toml`, the dependency, the configuration, and the version constraint all live in one file. A human developer opens one file and sees everything. An AI agent reads one file and understands the entire project setup. Git tracks one file and shows every configuration change in a single diff.
-
-This is Axiom II applied to Python: the project's knowledge lives in one readable, versionable, parseable file.
 
 ## Practical Application
 
