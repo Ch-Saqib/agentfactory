@@ -103,18 +103,15 @@ These tools are not optional recommendations. They are the infrastructure that m
 
 Each tool in the discipline stack is the physical implementation of an axiom from Chapter 14. The axioms describe *what matters*. The tools enforce *that it happens*. James already understands the principles. Now he sees what turns those principles into daily practice.
 
-Notice that the table below includes six entries for five tools. That is because `pyproject.toml` is not a tool you install -- it is a file that `uv init` creates. But it deserves its own axiom mapping because it embodies Axiom II (Knowledge is Markdown) more directly than any tool in the stack.
-
 | Tool | Axiom | How the Tool Enforces the Axiom |
 |---|---|---|
 | **uv** | **I -- Shell as Orchestrator** | One command orchestrates Python version management, virtual environments, dependency resolution, and script execution. Where developers once needed pip, pyenv, poetry, and virtualenv as separate tools, uv replaces all of them from the shell. |
-| **pyproject.toml** | **II -- Knowledge is Markdown** | Every decision about the project -- its name, version, dependencies, and tool configurations -- lives in a single, human-readable text file. No hidden settings, no GUI-only configurations. The project's identity is stored as structured text that both humans and tools can read. |
 | **pyright** | **V -- Types Are Guardrails** | Pyright walks along every type annotation in your code and reports which guardrails are missing -- before the code ever runs. In the AI era, where code is generated fast, types are how you verify that generated code handles data correctly. |
 | **pytest** | **VII -- Tests Are the Specification** | `assert func(3) == 4` is not just a check. It is a specification: "this function, given 3, must return 4." Tests do not verify that code runs. They verify that code does what you specified it should do. |
 | **Git** | **VIII -- Version Control is Memory** | Every `git commit` is a checkpoint you can return to. Without Git, one bad change destroys everything with no way back. With Git, every state of the project is preserved permanently. |
 | **ruff** | **IX -- Verification is a Pipeline** | Ruff is one stage in an automated verification pipeline. Every time code changes, ruff checks it automatically. No developer has to remember style rules or catch unused imports manually -- the tool enforces them as infrastructure. |
 
-James studies the table. He traces his finger across the rows. Six axioms, five tools, one configuration file that holds it all together.
+James studies the table. He traces his finger across the rows. Five axioms, five tools.
 
 "So the tools are not separate things I install one by one," James says. "They are the axioms turned into software."
 
@@ -206,7 +203,6 @@ Keep the explanation practical -- I haven't used either approach yet.
 ```
 I learned these programming axioms:
 - Axiom I: Shell as Orchestrator
-- Axiom II: Knowledge is Markdown
 - Axiom V: Types Are Guardrails
 - Axiom VII: Tests Are the Specification
 - Axiom VIII: Version Control is Memory
