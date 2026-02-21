@@ -23,15 +23,15 @@ Test your understanding of the Python discipline stack -- uv, pyright, ruff, pyt
       source: "Lesson 1: Why the Toolchain Comes First"
     },
     {
-      question: "Which axiom-to-tool mapping correctly explains why pyproject.toml exists in the discipline stack?",
+      question: "Which axiom-to-tool mapping correctly explains why uv exists in the discipline stack?",
       options: [
-        "Axiom VIII: Version Control is Memory, because pyproject.toml tracks file change history",
-        "Axiom II: Knowledge is Markdown, because all project configuration lives in one readable text file",
-        "Axiom IX: Verification is Pipeline, because pyproject.toml runs automated quality checks",
-        "Axiom V: Types Are Guardrails, because pyproject.toml enforces type annotation rules"
+        "Axiom V: Types Are Guardrails, because uv checks type annotations in your code",
+        "Axiom I: Shell as Orchestrator, because uv coordinates Python versions, environments, and dependencies from one command",
+        "Axiom IX: Verification is Pipeline, because uv runs automated quality checks on code",
+        "Axiom VIII: Version Control is Memory, because uv tracks every change to your project"
       ],
       correctOption: 1,
-      explanation: "pyproject.toml implements Axiom II (Knowledge is Markdown) because it stores all project knowledge -- name, version, dependencies, tool configurations -- in a single human-readable, version-controllable, AI-parseable text file. Option A confuses pyproject.toml with Git; the file stores configuration, not history. Option C incorrectly attributes pipeline execution to a config file; ruff is the pipeline tool. Option D confuses pyproject.toml with pyright; the config file does not enforce type annotations itself.",
+      explanation: "uv implements Axiom I (Shell as Orchestrator) because one shell command orchestrates Python version management, virtual environment creation, dependency resolution, and script execution -- replacing pip, pyenv, poetry, and virtualenv. Option A confuses uv with pyright; uv manages packages, not types. Option C confuses uv with ruff; uv does not perform code quality checks. Option D confuses uv with Git; uv manages dependencies, not change history.",
       source: "Lesson 1: Why the Toolchain Comes First"
     },
     {
