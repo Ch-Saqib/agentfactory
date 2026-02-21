@@ -353,4 +353,4 @@ manually with python -m venv.
 
 ## Looking Ahead
 
-SmartNotes exists. It has a clean structure, a pinned Python version, and a working entry point. But `pyproject.toml` is still basic — it has no tool configurations, no development dependencies, and no way to run quality checks. In Lesson 3, you will install the rest of the discipline stack (pyright, ruff, and pytest) and configure `pyproject.toml` as the single source of truth for the entire project. That is Axiom II: Knowledge is Markdown — or in SmartNotes' case, TOML.
+SmartNotes exists. It has a clean structure, a pinned Python version, and a working entry point. But `pyproject.toml` is still basic — it has no tool configurations, no development dependencies, and no way to run quality checks. In Lesson 3, you will install the rest of the discipline stack (pyright, ruff, and pytest) and configure `pyproject.toml` as the single source of truth for the entire project.
