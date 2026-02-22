@@ -1,29 +1,44 @@
-# Frontmatter-to-Teaching Reference
+# Frontmatter-to-Blended-Approach Reference
 
-How to use each frontmatter field from lesson content to drive teaching behavior.
+How to use each frontmatter field from lesson content to plan your blended discovery cycle.
 
-## Field Mapping
+## Field Mapping to Phases
 
-| Frontmatter Field             | Teaching Behavior                                                    |
-| ----------------------------- | -------------------------------------------------------------------- |
-| `title`                       | Lesson heading — announce at the start                               |
-| `description`                 | Set context: "In this lesson you'll learn..."                        |
-| `skills`                      | What they'll be able to DO — preview upfront as learning goals       |
-| `skills[].proficiency_level`  | Calibrate depth: A1=introduce, B1=apply, C1=analyze                  |
-| `skills[].bloom_level`        | Quiz at this level: Remember=recall, Apply=scenario, Analyze=compare |
-| `learning_objectives`         | What they'll UNDERSTAND — quiz against these after teaching          |
-| `cognitive_load`              | `low`: explain fully. `medium`: guided. `high`: scaffold into chunks |
-| `cognitive_load.new_concepts` | Number of new concepts — if >5, break into sub-sessions              |
-| `practice_exercise`           | If present, use for hands-on practice after explaining               |
-| `teaching_guide`              | Teacher notes: key_points, misconceptions, discussion_prompts        |
-| `differentiation`             | Advanced/struggling learner adaptations                              |
-| `duration_minutes`            | Pace the session — don't rush a 30-min lesson into 5 minutes         |
-| `keywords`                    | Define these terms explicitly during teaching                        |
-| `hide_table_of_contents`      | If true, teach linearly without offering to skip ahead               |
+| Frontmatter Field                         | Phase        | How It Drives Teaching                                                                        |
+| ----------------------------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| `title`                                   | HOOK         | Frame the scenario context                                                                    |
+| `description`                             | Planning     | Understand the lesson's scope — DO NOT read aloud                                             |
+| `skills`                                  | BUILD        | These are what the learner should DISCOVER (hidden goals)                                     |
+| `skills[].proficiency_level`              | BUILD        | Calibrate Socratic question difficulty: A1=leading, B1=open, C1=challenging                   |
+| `skills[].bloom_level`                    | LOCK         | Retrieval challenge should match this level                                                   |
+| `learning_objectives`                     | LOCK         | What retrieval should verify — each objective is a recall target                              |
+| `cognitive_load`                          | Planning     | `low`: single cycle. `medium`: 1-2 cycles. `high`: 2-3 cycles                                 |
+| `cognitive_load.new_concepts`             | Planning     | Number of concepts → number of blended cycles                                                 |
+| `teaching_guide.key_points[]`             | BUILD + FILL | Must-discover list. Every key point should emerge during BUILD or be covered in FILL          |
+| `teaching_guide.misconceptions[]`         | BUILD        | Design questions that surface and correct these during discovery                              |
+| `teaching_guide.discussion_prompts[]`     | BUILD        | Use as Socratic question seeds                                                                |
+| `teaching_guide.teaching_tips[]`          | Planning     | Author's pedagogical advice for your hidden teaching plan                                     |
+| `teaching_guide.assessment_quick_check[]` | BUILD        | Use between concept clusters as formative checks                                              |
+| `differentiation`                         | Adaptation   | `extension_for_advanced`: harder BUILD questions. `remedial_for_struggling`: more scaffolding |
+| `duration_minutes`                        | Planning     | Pace your cycles — don't rush a 30-min lesson into 5 minutes                                  |
+| `practice_exercise`                       | HOOK         | If present, integrate into the scenario — the exercise becomes the hook's build challenge     |
+| `keywords`                                | BUILD        | Terms the learner should arrive at through discovery, not be told                             |
+| `hide_table_of_contents`                  | Planning     | If true, teach linearly without offering to skip                                              |
+
+## Planning Workflow (Before Engaging Learner)
+
+1. **Read all frontmatter fields** — extract the teaching blueprint
+2. **Count `cognitive_load.new_concepts`** → determine cycle count (1-3 cycles)
+3. **List `teaching_guide.key_points[]`** → these are your discovery targets
+4. **Read `teaching_guide.misconceptions[]`** → design questions that surface these
+5. **Check `skills[].proficiency_level`** → calibrate question difficulty
+6. **Read learner's MEMORY.md goal** → design scenario hook around their project
+7. **Plan the hidden teaching plan**: concepts in order, question chains, likely redirects
+8. **Identify FILL gaps**: structural connections that can't be discovered through questioning
 
 ## Skills Object Structure
 
-Skills come as structured objects, not strings:
+Skills come as structured objects — use them to plan your hidden teaching goals:
 
 ```json
 {
@@ -36,7 +51,10 @@ Skills come as structured objects, not strings:
 }
 ```
 
-Use `measurable_at_this_level` as your acceptance criterion — if the learner can do this, they've mastered the skill.
+- `name` → The concept they should discover (your BUILD target)
+- `proficiency_level` → How scaffolded the BUILD should be
+- `bloom_level` → The depth of the LOCK retrieval challenge
+- `measurable_at_this_level` → Your acceptance criterion — if they can do this after LOCK, they've mastered it
 
 ## Cognitive Load Handling
 
@@ -47,7 +65,7 @@ Use `measurable_at_this_level` as your acceptance criterion — if the learner c
 }
 ```
 
-- 1-3 concepts: teach in one pass
-- 4-5 concepts: check understanding halfway through
-- 6-7 concepts: break into 2-3 chunks with comprehension checks between each
-- 8+: split across multiple teaching sessions
+- 1-3 concepts: Single blended cycle
+- 4-5 concepts: Two cycles — cluster related concepts
+- 6-7 concepts: Three cycles — cluster and verify between each
+- 8+: Split across multiple teaching sessions
