@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: "Pyright -- Your Type Safety Net"
-description: "Run pyright to catch type errors before your code runs, compare typed vs untyped Python functions, and understand why strict mode requires complete type annotations"
+description: "Run pyright to catch type errors before your code runs, compare typed vs untyped Python code, and understand why strict mode requires complete type labels"
 keywords: ["pyright", "static type checker", "type annotations", "strict mode", "type error", "type safety", "Python types", "uv run pyright", "str | None", "type checking"]
 chapter: 14.1
 lesson: 5
@@ -50,9 +50,15 @@ differentiation:
 
 # Pyright -- Your Type Safety Net
 
-In Lesson 4, James ran ruff on his first Python function and discovered the difference between code that runs and code that is correct. Ruff caught style problems and potential bugs. But there is an entire category of errors that ruff cannot see -- errors where the code uses the wrong kind of data. A function expects a name, and someone passes it a number. A function returns a string, and someone tries to do math with the result. Python does not complain about any of this until the program is already running. By then, it might be 2 AM and 50,000 users are affected.
+In Lesson 4, James ran ruff on his first block of Python code and discovered the difference between code that runs and code that is correct. Ruff caught style problems and potential bugs. But there is an entire category of errors that ruff cannot see -- errors where the code uses the wrong kind of data. A piece of code expects a name, and someone passes it a number. Another piece returns text, and someone tries to do math with the result. Python does not complain about any of this until the program is already running.
 
-Emma gives James two files. Both contain the same function -- `greet` -- that takes a name and returns a greeting. The first file has no type information:
+Emma gives James two files. Both contain the same piece of code -- called `greet` -- that takes a name and returns a greeting.
+
+:::note You do not need to understand the Python syntax below yet
+These code examples use features you will learn in later chapters. Right now, focus on the difference between the two versions — one has type labels, one does not.
+:::
+
+The first file has no type information:
 
 ```python
 def greet(name):
@@ -68,9 +74,9 @@ print(result)
 Hello, 42
 ```
 
-Python runs it without complaint. The function received a number where a name should go, produced nonsense output, and nobody was notified. James shrugs. "It ran fine."
+Python runs it without complaint. The code received a number where a name should go, produced nonsense output, and nobody was notified. James shrugs. "It ran fine."
 
-Emma opens the second file. Same function, but with type annotations:
+Emma opens the second file. Same code, but with type annotations — labels that tell Python what kind of data each piece expects:
 
 ```python
 def greet(name: str) -> str:
@@ -92,34 +98,34 @@ She runs a single command: `uv run pyright`. The terminal shows:
 1 error, 0 warnings, 0 informations
 ```
 
-The bug was caught without executing a single line of code. James reads the message: line 4, the argument `42` is an `int`, but the parameter `name` expects a `str`. The error name in parentheses -- `reportArgumentType` -- tells him exactly which rule flagged it.
+The bug was caught without executing a single line of code. James reads the message: line 4, the value `42` is a number (`int`), but `name` expects text (`str`). The rule name in parentheses -- `reportArgumentType` -- tells him exactly what kind of error it is.
 
-"That," Emma says, "is why every function in this course has types."
+"That," Emma says, "is why every piece of code in this course has types."
 
 ---
 
 ## The Problem Without Type Checking
 
-Python is a dynamically typed language. When you write `def greet(name):`, Python does not know or care what kind of data `name` will hold. It could be a string. It could be a number. It could be a list of dictionaries. Python figures it out at runtime -- when the code is already executing.
+Python does not check what kind of data your code uses ahead of time. When you write code that accepts a `name`, Python does not know or care whether `name` will hold text, a number, or something else entirely. It figures it out only when the code is already running.
 
-This flexibility is convenient for small scripts. It becomes dangerous in real projects:
+This flexibility is convenient for small projects. It becomes dangerous in real ones:
 
 | Scenario | What Happens Without Type Checking |
 |----------|----------------------------------|
-| Function receives wrong data type | Code runs, produces wrong output silently |
-| Function returns unexpected type | Caller crashes later, far from the actual bug |
-| Optional parameter is None | `AttributeError: 'NoneType' has no attribute 'lower'` at runtime |
-| Refactoring changes a return type | Every caller breaks, but you only discover the breakage one caller at a time |
+| Code receives wrong kind of data | Code runs, produces wrong output silently |
+| Code returns unexpected kind of data | The next piece of code crashes later, far from the actual bug |
+| A value is missing (`None`) | Error appears only when the code runs, not when you write it |
+| Someone changes what code returns | Everything that depends on it breaks, but you discover breakage one piece at a time |
 
-The common thread: bugs hide. They do not surface at the point where the mistake was made. They surface later, in a different file, during a different operation, often in production. James experienced this pattern with the deployment script in Chapter 14 -- a failure in one part of the system cascaded because nothing checked assumptions early.
+The common thread: bugs hide. They do not surface at the point where the mistake was made. They surface later, in a different file, during a different operation. James experienced this pattern in Chapter 14 -- a failure in one part of the system cascaded because nothing checked assumptions early.
 
-A **static type checker** solves this by analyzing code *without running it*. It reads type annotations, traces data flow through functions, and reports every place where the declared types do not match the actual usage. Errors appear in your terminal seconds after you save the file -- not hours later in a crash report.
+A **static type checker** solves this by analyzing code *without running it*. It reads type annotations — those labels like `: str` and `: int` — traces how data moves through your code, and reports every place where the declared types do not match the actual usage. Errors appear in your terminal seconds after you save the file -- not hours later in a crash.
 
 ---
 
 ## Pyright Defined
 
-> **Pyright** is a static type checker for Python, built by Microsoft. It reads type annotations in your code and verifies that every function call, variable assignment, and return value uses the correct data type -- all without running your program.
+> **Pyright** is a static type checker for Python, built by Microsoft. It reads the type labels in your code (like `: str` and `: int`) and verifies that every piece of code receives and returns the correct kind of data -- all without running your program.
 
 | Aspect | Detail |
 |--------|--------|
@@ -167,35 +173,39 @@ Strict mode enables 28 additional rules beyond standard. The most important ones
 
 | Category | What Strict Mode Catches | Example |
 |----------|------------------------|---------|
-| **Missing annotations** | Functions without type hints on parameters or return values | `def greet(name):` -- parameter type unknown |
-| **Unknown types** | Variables or expressions that resolve to an unknown type | `result = some_function()` where return type is not declared |
-| **Unused code** | Imports, variables, functions, and classes that are never referenced | `import os` when `os` is never used in the file |
+| **Missing annotations** | Code without type labels on its inputs or outputs | `def greet(name):` -- what kind of data is `name`? Unknown. |
+| **Unknown types** | A stored value whose type pyright cannot determine | `result = some_code()` where the return type is not declared |
+| **Unused code** | Lines that load libraries or store values that are never used | `import os` when `os` is never used in the file |
 
 ---
 
 ## From Axiom to Practice
 
-In Axiom V from Chapter 14, you learned that types are guardrails -- not bureaucracy. They prevent your code from driving off a cliff by making the rules explicit. Pyright is the guardrail inspector. It walks along every function signature, every variable assignment, and every return value before your code runs and tells you which guardrails are missing.
+In Axiom V from Chapter 14, you learned that types are guardrails -- not bureaucracy. They prevent your code from driving off a cliff by making the rules explicit. Pyright is the guardrail inspector. It walks along every type label in your code before it runs and tells you which guardrails are missing.
 
-This matters more in the AI era than it ever did before. When AI generates code, it generates fast. Dozens of functions in seconds. Without types, you have to read every function and mentally trace every data flow to verify correctness. With types, pyright does that verification for you. The type annotations serve double duty: they document what data each function expects (for humans and AI), and they enable automated verification (for pyright). One annotation, two benefits.
+This matters more in the AI era than it ever did before. When AI generates code, it generates fast. Dozens of lines in seconds. Without types, you have to read every line and mentally trace every piece of data to verify correctness. With types, pyright does that verification for you. The type labels serve double duty: they document what kind of data your code expects (for humans and AI to read), and they enable automated checking (for pyright to verify). One label, two benefits.
 
 Consider the difference:
 
+:::note You do not need to understand the Python syntax below yet
+These code examples use features you will learn in later chapters. Right now, focus on the difference between the two versions — one has type labels, one does not.
+:::
+
 ```python
-# Without types: what does this function accept? What does it return?
-# You have to read the implementation to find out.
+# Without types: what kind of data does this code accept? What does it return?
+# You have to read the entire code to find out.
 def process(data):
     return data.strip().lower()
 ```
 
 ```python
-# With types: the signature IS the documentation.
-# Pyright verifies every caller passes a str and handles the str return.
+# With types: the labels tell you immediately.
+# Pyright verifies that every use passes text (str) and handles text back.
 def process(data: str) -> str:
     return data.strip().lower()
 ```
 
-The typed version communicates intent at a glance: `process` takes a `str` and returns a `str`. Anyone reading this -- human or AI -- knows immediately what data to pass and what to expect back. And pyright will flag any caller that passes an `int`, a `list`, or `None` instead.
+The typed version tells you everything upfront: `process` expects text and gives back text. You do not need to read the code inside to figure that out — the labels `: str` and `-> str` say it clearly. If someone passes a number or something else instead of text, pyright will catch it before the code runs.
 
 ---
 
