@@ -144,7 +144,9 @@ Installed 9 packages in 28ms
  + typing-extensions==4.12.2
 ```
 
-Three tools and their transitive dependencies (packages that your packages depend on), installed in under a second. The `--dev` flag is important: it tells uv these tools are for development, not for running the application in production. A user installing your SmartNotes app does not need ruff or pytest -- those are for you, the developer.
+Three tools and their transitive dependencies (packages that your packages depend on), installed in under a second. Your version numbers will likely differ from the ones shown here -- tools release frequently, so newer versions are normal. The workflow is the same regardless of the exact version numbers.
+
+The `--dev` flag is important: it tells uv these tools are for development, not for running the application in production. A user installing your SmartNotes app does not need ruff or pytest -- those are for you, the developer.
 
 ### What uv add --dev Actually Does
 

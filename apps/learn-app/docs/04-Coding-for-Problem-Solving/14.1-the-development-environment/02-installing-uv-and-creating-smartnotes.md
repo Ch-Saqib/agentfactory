@@ -136,7 +136,7 @@ uv --version
 uv 0.10.4 (ce3ebd06b 2026-02-17)
 ```
 
-If you see a version number, uv is installed. If you see "command not found," close and reopen your terminal — the PATH update requires a new shell session.
+Your version number will likely be different from the one shown here -- and that is expected. uv releases frequently, so a newer version is normal. The commands in this chapter work the same across versions. What matters is that you see a version number, not "command not found." If you see "command not found," close and reopen your terminal — the PATH update requires a new shell session.
 
 ---
 
