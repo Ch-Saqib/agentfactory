@@ -96,7 +96,7 @@ name = "smartnotes"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = []
 ```
 
@@ -108,7 +108,7 @@ This is the project's identity card. Every field answers a specific question:
 | `version` | What version is it? | `"0.1.0"` |
 | `description` | What does it do? (one sentence) | `"A personal note-taking assistant"` |
 | `readme` | Where is the detailed description? | `"README.md"` |
-| `requires-python` | What Python versions are supported? | `">=3.11"` |
+| `requires-python` | What Python versions are supported? | `">=3.12"` |
 | `dependencies` | What packages does the project need to run? | `[]` (empty for now) |
 
 This is the `[project]` section. It follows a standard called PEP 621 — a set of rules that the Python community agreed on so that every tool reads project files the same way. Before this standard, different tools like Poetry, Hatch, and pip each had their own format, and switching between them meant rewriting your configuration. With PEP 621, you write your project details once and every tool understands it — no matter which tool you or your team prefers.
@@ -168,7 +168,7 @@ name = "smartnotes"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = []
 
 [dependency-groups]
