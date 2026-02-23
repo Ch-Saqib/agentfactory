@@ -206,6 +206,7 @@ tests/test_main.py F                                                [100%]
 _________________________ test_main_returns_greeting ___________________________
 
     def test_main_returns_greeting() -> None:
+        """Verify that main() returns the expected greeting string."""
         result: str = main()
 >       assert result == "Wrong value on purpose"
 E       AssertionError: assert 'Hello from smartnotes!' == 'Wrong value on purpose'
@@ -213,7 +214,7 @@ E
 E         - Wrong value on purpose
 E         + Hello from smartnotes!
 
-tests/test_main.py:3: AssertionError
+tests/test_main.py:8: AssertionError
 =========================== short test summary info ============================
 FAILED tests/test_main.py::test_main_returns_greeting - AssertionError: ...
 ============================== 1 failed in 0.15s ===============================
