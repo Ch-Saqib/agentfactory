@@ -365,11 +365,14 @@ too many rules at once?
 
 **What you're learning:** How to extend tool configurations beyond the defaults. You are practicing the skill of treating configuration as a design decision -- choosing which rules to enforce based on your project's needs, not just copying a config from the internet.
 
-### Prompt 3: Explain Lockfiles
+### Prompt 3: Inspect the Lockfile, Then Ask AI
+
+**Before prompting**, open `uv.lock` in your editor and look at the first 20-30 lines. You will see version numbers, package names, and hashes that look nothing like the clean `pyproject.toml` you wrote. Now ask AI:
 
 ```
-I understand that pyproject.toml lists my dependencies, but I am confused
-about uv.lock. My questions:
+I opened my uv.lock file and it looks very different from my
+pyproject.toml. My pyproject.toml says pytest>=9.0.2 but uv.lock
+has much more detail for every package.
 
 1. Why do I need both pyproject.toml AND uv.lock?
 2. What information does uv.lock contain that pyproject.toml does not?
@@ -377,10 +380,10 @@ about uv.lock. My questions:
 4. What happens if I delete uv.lock and run uv sync?
 5. How does uv.lock help when my teammate uses Windows and I use macOS?
 
-Explain each answer with a concrete example using a project called smartnotes.
+Explain each answer using my project (smartnotes) as the example.
 ```
 
-**What you're learning:** The difference between a specification (pyproject.toml says "I need pytest 9 or higher") and a resolution (uv.lock says "I am using pytest 9.0.2 specifically, along with these exact transitive dependencies"). This distinction -- specification vs resolution -- appears throughout software engineering and is fundamental to reproducible builds.
+**What you're learning:** You are seeing the difference between a specification and a resolution firsthand. Your `pyproject.toml` says "I need pytest 9 or higher" (the specification). Your `uv.lock` says "I am using pytest 9.0.2 specifically, with these exact transitive dependencies" (the resolution). You saw this difference in the files before asking AI to explain it -- which means the explanation will stick.
 
 ## Key Takeaways
 

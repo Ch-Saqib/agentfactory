@@ -422,17 +422,16 @@ For each label you add, explain in simple terms:
 
 **What you're learning:** How type labels describe what kind of data flows through your code. By seeing AI add labels and explain each one in plain language, you start to read what labels like `: str`, `: int`, and `: float` mean. You are not writing these labels yourself yet -- you are learning to read and understand them, which is the foundation for every typed Python chapter ahead.
 
-### Prompt 3: Compare Strict Mode vs Standard Mode
+### Prompt 3: Try Standard Mode, Then Ask AI Why Strict Is Better
+
+**Before prompting**, try this experiment. Open `pyproject.toml` and temporarily change `typeCheckingMode` from `"strict"` to `"standard"`. Run `uv run pyright` and note the output. Then change it back to `"strict"`, run `uv run pyright` again, and compare. Now ask AI:
 
 ```
-I am configuring pyright for a new Python project. My pyproject.toml has:
+I tried switching pyright from strict to standard mode on my project.
+In standard mode I got [X] errors. In strict mode I got [Y] errors.
 
-[tool.pyright]
-typeCheckingMode = "strict"
-pythonVersion = "3.12"
-
-My teammate wants to change it to "standard" because strict mode
-shows too many errors. Explain:
+My teammate wants to use standard because strict shows more errors.
+Explain:
 
 1. What specific categories of errors does strict mode catch that
    standard mode ignores?
@@ -443,7 +442,7 @@ shows too many errors. Explain:
 4. Is there ever a good reason to use standard instead of strict?
 ```
 
-**What you're learning:** The engineering trade-off between strictness and convenience. Strict mode requires more annotations but catches more bugs. Standard mode is easier in the short term but leaves gaps. By asking AI to show concrete examples of what strict catches, you build an informed opinion about why this course requires strict mode -- not because it is a rule, but because you understand what you would miss without it.
+**What you're learning:** You saw the difference yourself before asking AI to explain it. The gap between standard and strict is not abstract -- you measured it in error counts on your own project. The AI's explanation will now connect to something you observed, not just something you read. This is the pattern for the entire course: try it, see the result, then use AI to deepen your understanding.
 
 ---
 

@@ -347,17 +347,30 @@ checking, and Python version verification.
 
 **What you're learning:** How to ask AI to reveal the mechanics behind a command you already use. You know `uv run main.py` works. Now you are learning what it does under the hood, which helps you understand why `uv run` is preferred over calling Python directly. This is the difference between using a tool and understanding a tool.
 
-### Prompt 3: Understand Virtual Environments
+### Prompt 3: Explore, Then Ask AI to Explain
 
-```
-I'm new to Python. Explain what a virtual environment is
-and why it matters. Use an analogy that does not involve
-programming. Then explain why uv creating and managing the
-.venv directory automatically is better than creating it
-manually with python -m venv.
+**Before prompting**, look inside the `.venv/` directory that uv created:
+
+```bash
+ls .venv/
 ```
 
-**What you're learning:** How to ask AI for conceptual explanations using analogies. Virtual environments are an abstract concept that confuses many beginners. By asking for a non-programming analogy, you get a mental model you can hold onto. Then the comparison between manual and automatic management reinforces why uv exists.
+You will see folders like `bin/` (or `Scripts/` on Windows), `lib/`, and a configuration file. You do not need to understand these yet. Now ask AI:
+
+```
+I ran `ls .venv/` inside my Python project and saw these folders:
+[paste what you saw]
+
+I'm new to Python. Explain:
+1. What is this .venv/ directory and why does it exist?
+2. What do the folders inside it contain?
+3. Why does uv create and manage this directory automatically
+   instead of making me create it with python -m venv?
+
+Use an analogy that does not involve programming.
+```
+
+**What you're learning:** The habit of observing before asking. You looked at real files on your machine first, then asked AI to explain what you saw. This is the opposite of asking AI to explain something abstract -- you have concrete evidence to anchor the explanation. The AI's response will connect the folders you saw to the concept of environment isolation, which is more memorable than a definition alone.
 
 ---
 
