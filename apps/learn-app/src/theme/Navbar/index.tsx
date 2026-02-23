@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useNavbarSecondaryMenu } from '@docusaurus/theme-common/internal';
+import { useLocation } from '@docusaurus/router';
 import NavbarAuth from '@/components/NavbarAuth';
+import { LocaleDropdown } from '@/components/LocaleDropdown';
 import { ModeToggle } from '@/components/ModeToggle';
 import { SearchBar } from '@/components/SearchBar';
-import { useLocation } from '@docusaurus/router';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, BookOpen, Layers, Lightbulb, Github, X } from "lucide-react";
@@ -102,6 +103,11 @@ export default function Navbar() {
                         {/* Theme Toggle - Already uses Button variant="ghost" size="icon" */}
                         <ModeToggle />
 
+                        {/* Language Dropdown */}
+                        <div className="hidden docs:block">
+                            <LocaleDropdown />
+                        </div>
+
                         {/* Auth - Already uses Button variants */}
                         <NavbarAuth />
 
@@ -123,6 +129,11 @@ export default function Navbar() {
                                 {/* Mobile Search */}
                                 <div className="px-4 py-3 border-b border-border shrink-0">
                                     <SearchBar enableShortcut={false} />
+                                </div>
+
+                                {/* Mobile Language Dropdown */}
+                                <div className="px-4 py-3 border-b border-border shrink-0">
+                                    <LocaleDropdown />
                                 </div>
 
                                 {/* Content - either doc sidebar or generic nav */}

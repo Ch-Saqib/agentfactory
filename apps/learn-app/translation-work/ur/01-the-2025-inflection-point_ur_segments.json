@@ -1,0 +1,2752 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\01-General-Agents-Foundations\\01-agent-factory-paradigm\\01-the-2025-inflection-point.md",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 274,
+  "frontmatter_segments": [
+    {
+      "id": "fm_1",
+      "key": "title",
+      "original": "The 2025 Inflection Point and The Agent Maturity Model",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_5",
+      "key": "description",
+      "original": "Evidence for the 2026 transformation and the The Agent Maturity Model that structures AI-native development",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 5,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_11",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 11,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_12",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 12,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_13",
+      "key": "bloom_level",
+      "original": "Remember",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 13,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_14",
+      "key": "digcomp_area",
+      "original": "Information Literacy",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 14,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_15",
+      "key": "measurable_at_this_level",
+      "original": "Student can identify concrete evidence of AI reaching production-quality code generation (ICPC perfect scores, GDPval benchmark, DORA 90% adoption, Stack Overflow 84% adoption, YC 25% startups, Workday $1.1B acquisition)",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 15,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_18",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 18,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_19",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 19,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_20",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 20,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_21",
+      "key": "digcomp_area",
+      "original": "Problem-Solving",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 21,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_22",
+      "key": "measurable_at_this_level",
+      "original": "Student can distinguish General Agents (multi-purpose reasoning tools) from Custom Agents (purpose-built products) and explain how General Agents build Custom Agents",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 22,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_25",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 25,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_26",
+      "key": "category",
+      "original": "Technical",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 26,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_27",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 27,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_28",
+      "key": "digcomp_area",
+      "original": "Computational Thinking",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 28,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_29",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain the OODA loop (Observe, Orient, Decide, Act) as the reasoning framework for both General and Custom Agents",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 29,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_33",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 33,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_34",
+      "key": "bloom_level",
+      "original": "Remember",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 34,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_35",
+      "key": "assessment_method",
+      "original": "Student can articulate three independent signals: capability breakthroughs (ICPC, GDPval), mainstream adoption (84%, 90%, 2 hrs/day), and enterprise productization ($1.1B acquisition)",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 35,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_38",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 38,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_39",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 39,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_40",
+      "key": "assessment_method",
+      "original": "Student can explain the Agent Factory model: General Agents (Claude Code) explore and prototype, then build Custom Agents (SDK-based) for production-scale deployment",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 40,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_43",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 43,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_44",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 44,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_45",
+      "key": "assessment_method",
+      "original": "Given a development problem, student can determine whether to use a General Agent (exploration, prototyping, complex reasoning) or build a Custom Agent (well-defined, repeated use, production environment)",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 45,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_49",
+      "key": "assessment",
+      "original": "7 concepts (inflection point evidence, General Agents, Custom Agents, OODA loop, Agent Factory paradigm, $3T economy, software self-disruption) at upper limit of A1-A2 range (5-7) ✓",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 49,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_52",
+      "key": "extension_for_advanced",
+      "original": "Research additional agent frameworks (LangChain, AutoGen, CrewAI) and map them to the Two Paths; analyze why some companies skip Custom Agents and stay General-only",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 52,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_53",
+      "key": "remedial_for_struggling",
+      "original": "Focus on one concrete example: using Claude Code (General) to prototype a customer support bot, then building it with OpenAI SDK (Custom) for production",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 53,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_56",
+      "key": "lesson_type",
+      "original": "core",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 56,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_58",
+      "key": "session_title",
+      "original": "The AI Development Landscape",
+      "translated": "",
+      "context": "frontmatter",
+      "line_in_fm": 58,
+      "quote_char": "\""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "The 2025 Inflection Point and The Agent Maturity Model",
+      "translated": "",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "heading_h1"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "You've seen the headlines: \"AI will write all the code,\" \"The end of programming as we know it,\" \"Every developer needs to learn AI or get left behind.\" It's easy to dismiss this as hype—another cycle of breathless predictions that fizzle into disappointment.",
+      "translated": "",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "But 2025 was genuinely different. Three independent trends converged simultaneously: AI capability reached production quality, mainstream adoption passed the tipping point, and enterprises are betting billions on AI-native architecture. The evidence didn't just come from marketing teams—it came from academic competitions, industry-wide surveys, venture-backed startups, and billion-dollar acquisition decisions.",
+      "translated": "",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "paragraph"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "This convergence creates a fundamental question: **How do you actually build AI products?**",
+      "translated": "",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "paragraph"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "The answer surprises most developers. They expect a single methodology—one right way to build. Instead, they discover an evolutionary process where AI systems mature through distinct stages. **General Agents** serve as incubators—fertile environments where raw requirements transform into functional logic through rapid iteration. Once patterns stabilize and requirements crystallize, **Custom Agents** emerge as specialists—purpose-built systems optimized for reliability, speed, and governance.",
+      "translated": "",
+      "line_start": 9,
+      "line_end": 10,
+      "context": "paragraph"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "This isn't a choice between two alternatives. It's a progression. The incubator gives birth to the specialist. Understanding this evolution—and knowing where you are in it—is the core strategic insight of the Agent Factory paradigm. This lesson introduces both the evidence for the transformation and the maturity model that structures everything you'll learn in this book.",
+      "translated": "",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "paragraph"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "The 2025 Inflection Point: Convergent Evidence",
+      "translated": "",
+      "line_start": 14,
+      "line_end": 15,
+      "context": "heading_h2"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "Let's establish why 2025 represents a genuine inflection point. The evidence comes from independent, credible sources—all pointing in the same direction.",
+      "translated": "",
+      "line_start": 16,
+      "line_end": 17,
+      "context": "paragraph"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "Capability Breakthroughs: From Autocomplete to Problem-Solving",
+      "translated": "",
+      "line_start": 18,
+      "line_end": 19,
+      "context": "heading_h3"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "In September 2025, something unprecedented happened at the ICPC World Finals in Baku, Azerbaijan—the most prestigious competitive programming competition in the world. An OpenAI ensemble achieved a **perfect score, solving all 12 problems correctly** within the 5-hour time limit—surpassing the winning human team from St. Petersburg State University, which solved 11 of 12 problems to claim first place among the 139 competing university teams. Google DeepMind's Gemini 2.5 Deep Think achieved **gold-medal performance, solving 10 of 12 problems**—close to the human champions. Most remarkably, Problem C—a complex optimization task involving liquid distribution through interconnected ducts—was solved by both OpenAI and Gemini but by **none of the 139 human teams**.",
+      "translated": "",
+      "line_start": 20,
+      "line_end": 21,
+      "context": "paragraph"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "Competitive programming problems require understanding complex requirements, designing efficient algorithms, implementing solutions under time pressure, and debugging edge cases. These aren't code completion tasks—they distinguish exceptional programmers from good ones.",
+      "translated": "",
+      "line_start": 22,
+      "line_end": 23,
+      "context": "paragraph"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "The GDPval Benchmark from September 2025 confirms this trend. Claude Opus 4.1 (the frontier model at the time) achieved a **49% win rate** against human expert programmers, while GPT-5 reached **40.6%**. Eighteen months ago, the best AI models scored below 15% on similar benchmarks. This is exponential improvement, not incremental progress. (By January 2026, the frontier has advanced further—Claude Opus 4.5, GPT-5.2, and Gemini 3 Pro represent the current generation.)",
+      "translated": "",
+      "line_start": 24,
+      "line_end": 25,
+      "context": "paragraph"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "Industry leadership confirms the shift. Dario Amodei, CEO of Anthropic, stated that \"AI will be writing 90% of the code\" within months—extrapolating from what he observed at Anthropic, where developers increasingly orchestrate AI-generated code rather than writing it manually. Sundar Pichai, Google's CEO, reported that AI tools increased developer productivity by 10% across Google's engineering organization. At Google's scale, that's equivalent to adding 8,000 full-time developers overnight.",
+      "translated": "",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "paragraph"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "Mainstream Adoption: From Niche to Normal",
+      "translated": "",
+      "line_start": 28,
+      "line_end": 29,
+      "context": "heading_h3"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "The Stack Overflow 2025 Developer Survey revealed **84% of professional developers use or plan to use AI coding tools, with 51% reporting daily use**. This isn't adoption by tech-forward startups—this is mainstream professional practice. The question has shifted from \"Should I try AI tools?\" to \"Which AI tool fits my workflow?\"",
+      "translated": "",
+      "line_start": 30,
+      "line_end": 31,
+      "context": "paragraph"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "The DORA 2025 Report provides enterprise-level data:",
+      "translated": "",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "paragraph"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "**90% adoption rate** among development professionals (up 14% year-over-year)",
+      "translated": "",
+      "line_start": 33,
+      "line_end": 34,
+      "context": "list_item"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "**2 hours per day median usage**: Developers spend roughly one-quarter of their workday collaborating with AI",
+      "translated": "",
+      "line_start": 34,
+      "line_end": 35,
+      "context": "list_item"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "**Quality maintained**: Teams report maintained or improved code quality, not degradation",
+      "translated": "",
+      "line_start": 35,
+      "line_end": 36,
+      "context": "list_item"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "Two hours per day isn't occasional use—that's integrated into daily workflow like email or version control. AI assistance has become foundational infrastructure.",
+      "translated": "",
+      "line_start": 37,
+      "line_end": 38,
+      "context": "paragraph"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Enterprise Productization: From Experiment to Strategy",
+      "translated": "",
+      "line_start": 39,
+      "line_end": 40,
+      "context": "heading_h3"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "Y Combinator's Winter 2025 batch revealed a critical signal: **25% of startups incorporated AI-generated code as their primary development approach**, with some teams reporting **95% of their codebase written by AI systems**. These aren't hobbyist projects—they're venture-backed companies betting their business on AI-native development because it's faster and more scalable than traditional coding.",
+      "translated": "",
+      "line_start": 41,
+      "line_end": 42,
+      "context": "paragraph"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "In September 2025, Workday announced a **$1.1 billion acquisition of Sana**, a company building AI-powered workplace agents. Workday—serving 10,000+ enterprise customers—didn't buy talent or technology. They bought AI agents as core product architecture, signaling that enterprise software companies are betting billions that AI agents require ground-up platform redesign.",
+      "translated": "",
+      "line_start": 43,
+      "line_end": 44,
+      "context": "paragraph"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "You see similar patterns across the industry: GitHub evolved Copilot from autocomplete to full-codebase agents; Microsoft integrated AI deeply into Visual Studio and Azure DevOps; JetBrains redesigned IDE architecture for AI-native workflows. These are multi-year platform bets by companies that move slowly and carefully.",
+      "translated": "",
+      "line_start": 45,
+      "line_end": 46,
+      "context": "paragraph"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "The Convergent Evidence Pattern",
+      "translated": "",
+      "line_start": 47,
+      "line_end": 48,
+      "context": "heading_h3"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "Notice what validates these signals:",
+      "translated": "",
+      "line_start": 49,
+      "line_end": 50,
+      "context": "paragraph"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "**Academic benchmarks** (ICPC World Finals, GDPval)—independent competitions, not vendor claims",
+      "translated": "",
+      "line_start": 50,
+      "line_end": 51,
+      "context": "list_item"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**Third-party research** (Stack Overflow, DORA)—industry-wide data, not single-company results",
+      "translated": "",
+      "line_start": 51,
+      "line_end": 52,
+      "context": "list_item"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "**Startup economics** (Y Combinator)—founders betting capital based on what works",
+      "translated": "",
+      "line_start": 52,
+      "line_end": 53,
+      "context": "list_item"
+    },
+    {
+      "id": 29,
+      "type": "inline",
+      "original": "**Financial decisions** (Workday acquisition)—executives risking real money, not making predictions",
+      "translated": "",
+      "line_start": 53,
+      "line_end": 54,
+      "context": "list_item"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "When you see the same signal from academia, independent surveys, startup founders, and multi-billion dollar corporations, you're looking at convergent validation—independent sources reaching the same conclusion.",
+      "translated": "",
+      "line_start": 55,
+      "line_end": 56,
+      "context": "paragraph"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "The $3 Trillion Developer Economy",
+      "translated": "",
+      "line_start": 57,
+      "line_end": 58,
+      "context": "heading_h2"
+    },
+    {
+      "id": 32,
+      "type": "inline",
+      "original": "Why does this inflection point matter? Consider the scale of what's being disrupted.",
+      "translated": "",
+      "line_start": 59,
+      "line_end": 60,
+      "context": "paragraph"
+    },
+    {
+      "id": 33,
+      "type": "inline",
+      "original": "Approximately **30 million professional software developers** exist globally, with an average economic value of **$100,000 per year** (salary, benefits, productivity multipliers). Do the math: 30 million × $100,000 = **$3 trillion developer economy**.",
+      "translated": "",
+      "line_start": 61,
+      "line_end": 62,
+      "context": "paragraph"
+    },
+    {
+      "id": 34,
+      "type": "inline",
+      "original": "This isn't abstract GDP. This is the annual economic output of software developers worldwide. Every productivity gain ripples across this entire market. When AI doubles developer throughput—or changes what \"developer\" means—it's restructuring a $3 trillion economy in real-time.",
+      "translated": "",
+      "line_start": 63,
+      "line_end": 64,
+      "context": "paragraph"
+    },
+    {
+      "id": 35,
+      "type": "inline",
+      "original": "Software Disrupts Software",
+      "translated": "",
+      "line_start": 65,
+      "line_end": 66,
+      "context": "heading_h3"
+    },
+    {
+      "id": 36,
+      "type": "inline",
+      "original": "Here's what makes this transformation unique: **Software is the only industry that disrupts itself.**",
+      "translated": "",
+      "line_start": 67,
+      "line_end": 68,
+      "context": "paragraph"
+    },
+    {
+      "id": 37,
+      "type": "inline",
+      "original": "Agriculture was disrupted by external force (mechanical tractors). Manufacturing was disrupted by external force (robots and automation). Transportation is being disrupted by external force (electric powertrains and autonomous vehicles). But software disrupts software—the tools that build software change how software gets built.",
+      "translated": "",
+      "line_start": 69,
+      "line_end": 70,
+      "context": "paragraph"
+    },
+    {
+      "id": 38,
+      "type": "inline",
+      "original": "Why is this important? **Self-disruption is faster and more complete than external disruption.** When agriculture faced tractors, farmers could adapt gradually—some modernized, some didn't, the industry transitioned over decades. But when software disrupts itself, there's no \"adapt gradually\" option. Your development tools, workflow, and mental models all shift simultaneously.",
+      "translated": "",
+      "line_start": 71,
+      "line_end": 72,
+      "context": "paragraph"
+    },
+    {
+      "id": 39,
+      "type": "inline",
+      "original": "Consider the SaaS industry. SaaS solved the *deployment* problem—you didn't need to install software, manage updates, or provision servers. AI agents solve the *intelligence* problem—they don't just help humans do cognitive work, they *do* the work. A company paying $150/user/month for CRM software still needs humans to input data, analyze reports, and follow up with leads. An AI sales agent does those tasks directly. The business model shifts from \"pay for tools\" to \"pay for outcomes\"—and companies built around per-seat licensing face pressure from solutions that charge per result.",
+      "translated": "",
+      "line_start": 73,
+      "line_end": 74,
+      "context": "paragraph"
+    },
+    {
+      "id": 40,
+      "type": "inline",
+      "original": "The Opportunity Window",
+      "translated": "",
+      "line_start": 75,
+      "line_end": 76,
+      "context": "heading_h3"
+    },
+    {
+      "id": 41,
+      "type": "inline",
+      "original": "Technology transitions create brief windows where early adopters gain permanent advantages. In AI-native software development, that window is **right now (2026)** and closing fast.",
+      "translated": "",
+      "line_start": 77,
+      "line_end": 78,
+      "context": "paragraph"
+    },
+    {
+      "id": 42,
+      "type": "inline",
+      "original": "Consider previous transitions: The web (1995-2005)—developers who learned web technologies in 1996-1998 became industry leaders; those who waited until 2003 fought to catch up. Mobile (2008-2015)—iOS developers in 2009 had massive career advantage over 2012 arrivals. Cloud (2010-2018)—early AWS engineers shaped the entire era; late arrivals learned someone else's conventions.",
+      "translated": "",
+      "line_start": 79,
+      "line_end": 80,
+      "context": "paragraph"
+    },
+    {
+      "id": 43,
+      "type": "inline",
+      "original": "Each transition had a 3-5 year window where advantage was decisive. We're at year 1-2 of the AI-native development transition. If you learn now, you're learning during the specification-writing phase—when the field is determining best practices, when you can contribute to shaping methodology, when your expertise compounds fastest. If you wait until 2027-2028, you'll be learning someone else's settled conventions, competing with people who've already built intuition.",
+      "translated": "",
+      "line_start": 81,
+      "line_end": 82,
+      "context": "paragraph"
+    },
+    {
+      "id": 44,
+      "type": "inline",
+      "original": "What Traditional Education Misses",
+      "translated": "",
+      "line_start": 83,
+      "line_end": 84,
+      "context": "heading_h3"
+    },
+    {
+      "id": 45,
+      "type": "inline",
+      "original": "Most computer science education isn't preparing you for AI-native development. Traditional CS programs teach syntax mastery, algorithm optimization, manual debugging, design patterns, and full-stack knowledge—all skills that mattered when humans wrote code line-by-line.",
+      "translated": "",
+      "line_start": 85,
+      "line_end": 86,
+      "context": "paragraph"
+    },
+    {
+      "id": 46,
+      "type": "inline",
+      "original": "What should CS education teach instead? **Specification writing** (clear specifications determine implementation quality), **prompting & collaboration** (directing AI requires clarity about what you want), **agent design** (your value shifts from typing code to orchestrating intelligent agents), **system thinking** (understanding how components interact matters more than implementing each), and **validation & testing** (you evaluate AI output; testing becomes quality control, not bug finding).",
+      "translated": "",
+      "line_start": 87,
+      "line_end": 88,
+      "context": "paragraph"
+    },
+    {
+      "id": 47,
+      "type": "inline",
+      "original": "This book addresses those gaps explicitly.",
+      "translated": "",
+      "line_start": 89,
+      "line_end": 90,
+      "context": "paragraph"
+    },
+    {
+      "id": 48,
+      "type": "inline",
+      "original": "The Agent Maturity Model",
+      "translated": "",
+      "line_start": 91,
+      "line_end": 92,
+      "context": "heading_h2"
+    },
+    {
+      "id": 49,
+      "type": "inline",
+      "original": "Now comes the crucial question that will shape how you think about AI development: **How do you actually build AI products?**",
+      "translated": "",
+      "line_start": 93,
+      "line_end": 94,
+      "context": "paragraph"
+    },
+    {
+      "id": 50,
+      "type": "inline",
+      "original": "The answer surprises most developers. They expect a single methodology - one right way to build. Instead, they discover an **evolutionary process** where AI systems mature through distinct stages, each with its own tools, mindset, and purpose.",
+      "translated": "",
+      "line_start": 95,
+      "line_end": 96,
+      "context": "paragraph"
+    },
+    {
+      "id": 51,
+      "type": "inline",
+      "original": "Think of it like biological evolution: you don't engineer a specialist from scratch. You incubate possibilities, let patterns emerge, then evolve toward specialization once the environment stabilizes.",
+      "translated": "",
+      "line_start": 97,
+      "line_end": 98,
+      "context": "paragraph"
+    },
+    {
+      "id": 52,
+      "type": "inline",
+      "original": "This is the **Agent Maturity Model** - and understanding it is the key to building AI products that actually work in production.",
+      "translated": "",
+      "line_start": 99,
+      "line_end": 100,
+      "context": "paragraph"
+    },
+    {
+      "id": 53,
+      "type": "inline",
+      "original": "The Evolution: Incubator → Specialist",
+      "translated": "",
+      "line_start": 103,
+      "line_end": 104,
+      "context": "heading_h2"
+    },
+    {
+      "id": 54,
+      "type": "inline",
+      "original": "Every successful AI product follows the same evolutionary arc:",
+      "translated": "",
+      "line_start": 105,
+      "line_end": 106,
+      "context": "paragraph"
+    },
+    {
+      "id": 55,
+      "type": "inline",
+      "original": "**Stage 1: Incubation** (General Agents)\nRaw requirements enter a fertile environment where they transform into functional logic through rapid iteration. You don't know the exact solution yet - you're discovering it.",
+      "translated": "",
+      "line_start": 107,
+      "line_end": 109,
+      "context": "paragraph"
+    },
+    {
+      "id": 56,
+      "type": "inline",
+      "original": "**Stage 2: Specialization** (Custom Agents)\nProven patterns crystallize into purpose-built systems. The solution is now known - you're engineering it for reliability, scale, and governance.",
+      "translated": "",
+      "line_start": 110,
+      "line_end": 112,
+      "context": "paragraph"
+    },
+    {
+      "id": 57,
+      "type": "inline",
+      "original": "This isn't a choice between two alternatives. It's a **progression**. The Incubator gives birth to the Specialist. Trying to skip incubation leads to over-engineered solutions that solve the wrong problem. Staying in incubation forever means never shipping production-ready products.",
+      "translated": "",
+      "line_start": 113,
+      "line_end": 114,
+      "context": "paragraph"
+    },
+    {
+      "id": 58,
+      "type": "inline",
+      "original": "Let's examine each stage in depth.",
+      "translated": "",
+      "line_start": 115,
+      "line_end": 116,
+      "context": "paragraph"
+    },
+    {
+      "id": 59,
+      "type": "inline",
+      "original": "Stage 1: The Incubator (General Agents)",
+      "translated": "",
+      "line_start": 119,
+      "line_end": 120,
+      "context": "heading_h2"
+    },
+    {
+      "id": 60,
+      "type": "inline",
+      "original": "A **General Agent** is a multi-purpose reasoning system designed to handle ANY task you throw at it. It's not optimized for one thing - it's optimized for **exploration and discovery**.",
+      "translated": "",
+      "line_start": 121,
+      "line_end": 122,
+      "context": "paragraph"
+    },
+    {
+      "id": 61,
+      "type": "inline",
+      "original": "Think of it as a fertile environment where raw, ambiguous requirements transform into working logic. You feed it a problem; it helps you understand what the solution should look like.",
+      "translated": "",
+      "line_start": 123,
+      "line_end": 124,
+      "context": "paragraph"
+    },
+    {
+      "id": 62,
+      "type": "inline",
+      "original": "The Incubator's Toolkit (2026 Landscape)",
+      "translated": "",
+      "line_start": 125,
+      "line_end": 126,
+      "context": "heading_h3"
+    },
+    {
+      "id": 63,
+      "type": "inline",
+      "original": "The tools at this stage are designed for exploration, iteration, and human-in-the-loop collaboration:",
+      "translated": "",
+      "line_start": 127,
+      "line_end": 128,
+      "context": "paragraph"
+    },
+    {
+      "id": 64,
+      "type": "inline",
+      "original": "**Claude Code** (Anthropic): Natural language interface to AI-native development. Designed for exploration, prototyping, and iterative problem-solving. Activates deep reasoning through extended thinking. Built for collaborative discovery. Anthropic also released **Cowork** - Claude Code's principles applied to non-coding tasks.",
+      "translated": "",
+      "line_start": 129,
+      "line_end": 130,
+      "context": "list_item"
+    },
+    {
+      "id": 65,
+      "type": "inline",
+      "original": "**OpenAI Codex CLI** (OpenAI): Agentic coding system that lives in your terminal. Reads your repository, proposes edits as diffs, runs commands and tests with configurable approval modes. Supports task automation, web search, and extensibility via Model Context Protocol (MCP). Available as terminal UI and web interface.",
+      "translated": "",
+      "line_start": 131,
+      "line_end": 132,
+      "context": "list_item"
+    },
+    {
+      "id": 66,
+      "type": "inline",
+      "original": "**Gemini CLI** (Google): Open-source, CLI-first approach to agentic development. Lightweight and accessible from terminal or programmatic context. Strong structured reasoning through function calling. Community-driven ecosystem.",
+      "translated": "",
+      "line_start": 133,
+      "line_end": 134,
+      "context": "list_item"
+    },
+    {
+      "id": 67,
+      "type": "inline",
+      "original": "**Goose** (Linux Foundation / Agentic AI Foundation): Browser automation combined with code execution. Originally built by Block, now hosted by the Agentic AI Foundation. Excels at tasks requiring visual understanding and web-based execution.",
+      "translated": "",
+      "line_start": 135,
+      "line_end": 136,
+      "context": "list_item"
+    },
+    {
+      "id": 68,
+      "type": "inline",
+      "original": "Your Role in the Incubator: Director",
+      "translated": "",
+      "line_start": 137,
+      "line_end": 138,
+      "context": "heading_h3"
+    },
+    {
+      "id": 69,
+      "type": "inline",
+      "original": "When you work with a General Agent, your role is **Director**. You're not writing code line-by-line. You're steering an intelligent system toward a goal while it handles tactical execution.",
+      "translated": "",
+      "line_start": 139,
+      "line_end": 140,
+      "context": "paragraph"
+    },
+    {
+      "id": 70,
+      "type": "inline",
+      "original": "**The Director's Four Responsibilities:**",
+      "translated": "",
+      "line_start": 141,
+      "line_end": 142,
+      "context": "paragraph"
+    },
+    {
+      "id": 71,
+      "type": "inline",
+      "original": "**Set the Intent**: Describe the goal clearly. (\"Build a user registration system that handles edge cases gracefully.\")",
+      "translated": "",
+      "line_start": 143,
+      "line_end": 144,
+      "context": "list_item"
+    },
+    {
+      "id": 72,
+      "type": "inline",
+      "original": "**Provide Access**: Give the agent the \"dossier\" - read/write access to relevant files so it can see your context, your tech stack, your existing patterns.",
+      "translated": "",
+      "line_start": 145,
+      "line_end": 146,
+      "context": "list_item"
+    },
+    {
+      "id": 73,
+      "type": "inline",
+      "original": "**Review the Work**: The agent builds; you evaluate. (\"This looks good, but it crashes if the password is too short.\")",
+      "translated": "",
+      "line_start": 147,
+      "line_end": 148,
+      "context": "list_item"
+    },
+    {
+      "id": 74,
+      "type": "inline",
+      "original": "**Course Correct**: Provide feedback; the agent adapts its approach. (\"Add validation to ensure passwords are at least 8 characters.\")",
+      "translated": "",
+      "line_start": 149,
+      "line_end": 150,
+      "context": "list_item"
+    },
+    {
+      "id": 75,
+      "type": "inline",
+      "original": "This is fundamentally different from the old way of working with AI:",
+      "translated": "",
+      "line_start": 151,
+      "line_end": 152,
+      "context": "paragraph"
+    },
+    {
+      "id": 76,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Dimension",
+          "translated": ""
+        },
+        {
+          "original": "The Old Way (Micromanaging)",
+          "translated": ""
+        },
+        {
+          "original": "The Incubator Way (Directing)",
+          "translated": ""
+        }
+      ],
+      "line_start": 153,
+      "line_end": 154,
+      "context": "table"
+    },
+    {
+      "id": 77,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Your Input**",
+          "translated": ""
+        },
+        {
+          "original": "\"Write code for a Submit button.\"",
+          "translated": ""
+        },
+        {
+          "original": "\"Build a contact form.\"",
+          "translated": ""
+        }
+      ],
+      "line_start": 155,
+      "line_end": 156,
+      "context": "table"
+    },
+    {
+      "id": 78,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Planning**",
+          "translated": ""
+        },
+        {
+          "original": "You create the plan in your head",
+          "translated": ""
+        },
+        {
+          "original": "The agent creates the plan dynamically",
+          "translated": ""
+        }
+      ],
+      "line_start": 156,
+      "line_end": 157,
+      "context": "table"
+    },
+    {
+      "id": 79,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Process**",
+          "translated": ""
+        },
+        {
+          "original": "You paste code, test, paste errors back",
+          "translated": ""
+        },
+        {
+          "original": "The agent writes, tests, and fixes iteratively",
+          "translated": ""
+        }
+      ],
+      "line_start": 157,
+      "line_end": 158,
+      "context": "table"
+    },
+    {
+      "id": 80,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Your Focus**",
+          "translated": ""
+        },
+        {
+          "original": "Syntax and code lines",
+          "translated": ""
+        },
+        {
+          "original": "Features and user experience",
+          "translated": ""
+        }
+      ],
+      "line_start": 158,
+      "line_end": 159,
+      "context": "table"
+    },
+    {
+      "id": 81,
+      "type": "inline",
+      "original": "How the Incubator Works: Dynamic Planning",
+      "translated": "",
+      "line_start": 160,
+      "line_end": 161,
+      "context": "heading_h3"
+    },
+    {
+      "id": 82,
+      "type": "inline",
+      "original": "In the context of agentic development, we call this **dynamic planning**—the agent plans from scratch without pre-defined templates. You provide no prior examples, no scripts, no rigid step-by-step instructions. Just a goal.",
+      "translated": "",
+      "line_start": 162,
+      "line_end": 163,
+      "context": "paragraph"
+    },
+    {
+      "id": 83,
+      "type": "inline",
+      "original": "Because General Agents have reasoning capabilities, they can decompose your goal into subtasks on the fly. You say \"Build a registration system\" and the agent thinks: *\"Okay, I need a database schema, then an API endpoint, then a frontend form, then validation logic...\"*",
+      "translated": "",
+      "line_start": 164,
+      "line_end": 165,
+      "context": "paragraph"
+    },
+    {
+      "id": 84,
+      "type": "inline",
+      "original": "You didn't have to plan the project. The Incubator planned it for you - and adapted that plan as new information emerged.",
+      "translated": "",
+      "line_start": 166,
+      "line_end": 167,
+      "context": "paragraph"
+    },
+    {
+      "id": 85,
+      "type": "inline",
+      "original": "Context-Aware Reasoning",
+      "translated": "",
+      "line_start": 168,
+      "line_end": 169,
+      "context": "heading_h3"
+    },
+    {
+      "id": 86,
+      "type": "inline",
+      "original": "Modern General Agents (2026) don't just know code - they know **your code**. This is what makes incubation so powerful.",
+      "translated": "",
+      "line_start": 170,
+      "line_end": 171,
+      "context": "paragraph"
+    },
+    {
+      "id": 87,
+      "type": "inline",
+      "original": "**The Old Way**: You spoon-fed context. Pasted a file, said \"given this file, write a function.\" If the AI needed information from a different file, it failed.",
+      "translated": "",
+      "line_start": 172,
+      "line_end": 173,
+      "context": "paragraph"
+    },
+    {
+      "id": 88,
+      "type": "inline",
+      "original": "**The Incubator Way**: You give the agent access to your folder. It scans your repository structure. It observes that you use Next.js and Tailwind in `/src`, Supabase in `/backend`. When you ask for a registration system, it reasons:",
+      "translated": "",
+      "line_start": 174,
+      "line_end": 175,
+      "context": "paragraph"
+    },
+    {
+      "id": 89,
+      "type": "inline",
+      "original": "*\"The user wants a registration system. I see they use Next.js with Tailwind for the frontend and Supabase for the backend. I'll draft a plan that connects these specific pieces using their existing patterns.\"*",
+      "translated": "",
+      "line_start": 176,
+      "line_end": 177,
+      "context": "paragraph"
+    },
+    {
+      "id": 90,
+      "type": "inline",
+      "original": "You didn't explain your tech stack. The agent observed it and planned accordingly.",
+      "translated": "",
+      "line_start": 178,
+      "line_end": 179,
+      "context": "paragraph"
+    },
+    {
+      "id": 91,
+      "type": "inline",
+      "original": "What the Incubator Produces",
+      "translated": "",
+      "line_start": 180,
+      "line_end": 181,
+      "context": "heading_h3"
+    },
+    {
+      "id": 92,
+      "type": "inline",
+      "original": "The output of successful incubation isn't just working code. It's **crystallized understanding**:",
+      "translated": "",
+      "line_start": 182,
+      "line_end": 183,
+      "context": "paragraph"
+    },
+    {
+      "id": 93,
+      "type": "inline",
+      "original": "A solution that actually works",
+      "translated": "",
+      "line_start": 184,
+      "line_end": 185,
+      "context": "list_item"
+    },
+    {
+      "id": 94,
+      "type": "inline",
+      "original": "Discovered requirements you didn't know you had",
+      "translated": "",
+      "line_start": 185,
+      "line_end": 186,
+      "context": "list_item"
+    },
+    {
+      "id": 95,
+      "type": "inline",
+      "original": "Patterns worth preserving",
+      "translated": "",
+      "line_start": 186,
+      "line_end": 187,
+      "context": "list_item"
+    },
+    {
+      "id": 96,
+      "type": "inline",
+      "original": "Edge cases worth handling",
+      "translated": "",
+      "line_start": 187,
+      "line_end": 188,
+      "context": "list_item"
+    },
+    {
+      "id": 97,
+      "type": "inline",
+      "original": "Architecture decisions that proved themselves",
+      "translated": "",
+      "line_start": 188,
+      "line_end": 189,
+      "context": "list_item"
+    },
+    {
+      "id": 98,
+      "type": "inline",
+      "original": "This crystallized understanding becomes the **genetic material** for the next evolutionary stage.",
+      "translated": "",
+      "line_start": 190,
+      "line_end": 191,
+      "context": "paragraph"
+    },
+    {
+      "id": 99,
+      "type": "inline",
+      "original": "Stage 2: The Specialist (Custom Agents)",
+      "translated": "",
+      "line_start": 194,
+      "line_end": 195,
+      "context": "heading_h2"
+    },
+    {
+      "id": 100,
+      "type": "inline",
+      "original": "A **Custom Agent** is purpose-built for a specific workflow. It's not optimized for exploration - it's optimized for **reliability, speed, and governance**.",
+      "translated": "",
+      "line_start": 196,
+      "line_end": 197,
+      "context": "paragraph"
+    },
+    {
+      "id": 101,
+      "type": "inline",
+      "original": "Think of it as an evolved specialist that does one job better than any generalist could. It emerged from incubation with a clear purpose, and now it executes that purpose with precision.",
+      "translated": "",
+      "line_start": 198,
+      "line_end": 199,
+      "context": "paragraph"
+    },
+    {
+      "id": 102,
+      "type": "inline",
+      "original": "The Specialist's Toolkit (SDK Landscape)",
+      "translated": "",
+      "line_start": 200,
+      "line_end": 201,
+      "context": "heading_h3"
+    },
+    {
+      "id": 103,
+      "type": "inline",
+      "original": "The tools at this stage are designed for production deployment, not exploration:",
+      "translated": "",
+      "line_start": 202,
+      "line_end": 203,
+      "context": "paragraph"
+    },
+    {
+      "id": 104,
+      "type": "inline",
+      "original": "**OpenAI Agents SDK**: Built on OpenAI's function-calling and structured reasoning. Native integration with OpenAI models. Mature tool ecosystem optimized for production workloads.",
+      "translated": "",
+      "line_start": 204,
+      "line_end": 205,
+      "context": "list_item"
+    },
+    {
+      "id": 105,
+      "type": "inline",
+      "original": "**Claude Agent SDK** (Anthropic): The underlying infrastructure extracted from Claude Code and made available to developers. Deep integration with Claude's reasoning capabilities. Multi-turn conversation continuity and state management. Strong for complex reasoning chains that need to be repeatable.",
+      "translated": "",
+      "line_start": 206,
+      "line_end": 207,
+      "context": "list_item"
+    },
+    {
+      "id": 106,
+      "type": "inline",
+      "original": "**Google ADK** (Agentic Design Kit): Google's approach to structured agent design. Emphasis on multimodal reasoning. Integration with Google's ecosystem (Search, Workspace, Cloud).",
+      "translated": "",
+      "line_start": 208,
+      "line_end": 209,
+      "context": "list_item"
+    },
+    {
+      "id": 107,
+      "type": "inline",
+      "original": "Your Role with Specialists: Builder",
+      "translated": "",
+      "line_start": 210,
+      "line_end": 211,
+      "context": "heading_h3"
+    },
+    {
+      "id": 108,
+      "type": "inline",
+      "original": "When you create Custom Agents, your role shifts from Director to **Builder**. You're not exploring anymore - you're engineering.",
+      "translated": "",
+      "line_start": 212,
+      "line_end": 213,
+      "context": "paragraph"
+    },
+    {
+      "id": 109,
+      "type": "inline",
+      "original": "**The Builder's Responsibilities:**",
+      "translated": "",
+      "line_start": 214,
+      "line_end": 215,
+      "context": "paragraph"
+    },
+    {
+      "id": 110,
+      "type": "inline",
+      "original": "**Define Purpose Precisely**: Scope, constraints, success criteria. What exactly does this agent do? What does it explicitly NOT do?",
+      "translated": "",
+      "line_start": 216,
+      "line_end": 217,
+      "context": "list_item"
+    },
+    {
+      "id": 111,
+      "type": "inline",
+      "original": "**Build Guardrails**: Safety constraints engineered into the agent's design. Not suggestions - hard limits.",
+      "translated": "",
+      "line_start": 218,
+      "line_end": 219,
+      "context": "list_item"
+    },
+    {
+      "id": 112,
+      "type": "inline",
+      "original": "**Create Specialized Components**: Prompts, tools, and workflows optimized for this specific job.",
+      "translated": "",
+      "line_start": 220,
+      "line_end": 221,
+      "context": "list_item"
+    },
+    {
+      "id": 113,
+      "type": "inline",
+      "original": "**Deploy as Product**: This agent will run thousands of times. It needs monitoring, logging, and operational excellence.",
+      "translated": "",
+      "line_start": 222,
+      "line_end": 223,
+      "context": "list_item"
+    },
+    {
+      "id": 114,
+      "type": "inline",
+      "original": "Anatomy of a Specialist",
+      "translated": "",
+      "line_start": 224,
+      "line_end": 225,
+      "context": "heading_h3"
+    },
+    {
+      "id": 115,
+      "type": "inline",
+      "original": "Here's what a Custom Agent specification looks like - notice how different this is from \"build me a support system\":",
+      "translated": "",
+      "line_start": 226,
+      "line_end": 227,
+      "context": "paragraph"
+    },
+    {
+      "id": 116,
+      "type": "inline",
+      "original": "This agent doesn't reason about what to do. It executes a predefined workflow with precision. That's what makes it fast, cheap, and safe.",
+      "translated": "",
+      "line_start": 258,
+      "line_end": 259,
+      "context": "paragraph"
+    },
+    {
+      "id": 117,
+      "type": "inline",
+      "original": "Why Specialists Exist",
+      "translated": "",
+      "line_start": 260,
+      "line_end": 261,
+      "context": "heading_h3"
+    },
+    {
+      "id": 118,
+      "type": "inline",
+      "original": "General Agents are powerful - but that power comes with costs that don't scale:",
+      "translated": "",
+      "line_start": 262,
+      "line_end": 263,
+      "context": "paragraph"
+    },
+    {
+      "id": 119,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Challenge",
+          "translated": ""
+        },
+        {
+          "original": "General Agent (Incubator)",
+          "translated": ""
+        },
+        {
+          "original": "Custom Agent (Specialist)",
+          "translated": ""
+        }
+      ],
+      "line_start": 264,
+      "line_end": 265,
+      "context": "table"
+    },
+    {
+      "id": 120,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Speed**",
+          "translated": ""
+        },
+        {
+          "original": "Slower (dynamic reasoning requires more tokens)",
+          "translated": ""
+        },
+        {
+          "original": "Faster (predefined workflows, minimal reasoning)",
+          "translated": ""
+        }
+      ],
+      "line_start": 266,
+      "line_end": 267,
+      "context": "table"
+    },
+    {
+      "id": 121,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Cost**",
+          "translated": ""
+        },
+        {
+          "original": "Higher per request (exploration is expensive)",
+          "translated": ""
+        },
+        {
+          "original": "Lower per request (optimized prompts, bounded scope)",
+          "translated": ""
+        }
+      ],
+      "line_start": 267,
+      "line_end": 268,
+      "context": "table"
+    },
+    {
+      "id": 122,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Reliability**",
+          "translated": ""
+        },
+        {
+          "original": "Variable (creative means unpredictable)",
+          "translated": ""
+        },
+        {
+          "original": "Consistent (same inputs → same outputs)",
+          "translated": ""
+        }
+      ],
+      "line_start": 268,
+      "line_end": 269,
+      "context": "table"
+    },
+    {
+      "id": 123,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Governance**",
+          "translated": ""
+        },
+        {
+          "original": "Harder (flexibility resists constraints)",
+          "translated": ""
+        },
+        {
+          "original": "Easier (guardrails are built-in)",
+          "translated": ""
+        }
+      ],
+      "line_start": 269,
+      "line_end": 270,
+      "context": "table"
+    },
+    {
+      "id": 124,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Scale**",
+          "translated": ""
+        },
+        {
+          "original": "Expensive at volume",
+          "translated": ""
+        },
+        {
+          "original": "Designed for volume",
+          "translated": ""
+        }
+      ],
+      "line_start": 270,
+      "line_end": 271,
+      "context": "table"
+    },
+    {
+      "id": 125,
+      "type": "inline",
+      "original": "Specialists solve the production problem. They take what the Incubator discovered and execute it reliably, thousands of times per day, at a fraction of the cost.",
+      "translated": "",
+      "line_start": 272,
+      "line_end": 273,
+      "context": "paragraph"
+    },
+    {
+      "id": 126,
+      "type": "inline",
+      "original": "The Key Insight: General Agents BUILD Custom Agents",
+      "translated": "",
+      "line_start": 276,
+      "line_end": 277,
+      "context": "heading_h2"
+    },
+    {
+      "id": 127,
+      "type": "inline",
+      "original": "Here's where the \"Agent Factory\" concept becomes clear:",
+      "translated": "",
+      "line_start": 278,
+      "line_end": 279,
+      "context": "paragraph"
+    },
+    {
+      "id": 128,
+      "type": "inline",
+      "original": "**General Agents don't compete with Custom Agents. General Agents BUILD Custom Agents.**",
+      "translated": "",
+      "line_start": 280,
+      "line_end": 281,
+      "context": "paragraph"
+    },
+    {
+      "id": 129,
+      "type": "inline",
+      "original": "The Evolution in Action",
+      "translated": "",
+      "line_start": 284,
+      "line_end": 285,
+      "context": "heading_h2"
+    },
+    {
+      "id": 130,
+      "type": "inline",
+      "original": "Let's trace a complete evolutionary arc from raw requirement to production system:",
+      "translated": "",
+      "line_start": 286,
+      "line_end": 287,
+      "context": "paragraph"
+    },
+    {
+      "id": 131,
+      "type": "inline",
+      "original": "Phase 1: Incubation",
+      "translated": "",
+      "line_start": 288,
+      "line_end": 289,
+      "context": "heading_h3"
+    },
+    {
+      "id": 132,
+      "type": "inline",
+      "original": "**Week 1-2**: You use Claude Code to explore what a customer support system should look like.",
+      "translated": "",
+      "line_start": 290,
+      "line_end": 291,
+      "context": "paragraph"
+    },
+    {
+      "id": 133,
+      "type": "inline",
+      "original": "You start with a vague goal: \"Help me build something that handles customer questions.\"",
+      "translated": "",
+      "line_start": 292,
+      "line_end": 293,
+      "context": "paragraph"
+    },
+    {
+      "id": 134,
+      "type": "inline",
+      "original": "Through iteration, you discover:",
+      "translated": "",
+      "line_start": 294,
+      "line_end": 295,
+      "context": "paragraph"
+    },
+    {
+      "id": 135,
+      "type": "inline",
+      "original": "Customers ask about orders, returns, and product information (80% of queries)",
+      "translated": "",
+      "line_start": 295,
+      "line_end": 296,
+      "context": "list_item"
+    },
+    {
+      "id": 136,
+      "type": "inline",
+      "original": "Pricing questions are sensitive and need human review",
+      "translated": "",
+      "line_start": 296,
+      "line_end": 297,
+      "context": "list_item"
+    },
+    {
+      "id": 137,
+      "type": "inline",
+      "original": "Refund requests require approval workflows",
+      "translated": "",
+      "line_start": 297,
+      "line_end": 298,
+      "context": "list_item"
+    },
+    {
+      "id": 138,
+      "type": "inline",
+      "original": "Most questions can be answered from existing documentation",
+      "translated": "",
+      "line_start": 298,
+      "line_end": 299,
+      "context": "list_item"
+    },
+    {
+      "id": 139,
+      "type": "inline",
+      "original": "Response speed matters more than response length",
+      "translated": "",
+      "line_start": 299,
+      "line_end": 300,
+      "context": "list_item"
+    },
+    {
+      "id": 140,
+      "type": "inline",
+      "original": "You didn't know these requirements when you started. The Incubator helped you discover them through rapid prototyping and testing.",
+      "translated": "",
+      "line_start": 301,
+      "line_end": 302,
+      "context": "paragraph"
+    },
+    {
+      "id": 141,
+      "type": "inline",
+      "original": "Phase 2: Crystallization",
+      "translated": "",
+      "line_start": 303,
+      "line_end": 304,
+      "context": "heading_h3"
+    },
+    {
+      "id": 142,
+      "type": "inline",
+      "original": "**Week 3**: You extract what you learned into specifications.",
+      "translated": "",
+      "line_start": 305,
+      "line_end": 306,
+      "context": "paragraph"
+    },
+    {
+      "id": 143,
+      "type": "inline",
+      "original": "The working prototype becomes documentation:",
+      "translated": "",
+      "line_start": 307,
+      "line_end": 308,
+      "context": "paragraph"
+    },
+    {
+      "id": 144,
+      "type": "inline",
+      "original": "Clear scope definition (what the agent handles vs. escalates)",
+      "translated": "",
+      "line_start": 308,
+      "line_end": 309,
+      "context": "list_item"
+    },
+    {
+      "id": 145,
+      "type": "inline",
+      "original": "Tool specifications (knowledge base search, ticket creation, escalation)",
+      "translated": "",
+      "line_start": 309,
+      "line_end": 310,
+      "context": "list_item"
+    },
+    {
+      "id": 146,
+      "type": "inline",
+      "original": "Constraint definitions (hard limits on pricing, refunds, data access)",
+      "translated": "",
+      "line_start": 310,
+      "line_end": 311,
+      "context": "list_item"
+    },
+    {
+      "id": 147,
+      "type": "inline",
+      "original": "Success metrics (resolution rate, satisfaction, handle time)",
+      "translated": "",
+      "line_start": 311,
+      "line_end": 312,
+      "context": "list_item"
+    },
+    {
+      "id": 148,
+      "type": "inline",
+      "original": "This is the **genetic material** - the crystallized understanding that will inform the Specialist.",
+      "translated": "",
+      "line_start": 313,
+      "line_end": 314,
+      "context": "paragraph"
+    },
+    {
+      "id": 149,
+      "type": "inline",
+      "original": "Phase 3: Specialization",
+      "translated": "",
+      "line_start": 315,
+      "line_end": 316,
+      "context": "heading_h3"
+    },
+    {
+      "id": 150,
+      "type": "inline",
+      "original": "**Week 4-5**: You build the Custom Agent using your SDK of choice.",
+      "translated": "",
+      "line_start": 317,
+      "line_end": 318,
+      "context": "paragraph"
+    },
+    {
+      "id": 151,
+      "type": "inline",
+      "original": "The Claude Agent SDK lets you encode everything you learned:",
+      "translated": "",
+      "line_start": 319,
+      "line_end": 320,
+      "context": "paragraph"
+    },
+    {
+      "id": 152,
+      "type": "inline",
+      "original": "Specialized prompts optimized for your specific query patterns",
+      "translated": "",
+      "line_start": 320,
+      "line_end": 321,
+      "context": "list_item"
+    },
+    {
+      "id": 153,
+      "type": "inline",
+      "original": "Tools with precise interfaces and error handling",
+      "translated": "",
+      "line_start": 321,
+      "line_end": 322,
+      "context": "list_item"
+    },
+    {
+      "id": 154,
+      "type": "inline",
+      "original": "Guardrails that enforce constraints automatically",
+      "translated": "",
+      "line_start": 322,
+      "line_end": 323,
+      "context": "list_item"
+    },
+    {
+      "id": 155,
+      "type": "inline",
+      "original": "Monitoring hooks for production observability",
+      "translated": "",
+      "line_start": 323,
+      "line_end": 324,
+      "context": "list_item"
+    },
+    {
+      "id": 156,
+      "type": "inline",
+      "original": "Phase 4: Production",
+      "translated": "",
+      "line_start": 325,
+      "line_end": 326,
+      "context": "heading_h3"
+    },
+    {
+      "id": 157,
+      "type": "inline",
+      "original": "**Week 6+**: The Specialist runs in production.",
+      "translated": "",
+      "line_start": 327,
+      "line_end": 328,
+      "context": "paragraph"
+    },
+    {
+      "id": 158,
+      "type": "inline",
+      "original": "It handles 1,000+ support queries daily. It's fast (average 1.8 seconds), cheap ($0.002 per query), and reliable (92% resolution rate without escalation).",
+      "translated": "",
+      "line_start": 329,
+      "line_end": 330,
+      "context": "paragraph"
+    },
+    {
+      "id": 159,
+      "type": "inline",
+      "original": "Phase 5: Continued Evolution",
+      "translated": "",
+      "line_start": 331,
+      "line_end": 332,
+      "context": "heading_h3"
+    },
+    {
+      "id": 160,
+      "type": "inline",
+      "original": "**Ongoing**: The General Agent doesn't retire. It evolves into a new role.",
+      "translated": "",
+      "line_start": 333,
+      "line_end": 334,
+      "context": "paragraph"
+    },
+    {
+      "id": 161,
+      "type": "inline",
+      "original": "You use Claude Code to:",
+      "translated": "",
+      "line_start": 335,
+      "line_end": 336,
+      "context": "paragraph"
+    },
+    {
+      "id": 162,
+      "type": "inline",
+      "original": "Analyze patterns in escalated queries (what's the Specialist missing?)",
+      "translated": "",
+      "line_start": 336,
+      "line_end": 337,
+      "context": "list_item"
+    },
+    {
+      "id": 163,
+      "type": "inline",
+      "original": "Redesign the knowledge base based on actual usage",
+      "translated": "",
+      "line_start": 337,
+      "line_end": 338,
+      "context": "list_item"
+    },
+    {
+      "id": 164,
+      "type": "inline",
+      "original": "Prototype new capabilities before adding them to the Specialist",
+      "translated": "",
+      "line_start": 338,
+      "line_end": 339,
+      "context": "list_item"
+    },
+    {
+      "id": 165,
+      "type": "inline",
+      "original": "Build adjacent Specialists for other support categories",
+      "translated": "",
+      "line_start": 339,
+      "line_end": 340,
+      "context": "list_item"
+    },
+    {
+      "id": 166,
+      "type": "inline",
+      "original": "The Incubator that built the first Specialist now **improves** it and **builds the next generation**.",
+      "translated": "",
+      "line_start": 341,
+      "line_end": 342,
+      "context": "paragraph"
+    },
+    {
+      "id": 167,
+      "type": "inline",
+      "original": "The Agent Factory Paradigm",
+      "translated": "",
+      "line_start": 345,
+      "line_end": 346,
+      "context": "heading_h2"
+    },
+    {
+      "id": 168,
+      "type": "inline",
+      "original": "This evolutionary model is what we call the **Agent Factory**:",
+      "translated": "",
+      "line_start": 347,
+      "line_end": 348,
+      "context": "paragraph"
+    },
+    {
+      "id": 169,
+      "type": "inline",
+      "original": "**General Agents are the factory floor** - where raw requirements are transformed into functional solutions through exploration and iteration.",
+      "translated": "",
+      "line_start": 349,
+      "line_end": 350,
+      "context": "paragraph"
+    },
+    {
+      "id": 170,
+      "type": "inline",
+      "original": "**Custom Agents are the products** - specialized systems that ship to production and serve users at scale.",
+      "translated": "",
+      "line_start": 351,
+      "line_end": 352,
+      "context": "paragraph"
+    },
+    {
+      "id": 171,
+      "type": "inline",
+      "original": "**The factory never stops** - each production deployment generates data that feeds back into the incubator, spawning improvements and new specialists.",
+      "translated": "",
+      "line_start": 353,
+      "line_end": 354,
+      "context": "paragraph"
+    },
+    {
+      "id": 172,
+      "type": "inline",
+      "original": "This is why Claude Code isn't just a coding tool. It's an **Agent Factory** - it builds the Custom Agents you'll learn to construct in Parts 5-7 of this book.",
+      "translated": "",
+      "line_start": 374,
+      "line_end": 375,
+      "context": "paragraph"
+    },
+    {
+      "id": 173,
+      "type": "inline",
+      "original": "Recognizing Your Current Stage",
+      "translated": "",
+      "line_start": 378,
+      "line_end": 379,
+      "context": "heading_h2"
+    },
+    {
+      "id": 174,
+      "type": "inline",
+      "original": "How do you know which stage you're in? Ask yourself these diagnostic questions:",
+      "translated": "",
+      "line_start": 380,
+      "line_end": 381,
+      "context": "paragraph"
+    },
+    {
+      "id": 175,
+      "type": "inline",
+      "original": "You're in Incubation (Use General Agents) When:",
+      "translated": "",
+      "line_start": 382,
+      "line_end": 383,
+      "context": "heading_h3"
+    },
+    {
+      "id": 176,
+      "type": "inline",
+      "original": "**\"I'm not sure what the solution should look like yet.\"**\nYou need exploration, not execution.",
+      "translated": "",
+      "line_start": 384,
+      "line_end": 386,
+      "context": "list_item"
+    },
+    {
+      "id": 177,
+      "type": "inline",
+      "original": "**\"Requirements keep changing as I learn more.\"**\nYou're still discovering the problem shape.",
+      "translated": "",
+      "line_start": 387,
+      "line_end": 389,
+      "context": "list_item"
+    },
+    {
+      "id": 178,
+      "type": "inline",
+      "original": "**\"I need to try multiple approaches to see what works.\"**\nIteration is more valuable than optimization.",
+      "translated": "",
+      "line_start": 390,
+      "line_end": 392,
+      "context": "list_item"
+    },
+    {
+      "id": 179,
+      "type": "inline",
+      "original": "**\"This is a one-off or internal tool.\"**\nIt won't run thousands of times, so production optimization isn't worth it.",
+      "translated": "",
+      "line_start": 393,
+      "line_end": 395,
+      "context": "list_item"
+    },
+    {
+      "id": 180,
+      "type": "inline",
+      "original": "**\"I'm doing something novel.\"**\nNo existing pattern applies; you need creative problem-solving.",
+      "translated": "",
+      "line_start": 396,
+      "line_end": 398,
+      "context": "list_item"
+    },
+    {
+      "id": 181,
+      "type": "inline",
+      "original": "You're Ready for Specialization (Build Custom Agents) When:",
+      "translated": "",
+      "line_start": 399,
+      "line_end": 400,
+      "context": "heading_h3"
+    },
+    {
+      "id": 182,
+      "type": "inline",
+      "original": "**\"I can precisely define what this agent should do.\"**\nRequirements have crystallized.",
+      "translated": "",
+      "line_start": 401,
+      "line_end": 403,
+      "context": "list_item"
+    },
+    {
+      "id": 183,
+      "type": "inline",
+      "original": "**\"This will run hundreds or thousands of times.\"**\nVolume justifies engineering investment.",
+      "translated": "",
+      "line_start": 404,
+      "line_end": 406,
+      "context": "list_item"
+    },
+    {
+      "id": 184,
+      "type": "inline",
+      "original": "**\"Users depend on consistent behavior.\"**\nReliability matters more than flexibility.",
+      "translated": "",
+      "line_start": 407,
+      "line_end": 409,
+      "context": "list_item"
+    },
+    {
+      "id": 185,
+      "type": "inline",
+      "original": "**\"I need to enforce specific constraints.\"**\nSafety and governance require hard limits, not suggestions.",
+      "translated": "",
+      "line_start": 410,
+      "line_end": 412,
+      "context": "list_item"
+    },
+    {
+      "id": 186,
+      "type": "inline",
+      "original": "**\"Cost and latency matter.\"**\nProduction economics demand optimization.",
+      "translated": "",
+      "line_start": 413,
+      "line_end": 415,
+      "context": "list_item"
+    },
+    {
+      "id": 187,
+      "type": "inline",
+      "original": "The Anti-Patterns to Avoid",
+      "translated": "",
+      "line_start": 416,
+      "line_end": 417,
+      "context": "heading_h3"
+    },
+    {
+      "id": 188,
+      "type": "inline",
+      "original": "**Premature Specialization**: Building a Custom Agent before requirements stabilize. You'll over-engineer a solution to the wrong problem. *Stay in incubation longer.*",
+      "translated": "",
+      "line_start": 418,
+      "line_end": 419,
+      "context": "paragraph"
+    },
+    {
+      "id": 189,
+      "type": "inline",
+      "original": "**Perpetual Incubation**: Using General Agents for production workloads. You'll pay too much, get inconsistent results, and struggle with governance. *Evolve to specialization.*",
+      "translated": "",
+      "line_start": 420,
+      "line_end": 421,
+      "context": "paragraph"
+    },
+    {
+      "id": 190,
+      "type": "inline",
+      "original": "**Skipping Incubation**: Trying to specify a Custom Agent without exploration. You'll miss requirements, build the wrong constraints, and ship a brittle system. *Incubate first.*",
+      "translated": "",
+      "line_start": 422,
+      "line_end": 423,
+      "context": "paragraph"
+    },
+    {
+      "id": 191,
+      "type": "inline",
+      "original": "The Mental Model",
+      "translated": "",
+      "line_start": 426,
+      "line_end": 427,
+      "context": "heading_h2"
+    },
+    {
+      "id": 192,
+      "type": "inline",
+      "original": "As you move through this book, carry this evolutionary model in your mind:",
+      "translated": "",
+      "line_start": 428,
+      "line_end": 429,
+      "context": "paragraph"
+    },
+    {
+      "id": 193,
+      "type": "inline",
+      "original": "The Incubator (General Agents)",
+      "translated": "",
+      "line_start": 430,
+      "line_end": 431,
+      "context": "heading_h3"
+    },
+    {
+      "id": 194,
+      "type": "inline",
+      "original": "**Purpose**: Transform raw requirements into functional solutions",
+      "translated": "",
+      "line_start": 431,
+      "line_end": 432,
+      "context": "list_item"
+    },
+    {
+      "id": 195,
+      "type": "inline",
+      "original": "**Tools**: Claude Code, Gemini CLI, Codex CLI, Goose",
+      "translated": "",
+      "line_start": 432,
+      "line_end": 433,
+      "context": "list_item"
+    },
+    {
+      "id": 196,
+      "type": "inline",
+      "original": "**Your Role**: Director (intent, access, review, course-correct)",
+      "translated": "",
+      "line_start": 433,
+      "line_end": 434,
+      "context": "list_item"
+    },
+    {
+      "id": 197,
+      "type": "inline",
+      "original": "**Reasoning**: Dynamic, adaptive, exploratory",
+      "translated": "",
+      "line_start": 434,
+      "line_end": 435,
+      "context": "list_item"
+    },
+    {
+      "id": 198,
+      "type": "inline",
+      "original": "**Output**: Working prototype + crystallized understanding",
+      "translated": "",
+      "line_start": 435,
+      "line_end": 436,
+      "context": "list_item"
+    },
+    {
+      "id": 199,
+      "type": "inline",
+      "original": "The Specialist (Custom Agents)",
+      "translated": "",
+      "line_start": 437,
+      "line_end": 438,
+      "context": "heading_h3"
+    },
+    {
+      "id": 200,
+      "type": "inline",
+      "original": "**Purpose**: Execute known workflows with reliability and scale",
+      "translated": "",
+      "line_start": 438,
+      "line_end": 439,
+      "context": "list_item"
+    },
+    {
+      "id": 201,
+      "type": "inline",
+      "original": "**Tools**: OpenAI Agents SDK, Claude Agent SDK, Google ADK",
+      "translated": "",
+      "line_start": 439,
+      "line_end": 440,
+      "context": "list_item"
+    },
+    {
+      "id": 202,
+      "type": "inline",
+      "original": "**Your Role**: Builder (define, engineer, govern, deploy)",
+      "translated": "",
+      "line_start": 440,
+      "line_end": 441,
+      "context": "list_item"
+    },
+    {
+      "id": 203,
+      "type": "inline",
+      "original": "**Architecture**: Purpose-built with guardrails and optimization",
+      "translated": "",
+      "line_start": 441,
+      "line_end": 442,
+      "context": "list_item"
+    },
+    {
+      "id": 204,
+      "type": "inline",
+      "original": "**Output**: Production system + operational excellence",
+      "translated": "",
+      "line_start": 442,
+      "line_end": 443,
+      "context": "list_item"
+    },
+    {
+      "id": 205,
+      "type": "inline",
+      "original": "The Connection",
+      "translated": "",
+      "line_start": 444,
+      "line_end": 445,
+      "context": "heading_h3"
+    },
+    {
+      "id": 206,
+      "type": "inline",
+      "original": "General Agents don't compete with Custom Agents. **General Agents give birth to Custom Agents.**",
+      "translated": "",
+      "line_start": 445,
+      "line_end": 446,
+      "context": "paragraph"
+    },
+    {
+      "id": 207,
+      "type": "inline",
+      "original": "The Incubator discovers what to build. The Specialist builds it at scale. And the Incubator continues evolving - improving existing Specialists and spawning new ones.",
+      "translated": "",
+      "line_start": 447,
+      "line_end": 448,
+      "context": "paragraph"
+    },
+    {
+      "id": 208,
+      "type": "inline",
+      "original": "This is the Agent Factory. This is how AI products actually get built.",
+      "translated": "",
+      "line_start": 449,
+      "line_end": 450,
+      "context": "paragraph"
+    },
+    {
+      "id": 209,
+      "type": "inline",
+      "original": "Evolution Summary Table",
+      "translated": "",
+      "line_start": 453,
+      "line_end": 454,
+      "context": "heading_h2"
+    },
+    {
+      "id": 210,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Dimension",
+          "translated": ""
+        },
+        {
+          "original": "Incubator (General Agent)",
+          "translated": ""
+        },
+        {
+          "original": "Specialist (Custom Agent)",
+          "translated": ""
+        }
+      ],
+      "line_start": 455,
+      "line_end": 456,
+      "context": "table"
+    },
+    {
+      "id": 211,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Core Purpose**",
+          "translated": ""
+        },
+        {
+          "original": "Explore, discover, prototype",
+          "translated": ""
+        },
+        {
+          "original": "Execute, scale, govern",
+          "translated": ""
+        }
+      ],
+      "line_start": 457,
+      "line_end": 458,
+      "context": "table"
+    },
+    {
+      "id": 212,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Optimization Target**",
+          "translated": ""
+        },
+        {
+          "original": "Flexibility and reasoning",
+          "translated": ""
+        },
+        {
+          "original": "Reliability and efficiency",
+          "translated": ""
+        }
+      ],
+      "line_start": 458,
+      "line_end": 459,
+      "context": "table"
+    },
+    {
+      "id": 213,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Your Role**",
+          "translated": ""
+        },
+        {
+          "original": "Director",
+          "translated": ""
+        },
+        {
+          "original": "Builder",
+          "translated": ""
+        }
+      ],
+      "line_start": 459,
+      "line_end": 460,
+      "context": "table"
+    },
+    {
+      "id": 214,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Planning Style**",
+          "translated": ""
+        },
+        {
+          "original": "Dynamic (from scratch)",
+          "translated": ""
+        },
+        {
+          "original": "Pre-designed (encoded)",
+          "translated": ""
+        }
+      ],
+      "line_start": 460,
+      "line_end": 461,
+      "context": "table"
+    },
+    {
+      "id": 215,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Context Model**",
+          "translated": ""
+        },
+        {
+          "original": "Repository-aware, adaptive",
+          "translated": ""
+        },
+        {
+          "original": "Tool-aware, structured",
+          "translated": ""
+        }
+      ],
+      "line_start": 461,
+      "line_end": 462,
+      "context": "table"
+    },
+    {
+      "id": 216,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Governance**",
+          "translated": ""
+        },
+        {
+          "original": "Human-in-the-loop",
+          "translated": ""
+        },
+        {
+          "original": "Guardrails by design",
+          "translated": ""
+        }
+      ],
+      "line_start": 462,
+      "line_end": 463,
+      "context": "table"
+    },
+    {
+      "id": 217,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Reliability**",
+          "translated": ""
+        },
+        {
+          "original": "Variable (creative)",
+          "translated": ""
+        },
+        {
+          "original": "Consistent (deterministic)",
+          "translated": ""
+        }
+      ],
+      "line_start": 463,
+      "line_end": 464,
+      "context": "table"
+    },
+    {
+      "id": 218,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Cost Profile**",
+          "translated": ""
+        },
+        {
+          "original": "Higher per-request",
+          "translated": ""
+        },
+        {
+          "original": "Optimized for volume",
+          "translated": ""
+        }
+      ],
+      "line_start": 464,
+      "line_end": 465,
+      "context": "table"
+    },
+    {
+      "id": 219,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Best Stage**",
+          "translated": ""
+        },
+        {
+          "original": "Requirements unknown",
+          "translated": ""
+        },
+        {
+          "original": "Requirements crystallized",
+          "translated": ""
+        }
+      ],
+      "line_start": 465,
+      "line_end": 466,
+      "context": "table"
+    },
+    {
+      "id": 220,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Deployment**",
+          "translated": ""
+        },
+        {
+          "original": "Development workbench",
+          "translated": ""
+        },
+        {
+          "original": "Production service",
+          "translated": ""
+        }
+      ],
+      "line_start": 466,
+      "line_end": 467,
+      "context": "table"
+    },
+    {
+      "id": 221,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Anti-Pattern**",
+          "translated": ""
+        },
+        {
+          "original": "Using for high-volume production",
+          "translated": ""
+        },
+        {
+          "original": "Building before requirements stabilize",
+          "translated": ""
+        }
+      ],
+      "line_start": 467,
+      "line_end": 468,
+      "context": "table"
+    },
+    {
+      "id": 222,
+      "type": "inline",
+      "original": "Try With AI",
+      "translated": "",
+      "line_start": 472,
+      "line_end": 473,
+      "context": "heading_h2"
+    },
+    {
+      "id": 223,
+      "type": "inline",
+      "original": "Use these prompts to deepen your understanding of both the inflection point evidence and the Agent Maturity Model.",
+      "translated": "",
+      "line_start": 474,
+      "line_end": 475,
+      "context": "paragraph"
+    },
+    {
+      "id": 224,
+      "type": "inline",
+      "original": "Prompt 1: Evidence Analysis (Critical Evaluation)",
+      "translated": "",
+      "line_start": 476,
+      "line_end": 477,
+      "context": "heading_h3"
+    },
+    {
+      "id": 225,
+      "type": "inline",
+      "original": "**What you're learning**: Critical evaluation of technology claims—developing a \"smell test\" for hype versus genuine breakthroughs. You're learning to distinguish marketing narratives from validated evidence by asking probing questions about sources, incentives, and cross-validation.",
+      "translated": "",
+      "line_start": 490,
+      "line_end": 491,
+      "context": "paragraph"
+    },
+    {
+      "id": 226,
+      "type": "inline",
+      "original": "Prompt 2: Path Evaluation (Decision Framework)",
+      "translated": "",
+      "line_start": 492,
+      "line_end": 493,
+      "context": "heading_h3"
+    },
+    {
+      "id": 227,
+      "type": "inline",
+      "original": "**What you're learning**: Applying the Agent Maturity Model decision framework to real problems. You're learning to evaluate development scenarios through the lens of problem definition, usage frequency, production constraints, and exploration needs—and choosing the right approach based on tradeoffs, not hype.",
+      "translated": "",
+      "line_start": 512,
+      "line_end": 513,
+      "context": "paragraph"
+    },
+    {
+      "id": 228,
+      "type": "inline",
+      "original": "Prompt 3: Personal Positioning (Where Am I in This Transition?)",
+      "translated": "",
+      "line_start": 514,
+      "line_end": 515,
+      "context": "heading_h3"
+    },
+    {
+      "id": 229,
+      "type": "inline",
+      "original": "**What you're learning**: Self-assessment and strategic positioning. You're learning to evaluate your current capabilities against industry baselines, understand the opportunity cost of timing, and make informed decisions about when and how to invest in AI-native skills based on your career goals and market dynamics.",
+      "translated": "",
+      "line_start": 535,
+      "line_end": 536,
+      "context": "paragraph"
+    },
+    {
+      "id": 230,
+      "type": "inline",
+      "original": "Frequently Asked Questions",
+      "translated": "",
+      "line_start": 539,
+      "line_end": 540,
+      "context": "heading_h2"
+    },
+    {
+      "id": 231,
+      "type": "inline",
+      "original": "What is the Agent Factory paradigm?",
+      "translated": "",
+      "line_start": 541,
+      "line_end": 542,
+      "context": "heading_h3"
+    },
+    {
+      "id": 232,
+      "type": "inline",
+      "original": "The Agent Factory is an evolutionary model for AI development where General Agents (like Claude Code) serve as \"incubators\" that explore requirements and prototype solutions, then give birth to Custom Agents (built with SDKs like OpenAI Agents SDK or Claude Agent SDK) that operate as production \"specialists.\" The factory never stops—each deployment generates feedback that improves existing agents and spawns new ones.",
+      "translated": "",
+      "line_start": 543,
+      "line_end": 544,
+      "context": "paragraph"
+    },
+    {
+      "id": 233,
+      "type": "inline",
+      "original": "What is the difference between General Agents and Custom Agents?",
+      "translated": "",
+      "line_start": 545,
+      "line_end": 546,
+      "context": "heading_h3"
+    },
+    {
+      "id": 234,
+      "type": "inline",
+      "original": "General Agents are multi-purpose reasoning tools optimized for flexibility and exploration. They can read codebases, execute commands, and adapt to novel problems. Custom Agents are purpose-built systems optimized for reliability and scale. They have specialized prompts, hard-coded tools, and guardrails designed for specific production workflows. General Agents discover what to build; Custom Agents build it at scale.",
+      "translated": "",
+      "line_start": 547,
+      "line_end": 548,
+      "context": "paragraph"
+    },
+    {
+      "id": 235,
+      "type": "inline",
+      "original": "What is a Digital FTE?",
+      "translated": "",
+      "line_start": 549,
+      "line_end": 550,
+      "context": "heading_h3"
+    },
+    {
+      "id": 236,
+      "type": "inline",
+      "original": "A Digital FTE (Full-Time Equivalent) is an AI employee that performs real work autonomously under human supervision. Unlike traditional software that augments human tasks, a Digital FTE completes tasks end-to-end—processing support tickets, analyzing documents, generating reports. Digital FTEs work 168 hours per week at a fraction of human cost, typically $500-2,000/month versus $4,000-8,000+ for human employees.",
+      "translated": "",
+      "line_start": 551,
+      "line_end": 552,
+      "context": "paragraph"
+    },
+    {
+      "id": 237,
+      "type": "inline",
+      "original": "Why is 2025 considered an inflection point for AI development?",
+      "translated": "",
+      "line_start": 553,
+      "line_end": 554,
+      "context": "heading_h3"
+    },
+    {
+      "id": 238,
+      "type": "inline",
+      "original": "Three independent trends converged in 2025: (1) AI capability reached production quality (ICPC perfect scores, GDPval 49% win rate against humans), (2) mainstream adoption passed the tipping point (84% developer adoption, 90% enterprise adoption, 2 hours/day median usage), and (3) enterprises bet billions on AI-native architecture ($1.1B Workday acquisition, 25% of YC startups using AI-generated code). This convergent validation from independent sources signals a genuine transformation.",
+      "translated": "",
+      "line_start": 555,
+      "line_end": 556,
+      "context": "paragraph"
+    },
+    {
+      "id": 239,
+      "type": "inline",
+      "original": "When should I use a General Agent versus building a Custom Agent?",
+      "translated": "",
+      "line_start": 557,
+      "line_end": 558,
+      "context": "heading_h3"
+    },
+    {
+      "id": 240,
+      "type": "inline",
+      "original": "Use General Agents when requirements are unclear, you need exploration, this is a one-off task, or you're doing something novel. Build Custom Agents when you can precisely define the behavior, it will run hundreds or thousands of times, users need consistent results, or cost and latency matter. The key insight: don't skip incubation (explore first), don't stay in perpetual incubation (evolve to production), and don't specialize prematurely (requirements must crystallize first).",
+      "translated": "",
+      "line_start": 559,
+      "line_end": 560,
+      "context": "paragraph"
+    },
+    {
+      "id": 241,
+      "type": "inline",
+      "original": "What skills do I need for AI-native development?",
+      "translated": "",
+      "line_start": 561,
+      "line_end": 562,
+      "context": "heading_h3"
+    },
+    {
+      "id": 242,
+      "type": "inline",
+      "original": "Traditional programming emphasized syntax mastery and algorithm optimization. AI-native development requires specification writing (clear specs determine AI output quality), prompting and collaboration (directing AI requires precision about intent), agent design (orchestrating intelligent systems rather than writing code), system thinking (understanding component interactions), and validation (evaluating AI output as quality control). This book addresses these skills explicitly.",
+      "translated": "",
+      "line_start": 563,
+      "line_end": 564,
+      "context": "paragraph"
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "source_file": "D:/agentfactory-main/agentfactory-main/apps/learn-app/docs/01-General-Agents-Foundations/01-agent-factory-paradigm/01-the-2025-inflection-point.summary.md",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 29,
+  "frontmatter_segments": [],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "Core Concept",
+      "translated": "بنیادی تصور",
+      "line_start": 0,
+      "line_end": 1,
+      "context": "heading_h3"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "The year 2025 represents a genuine inflection point where three independent trends converge: AI capability reaches production quality, mainstream developer adoption passes the tipping point, and enterprises bet billions on AI-native architecture. This convergence validates the Two Paths Framework -- General Agents (multi-purpose reasoning tools like Claude Code) and Custom Agents (purpose-built products via SDKs) -- where General Agents serve as factories that build Custom Agents.",
+      "translated": "سال 2025 ایک حقیقی انفیکشن پوائنٹ کی نمائندگی کرتا ہے جہاں تین آزاد رجحانات اکٹھے ہوتے ہیں: AI کی صلاحیت پیداواری معیار تک پہنچ جاتی ہے، مرکزی دھارے میں شامل ڈویلپر کی اپنائیت ٹپنگ پوائنٹ سے گزر جاتی ہے، اور کاروباری ادارے AI-آبائی فن تعمیر پر اربوں کی شرط لگاتے ہیں۔ یہ اجتماع دو راستوں کے فریم ورک کی توثیق کرتا ہے -- جنرل ایجنٹس (کلاڈ کوڈ جیسے کثیر مقصدی استدلال کے اوزار) اور کسٹم ایجنٹس (SDKs کے ذریعے مقصد سے تیار کردہ مصنوعات) -- جہاں جنرل ایجنٹس فیکٹریوں کے طور پر کام کرتے ہیں جو کسٹم ایجنٹس بناتے ہیں۔",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "Key Mental Models",
+      "translated": "کلیدی ذہنی ماڈلز",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "heading_h3"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "**Two Paths Framework**: General Agents (Claude Code, Gemini CLI, Goose) are flexible reasoning partners for exploration; Custom Agents (OpenAI SDK, Claude SDK, Google ADK) are specialized production systems. They are complementary, not competing.",
+      "translated": "**دو راستوں کا فریم ورک**: جنرل ایجنٹس (کلاڈ کوڈ، جیمنی سی ایل آئی، گوز) دریافت کے لیے لچکدار استدلال کے شراکت دار ہیں؛ کسٹم ایجنٹس (OpenAI SDK، کلاڈ SDK، گوگل ADK) خصوصی پیداواری نظام ہیں۔ وہ تکمیلی ہیں، مسابقتی نہیں۔",
+      "line_start": 4,
+      "line_end": 5,
+      "context": "list_item"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "**Agent Factory Paradigm**: General Agents BUILD Custom Agents -- you explore and prototype with a General Agent, then transition stable patterns into engineered Custom Agents for production.",
+      "translated": "**ایجنٹ فیکٹری پیراڈائم**: جنرل ایجنٹس کسٹم ایجنٹس بناتے ہیں -- آپ ایک جنرل ایجنٹ کے ساتھ دریافت اور پروٹو ٹائپ کرتے ہیں، پھر مستحکم نمونوں کو پیداوار کے لیے انجینئرڈ کسٹم ایجنٹس میں منتقل کرتے ہیں۔",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "list_item"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "**Convergent Validation**: When the same signal appears from independent sources (academia, surveys, startups, corporate acquisitions), it indicates real transformation rather than coordinated hype.",
+      "translated": "**متفقہ توثیق**: جب ایک ہی اشارہ آزاد ذرائع (اکیڈمیا، سروے، اسٹارٹ اپ، کارپوریٹ حصول) سے ظاہر ہوتا ہے، تو یہ مربوط ہائپ کے بجائے حقیقی تبدیلی کی نشاندہی کرتا ہے۔",
+      "line_start": 6,
+      "line_end": 7,
+      "context": "list_item"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "**Director vs Builder Roles**: With General Agents your role is Director (specify intent, evaluate quality); with Custom Agents your role is Builder (design, engineer, govern).",
+      "translated": "**ڈائریکٹر بمقابلہ بنانے والے کے کردار**: جنرل ایجنٹس کے ساتھ آپ کا کردار ڈائریکٹر ہے (ارادہ بیان کریں، معیار کا جائزہ لیں)؛ کسٹم ایجنٹس کے ساتھ آپ کا کردار بنانے والا ہے (ڈیزائن، انجینئر، حکومت)۔",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "list_item"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**Software Self-Disruption**: Unlike other industries disrupted by external forces, software disrupts itself -- making the transition faster and more complete because tools, workflows, and mental models shift simultaneously.",
+      "translated": "**سافٹ ویئر خود خلل**: دیگر صنعتوں کے برعکس جو بیرونی قوتوں سے متاثر ہوتی ہیں، سافٹ ویئر خود کو متاثر کرتا ہے -- منتقلی کو تیز اور زیادہ مکمل بناتا ہے کیونکہ اوزار، ورک فلو، اور ذہنی ماڈل ایک ساتھ بدل جاتے ہیں۔",
+      "line_start": 8,
+      "line_end": 9,
+      "context": "list_item"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "Key Facts",
+      "translated": "کلیدی حقائق",
+      "line_start": 10,
+      "line_end": 11,
+      "context": "heading_h3"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**ICPC 2025**: OpenAI ensemble achieved a perfect score (12/12 problems); Gemini 2.5 solved 10/12 including one problem no human team solved",
+      "translated": "**ICPC 2025**: OpenAI انسمبل نے ایک بہترین اسکور حاصل کیا (12/12 مسائل)؛ Gemini 2.5 نے 10/12 حل کیے جس میں ایک مسئلہ بھی شامل ہے جسے کسی انسانی ٹیم نے حل نہیں کیا۔",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "list_item"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "**GDPval Benchmark**: Claude Opus 4.1 achieved 49% win rate vs human experts; GPT-5 reached 40.6% (up from below 15% eighteen months prior)",
+      "translated": "**GDPval بینچ مارک**: کلاڈ اوپس 4.1 نے انسانی ماہرین کے مقابلے میں 49% جیت کی شرح حاصل کی؛ GPT-5 40.6% تک پہنچ گیا (اٹھارہ ماہ قبل 15% سے کم سے بڑھ کر)",
+      "line_start": 12,
+      "line_end": 13,
+      "context": "list_item"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "**Stack Overflow 2025**: 84% of developers use or plan to use AI coding tools; 51% report daily use",
+      "translated": "**اسٹیک اوور فلو 2025**: 84% ڈویلپرز AI کوڈنگ ٹولز استعمال کرتے ہیں یا استعمال کرنے کا ارادہ رکھتے ہیں؛ 51% روزانہ استعمال کی اطلاع دیتے ہیں۔",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "list_item"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "**DORA 2025**: 90% adoption rate among development professionals; 2 hours/day median AI usage",
+      "translated": "**DORA 2025**: ترقیاتی پیشہ ور افراد میں 90% اپنائیت کی شرح؛ 2 گھنٹے/دن اوسط AI استعمال",
+      "line_start": 14,
+      "line_end": 15,
+      "context": "list_item"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "**Y Combinator W25**: 25% of startups use AI-generated code as primary development approach",
+      "translated": "**Y Combinator W25**: 25% اسٹارٹ اپس AI سے تیار کردہ کوڈ کو بنیادی ترقیاتی نقطہ نظر کے طور پر استعمال کرتے ہیں۔",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "**Workday acquisition of Sana**: $1.1 billion for AI-powered workplace agents (September 2025)",
+      "translated": "**Sana کا ورک ڈے حصول**: AI سے چلنے والے ورک پلیس ایجنٹوں کے لیے 1.1 بلین ڈالر (ستمبر 2025)",
+      "line_start": 16,
+      "line_end": 17,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "**$3 trillion developer economy**: 30 million developers at ~$100K average economic value per year",
+      "translated": "**3 ٹریلین ڈالر کی ڈویلپر معیشت**: 30 ملین ڈویلپرز ~ 100K ڈالر فی سال اوسط اقتصادی قیمت پر",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "list_item"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "Critical Patterns",
+      "translated": "تنقیدی نمونے",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "heading_h3"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "The General-to-Custom pipeline: Explore with General Agent -> Transition to Custom Agent -> Scale the Product -> Use General Agent to optimize and build next generation",
+      "translated": "جنرل سے کسٹم پائپ لائن: جنرل ایجنٹ کے ساتھ دریافت کریں -> کسٹم ایجنٹ میں منتقلی -> پروڈکٹ کو پیمانہ کریں -> اگلی نسل کو بہتر بنانے اور بنانے کے لیے جنرل ایجنٹ کا استعمال کریں۔",
+      "line_start": 20,
+      "line_end": 21,
+      "context": "list_item"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "Opportunity windows in tech transitions last 3-5 years; AI-native development is at year 1-2 (2025)",
+      "translated": "ٹیک منتقلی میں موقع کی کھڑکیاں 3-5 سال تک رہتی ہیں؛ AI-آبائی ترقی سال 1-2 (2025) پر ہے۔",
+      "line_start": 21,
+      "line_end": 22,
+      "context": "list_item"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "The development lifecycle follows four phases: General Agent Phase -> Translation Phase -> Custom Agent Phase -> Continuous Improvement Phase",
+      "translated": "ترقیاتی زندگی کا چکر چار مراحل پر عمل کرتا ہے: جنرل ایجنٹ مرحلہ -> ترجمہ مرحلہ -> کسٹم ایجنٹ مرحلہ -> مسلسل بہتری کا مرحلہ",
+      "line_start": 22,
+      "line_end": 23,
+      "context": "list_item"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Custom Agents exist because General Agents trade flexibility for speed, reliability, governance, and production-readiness",
+      "translated": "کسٹم ایجنٹس موجود ہیں کیونکہ جنرل ایجنٹس لچک کے بدلے رفتار، وشوسنییتا، حکمرانی اور پیداوار کے لیے تیاری کا سودا کرتے ہیں۔",
+      "line_start": 23,
+      "line_end": 24,
+      "context": "list_item"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "Common Mistakes",
+      "translated": "عام غلطیاں",
+      "line_start": 25,
+      "line_end": 26,
+      "context": "heading_h3"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "Treating General and Custom Agents as competitors rather than understanding they serve different purposes in a pipeline (General Agents explore; Custom Agents execute at scale)",
+      "translated": "جنرل اور کسٹم ایجنٹوں کو حریف سمجھنا بجائے اس کے کہ وہ ایک پائپ لائن میں مختلف مقاصد کی خدمت کرتے ہیں (جنرل ایجنٹ دریافت کرتے ہیں؛ کسٹم ایجنٹ بڑے پیمانے پر عمل درآمد کرتے ہیں)",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "list_item"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "Dismissing 2025 evidence as hype without recognizing convergent validation from independent sources (academic, survey, startup, and financial signals all align)",
+      "translated": "2025 کے ثبوت کو ہائپ کے طور پر مسترد کرنا بغیر آزاد ذرائع (تعلیمی، سروے، اسٹارٹ اپ، اور مالیاتی اشارے سبھی سیدھ میں ہیں) سے متفقہ توثیق کو تسلیم کیے۔",
+      "line_start": 27,
+      "line_end": 28,
+      "context": "list_item"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "Waiting to learn AI-native development until best practices are settled (the opportunity window is NOW; waiting means learning others' conventions instead of shaping them)",
+      "translated": "AI-آبائی ترقی سیکھنے کا انتظار کرنا جب تک کہ بہترین طریقے طے نہ ہوجائیں (موقع کی کھڑکی ابھی ہے؛ انتظار کا مطلب ہے دوسروں کے کنونشنز کو تشکیل دینے کے بجائے سیکھنا)",
+      "line_start": 28,
+      "line_end": 29,
+      "context": "list_item"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "Assuming traditional CS skills (syntax mastery, algorithm optimization) are sufficient when the key skills have shifted to specification writing, agent design, and validation",
+      "translated": "یہ فرض کرنا کہ روایتی CS مہارتیں (نحو کی مہارت، الگورتھم کی اصلاح) کافی ہیں جب کلیدی مہارتیں تفصیلات لکھنے، ایجنٹ ڈیزائن، اور توثیق کی طرف منتقل ہوگئی ہیں",
+      "line_start": 29,
+      "line_end": 30,
+      "context": "list_item"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "Connections",
+      "translated": "کنکشنز",
+      "line_start": 31,
+      "line_end": 32,
+      "context": "heading_h3"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**Builds on**: Basic understanding of what AI is and awareness of the software development landscape",
+      "translated": "**اس پر بناتا ہے**: AI کیا ہے اس کی بنیادی تفہیم اور سافٹ ویئر ڈویلپمنٹ کے منظر نامے سے آگاہی",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "list_item"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "**Leads to**: Understanding the role evolution from coder to orchestrator (Lesson 2), the Five Powers and AI Stack architecture (Lesson 3), and ultimately the Agent Factory paradigm that structures the entire book",
+      "translated": "**اس کی طرف جاتا ہے**: کوڈر سے آرکیسٹریٹر تک کردار کے ارتقاء کو سمجھنا (سبق 2)، پانچ طاقتیں اور AI اسٹیک فن تعمیر (سبق 3)، اور بالآخر ایجنٹ فیکٹری پیراڈائم جو پوری کتاب کی ساخت کرتا ہے۔",
+      "line_start": 33,
+      "line_end": 34,
+      "context": "list_item"
+    }
+  ]
+}

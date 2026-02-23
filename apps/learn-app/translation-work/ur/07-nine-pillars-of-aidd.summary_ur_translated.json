@@ -1,0 +1,265 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\01-General-Agents-Foundations\\01-agent-factory-paradigm\\07-nine-pillars-of-aidd.summary.md",
+  "source_md5": "f8b4946bdf9125d496aacf029d94add3",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 28,
+  "frontmatter_segments": [],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "Core Concept",
+      "translated": "بنیادی تصور",
+      "line_start": 0,
+      "line_end": 1,
+      "context": "heading_h3"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "AI-Driven Development (AIDD) is a specification-first methodology defined by nine characteristics (Specification-Driven, AI-Augmented, Agent-Orchestrated, Quality-Gated, Version-Controlled, Human-Verified, Iteratively-Refined, Documentation-Embedded, Production-Ready) and enabled by nine concrete technology pillars that together eliminate the specialist silos historically required for end-to-end software development, enabling a new M-Shaped developer profile.",
+      "translated": "AI-Driven Development (AIDD) ایک specification-first طریقہ کار ہے جو نو خصوصیات سے متعین ہوتا ہے (Specification-Driven, AI-Augmented, Agent-Orchestrated, Quality-Gated, Version-Controlled, Human-Verified, Iteratively-Refined, Documentation-Embedded, Production-Ready) اور نو ٹھوس ٹیکنالوجی ستونوں کے ذریعے ممکن ہوتا ہے جو مل کر ان ماہر silos کو ختم کرتے ہیں جو تاریخی طور پر end-to-end سافٹ ویئر ڈیولپمنٹ کے لیے درکار تھے، جو ایک نیا M-Shaped ڈیولپر پروفائل ممکن بناتے ہیں۔",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "Key Mental Models",
+      "translated": "اہم ذہنی ماڈلز",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "heading_h3"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "**System Completeness over Individual Skill**: Maya built a production platform in one week not through superhuman effort but because the nine pillars eliminated barriers that previously required specialist silos. The system effect -- pillars amplifying each other -- is what creates the advantage.",
+      "translated": "**انفرادی مہارت پر نظام کی تکمیل**: Maya نے ایک ہفتے میں پروڈکشن پلیٹ فارم بنایا انسانی صلاحیت سے بالاتر کوشش کے ذریعے نہیں بلکہ اس لیے کہ نو ستونوں نے ان رکاوٹوں کو ختم کر دیا جن کے لیے پہلے ماہر silos کی ضرورت تھی۔ سسٹم اثر -- ستون ایک دوسرے کو بڑھاتے ہیں -- یہی فائدہ پیدا کرتا ہے۔",
+      "line_start": 4,
+      "line_end": 5,
+      "context": "list_item"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "**Nine Pillars as Barrier Removers**: Each pillar addresses one specific barrier: AI CLI (working alone), Markdown as Programming (cognitive load of syntax), MCP (tool integration complexity), AI-First IDEs (human-AI friction), Linux Universal Env (platform fragmentation), TDD (fear of breaking things with AI code), SDD (ad-hoc chaos), Composable Skills (re-solving problems), Cloud Deployment (infrastructure complexity).",
+      "translated": "**نو ستون بطور رکاوٹ ہٹانے والے**: ہر ستون ایک مخصوص رکاوٹ کو حل کرتا ہے: AI CLI (تنہا کام کرنا)، Markdown بطور Programming (syntax کا cognitive load)، MCP (ٹول انٹیگریشن کی پیچیدگی)، AI-First IDEs (انسان-AI رگڑ)، Linux Universal Env (پلیٹ فارم ٹکڑے ٹکڑے)، TDD (AI کوڈ کے ساتھ چیزیں توڑنے کا خوف)، SDD (ad-hoc افراتفری)، Composable Skills (مسائل کو دوبارہ حل کرنا)، Cloud Deployment (انفراسٹرکچر کی پیچیدگی)۔",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "list_item"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "**M-Shaped Developer Profile**: Deep expertise in 2-4 complementary domains (vs T-shaped with one deep expertise). Previously impossible because mastering multiple domains was cognitively overwhelming; AI augmentation makes it achievable by providing expert-level assistance outside your primary expertise.",
+      "translated": "**M-Shaped ڈیولپر پروفائل**: 2-4 تکمیلی ڈومینز میں گہری مہارت (ایک گہری مہارت کے ساتھ T-shaped کے برعکس)۔ پہلے ناممکن تھا کیونکہ متعدد ڈومینز میں مہارت حاصل کرنا cognitively بہت زیادہ تھا؛ AI augmentation اسے قابل حصول بناتا ہے آپ کی بنیادی مہارت کے باہر ماہر سطح کی مدد فراہم کرکے۔",
+      "line_start": 6,
+      "line_end": 7,
+      "context": "list_item"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "**Partial vs Complete Adoption**: 6/9 pillars creates competent but gap-riddled capability; 9/9 creates consistent, end-to-end advantage. Historical parallels: Cloud Computing, Agile, Mobile-First all showed early complete adopters thriving while partial adopters struggled.",
+      "translated": "**جزوی بمقابلہ مکمل اپنانے**: 6/9 ستون قابل مگر خلا سے بھرپور صلاحیت بناتے ہیں؛ 9/9 مستقل، end-to-end فائدہ بناتا ہے۔ تاریخی متوازی: Cloud Computing, Agile, Mobile-First سب نے ابتدائی مکمل اپنانے والوں کو پھلتا پھولتا دکھایا جبکہ جزوی اپنانے والے جدوجہد کرتے رہے۔",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "list_item"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**Integration Creates the System Effect**: Pillars depend on each other -- Composable Skills need MCP for tools, SDD for structure, and Markdown for definition. Removing any pillar degrades the system; removing several returns you to traditional development.",
+      "translated": "**انٹیگریشن سسٹم اثر بناتی ہے**: ستون ایک دوسرے پر منحصر ہیں -- Composable Skills کو ٹولز کے لیے MCP کی ضرورت ہے، structure کے لیے SDD، اور definition کے لیے Markdown۔ کسی بھی ستون کو ہٹانا سسٹم کو خراب کرتا ہے؛ کئی کو ہٹانا آپ کو روایتی ڈیولپمنٹ کی طرف واپس لے جاتا ہے۔",
+      "line_start": 8,
+      "line_end": 9,
+      "context": "list_item"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "Key Facts",
+      "translated": "اہم حقائق",
+      "line_start": 10,
+      "line_end": 11,
+      "context": "heading_h3"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**Nine AIDD Characteristics**: Specification-Driven, AI-Augmented, Agent-Orchestrated, Quality-Gated, Version-Controlled, Human-Verified, Iteratively-Refined, Documentation-Embedded, Production-Ready",
+      "translated": "**نو AIDD خصوصیات**: Specification-Driven, AI-Augmented, Agent-Orchestrated, Quality-Gated, Version-Controlled, Human-Verified, Iteratively-Refined, Documentation-Embedded, Production-Ready",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "list_item"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "**Nine Pillars**: (1) AI CLI & Coding Agents, (2) Markdown as Programming Language, (3) MCP Standard, (4) AI-First IDEs, (5) Linux Universal Dev Environment, (6) TDD, (7) SDD with SpecKit Plus, (8) Composable Vertical Skills, (9) Universal Cloud Deployment",
+      "translated": "**نو ستون**: (1) AI CLI & Coding Agents, (2) Markdown بطور Programming Language, (3) MCP Standard, (4) AI-First IDEs, (5) Linux Universal Dev Environment, (6) TDD, (7) SDD with SpecKit Plus, (8) Composable Vertical Skills, (9) Universal Cloud Deployment",
+      "line_start": 12,
+      "line_end": 13,
+      "context": "list_item"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "**Traditional team equivalent**: 4-5 specialists (backend architect, frontend engineer, DevOps, security specialist, data engineer) replaced by one M-shaped developer using all nine pillars",
+      "translated": "**روایتی ٹیم مساوی**: 4-5 ماہرین (backend architect, frontend engineer, DevOps, security specialist, data engineer) کی جگہ ایک M-shaped ڈیولپر جو نووں ستون استعمال کرتا ہے",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "list_item"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "**Realistic learning pathway**: Months 1-6 (Pillars 1-3), Months 7-12 (Pillars 4-6), Months 13-18 (Pillars 7-9), Year 2+ (mastery and depth)",
+      "translated": "**حقیقت پسندانہ سیکھنے کا راستہ**: مہینے 1-6 (ستون 1-3)، مہینے 7-12 (ستون 4-6)، مہینے 13-18 (ستون 7-9)، سال 2+ (مہارت اور گہرائی)",
+      "line_start": 14,
+      "line_end": 15,
+      "context": "list_item"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "**AI learning acceleration**: 3-5x faster skill acquisition with AI as coding partner",
+      "translated": "**AI سیکھنے کی تیزی**: AI کو کوڈنگ پارٹنر کے طور پر 3-5 گنا تیز مہارت حاصل کرنا",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "**Key tools per pillar**: Claude Code/Gemini CLI (Pillar 1), Zed/Cursor (Pillar 4), WSL2/Docker (Pillar 5), Kubernetes/Dapr/Kafka/Ray (Pillar 9)",
+      "translated": "**فی ستون اہم ٹولز**: Claude Code/Gemini CLI (ستون 1)، Zed/Cursor (ستون 4)، WSL2/Docker (ستون 5)، Kubernetes/Dapr/Kafka/Ray (ستون 9)",
+      "line_start": 16,
+      "line_end": 17,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "Critical Patterns",
+      "translated": "اہم پیٹرنز",
+      "line_start": 18,
+      "line_end": 19,
+      "context": "heading_h3"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "Pillar integration chains: Composable Skills (P8) needs MCP (P3) for tool integration, SDD (P7) for structure, and Markdown (P2) for definition; AI Agents (P1) are more effective with AI-First IDEs (P4), TDD (P6), and MCP (P3)",
+      "translated": "ستون انٹیگریشن چینز: Composable Skills (P8) کو ٹول انٹیگریشن کے لیے MCP (P3) کی ضرورت ہے، structure کے لیے SDD (P7)، اور definition کے لیے Markdown (P2)؛ AI Agents (P1) AI-First IDEs (P4)، TDD (P6)، اور MCP (P3) کے ساتھ زیادہ مؤثر ہیں",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "list_item"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "M-shaped development has realistic constraints: domain depth still matters for security/regulatory/safety; domain compatibility varies; organizational context shapes application; execution quality still determines outcomes",
+      "translated": "M-shaped ڈیولپمنٹ کے حقیقت پسندانہ حدود ہیں: security/regulatory/safety کے لیے ڈومین گہرائی ابھی بھی اہم ہے؛ ڈومین مطابقت مختلف ہوتی ہے؛ تنظیمی سیاق و سباق ایپلی کیشن کو شکل دیتا ہے؛ نفاذ کی معیار ابھی بھی نتائج کا تعین کرتی ہے",
+      "line_start": 20,
+      "line_end": 21,
+      "context": "list_item"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "The convergence that made AIDD possible: advanced AI models + structured agent frameworks + modern dev tools + containerization + API-first architectures + open-source ecosystems + DevOps automation + universal dev environments",
+      "translated": "وہ convergence جس نے AIDD کو ممکن بنایا: advanced AI models + structured agent frameworks + modern dev tools + containerization + API-first architectures + open-source ecosystems + DevOps automation + universal dev environments",
+      "line_start": 21,
+      "line_end": 22,
+      "context": "list_item"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "Pillar 7 (SDD) orchestrates all others: it uses Markdown specs (P2), leverages AI agents (P1), enforces TDD (P6), and deploys via cloud (P9)",
+      "translated": "ستون 7 (SDD) سب کو orchestrate کرتا ہے: یہ Markdown specs (P2) استعمال کرتا ہے، AI agents (P1) کو leverage کرتا ہے، TDD (P6) کو نافذ کرتا ہے، اور cloud (P9) کے ذریعے deploy کرتا ہے",
+      "line_start": 22,
+      "line_end": 23,
+      "context": "list_item"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Common Mistakes",
+      "translated": "عام غلطیاں",
+      "line_start": 24,
+      "line_end": 25,
+      "context": "heading_h3"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "Treating the nine pillars as a menu of optional tools rather than an integrated system where each pillar amplifies the others (partial adoption creates bottleneck gaps)",
+      "translated": "نو ستونوں کو اختیاری ٹولز کے مینو کے طور پر سلوک کرنا بجائے ایک مربوط سسٹم کے جہاں ہر ستون دوسروں کو بڑھاتا ہے (جزوی اپنانے سے bottleneck خلا پیدا ہوتے ہیں)",
+      "line_start": 25,
+      "line_end": 26,
+      "context": "list_item"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "Assuming M-shaped development means you no longer need deep expertise in anything (AI augments but does not replace years of specialized experience in critical areas like security and regulatory compliance)",
+      "translated": "یہ فرض کرنا کہ M-shaped ڈیولپمنٹ کا مطلب ہے کہ اب آپ کو کسی چیز میں گہری مہارت کی ضرورت نہیں (AI بڑھاتا ہے لیکن security اور regulatory compliance جیسے اہم علاقوں میں سالوں کی مخصوص تجربے کی جگہ نہیں لیتا)",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "list_item"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "Starting all nine pillars simultaneously rather than following the progressive pathway (foundations first: AI agents, Markdown specs, MCP; then intermediate; then advanced)",
+      "translated": "ترقی پسند راستے کی پیروی کرنے کے بجائے نووں ستون ایک ساتھ شروع کرنا (پہلے بنیادیں: AI agents, Markdown specs, MCP؛ پھر درمیانی؛ پھر جدید)",
+      "line_start": 27,
+      "line_end": 28,
+      "context": "list_item"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "Confusing AIDD characteristics (what it IS: Specification-Driven, AI-Augmented, etc.) with the nine pillars (HOW it works: the concrete technologies that enable those characteristics)",
+      "translated": "AIDD خصوصیات (یہ کیا ہے: Specification-Driven, AI-Augmented، وغیرہ) کو نو ستونوں (یہ کیسے کام کرتا ہے: وہ ٹھوس ٹیکنالوجیز جو ان خصوصیات کو ممکن بناتی ہیں) کے ساتھ الجھنا",
+      "line_start": 28,
+      "line_end": 29,
+      "context": "list_item"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "Connections",
+      "translated": "کنکشنز",
+      "line_start": 30,
+      "line_end": 31,
+      "context": "heading_h3"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "**Builds on**: The orchestrator role (Lesson 2) that the pillars enable; the Five Powers and AI Stack (Lesson 3) that provide Layer 1-3 infrastructure; AIFF Standards (Lesson 4) specifically MCP and Skills which are pillars 3 and 8",
+      "translated": "**بنیاد**: orchestrator کردار (سبق 2) جو ستون ممکن بناتے ہیں؛ Five Powers اور AI Stack (سبق 3) جو Layer 1-3 انفراسٹرکچر فراہم کرتے ہیں؛ AIFF Standards (سبق 4) خاص طور پر MCP اور Skills جو ستون 3 اور 8 ہیں",
+      "line_start": 31,
+      "line_end": 32,
+      "context": "list_item"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**Leads to**: Spec-Driven Development (Lesson 7) which is Pillar 7 explored in depth; the practical chapters (Parts 5-7) where students implement all nine pillars hands-on through the skill-first learning pattern",
+      "translated": "**راستہ**: Spec-Driven Development (سبق 7) جو ستون 7 ہے گہرائی سے دریافت کیا گیا؛ عملی ابواب (حصے 5-7) جہاں طلباء skill-first سیکھنے کے پیٹرن کے ذریعے نووں ستون hands-on نافذ کرتے ہیں",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "list_item"
+    }
+  ],
+  "admonition_segments": [],
+  "mdx_protected_lines": {},
+  "admonition_markers": []
+}

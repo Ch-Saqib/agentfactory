@@ -1,0 +1,252 @@
+{
+  "source_file": "D:/agentfactory-main/agentfactory-main/apps/learn-app/docs/01-General-Agents-Foundations/01-agent-factory-paradigm/04-five-powers-and-ai-stack.summary.md",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 27,
+  "frontmatter_segments": [],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "Core Concept",
+      "translated": "بنیادی تصور",
+      "line_start": 0,
+      "line_end": 1,
+      "context": "heading_h3"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "AI agents possess Five Powers (See, Hear, Reason, Act, Remember) that combine to enable autonomous orchestration, replacing navigation-based User Interfaces with conversation-based User Intent. These powers are delivered through a three-layer Modern AI Stack (Frontier Models, AI-First IDEs, Development Agents) connected by Model Context Protocol (MCP), which prevents vendor lock-in.",
+      "translated": "AI ایجنٹوں کے پاس پانچ طاقتیں ہیں (دیکھیں، سنیں، استدلال کریں، عمل کریں، یاد رکھیں) جو خود مختار آرکیسٹریشن کو فعال کرنے کے لیے یکجا ہوتی ہیں، نیویگیشن پر مبنی صارف انٹرفیس کو گفتگو پر مبنی صارف کے ارادے سے تبدیل کرتی ہیں۔ یہ طاقتیں ماڈل سیاق و سباق پروٹوکول (MCP) کے ذریعے منسلک ایک تین پرتوں والے جدید AI اسٹیک (فرنٹیئر ماڈلز، AI-فرسٹ IDEs، ترقیاتی ایجنٹس) کے ذریعے فراہم کی جاتی ہیں، جو وینڈر لاک ان کو روکتا ہے۔",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "Key Mental Models",
+      "translated": "کلیدی ذہنی ماڈلز",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "heading_h3"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "**UX to Intent Paradigm Shift**: Traditional software requires users to navigate interfaces (14 steps to book a hotel); agentic software lets users state intent conversationally (3 exchanges to achieve the same goal). The design challenge shifts from \"make this interface intuitive\" to \"make this agent understand intent accurately.\"",
+      "translated": "**UX سے ارادے کے پیراڈائم کی تبدیلی**: روایتی سافٹ ویئر کے لیے صارفین کو انٹرفیس نیویگیٹ کرنے کی ضرورت ہوتی ہے (ہوٹل بک کرنے کے 14 اقدامات)؛ ایجنٹک سافٹ ویئر صارفین کو بات چیت میں ارادہ بیان کرنے دیتا ہے (اسی مقصد کو حاصل کرنے کے لیے 3 تبادلے)۔ ڈیزائن کا چیلنج \"اس انٹرفیس کو بدیہی بنائیں\" سے \"اس ایجنٹ کو ارادے کو درست طریقے سے سمجھائیں\" میں منتقل ہوجاتا ہے۔",
+      "line_start": 4,
+      "line_end": 5,
+      "context": "list_item"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "**Five Powers Framework**: See (visual understanding), Hear (audio processing), Reason (complex decision-making), Act (execute and orchestrate), Remember (maintain context and learn). Individually useful but limited; combined they create autonomous orchestration.",
+      "translated": "**پانچ طاقتوں کا فریم ورک**: دیکھیں (بصری تفہیم)، سنیں (آڈیو پروسیسنگ)، استدلال کریں (پیچیدہ فیصلہ سازی)، عمل کریں (عمل درآمد اور ترتیب)، یاد رکھیں (سیاق و سباق کو برقرار رکھیں اور سیکھیں)۔ انفرادی طور پر مفید لیکن محدود؛ مشترکہ طور پر وہ خود مختار آرکیسٹریشن تخلیق کرتے ہیں۔",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "list_item"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "**Three-Layer AI Stack**: Layer 1 (Frontier Models -- reasoning engines like Claude, GPT-5, Gemini), Layer 2 (AI-First IDEs -- development environments like Cursor, VS Code, Zed), Layer 3 (Development Agents -- autonomous workers like Claude Code). Layers are independent and composable.",
+      "translated": "**تین پرتوں والا AI اسٹیک**: پرت 1 (فرنٹیئر ماڈلز -- کلاڈ، GPT-5، جیمنی جیسے استدلال کے انجن)، پرت 2 (AI-فرسٹ IDEs -- کرسر، VS کوڈ، زیڈ جیسے ترقیاتی ماحول)، پرت 3 (ترقیاتی ایجنٹس -- کلاڈ کوڈ جیسے خود مختار کارکن)۔ پرتیں آزاد اور مرکب ہیں۔",
+      "line_start": 6,
+      "line_end": 7,
+      "context": "list_item"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "**MCP as USB for AI**: Model Context Protocol is a universal standard connecting agents to data/services without vendor lock-in. Write an MCP integration once, any compatible agent can use it.",
+      "translated": "**AI کے لیے USB کے طور پر MCP**: ماڈل سیاق و سباق پروٹوکول ایک یونیورسل معیار ہے جو ایجنٹوں کو وینڈر لاک ان کے بغیر ڈیٹا/خدمات سے جوڑتا ہے۔ ایک بار MCP انضمام لکھیں، کوئی بھی مطابقت رکھنے والا ایجنٹ اسے استعمال کرسکتا ہے۔",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "list_item"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**Predictive to Generative to Agentic Evolution**: AI evolved from forecasting (Netflix recommendations) to creating (ChatGPT essays) to autonomous action (Claude Code editing, testing, committing). The agentic phase unlocked the Five Powers working together.",
+      "translated": "**پیش گوئی سے جنریٹو سے ایجنٹک ارتقاء**: AI پیشن گوئی (نیٹ فلکس کی سفارشات) سے تخلیق (چیٹ جی پی ٹی مضامین) سے خود مختار عمل (کلاڈ کوڈ میں ترمیم، جانچ، کمٹ کرنا) تک تیار ہوا۔ ایجنٹک مرحلے نے پانچ طاقتوں کو ایک ساتھ کام کرنے کے لیے کھول دیا۔",
+      "line_start": 8,
+      "line_end": 9,
+      "context": "list_item"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "Key Facts",
+      "translated": "کلیدی حقائق",
+      "line_start": 10,
+      "line_end": 11,
+      "context": "heading_h3"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**Hotel booking comparison**: Traditional UX requires 14 manual steps; agentic UX reduces this to 3 conversational exchanges",
+      "translated": "**ہوٹل بکنگ کا موازنہ**: روایتی UX کے لیے 14 دستی اقدامات کی ضرورت ہوتی ہے؛ ایجنٹک UX اسے 3 بات چیت کے تبادلے تک کم کردیتا ہے۔",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "list_item"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "**2024 vs 2025 shift**: From tool silos (vendor bundles everything) to modular stack (pick your model, IDE, and agent independently)",
+      "translated": "**2024 بمقابلہ 2025 کی تبدیلی**: ٹول سائلوز (وینڈر ہر چیز کو بنڈل کرتا ہے) سے ماڈیولر اسٹیک (اپنا ماڈل، IDE، اور ایجنٹ آزادانہ طور پر منتخب کریں)",
+      "line_start": 12,
+      "line_end": 13,
+      "context": "list_item"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "**Current Frontier Models**: Claude Opus 4.5 (Anthropic), GPT-5 (OpenAI), Gemini 2.5 (Google)",
+      "translated": "**موجودہ فرنٹیئر ماڈلز**: کلاڈ اوپس 4.5 (اینتھروپک)، GPT-5 (اوپن اے آئی)، جیمنی 2.5 (گوگل)",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "list_item"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "**Current AI-First IDEs**: VS Code (Microsoft), Cursor (Anystic), Windsurf (Codeium), Zed (Zed Industries)",
+      "translated": "**موجودہ AI-فرسٹ IDEs**: VS کوڈ (مائیکروسافٹ)، کرسر (اینیسٹک)، ونڈ سرف (کوڈیم)، زیڈ (زیڈ انڈسٹریز)",
+      "line_start": 14,
+      "line_end": 15,
+      "context": "list_item"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "**MCP benefit**: Before MCP, M models x N tools = M*N custom integrations. With MCP, M+N standardized connections",
+      "translated": "**MCP فائدہ**: MCP سے پہلے، M ماڈلز x N ٹولز = M*N کسٹم انضمام۔ MCP کے ساتھ، M+N معیاری کنکشنز",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "Critical Patterns",
+      "translated": "تنقیدی نمونے",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "heading_h3"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "The Five Powers combine in sequences: Hear (request) -> Reason (analyze) -> Remember (recall preferences) -> Act (execute) -> See (read results) -> Reason (evaluate) -> Act (complete workflow) -> Remember (store for future)",
+      "translated": "پانچ طاقتیں ترتیب میں یکجا ہوتی ہیں: سنیں (درخواست) -> استدلال کریں (تجزیہ) -> یاد رکھیں (ترجیحات کو یاد کریں) -> عمل کریں (عمل درآمد) -> دیکھیں (نتائج پڑھیں) -> استدلال کریں (جائزہ) -> عمل کریں (ورک فلو مکمل کریں) -> یاد رکھیں (مستقبل کے لیے ذخیرہ کریں)",
+      "line_start": 18,
+      "line_end": 19,
+      "context": "list_item"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "The spec-writing skill is now paramount: \"When user clicks button X, do Y\" becomes \"When user expresses intent Z (in any phrasing), agent understands and acts appropriately\"",
+      "translated": "تفصیلات لکھنے کی مہارت اب سب سے اہم ہے: \"جب صارف بٹن X پر کلک کرتا ہے، تو Y کریں\" بن جاتا ہے \"جب صارف ارادہ Z کا اظہار کرتا ہے (کسی بھی جملے میں)، ایجنٹ سمجھتا ہے اور مناسب طریقے سے کام کرتا ہے\"",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "list_item"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "Competition drives innovation in modular stacks: when layers are independent, each layer improves separately and users benefit from best-of-breed selection",
+      "translated": "مقابلہ ماڈیولر اسٹیکس میں جدت طرازی کو چلاتا ہے: جب پرتیں آزاد ہوتی ہیں، تو ہر پرت الگ سے بہتر ہوتی ہے اور صارفین بہترین نسل کے انتخاب سے فائدہ اٹھاتے ہیں۔",
+      "line_start": 20,
+      "line_end": 21,
+      "context": "list_item"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "Removing any single power from an agent significantly degrades its capability -- the powers are multiplicative, not additive",
+      "translated": "کسی ایجنٹ سے کسی ایک طاقت کو ہٹانا اس کی صلاحیت کو نمایاں طور پر کم کرتا ہے -- طاقتیں ضرب ہیں، اضافی نہیں۔",
+      "line_start": 21,
+      "line_end": 22,
+      "context": "list_item"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "Common Mistakes",
+      "translated": "عام غلطیاں",
+      "line_start": 23,
+      "line_end": 24,
+      "context": "heading_h3"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Thinking the Five Powers are just features when they are actually capabilities that must combine to enable autonomy (any single power alone is insufficient for orchestration)",
+      "translated": "یہ سوچنا کہ پانچ طاقتیں صرف خصوصیات ہیں جب وہ دراصل صلاحیتیں ہیں جن کو خود مختاری کو فعال کرنے کے لیے یکجا ہونا چاہئے (کوئی ایک طاقت اکیلے آرکیسٹریشن کے لیے ناکافی ہے)",
+      "line_start": 24,
+      "line_end": 25,
+      "context": "list_item"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "Confusing the shift from UX to Intent as eliminating the need for good design (the design challenge changes from visual hierarchy to intent modeling and context management)",
+      "translated": "UX سے ارادے کی تبدیلی کو اچھے ڈیزائن کی ضرورت کو ختم کرنے کے طور پر الجھانا (ڈیزائن کا چیلنج بصری درجہ بندی سے ارادے کی ماڈلنگ اور سیاق و سباق کے انتظام میں بدل جاتا ہے)",
+      "line_start": 25,
+      "line_end": 26,
+      "context": "list_item"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "Assuming MCP eliminates all integration work (MCP standardizes the protocol, but you still need to build MCP servers for specific tools/services)",
+      "translated": "یہ فرض کرنا کہ MCP تمام انضمام کے کام کو ختم کرتا ہے (MCP پروٹوکول کو معیاری بناتا ہے، لیکن آپ کو اب بھی مخصوص ٹولز/خدمات کے لیے MCP سرورز بنانے کی ضرورت ہے)",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "list_item"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "Treating the AI stack layers as tightly coupled when the key innovation is their independence and composability (you can switch models without changing your IDE or agents)",
+      "translated": "AI اسٹیک کی تہوں کو مضبوطی سے جڑا ہوا سمجھنا جب کلیدی جدت ان کی آزادی اور مرکبیت ہے (آپ اپنے IDE یا ایجنٹوں کو تبدیل کیے بغیر ماڈل تبدیل کرسکتے ہیں)",
+      "line_start": 27,
+      "line_end": 28,
+      "context": "list_item"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "Connections",
+      "translated": "کنکشنز",
+      "line_start": 29,
+      "line_end": 30,
+      "context": "heading_h3"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "**Builds on**: The orchestrator role (Lesson 2) and the OODA Loop that powers agent reasoning; the Two Paths Framework (Lesson 1) that distinguishes General from Custom Agents",
+      "translated": "**اس پر بناتا ہے**: آرکیسٹریٹر کا کردار (سبق 2) اور OODA لوپ جو ایجنٹ استدلال کو طاقت دیتا ہے؛ دو راستوں کا فریم ورک (سبق 1) جو جنرل کو کسٹم ایجنٹوں سے ممتاز کرتا ہے۔",
+      "line_start": 30,
+      "line_end": 31,
+      "context": "list_item"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "**Leads to**: Understanding the Five Powers that enable autonomous orchestration (Lesson 3), and the specification-writing skills needed for the orchestrator role (Lesson 7)",
+      "translated": "**اس کی طرف جاتا ہے**: ان پانچ طاقتوں کو سمجھنا جو خود مختار آرکیسٹریشن کو فعال کرتی ہیں (سبق 3)، اور آرکیسٹریٹر کے کردار کے لیے درکار تفصیلات لکھنے کی مہارتیں (سبق 7)",
+      "line_start": 31,
+      "line_end": 32,
+      "context": "list_item"
+    }
+  ]
+}

@@ -1,0 +1,1449 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\01-General-Agents-Foundations\\01-agent-factory-paradigm\\09-synthesis-digital-fte-vision.md",
+  "source_md5": "9d6e790efe7b953a12503a41c1762b91",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 135,
+  "frontmatter_segments": [
+    {
+      "id": "fm_0",
+      "key": "title",
+      "original": "Synthesis - The Digital FTE Vision",
+      "translated": "Synthesis - Digital FTE وژن",
+      "context": "frontmatter",
+      "line_in_fm": 0,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_1",
+      "key": "sidebar_label",
+      "original": "Synthesis - Digital FTE Vision",
+      "translated": "Synthesis - Digital FTE وژن",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_6",
+      "key": "proficiency",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 6,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_13",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 13,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_14",
+      "key": "category",
+      "original": "Foundational",
+      "translated": "بنیادی",
+      "context": "frontmatter",
+      "line_in_fm": 14,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_15",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 15,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_16",
+      "key": "digcomp_area",
+      "original": "Digital Literacy",
+      "translated": "ڈیجیٹل لٹریسی",
+      "context": "frontmatter",
+      "line_in_fm": 16,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_17",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain how AI agents function as digital team members with specialized capabilities",
+      "translated": "طالب علم وضاحت کر سکتا ہے کہ AI agents خصوصی صلاحیتوں کے ساتھ ڈیجیٹل ٹیم ممبرز کے طور پر کیسے کام کرتے ہیں",
+      "context": "frontmatter",
+      "line_in_fm": 17,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_20",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 20,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_21",
+      "key": "category",
+      "original": "Foundational",
+      "translated": "بنیادی",
+      "context": "frontmatter",
+      "line_in_fm": 21,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_22",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 22,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_23",
+      "key": "digcomp_area",
+      "original": "Problem-Solving",
+      "translated": "مسئلہ حل کرنا",
+      "context": "frontmatter",
+      "line_in_fm": 23,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_24",
+      "key": "measurable_at_this_level",
+      "original": "Student can identify characteristics of each approach and explain why discipline matters more with AI",
+      "translated": "طالب علم ہر طریقہ کی خصوصیات کی نشاندہی کر سکتا ہے اور وضاحت کر سکتا ہے کہ AI کے ساتھ نظم و ضبط کیوں زیادہ اہم ہے",
+      "context": "frontmatter",
+      "line_in_fm": 24,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_27",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 27,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_28",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "تصوراتی",
+      "context": "frontmatter",
+      "line_in_fm": 28,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_29",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 29,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_30",
+      "key": "digcomp_area",
+      "original": "Digital Literacy",
+      "translated": "ڈیجیٹل لٹریسی",
+      "context": "frontmatter",
+      "line_in_fm": 30,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_31",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain how AI amplifies both good practices and bad habits",
+      "translated": "طالب علم وضاحت کر سکتا ہے کہ AI اچھی مشقوں اور بری عادتوں دونوں کو کیسے بڑھاتا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 31,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_35",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 35,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_36",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 36,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_37",
+      "key": "assessment_method",
+      "original": "Explanation of how Custom Agents become specialized digital team members",
+      "translated": "وضاحت کہ Custom Agents خصوصی ڈیجیٹل ٹیم ممبرز کیسے بنتے ہیں",
+      "context": "frontmatter",
+      "line_in_fm": 37,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_40",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 40,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_41",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 41,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_42",
+      "key": "assessment_method",
+      "original": "Identification of which approach leads to sustainable results with AI",
+      "translated": "اس کی نشاندہی کہ کون سا طریقہ AI کے ساتھ پائیدار نتائج دیتا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 42,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_45",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 45,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_46",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 46,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_47",
+      "key": "assessment_method",
+      "original": "Explanation of why discipline becomes more critical, not less, in AI-native development",
+      "translated": "وضاحت کہ AI-native ڈویلپمنٹ میں نظم و ضبط کم نہیں بلکہ زیادہ اہم کیوں ہو جاتا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 47,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_51",
+      "key": "assessment",
+      "original": "3 concepts (Digital FTE, Vibe Coding vs SDD, AI amplification) well within A1 limit of 5-7",
+      "translated": "3 تصورات (Digital FTE، Vibe Coding بمقابلہ SDD، AI amplification) A1 حد 5-7 کے اندر",
+      "context": "frontmatter",
+      "line_in_fm": 51,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_54",
+      "key": "extension_for_advanced",
+      "original": "Research how organizations are structuring AI agent teams; explore hybrid human-AI workflows at enterprise scale",
+      "translated": "تحقیق کریں کہ تنظیمیں AI agent ٹیموں کو کیسے منظم کر رہی ہیں؛ enterprise scale پر hybrid human-AI workflows دریافت کریں",
+      "context": "frontmatter",
+      "line_in_fm": 54,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_55",
+      "key": "remedial_for_struggling",
+      "original": "Focus on the amplification concept; understand why clear specifications lead to better AI output before exploring Digital FTE orchestration",
+      "translated": "amplification تصور پر توجہ دیں؛ Digital FTE orchestration کو دریافت کرنے سے پہلے سمجھیں کہ واضح تفصیلات بہتر AI output کیوں دیتی ہیں",
+      "context": "frontmatter",
+      "line_in_fm": 55,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_58",
+      "key": "lesson_type",
+      "original": "supplementary",
+      "translated": "اضافی",
+      "context": "frontmatter",
+      "line_in_fm": 58,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_60",
+      "key": "session_title",
+      "original": "SDD, Synthesis, and Enterprise Sales",
+      "translated": "SDD، Synthesis، اور Enterprise Sales",
+      "context": "frontmatter",
+      "line_in_fm": 60,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_82",
+      "key": "generated_by",
+      "original": "content-implementer v2.0.0",
+      "translated": "content-implementer v2.0.0",
+      "context": "frontmatter",
+      "line_in_fm": 82,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_83",
+      "key": "source_spec",
+      "original": "Part 1 Consolidation",
+      "translated": "Part 1 Consolidation",
+      "context": "frontmatter",
+      "line_in_fm": 83,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_85",
+      "key": "workflow",
+      "original": "synthesis lesson",
+      "translated": "synthesis سبق",
+      "context": "frontmatter",
+      "line_in_fm": 85,
+      "quote_char": "\""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "That's a vital distinction. The transition from a \"session-based tool\" to a \"Digital FTE\" is defined by **autonomy** and **persistence**. A teammate doesn't wait for you to wake them up every morning; they are already monitoring the codebase or the queue.",
+      "translated": "یہ ایک اہم تمیز ہے۔ \"session-based tool\" سے \"Digital FTE\" کی منتقلی **autonomy** اور **persistence** سے متعین ہوتی ہے۔ ایک ٹیم میٹ آپ کا انتظار نہیں کرتا کہ آپ انہیں ہر صبح جگائیں؛ وہ پہلے سے ہی codebase یا queue کی نگرانی کر رہے ہوتے ہیں۔",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "paragraph"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "Here is the refined synthesis, incorporating the requirement for 24/7 autonomous operation.",
+      "translated": "یہ بہتر synthesis ہے، جو 24/7 autonomous آپریشن کی ضرورت کو شامل کرتا ہے۔",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "Synthesis: The Digital FTE Vision",
+      "translated": "Synthesis: Digital FTE وژن",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "heading_h2"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "You've traveled through eight lessons that established a new mental model for software development. You've seen the evidence of an inflection point, understood the fundamental constraints of LLMs, and learned the scale of transformation. You've learned how the **Agent Factory** paradigm works, what makes AI agents powerful, and how to structure work for AI collaboration.",
+      "translated": "آپ آٹھ اسباق سے گزرے ہیں جنہوں نے سافٹ ویئر ڈویلپمنٹ کے لیے ایک نیا ذہنی ماڈل قائم کیا۔ آپ نے inflection point کا ثبوت دیکھا، LLMs کی بنیادی پابندیوں کو سمجھا، اور تبدیلی کے پیمانے کو سیکھا۔ آپ نے سیکھا کہ **Agent Factory** paradigm کیسے کام کرتا ہے، AI agents کو طاقتور کیا بناتا ہے، اور AI collaboration کے لیے کام کو کیسے منظم کریں۔",
+      "line_start": 9,
+      "line_end": 10,
+      "context": "paragraph"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "Now it's time to see where this leads—and the critical choice you face.",
+      "translated": "اب وقت ہے یہ دیکھنے کا کہ یہ کہاں جاتا ہے—اور وہ اہم انتخاب جو آپ کے سامنے ہے۔",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "paragraph"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "From Tools to Teammates",
+      "translated": "Tools سے Teammates تک",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "heading_h3"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "Throughout this chapter, we've been building toward a realization that changes how you think about AI in software development.",
+      "translated": "اس پورے باب میں، ہم اس احساس کی طرف بڑھ رہے ہیں جو سافٹ ویئر ڈویلپمنٹ میں AI کے بارے میں آپ کی سوچ کو بدلتا ہے۔",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "paragraph"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**Traditional View:** AI is a tool. You prompt it, it responds, you use the output.",
+      "translated": "**روایتی نظریہ:** AI ایک tool ہے۔ آپ اسے prompt کرتے ہیں، یہ جواب دیتا ہے، آپ output استعمال کرتے ہیں۔",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "list_item"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "**Agent Factory View:** AI agents are teammates. They reason, remember, act, and improve.",
+      "translated": "**Agent Factory نظریہ:** AI agents ٹیم میٹس ہیں۔ وہ سوچتے ہیں، یاد رکھتے ہیں، عمل کرتے ہیں، اور بہتر ہوتے ہیں۔",
+      "line_start": 18,
+      "line_end": 19,
+      "context": "list_item"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**Digital FTE View:** AI agents become **Digital Full-Time Employees**—specialized digital workers that handle entire functions within your organization.",
+      "translated": "**Digital FTE نظریہ:** AI agents **Digital Full-Time Employees** بن جاتے ہیں—خصوصی ڈیجیٹل ورکرز جو آپ کی تنظیم کے اندر پورے فنکشنز کو سنبھالتے ہیں۔",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "list_item"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "The Evolution: Generalists vs. Digital FTEs",
+      "translated": "ارتقاء: Generalists بمقابلہ Digital FTEs",
+      "line_start": 21,
+      "line_end": 22,
+      "context": "heading_h3"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "A common question arises: _Can't a powerful General Agent (like Claude Code) act as a Digital FTE?_",
+      "translated": "ایک عام سوال پیدا ہوتا ہے: _کیا ایک طاقتور General Agent (جیسے Claude Code) Digital FTE کے طور پر کام نہیں کر سکتا؟_",
+      "line_start": 23,
+      "line_end": 24,
+      "context": "paragraph"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "The answer is **yes**, provided it is moved out of the \"chat box\" and into a production environment. A General Agent becomes a Digital FTE when you augment its raw reasoning with **Agent Skills** and **MCP (Model Context Protocol)**, and—crucially—deploy it to run **autonomously 24/7**.",
+      "translated": "جواب **ہاں** ہے، بشرطیکہ اسے \"chat box\" سے نکال کر production environment میں لایا جائے۔ ایک General Agent Digital FTE بن جاتا ہے جب آپ اس کی خام reasoning کو **Agent Skills** اور **MCP (Model Context Protocol)** سے بڑھاتے ہیں، اور—اہم بات—اسے **autonomously 24/7** چلانے کے لیے deploy کرتے ہیں۔",
+      "line_start": 25,
+      "line_end": 26,
+      "context": "paragraph"
+    },
+    {
+      "id": 13,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Component",
+          "translated": "Component"
+        },
+        {
+          "original": "Role in the Digital FTE",
+          "translated": "Digital FTE میں کردار"
+        }
+      ],
+      "line_start": 27,
+      "line_end": 28,
+      "context": "table"
+    },
+    {
+      "id": 14,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**The General Model**",
+          "translated": "**The General Model**"
+        },
+        {
+          "original": "The **Brain**: Reasoning, logic, and communication.",
+          "translated": "**دماغ**: Reasoning، logic، اور communication۔"
+        }
+      ],
+      "line_start": 29,
+      "line_end": 30,
+      "context": "table"
+    },
+    {
+      "id": 15,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**MCP & Tooling**",
+          "translated": "**MCP & Tooling**"
+        },
+        {
+          "original": "The **Hands**: Direct access to your specific codebase, cloud infrastructure, or databases.",
+          "translated": "**ہاتھ**: آپ کے مخصوص codebase، cloud infrastructure، یا databases تک براہ راست رسائی۔"
+        }
+      ],
+      "line_start": 30,
+      "line_end": 31,
+      "context": "table"
+    },
+    {
+      "id": 16,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Agent Skills**",
+          "translated": "**Agent Skills**"
+        },
+        {
+          "original": "The **Training**: The specialized SOPs, guardrails, and domain knowledge required for the role.",
+          "translated": "**Training**: کردار کے لیے ضروری خصوصی SOPs، guardrails، اور domain knowledge۔"
+        }
+      ],
+      "line_start": 31,
+      "line_end": 32,
+      "context": "table"
+    },
+    {
+      "id": 17,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Autonomous Loop**",
+          "translated": "**Autonomous Loop**"
+        },
+        {
+          "original": "The **Shift**: The ability to run 24/7, monitoring triggers and taking action without a human \"Start\" command.",
+          "translated": "**Shift**: 24/7 چلنے کی صلاحیت، triggers کی نگرانی اور انسانی \"Start\" کمانڈ کے بغیر کارروائی کرنا۔"
+        }
+      ],
+      "line_start": 32,
+      "line_end": 33,
+      "context": "table"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "The New Standard of Work",
+      "translated": "کام کا نیا معیار",
+      "line_start": 34,
+      "line_end": 35,
+      "context": "heading_h3"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "A **Digital FTE** is the total package: a Custom Agent (or a Generalist with specific MCP and Agent Skills integrations) engineered to **own a specific function**—such as continuous security auditing, real-time code review, or automated tier-1 support.",
+      "translated": "ایک **Digital FTE** مکمل پیکیج ہے: ایک Custom Agent (یا مخصوص MCP اور Agent Skills integrations کے ساتھ Generalist) جو **ایک مخصوص فنکشن کا مالک** بننے کے لیے تیار کیا گیا ہے—جیسے continuous security auditing، real-time code review، یا automated tier-1 support۔",
+      "line_start": 36,
+      "line_end": 37,
+      "context": "paragraph"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "**The FTE Threshold:** It isn't just about what the agent _can_ do, but _how_ it exists. A tool waits for a prompt; a Digital FTE monitors its domain, identifies needs, and executes solutions with the reliability and persistence you'd expect from a human team member.",
+      "translated": "**FTE Threshold:** یہ صرف اس بارے میں نہیں ہے کہ agent _کر سکتا_ کیا ہے، بلکہ _کیسے_ موجود ہے۔ ایک tool prompt کا انتظار کرتا ہے؛ ایک Digital FTE اپنے domain کی نگرانی کرتا ہے، ضروریات کی نشاندہی کرتا ہے، اور اس اعتماد اور لگن کے ساتھ حل کو نافذ کرتا ہے جو آپ انسانی ٹیم ممبر سے توقع کریں گے۔",
+      "line_start": 38,
+      "line_end": 39,
+      "context": "blockquote"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "This isn't a metaphor. It's the logical extension of everything you've learned. Whether built from scratch or configured via a Generalist's skills, the goal remains the same: moving from \"AI as an assistant\" to \"AI as a functional owner.\"",
+      "translated": "یہ استعارہ نہیں ہے۔ یہ آپ نے جو کچھ سیکھا ہے اس کی منطقی توسیع ہے۔ چاہے scratch سے بنایا گیا ہو یا Generalist کی مہارتوں کے ذریعے ترتیب دیا گیا ہو، مقصد وہی رہتا ہے: \"assistant کے طور پر AI\" سے \"functional owner کے طور پر AI\" کی طرف جانا۔",
+      "line_start": 40,
+      "line_end": 41,
+      "context": "paragraph"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "The Critical Fork: Vibe Coding vs. Spec-Driven Development",
+      "translated": "اہم موڑ: Vibe Coding بمقابلہ Spec-Driven Development",
+      "line_start": 44,
+      "line_end": 45,
+      "context": "heading_h2"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "Here's where many developers go wrong.",
+      "translated": "یہاں بہت سے ڈویلپرز غلطی کرتے ہیں۔",
+      "line_start": 46,
+      "line_end": 47,
+      "context": "paragraph"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "They see AI generating code at incredible speed and think: \"I don't need process anymore. I'll just describe what I want and iterate until it works.\"",
+      "translated": "وہ AI کو حیرت انگیز رفتار سے کوڈ تیار کرتے دیکھتے ہیں اور سوچتے ہیں: \"مجھے اب process کی ضرورت نہیں ہے۔ میں بس بیان کروں گا کہ مجھے کیا چاہیے اور جب تک یہ کام نہیں کرتا iterate کروں گا۔\"",
+      "line_start": 48,
+      "line_end": 49,
+      "context": "paragraph"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "This approach has a name: **Vibe Coding**.",
+      "translated": "اس طریقہ کا نام ہے: **Vibe Coding**۔",
+      "line_start": 50,
+      "line_end": 51,
+      "context": "paragraph"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "What is Vibe Coding?",
+      "translated": "Vibe Coding کیا ہے؟",
+      "line_start": 52,
+      "line_end": 53,
+      "context": "heading_h3"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "Vibe Coding is development by feel. You prompt AI, look at what comes out, adjust, prompt again, and repeat until something seems right. There's no specification. No clear acceptance criteria. No systematic validation.",
+      "translated": "Vibe Coding feel کے ذریعے ڈویلپمنٹ ہے۔ آپ AI کو prompt کرتے ہیں، دیکھتے ہیں کہ کیا نکلتا ہے، ایڈجسٹ کرتے ہیں، دوبارہ prompt کرتے ہیں، اور تب تک دہراتے ہیں جب تک کچھ درست نہ لگے۔ کوئی specification نہیں ہے۔ کوئی واضح acceptance criteria نہیں ہے۔ کوئی منظم تصدیق نہیں ہے۔",
+      "line_start": 54,
+      "line_end": 55,
+      "context": "paragraph"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "It _feels_ productive. AI is generating code faster than you ever could. Features appear quickly. But underneath:",
+      "translated": "یہ _productive_ لگتا ہے۔ AI کوڈ کو آپ کی کبھی کی ممکنہ رفتار سے تیزی سے تیار کر رہا ہے۔ فیچرز تیزی سے ظاہر ہوتے ہیں۔ لیکن اندر:",
+      "line_start": 56,
+      "line_end": 57,
+      "context": "paragraph"
+    },
+    {
+      "id": 29,
+      "type": "inline",
+      "original": "Each iteration introduces subtle bugs",
+      "translated": "ہر iteration subtle bugs متعارف کراتا ہے",
+      "line_start": 58,
+      "line_end": 59,
+      "context": "list_item"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "No one knows exactly what the system does",
+      "translated": "کوئی بالکل نہیں جانتا کہ سسٹم کیا کرتا ہے",
+      "line_start": 59,
+      "line_end": 60,
+      "context": "list_item"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "Changes break things in unexpected ways",
+      "translated": "تبدیلیاں غیر متوقع طریقوں سے چیزوں کو توڑتی ہیں",
+      "line_start": 60,
+      "line_end": 61,
+      "context": "list_item"
+    },
+    {
+      "id": 32,
+      "type": "inline",
+      "original": "Technical debt compounds invisibly",
+      "translated": "Technical debt خاموشی سے بڑھتا ہے",
+      "line_start": 61,
+      "line_end": 62,
+      "context": "list_item"
+    },
+    {
+      "id": 33,
+      "type": "inline",
+      "original": "The codebase becomes unmaintainable",
+      "translated": "codebase غیر محفوظ ہو جاتا ہے",
+      "line_start": 62,
+      "line_end": 63,
+      "context": "list_item"
+    },
+    {
+      "id": 34,
+      "type": "inline",
+      "original": "**Vibe Coding + AI = Amplified Chaos**",
+      "translated": "**Vibe Coding + AI = Amplified Chaos**",
+      "line_start": 64,
+      "line_end": 65,
+      "context": "paragraph"
+    },
+    {
+      "id": 35,
+      "type": "inline",
+      "original": "Why Discipline Matters More, Not Less",
+      "translated": "نظم و ضبط کیوں زیادہ اہم ہے، کم نہیں",
+      "line_start": 66,
+      "line_end": 67,
+      "context": "heading_h3"
+    },
+    {
+      "id": 36,
+      "type": "inline",
+      "original": "Here's the insight that separates effective AI-native developers from the rest:",
+      "translated": "یہ وہ بصیرت ہے جو مؤثر AI-native ڈویلپرز کو باقی سے الگ کرتی ہے:",
+      "line_start": 68,
+      "line_end": 69,
+      "context": "paragraph"
+    },
+    {
+      "id": 37,
+      "type": "inline",
+      "original": "**AI doesn't make discipline optional. AI makes discipline _critical_.**",
+      "translated": "**AI نظم و ضبط کو اختیاری نہیں بناتا۔ AI نظم و ضبط کو _critical_ بناتا ہے۔**",
+      "line_start": 70,
+      "line_end": 71,
+      "context": "paragraph"
+    },
+    {
+      "id": 38,
+      "type": "inline",
+      "original": "Consider the amplification effect:",
+      "translated": "amplification effect پر غور کریں:",
+      "line_start": 72,
+      "line_end": 73,
+      "context": "paragraph"
+    },
+    {
+      "id": 39,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Your Practice",
+          "translated": "آپ کی مشق"
+        },
+        {
+          "original": "Without AI",
+          "translated": "AI کے بغیر"
+        },
+        {
+          "original": "With AI",
+          "translated": "AI کے ساتھ"
+        }
+      ],
+      "line_start": 74,
+      "line_end": 75,
+      "context": "table"
+    },
+    {
+      "id": 40,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Clear specifications",
+          "translated": "واضح specifications"
+        },
+        {
+          "original": "Good results, slow",
+          "translated": "اچھے نتائج، سست"
+        },
+        {
+          "original": "Excellent results, fast",
+          "translated": "بہترین نتائج، تیز"
+        }
+      ],
+      "line_start": 76,
+      "line_end": 77,
+      "context": "table"
+    },
+    {
+      "id": 41,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Vague requirements",
+          "translated": "مبہم requirements"
+        },
+        {
+          "original": "Mediocre results, slow",
+          "translated": "اوسط نتائج، سست"
+        },
+        {
+          "original": "Terrible results, fast",
+          "translated": "خوفناک نتائج، تیز"
+        }
+      ],
+      "line_start": 77,
+      "line_end": 78,
+      "context": "table"
+    },
+    {
+      "id": 42,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Test-first development",
+          "translated": "Test-first ڈویلپمنٹ"
+        },
+        {
+          "original": "Reliable code",
+          "translated": "قابل اعتماد کوڈ"
+        },
+        {
+          "original": "Reliable code, faster",
+          "translated": "قابل اعتماد کوڈ، تیز"
+        }
+      ],
+      "line_start": 78,
+      "line_end": 79,
+      "context": "table"
+    },
+    {
+      "id": 43,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "No testing",
+          "translated": "کوئی testing نہیں"
+        },
+        {
+          "original": "Fragile code",
+          "translated": "نازک کوڈ"
+        },
+        {
+          "original": "Extremely fragile code, multiplied",
+          "translated": "انتہائی نازک کوڈ، ضرب شدہ"
+        }
+      ],
+      "line_start": 79,
+      "line_end": 80,
+      "context": "table"
+    },
+    {
+      "id": 44,
+      "type": "inline",
+      "original": "AI is an amplifier. It amplifies your good habits _and_ your bad habits. It accelerates your velocity in whatever direction you're already heading.",
+      "translated": "AI ایک amplifier ہے۔ یہ آپ کی اچھی عادتوں _اور_ آپ کی بری عادتوں کو بڑھاتا ہے۔ یہ آپ کی رفتار کو جس بھی سمت میں آپ جا رہے ہیں تیز کرتا ہے۔",
+      "line_start": 81,
+      "line_end": 82,
+      "context": "paragraph"
+    },
+    {
+      "id": 45,
+      "type": "inline",
+      "original": "If you write clear specifications, AI executes them precisely and quickly.",
+      "translated": "اگر آپ واضح specifications لکھتے ہیں، AI انہیں درستگی اور تیزی سے نافذ کرتا ہے۔",
+      "line_start": 83,
+      "line_end": 84,
+      "context": "paragraph"
+    },
+    {
+      "id": 46,
+      "type": "inline",
+      "original": "If you work from vague ideas, AI generates confident-looking code that's wrong in subtle ways—faster than you can catch the errors.",
+      "translated": "اگر آپ مبہم خیالات سے کام کرتے ہیں، AI پراعتماد لگنے والا کوڈ تیار کرتا ہے جو subtle طریقوں سے غلط ہوتا ہے—آپ کی غلطیوں کو پکڑنے کی رفتار سے تیز۔",
+      "line_start": 85,
+      "line_end": 86,
+      "context": "paragraph"
+    },
+    {
+      "id": 47,
+      "type": "inline",
+      "original": "**This is why Spec-Driven Development matters more in the AI era, not less.**",
+      "translated": "**یہی وجہ ہے کہ AI دور میں Spec-Driven Development کم نہیں بلکہ زیادہ اہم ہے۔**",
+      "line_start": 87,
+      "line_end": 88,
+      "context": "paragraph"
+    },
+    {
+      "id": 48,
+      "type": "inline",
+      "original": "How Everything Connects",
+      "translated": "سب کچھ کیسے جڑتا ہے",
+      "line_start": 89,
+      "line_end": 90,
+      "context": "heading_h2"
+    },
+    {
+      "id": 49,
+      "type": "inline",
+      "original": "The concepts from this chapter form an integrated system:",
+      "translated": "اس باب کے تصورات ایک مربوط نظام بناتے ہیں:",
+      "line_start": 91,
+      "line_end": 92,
+      "context": "paragraph"
+    },
+    {
+      "id": 50,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Lesson",
+          "translated": "سبق"
+        },
+        {
+          "original": "Core Concept",
+          "translated": "بنیادی تصور"
+        },
+        {
+          "original": "Connection to Digital FTEs",
+          "translated": "Digital FTEs سے تعلق"
+        }
+      ],
+      "line_start": 93,
+      "line_end": 94,
+      "context": "table"
+    },
+    {
+      "id": 51,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "1",
+          "translated": "1"
+        },
+        {
+          "original": "2025 Inflection Point",
+          "translated": "2025 Inflection Point"
+        },
+        {
+          "original": "AI coding is production-ready—Digital FTEs are now practical",
+          "translated": "AI کوڈنگ production-ready ہے—Digital FTEs اب عملی ہیں"
+        }
+      ],
+      "line_start": 95,
+      "line_end": 96,
+      "context": "table"
+    },
+    {
+      "id": 52,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "2",
+          "translated": "2"
+        },
+        {
+          "original": "Three Core LLM Constraints",
+          "translated": "تین بنیادی LLM پابندیاں"
+        },
+        {
+          "original": "Understanding statelessness, probabilistic outputs, and context limits shapes how you design Digital FTEs",
+          "translated": "statelessness، probabilistic outputs، اور context limits کو سمجھنا آپ کو Digital FTEs کی design بنانے میں مدد کرتا ہے"
+        }
+      ],
+      "line_start": 96,
+      "line_end": 97,
+      "context": "table"
+    },
+    {
+      "id": 53,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "3",
+          "translated": "3"
+        },
+        {
+          "original": "From Coder to Orchestrator",
+          "translated": "Coder سے Orchestrator تک"
+        },
+        {
+          "original": "You manage Digital FTEs, you don't compete with them",
+          "translated": "آپ Digital FTEs کا انتظام کرتے ہیں، ان کے ساتھ مقابلہ نہیں کرتے"
+        }
+      ],
+      "line_start": 97,
+      "line_end": 98,
+      "context": "table"
+    },
+    {
+      "id": 54,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "4",
+          "translated": "4"
+        },
+        {
+          "original": "Five Powers & AI Stack",
+          "translated": "Five Powers & AI Stack"
+        },
+        {
+          "original": "Digital FTEs combine See, Hear, Reason, Act, Remember via MCP",
+          "translated": "Digital FTEs MCP کے ذریعے See، Hear، Reason، Act، Remember کو ملاتے ہیں"
+        }
+      ],
+      "line_start": 98,
+      "line_end": 99,
+      "context": "table"
+    },
+    {
+      "id": 55,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "5",
+          "translated": "5"
+        },
+        {
+          "original": "AIFF Standards",
+          "translated": "AIFF Standards"
+        },
+        {
+          "original": "AGENTS.md, Skills, and MCP make Digital FTEs portable and reliable",
+          "translated": "AGENTS.md، Skills، اور MCP Digital FTEs کو portable اور reliable بناتے ہیں"
+        }
+      ],
+      "line_start": 99,
+      "line_end": 100,
+      "context": "table"
+    },
+    {
+      "id": 56,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "6",
+          "translated": "6"
+        },
+        {
+          "original": "Digital FTE Strategy",
+          "translated": "Digital FTE Strategy"
+        },
+        {
+          "original": "Business case: specialized roles, cost structure, ROI",
+          "translated": "Business case: خصوصی کردار، cost structure، ROI"
+        }
+      ],
+      "line_start": 100,
+      "line_end": 101,
+      "context": "table"
+    },
+    {
+      "id": 57,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "7",
+          "translated": "7"
+        },
+        {
+          "original": "Nine Pillars",
+          "translated": "Nine Pillars"
+        },
+        {
+          "original": "Digital FTEs are the natural evolution of AI-Native Design",
+          "translated": "Digital FTEs AI-Native Design کی قدرتی ارتقاء ہیں"
+        }
+      ],
+      "line_start": 101,
+      "line_end": 102,
+      "context": "table"
+    },
+    {
+      "id": 58,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "8",
+          "translated": "8"
+        },
+        {
+          "original": "Spec-Driven Development",
+          "translated": "Spec-Driven Development"
+        },
+        {
+          "original": "The methodology that lets you delegate to Digital FTEs reliably",
+          "translated": "وہ طریقہ کار جو آپ کو Digital FTEs کو قابل اعتماد طریقے سے کام سونپنے دیتا ہے"
+        }
+      ],
+      "line_start": 102,
+      "line_end": 103,
+      "context": "table"
+    },
+    {
+      "id": 59,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "10",
+          "translated": "10"
+        },
+        {
+          "original": "Selling to Enterprises",
+          "translated": "Enterprises کو فروخت کرنا"
+        },
+        {
+          "original": "How to bring Digital FTEs to market and capture the $100-400B opportunity",
+          "translated": "Digital FTEs کو مارکیٹ میں کیسے لائیں اور $100-400B کا موقع کیسے حاصل کریں"
+        }
+      ],
+      "line_start": 103,
+      "line_end": 104,
+      "context": "table"
+    },
+    {
+      "id": 60,
+      "type": "inline",
+      "original": "Each concept builds on the others. The Five Powers require the AI Stack. Digital FTEs require AIFF Standards to be portable. Spec-Driven Development is how you direct them.",
+      "translated": "ہر تصور دوسرے پر تعمیر ہوتا ہے۔ Five Powers کو AI Stack کی ضرورت ہے۔ Digital FTEs کو portable ہونے کے لیے AIFF Standards کی ضرورت ہے۔ Spec-Driven Development وہ طریقہ ہے جس سے آپ انہیں ہدایت دیتے ہیں۔",
+      "line_start": 105,
+      "line_end": 106,
+      "context": "paragraph"
+    },
+    {
+      "id": 61,
+      "type": "inline",
+      "original": "The Multiplier Effect",
+      "translated": "The Multiplier Effect",
+      "line_start": 107,
+      "line_end": 108,
+      "context": "heading_h2"
+    },
+    {
+      "id": 62,
+      "type": "inline",
+      "original": "Before you move on, understand this:",
+      "translated": "آگے بڑھنے سے پہلے، یہ سمجھیں:",
+      "line_start": 109,
+      "line_end": 110,
+      "context": "paragraph"
+    },
+    {
+      "id": 63,
+      "type": "inline",
+      "original": "**Everything you learn in this book compounds.**",
+      "translated": "**آپ اس کتاب میں جو کچھ سیکھتے ہیں وہ compound ہوتا ہے۔**",
+      "line_start": 111,
+      "line_end": 112,
+      "context": "paragraph"
+    },
+    {
+      "id": 64,
+      "type": "inline",
+      "original": "Clear specifications make AI execution precise",
+      "translated": "واضح specifications AI execution کو درست بناتی ہیں",
+      "line_start": 113,
+      "line_end": 114,
+      "context": "list_item"
+    },
+    {
+      "id": 65,
+      "type": "inline",
+      "original": "Precise execution enables reliable Custom Agents",
+      "translated": "درست execution قابل اعتماد Custom Agents کو ممکن بناتا ہے",
+      "line_start": 114,
+      "line_end": 115,
+      "context": "list_item"
+    },
+    {
+      "id": 66,
+      "type": "inline",
+      "original": "Reliable Custom Agents become Digital FTEs",
+      "translated": "قابل اعتماد Custom Agents Digital FTEs بن جاتے ہیں",
+      "line_start": 115,
+      "line_end": 116,
+      "context": "list_item"
+    },
+    {
+      "id": 67,
+      "type": "inline",
+      "original": "Digital FTEs multiply your capacity",
+      "translated": "Digital FTEs آپ کی صلاحیت کو ضرب دیتے ہیں",
+      "line_start": 116,
+      "line_end": 117,
+      "context": "list_item"
+    },
+    {
+      "id": 68,
+      "type": "inline",
+      "original": "Multiplied capacity lets you tackle larger problems",
+      "translated": "ضرب شدہ صلاحیت آپ کو بڑے مسائل کو حل کرنے دیتی ہے",
+      "line_start": 117,
+      "line_end": 118,
+      "context": "list_item"
+    },
+    {
+      "id": 69,
+      "type": "inline",
+      "original": "Larger problems require even better specifications",
+      "translated": "بڑے مسائل کو اور بہتر specifications کی ضرورت ہوتی ہے",
+      "line_start": 118,
+      "line_end": 119,
+      "context": "list_item"
+    },
+    {
+      "id": 70,
+      "type": "inline",
+      "original": "This is a virtuous cycle. The developers who master specification-first thinking will build capabilities that developers stuck in Vibe Coding cannot match.",
+      "translated": "یہ ایک virtuous cycle ہے۔ وہ ڈویلپرز جو specification-first سوچ میں مہارت حاصل کرتے ہیں وہ ایسی صلاحیتیں بنائیں گے جو Vibe Coding میں پھنسے ڈویلپرز مقابلہ نہیں کر سکتے۔",
+      "line_start": 120,
+      "line_end": 121,
+      "context": "paragraph"
+    },
+    {
+      "id": 71,
+      "type": "inline",
+      "original": "The gap will widen with every generation of AI tools.",
+      "translated": "یہ فرق AI tools کی ہر نسل کے ساتھ بڑھتا جائے گا۔",
+      "line_start": 122,
+      "line_end": 123,
+      "context": "paragraph"
+    },
+    {
+      "id": 72,
+      "type": "inline",
+      "original": "Your Choice",
+      "translated": "آپ کا انتخاب",
+      "line_start": 124,
+      "line_end": 125,
+      "context": "heading_h2"
+    },
+    {
+      "id": 73,
+      "type": "inline",
+      "original": "You've seen the evidence. You understand the paradigm. You know the difference between tools and teammates, between Vibe Coding and Spec-Driven Development.",
+      "translated": "آپ نے ثبوت دیکھا ہے۔ آپ paradigm کو سمجھتے ہیں۔ آپ کو tools اور teammates کے درمیان فرق معلوم ہے، Vibe Coding اور Spec-Driven Development کے درمیان فرق معلوم ہے۔",
+      "line_start": 126,
+      "line_end": 127,
+      "context": "paragraph"
+    },
+    {
+      "id": 74,
+      "type": "inline",
+      "original": "Now you choose:",
+      "translated": "اب آپ انتخاب کریں:",
+      "line_start": 128,
+      "line_end": 129,
+      "context": "paragraph"
+    },
+    {
+      "id": 75,
+      "type": "inline",
+      "original": "**Path A**: Treat AI as a faster keyboard. Vibe Code your way through projects. Generate code quickly without clear specifications. Watch technical debt compound while competitors build systematic capabilities.",
+      "translated": "**راستہ A**: AI کو تیز keyboard سمجھیں۔ پروجیکٹس میں Vibe Code کریں۔ واضح specifications کے بغیر تیزی سے کوڈ تیار کریں۔ دیکھیں کہ technical debt compound ہوتا ہے جبکہ competitors منظم صلاحیتیں بناتے ہیں۔",
+      "line_start": 130,
+      "line_end": 131,
+      "context": "paragraph"
+    },
+    {
+      "id": 76,
+      "type": "inline",
+      "original": "**Path B**: Master the Agent Factory paradigm. Write clear specifications. Build Digital FTEs that reliably handle specialized functions. Multiply your capacity systematically.",
+      "translated": "**راستہ B**: Agent Factory paradigm میں مہارت حاصل کریں۔ واضح specifications لکھیں۔ Digital FTEs بنائیں جو خصوصی فنکشنز کو قابل اعتماد طریقے سے سنبھالتے ہیں۔ اپنی صلاحیت کو منظم طریقے سے ضرب دیں۔",
+      "line_start": 132,
+      "line_end": 133,
+      "context": "paragraph"
+    },
+    {
+      "id": 77,
+      "type": "inline",
+      "original": "This book teaches Path B.",
+      "translated": "یہ کتاب راستہ B سکھاتی ہے۔",
+      "line_start": 134,
+      "line_end": 135,
+      "context": "paragraph"
+    },
+    {
+      "id": 78,
+      "type": "inline",
+      "original": "Chapter Summary",
+      "translated": "باب کا خلاصہ",
+      "line_start": 136,
+      "line_end": 137,
+      "context": "heading_h2"
+    },
+    {
+      "id": 79,
+      "type": "inline",
+      "original": "In this chapter, you learned:",
+      "translated": "اس باب میں، آپ نے سیکھا:",
+      "line_start": 138,
+      "line_end": 139,
+      "context": "paragraph"
+    },
+    {
+      "id": 80,
+      "type": "inline",
+      "original": "**The 2025 Inflection Point** (Lesson 1): Concrete evidence that AI coding reached production quality—ICPC perfect scores, 84% developer adoption, $3 trillion economy transformation.",
+      "translated": "**The 2025 Inflection Point** (سبق 1): ٹھوس ثبوت کہ AI کوڈنگ production quality تک پہنچی—ICPC perfect scores، 84% developer adoption، $3 trillion economy transformation۔",
+      "line_start": 140,
+      "line_end": 141,
+      "context": "list_item"
+    },
+    {
+      "id": 81,
+      "type": "inline",
+      "original": "**Three Core Operational Constraints of LLMs** (Lesson 2): LLMs are stateless (no memory between sessions), probabilistic (variable outputs from identical inputs), and context-limited (finite working memory). These constraints explain why methodologies like SDD, AGENTS.md, and context engineering exist.",
+      "translated": "**LLMs کی تین بنیادی آپریشنل پابندیاں** (سبق 2): LLMs stateless ہیں (sessions کے درمیان کوئی memory نہیں)، probabilistic ہیں (ایک جیسے inputs سے متغیر outputs)، اور context-limited ہیں (محدود working memory)۔ یہ پابندیاں وضاحت کرتی ہیں کہ SDD، AGENTS.md، اور context engineering جیسی methodologies کیوں موجود ہیں۔",
+      "line_start": 142,
+      "line_end": 143,
+      "context": "list_item"
+    },
+    {
+      "id": 82,
+      "type": "inline",
+      "original": "**From Coder to Orchestrator** (Lesson 3): Your role shifts from typing code to directing AI. The 10% you contribute—judgment, specifications, validation—becomes infinitely more valuable.",
+      "translated": "**Coder سے Orchestrator تک** (سبق 3): آپ کا کردار کوڈ ٹائپ کرنے سے AI کو ہدایت دینے کی طرف منتقل ہوتا ہے۔ آپ کا 10% حصہ—فیصلہ، specifications، تصدیق—لامحدود زیادہ قیمتی بن جاتا ہے۔",
+      "line_start": 144,
+      "line_end": 145,
+      "context": "list_item"
+    },
+    {
+      "id": 83,
+      "type": "inline",
+      "original": "**The Five Powers & AI Stack** (Lesson 4): Agents combine See, Hear, Reason, Act, and Remember via a three-layer stack (Frontier Models → AI-First IDEs → Development Agents) connected by MCP.",
+      "translated": "**The Five Powers & AI Stack** (سبق 4): Agents MCP سے منسلک تین تہوں والے stack (Frontier Models → AI-First IDEs → Development Agents) کے ذریعے See، Hear، Reason، Act، اور Remember کو ملاتے ہیں۔",
+      "line_start": 146,
+      "line_end": 147,
+      "context": "list_item"
+    },
+    {
+      "id": 84,
+      "type": "inline",
+      "original": "**AIFF Standards Foundation** (Lesson 5): The governance body and three standards (AGENTS.md, Agent Skills, MCP) that make agents portable, reliable, and interoperable.",
+      "translated": "**AIFF Standards Foundation** (سبق 5): governance body اور تین standards (AGENTS.md، Agent Skills، MCP) جو agents کو portable، reliable، اور interoperable بناتے ہیں۔",
+      "line_start": 148,
+      "line_end": 149,
+      "context": "list_item"
+    },
+    {
+      "id": 85,
+      "type": "inline",
+      "original": "**Digital FTE Business Strategy** (Lesson 6): How specialized AI agents map to business roles, their cost structure compared to humans, and the strategic advantages they offer.",
+      "translated": "**Digital FTE Business Strategy** (سبق 6): خصوصی AI agents business roles سے کیسے ملتے ہیں، انسانوں کے مقابلے میں ان کی cost structure، اور وہ حکمت عملی کے فوائد جو وہ پیش کرتے ہیں۔",
+      "line_start": 150,
+      "line_end": 151,
+      "context": "list_item"
+    },
+    {
+      "id": 86,
+      "type": "inline",
+      "original": "**Nine Pillars of AI-Native Design** (Lesson 7): Design principles from intent-based UI to progressive disclosure that define the AI-Native Development paradigm.",
+      "translated": "**AI-Native Design کے Nine Pillars** (سبق 7): intent-based UI سے progressive disclosure تک design principles جو AI-Native Development paradigm کی تعریف کرتے ہیں۔",
+      "line_start": 152,
+      "line_end": 153,
+      "context": "list_item"
+    },
+    {
+      "id": 87,
+      "type": "inline",
+      "original": "**Spec-Driven Development** (Lesson 8): The four-phase methodology (specify → clarify → plan → implement) that makes AI collaboration effective.",
+      "translated": "**Spec-Driven Development** (سبق 8): چار مرحلے کی طریقہ کار (specify → clarify → plan → implement) جو AI collaboration کو مؤثر بناتی ہے۔",
+      "line_start": 154,
+      "line_end": 155,
+      "context": "list_item"
+    },
+    {
+      "id": 88,
+      "type": "inline",
+      "original": "**The Digital FTE Vision** (this lesson): Custom Agents and General Agents can become Digital Full-Time Employees. AI amplifies your habits—so discipline matters more, not less.",
+      "translated": "**The Digital FTE Vision** (یہ سبق): Custom Agents اور General Agents Digital Full-Time Employees بن سکتے ہیں۔ AI آپ کی عادتوں کو بڑھاتا ہے—اس لیے نظم و ضبط کم نہیں بلکہ زیادہ اہم ہے۔",
+      "line_start": 156,
+      "line_end": 157,
+      "context": "list_item"
+    },
+    {
+      "id": 89,
+      "type": "inline",
+      "original": "**Selling Agentic AI Services** (Lesson 10): The $100-400 billion market opportunity, enterprise buying patterns, four value propositions, and outcome-based pricing models for selling your Digital FTE solutions.",
+      "translated": "**Selling Agentic AI Services** (سبق 10): $100-400 billion مارکیٹ کا موقع، enterprise buying patterns، چار value propositions، اور آپ کے Digital FTE solutions کو فروخت کرنے کے لیے outcome-based pricing models۔",
+      "line_start": 158,
+      "line_end": 159,
+      "context": "list_item"
+    },
+    {
+      "id": 90,
+      "type": "inline",
+      "original": "You now have the mental models for AI-native development—and the business strategy to monetize them.",
+      "translated": "اب آپ کے پاس AI-native ڈویلپمنٹ کے لیے ذہنی ماڈلز ہیں—اور انہیں monetize کرنے کی business strategy۔",
+      "line_start": 160,
+      "line_end": 161,
+      "context": "paragraph"
+    },
+    {
+      "id": 91,
+      "type": "inline",
+      "original": "**Next**: Lesson 10: Selling Agentic AI Services teaches you how to bring your Digital FTE capabilities to market, covering enterprise sales positioning, the four value propositions, and outcome-based commercial models.",
+      "translated": "**آگے**: سبق 10: Selling Agentic AI Services آپ کو سکھاتا ہے کہ اپنے Digital FTE capabilities کو مارکیٹ میں کیسے لائیں، enterprise sales positioning، چار value propositions، اور outcome-based commercial models کا احاطہ کرتے ہوئے۔",
+      "line_start": 162,
+      "line_end": 163,
+      "context": "paragraph"
+    },
+    {
+      "id": 92,
+      "type": "inline",
+      "original": "Try With AI",
+      "translated": "AI کے ساتھ آزمائیں",
+      "line_start": 164,
+      "line_end": 165,
+      "context": "heading_h2"
+    },
+    {
+      "id": 93,
+      "type": "inline",
+      "original": "**Reflection Exercise**",
+      "translated": "**Reflection Exercise**",
+      "line_start": 166,
+      "line_end": 167,
+      "context": "paragraph"
+    },
+    {
+      "id": 94,
+      "type": "inline",
+      "original": "Ask Claude Code (or your preferred AI assistant):",
+      "translated": "Claude Code (یا اپنے پسندیدہ AI assistant) سے پوچھیں:",
+      "line_start": 168,
+      "line_end": 169,
+      "context": "paragraph"
+    },
+    {
+      "id": 95,
+      "type": "inline",
+      "original": "**What you're learning:** Connecting abstract concepts to your actual work patterns. This reflection helps you identify where Spec-Driven Development will have the biggest impact on your current projects.",
+      "translated": "**آپ کیا سیکھ رہے ہیں:** abstract concepts کو اپنے اصل کام کے patterns سے جوڑنا۔ یہ reflection آپ کو یہ معلوم کرنے میں مدد دیتی ہے کہ Spec-Driven Development آپ کے موجودہ پروجیکٹس پر کہاں سب سے بڑا اثر ڈالے گا۔",
+      "line_start": 185,
+      "line_end": 186,
+      "context": "paragraph"
+    },
+    {
+      "id": 96,
+      "type": "inline",
+      "original": "**Synthesis Exercise**",
+      "translated": "**Synthesis Exercise**",
+      "line_start": 187,
+      "line_end": 188,
+      "context": "paragraph"
+    },
+    {
+      "id": 97,
+      "type": "inline",
+      "original": "Ask Claude Code:",
+      "translated": "Claude Code سے پوچھیں:",
+      "line_start": 189,
+      "line_end": 190,
+      "context": "paragraph"
+    },
+    {
+      "id": 98,
+      "type": "inline",
+      "original": "**What you're learning:** How the chapter's concepts integrate in practice. This synthesis exercise shows you how to apply the mental model to a real Digital FTE you might build.",
+      "translated": "**آپ کیا سیکھ رہے ہیں:** باب کے concepts عملی طور پر کیسے integrate ہوتے ہیں۔ یہ synthesis exercise آپ کو دکھاتی ہے کہ آپ ذہنی ماڈل کو ایک حقیقی Digital FTE پر کیسے لاگو کر سکتے ہیں جو آپ بنا سکتے ہیں۔",
+      "line_start": 208,
+      "line_end": 209,
+      "context": "paragraph"
+    },
+    {
+      "id": 99,
+      "type": "inline",
+      "original": "**Note**: Start with non-sensitive projects. Review changes before accepting.",
+      "translated": "**نوٹ**: non-sensitive پروجیکٹس سے شروع کریں۔ قبول کرنے سے پہلے تبدیلیوں کا جائزہ لیں۔",
+      "line_start": 210,
+      "line_end": 211,
+      "context": "paragraph"
+    }
+  ],
+  "admonition_segments": [],
+  "mdx_protected_lines": {},
+  "admonition_markers": []
+}

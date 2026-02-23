@@ -1,0 +1,1783 @@
+{
+  "source_file": "D:/agentfactory-main/agentfactory-main/apps/learn-app/docs/01-General-Agents-Foundations/01-agent-factory-paradigm/02-three-core-llm-constraints.md",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 161,
+  "frontmatter_segments": [
+    {
+      "id": "fm_1",
+      "key": "title",
+      "original": "The Three Core Operational Constraints of LLMs",
+      "translated": "LLMs کی تین بنیادی آپریشنل رکاوٹیں",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_5",
+      "key": "description",
+      "original": "Understanding the fundamental constraints of Large Language Models—statelessness, probabilistic outputs, and limited context—that shape every AI-native development methodology",
+      "translated": "بڑے لسانی ماڈلز کی بنیادی رکاوٹوں کو سمجھنا — بے ریاستی، امکانی آؤٹ پٹ، اور محدود سیاق و سباق — جو ہر AI-آبائی ترقیاتی طریقہ کار کو تشکیل دیتے ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 5,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_11",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 11,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_12",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "تصوراتی",
+      "context": "frontmatter",
+      "line_in_fm": 12,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_13",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 13,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_14",
+      "key": "digcomp_area",
+      "original": "Information Literacy",
+      "translated": "معلوماتی خواندگی",
+      "context": "frontmatter",
+      "line_in_fm": 14,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_15",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain why LLMs don't remember previous conversations and how applications simulate memory by re-sending conversation history",
+      "translated": "طالب علم وضاحت کر سکتا ہے کہ LLMs پچھلی گفتگو کو کیوں یاد نہیں رکھتے اور ایپلی کیشنز گفتگو کی تاریخ کو دوبارہ بھیج کر میموری کی نقل کیسے کرتی ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 15,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_18",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 18,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_19",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "تصوراتی",
+      "context": "frontmatter",
+      "line_in_fm": 19,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_20",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 20,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_21",
+      "key": "digcomp_area",
+      "original": "Computational Thinking",
+      "translated": "کمپیوٹیشنل سوچ",
+      "context": "frontmatter",
+      "line_in_fm": 21,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_22",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain why the same prompt produces different outputs and how temperature affects variability",
+      "translated": "طالب علم وضاحت کر سکتا ہے کہ ایک ہی پرامپٹ مختلف آؤٹ پٹ کیوں پیدا کرتا ہے اور درجہ حرارت متغیر کو کیسے متاثر کرتا ہے۔",
+      "context": "frontmatter",
+      "line_in_fm": 22,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_25",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 25,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_26",
+      "key": "category",
+      "original": "Technical",
+      "translated": "تکنیکی",
+      "context": "frontmatter",
+      "line_in_fm": 26,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_27",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 27,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_28",
+      "key": "digcomp_area",
+      "original": "Information Literacy",
+      "translated": "معلوماتی خواندگی",
+      "context": "frontmatter",
+      "line_in_fm": 28,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_29",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain context window sizes for major models (Claude, GPT, Gemini) and why large codebases don't fit entirely",
+      "translated": "طالب علم بڑے ماڈلز (کلاڈ، جی پی ٹی، جیمنی) کے لیے سیاق و سباق کی کھڑکی کے سائز کی وضاحت کر سکتا ہے اور یہ کہ بڑے کوڈ بیس مکمل طور پر کیوں فٹ نہیں ہوتے ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 29,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_32",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 32,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_33",
+      "key": "category",
+      "original": "Applied",
+      "translated": "اطلاقی",
+      "context": "frontmatter",
+      "line_in_fm": 33,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_34",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "درخواست دیں",
+      "context": "frontmatter",
+      "line_in_fm": 34,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_35",
+      "key": "digcomp_area",
+      "original": "Problem-Solving",
+      "translated": "مسئلہ حل کرنا",
+      "context": "frontmatter",
+      "line_in_fm": 35,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_36",
+      "key": "measurable_at_this_level",
+      "original": "Student can make decisions about what context to include in prompts and understand why AGENTS.md and specifications exist",
+      "translated": "طالب علم پرامپٹس میں کیا سیاق و سباق شامل کرنا ہے اس کے بارے میں فیصلے کر سکتا ہے اور سمجھ سکتا ہے کہ AGENTS.md اور تفصیلات کیوں موجود ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 36,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_40",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 40,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_41",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 41,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_42",
+      "key": "assessment_method",
+      "original": "Student can diagram how conversation history is re-sent with each API call and explain why persistent files (AGENTS.md) are necessary",
+      "translated": "طالب علم اس بات کا خاکہ بنا سکتا ہے کہ ہر API کال کے ساتھ گفتگو کی تاریخ کو کیسے دوبارہ بھیجا جاتا ہے اور وضاحت کر سکتا ہے کہ مستقل فائلیں (AGENTS.md) کیوں ضروری ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 42,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_45",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 45,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_46",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 46,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_47",
+      "key": "assessment_method",
+      "original": "Student can explain why validation is mandatory rather than optional and why iteration should be expected",
+      "translated": "طالب علم وضاحت کر سکتا ہے کہ توثیق اختیاری کے بجائے لازمی کیوں ہے اور تکرار کی توقع کیوں کی جانی چاہئے۔",
+      "context": "frontmatter",
+      "line_in_fm": 47,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_50",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 50,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_51",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "درخواست دیں",
+      "context": "frontmatter",
+      "line_in_fm": 51,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_52",
+      "key": "assessment_method",
+      "original": "Given a development scenario, student can identify what context is essential vs. noise and explain trade-offs",
+      "translated": "ایک ترقیاتی منظرنامہ دیا گیا ہے، طالب علم اس بات کی نشاندہی کرسکتا ہے کہ کون سا سیاق و سباق ضروری ہے بمقابلہ شور اور تجارت کی وضاحت کرتا ہے۔",
+      "context": "frontmatter",
+      "line_in_fm": 52,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_56",
+      "key": "assessment",
+      "original": "6 concepts (statelessness, conversation history illusion, probabilistic outputs, temperature, context window, context engineering) within A1-A2 range (5-7)",
+      "translated": "A1-A2 رینج (5-7) کے اندر 6 تصورات (بے ریاستی، گفتگو کی تاریخ کا وہم، امکانی آؤٹ پٹ، درجہ حرارت، سیاق و سباق کی کھڑکی، سیاق و سباق کی انجینئرنگ)",
+      "context": "frontmatter",
+      "line_in_fm": 56,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_59",
+      "key": "extension_for_advanced",
+      "original": "Explore how RAG (Retrieval Augmented Generation) and vector databases address context limitations; research how different temperature settings affect code generation quality",
+      "translated": "دریافت کریں کہ RAG (بازیافت بڑھا ہوا جنریشن) اور ویکٹر ڈیٹا بیس سیاق و سباق کی حدود کو کیسے حل کرتے ہیں؛ تحقیق کریں کہ مختلف درجہ حرارت کی ترتیبات کوڈ جنریشن کے معیار کو کیسے متاثر کرتی ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 59,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_60",
+      "key": "remedial_for_struggling",
+      "original": "Focus on the three constraints as simple rules: 'It forgets everything' (stateless), 'It varies' (probabilistic), 'It can only see so much' (context limits)",
+      "translated": "تین رکاوٹوں پر سادہ اصولوں کے طور پر توجہ دیں: 'یہ سب کچھ بھول جاتا ہے' (بے ریاست)، 'یہ مختلف ہوتا ہے' (امکانی)، 'یہ صرف اتنا ہی دیکھ سکتا ہے' (سیاق و سباق کی حدود)",
+      "context": "frontmatter",
+      "line_in_fm": 60,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_63",
+      "key": "lesson_type",
+      "original": "core",
+      "translated": "بنیادی",
+      "context": "frontmatter",
+      "line_in_fm": 63,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_65",
+      "key": "session_title",
+      "original": "The AI Development Landscape",
+      "translated": "AI ترقیاتی منظرنامہ",
+      "context": "frontmatter",
+      "line_in_fm": 65,
+      "quote_char": "\""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "The Three Core Operational Constraints of LLMs",
+      "translated": "LLMs کی تین بنیادی آپریشنل رکاوٹیں",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "heading_h1"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "Before you can effectively orchestrate AI agents or build Digital FTEs, you need to understand the fundamental nature of the technology you're working with. Large Language Models (LLMs)—the reasoning engines powering Claude Opus 4.5, GPT-5.2, Gemini 3, and every AI coding agent built on them—operate under three core constraints that shape everything about how you work with them. Misunderstanding these constraints is the root cause of most frustrations developers have with AI tools.",
+      "translated": "اس سے پہلے کہ آپ مؤثر طریقے سے AI ایجنٹوں کو ترتیب دے سکیں یا ڈیجیٹل FTEs بنا سکیں، آپ کو اس ٹیکنالوجی کی بنیادی نوعیت کو سمجھنے کی ضرورت ہے جس کے ساتھ آپ کام کر رہے ہیں۔ بڑے لسانی ماڈلز (LLMs) — جو کلاڈ اوپس 4.5، GPT-5.2، جیمنی 3، اور ان پر بنے ہر AI کوڈنگ ایجنٹ کو طاقت دینے والے استدلال کے انجن ہیں — تین بنیادی رکاوٹوں کے تحت کام کرتے ہیں جو آپ ان کے ساتھ کام کرنے کے طریقے کے بارے میں ہر چیز کو تشکیل دیتے ہیں۔ ان رکاوٹوں کو غلط سمجھنا زیادہ تر مایوسیوں کی بنیادی وجہ ہے جو ڈویلپرز کو AI ٹولز کے ساتھ ہوتی ہے۔",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "These aren't bugs to be fixed or limitations to be worked around. They're fundamental characteristics of how LLMs work. Every methodology in this book—from Spec-Driven Development to context engineering to the OODA loop—exists because of these constraints. Understanding them transforms you from someone who fights the technology to someone who works with it.",
+      "translated": "یہ ٹھیک کرنے کے لیے کیڑے یا کام کرنے کے لیے حدود نہیں ہیں۔ یہ LLMs کے کام کرنے کے طریقے کی بنیادی خصوصیات ہیں۔ اس کتاب میں ہر طریقہ کار — اسپیک سے چلنے والی ترقی سے لے کر سیاق و سباق کی انجینئرنگ سے لے کر OODA لوپ تک — ان رکاوٹوں کی وجہ سے موجود ہے۔ انہیں سمجھنا آپ کو ٹیکنالوجی سے لڑنے والے سے اس کے ساتھ کام کرنے والے میں بدل دیتا ہے۔",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "paragraph"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "Constraint 1: LLMs Are Stateless",
+      "translated": "رکاوٹ 1: LLMs بے ریاست ہیں۔",
+      "line_start": 9,
+      "line_end": 10,
+      "context": "heading_h2"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "**The Reality**: Every time you send a message to an LLM, it has no memory of previous interactions. The model doesn't \"remember\" your last conversation, your preferences, or even what you said five minutes ago in the same chat session. This is true for every model—Claude Opus 4.5, GPT-5.2, Gemini 3—regardless of how advanced they are.",
+      "translated": "**حقیقت**: جب بھی آپ کسی LLM کو پیغام بھیجتے ہیں، اس کے پاس پچھلی بات چیت کی کوئی یادداشت نہیں ہوتی ہے۔ ماڈل آپ کی آخری گفتگو، آپ کی ترجیحات، یا یہاں تک کہ آپ نے پانچ منٹ پہلے اسی چیٹ سیشن میں کیا کہا تھا اسے \"یاد\" نہیں رکھتا ہے۔ یہ ہر ماڈل کے لیے سچ ہے — کلاڈ اوپس 4.5، GPT-5.2، جیمنی 3 — چاہے وہ کتنے ہی جدید کیوں نہ ہوں۔",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "paragraph"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "**What \"Stateless\" Actually Means**:",
+      "translated": "**\"بے ریاست\" کا اصل مطلب کیا ہے**:",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "paragraph"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "Think of each API call to an LLM as a completely fresh start—like talking to someone with total amnesia. The model receives your message, processes it, generates a response, and then immediately forgets everything. The next message arrives to a blank slate.",
+      "translated": "ایل ایل ایم کو ہر API کال کو ایک مکمل نئی شروعات کے طور پر سوچیں—جیسے کسی ایسے شخص سے بات کرنا جسے مکمل بھولنے کی بیماری ہو۔ ماڈل آپ کا پیغام وصول کرتا ہے، اس پر کارروائی کرتا ہے، جواب دیتا ہے، اور پھر فوراً سب کچھ بھول جاتا ہے۔ اگلا پیغام ایک خالی سلیٹ پر آتا ہے۔",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "paragraph"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**The Illusion of Memory**:",
+      "translated": "**یادداشت کا وہم**:",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "paragraph"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "When you have a conversation in ChatGPT or Claude, it *appears* the model remembers earlier messages. But here's what's actually happening: the application (not the model) stores your conversation history, and with each new message, the entire conversation is re-sent to the model. The model reads the whole conversation from scratch every single time.",
+      "translated": "جب آپ ChatGPT یا Claude میں گفتگو کرتے ہیں، تو ایسا *لگتا* ہے کہ ماڈل پہلے کے پیغامات کو یاد رکھتا ہے۔ لیکن یہاں اصل میں کیا ہو رہا ہے: ایپلی کیشن (ماڈل نہیں) آپ کی گفتگو کی تاریخ کو ذخیرہ کرتی ہے، اور ہر نئے پیغام کے ساتھ، پوری گفتگو ماڈل کو دوبارہ بھیجی جاتی ہے۔ ماڈل ہر بار شروع سے پوری گفتگو پڑھتا ہے۔",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "paragraph"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**Why This Matters for AI-Native Development**:",
+      "translated": "**یہ AI-آبائی ترقی کے لیے کیوں اہمیت رکھتا ہے**:",
+      "line_start": 34,
+      "line_end": 35,
+      "context": "paragraph"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "**Context must be explicitly provided**: The model doesn't know about your project unless you tell it—every time. This is why AGENTS.md exists: it provides persistent context that gets loaded into every interaction.",
+      "translated": "**سیاق و سباق کو واضح طور پر فراہم کیا جانا چاہئے**: ماڈل آپ کے پروجیکٹ کے بارے میں نہیں جانتا جب تک کہ آپ اسے نہ بتائیں—ہر بار۔ یہی وجہ ہے کہ AGENTS.md موجود ہے: یہ مستقل سیاق و سباق فراہم کرتا ہے جو ہر تعامل میں بھرا جاتا ہے۔",
+      "line_start": 36,
+      "line_end": 37,
+      "context": "list_item"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "**Specifications aren't optional—they're essential**: When you provide a detailed specification, you're not just being thorough; you're giving the model the only information it will ever have about your requirements.",
+      "translated": "**تفصیلات اختیاری نہیں ہیں—وہ ضروری ہیں**: جب آپ تفصیلی تفصیلات فراہم کرتے ہیں، تو آپ صرف مکمل نہیں ہو رہے ہوتے ہیں؛ آپ ماڈل کو وہ واحد معلومات دے رہے ہوتے ہیں جو اسے آپ کی ضروریات کے بارے میں کبھی حاصل ہوگی۔",
+      "line_start": 38,
+      "line_end": 39,
+      "context": "list_item"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "**Session continuity is an application feature, not a model feature**: Tools like Claude Code maintain context by re-injecting it with every interaction. Understanding this helps you work within the system rather than expecting \"memory\" that doesn't exist.",
+      "translated": "**سیشن کا تسلسل ایک ایپلی کیشن کی خصوصیت ہے، ماڈل کی خصوصیت نہیں**: کلاڈ کوڈ جیسے اوزار ہر تعامل کے ساتھ اسے دوبارہ داخل کرکے سیاق و سباق کو برقرار رکھتے ہیں۔ اسے سمجھنا آپ کو نظام کے اندر کام کرنے میں مدد کرتا ہے بجائے اس کے کہ ایسی \"یادداشت\" کی توقع کریں جو موجود نہیں ہے۔",
+      "line_start": 40,
+      "line_end": 41,
+      "context": "list_item"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "**Long projects require explicit state management**: For complex projects, you need to maintain specifications, decisions, and context in files (like SPEC.md or PROJECT_CONTEXT.md) that can be re-loaded into each session.",
+      "translated": "**طویل منصوبوں کے لیے واضح ریاستی انتظام کی ضرورت ہوتی ہے**: پیچیدہ منصوبوں کے لیے، آپ کو فائلوں (جیسے SPEC.md یا PROJECT_CONTEXT.md) میں تفصیلات، فیصلے، اور سیاق و سباق کو برقرار رکھنے کی ضرورت ہے جنہیں ہر سیشن میں دوبارہ بھرا جاسکتا ہے۔",
+      "line_start": 42,
+      "line_end": 43,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "**Practical Implications**:",
+      "translated": "**عملی مضمرات**:",
+      "line_start": 44,
+      "line_end": 45,
+      "context": "paragraph"
+    },
+    {
+      "id": 15,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "What You Might Expect",
+          "translated": "آپ کیا توقع کرسکتے ہیں"
+        },
+        {
+          "original": "What Actually Happens",
+          "translated": "اصل میں کیا ہوتا ہے"
+        },
+        {
+          "original": "How to Adapt",
+          "translated": "کیسے ڈھالیں"
+        }
+      ],
+      "line_start": 46,
+      "line_end": 47,
+      "context": "table"
+    },
+    {
+      "id": 16,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It remembers my coding style\"",
+          "translated": "\"یہ میرا کوڈنگ اسٹائل یاد رکھتا ہے\""
+        },
+        {
+          "original": "Model has no memory of past sessions",
+          "translated": "ماڈل کے پاس پچھلے سیشنز کی کوئی یادداشت نہیں ہے۔"
+        },
+        {
+          "original": "Provide style guides in AGENTS.md or specifications",
+          "translated": "AGENTS.md یا تفصیلات میں اسٹائل گائیڈز فراہم کریں۔"
+        }
+      ],
+      "line_start": 48,
+      "line_end": 49,
+      "context": "table"
+    },
+    {
+      "id": 17,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It knows my project\"",
+          "translated": "\"یہ میرا پروجیکٹ جانتا ہے\""
+        },
+        {
+          "original": "Each message starts fresh",
+          "translated": "ہر پیغام تازہ شروع ہوتا ہے۔"
+        },
+        {
+          "original": "Give the model access to your codebase; use AI-first IDEs and/or Coding Agents",
+          "translated": "ماڈل کو اپنے کوڈ بیس تک رسائی دیں؛ AI-فرسٹ IDEs اور/یا کوڈنگ ایجنٹس استعمال کریں۔"
+        }
+      ],
+      "line_start": 49,
+      "line_end": 50,
+      "context": "table"
+    },
+    {
+      "id": 18,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It learned from our last conversation\"",
+          "translated": "\"اس نے ہماری آخری گفتگو سے سیکھا\""
+        },
+        {
+          "original": "No learning occurs between sessions",
+          "translated": "سیشنز کے درمیان کوئی سیکھنے کا عمل نہیں ہوتا ہے۔"
+        },
+        {
+          "original": "Document decisions and re-inject context",
+          "translated": "فیصلوں کی دستاویز کریں اور سیاق و سباق کو دوبارہ داخل کریں۔"
+        }
+      ],
+      "line_start": 50,
+      "line_end": 51,
+      "context": "table"
+    },
+    {
+      "id": 19,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It will remember this preference\"",
+          "translated": "\"یہ اس ترجیح کو یاد رکھے گا\""
+        },
+        {
+          "original": "Preferences are forgotten immediately",
+          "translated": "ترجیحات فوراً بھول جاتی ہیں۔"
+        },
+        {
+          "original": "Encode preferences in persistent configuration files",
+          "translated": "مستقل کنفیگریشن فائلوں میں ترجیحات کو انکوڈ کریں۔"
+        }
+      ],
+      "line_start": 51,
+      "line_end": 52,
+      "context": "table"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Constraint 2: LLMs Are Probabilistic, Not Deterministic",
+      "translated": "رکاوٹ 2: LLMs امکانی ہیں، قطعی نہیں",
+      "line_start": 55,
+      "line_end": 56,
+      "context": "heading_h2"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "**The Reality**: Given the exact same input, an LLM will often produce different outputs. Unlike traditional software that returns consistent results, LLMs generate responses by sampling from probability distributions, introducing inherent variability. This applies equally to Claude Opus 4.5, GPT-5.2, and Gemini 3—the probabilistic nature is fundamental to how all transformer-based models work, not a limitation of older generations.",
+      "translated": "**حقیقت**: ایک ہی ان پٹ دیے جانے پر، ایک LLM اکثر مختلف آؤٹ پٹ پیدا کرے گا۔ روایتی سافٹ ویئر کے برعکس جو مستقل نتائج لوٹاتا ہے، LLMs امکانی تقسیم سے نمونے لے کر جوابات تیار کرتے ہیں، جس سے موروثی تغیر پیدا ہوتا ہے۔ یہ کلاڈ اوپس 4.5، GPT-5.2، اور جیمنی 3 پر یکساں طور پر لاگو ہوتا ہے — امکانی نوعیت تمام ٹرانسفارمر پر مبنی ماڈلز کے کام کرنے کے طریقے کے لیے بنیادی ہے، نہ کہ پرانی نسلوں کی کوئی حد۔",
+      "line_start": 57,
+      "line_end": 58,
+      "context": "paragraph"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "**What \"Probabilistic\" Actually Means**:",
+      "translated": "**\"امکانی\" کا اصل مطلب کیا ہے**:",
+      "line_start": 59,
+      "line_end": 60,
+      "context": "paragraph"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "When an LLM generates text, it doesn't have one \"correct\" answer stored somewhere. Instead, at each step, it calculates the probability of many possible next tokens (words or word-parts) and selects one. This selection process involves randomness.",
+      "translated": "جب ایک LLM متن تیار کرتا ہے، تو اس کے پاس کہیں ایک \"درست\" جواب ذخیرہ نہیں ہوتا ہے۔ اس کے بجائے، ہر قدم پر، یہ بہت سے ممکنہ اگلے ٹوکنز (الفاظ یا الفاظ کے حصے) کے امکان کا حساب لگاتا ہے اور ایک کو منتخب کرتا ہے۔ اس انتخاب کے عمل میں بے ترتیب پن شامل ہوتا ہے۔",
+      "line_start": 61,
+      "line_end": 62,
+      "context": "paragraph"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "Each response is valid and reasonable—but they're different. The model isn't making mistakes; it's working exactly as designed.",
+      "translated": "ہر جواب درست اور معقول ہے—لیکن وہ مختلف ہیں۔ ماڈل غلطیاں نہیں کر رہا ہے؛ یہ بالکل ویسا ہی کام کر رہا ہے جیسا کہ ڈیزائن کیا گیا ہے۔",
+      "line_start": 71,
+      "line_end": 72,
+      "context": "paragraph"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "**The Temperature Factor**:",
+      "translated": "**درجہ حرارت کا عنصر**:",
+      "line_start": 73,
+      "line_end": 74,
+      "context": "paragraph"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "All frontier models—Claude Opus 4.5, GPT-5.2, and Gemini 3—have a \"temperature\" parameter that controls how much randomness influences output:",
+      "translated": "تمام فرنٹیئر ماڈلز—کلاڈ اوپس 4.5، GPT-5.2، اور جیمنی 3—میں ایک \"درجہ حرارت\" کا پیرامیٹر ہوتا ہے جو یہ کنٹرول کرتا ہے کہ بے ترتیب پن آؤٹ پٹ کو کتنا متاثر کرتا ہے:",
+      "line_start": 75,
+      "line_end": 76,
+      "context": "paragraph"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**Temperature = 0**: The model always picks the highest-probability token. More deterministic, but can be repetitive and less creative.",
+      "translated": "**درجہ حرارت = 0**: ماڈل ہمیشہ سب سے زیادہ امکان والے ٹوکن کا انتخاب کرتا ہے۔ زیادہ قطعی، لیکن دہرایا جانے والا اور کم تخلیقی ہوسکتا ہے۔",
+      "line_start": 77,
+      "line_end": 78,
+      "context": "list_item"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "**Temperature = 0.7** (typical default): Balanced creativity and coherence. The same prompt will yield varied but sensible responses.",
+      "translated": "**درجہ حرارت = 0.7** (عام ڈیفالٹ): متوازن تخلیقی صلاحیت اور ہم آہنگی۔ ایک ہی پرامپٹ مختلف لیکن سمجھدار جوابات دے گا۔",
+      "line_start": 78,
+      "line_end": 79,
+      "context": "list_item"
+    },
+    {
+      "id": 29,
+      "type": "inline",
+      "original": "**Temperature = 1.0+**: High creativity, but increased risk of incoherent or unexpected outputs.",
+      "translated": "**درجہ حرارت = 1.0+**: اعلی تخلیقی صلاحیت، لیکن غیر مربوط یا غیر متوقع آؤٹ پٹ کا بڑھتا ہوا خطرہ۔",
+      "line_start": 79,
+      "line_end": 80,
+      "context": "list_item"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "Even at temperature = 0, subtle variations can occur due to floating-point calculations and batching.",
+      "translated": "یہاں تک کہ درجہ حرارت = 0 پر بھی، فلوٹنگ پوائنٹ کے حسابات اور بیچنگ کی وجہ سے لطیف تغیرات ہوسکتے ہیں۔",
+      "line_start": 81,
+      "line_end": 82,
+      "context": "paragraph"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "**Why This Matters for AI-Native Development**:",
+      "translated": "**یہ AI-آبائی ترقی کے لیے کیوں اہمیت رکھتا ہے**:",
+      "line_start": 83,
+      "line_end": 84,
+      "context": "paragraph"
+    },
+    {
+      "id": 32,
+      "type": "inline",
+      "original": "**You cannot expect identical code from identical prompts**: Running the same specification through an AI agent twice may produce two different (but both valid) implementations. This isn't a bug—it's the nature of the technology.",
+      "translated": "**آپ ایک جیسے پرامپٹس سے ایک جیسے کوڈ کی توقع نہیں کرسکتے ہیں**: ایک ہی تفصیلات کو AI ایجنٹ کے ذریعے دو بار چلانے سے دو مختلف (لیکن دونوں درست) نفاذ پیدا ہوسکتے ہیں۔ یہ کوئی بگ نہیں ہے—یہ ٹیکنالوجی کی نوعیت ہے۔",
+      "line_start": 85,
+      "line_end": 86,
+      "context": "list_item"
+    },
+    {
+      "id": 33,
+      "type": "inline",
+      "original": "**Validation becomes essential, not optional**: Because outputs vary, you must validate that any given output meets your specification. This is why SDD's \"Validate\" phase isn't bureaucracy—it's a fundamental requirement.",
+      "translated": "**توثیق ضروری ہوجاتی ہے، اختیاری نہیں**: چونکہ آؤٹ پٹ مختلف ہوتے ہیں، اس لیے آپ کو اس بات کی توثیق کرنی ہوگی کہ کوئی بھی دیا گیا آؤٹ پٹ آپ کی تفصیلات پر پورا اترتا ہے۔ یہی وجہ ہے کہ SDD کا \"توثیق\" مرحلہ بیوروکریسی نہیں ہے—یہ ایک بنیادی ضرورت ہے۔",
+      "line_start": 87,
+      "line_end": 88,
+      "context": "list_item"
+    },
+    {
+      "id": 34,
+      "type": "inline",
+      "original": "**Specifications provide anchoring**: While outputs vary, a clear specification constrains the *space* of valid outputs. Vague prompts yield wildly varying results; precise specifications yield variations within acceptable bounds.",
+      "translated": "**تفصیلات اینکرنگ فراہم کرتی ہیں**: جبکہ آؤٹ پٹ مختلف ہوتے ہیں، ایک واضح تفصیلات درست آؤٹ پٹ کی *جگہ* کو محدود کرتی ہے۔ مبہم پرامپٹس بے حد مختلف نتائج دیتے ہیں؛ عین مطابق تفصیلات قابل قبول حدود کے اندر تغیرات پیدا کرتی ہیں۔",
+      "line_start": 89,
+      "line_end": 90,
+      "context": "list_item"
+    },
+    {
+      "id": 35,
+      "type": "inline",
+      "original": "**Test-Driven Development takes on new importance**: Tests define the *invariants* that must hold regardless of implementation variation. When AI generates code, tests verify that the probabilistic output meets deterministic requirements.",
+      "translated": "**ٹیسٹ سے چلنے والی ترقی نئی اہمیت اختیار کرتی ہے**: ٹیسٹ *غیر متغیر* کی وضاحت کرتے ہیں جو نفاذ کی تبدیلی سے قطع نظر برقرار رہنا چاہئے۔ جب AI کوڈ تیار کرتا ہے، تو ٹیسٹ اس بات کی تصدیق کرتے ہیں کہ امکانی آؤٹ پٹ قطعی ضروریات کو پورا کرتا ہے۔",
+      "line_start": 91,
+      "line_end": 92,
+      "context": "list_item"
+    },
+    {
+      "id": 36,
+      "type": "inline",
+      "original": "**Iteration is the norm, not the exception**: Plan for 1-2 refinement cycles even with perfect specifications. The first output might be 95% correct but need adjustment. This is normal—factor it into your workflow.",
+      "translated": "**تکرار معمول ہے، استثناء نہیں**: کامل تفصیلات کے ساتھ بھی 1-2 اصلاحی چکروں کی منصوبہ بندی کریں۔ پہلا آؤٹ پٹ 95% درست ہوسکتا ہے لیکن اسے ایڈجسٹمنٹ کی ضرورت پڑسکتی ہے۔ یہ معمول ہے—اسے اپنے ورک فلو میں شامل کریں۔",
+      "line_start": 93,
+      "line_end": 94,
+      "context": "list_item"
+    },
+    {
+      "id": 37,
+      "type": "inline",
+      "original": "**Practical Implications**:",
+      "translated": "**عملی مضمرات**:",
+      "line_start": 95,
+      "line_end": 96,
+      "context": "paragraph"
+    },
+    {
+      "id": 38,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "What You Might Expect",
+          "translated": "آپ کیا توقع کرسکتے ہیں"
+        },
+        {
+          "original": "What Actually Happens",
+          "translated": "اصل میں کیا ہوتا ہے"
+        },
+        {
+          "original": "How to Adapt",
+          "translated": "کیسے ڈھالیں"
+        }
+      ],
+      "line_start": 97,
+      "line_end": 98,
+      "context": "table"
+    },
+    {
+      "id": 39,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"Same prompt, same code\"",
+          "translated": "\"ایک ہی پرامپٹ، ایک ہی کوڈ\""
+        },
+        {
+          "original": "Different outputs each run",
+          "translated": "ہر رن میں مختلف آؤٹ پٹ"
+        },
+        {
+          "original": "Use specs to constrain variation; validate outputs",
+          "translated": "تغیر کو محدود کرنے کے لیے تفصیلات استعمال کریں؛ آؤٹ پٹ کی توثیق کریں۔"
+        }
+      ],
+      "line_start": 99,
+      "line_end": 100,
+      "context": "table"
+    },
+    {
+      "id": 40,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It gave me this last time\"",
+          "translated": "\"اس نے مجھے یہ آخری بار دیا تھا\""
+        },
+        {
+          "original": "No guarantee of consistency",
+          "translated": "مستقل مزاجی کی کوئی ضمانت نہیں۔"
+        },
+        {
+          "original": "Version control what worked; don't rely on reproducibility",
+          "translated": "ورژن کنٹرول جو کام کرتا ہے؛ دوبارہ پیدا کرنے کی صلاحیت پر بھروسہ نہ کریں۔"
+        }
+      ],
+      "line_start": 100,
+      "line_end": 101,
+      "context": "table"
+    },
+    {
+      "id": 41,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"Fix this bug\" yields the same fix",
+          "translated": "\"اس بگ کو ٹھیک کریں\" وہی ٹھیک دیتا ہے"
+        },
+        {
+          "original": "Multiple valid fixes exist",
+          "translated": "متعدد درست اصلاحات موجود ہیں۔"
+        },
+        {
+          "original": "Review each fix; test against requirements",
+          "translated": "ہر ٹھیک کا جائزہ لیں؛ ضروریات کے خلاف ٹیسٹ کریں۔"
+        }
+      ],
+      "line_start": 101,
+      "line_end": 102,
+      "context": "table"
+    },
+    {
+      "id": 42,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"Generate this test suite\" twice",
+          "translated": "\"اس ٹیسٹ سویٹ کو دو بار تیار کریں\""
+        },
+        {
+          "original": "Different test cases emerge",
+          "translated": "مختلف ٹیسٹ کیسز سامنے آتے ہیں۔"
+        },
+        {
+          "original": "Define required coverage explicitly; merge the best of multiple runs",
+          "translated": "مطلوبہ کوریج کو واضح طور پر بیان کریں؛ متعدد رن کے بہترین کو ضم کریں۔"
+        }
+      ],
+      "line_start": 102,
+      "line_end": 103,
+      "context": "table"
+    },
+    {
+      "id": 43,
+      "type": "inline",
+      "original": "**The Power of Probabilistic Outputs**:",
+      "translated": "**امکانی آؤٹ پٹ کی طاقت**:",
+      "line_start": 104,
+      "line_end": 105,
+      "context": "paragraph"
+    },
+    {
+      "id": 44,
+      "type": "inline",
+      "original": "This isn't purely a limitation—it's also a strength. Probabilistic generation means:",
+      "translated": "یہ خالصتاً ایک حد نہیں ہے—یہ ایک طاقت بھی ہے۔ امکانی نسل کا مطلب ہے:",
+      "line_start": 106,
+      "line_end": 107,
+      "context": "paragraph"
+    },
+    {
+      "id": 45,
+      "type": "inline",
+      "original": "**Creative problem-solving**: The model can suggest approaches you hadn't considered",
+      "translated": "**تخلیقی مسئلہ حل کرنا**: ماڈل ایسے طریقوں کی تجویز کرسکتا ہے جن پر آپ نے غور نہیں کیا تھا۔",
+      "line_start": 108,
+      "line_end": 109,
+      "context": "list_item"
+    },
+    {
+      "id": 46,
+      "type": "inline",
+      "original": "**Multiple valid solutions**: You can generate several implementations and choose the best",
+      "translated": "**متعدد درست حل**: آپ کئی نفاذات تیار کرسکتے ہیں اور بہترین کا انتخاب کرسکتے ہیں۔",
+      "line_start": 109,
+      "line_end": 110,
+      "context": "list_item"
+    },
+    {
+      "id": 47,
+      "type": "inline",
+      "original": "**Exploration of solution space**: Running a prompt multiple times can reveal different angles on a problem",
+      "translated": "**حل کی جگہ کی تلاش**: ایک پرامپٹ کو متعدد بار چلانے سے کسی مسئلے پر مختلف زاویے ظاہر ہوسکتے ہیں۔",
+      "line_start": 110,
+      "line_end": 111,
+      "context": "list_item"
+    },
+    {
+      "id": 48,
+      "type": "inline",
+      "original": "The key is working *with* this characteristic rather than fighting it.",
+      "translated": "کلید اس خصوصیت کے ساتھ کام کرنا ہے بجائے اس کے کہ اس سے لڑیں۔",
+      "line_start": 112,
+      "line_end": 113,
+      "context": "paragraph"
+    },
+    {
+      "id": 49,
+      "type": "inline",
+      "original": "Constraint 3: Context Is Limited, Not Infinite",
+      "translated": "رکاوٹ 3: سیاق و سباق محدود ہے، لامحدود نہیں",
+      "line_start": 116,
+      "line_end": 117,
+      "context": "heading_h2"
+    },
+    {
+      "id": 50,
+      "type": "inline",
+      "original": "**The Reality**: LLMs have a fixed \"context window\"—a maximum amount of text they can process at once. This window stores everything: the system prompt, your conversation history, uploaded files, and the model's response. Once full, older content gets pushed out or truncated.",
+      "translated": "**حقیقت**: LLMs کے پاس ایک مقررہ \"سیاق و سباق کی کھڑکی\" ہوتی ہے—متن کی زیادہ سے زیادہ مقدار جسے وہ ایک ساتھ پروسیس کرسکتے ہیں۔ یہ کھڑکی ہر چیز کو ذخیرہ کرتی ہے: سسٹم پرامپٹ، آپ کی گفتگو کی تاریخ، اپ لوڈ کردہ فائلیں، اور ماڈل کا جواب۔ ایک بار بھر جانے پر، پرانا مواد باہر دھکیل دیا جاتا ہے یا چھوٹا کردیا جاتا ہے۔",
+      "line_start": 118,
+      "line_end": 119,
+      "context": "paragraph"
+    },
+    {
+      "id": 51,
+      "type": "inline",
+      "original": "**What \"Context Window\" Actually Means**:",
+      "translated": "**\"سیاق و سباق کی کھڑکی\" کا اصل مطلب کیا ہے**:",
+      "line_start": 120,
+      "line_end": 121,
+      "context": "paragraph"
+    },
+    {
+      "id": 52,
+      "type": "inline",
+      "original": "Think of the context window as the model's working memory—everything it can \"see\" at any given moment. As of early 2026, the frontier models have impressive but still finite context windows:",
+      "translated": "سیاق و سباق کی کھڑکی کو ماڈل کی ورکنگ میموری کے طور پر سوچیں—ہر وہ چیز جسے وہ کسی بھی لمحے \"دیکھ\" سکتا ہے۔ 2026 کے اوائل تک، فرنٹیئر ماڈلز میں متاثر کن لیکن پھر بھی محدود سیاق و سباق کی کھڑکیاں ہیں:",
+      "line_start": 122,
+      "line_end": 123,
+      "context": "paragraph"
+    },
+    {
+      "id": 53,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Model",
+          "translated": "ماڈل"
+        },
+        {
+          "original": "Context Window",
+          "translated": "سیاق و سباق کی کھڑکی"
+        },
+        {
+          "original": "Approximate Equivalent",
+          "translated": "تقریباً مساوی"
+        }
+      ],
+      "line_start": 124,
+      "line_end": 125,
+      "context": "table"
+    },
+    {
+      "id": 54,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "GPT-5.2 (OpenAI)",
+          "translated": "GPT-5.2 (OpenAI)"
+        },
+        {
+          "original": "256K tokens",
+          "translated": "256K ٹوکنز"
+        },
+        {
+          "original": "~200,000 words / ~600 pages",
+          "translated": "~200,000 الفاظ / ~600 صفحات"
+        }
+      ],
+      "line_start": 126,
+      "line_end": 127,
+      "context": "table"
+    },
+    {
+      "id": 55,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Claude Opus 4.5 (Anthropic)",
+          "translated": "کلاڈ اوپس 4.5 (اینتھروپک)"
+        },
+        {
+          "original": "200K tokens",
+          "translated": "200K ٹوکنز"
+        },
+        {
+          "original": "~150,000 words / ~500 pages",
+          "translated": "~150,000 الفاظ / ~500 صفحات"
+        }
+      ],
+      "line_start": 127,
+      "line_end": 128,
+      "context": "table"
+    },
+    {
+      "id": 56,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Gemini 3 Pro (Google)",
+          "translated": "جیمنی 3 پرو (گوگل)"
+        },
+        {
+          "original": "2M tokens",
+          "translated": "2M ٹوکنز"
+        },
+        {
+          "original": "~1,500,000 words / ~5,000 pages",
+          "translated": "~1,500,000 الفاظ / ~5,000 صفحات"
+        }
+      ],
+      "line_start": 128,
+      "line_end": 129,
+      "context": "table"
+    },
+    {
+      "id": 57,
+      "type": "inline",
+      "original": "Even Gemini 3's impressive 2-million-token window—the largest among frontier models—fills up quickly on enterprise codebases. And larger context windows come with tradeoffs: increased latency, higher costs, and potential \"lost in the middle\" effects where information in the center of a very long context gets less attention than content at the beginning or end.",
+      "translated": "یہاں تک کہ جیمنی 3 کی متاثر کن 2 ملین ٹوکن والی کھڑکی—فرنٹیئر ماڈلز میں سب سے بڑی—انٹرپرائز کوڈ بیسز پر تیزی سے بھر جاتی ہے۔ اور بڑی سیاق و سباق کی کھڑکیوں کے ساتھ تجارت ہوتی ہے: بڑھتی ہوئی تاخیر، زیادہ لاگت، اور ممکنہ \"درمیان میں کھو جانے\" کے اثرات جہاں بہت لمبے سیاق و سباق کے مرکز میں موجود معلومات کو شروع یا آخر میں موجود مواد سے کم توجہ ملتی ہے۔",
+      "line_start": 130,
+      "line_end": 131,
+      "context": "paragraph"
+    },
+    {
+      "id": 58,
+      "type": "inline",
+      "original": "These numbers sound huge—until you realize what fills them:",
+      "translated": "یہ تعداد بہت بڑی لگتی ہے—جب تک کہ آپ کو یہ احساس نہ ہو کہ انہیں کیا بھرتا ہے:",
+      "line_start": 132,
+      "line_end": 133,
+      "context": "paragraph"
+    },
+    {
+      "id": 59,
+      "type": "inline",
+      "original": "**The Consequences of Limited Context**:",
+      "translated": "**محدود سیاق و سباق کے نتائج**:",
+      "line_start": 144,
+      "line_end": 145,
+      "context": "paragraph"
+    },
+    {
+      "id": 60,
+      "type": "inline",
+      "original": "**Information gets lost**: In long conversations, early messages may be truncated or summarized. The model \"forgets\" not because it has bad memory, but because the information no longer fits.",
+      "translated": "**معلومات ضائع ہوجاتی ہیں**: لمبی گفتگو میں، ابتدائی پیغامات کو چھوٹا یا خلاصہ کیا جاسکتا ہے۔ ماڈل \"بھول جاتا ہے\" اس لیے نہیں کہ اس کی یادداشت خراب ہے، بلکہ اس لیے کہ معلومات اب فٹ نہیں ہوتی ہیں۔",
+      "line_start": 146,
+      "line_end": 147,
+      "context": "list_item"
+    },
+    {
+      "id": 61,
+      "type": "inline",
+      "original": "**Large codebases don't fit**: A moderately complex project might have 50,000-500,000+ lines of code. Even the largest context windows can't hold it all.",
+      "translated": "**بڑے کوڈ بیس فٹ نہیں ہوتے**: ایک معتدل پیچیدہ پروجیکٹ میں 50,000-500,000+ لائنوں کا کوڈ ہوسکتا ہے۔ یہاں تک کہ سب سے بڑی سیاق و سباق کی کھڑکیاں بھی یہ سب نہیں رکھ سکتیں۔",
+      "line_start": 148,
+      "line_end": 149,
+      "context": "list_item"
+    },
+    {
+      "id": 62,
+      "type": "inline",
+      "original": "**Context is zero-sum**: Every token spent on conversation history is a token not available for code, specifications, or response generation.",
+      "translated": "**سیاق و سباق صفر کا مجموعہ ہے**: گفتگو کی تاریخ پر خرچ کیا گیا ہر ٹوکن کوڈ، تفصیلات، یا جواب کی نسل کے لیے دستیاب نہیں ہے۔",
+      "line_start": 150,
+      "line_end": 151,
+      "context": "list_item"
+    },
+    {
+      "id": 63,
+      "type": "inline",
+      "original": "**Why This Matters for AI-Native Development**:",
+      "translated": "**یہ AI-آبائی ترقی کے لیے کیوں اہمیت رکھتا ہے**:",
+      "line_start": 152,
+      "line_end": 153,
+      "context": "paragraph"
+    },
+    {
+      "id": 64,
+      "type": "inline",
+      "original": "**Context engineering is a core skill**: Deciding what goes into the context window—and what doesn't—directly impacts output quality. This is why MCP (Model Context Protocol) and progressive skill loading exist.",
+      "translated": "**سیاق و سباق کی انجینئرنگ ایک بنیادی مہارت ہے**: یہ فیصلہ کرنا کہ سیاق و سباق کی کھڑکی میں کیا جاتا ہے—اور کیا نہیں—براہ راست آؤٹ پٹ کے معیار کو متاثر کرتا ہے۔ یہی وجہ ہے کہ MCP (ماڈل سیاق و سباق پروٹوکول) اور ترقی پسند مہارت کی لوڈنگ موجود ہے۔",
+      "line_start": 154,
+      "line_end": 155,
+      "context": "list_item"
+    },
+    {
+      "id": 65,
+      "type": "inline",
+      "original": "**AI-First IDEs solve context problems**: Tools like Cursor and Windsurf don't just send your code to the model. They intelligently select *relevant* code—files you're editing, imports, related functions—to maximize the value of limited context.",
+      "translated": "**AI-فرسٹ IDEs سیاق و سباق کے مسائل حل کرتے ہیں**: کرسر اور ونڈ سرف جیسے اوزار صرف آپ کا کوڈ ماڈل کو نہیں بھیجتے ہیں۔ وہ ذہانت سے *متعلقہ* کوڈ کا انتخاب کرتے ہیں—وہ فائلیں جن میں آپ ترمیم کر رہے ہیں، درآمدات، متعلقہ افعال—محدود سیاق و سباق کی قدر کو زیادہ سے زیادہ کرنے کے لیے۔",
+      "line_start": 156,
+      "line_end": 157,
+      "context": "list_item"
+    },
+    {
+      "id": 66,
+      "type": "inline",
+      "original": "**Specifications compress intent**: A well-written specification conveys requirements in fewer tokens than scattered conversations. \"Build a registration system with these 10 criteria\" is more efficient than a 50-message back-and-forth that discovered those criteria.",
+      "translated": "**تفصیلات ارادے کو سکیڑتی ہیں**: ایک اچھی طرح سے لکھی گئی تفصیلات بکھری ہوئی گفتگو سے کم ٹوکنز میں ضروریات کو پہنچاتی ہے۔ \"ان 10 معیارات کے ساتھ ایک رجسٹریشن سسٹم بنائیں\" 50-پیغام کے آگے پیچھے سے زیادہ موثر ہے جس نے ان معیارات کو دریافت کیا۔",
+      "line_start": 158,
+      "line_end": 159,
+      "context": "list_item"
+    },
+    {
+      "id": 67,
+      "type": "inline",
+      "original": "**Project structure matters**: How you organize code affects what context the AI can access. Small, well-named files with clear responsibilities are easier to selectively include than monolithic files.",
+      "translated": "**پروجیکٹ کی ساخت اہمیت رکھتی ہے**: آپ کوڈ کو کیسے منظم کرتے ہیں اس پر اثر پڑتا ہے کہ AI کس سیاق و سباق تک رسائی حاصل کرسکتا ہے۔ چھوٹی، اچھی طرح سے نامزد فائلیں جن کی واضح ذمہ داریاں ہوں، یک سنگی فائلوں کے مقابلے میں منتخب طور پر شامل کرنا آسان ہے۔",
+      "line_start": 160,
+      "line_end": 161,
+      "context": "list_item"
+    },
+    {
+      "id": 68,
+      "type": "inline",
+      "original": "**Conversation management becomes strategy**: Long debugging sessions may need to be \"reset\" by starting a fresh conversation with only the relevant context, rather than dragging along thousands of tokens of irrelevant history.",
+      "translated": "**گفتگو کا انتظام حکمت عملی بن جاتا ہے**: طویل ڈیبگنگ سیشنز کو غیر متعلقہ تاریخ کے ہزاروں ٹوکنز کو گھسیٹنے کے بجائے صرف متعلقہ سیاق و سباق کے ساتھ ایک تازہ گفتگو شروع کرکے \"ری سیٹ\" کرنے کی ضرورت پڑسکتی ہے۔",
+      "line_start": 162,
+      "line_end": 163,
+      "context": "list_item"
+    },
+    {
+      "id": 69,
+      "type": "inline",
+      "original": "**Practical Implications**:",
+      "translated": "**عملی مضمرات**:",
+      "line_start": 164,
+      "line_end": 165,
+      "context": "paragraph"
+    },
+    {
+      "id": 70,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "What You Might Expect",
+          "translated": "آپ کیا توقع کرسکتے ہیں"
+        },
+        {
+          "original": "What Actually Happens",
+          "translated": "اصل میں کیا ہوتا ہے"
+        },
+        {
+          "original": "How to Adapt",
+          "translated": "کیسے ڈھالیں"
+        }
+      ],
+      "line_start": 166,
+      "line_end": 167,
+      "context": "table"
+    },
+    {
+      "id": 71,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It can see my whole codebase\"",
+          "translated": "\"یہ میرا پورا کوڈ بیس دیکھ سکتا ہے\""
+        },
+        {
+          "original": "Only selected files fit in context",
+          "translated": "صرف منتخب فائلیں سیاق و سباق میں فٹ ہوتی ہیں۔"
+        },
+        {
+          "original": "Use AI-First IDEs with smart context selection",
+          "translated": "سمارٹ سیاق و سباق کے انتخاب کے ساتھ AI-فرسٹ IDEs استعمال کریں۔"
+        }
+      ],
+      "line_start": 168,
+      "line_end": 169,
+      "context": "table"
+    },
+    {
+      "id": 72,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It remembers our whole conversation\"",
+          "translated": "\"یہ ہماری پوری گفتگو کو یاد رکھتا ہے\""
+        },
+        {
+          "original": "Old messages get truncated",
+          "translated": "پرانے پیغامات چھوٹے ہوجاتے ہیں۔"
+        },
+        {
+          "original": "Keep conversations focused; start fresh for new topics",
+          "translated": "گفتگو کو مرکوز رکھیں؛ نئے موضوعات کے لیے تازہ شروع کریں۔"
+        }
+      ],
+      "line_start": 169,
+      "line_end": 170,
+      "context": "table"
+    },
+    {
+      "id": 73,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"More context is always better\"",
+          "translated": "\"زیادہ سیاق و سباق ہمیشہ بہتر ہوتا ہے\""
+        },
+        {
+          "original": "Noise dilutes relevant information",
+          "translated": "شور متعلقہ معلومات کو کم کرتا ہے۔"
+        },
+        {
+          "original": "Curate context carefully; quality over quantity",
+          "translated": "سیاق و سباق کو احتیاط سے درست کریں؛ مقدار پر معیار۔"
+        }
+      ],
+      "line_start": 170,
+      "line_end": 171,
+      "context": "table"
+    },
+    {
+      "id": 74,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "\"It knows everything in my repo\"",
+          "translated": "\"یہ میری ریپو میں سب کچھ جانتا ہے\""
+        },
+        {
+          "original": "Context window has hard limits",
+          "translated": "سیاق و سباق کی کھڑکی کی سخت حدود ہیں۔"
+        },
+        {
+          "original": "Structure repos for selective inclusion; use AGENTS.md for orientation",
+          "translated": "منتخب شمولیت کے لیے ریپوز کی ساخت؛ واقفیت کے لیے AGENTS.md استعمال کریں۔"
+        }
+      ],
+      "line_start": 171,
+      "line_end": 172,
+      "context": "table"
+    },
+    {
+      "id": 75,
+      "type": "inline",
+      "original": "**Context Management Strategies**:",
+      "translated": "**سیاق و سباق کے انتظام کی حکمت عملی**:",
+      "line_start": 173,
+      "line_end": 174,
+      "context": "paragraph"
+    },
+    {
+      "id": 76,
+      "type": "inline",
+      "original": "**For Specifications**: Front-load the most important constraints. If context is truncated, critical requirements at the top survive while nice-to-haves at the bottom may be lost.",
+      "translated": "**تفصیلات کے لیے**: سب سے اہم رکاوٹوں کو سامنے لوڈ کریں۔ اگر سیاق و سباق کو چھوٹا کیا جاتا ہے، تو اوپر کی اہم ضروریات بچ جاتی ہیں جبکہ نیچے کی اچھی چیزیں ضائع ہوسکتی ہیں۔",
+      "line_start": 175,
+      "line_end": 176,
+      "context": "paragraph"
+    },
+    {
+      "id": 77,
+      "type": "inline",
+      "original": "**For Code**: Reference files by path rather than pasting entire contents when the AI has file system access. Let it retrieve what it needs.",
+      "translated": "**کوڈ کے لیے**: جب AI کو فائل سسٹم تک رسائی حاصل ہو تو پورے مواد کو پیسٹ کرنے کے بجائے راستے سے فائلوں کا حوالہ دیں۔ اسے وہ چیز بازیافت کرنے دیں جس کی اسے ضرورت ہے۔",
+      "line_start": 177,
+      "line_end": 178,
+      "context": "paragraph"
+    },
+    {
+      "id": 78,
+      "type": "inline",
+      "original": "**For Conversations**: When a conversation becomes unwieldy, summarize progress and start fresh:",
+      "translated": "**گفتگو کے لیے**: جب گفتگو بے قابو ہوجائے، تو پیشرفت کا خلاصہ کریں اور تازہ شروع کریں:",
+      "line_start": 179,
+      "line_end": 180,
+      "context": "paragraph"
+    },
+    {
+      "id": 79,
+      "type": "inline",
+      "original": "**For Projects**: Maintain a PROJECT_CONTEXT.md file that captures critical decisions, architecture overview, and current status. This becomes your \"state injection\" for new sessions.",
+      "translated": "**پروجیکٹس کے لیے**: ایک PROJECT_CONTEXT.md فائل کو برقرار رکھیں جو اہم فیصلوں، فن تعمیر کے جائزہ، اور موجودہ حیثیت کو حاصل کرتی ہے۔ یہ نئے سیشنز کے لیے آپ کی \"ریاستی انجیکشن\" بن جاتی ہے۔",
+      "line_start": 191,
+      "line_end": 192,
+      "context": "paragraph"
+    },
+    {
+      "id": 80,
+      "type": "inline",
+      "original": "How the Three Constraints Interconnect",
+      "translated": "تین رکاوٹیں کیسے آپس میں جڑی ہوئی ہیں۔",
+      "line_start": 195,
+      "line_end": 196,
+      "context": "heading_h2"
+    },
+    {
+      "id": 81,
+      "type": "inline",
+      "original": "These constraints aren't isolated—they compound and interact:",
+      "translated": "یہ رکاوٹیں الگ تھلگ نہیں ہیں—یہ مرکب اور تعامل کرتی ہیں:",
+      "line_start": 197,
+      "line_end": 198,
+      "context": "paragraph"
+    },
+    {
+      "id": 82,
+      "type": "inline",
+      "original": "**Stateless + Limited Context**: Because the model doesn't remember previous sessions, you must re-inject context every time. But context is limited, so you must re-inject *efficiently*. This is why AGENTS.md files are concise rather than exhaustive.",
+      "translated": "**بے ریاست + محدود سیاق و سباق**: چونکہ ماڈل پچھلے سیشنز کو یاد نہیں رکھتا، اس لیے آپ کو ہر بار سیاق و سباق کو دوبارہ داخل کرنا ہوگا۔ لیکن سیاق و سباق محدود ہے، لہذا آپ کو *موثر طریقے سے* دوبارہ داخل کرنا ہوگا۔ یہی وجہ ہے کہ AGENTS.md فائلیں جامع ہونے کے بجائے جامع ہیں۔",
+      "line_start": 199,
+      "line_end": 200,
+      "context": "paragraph"
+    },
+    {
+      "id": 83,
+      "type": "inline",
+      "original": "**Probabilistic + Stateless**: Each session starts fresh and produces variable output. Without persistent state, you can't even guarantee the model will approach a problem the same way twice. This is why version control and explicit documentation of decisions matter.",
+      "translated": "**امکانی + بے ریاست**: ہر سیشن تازہ شروع ہوتا ہے اور متغیر آؤٹ پٹ پیدا کرتا ہے۔ مستقل حالت کے بغیر، آپ اس بات کی ضمانت بھی نہیں دے سکتے کہ ماڈل کسی مسئلے کو دو بار ایک ہی طریقے سے حل کرے گا۔ یہی وجہ ہے کہ ورژن کنٹرول اور فیصلوں کی واضح دستاویزات اہمیت رکھتی ہیں۔",
+      "line_start": 201,
+      "line_end": 202,
+      "context": "paragraph"
+    },
+    {
+      "id": 84,
+      "type": "inline",
+      "original": "**Probabilistic + Limited Context**: When context is constrained, the model has less information to anchor its probabilistic generation. Vague specifications plus limited context yields wildly varying outputs. Clear specifications within context constraints yields useful variation within bounds.",
+      "translated": "**امکانی + محدود سیاق و سباق**: جب سیاق و سباق محدود ہوتا ہے، تو ماڈل کے پاس اپنی امکانی نسل کو اینکر کرنے کے لیے کم معلومات ہوتی ہیں۔ مبہم تفصیلات کے علاوہ محدود سیاق و سباق بے حد مختلف آؤٹ پٹ دیتا ہے۔ سیاق و سباق کی رکاوٹوں کے اندر واضح تفصیلات حدود کے اندر مفید تغیر پیدا کرتی ہیں۔",
+      "line_start": 203,
+      "line_end": 204,
+      "context": "paragraph"
+    },
+    {
+      "id": 85,
+      "type": "inline",
+      "original": "The Methodological Response",
+      "translated": "طریقہ کار کا جواب",
+      "line_start": 207,
+      "line_end": 208,
+      "context": "heading_h2"
+    },
+    {
+      "id": 86,
+      "type": "inline",
+      "original": "Every practice in this book exists because of these three constraints:",
+      "translated": "اس کتاب میں ہر مشق ان تین رکاوٹوں کی وجہ سے موجود ہے:",
+      "line_start": 209,
+      "line_end": 210,
+      "context": "paragraph"
+    },
+    {
+      "id": 87,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Constraint",
+          "translated": "رکاوٹ"
+        },
+        {
+          "original": "Creates the Need For",
+          "translated": "کے لیے ضرورت پیدا کرتا ہے۔"
+        },
+        {
+          "original": "Addressed By",
+          "translated": "کی طرف سے خطاب کیا"
+        }
+      ],
+      "line_start": 211,
+      "line_end": 212,
+      "context": "table"
+    },
+    {
+      "id": 88,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Stateless**",
+          "translated": "**بے ریاست**"
+        },
+        {
+          "original": "Persistent context that survives sessions",
+          "translated": "مستقل سیاق و سباق جو سیشنز سے بچ جاتا ہے۔"
+        },
+        {
+          "original": "AGENTS.md, SPEC.md, MCP, Skills",
+          "translated": "AGENTS.md، SPEC.md، MCP، ہنر"
+        }
+      ],
+      "line_start": 213,
+      "line_end": 214,
+      "context": "table"
+    },
+    {
+      "id": 89,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Probabilistic**",
+          "translated": "**امکانی**"
+        },
+        {
+          "original": "Validation of variable outputs",
+          "translated": "متغیر آؤٹ پٹ کی توثیق"
+        },
+        {
+          "original": "SDD's Validate phase, TDD, Quality Gates",
+          "translated": "SDD کا توثیق مرحلہ، TDD، کوالٹی گیٹس"
+        }
+      ],
+      "line_start": 214,
+      "line_end": 215,
+      "context": "table"
+    },
+    {
+      "id": 90,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Limited Context**",
+          "translated": "**محدود سیاق و سباق**"
+        },
+        {
+          "original": "Efficient representation of requirements",
+          "translated": "ضروریات کی موثر نمائندگی"
+        },
+        {
+          "original": "Specification-first thinking, context engineering",
+          "translated": "تفصیلات-پہلی سوچ، سیاق و سباق کی انجینئرنگ"
+        }
+      ],
+      "line_start": 215,
+      "line_end": 216,
+      "context": "table"
+    },
+    {
+      "id": 91,
+      "type": "inline",
+      "original": "**Spec-Driven Development** addresses all three:",
+      "translated": "**اسپیک سے چلنے والی ترقی** تینوں کو حل کرتی ہے:",
+      "line_start": 217,
+      "line_end": 218,
+      "context": "paragraph"
+    },
+    {
+      "id": 92,
+      "type": "inline",
+      "original": "Specifications persist across sessions (counters statelessness)",
+      "translated": "تفصیلات سیشنز میں برقرار رہتی ہیں (بے ریاستی کا مقابلہ کرتی ہیں)",
+      "line_start": 218,
+      "line_end": 219,
+      "context": "list_item"
+    },
+    {
+      "id": 93,
+      "type": "inline",
+      "original": "Clear specs constrain probabilistic outputs (reduces variation)",
+      "translated": "واضح تفصیلات امکانی آؤٹ پٹ کو محدود کرتی ہیں (تغیر کو کم کرتی ہیں)",
+      "line_start": 219,
+      "line_end": 220,
+      "context": "list_item"
+    },
+    {
+      "id": 94,
+      "type": "inline",
+      "original": "Concise specs maximize use of context window (respects limits)",
+      "translated": "مختصر تفصیلات سیاق و سباق کی کھڑکی کے استعمال کو زیادہ سے زیادہ کرتی ہیں (حدود کا احترام کرتی ہیں)",
+      "line_start": 220,
+      "line_end": 221,
+      "context": "list_item"
+    },
+    {
+      "id": 95,
+      "type": "inline",
+      "original": "**AGENTS.md** is a direct response to statelessness—a persistent file that gets injected into context to give every session consistent baseline knowledge.",
+      "translated": "**AGENTS.md** بے ریاستی کا براہ راست جواب ہے—ایک مستقل فائل جسے ہر سیشن کو مستقل بنیادی علم دینے کے لیے سیاق و سباق میں داخل کیا جاتا ہے۔",
+      "line_start": 222,
+      "line_end": 223,
+      "context": "paragraph"
+    },
+    {
+      "id": 96,
+      "type": "inline",
+      "original": "**MCP (Model Context Protocol)** addresses the context limit by allowing agents to dynamically retrieve information rather than requiring everything upfront.",
+      "translated": "**MCP (ماڈل سیاق و سباق پروٹوکول)** ایجنٹوں کو ہر چیز کو پہلے سے درکار کرنے کے بجائے متحرک طور پر معلومات بازیافت کرنے کی اجازت دے کر سیاق و سباق کی حد کو حل کرتا ہے۔",
+      "line_start": 224,
+      "line_end": 225,
+      "context": "paragraph"
+    },
+    {
+      "id": 97,
+      "type": "inline",
+      "original": "**Test-Driven Development** accepts probabilistic outputs by defining invariants (tests) that any valid implementation must satisfy, regardless of how it's generated.",
+      "translated": "**ٹیسٹ سے چلنے والی ترقی** امکانی آؤٹ پٹ کو غیر متغیر (ٹیسٹ) کی وضاحت کرکے قبول کرتی ہے جو کسی بھی درست نفاذ کو پورا کرنا چاہئے، چاہے وہ کیسے ہی تیار کیا گیا ہو۔",
+      "line_start": 226,
+      "line_end": 227,
+      "context": "paragraph"
+    },
+    {
+      "id": 98,
+      "type": "inline",
+      "original": "The Developer's Mental Model",
+      "translated": "ڈویلپر کا ذہنی ماڈل",
+      "line_start": 230,
+      "line_end": 231,
+      "context": "heading_h2"
+    },
+    {
+      "id": 99,
+      "type": "inline",
+      "original": "Understanding these constraints transforms how you think about AI collaboration:",
+      "translated": "ان رکاوٹوں کو سمجھنا AI تعاون کے بارے میں آپ کی سوچ کو بدل دیتا ہے:",
+      "line_start": 232,
+      "line_end": 233,
+      "context": "paragraph"
+    },
+    {
+      "id": 100,
+      "type": "inline",
+      "original": "**Old Mental Model (Incorrect)**:",
+      "translated": "**پرانا ذہنی ماڈل (غلط)**:",
+      "line_start": 234,
+      "line_end": 235,
+      "context": "paragraph"
+    },
+    {
+      "id": 101,
+      "type": "inline",
+      "original": "\"The AI is like a knowledgeable colleague who remembers our work together\"",
+      "translated": "\"AI ایک باخبر ساتھی کی طرح ہے جو ہمارے ساتھ کام کو یاد رکھتا ہے\"",
+      "line_start": 235,
+      "line_end": 236,
+      "context": "list_item"
+    },
+    {
+      "id": 102,
+      "type": "inline",
+      "original": "\"If I explain something once, it knows it\"",
+      "translated": "\"اگر میں ایک بار کچھ سمجھاؤں تو وہ جانتا ہے\"",
+      "line_start": 236,
+      "line_end": 237,
+      "context": "list_item"
+    },
+    {
+      "id": 103,
+      "type": "inline",
+      "original": "\"The same prompt should give me the same result\"",
+      "translated": "\"ایک ہی پرامپٹ مجھے ایک ہی نتیجہ دینا چاہئے\"",
+      "line_start": 237,
+      "line_end": 238,
+      "context": "list_item"
+    },
+    {
+      "id": 104,
+      "type": "inline",
+      "original": "**New Mental Model (Correct)**:",
+      "translated": "**نیا ذہنی ماڈل (درست)**:",
+      "line_start": 239,
+      "line_end": 240,
+      "context": "paragraph"
+    },
+    {
+      "id": 105,
+      "type": "inline",
+      "original": "\"The AI is like a brilliant expert with amnesia who I brief from scratch each time\"",
+      "translated": "\"AI ایک شاندار ماہر کی طرح ہے جسے بھولنے کی بیماری ہے جسے میں ہر بار شروع سے بریف کرتا ہوں\"",
+      "line_start": 240,
+      "line_end": 241,
+      "context": "list_item"
+    },
+    {
+      "id": 106,
+      "type": "inline",
+      "original": "\"I must provide all relevant context every session, concisely\"",
+      "translated": "\"مجھے ہر سیشن میں تمام متعلقہ سیاق و سباق کو مختصر طور پر فراہم کرنا ہوگا\"",
+      "line_start": 241,
+      "line_end": 242,
+      "context": "list_item"
+    },
+    {
+      "id": 107,
+      "type": "inline",
+      "original": "\"I specify what I need, validate what I get, and expect iteration\"",
+      "translated": "\"میں جو چاہتا ہوں اس کی وضاحت کرتا ہوں، جو مجھے ملتا ہے اس کی توثیق کرتا ہوں، اور تکرار کی توقع کرتا ہوں\"",
+      "line_start": 242,
+      "line_end": 243,
+      "context": "list_item"
+    },
+    {
+      "id": 108,
+      "type": "inline",
+      "original": "This mental model isn't pessimistic—it's pragmatic. When you understand the constraints, you stop fighting them and start designing workflows that work with them. That's when AI becomes genuinely productive rather than frustrating.",
+      "translated": "یہ ذہنی ماڈل مایوس کن نہیں ہے—یہ عملی ہے۔ جب آپ رکاوٹوں کو سمجھتے ہیں، تو آپ ان سے لڑنا چھوڑ دیتے ہیں اور ایسے ورک فلو ڈیزائن کرنا شروع کردیتے ہیں جو ان کے ساتھ کام کرتے ہیں۔ تب ہی AI مایوس کن ہونے کے بجائے حقیقی طور پر نتیجہ خیز ہوجاتا ہے۔",
+      "line_start": 244,
+      "line_end": 245,
+      "context": "paragraph"
+    },
+    {
+      "id": 109,
+      "type": "inline",
+      "original": "The Hallucination Risk",
+      "translated": "ہیلوسینیشن کا خطرہ",
+      "line_start": 248,
+      "line_end": 249,
+      "context": "heading_h3"
+    },
+    {
+      "id": 110,
+      "type": "inline",
+      "original": "LLMs can confidently generate code that looks correct but contains subtle bugs, references non-existent APIs, or implements logic that doesn't match your intent. \nThis isn't lying—it's the probabilistic nature producing confident-sounding outputs from statistical patterns. This is why validation isn't optional: you cannot trust AI-generated code without verification.",
+      "translated": "LLMs اعتماد کے ساتھ ایسا کوڈ تیار کرسکتے ہیں جو درست لگتا ہے لیکن اس میں لطیف کیڑے ہوتے ہیں، غیر موجود APIs کا حوالہ دیتے ہیں، یا ایسی منطق کو نافذ کرتے ہیں جو آپ کے ارادے سے میل نہیں کھاتی ہے۔ \nیہ جھوٹ نہیں ہے—یہ امکانی نوعیت ہے جو شماریاتی نمونوں سے پراعتماد لگنے والے آؤٹ پٹ پیدا کرتی ہے۔ یہی وجہ ہے کہ توثیق اختیاری نہیں ہے: آپ تصدیق کے بغیر AI سے تیار کردہ کوڈ پر بھروسہ نہیں کرسکتے ہیں۔",
+      "line_start": 250,
+      "line_end": 252,
+      "context": "paragraph"
+    },
+    {
+      "id": 111,
+      "type": "inline",
+      "original": "Context and Cost",
+      "translated": "سیاق و سباق اور لاگت",
+      "line_start": 255,
+      "line_end": 256,
+      "context": "heading_h3"
+    },
+    {
+      "id": 112,
+      "type": "inline",
+      "original": "Every token in the context window costs money. Frontier model APIs charge per input and output token. A poorly managed context (stuffing irrelevant files, long conversation histories) directly increases costs. Efficient specifications and smart context engineering aren't just about quality—they're about economics at scale.",
+      "translated": "سیاق و سباق کی کھڑکی میں ہر ٹوکن کی قیمت ہوتی ہے۔ فرنٹیئر ماڈل APIs فی ان پٹ اور آؤٹ پٹ ٹوکن چارج کرتی ہیں۔ ایک ناقص منظم سیاق و سباق (غیر متعلقہ فائلوں کو بھرنا، طویل گفتگو کی تاریخیں) براہ راست لاگت میں اضافہ کرتا ہے۔ موثر تفصیلات اور سمارٹ سیاق و سباق کی انجینئرنگ صرف معیار کے بارے میں نہیں ہیں—وہ بڑے پیمانے پر معاشیات کے بارے میں ہیں۔",
+      "line_start": 257,
+      "line_end": 258,
+      "context": "paragraph"
+    },
+    {
+      "id": 113,
+      "type": "inline",
+      "original": "Try With AI",
+      "translated": "AI کے ساتھ کوشش کریں۔",
+      "line_start": 261,
+      "line_end": 262,
+      "context": "heading_h2"
+    },
+    {
+      "id": 114,
+      "type": "inline",
+      "original": "**Constraint Exploration Exercise**",
+      "translated": "**رکاوٹ کی تلاش کی مشق**",
+      "line_start": 263,
+      "line_end": 264,
+      "context": "paragraph"
+    },
+    {
+      "id": 115,
+      "type": "inline",
+      "original": "Use your AI companion to explore these constraints firsthand:",
+      "translated": "ان رکاوٹوں کو خود دریافت کرنے کے لیے اپنے AI ساتھی کا استعمال کریں:",
+      "line_start": 265,
+      "line_end": 266,
+      "context": "paragraph"
+    },
+    {
+      "id": 116,
+      "type": "inline",
+      "original": "**What you're learning**: Direct experience with the constraints. This builds visceral understanding that reading about them cannot provide.",
+      "translated": "**آپ کیا سیکھ رہے ہیں**: رکاوٹوں کے ساتھ براہ راست تجربہ۔ یہ گہری سمجھ پیدا کرتا ہے جو ان کے بارے میں پڑھنا فراہم نہیں کرسکتا۔",
+      "line_start": 286,
+      "line_end": 287,
+      "context": "paragraph"
+    },
+    {
+      "id": 117,
+      "type": "inline",
+      "original": "**Context Engineering Exercise**",
+      "translated": "**سیاق و سباق کی انجینئرنگ کی مشق**",
+      "line_start": 288,
+      "line_end": 289,
+      "context": "paragraph"
+    },
+    {
+      "id": 118,
+      "type": "inline",
+      "original": "**What you're learning**: How to think about context curation. This skill directly impacts how effective your AI collaboration becomes.",
+      "translated": "**آپ کیا سیکھ رہے ہیں**: سیاق و سباق کی درستگی کے بارے میں کیسے سوچیں۔ یہ مہارت براہ راست اس بات پر اثر انداز ہوتی ہے کہ آپ کا AI تعاون کتنا موثر ہوجاتا ہے۔",
+      "line_start": 312,
+      "line_end": 313,
+      "context": "paragraph"
+    },
+    {
+      "id": 119,
+      "type": "inline",
+      "original": "Summary: The Three Constraints",
+      "translated": "خلاصہ: تین رکاوٹیں",
+      "line_start": 316,
+      "line_end": 317,
+      "context": "heading_h2"
+    },
+    {
+      "id": 120,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Constraint",
+          "translated": "رکاوٹ"
+        },
+        {
+          "original": "What It Means",
+          "translated": "اس کا کیا مطلب ہے"
+        },
+        {
+          "original": "Your Response",
+          "translated": "آپ کا جواب"
+        }
+      ],
+      "line_start": 318,
+      "line_end": 319,
+      "context": "table"
+    },
+    {
+      "id": 121,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Stateless**",
+          "translated": "**بے ریاست**"
+        },
+        {
+          "original": "No memory between sessions; conversation history is re-sent each time",
+          "translated": "سیشنز کے درمیان کوئی یادداشت نہیں؛ گفتگو کی تاریخ ہر بار دوبارہ بھیجی جاتی ہے۔"
+        },
+        {
+          "original": "Persist context in files (AGENTS.md, specs); design for fresh starts",
+          "translated": "فائلوں میں سیاق و سباق کو برقرار رکھیں (AGENTS.md، تفصیلات)؛ تازہ شروعات کے لیے ڈیزائن کریں۔"
+        }
+      ],
+      "line_start": 320,
+      "line_end": 321,
+      "context": "table"
+    },
+    {
+      "id": 122,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Probabilistic**",
+          "translated": "**امکانی**"
+        },
+        {
+          "original": "Variable outputs from identical inputs; no guaranteed reproducibility",
+          "translated": "یکساں ان پٹ سے متغیر آؤٹ پٹ؛ دوبارہ پیدا کرنے کی کوئی ضمانت نہیں۔"
+        },
+        {
+          "original": "Validate all outputs; use specs to constrain variation; embrace iteration",
+          "translated": "تمام آؤٹ پٹ کی توثیق کریں؛ تغیر کو محدود کرنے کے لیے تفصیلات استعمال کریں؛ تکرار کو اپنائیں۔"
+        }
+      ],
+      "line_start": 321,
+      "line_end": 322,
+      "context": "table"
+    },
+    {
+      "id": 123,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Limited Context**",
+          "translated": "**محدود سیاق و سباق**"
+        },
+        {
+          "original": "Fixed window for all information; content competes for space",
+          "translated": "تمام معلومات کے لیے مقررہ کھڑکی؛ مواد جگہ کے لیے مقابلہ کرتا ہے۔"
+        },
+        {
+          "original": "Engineer context carefully; prioritize quality over quantity; use smart tools",
+          "translated": "سیاق و سباق کو احتیاط سے انجینئر کریں؛ مقدار پر معیار کو ترجیح دیں؛ سمارٹ ٹولز استعمال کریں۔"
+        }
+      ],
+      "line_start": 322,
+      "line_end": 323,
+      "context": "table"
+    },
+    {
+      "id": 124,
+      "type": "inline",
+      "original": "Understanding these constraints is prerequisite knowledge for everything else in this book. They explain *why* the methodologies exist and *how* to apply them effectively. With this foundation, you're ready to learn the specific techniques that transform these constraints from limitations into design parameters.",
+      "translated": "ان رکاوٹوں کو سمجھنا اس کتاب میں باقی ہر چیز کے لیے پیشگی علم ہے۔ وہ وضاحت کرتے ہیں کہ *کیوں* طریقہ کار موجود ہیں اور انہیں *کیسے* مؤثر طریقے سے لاگو کیا جائے۔ اس بنیاد کے ساتھ، آپ مخصوص تکنیکیں سیکھنے کے لیے تیار ہیں جو ان رکاوٹوں کو حدود سے ڈیزائن پیرامیٹرز میں تبدیل کرتی ہیں۔",
+      "line_start": 324,
+      "line_end": 325,
+      "context": "paragraph"
+    }
+  ]
+}

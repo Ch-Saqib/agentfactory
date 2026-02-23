@@ -1,0 +1,473 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\whats-new.md",
+  "source_md5": "87d2cdd2c1a7000f8f3a9c11a04219e8",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 51,
+  "frontmatter_segments": [
+    {
+      "id": "fm_0",
+      "key": "title",
+      "original": "What's New",
+      "translated": "نیا کیا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 0,
+      "quote_char": ""
+    },
+    {
+      "id": "fm_1",
+      "key": "description",
+      "original": "Track meaningful updates to the book content.",
+      "translated": "کتاب کے مواد میں معنی خیز اپ ڈیٹس کو ٹریک کریں۔",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": ""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "What's New",
+      "translated": "نیا کیا ہے",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "heading_h1"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "Track meaningful updates to the book. This page is automatically updated when documentation changes are merged.",
+      "translated": "کتاب میں معنی خیز اپ ڈیٹس کو ٹریک کریں۔ یہ صفحہ خودکار طور پر اپ ڈیٹ ہو جاتا ہے جب دستاویزات میں تبدیلیاں مرج کی جاتی ہیں۔",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "Latest Updates",
+      "translated": "تازہ ترین اپ ڈیٹس",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "heading_h2"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "*Updates are grouped by day and populated automatically from merged pull requests.*",
+      "translated": "*اپ ڈیٹس کو دن کے لحاظ سے گروپ کیا جاتا ہے اور مرج شدہ pull requests سے خودکار طور پر بھرا جاتا ہے۔*",
+      "line_start": 9,
+      "line_end": 10,
+      "context": "paragraph"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "docs: add thesis paragraph to Chapter 14 overview ([#753](https://github.com/panaversity/agentfactory/pull/753))",
+      "translated": "docs: باب 14 کے جائزے میں تھیسس پیراگراف شامل کریں ([#753](https://github.com/panaversity/agentfactory/pull/753))",
+      "line_start": 14,
+      "line_end": 15,
+      "context": "list_item"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "docs: add kitchen analogy to Chapter 14 overview ([#752](https://github.com/panaversity/agentfactory/pull/752))",
+      "translated": "docs: باب 14 کے جائزے میں کچن کی مثال شامل کریں ([#752](https://github.com/panaversity/agentfactory/pull/752))",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "list_item"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "docs: smooth lesson-to-lesson transitions for Chapter 14 Axioms II-X ([#751](https://github.com/panaversity/agentfactory/pull/751))",
+      "translated": "docs: باب 14 کے اصول II-X کے لیے ہموار سبق سے سبق منتقلی ([#751](https://github.com/panaversity/agentfactory/pull/751))",
+      "line_start": 20,
+      "line_end": 21,
+      "context": "list_item"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "docs: smooth transition from Axiom I into Axiom II ([#750](https://github.com/panaversity/agentfactory/pull/750))",
+      "translated": "docs: اصول I سے اصول II میں ہموار منتقلی ([#750](https://github.com/panaversity/agentfactory/pull/750))",
+      "line_start": 23,
+      "line_end": 24,
+      "context": "list_item"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "docs: improve ch14 overview clarity and lesson transitions ([#748](https://github.com/panaversity/agentfactory/pull/748))",
+      "translated": "docs: ch14 جائزہ کی وضاحت اور سبق کی منتقلی کو بہتر بنائیں ([#748](https://github.com/panaversity/agentfactory/pull/748))",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "list_item"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "docs: rename ch14 directory to match updated title ([#747](https://github.com/panaversity/agentfactory/pull/747))",
+      "translated": "docs: اپ ڈیٹ شدہ عنوان سے ملانے کے لیے ch14 ڈائریکٹری کا نام تبدیل کریں ([#747](https://github.com/panaversity/agentfactory/pull/747))",
+      "line_start": 29,
+      "line_end": 30,
+      "context": "list_item"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "refactor(study-mode-api): review cleanup for PR #722 ([#745](https://github.com/panaversity/agentfactory/pull/745))",
+      "translated": "refactor(study-mode-api): PR #722 کے لیے جائزہ صفائی ([#745](https://github.com/panaversity/agentfactory/pull/745))",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "list_item"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "feat: Practice Environment v0.2 — production-ready embedded terminal ([#725](https://github.com/panaversity/agentfactory/pull/725))",
+      "translated": "feat: پریکٹس ماحول v0.2 — پروڈکشن ریڈی ایمبیڈڈ ٹرمینل ([#725](https://github.com/panaversity/agentfactory/pull/725))",
+      "line_start": 36,
+      "line_end": 37,
+      "context": "list_item"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "docs: embed slides directly in ch14 Teaching Aid ([#744](https://github.com/panaversity/agentfactory/pull/744))",
+      "translated": "docs: ch14 ٹیچنگ ایڈ میں سلائیڈز کو براہ راست ایمبیڈ کریں ([#744](https://github.com/panaversity/agentfactory/pull/744))",
+      "line_start": 39,
+      "line_end": 40,
+      "context": "list_item"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "docs: fix chapter 6 link to use absolute path ([#743](https://github.com/panaversity/agentfactory/pull/743))",
+      "translated": "docs: مطلق پاتھ استعمال کرنے کے لیے باب 6 کا لنک ٹھیک کریں ([#743](https://github.com/panaversity/agentfactory/pull/743))",
+      "line_start": 42,
+      "line_end": 43,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "docs: fix chapter 6 cross-reference link in ch14 overview ([#742](https://github.com/panaversity/agentfactory/pull/742))",
+      "translated": "docs: ch14 جائزے میں باب 6 کا کراس ریفرنس لنک ٹھیک کریں ([#742](https://github.com/panaversity/agentfactory/pull/742))",
+      "line_start": 45,
+      "line_end": 46,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "docs: improve chapter 14 readability, slides, and citations ([#741](https://github.com/panaversity/agentfactory/pull/741))",
+      "translated": "docs: باب 14 کی پڑھنے کی صلاحیت، سلائیڈز، اور حوالہ جات کو بہتر بنائیں ([#741](https://github.com/panaversity/agentfactory/pull/741))",
+      "line_start": 48,
+      "line_end": 49,
+      "context": "list_item"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "Improve/chapter 14 ten axioms ([#740](https://github.com/panaversity/agentfactory/pull/740))",
+      "translated": "بہتر بنائیں/باب 14 دس اصول ([#740](https://github.com/panaversity/agentfactory/pull/740))",
+      "line_start": 51,
+      "line_end": 52,
+      "context": "list_item"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "Improve/chapter 14 ten axioms ([#739](https://github.com/panaversity/agentfactory/pull/739))",
+      "translated": "بہتر بنائیں/باب 14 دس اصول ([#739](https://github.com/panaversity/agentfactory/pull/739))",
+      "line_start": 54,
+      "line_end": 55,
+      "context": "list_item"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "Improve/chapter 14 ten axioms ([#738](https://github.com/panaversity/agentfactory/pull/738))",
+      "translated": "بہتر بنائیں/باب 14 دس اصول ([#738](https://github.com/panaversity/agentfactory/pull/738))",
+      "line_start": 57,
+      "line_end": 58,
+      "context": "list_item"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "Move Ch12 (OpenClaw) to Part 1 as Ch7, renumber Ch7-Ch12 ([#737](https://github.com/panaversity/agentfactory/pull/737))",
+      "translated": "Ch12 (OpenClaw) کو حصہ 1 میں Ch7 کے طور پر منتقل کریں، Ch7-Ch12 کو دوبارہ نمبر دیں ([#737](https://github.com/panaversity/agentfactory/pull/737))",
+      "line_start": 60,
+      "line_end": 61,
+      "context": "list_item"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Condense Ch12 from 8 to 6 lessons ([#736](https://github.com/panaversity/agentfactory/pull/736))",
+      "translated": "Ch12 کو 8 سے 6 اسباق تک کم کریں ([#736](https://github.com/panaversity/agentfactory/pull/736))",
+      "line_start": 64,
+      "line_end": 65,
+      "context": "list_item"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "docs: migrate chapter 14 assets to R2 CDN ([#735](https://github.com/panaversity/agentfactory/pull/735))",
+      "translated": "docs: باب 14 کے اثاثوں کو R2 CDN میں منتقل کریں ([#735](https://github.com/panaversity/agentfactory/pull/735))",
+      "line_start": 67,
+      "line_end": 68,
+      "context": "list_item"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "Improve/chapter 14 ten axioms ([#734](https://github.com/panaversity/agentfactory/pull/734))",
+      "translated": "بہتر بنائیں/باب 14 دس اصول ([#734](https://github.com/panaversity/agentfactory/pull/734))",
+      "line_start": 70,
+      "line_end": 71,
+      "context": "list_item"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "Updates after review ([#733](https://github.com/panaversity/agentfactory/pull/733))",
+      "translated": "جائزے کے بعد اپ ڈیٹس ([#733](https://github.com/panaversity/agentfactory/pull/733))",
+      "line_start": 73,
+      "line_end": 74,
+      "context": "list_item"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "Ch7 final polish ([#732](https://github.com/panaversity/agentfactory/pull/732))",
+      "translated": "Ch7 حتمی پالش ([#732](https://github.com/panaversity/agentfactory/pull/732))",
+      "line_start": 76,
+      "line_end": 77,
+      "context": "list_item"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "Ch7 final polish ([#731](https://github.com/panaversity/agentfactory/pull/731))",
+      "translated": "Ch7 حتمی پالش ([#731](https://github.com/panaversity/agentfactory/pull/731))",
+      "line_start": 79,
+      "line_end": 80,
+      "context": "list_item"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "docs: rewrite chapter 12 — Meet Your First AI Employee ([#730](https://github.com/panaversity/agentfactory/pull/730))",
+      "translated": "docs: باب 12 کو دوبارہ لکھیں — اپنے پہلے AI ملازم سے ملیں ([#730](https://github.com/panaversity/agentfactory/pull/730))",
+      "line_start": 83,
+      "line_end": 84,
+      "context": "list_item"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "docs: elevate chapter 14 to book-quality with images and narrative ([#729](https://github.com/panaversity/agentfactory/pull/729))",
+      "translated": "docs: باب 14 کو تصاویر اور بیانیے کے ساتھ کتاب کے معیار تک بلند کریں ([#729](https://github.com/panaversity/agentfactory/pull/729))",
+      "line_start": 87,
+      "line_end": 88,
+      "context": "list_item"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "update slides in ch7 ([#724](https://github.com/panaversity/agentfactory/pull/724))",
+      "translated": "ch7 میں سلائیڈز اپ ڈیٹ کریں ([#724](https://github.com/panaversity/agentfactory/pull/724))",
+      "line_start": 90,
+      "line_end": 91,
+      "context": "list_item"
+    },
+    {
+      "id": 29,
+      "type": "inline",
+      "original": "Enhance ch7 ([#723](https://github.com/panaversity/agentfactory/pull/723))",
+      "translated": "ch7 کو بہتر بنائیں ([#723](https://github.com/panaversity/agentfactory/pull/723))",
+      "line_start": 93,
+      "line_end": 94,
+      "context": "list_item"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "docs: review and polish Chapter 6 - Seven Principles ([#720](https://github.com/panaversity/agentfactory/pull/720))",
+      "translated": "docs: باب 6 - سات اصولوں کا جائزہ لیں اور پالش کریں ([#720](https://github.com/panaversity/agentfactory/pull/720))",
+      "line_start": 96,
+      "line_end": 97,
+      "context": "list_item"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "Review/chapter 2 markdown ([#719](https://github.com/panaversity/agentfactory/pull/719))",
+      "translated": "جائزہ/باب 2 markdown ([#719](https://github.com/panaversity/agentfactory/pull/719))",
+      "line_start": 100,
+      "line_end": 101,
+      "context": "list_item"
+    },
+    {
+      "id": 32,
+      "type": "inline",
+      "original": "refactor: implement the suggested changes after thorough chapter audit ([#715](https://github.com/panaversity/agentfactory/pull/715))",
+      "translated": "refactor: مکمل باب آڈٹ کے بعد تجویز کردہ تبدیلیاں لاگو کریں ([#715](https://github.com/panaversity/agentfactory/pull/715))",
+      "line_start": 103,
+      "line_end": 104,
+      "context": "list_item"
+    },
+    {
+      "id": 33,
+      "type": "inline",
+      "original": "001 linux mastery v2 ([#709](https://github.com/panaversity/agentfactory/pull/709))",
+      "translated": "001 لینکس ماسٹری v2 ([#709](https://github.com/panaversity/agentfactory/pull/709))",
+      "line_start": 107,
+      "line_end": 108,
+      "context": "list_item"
+    },
+    {
+      "id": 34,
+      "type": "inline",
+      "original": "Fix minor markdown rendering in markdown chapter ([#704](https://github.com/panaversity/agentfactory/pull/704))",
+      "translated": "markdown باب میں معمولی markdown رینڈرنگ ٹھیک کریں ([#704](https://github.com/panaversity/agentfactory/pull/704))",
+      "line_start": 110,
+      "line_end": 111,
+      "context": "list_item"
+    },
+    {
+      "id": 35,
+      "type": "inline",
+      "original": "feat: add chapter 8 all lessons summary ([#703](https://github.com/panaversity/agentfactory/pull/703))",
+      "translated": "feat: باب 8 کا تمام اسباق کا خلاصہ شامل کریں ([#703](https://github.com/panaversity/agentfactory/pull/703))",
+      "line_start": 114,
+      "line_end": 115,
+      "context": "list_item"
+    },
+    {
+      "id": 36,
+      "type": "inline",
+      "original": "Update Chapter 09 and add horizontal scroll bars in markdown table viewers ([#702](https://github.com/panaversity/agentfactory/pull/702))",
+      "translated": "باب 09 اپ ڈیٹ کریں اور markdown ٹیبل ویورز میں افقی سکرول بارز شامل کریں ([#702](https://github.com/panaversity/agentfactory/pull/702))",
+      "line_start": 117,
+      "line_end": 118,
+      "context": "list_item"
+    },
+    {
+      "id": 37,
+      "type": "inline",
+      "original": "feat: consolidate Ch3 exercises into dedicated lessons with ZIP downloads ([#701](https://github.com/panaversity/agentfactory/pull/701))",
+      "translated": "feat: Ch3 مشقوں کو ZIP ڈاؤن لوڈز کے ساتھ مخصوص اسباق میں یکجا کریں ([#701](https://github.com/panaversity/agentfactory/pull/701))",
+      "line_start": 121,
+      "line_end": 122,
+      "context": "list_item"
+    },
+    {
+      "id": 38,
+      "type": "inline",
+      "original": "feat: Add skills/ exercise lab sections to L07, L08, L09 ([#700](https://github.com/panaversity/agentfactory/pull/700))",
+      "translated": "feat: L07، L08، L09 میں اسکلز/مشق لیب سیکشنز شامل کریں ([#700](https://github.com/panaversity/agentfactory/pull/700))",
+      "line_start": 124,
+      "line_end": 125,
+      "context": "list_item"
+    },
+    {
+      "id": 39,
+      "type": "inline",
+      "original": "fix: update L04 exercise path to match renamed module folder ([#699](https://github.com/panaversity/agentfactory/pull/699))",
+      "translated": "fix: تبدیل شدہ ماڈیول فولڈر سے ملانے کے لیے L04 مشق کا پاتھ اپ ڈیٹ کریں ([#699](https://github.com/panaversity/agentfactory/pull/699))",
+      "line_start": 127,
+      "line_end": 128,
+      "context": "list_item"
+    },
+    {
+      "id": 40,
+      "type": "inline",
+      "original": "feat: Add exercise lab sections to Ch3 Lessons 04 and 05 ([#698](https://github.com/panaversity/agentfactory/pull/698))",
+      "translated": "feat: Ch3 اسباق 04 اور 05 میں مشق لیب سیکشنز شامل کریں ([#698](https://github.com/panaversity/agentfactory/pull/698))",
+      "line_start": 130,
+      "line_end": 131,
+      "context": "list_item"
+    },
+    {
+      "id": 41,
+      "type": "inline",
+      "original": "Add Chapter 09: SQL & Neon PostgreSQL with Python specification and t… ([#695](https://github.com/panaversity/agentfactory/pull/695))",
+      "translated": "باب 09 شامل کریں: Python سپیسیفیکیشن کے ساتھ SQL & Neon PostgreSQL اور t… ([#695](https://github.com/panaversity/agentfactory/pull/695))",
+      "line_start": 134,
+      "line_end": 135,
+      "context": "list_item"
+    },
+    {
+      "id": 42,
+      "type": "inline",
+      "original": "feat(token-metering-api): implement v5 freemium token tracker ([#683](https://github.com/panaversity/agentfactory/pull/683))",
+      "translated": "feat(token-metering-api): v5 freemium ٹوکن ٹریکر لاگو کریں ([#683](https://github.com/panaversity/agentfactory/pull/683))",
+      "line_start": 138,
+      "line_end": 139,
+      "context": "list_item"
+    },
+    {
+      "id": 43,
+      "type": "inline",
+      "original": "About This Page",
+      "translated": "اس صفحے کے بارے میں",
+      "line_start": 142,
+      "line_end": 143,
+      "context": "heading_h2"
+    },
+    {
+      "id": 44,
+      "type": "inline",
+      "original": "This book is continuously updated. Instead of version numbers, we track changes here so you can see what's new since your last visit.",
+      "translated": "یہ کتاب مسلسل اپ ڈیٹ ہوتی رہتی ہے۔ ورژن نمبرز کے بجائے، ہم تبدیلیوں کو یہاں ٹریک کرتے ہیں تاکہ آپ دیکھ سکیں کہ آپ کی آخری وزٹ کے بعد کیا نیا ہے۔",
+      "line_start": 144,
+      "line_end": 145,
+      "context": "paragraph"
+    },
+    {
+      "id": 45,
+      "type": "inline",
+      "original": "Each entry links to the specific content that changed",
+      "translated": "ہر اندراج تبدیل شدہ مخصوص مواد سے لنک کرتا ہے",
+      "line_start": 146,
+      "line_end": 147,
+      "context": "list_item"
+    },
+    {
+      "id": 46,
+      "type": "inline",
+      "original": "Updates are automatically recorded when changes merge to main",
+      "translated": "جب تبدیلیاں main میں مرج ہوتی ہیں تو اپ ڈیٹس خودکار طور پر ریکارڈ ہو جاتے ہیں",
+      "line_start": 147,
+      "line_end": 148,
+      "context": "list_item"
+    },
+    {
+      "id": 47,
+      "type": "inline",
+      "original": "Only changes to book content (not infrastructure) appear here",
+      "translated": "یہاں صرف کتاب کے مواد میں تبدیلیاں ظاہر ہوتی ہیں (انفراسٹرکچر نہیں)",
+      "line_start": 148,
+      "line_end": 149,
+      "context": "list_item"
+    },
+    {
+      "id": 48,
+      "type": "inline",
+      "original": "**Tip**: Bookmark this page to quickly check for updates.",
+      "translated": "**تجویز**: اپ ڈیٹس کی جلدی جانچ کے لیے اس صفحے کو بک مارک کریں۔",
+      "line_start": 150,
+      "line_end": 151,
+      "context": "paragraph"
+    }
+  ],
+  "admonition_segments": [],
+  "mdx_protected_lines": {},
+  "admonition_markers": []
+}

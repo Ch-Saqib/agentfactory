@@ -1,0 +1,74 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\01-General-Agents-Foundations\\01-agent-factory-paradigm\\11-chapter-quiz.md",
+  "source_md5": "7b3648e82eb0dad52976199d8355a940",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 8,
+  "frontmatter_segments": [
+    {
+      "id": "fm_1",
+      "key": "title",
+      "original": "Chapter 1: The AI Agent Factory Paradigm Quiz",
+      "translated": "باب 1: The AI Agent Factory Paradigm کوئز",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_2",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 2,
+      "quote_char": ""
+    },
+    {
+      "id": "fm_4",
+      "key": "estimated_time",
+      "original": "50 mins",
+      "translated": "50 منٹ",
+      "context": "frontmatter",
+      "line_in_fm": 4,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_5",
+      "key": "chapter_type",
+      "original": "Concept",
+      "translated": "تصور",
+      "context": "frontmatter",
+      "line_in_fm": 5,
+      "quote_char": ""
+    },
+    {
+      "id": "fm_6",
+      "key": "running_example_id",
+      "original": "agent-factory-paradigm-quiz",
+      "translated": "agent-factory-paradigm-quiz",
+      "context": "frontmatter",
+      "line_in_fm": 6,
+      "quote_char": ""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "Chapter 1: The AI Agent Factory Paradigm Quiz",
+      "translated": "باب 1: The AI Agent Factory Paradigm کوئز",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "heading_h1"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "Test your understanding of the foundational concepts that define AI-Driven Development and the Digital FTE vision. This assessment covers all 10 lessons in Chapter 1.",
+      "translated": "AI-Driven Development اور Digital FTE وژن کی بنیادی تصورات کی اپنی سمجھ کو پرکھیں۔ یہ تشخیص باب 1 کے تمام 10 اسباق کا احاطہ کرتی ہے۔",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    }
+  ]
+}

@@ -1,0 +1,2052 @@
+{
+  "source_file": "D:/agentfactory-main/agentfactory-main/apps/learn-app/docs/01-General-Agents-Foundations/01-agent-factory-paradigm/05-aiff-standards-foundation.md",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 204,
+  "frontmatter_segments": [
+    {
+      "id": "fm_1",
+      "key": "title",
+      "original": "AIFF Standards - The Foundation",
+      "translated": "AIFF معیارات - بنیاد",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_2",
+      "key": "description",
+      "original": "Understanding the Agentic AI Foundation standards (MCP, AGENTS.md, goose, Skills, MCP Apps) that enable portable, sellable Digital FTEs",
+      "translated": "ایجنٹک AI فاؤنڈیشن کے معیارات (MCP, AGENTS.md, goose, Skills, MCP Apps) کو سمجھنا جو پورٹیبل، قابل فروخت ڈیجیٹل FTEs کو فعال کرتے ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 2,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_11",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 11,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_12",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "تصوراتی",
+      "context": "frontmatter",
+      "line_in_fm": 12,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_13",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 13,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_14",
+      "key": "digcomp_area",
+      "original": "Information Literacy",
+      "translated": "معلوماتی خواندگی",
+      "context": "frontmatter",
+      "line_in_fm": 14,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_15",
+      "key": "measurable_at_this_level",
+      "original": "Student can explain why open standards (like USB, HTTP) create more value than proprietary alternatives through network effects",
+      "translated": "طالب علم وضاحت کرسکتا ہے کہ کھلے معیارات (جیسے USB، HTTP) نیٹ ورک اثرات کے ذریعے ملکیتی متبادلات سے زیادہ قدر کیوں پیدا کرتے ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 15,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_18",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 18,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_19",
+      "key": "category",
+      "original": "Technical",
+      "translated": "تکنیکی",
+      "context": "frontmatter",
+      "line_in_fm": 19,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_20",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "درخواست دیں",
+      "context": "frontmatter",
+      "line_in_fm": 20,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_21",
+      "key": "digcomp_area",
+      "original": "Problem-Solving",
+      "translated": "مسئلہ حل کرنا",
+      "context": "frontmatter",
+      "line_in_fm": 21,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_22",
+      "key": "measurable_at_this_level",
+      "original": "Student can correctly apply MCP (connectivity), AGENTS.md (adaptability), Skills (expertise), and goose (architecture) to specific Digital FTE design problems",
+      "translated": "طالب علم مخصوص ڈیجیٹل FTE ڈیزائن کے مسائل پر MCP (کنیکٹیویٹی)، AGENTS.md (موافقت)، اسکلز (مہارت)، اور گوز (فن تعمیر) کو صحیح طریقے سے لاگو کرسکتا ہے۔",
+      "context": "frontmatter",
+      "line_in_fm": 22,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_25",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 25,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_26",
+      "key": "category",
+      "original": "Applied",
+      "translated": "اطلاقی",
+      "context": "frontmatter",
+      "line_in_fm": 26,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_27",
+      "key": "bloom_level",
+      "original": "Evaluate",
+      "translated": "جائزہ",
+      "context": "frontmatter",
+      "line_in_fm": 27,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_28",
+      "key": "digcomp_area",
+      "original": "Digital Content Creation",
+      "translated": "ڈیجیٹل مواد کی تخلیق",
+      "context": "frontmatter",
+      "line_in_fm": 28,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_29",
+      "key": "measurable_at_this_level",
+      "original": "Student can compare Apps SDK distribution, MCP Apps cross-platform portability, and custom interfaces to optimize reach and revenue",
+      "translated": "طالب علم رسائی اور آمدنی کو بہتر بنانے کے لیے ایپس SDK کی تقسیم، MCP ایپس کی کراس پلیٹ فارم پورٹیبلٹی، اور کسٹم انٹرفیس کا موازنہ کرسکتا ہے۔",
+      "context": "frontmatter",
+      "line_in_fm": 29,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_33",
+      "key": "proficiency_level",
+      "original": "A1",
+      "translated": "A1",
+      "context": "frontmatter",
+      "line_in_fm": 33,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_34",
+      "key": "bloom_level",
+      "original": "Understand",
+      "translated": "سمجھیں",
+      "context": "frontmatter",
+      "line_in_fm": 34,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_35",
+      "key": "assessment_method",
+      "original": "Articulation of portability benefits using USB Implementers Forum analogy",
+      "translated": "USB امپلیمینٹرز فورم کی تشبیہ کا استعمال کرتے ہوئے پورٹیبلٹی کے فوائد کی وضاحت۔",
+      "context": "frontmatter",
+      "line_in_fm": 35,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_38",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 38,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_39",
+      "key": "bloom_level",
+      "original": "Analyze",
+      "translated": "تجزیہ",
+      "context": "frontmatter",
+      "line_in_fm": 39,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_40",
+      "key": "assessment_method",
+      "original": "Classification of capabilities into connectivity (MCP), adaptability (AGENTS.md), expertise (Skills), architecture patterns (goose)",
+      "translated": "صلاحیتوں کی درجہ بندی کنیکٹیویٹی (MCP)، موافقت (AGENTS.md)، مہارت (اسکلز)، فن تعمیر کے نمونوں (گوز) میں۔",
+      "context": "frontmatter",
+      "line_in_fm": 40,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_43",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 43,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_44",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "درخواست دیں",
+      "context": "frontmatter",
+      "line_in_fm": 44,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_45",
+      "key": "assessment_method",
+      "original": "Creation of valid AGENTS.md and SKILL.md files with proper frontmatter, activation conditions, and execution steps",
+      "translated": "مناسب فرنٹ میٹر، ایکٹیویشن کی شرائط، اور عمل درآمد کے مراحل کے ساتھ درست AGENTS.md اور SKILL.md فائلوں کی تخلیق۔",
+      "context": "frontmatter",
+      "line_in_fm": 45,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_49",
+      "key": "assessment",
+      "original": "7 concepts (AAIF governance, MCP primitives, AGENTS.md hierarchy, goose architecture, Skills progressive disclosure, MCP Apps UI, distribution economics) within A2 limit (7-9 concepts) ✓",
+      "translated": "7 تصورات (AAIF گورننس، MCP پرائمیٹوز، AGENTS.md درجہ بندی، گوز آرکیٹیکچر، اسکلز پروگریسو ڈسکلوژر، MCP ایپس UI، ڈسٹری بیوشن اکنامکس) A2 کی حد (7-9 تصورات) کے اندر ✓",
+      "context": "frontmatter",
+      "line_in_fm": 49,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_52",
+      "key": "extension_for_advanced",
+      "original": "Read AAIF governance documents; study MCP specification at modelcontextprotocol.io; compare MCP Apps Extension to OpenAI Apps SDK; clone goose repository to analyze production patterns",
+      "translated": "AAIF گورننس دستاویزات پڑھیں؛ modelcontextprotocol.io پر MCP تفصیلات کا مطالعہ کریں؛ MCP ایپس ایکسٹینشن کا OpenAI ایپس SDK سے موازنہ کریں؛ پیداواری نمونوں کا تجزیہ کرنے کے لیے گوز ریپوزٹری کو کلون کریں۔",
+      "context": "frontmatter",
+      "line_in_fm": 52,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_53",
+      "key": "remedial_for_struggling",
+      "original": "Focus on USB analogy; understand MCP (connectivity) deeply before adding AGENTS.md (adaptability) and Skills (expertise); use physical metaphors (hands vs training)",
+      "translated": "USB تشبیہ پر توجہ دیں؛ AGENTS.md (موافقت) اور اسکلز (مہارت) کو شامل کرنے سے پہلے MCP (کنیکٹیویٹی) کو گہرائی سے سمجھیں؛ جسمانی استعارے (ہاتھ بمقابلہ تربیت) استعمال کریں۔",
+      "context": "frontmatter",
+      "line_in_fm": 53,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_56",
+      "key": "lesson_type",
+      "original": "core",
+      "translated": "بنیادی",
+      "context": "frontmatter",
+      "line_in_fm": 56,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_58",
+      "key": "session_title",
+      "original": "Agent Capabilities and Standards",
+      "translated": "ایجنٹ کی صلاحیتیں اور معیارات",
+      "context": "frontmatter",
+      "line_in_fm": 58,
+      "quote_char": "\""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "AIFF Standards - The Foundation",
+      "translated": "AIFF معیارات - بنیاد",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "heading_h1"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "You've built a Digital Sales Development Representative (SDR) that qualifies leads 24/7. It works brilliantly with Claude. Now a client asks: \"Does it work with ChatGPT? We're standardizing on OpenAI.\"",
+      "translated": "آپ نے ایک ڈیجیٹل سیلز ڈویلپمنٹ نمائندہ (SDR) بنایا ہے جو 24/7 لیڈز کو کوالیفائی کرتا ہے۔ یہ کلاڈ کے ساتھ شاندار طریقے سے کام کرتا ہے۔ اب ایک کلائنٹ پوچھتا ہے: \"کیا یہ چیٹ جی پی ٹی کے ساتھ کام کرتا ہے؟ ہم OpenAI پر معیاری بنا رہے ہیں۔\"",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "What do you say?",
+      "translated": "آپ کیا کہتے ہیں؟",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "paragraph"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "Before December 9, 2025, you'd face an uncomfortable choice: rebuild for their platform, or lose the deal. Your expertise—the qualification logic, the CRM integrations, the follow-up workflows—was locked to one vendor.",
+      "translated": "9 دسمبر 2025 سے پہلے، آپ کو ایک غیر آرام دہ انتخاب کا سامنا کرنا پڑتا: ان کے پلیٹ فارم کے لیے دوبارہ تعمیر کریں، یا سودا کھو دیں۔ آپ کی مہارت—اہلیت کی منطق، CRM انضمام، فالو اپ ورک فلو—ایک وینڈر تک محدود تھی۔",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "paragraph"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "**AAIF changes this equation entirely.**",
+      "translated": "**AAIF اس مساوات کو مکمل طور پر بدل دیتا ہے۔**",
+      "line_start": 9,
+      "line_end": 10,
+      "context": "paragraph"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "The Agentic AI Foundation is a Linux Foundation initiative announced December 9, 2025. It provides neutral governance for the open standards that power AI agents—ensuring your Digital FTEs are portable investments, not platform prisoners.",
+      "translated": "ایجنٹک AI فاؤنڈیشن 9 دسمبر 2025 کو اعلان کردہ ایک لینکس فاؤنڈیشن اقدام ہے۔ یہ AI ایجنٹوں کو طاقت دینے والے کھلے معیارات کے لیے غیر جانبدارانہ گورننس فراہم کرتا ہے—اس بات کو یقینی بناتا ہے کہ آپ کے ڈیجیٹل FTEs پورٹیبل سرمایہ کاری ہیں، پلیٹ فارم قیدی نہیں۔",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "paragraph"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "On that date, something unprecedented happened: OpenAI, Anthropic, and Block—companies that compete fiercely for AI market share—came together under the Linux Foundation to donate their core technologies to neutral governance. They were joined by Amazon Web Services, Google, Microsoft, Bloomberg, and Cloudflare as platinum members.",
+      "translated": "اس تاریخ کو، کچھ غیر معمولی ہوا: OpenAI، Anthropic، اور Block — کمپنیاں جو AI مارکیٹ شیئر کے لیے سخت مقابلہ کرتی ہیں — نے لینکس فاؤنڈیشن کے تحت اکٹھے ہوکر اپنی بنیادی ٹیکنالوجیز کو غیر جانبدارانہ گورننس کے لیے عطیہ کیا۔ ان کے ساتھ ایمیزون ویب سروسز، گوگل، مائیکروسافٹ، بلومبرگ، اور کلاؤڈ فلیئر پلاٹینم ممبرز کے طور پر شامل ہوئے۔",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "paragraph"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "As Jim Zemlin, Executive Director of the Linux Foundation, stated:",
+      "translated": "جیسا کہ لینکس فاؤنڈیشن کے ایگزیکٹو ڈائریکٹر جم زیملن نے کہا:",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "paragraph"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "\"We are seeing AI enter a new phase, as conversational systems shift to autonomous agents that can work together. Within just one year, MCP, AGENTS.md and goose have become essential tools for developers building this new class of agentic technologies.\"",
+      "translated": "\"ہم دیکھ رہے ہیں کہ AI ایک نئے مرحلے میں داخل ہو رہا ہے، کیونکہ بات چیت کے نظام خود مختار ایجنٹوں کی طرف منتقل ہو رہے ہیں جو مل کر کام کرسکتے ہیں۔ صرف ایک سال کے اندر، MCP، AGENTS.md اور گوز اس نئی کلاس کی ایجنٹک ٹیکنالوجیز بنانے والے ڈویلپرز کے لیے ضروری اوزار بن گئے ہیں۔\"",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "blockquote"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**The insight: infrastructure that everyone needs should belong to everyone. Compete on products built atop shared foundations, not on the foundations themselves.**",
+      "translated": "**بصیرت: بنیادی ڈھانچہ جس کی ہر کسی کو ضرورت ہے وہ سب کا ہونا چاہئے۔ مشترکہ بنیادوں پر بنی مصنوعات پر مقابلہ کریں، نہ کہ خود بنیادوں پر۔**",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "paragraph"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "The USB Lesson: Why Standards Win",
+      "translated": "USB سبق: معیارات کیوں جیتتے ہیں۔",
+      "line_start": 23,
+      "line_end": 24,
+      "context": "heading_h2"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "Before USB became a standard, every device had proprietary connectors. Your phone charger wouldn't work with your camera. Your printer needed a special cable. Switching devices meant buying new cables and throwing away old ones.",
+      "translated": "USB کے معیار بننے سے پہلے، ہر ڈیوائس میں ملکیتی کنیکٹر ہوتے تھے۔ آپ کا فون چارجر آپ کے کیمرے کے ساتھ کام نہیں کرے گا۔ آپ کے پرنٹر کو ایک خاص کیبل کی ضرورت تھی۔ ڈیوائسز کو تبدیل کرنے کا مطلب نئی کیبلز خریدنا اور پرانی کو پھینک دینا تھا۔",
+      "line_start": 25,
+      "line_end": 26,
+      "context": "paragraph"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "Then USB standardized device connections:",
+      "translated": "پھر USB نے ڈیوائس کنکشن کو معیاری بنایا:",
+      "line_start": 27,
+      "line_end": 28,
+      "context": "paragraph"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "Any USB device works with any USB port",
+      "translated": "کوئی بھی USB ڈیوائس کسی بھی USB پورٹ کے ساتھ کام کرتی ہے۔",
+      "line_start": 28,
+      "line_end": 29,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "Manufacturers compete on device quality, not connector lock-in",
+      "translated": "مینوفیکچررز ڈیوائس کے معیار پر مقابلہ کرتے ہیں، نہ کہ کنیکٹر لاک ان پر۔",
+      "line_start": 29,
+      "line_end": 30,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "Consumers buy with confidence—their investment is portable",
+      "translated": "صارفین اعتماد کے ساتھ خریدتے ہیں—ان کی سرمایہ کاری پورٹیبل ہے۔",
+      "line_start": 30,
+      "line_end": 31,
+      "context": "list_item"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "**AAIF is the USB Implementers Forum for AI agents.**",
+      "translated": "**AAIF AI ایجنٹوں کے لیے USB امپلیمینٹرز فورم ہے۔**",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "paragraph"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "Just as USB needed a neutral standards body (the USB Implementers Forum) to ensure any device works with any port, AI agents need AAIF to ensure your Digital FTEs work across any platform. AAIF governs the standards; the standards themselves create the actual portability.",
+      "translated": "جس طرح USB کو ایک غیر جانبدار معیاری ادارے (USB امپلیمینٹرز فورم) کی ضرورت تھی تاکہ یہ یقینی بنایا جاسکے کہ کوئی بھی ڈیوائس کسی بھی پورٹ کے ساتھ کام کرتی ہے، اسی طرح AI ایجنٹوں کو AAIF کی ضرورت ہے تاکہ یہ یقینی بنایا جاسکے کہ آپ کے ڈیجیٹل FTEs کسی بھی پلیٹ فارم پر کام کرتے ہیں۔ AAIF معیارات کو کنٹرول کرتا ہے؛ خود معیارات اصل پورٹیبلٹی بناتے ہیں۔",
+      "line_start": 34,
+      "line_end": 35,
+      "context": "paragraph"
+    },
+    {
+      "id": 18,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Without Open Standards",
+          "translated": "کھلے معیارات کے بغیر"
+        },
+        {
+          "original": "With AAIF Standards",
+          "translated": "AAIF معیارات کے ساتھ"
+        }
+      ],
+      "line_start": 36,
+      "line_end": 37,
+      "context": "table"
+    },
+    {
+      "id": 19,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Rebuild integrations for each AI platform",
+          "translated": "ہر AI پلیٹ فارم کے لیے انضمام کو دوبارہ بنائیں۔"
+        },
+        {
+          "original": "Write once, deploy everywhere",
+          "translated": "ایک بار لکھیں، ہر جگہ تعینات کریں۔"
+        }
+      ],
+      "line_start": 38,
+      "line_end": 39,
+      "context": "table"
+    },
+    {
+      "id": 20,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Skills locked to Claude or ChatGPT",
+          "translated": "مہارتیں کلاڈ یا چیٹ جی پی ٹی تک محدود ہیں۔"
+        },
+        {
+          "original": "Skills work across all major agents",
+          "translated": "مہارتیں تمام بڑے ایجنٹوں میں کام کرتی ہیں۔"
+        }
+      ],
+      "line_start": 39,
+      "line_end": 40,
+      "context": "table"
+    },
+    {
+      "id": 21,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Custom code for every client's tools",
+          "translated": "ہر کلائنٹ کے ٹولز کے لیے کسٹم کوڈ۔"
+        },
+        {
+          "original": "Universal protocol for tool connectivity",
+          "translated": "ٹول کنیکٹیویٹی کے لیے یونیورسل پروٹوکول۔"
+        }
+      ],
+      "line_start": 40,
+      "line_end": 41,
+      "context": "table"
+    },
+    {
+      "id": 22,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Platform vendor lock-in",
+          "translated": "پلیٹ فارم وینڈر لاک ان۔"
+        },
+        {
+          "original": "Switch providers without rebuilding",
+          "translated": "دوبارہ تعمیر کیے بغیر فراہم کنندگان کو تبدیل کریں۔"
+        }
+      ],
+      "line_start": 41,
+      "line_end": 42,
+      "context": "table"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "The economic logic is identical: standards create larger markets, which benefit everyone more than fragmented proprietary ecosystems.",
+      "translated": "اقتصادی منطق یکساں ہے: معیارات بڑی منڈیاں بناتے ہیں، جو بکھرے ہوئے ملکیتی ماحولیاتی نظاموں سے زیادہ سب کو فائدہ پہنچاتے ہیں۔",
+      "line_start": 43,
+      "line_end": 44,
+      "context": "paragraph"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "The Five Standards Foundation",
+      "translated": "پانچ معیارات کی بنیاد",
+      "line_start": 47,
+      "line_end": 48,
+      "context": "heading_h2"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "AAIF launched with five projects that together form a complete foundation for portable AI agents:",
+      "translated": "AAIF نے پانچ منصوبوں کے ساتھ آغاز کیا جو مل کر پورٹیبل AI ایجنٹوں کے لیے ایک مکمل بنیاد بناتے ہیں:",
+      "line_start": 49,
+      "line_end": 50,
+      "context": "paragraph"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "1. Model Context Protocol (MCP) — From Anthropic",
+      "translated": "1. ماڈل سیاق و سباق پروٹوکول (MCP) — اینتھروپک سے",
+      "line_start": 51,
+      "line_end": 52,
+      "context": "heading_h3"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**The Problem It Solves:** Your Digital SDR needs CRM access. Your Digital Accountant needs database connections. Your Digital Legal Assistant needs document repositories. Before MCP, you'd write custom integration code for each combination of agent and tool.",
+      "translated": "**یہ جو مسئلہ حل کرتا ہے:** آپ کے ڈیجیٹل SDR کو CRM تک رسائی کی ضرورت ہے۔ آپ کے ڈیجیٹل اکاؤنٹنٹ کو ڈیٹا بیس کنکشن کی ضرورت ہے۔ آپ کے ڈیجیٹل قانونی اسسٹنٹ کو دستاویزات کی ریپوزٹریز کی ضرورت ہے۔ MCP سے پہلے، آپ ایجنٹ اور ٹول کے ہر امتزاج کے لیے کسٹم انضمام کوڈ لکھتے۔",
+      "line_start": 53,
+      "line_end": 54,
+      "context": "paragraph"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "Three AI platforms × two CRMs = six custom integrations. Add Pipedrive, Zoho, Freshsales, calendar, email, database? The combinations explode. This is the **M×N problem**: M different AI models connecting to N different tools requires M×N custom integrations.",
+      "translated": "تین AI پلیٹ فارمز × دو CRMs = چھ کسٹم انضمام۔ پائپ ڈرائیو، زوہو، فریش سیلز، کیلنڈر، ای میل، ڈیٹا بیس شامل کریں؟ امتزاج پھٹ جاتے ہیں۔ یہ **M×N مسئلہ** ہے: M مختلف AI ماڈلز کو N مختلف ٹولز سے جوڑنے کے لیے M×N کسٹم انضمام کی ضرورت ہوتی ہے۔",
+      "line_start": 64,
+      "line_end": 65,
+      "context": "paragraph"
+    },
+    {
+      "id": 29,
+      "type": "inline",
+      "original": "**What MCP Enables:** One standard protocol for all agent-to-tool connections. Write an MCP server once, and any MCP-compatible agent can use it—Claude, ChatGPT, Gemini, goose, or your Custom Agents.",
+      "translated": "**MCP کیا قابل بناتا ہے:** تمام ایجنٹ سے ٹول کنکشنز کے لیے ایک معیاری پروٹوکول۔ ایک بار MCP سرور لکھیں، اور کوئی بھی MCP-مطابقت رکھنے والا ایجنٹ اسے استعمال کرسکتا ہے—کلاڈ، چیٹ جی پی ٹی، جیمنی، گوز، یا آپ کے کسٹم ایجنٹس۔",
+      "line_start": 66,
+      "line_end": 67,
+      "context": "paragraph"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "**MCP enables the \"Act\" power**. Without MCP, your Digital FTE can reason brilliantly about what to do—but it can't actually do it. It can plan the perfect follow-up email, but it can't send it. With MCP, your Digital Sales Agent connects to CRM systems, email platforms, calendars, and databases.",
+      "translated": "**MCP \"عمل\" کی طاقت کو قابل بناتا ہے۔** MCP کے بغیر، آپ کا ڈیجیٹل FTE شاندار طریقے سے استدلال کرسکتا ہے کہ کیا کرنا ہے—لیکن یہ اصل میں ایسا نہیں کرسکتا۔ یہ بہترین فالو اپ ای میل کی منصوبہ بندی کرسکتا ہے، لیکن یہ اسے بھیج نہیں سکتا۔ MCP کے ساتھ، آپ کا ڈیجیٹل سیلز ایجنٹ CRM سسٹمز، ای میل پلیٹ فارمز، کیلنڈرز، اور ڈیٹا بیس سے جڑتا ہے۔",
+      "line_start": 68,
+      "line_end": 69,
+      "context": "paragraph"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "**Three Universal Primitives:**",
+      "translated": "**تین یونیورسل پرائمیٹوز:**",
+      "line_start": 70,
+      "line_end": 71,
+      "context": "paragraph"
+    },
+    {
+      "id": 32,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Primitive",
+          "translated": "قدیم"
+        },
+        {
+          "original": "Purpose",
+          "translated": "مقصد"
+        },
+        {
+          "original": "Physical Metaphor",
+          "translated": "جسمانی استعارہ"
+        },
+        {
+          "original": "Digital SDR Example",
+          "translated": "ڈیجیٹل SDR مثال"
+        }
+      ],
+      "line_start": 72,
+      "line_end": 73,
+      "context": "table"
+    },
+    {
+      "id": 33,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Resources**",
+          "translated": "**وسائل**"
+        },
+        {
+          "original": "Read-only data",
+          "translated": "صرف پڑھنے کے لیے ڈیٹا"
+        },
+        {
+          "original": "Eyes (see, don't touch)",
+          "translated": "آنکھیں (دیکھیں، چھوئیں نہیں)"
+        },
+        {
+          "original": "Lead data from CRM, email history",
+          "translated": "CRM سے لیڈ ڈیٹا، ای میل کی تاریخ"
+        }
+      ],
+      "line_start": 74,
+      "line_end": 75,
+      "context": "table"
+    },
+    {
+      "id": 34,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Tools**",
+          "translated": "**اوزار**"
+        },
+        {
+          "original": "Actions that change state",
+          "translated": "وہ اعمال جو حالت بدلتے ہیں۔"
+        },
+        {
+          "original": "Hands (make things happen)",
+          "translated": "ہاتھ (چیزیں کرواتے ہیں)"
+        },
+        {
+          "original": "Send email, update deal stage, schedule meeting",
+          "translated": "ای میل بھیجیں، ڈیل کا مرحلہ اپ ڈیٹ کریں، میٹنگ شیڈول کریں۔"
+        }
+      ],
+      "line_start": 75,
+      "line_end": 76,
+      "context": "table"
+    },
+    {
+      "id": 35,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Prompts**",
+          "translated": "**پرامپٹس**"
+        },
+        {
+          "original": "Reusable templates",
+          "translated": "دوبارہ قابل استعمال ٹیمپلیٹس"
+        },
+        {
+          "original": "Playbooks (standard approaches)",
+          "translated": "پلے بکس (معیاری طریقے)"
+        },
+        {
+          "original": "Lead qualification checklist, follow-up email structure",
+          "translated": "لیڈ کوالیفیکیشن چیک لسٹ، فالو اپ ای میل کی ساخت"
+        }
+      ],
+      "line_start": 76,
+      "line_end": 77,
+      "context": "table"
+    },
+    {
+      "id": 36,
+      "type": "inline",
+      "original": "Getting this wrong breaks your Digital FTE. Exposing \"send email\" as a Resource means your agent can see the option but can't actually send. Universal standards prevent universal confusion.",
+      "translated": "اسے غلط سمجھنے سے آپ کا ڈیجیٹل FTE ٹوٹ جاتا ہے۔ \"ای میل بھیجیں\" کو ایک وسیلہ کے طور پر بے نقاب کرنے کا مطلب ہے کہ آپ کا ایجنٹ آپشن دیکھ سکتا ہے لیکن اصل میں بھیج نہیں سکتا۔ یونیورسل معیارات یونیورسل الجھن کو روکتے ہیں۔",
+      "line_start": 78,
+      "line_end": 79,
+      "context": "paragraph"
+    },
+    {
+      "id": 37,
+      "type": "inline",
+      "original": "**Architecture:** Host → Client → Server",
+      "translated": "**فن تعمیر:** میزبان → کلائنٹ → سرور",
+      "line_start": 80,
+      "line_end": 81,
+      "context": "paragraph"
+    },
+    {
+      "id": 38,
+      "type": "inline",
+      "original": "**Adoption Timeline:**",
+      "translated": "**اپنانے کی ٹائم لائن:**",
+      "line_start": 99,
+      "line_end": 100,
+      "context": "paragraph"
+    },
+    {
+      "id": 39,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Date",
+          "translated": "تاریخ"
+        },
+        {
+          "original": "Milestone",
+          "translated": "سنگ میل"
+        }
+      ],
+      "line_start": 101,
+      "line_end": 102,
+      "context": "table"
+    },
+    {
+      "id": 40,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "November 2024",
+          "translated": "نومبر 2024"
+        },
+        {
+          "original": "Anthropic releases MCP as open source",
+          "translated": "اینتھروپک نے MCP کو اوپن سورس کے طور پر جاری کیا۔"
+        }
+      ],
+      "line_start": 103,
+      "line_end": 104,
+      "context": "table"
+    },
+    {
+      "id": 41,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Early 2025",
+          "translated": "2025 کے اوائل"
+        },
+        {
+          "original": "Block, Apollo, Replit, Zed, Sourcegraph adopt",
+          "translated": "بلاک، اپولو، ریپلٹ، زیڈ، سورس گراف اپناتے ہیں۔"
+        }
+      ],
+      "line_start": 104,
+      "line_end": 105,
+      "context": "table"
+    },
+    {
+      "id": 42,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "March 2025",
+          "translated": "مارچ 2025"
+        },
+        {
+          "original": "OpenAI officially adopts MCP across products",
+          "translated": "اوپن اے آئی نے سرکاری طور پر مصنوعات میں MCP کو اپنایا۔"
+        }
+      ],
+      "line_start": 105,
+      "line_end": 106,
+      "context": "table"
+    },
+    {
+      "id": 43,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "April 2025",
+          "translated": "اپریل 2025"
+        },
+        {
+          "original": "Google DeepMind confirms MCP support for Gemini",
+          "translated": "گوگل ڈیپ مائنڈ نے جیمنی کے لیے MCP سپورٹ کی تصدیق کی۔"
+        }
+      ],
+      "line_start": 106,
+      "line_end": 107,
+      "context": "table"
+    },
+    {
+      "id": 44,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "November 2025",
+          "translated": "نومبر 2025"
+        },
+        {
+          "original": "MCP specification 2025-11-25 with OAuth 2.1, Streamable HTTP",
+          "translated": "OAuth 2.1، اسٹریم ایبل HTTP کے ساتھ MCP تفصیلات 2025-11-25"
+        }
+      ],
+      "line_start": 107,
+      "line_end": 108,
+      "context": "table"
+    },
+    {
+      "id": 45,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "December 2025",
+          "translated": "دسمبر 2025"
+        },
+        {
+          "original": "MCP donated to AAIF under Linux Foundation governance",
+          "translated": "MCP نے لینکس فاؤنڈیشن کی حکمرانی کے تحت AAIF کو عطیہ کیا۔"
+        }
+      ],
+      "line_start": 108,
+      "line_end": 109,
+      "context": "table"
+    },
+    {
+      "id": 46,
+      "type": "inline",
+      "original": "As Mike Krieger, Chief Product Officer at Anthropic, stated:",
+      "translated": "جیسا کہ اینتھروپک کے چیف پروڈکٹ آفیسر مائیک کریگر نے کہا:",
+      "line_start": 110,
+      "line_end": 111,
+      "context": "paragraph"
+    },
+    {
+      "id": 47,
+      "type": "inline",
+      "original": "\"When we open sourced it in November 2024, we hoped other developers would find it as useful as we did. A year later, it's become the industry standard for connecting AI systems to data and tools.\"",
+      "translated": "\"جب ہم نے اسے نومبر 2024 میں اوپن سورس کیا، تو ہمیں امید تھی کہ دوسرے ڈویلپرز بھی اسے اتنا ہی مفید پائیں گے جتنا ہم نے پایا۔ ایک سال بعد، یہ AI سسٹمز کو ڈیٹا اور ٹولز سے جوڑنے کے لیے صنعتی معیار بن گیا ہے۔\"",
+      "line_start": 112,
+      "line_end": 113,
+      "context": "blockquote"
+    },
+    {
+      "id": 48,
+      "type": "inline",
+      "original": "2. AGENTS.md — From OpenAI",
+      "translated": "2. AGENTS.md — OpenAI سے",
+      "line_start": 116,
+      "line_end": 117,
+      "context": "heading_h3"
+    },
+    {
+      "id": 49,
+      "type": "inline",
+      "original": "**The Problem It Solves:** You're deploying your Digital SDR to 100 clients. Each has different coding conventions, different build systems, different security requirements. Does each deployment require custom configuration?",
+      "translated": "**یہ جو مسئلہ حل کرتا ہے:** آپ اپنے ڈیجیٹل SDR کو 100 کلائنٹس کے لیے تعینات کر رہے ہیں۔ ہر ایک کے پاس مختلف کوڈنگ کنونشنز، مختلف بلڈ سسٹمز، مختلف حفاظتی ضروریات ہیں۔ کیا ہر تعیناتی کے لیے کسٹم کنفیگریشن کی ضرورت ہے؟",
+      "line_start": 118,
+      "line_end": 119,
+      "context": "paragraph"
+    },
+    {
+      "id": 50,
+      "type": "inline",
+      "original": "**What AGENTS.md Enables:** A standard Markdown file that teaches AI agents local rules. Your Digital FTE reads each client's AGENTS.md and immediately understands their environment—zero customization needed.",
+      "translated": "**AGENTS.md کیا قابل بناتا ہے:** ایک معیاری مارک ڈاؤن فائل جو AI ایجنٹوں کو مقامی اصول سکھاتی ہے۔ آپ کا ڈیجیٹل FTE ہر کلائنٹ کا AGENTS.md پڑھتا ہے اور فوری طور پر ان کے ماحول کو سمجھتا ہے—صفر حسب ضرورت کی ضرورت ہے۔",
+      "line_start": 120,
+      "line_end": 121,
+      "context": "paragraph"
+    },
+    {
+      "id": 51,
+      "type": "inline",
+      "original": "**Why AGENTS.md Exists: Humans ≠ Agents**",
+      "translated": "**AGENTS.md کیوں موجود ہے: انسان ≠ ایجنٹس**",
+      "line_start": 122,
+      "line_end": 123,
+      "context": "paragraph"
+    },
+    {
+      "id": 52,
+      "type": "inline",
+      "original": "Every developer knows README.md. It tells humans what the project does, how to install it, how to contribute. But AI agents need different information:",
+      "translated": "ہر ڈویلپر README.md جانتا ہے۔ یہ انسانوں کو بتاتا ہے کہ پروجیکٹ کیا کرتا ہے، اسے کیسے انسٹال کرنا ہے، کیسے حصہ ڈالنا ہے۔ لیکن AI ایجنٹوں کو مختلف معلومات کی ضرورت ہوتی ہے:",
+      "line_start": 124,
+      "line_end": 125,
+      "context": "paragraph"
+    },
+    {
+      "id": 53,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Humans Need",
+          "translated": "انسانوں کی ضرورت ہے۔"
+        },
+        {
+          "original": "Agents Need",
+          "translated": "ایجنٹوں کی ضرورت ہے۔"
+        }
+      ],
+      "line_start": 126,
+      "line_end": 127,
+      "context": "table"
+    },
+    {
+      "id": 54,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Project motivation and goals",
+          "translated": "پروجیکٹ کی حوصلہ افزائی اور اہداف"
+        },
+        {
+          "original": "Build and test commands",
+          "translated": "بنائیں اور ٹیسٹ کمانڈز"
+        }
+      ],
+      "line_start": 128,
+      "line_end": 129,
+      "context": "table"
+    },
+    {
+      "id": 55,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Getting started tutorial",
+          "translated": "شروع کرنے کا ٹیوٹوریل"
+        },
+        {
+          "original": "Code style rules",
+          "translated": "کوڈ اسٹائل کے اصول"
+        }
+      ],
+      "line_start": 129,
+      "line_end": 130,
+      "context": "table"
+    },
+    {
+      "id": 56,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Contribution guidelines",
+          "translated": "شراکت کے رہنما خطوط"
+        },
+        {
+          "original": "Security constraints",
+          "translated": "حفاظتی رکاوٹیں"
+        }
+      ],
+      "line_start": 130,
+      "line_end": 131,
+      "context": "table"
+    },
+    {
+      "id": 57,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Screenshots and demos",
+          "translated": "اسکرین شاٹس اور ڈیمو"
+        },
+        {
+          "original": "File organization patterns",
+          "translated": "فائل تنظیم کے نمونے"
+        }
+      ],
+      "line_start": 131,
+      "line_end": 132,
+      "context": "table"
+    },
+    {
+      "id": 58,
+      "type": "inline",
+      "original": "README.md answers \"What is this project?\" AGENTS.md answers \"How should I behave in this project?\"",
+      "translated": "README.md جواب دیتا ہے \"یہ پروجیکٹ کیا ہے؟\" AGENTS.md جواب دیتا ہے \"مجھے اس پروجیکٹ میں کیسا برتاؤ کرنا چاہئے؟\"",
+      "line_start": 133,
+      "line_end": 134,
+      "context": "paragraph"
+    },
+    {
+      "id": 59,
+      "type": "inline",
+      "original": "**What Goes in AGENTS.md:**",
+      "translated": "**AGENTS.md میں کیا جاتا ہے:**",
+      "line_start": 135,
+      "line_end": 136,
+      "context": "paragraph"
+    },
+    {
+      "id": 60,
+      "type": "inline",
+      "original": "**The Hierarchy Rule:** The nearest AGENTS.md file takes precedence. This enables monorepo support where different subprojects have different conventions:",
+      "translated": "**درجہ بندی کا اصول:** قریب ترین AGENTS.md فائل کو ترجیح دی جاتی ہے۔ یہ مونوریپو سپورٹ کو قابل بناتا ہے جہاں مختلف ذیلی منصوبوں کے مختلف کنونشن ہوتے ہیں:",
+      "line_start": 158,
+      "line_end": 159,
+      "context": "paragraph"
+    },
+    {
+      "id": 61,
+      "type": "inline",
+      "original": "**Adoption:** Since OpenAI introduced AGENTS.md in August 2025, it has been adopted by **60,000+ open-source projects** and every major AI coding agent: Claude Code, Cursor, GitHub Copilot, Gemini CLI, Devin, goose, and more. OpenAI's own repository contains 88 AGENTS.md files.",
+      "translated": "**اپنانے:** چونکہ OpenAI نے اگست 2025 میں AGENTS.md متعارف کرایا تھا، اس لیے اسے **60,000+ اوپن سورس پروجیکٹس** اور ہر بڑے AI کوڈنگ ایجنٹ نے اپنایا ہے: کلاڈ کوڈ، کرسر، گٹ ہب کوپائلٹ، جیمنی سی ایل آئی، ڈیون، گوز، اور مزید۔ OpenAI کی اپنی ریپوزٹری میں 88 AGENTS.md فائلیں ہیں۔",
+      "line_start": 172,
+      "line_end": 173,
+      "context": "paragraph"
+    },
+    {
+      "id": 62,
+      "type": "inline",
+      "original": "3. goose — From Block",
+      "translated": "3. گوز — بلاک سے",
+      "line_start": 176,
+      "line_end": 177,
+      "context": "heading_h3"
+    },
+    {
+      "id": 63,
+      "type": "inline",
+      "original": "**The Problem It Solves:** MCP tells agents how to connect. AGENTS.md tells them how to behave. But what does a production agent implementing both actually look like?",
+      "translated": "**یہ جو مسئلہ حل کرتا ہے:** MCP ایجنٹوں کو بتاتا ہے کہ کیسے جڑنا ہے۔ AGENTS.md انہیں بتاتا ہے کہ کیسا برتاؤ کرنا ہے۔ لیکن ایک پیداواری ایجنٹ جو دونوں کو نافذ کرتا ہے وہ اصل میں کیسا لگتا ہے؟",
+      "line_start": 178,
+      "line_end": 179,
+      "context": "paragraph"
+    },
+    {
+      "id": 64,
+      "type": "inline",
+      "original": "**What goose Enables:** A reference architecture for building production agents. Not a demo—the same technology where 75% of Block engineers save 8-10+ hours every week. Apache 2.0 licensed, so you can study the source code.",
+      "translated": "**گوز کیا قابل بناتا ہے:** پیداواری ایجنٹوں کی تعمیر کے لیے ایک حوالہ فن تعمیر۔ ڈیمو نہیں — وہی ٹیکنالوجی جہاں 75% بلاک انجینئرز ہر ہفتے 8-10+ گھنٹے بچاتے ہیں۔ اپاچی 2.0 لائسنس یافتہ، لہذا آپ سورس کوڈ کا مطالعہ کرسکتے ہیں۔",
+      "line_start": 180,
+      "line_end": 181,
+      "context": "paragraph"
+    },
+    {
+      "id": 65,
+      "type": "inline",
+      "original": "**Why Reference Implementations Matter:** When you build Custom Agents (Part 6), you'll face questions: How should I structure MCP client connections? How do I handle streaming responses? What's the right way to manage conversation context? You could solve these from first principles. Or you could study how goose solved them—then adapt those patterns to your needs.",
+      "translated": "**حوالہ نفاذ کیوں اہمیت رکھتا ہے:** جب آپ کسٹم ایجنٹ بناتے ہیں (حصہ 6)، تو آپ کو سوالات کا سامنا کرنا پڑے گا: مجھے MCP کلائنٹ کنکشن کی ساخت کیسے بنانی چاہئے؟ میں اسٹریمنگ جوابات کو کیسے سنبھالوں؟ گفتگو کے سیاق و سباق کو منظم کرنے کا صحیح طریقہ کیا ہے؟ آپ ان کو پہلے اصولوں سے حل کرسکتے ہیں۔ یا آپ مطالعہ کرسکتے ہیں کہ گوز نے انہیں کیسے حل کیا — پھر ان نمونوں کو اپنی ضروریات کے مطابق ڈھالیں۔",
+      "line_start": 182,
+      "line_end": 183,
+      "context": "paragraph"
+    },
+    {
+      "id": 66,
+      "type": "inline",
+      "original": "**goose in the Agent Maturity Model:** General Agents like Claude Code and goose serve as Incubator-stage tools where you explore and prototype. Custom Agents (built with SDKs) emerge in the Specialist stage when requirements crystallize for production. goose is an Incubator-stage agent, but it's **open source**, making it your blueprint for understanding how to build Specialists.",
+      "translated": "**ایجنٹ میچورٹی ماڈل میں گوز:** کلاڈ کوڈ اور گوز جیسے جنرل ایجنٹ انکیوبیٹر مرحلے کے ٹولز کے طور پر کام کرتے ہیں جہاں آپ دریافت اور پروٹو ٹائپ کرتے ہیں۔ کسٹم ایجنٹس (SDKs کے ساتھ بنائے گئے) ماہر مرحلے میں ابھرتے ہیں جب پیداوار کے لیے ضروریات واضح ہوجاتی ہیں۔ گوز ایک انکیوبیٹر مرحلے کا ایجنٹ ہے، لیکن یہ **اوپن سورس** ہے، جو اسے ماہرین کی تعمیر کو سمجھنے کے لیے آپ کا بلیو پرنٹ بناتا ہے۔",
+      "line_start": 184,
+      "line_end": 185,
+      "context": "paragraph"
+    },
+    {
+      "id": 67,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Learning Path",
+          "translated": "سیکھنے کا راستہ"
+        },
+        {
+          "original": "What You Get",
+          "translated": "آپ کو کیا ملتا ہے۔"
+        }
+      ],
+      "line_start": 186,
+      "line_end": 187,
+      "context": "table"
+    },
+    {
+      "id": 68,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "From specs only",
+          "translated": "صرف تفصیلات سے"
+        },
+        {
+          "original": "Correct but untested patterns",
+          "translated": "درست لیکن غیر آزمودہ نمونے"
+        }
+      ],
+      "line_start": 188,
+      "line_end": 189,
+      "context": "table"
+    },
+    {
+      "id": 69,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "From tutorials",
+          "translated": "ٹیوٹوریلز سے"
+        },
+        {
+          "original": "Simplified patterns that break at scale",
+          "translated": "آسان نمونے جو پیمانے پر ٹوٹ جاتے ہیں۔"
+        }
+      ],
+      "line_start": 189,
+      "line_end": 190,
+      "context": "table"
+    },
+    {
+      "id": 70,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "From goose",
+          "translated": "گوز سے"
+        },
+        {
+          "original": "Battle-tested patterns from enterprise use",
+          "translated": "انٹرپرائز استعمال سے جنگ آزمودہ نمونے"
+        }
+      ],
+      "line_start": 190,
+      "line_end": 191,
+      "context": "table"
+    },
+    {
+      "id": 71,
+      "type": "inline",
+      "original": "**Key Architecture Patterns:**",
+      "translated": "**کلیدی فن تعمیر کے نمونے:**",
+      "line_start": 192,
+      "line_end": 193,
+      "context": "paragraph"
+    },
+    {
+      "id": 72,
+      "type": "inline",
+      "original": "**Local-First Execution:** Your code and data stay local. For enterprise clients with sensitive IP, this isn't optional—it's required.",
+      "translated": "**مقامی-پہلا عمل درآمد:** آپ کا کوڈ اور ڈیٹا مقامی رہتا ہے۔ حساس IP والے انٹرپرائز کلائنٹس کے لیے، یہ اختیاری نہیں ہے—یہ ضروری ہے۔",
+      "line_start": 194,
+      "line_end": 195,
+      "context": "list_item"
+    },
+    {
+      "id": 73,
+      "type": "inline",
+      "original": "**MCP-Native Design:** Adding capabilities means connecting MCP servers. No custom integration code. Every capability follows the same pattern.",
+      "translated": "**MCP-آبائی ڈیزائن:** صلاحیتوں کو شامل کرنے کا مطلب MCP سرورز کو جوڑنا ہے۔ کوئی کسٹم انضمام کوڈ نہیں۔ ہر صلاحیت ایک ہی نمونے کی پیروی کرتی ہے۔",
+      "line_start": 196,
+      "line_end": 197,
+      "context": "list_item"
+    },
+    {
+      "id": 74,
+      "type": "inline",
+      "original": "**Multi-Model Support:** Support for Claude, GPT-4, Gemini, Ollama. You can even configure different models for different tasks—cheaper model for simple operations, premium model for complex reasoning.",
+      "translated": "**ملٹی ماڈل سپورٹ:** کلاڈ، GPT-4، جیمنی، اولاما کے لیے سپورٹ۔ آپ مختلف کاموں کے لیے مختلف ماڈلز بھی ترتیب دے سکتے ہیں—سادہ آپریشنز کے لیے سستا ماڈل، پیچیدہ استدلال کے لیے پریمیم ماڈل۔",
+      "line_start": 198,
+      "line_end": 199,
+      "context": "list_item"
+    },
+    {
+      "id": 75,
+      "type": "inline",
+      "original": "**goose vs Claude Code:** Both are General Agents validating the same standards.",
+      "translated": "**گوز بمقابلہ کلاڈ کوڈ:** دونوں ایک ہی معیارات کی توثیق کرنے والے جنرل ایجنٹ ہیں۔",
+      "line_start": 200,
+      "line_end": 201,
+      "context": "paragraph"
+    },
+    {
+      "id": 76,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Aspect",
+          "translated": "پہلو"
+        },
+        {
+          "original": "Claude Code",
+          "translated": "کلاڈ کوڈ"
+        },
+        {
+          "original": "goose",
+          "translated": "گوز"
+        }
+      ],
+      "line_start": 202,
+      "line_end": 203,
+      "context": "table"
+    },
+    {
+      "id": 77,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Creator",
+          "translated": "تخلیق کار"
+        },
+        {
+          "original": "Anthropic",
+          "translated": "اینتھروپک"
+        },
+        {
+          "original": "Block",
+          "translated": "بلاک"
+        }
+      ],
+      "line_start": 204,
+      "line_end": 205,
+      "context": "table"
+    },
+    {
+      "id": 78,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "License",
+          "translated": "لائسنس"
+        },
+        {
+          "original": "Proprietary",
+          "translated": "ملکیتی"
+        },
+        {
+          "original": "Open Source (Apache 2.0)",
+          "translated": "اوپن سورس (اپاچی 2.0)"
+        }
+      ],
+      "line_start": 205,
+      "line_end": 206,
+      "context": "table"
+    },
+    {
+      "id": 79,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "MCP Support",
+          "translated": "MCP سپورٹ"
+        },
+        {
+          "original": "Yes",
+          "translated": "ہاں"
+        },
+        {
+          "original": "Yes",
+          "translated": "ہاں"
+        }
+      ],
+      "line_start": 206,
+      "line_end": 207,
+      "context": "table"
+    },
+    {
+      "id": 80,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "AGENTS.md Support",
+          "translated": "AGENTS.md سپورٹ"
+        },
+        {
+          "original": "Yes",
+          "translated": "ہاں"
+        },
+        {
+          "original": "Yes",
+          "translated": "ہاں"
+        }
+      ],
+      "line_start": 207,
+      "line_end": 208,
+      "context": "table"
+    },
+    {
+      "id": 81,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Source Code",
+          "translated": "سورس کوڈ"
+        },
+        {
+          "original": "Closed",
+          "translated": "بند"
+        },
+        {
+          "original": "Open",
+          "translated": "کھلا"
+        }
+      ],
+      "line_start": 208,
+      "line_end": 209,
+      "context": "table"
+    },
+    {
+      "id": 82,
+      "type": "inline",
+      "original": "**Use Claude Code for productivity today. Study goose for building Custom Agents tomorrow.**",
+      "translated": "**آج پیداواریت کے لیے کلاڈ کوڈ استعمال کریں۔ کل کسٹم ایجنٹ بنانے کے لیے گوز کا مطالعہ کریں۔**",
+      "line_start": 210,
+      "line_end": 211,
+      "context": "paragraph"
+    },
+    {
+      "id": 83,
+      "type": "inline",
+      "original": "4. Agent Skills — Packaging Expertise",
+      "translated": "4. ایجنٹ کی مہارتیں — پیکیجنگ کی مہارت",
+      "line_start": 214,
+      "line_end": 215,
+      "context": "heading_h3"
+    },
+    {
+      "id": 84,
+      "type": "inline",
+      "original": "**The Problem It Solves:** You've spent years mastering financial analysis, or legal document review, or sales qualification. That expertise lives in your head—tacit knowledge that makes you valuable but can't scale. Every time a client asks you to do what you're expert at, you trade time for money. You're the bottleneck.",
+      "translated": "**یہ جو مسئلہ حل کرتا ہے:** آپ نے مالیاتی تجزیہ، یا قانونی دستاویزات کا جائزہ، یا سیلز کی اہلیت میں مہارت حاصل کرنے میں برسوں گزارے ہیں۔ یہ مہارت آپ کے سر میں رہتی ہے—خفیہ علم جو آپ کو قیمتی بناتا ہے لیکن پیمانہ نہیں کرسکتا۔ جب بھی کوئی کلائنٹ آپ سے وہ کرنے کو کہتا ہے جس میں آپ ماہر ہیں، تو آپ وقت کے بدلے پیسے کا سودا کرتے ہیں۔ آپ رکاوٹ ہیں۔",
+      "line_start": 216,
+      "line_end": 217,
+      "context": "paragraph"
+    },
+    {
+      "id": 85,
+      "type": "inline",
+      "original": "**What Skills Enable:** Agent Skills let you package that expertise. Remember the Matrix? Trinity needs to fly a helicopter. She doesn't know how. Tank loads the skill. Seconds later: \"Let's go.\" That's what you're building. Your domain expertise—years of pattern recognition, decision frameworks, workflow optimization—encoded into portable skills that any AI agent can load when needed.",
+      "translated": "**مہارتیں کیا قابل بناتی ہیں:** ایجنٹ کی مہارتیں آپ کو اس مہارت کو پیکیج کرنے دیتی ہیں۔ میٹرکس یاد ہے؟ تثلیث کو ہیلی کاپٹر اڑانے کی ضرورت ہے۔ وہ نہیں جانتی کہ کیسے۔ ٹینک مہارت کو لوڈ کرتا ہے۔ سیکنڈوں بعد: \"چلو چلتے ہیں۔\" یہی وہ چیز ہے جو آپ بنا رہے ہیں۔ آپ کی ڈومین کی مہارت—سالوں کی پیٹرن کی شناخت، فیصلے کے فریم ورک، ورک فلو کی اصلاح—پورٹیبل مہارتوں میں انکوڈ کی گئی ہے جسے کوئی بھی AI ایجنٹ ضرورت پڑنے پر لوڈ کرسکتا ہے۔",
+      "line_start": 218,
+      "line_end": 219,
+      "context": "paragraph"
+    },
+    {
+      "id": 86,
+      "type": "inline",
+      "original": "**The SKILL.md Format:**",
+      "translated": "**SKILL.md فارمیٹ:**",
+      "line_start": 220,
+      "line_end": 221,
+      "context": "paragraph"
+    },
+    {
+      "id": 87,
+      "type": "inline",
+      "original": "**Progressive Disclosure: The Token Efficiency Secret**",
+      "translated": "**ترقی پسند انکشاف: ٹوکن کی کارکردگی کا راز**",
+      "line_start": 249,
+      "line_end": 250,
+      "context": "paragraph"
+    },
+    {
+      "id": 88,
+      "type": "inline",
+      "original": "Loading everything upfront wastes tokens. If an agent loaded all 50 available skills at startup—full instructions, templates, examples—you'd burn through your context window before doing any actual work.",
+      "translated": "ہر چیز کو پہلے سے لوڈ کرنے سے ٹوکن ضائع ہوتے ہیں۔ اگر کوئی ایجنٹ اسٹارٹ اپ پر تمام 50 دستیاب مہارتیں لوڈ کرتا ہے—مکمل ہدایات، ٹیمپلیٹس، مثالیں—تو آپ اصل کام کرنے سے پہلے اپنی سیاق و سباق کی کھڑکی کو جلا دیں گے۔",
+      "line_start": 251,
+      "line_end": 252,
+      "context": "paragraph"
+    },
+    {
+      "id": 89,
+      "type": "inline",
+      "original": "The solution is **progressive disclosure**: loading only what's needed, when it's needed.",
+      "translated": "حل **ترقی پسند انکشاف** ہے: صرف وہی لوڈ کرنا جس کی ضرورت ہو، جب اس کی ضرورت ہو۔",
+      "line_start": 253,
+      "line_end": 254,
+      "context": "paragraph"
+    },
+    {
+      "id": 90,
+      "type": "inline",
+      "original": "**80-98% token reduction.** This means your Digital FTE can have dozens of capabilities available without bloating its context window.",
+      "translated": "**80-98% ٹوکن میں کمی۔** اس کا مطلب ہے کہ آپ کا ڈیجیٹل FTE اپنی سیاق و سباق کی کھڑکی کو پھولائے بغیر درجنوں صلاحیتیں دستیاب رکھ سکتا ہے۔",
+      "line_start": 267,
+      "line_end": 268,
+      "context": "paragraph"
+    },
+    {
+      "id": 91,
+      "type": "inline",
+      "original": "**MCP + Skills: Complementary Standards**",
+      "translated": "**MCP + مہارتیں: تکمیلی معیارات**",
+      "line_start": 269,
+      "line_end": 270,
+      "context": "paragraph"
+    },
+    {
+      "id": 92,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Standard",
+          "translated": "معیاری"
+        },
+        {
+          "original": "Purpose",
+          "translated": "مقصد"
+        },
+        {
+          "original": "Physical Metaphor",
+          "translated": "جسمانی استعارہ"
+        }
+      ],
+      "line_start": 271,
+      "line_end": 272,
+      "context": "table"
+    },
+    {
+      "id": 93,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**MCP**",
+          "translated": "**MCP**"
+        },
+        {
+          "original": "Connectivity — how agents talk to tools",
+          "translated": "کنیکٹیویٹی — ایجنٹ ٹولز سے کیسے بات کرتے ہیں۔"
+        },
+        {
+          "original": "The agent's **hands**",
+          "translated": "ایجنٹ کے **ہاتھ**"
+        }
+      ],
+      "line_start": 273,
+      "line_end": 274,
+      "context": "table"
+    },
+    {
+      "id": 94,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Skills**",
+          "translated": "**مہارتیں**"
+        },
+        {
+          "original": "Expertise — what agents know how to do",
+          "translated": "مہارت — ایجنٹ کیا کرنا جانتے ہیں۔"
+        },
+        {
+          "original": "The agent's **training**",
+          "translated": "ایجنٹ کی **تربیت**"
+        }
+      ],
+      "line_start": 274,
+      "line_end": 275,
+      "context": "table"
+    },
+    {
+      "id": 95,
+      "type": "inline",
+      "original": "**Example: Digital SDR Processing Stripe Payments**",
+      "translated": "**مثال: ڈیجیٹل SDR اسٹرائپ ادائیگیوں پر کارروائی کر رہا ہے۔**",
+      "line_start": 276,
+      "line_end": 277,
+      "context": "paragraph"
+    },
+    {
+      "id": 96,
+      "type": "inline",
+      "original": "**MCP Server (Stripe connector):** Connects to Stripe API (create charges, refund, list transactions)",
+      "translated": "**MCP سرور (اسٹرائپ کنیکٹر):** اسٹرائپ API سے جڑتا ہے (چارجز بنائیں، رقم کی واپسی، لین دین کی فہرست)",
+      "line_start": 278,
+      "line_end": 279,
+      "context": "list_item"
+    },
+    {
+      "id": 97,
+      "type": "inline",
+      "original": "**Skill (Payment processing):** Knows *how* to handle payment scenarios (retry logic, error recovery, customer communication)",
+      "translated": "**مہارت (ادائیگی کی کارروائی):** ادائیگی کے منظرناموں کو *کیسے* سنبھالنا ہے (دوبارہ کوشش کی منطق، غلطی کی بازیابی، کسٹمر مواصلات) جانتا ہے۔",
+      "line_start": 279,
+      "line_end": 280,
+      "context": "list_item"
+    },
+    {
+      "id": 98,
+      "type": "inline",
+      "original": "The MCP server gives the agent *access* to Stripe. The skill gives the agent *expertise* in using Stripe properly. **Without MCP:** Agent can't reach Stripe. **Without Skill:** Agent can reach Stripe but doesn't know payment best practices. **With both:** Agent handles payments like an experienced professional.",
+      "translated": "MCP سرور ایجنٹ کو اسٹرائپ تک *رسائی* دیتا ہے۔ مہارت ایجنٹ کو اسٹرائپ کو صحیح طریقے سے استعمال کرنے میں *مہارت* دیتی ہے۔ **MCP کے بغیر:** ایجنٹ اسٹرائپ تک نہیں پہنچ سکتا۔ **مہارت کے بغیر:** ایجنٹ اسٹرائپ تک پہنچ سکتا ہے لیکن ادائیگی کے بہترین طریقوں کو نہیں جانتا۔ **دونوں کے ساتھ:** ایجنٹ ایک تجربہ کار پیشہ ور کی طرح ادائیگیوں کو سنبھالتا ہے۔",
+      "line_start": 281,
+      "line_end": 282,
+      "context": "paragraph"
+    },
+    {
+      "id": 99,
+      "type": "inline",
+      "original": "**Adoption Timeline:**",
+      "translated": "**اپنانے کی ٹائم لائن:**",
+      "line_start": 283,
+      "line_end": 284,
+      "context": "paragraph"
+    },
+    {
+      "id": 100,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Date",
+          "translated": "تاریخ"
+        },
+        {
+          "original": "Milestone",
+          "translated": "سنگ میل"
+        }
+      ],
+      "line_start": 285,
+      "line_end": 286,
+      "context": "table"
+    },
+    {
+      "id": 101,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "October 16, 2025",
+          "translated": "16 اکتوبر 2025"
+        },
+        {
+          "original": "Anthropic launches Agent Skills for Claude Code",
+          "translated": "اینتھروپک نے کلاڈ کوڈ کے لیے ایجنٹ اسکلز کا آغاز کیا۔"
+        }
+      ],
+      "line_start": 287,
+      "line_end": 288,
+      "context": "table"
+    },
+    {
+      "id": 102,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "December 18, 2025",
+          "translated": "18 دسمبر 2025"
+        },
+        {
+          "original": "Anthropic releases Agent Skills as open standard at agentskills.io",
+          "translated": "اینتھروپک نے agentskills.io پر ایجنٹ اسکلز کو کھلے معیار کے طور پر جاری کیا۔"
+        }
+      ],
+      "line_start": 288,
+      "line_end": 289,
+      "context": "table"
+    },
+    {
+      "id": 103,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "December 2025",
+          "translated": "دسمبر 2025"
+        },
+        {
+          "original": "OpenAI adopts the same SKILL.md format for Codex CLI and ChatGPT",
+          "translated": "اوپن اے آئی نے کوڈیکس سی ایل آئی اور چیٹ جی پی ٹی کے لیے ایک ہی SKILL.md فارمیٹ اپنایا۔"
+        }
+      ],
+      "line_start": 289,
+      "line_end": 290,
+      "context": "table"
+    },
+    {
+      "id": 104,
+      "type": "inline",
+      "original": "**Agent support (December 2025):** Claude Code, ChatGPT, Codex CLI, VS Code, GitHub Copilot, Cursor, goose, and more. **Partner skills:** Canva (design automation), Stripe (payment processing), Notion, Figma, Atlassian, Cloudflare, Ramp, Sentry, Zapier.",
+      "translated": "**ایجنٹ سپورٹ (دسمبر 2025):** کلاڈ کوڈ، چیٹ جی پی ٹی، کوڈیکس سی ایل آئی، وی ایس کوڈ، گٹ ہب کوپائلٹ، کرسر، گوز، اور بہت کچھ۔ **شراکت دار کی مہارتیں:** کینوا (ڈیزائن آٹومیشن)، اسٹرائپ (ادائیگی کی کارروائی)، نوشن، فگما، اٹلسین، کلاؤڈ فلیئر، ریمپ، سینٹری، زپیئر۔",
+      "line_start": 291,
+      "line_end": 292,
+      "context": "paragraph"
+    },
+    {
+      "id": 105,
+      "type": "inline",
+      "original": "5. MCP Apps Extension — Agent Interfaces",
+      "translated": "5. MCP ایپس ایکسٹینشن — ایجنٹ انٹرفیس",
+      "line_start": 295,
+      "line_end": 296,
+      "context": "heading_h3"
+    },
+    {
+      "id": 106,
+      "type": "inline",
+      "original": "**The Problem It Solves:** Your Digital SDR can qualify leads, update CRM, and schedule meetings. But users interact with it through... chat? Chat is powerful, but it has limits: Data visualizations become text descriptions. Forms become one-question-at-a-time conversations. Complex tables become formatting puzzles. Your competitor's SDR shows buttons, charts, and real-time pipeline views. Yours describes them in paragraphs.",
+      "translated": "**یہ جو مسئلہ حل کرتا ہے:** آپ کا ڈیجیٹل SDR لیڈز کو کوالیفائی کرسکتا ہے، CRM کو اپ ڈیٹ کرسکتا ہے، اور میٹنگز شیڈول کرسکتا ہے۔ لیکن صارفین اس کے ساتھ... چیٹ کے ذریعے تعامل کرتے ہیں؟ چیٹ طاقتور ہے، لیکن اس کی حدود ہیں: ڈیٹا ویژولائزیشنز متنی تفصیلات بن جاتی ہیں۔ فارمز ایک وقت میں ایک سوال کی گفتگو بن جاتے ہیں۔ پیچیدہ جدولیں فارمیٹنگ کی پہیلیاں بن جاتی ہیں۔ آپ کے مدمقابل کا SDR بٹن، چارٹ، اور حقیقی وقت کے پائپ لائن کے نظارے دکھاتا ہے۔ آپ کا ان کو پیراگراف میں بیان کرتا ہے۔",
+      "line_start": 297,
+      "line_end": 298,
+      "context": "paragraph"
+    },
+    {
+      "id": 107,
+      "type": "inline",
+      "original": "**What MCP Apps Extension Enables:** On November 21, 2025, the MCP community announced the **MCP Apps Extension (SEP-1865)**—allowing MCP servers to deliver interactive user interfaces directly to host applications. Buttons, forms, charts, dashboards—not just chat.",
+      "translated": "**MCP ایپس ایکسٹینشن کیا قابل بناتا ہے:** 21 نومبر 2025 کو، MCP کمیونٹی نے **MCP ایپس ایکسٹینشن (SEP-1865)** کا اعلان کیا—جس سے MCP سرورز کو میزبان ایپلی کیشنز کو براہ راست انٹرایکٹو صارف انٹرفیس فراہم کرنے کی اجازت ملتی ہے۔ بٹن، فارم، چارٹ، ڈیش بورڈز—صرف چیٹ نہیں۔",
+      "line_start": 299,
+      "line_end": 300,
+      "context": "paragraph"
+    },
+    {
+      "id": 108,
+      "type": "inline",
+      "original": "**The Evolution:**",
+      "translated": "**ارتقاء:**",
+      "line_start": 301,
+      "line_end": 302,
+      "context": "paragraph"
+    },
+    {
+      "id": 109,
+      "type": "inline",
+      "original": "**Architecture:** Uses `ui://` URI scheme for pre-declared UI templates with sandboxed iframe security:",
+      "translated": "**فن تعمیر:** سینڈ باکسڈ iframe سیکورٹی کے ساتھ پہلے سے اعلان کردہ UI ٹیمپلیٹس کے لیے `ui://` URI اسکیم کا استعمال کرتا ہے:",
+      "line_start": 310,
+      "line_end": 311,
+      "context": "paragraph"
+    },
+    {
+      "id": 110,
+      "type": "inline",
+      "original": "**The Collaboration:** MCP Apps Extension builds on proven implementations: **MCP-UI** (open source, demonstrated UI-as-MCP-resources pattern, adopted by Postman, Shopify, Hugging Face) and **OpenAI Apps SDK** (validated demand for rich UI in ChatGPT, 800M+ users). Anthropic, OpenAI, and MCP-UI creators collaborated to standardize these patterns.",
+      "translated": "**تعاون:** MCP ایپس ایکسٹینشن ثابت شدہ نفاذات پر بناتا ہے: **MCP-UI** (اوپن سورس، مظاہرہ UI-as-MCP-وسائل پیٹرن، پوسٹ مین، شاپائف، ہگنگ فیس کے ذریعہ اپنایا گیا) اور **OpenAI ایپس SDK** (چیٹ جی پی ٹی میں بھرپور UI کی توثیق شدہ مانگ، 800M+ صارفین)۔ اینتھروپک، OpenAI، اور MCP-UI تخلیق کاروں نے ان نمونوں کو معیاری بنانے کے لیے تعاون کیا۔",
+      "line_start": 331,
+      "line_end": 332,
+      "context": "paragraph"
+    },
+    {
+      "id": 111,
+      "type": "inline",
+      "original": "**OpenAI Apps SDK: Distribution Today** While MCP Apps Extension standardizes the protocol, OpenAI's Apps SDK provides **immediate distribution** to 800+ million ChatGPT users.",
+      "translated": "**OpenAI ایپس SDK: آج کی تقسیم** جبکہ MCP ایپس ایکسٹینشن پروٹوکول کو معیاری بناتا ہے، OpenAI کا ایپس SDK 800+ ملین ChatGPT صارفین کو **فوری تقسیم** فراہم کرتا ہے۔",
+      "line_start": 333,
+      "line_end": 334,
+      "context": "paragraph"
+    },
+    {
+      "id": 112,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Aspect",
+          "translated": "پہلو"
+        },
+        {
+          "original": "Details",
+          "translated": "تفصیلات"
+        }
+      ],
+      "line_start": 335,
+      "line_end": 336,
+      "context": "table"
+    },
+    {
+      "id": 113,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**What It Is**",
+          "translated": "**یہ کیا ہے**"
+        },
+        {
+          "original": "MCP tools + Custom UI + ChatGPT integration",
+          "translated": "MCP ٹولز + کسٹم UI + چیٹ جی پی ٹی انضمام"
+        }
+      ],
+      "line_start": 337,
+      "line_end": 338,
+      "context": "table"
+    },
+    {
+      "id": 114,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Who Gets Access**",
+          "translated": "**کس کو رسائی ملتی ہے**"
+        },
+        {
+          "original": "Business, Enterprise, Edu tiers",
+          "translated": "کاروبار، انٹرپرائز، ایجوکیشن ٹائرز"
+        }
+      ],
+      "line_start": 338,
+      "line_end": 339,
+      "context": "table"
+    },
+    {
+      "id": 115,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**What Platform Handles**",
+          "translated": "**پلیٹ فارم کیا سنبھالتا ہے**"
+        },
+        {
+          "original": "Billing, discovery, user acquisition",
+          "translated": "بلنگ، دریافت، صارف کا حصول"
+        }
+      ],
+      "line_start": 339,
+      "line_end": 340,
+      "context": "table"
+    },
+    {
+      "id": 116,
+      "type": "inline",
+      "original": "**Marketplace Monetization:** Remember the four revenue models? Apps SDK unlocks the **Marketplace** path: 800M+ ChatGPT users, low customer acquisition cost, platform billing, volume play (many small customers vs few large contracts).",
+      "translated": "**مارکیٹ پلیس منیٹائزیشن:** چار آمدنی کے ماڈل یاد ہیں؟ ایپس SDK **مارکیٹ پلیس** کا راستہ کھولتا ہے: 800M+ ChatGPT صارفین، کم کسٹمر کے حصول کی لاگت، پلیٹ فارم بلنگ، حجم کا کھیل (چند بڑے معاہدوں کے مقابلے میں بہت سے چھوٹے صارفین)۔",
+      "line_start": 341,
+      "line_end": 342,
+      "context": "paragraph"
+    },
+    {
+      "id": 117,
+      "type": "inline",
+      "original": "**Build Now vs Build Later:**",
+      "translated": "**ابھی بنائیں بمقابلہ بعد میں بنائیں:**",
+      "line_start": 343,
+      "line_end": 344,
+      "context": "paragraph"
+    },
+    {
+      "id": 118,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Standard",
+          "translated": "معیاری"
+        },
+        {
+          "original": "Status",
+          "translated": "حیثیت"
+        },
+        {
+          "original": "Recommendation",
+          "translated": "سفارش"
+        }
+      ],
+      "line_start": 345,
+      "line_end": 346,
+      "context": "table"
+    },
+    {
+      "id": 119,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Apps SDK**",
+          "translated": "**ایپس SDK**"
+        },
+        {
+          "original": "Production-ready",
+          "translated": "پیداوار کے لیے تیار"
+        },
+        {
+          "original": "Use today for ChatGPT distribution",
+          "translated": "آج چیٹ جی پی ٹی کی تقسیم کے لیے استعمال کریں۔"
+        }
+      ],
+      "line_start": 347,
+      "line_end": 348,
+      "context": "table"
+    },
+    {
+      "id": 120,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**MCP Apps Extension**",
+          "translated": "**MCP ایپس ایکسٹینشن**"
+        },
+        {
+          "original": "Proposed (SEP-1865)",
+          "translated": "مجوزہ (SEP-1865)"
+        },
+        {
+          "original": "Watch for cross-platform future",
+          "translated": "کراس پلیٹ فارم کے مستقبل کے لیے دیکھیں"
+        }
+      ],
+      "line_start": 348,
+      "line_end": 349,
+      "context": "table"
+    },
+    {
+      "id": 121,
+      "type": "inline",
+      "original": "**The strategy:** Build on Apps SDK for distribution today. Follow MCP Apps Extension for portability tomorrow. The foundation (MCP) is stable. The interface layer is standardizing.",
+      "translated": "**حکمت عملی:** آج تقسیم کے لیے ایپس SDK پر بنائیں۔ کل پورٹیبلٹی کے لیے MCP ایپس ایکسٹینشن کی پیروی کریں۔ بنیاد (MCP) مستحکم ہے۔ انٹرفیس کی پرت معیاری ہو رہی ہے۔",
+      "line_start": 350,
+      "line_end": 351,
+      "context": "paragraph"
+    },
+    {
+      "id": 122,
+      "type": "inline",
+      "original": "Who's Behind AAIF",
+      "translated": "AAIF کے پیچھے کون ہے",
+      "line_start": 354,
+      "line_end": 355,
+      "context": "heading_h2"
+    },
+    {
+      "id": 123,
+      "type": "inline",
+      "original": "The platinum membership reads like a who's-who of technology infrastructure:",
+      "translated": "پلاٹینم کی رکنیت ٹیکنالوجی کے بنیادی ڈھانچے کے کون کون کی طرح پڑھتی ہے:",
+      "line_start": 356,
+      "line_end": 357,
+      "context": "paragraph"
+    },
+    {
+      "id": 124,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Company",
+          "translated": "کمپنی"
+        },
+        {
+          "original": "What They Bring",
+          "translated": "وہ کیا لاتے ہیں۔"
+        }
+      ],
+      "line_start": 358,
+      "line_end": 359,
+      "context": "table"
+    },
+    {
+      "id": 125,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Amazon Web Services",
+          "translated": "ایمیزون ویب سروسز"
+        },
+        {
+          "original": "Cloud infrastructure",
+          "translated": "کلاؤڈ انفراسٹرکچر"
+        }
+      ],
+      "line_start": 360,
+      "line_end": 361,
+      "context": "table"
+    },
+    {
+      "id": 126,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Anthropic",
+          "translated": "اینتھروپک"
+        },
+        {
+          "original": "Claude AI, MCP",
+          "translated": "کلاڈ AI، MCP"
+        }
+      ],
+      "line_start": 361,
+      "line_end": 362,
+      "context": "table"
+    },
+    {
+      "id": 127,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Block",
+          "translated": "بلاک"
+        },
+        {
+          "original": "goose, Square",
+          "translated": "گوز، اسکوائر"
+        }
+      ],
+      "line_start": 362,
+      "line_end": 363,
+      "context": "table"
+    },
+    {
+      "id": 128,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Bloomberg",
+          "translated": "بلومبرگ"
+        },
+        {
+          "original": "Financial data",
+          "translated": "مالیاتی ڈیٹا"
+        }
+      ],
+      "line_start": 363,
+      "line_end": 364,
+      "context": "table"
+    },
+    {
+      "id": 129,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Cloudflare",
+          "translated": "کلاؤڈ فلیئر"
+        },
+        {
+          "original": "Edge computing",
+          "translated": "ایج کمپیوٹنگ"
+        }
+      ],
+      "line_start": 364,
+      "line_end": 365,
+      "context": "table"
+    },
+    {
+      "id": 130,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Google",
+          "translated": "گوگل"
+        },
+        {
+          "original": "Gemini AI",
+          "translated": "جیمنی AI"
+        }
+      ],
+      "line_start": 365,
+      "line_end": 366,
+      "context": "table"
+    },
+    {
+      "id": 131,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Microsoft",
+          "translated": "مائیکروسافٹ"
+        },
+        {
+          "original": "Azure, GitHub",
+          "translated": "ایزور، گٹ ہب"
+        }
+      ],
+      "line_start": 366,
+      "line_end": 367,
+      "context": "table"
+    },
+    {
+      "id": 132,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "OpenAI",
+          "translated": "اوپن اے آئی"
+        },
+        {
+          "original": "ChatGPT, AGENTS.md",
+          "translated": "چیٹ جی پی ٹی، AGENTS.md"
+        }
+      ],
+      "line_start": 367,
+      "line_end": 368,
+      "context": "table"
+    },
+    {
+      "id": 133,
+      "type": "inline",
+      "original": "Gold members include Salesforce, Shopify, Snowflake, IBM, Oracle, JetBrains, Docker, and 20+ others.",
+      "translated": "گولڈ ممبرز میں سیلز فورس، شاپائف، سنو فلیک، آئی بی ایم، اوریکل، جیٹ برینز، ڈوکر، اور 20+ دیگر شامل ہیں۔",
+      "line_start": 369,
+      "line_end": 370,
+      "context": "paragraph"
+    },
+    {
+      "id": 134,
+      "type": "inline",
+      "original": "The broad support from competing cloud providers, AI labs, and software companies signals a critical shift: the industry agrees that proprietary lock-in is a barrier to adoption. Open standards will accelerate the entire ecosystem.",
+      "translated": "مسابقتی کلاؤڈ فراہم کنندگان، AI لیبز، اور سافٹ ویئر کمپنیوں کی وسیع حمایت ایک اہم تبدیلی کا اشارہ دیتی ہے: صنعت اس بات پر متفق ہے کہ ملکیتی لاک ان اپنانے میں ایک رکاوٹ ہے۔ کھلے معیارات پورے ماحولیاتی نظام کو تیز کریں گے۔",
+      "line_start": 371,
+      "line_end": 372,
+      "context": "paragraph"
+    },
+    {
+      "id": 135,
+      "type": "inline",
+      "original": "Conclusion: The Power of Portability",
+      "translated": "نتیجہ: پورٹیبلٹی کی طاقت",
+      "line_start": 375,
+      "line_end": 376,
+      "context": "heading_h2"
+    },
+    {
+      "id": 136,
+      "type": "inline",
+      "original": "The five AAIF standards are more than technical specifications. They are the foundation for a new business model where expertise itself is a portable, sellable asset.",
+      "translated": "پانچ AAIF معیارات تکنیکی تفصیلات سے زیادہ ہیں۔ وہ ایک نئے کاروباری ماڈل کی بنیاد ہیں جہاں مہارت خود ایک پورٹیبل، قابل فروخت اثاثہ ہے۔",
+      "line_start": 377,
+      "line_end": 378,
+      "context": "paragraph"
+    },
+    {
+      "id": 137,
+      "type": "inline",
+      "original": "Build once, deploy anywhere.",
+      "translated": "ایک بار بنائیں، کہیں بھی تعینات کریں۔",
+      "line_start": 379,
+      "line_end": 380,
+      "context": "paragraph"
+    },
+    {
+      "id": 138,
+      "type": "inline",
+      "original": "That's the promise. The rest of this book teaches you how to deliver on it.",
+      "translated": "یہ وعدہ ہے۔ اس کتاب کا باقی حصہ آپ کو اسے پورا کرنے کا طریقہ سکھاتا ہے۔",
+      "line_start": 381,
+      "line_end": 382,
+      "context": "paragraph"
+    }
+  ]
+}

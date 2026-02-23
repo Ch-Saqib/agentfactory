@@ -1,0 +1,418 @@
+{
+  "source_file": "D:/agentfactory-main/agentfactory-main/apps/learn-app/docs/thesis.md",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 36,
+  "frontmatter_segments": [
+    {
+      "id": "fm_0",
+      "key": "title",
+      "original": "The Agent Factory Thesis",
+      "translated": "ایجنٹ فیکٹری کا نظریہ",
+      "context": "frontmatter",
+      "line_in_fm": 0,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_1",
+      "key": "description",
+      "original": "In the AI era, the most valuable companies won't sell software—they'll manufacture AI employees that compose tools, spawn specialist agents, and deliver outcomes at scale.",
+      "translated": "AI کے دور میں، سب سے قیمتی کمپنیاں سافٹ ویئر فروخت نہیں کریں گی—وہ AI ملازمین تیار کریں گی جو ٹولز بناتے ہیں، ماہر ایجنٹس کو جنم دیتے ہیں، اور بڑے پیمانے پر نتائج فراہم کرتے ہیں۔",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_2",
+      "key": "sidebar_position",
+      "original": "-2",
+      "translated": "-2",
+      "context": "frontmatter",
+      "line_in_fm": 2,
+      "quote_char": ""
+    },
+    {
+      "id": "fm_3",
+      "key": "pagination_prev",
+      "original": "null",
+      "translated": "null",
+      "context": "frontmatter",
+      "line_in_fm": 3,
+      "quote_char": ""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "html_block",
+      "original": "<p style={{\n  fontSize: '1.35rem',\n  lineHeight: '2',\n  fontWeight: '600',\n  color: 'var(--ifm-color-emphasis-900)'\n}}>\nIn the AI era, the most valuable companies won't sell software—they'll manufacture <em>AI employees</em>: role-based systems that compose tools, spawn specialist agents, and deliver outcomes at scale.\n</p>",
+      "translated": "<p style={{\n  fontSize: '1.35rem',\n  lineHeight: '2',\n  fontWeight: '600',\n  color: 'var(--ifm-color-emphasis-900)'\n}}>\nAI کے دور میں، سب سے قیمتی کمپنیاں سافٹ ویئر فروخت نہیں کریں گی—وہ <em>AI ملازمین</em> تیار کریں گی: کردار پر مبنی نظام جو ٹولز بناتے ہیں، ماہر ایجنٹس کو جنم دیتے ہیں، اور بڑے پیمانے پر نتائج فراہم کرتے ہیں۔\n</p>",
+      "line_start": 8,
+      "line_end": 16,
+      "context": "html"
+    },
+    {
+      "id": 1,
+      "type": "html_block",
+      "original": "<p style={{\n  fontSize: '1.1rem',\n  lineHeight: '1.9',\n  fontWeight: '500',\n  color: 'var(--ifm-color-emphasis-800)',\n  marginTop: '2rem'\n}}>\nThe SaaS era sold subscriptions; the Agent Factory era sells results. Buyers define intent. Agents execute. Humans supervise and verify. This model industrializes execution through machine-readable specs, reusable skills, Standard Tool Protocols (MCP: a shared tool-connection standard), and cloud-native infrastructure—shifting the focus from manual workflows to <strong>capability on demand</strong>.\n</p>",
+      "translated": "<p style={{\n  fontSize: '1.1rem',\n  lineHeight: '1.9',\n  fontWeight: '500',\n  color: 'var(--ifm-color-emphasis-800)',\n  marginTop: '2rem'\n}}>\nSaaS کا دور سبسکرپشنز فروخت کرتا تھا؛ ایجنٹ فیکٹری کا دور نتائج فروخت کرتا ہے۔ خریدار ارادہ بیان کرتے ہیں۔ ایجنٹس عمل کرتے ہیں۔ انسان نگرانی اور تصدیق کرتے ہیں۔ یہ ماڈل مشین سے پڑھنے کے قابل اسپیکس، دوبارہ قابل استعمال مہارتوں، معیاری ٹول پروٹوکولز (MCP: ایک مشترکہ ٹول کنکشن معیار)، اور کلاؤڈ-نیٹیو انفراسٹرکچر کے ذریعے عملدرآمد کو صنعتی بناتا ہے—دستی ورک فلوز سے توجہ ہٹا کر <strong>مانگ پر صلاحیت</strong> کی طرف منتقل کرتا ہے۔\n</p>",
+      "line_start": 17,
+      "line_end": 26,
+      "context": "html"
+    },
+    {
+      "id": 2,
+      "type": "html_block",
+      "original": "<p style={{\n  fontSize: '1.15rem',\n  lineHeight: '1.9',\n  fontWeight: '600',\n  fontStyle: 'italic',\n  color: 'var(--ifm-color-emphasis-800)',\n  marginTop: '2rem'\n}}>\nWhat remains: Intent. Verification. Outcome.\n</p>",
+      "translated": "<p style={{\n  fontSize: '1.15rem',\n  lineHeight: '1.9',\n  fontWeight: '600',\n  fontStyle: 'italic',\n  color: 'var(--ifm-color-emphasis-800)',\n  marginTop: '2rem'\n}}>\nباقی کیا ہے: ارادہ۔ تصدیق۔ نتیجہ۔\n</p>",
+      "line_start": 27,
+      "line_end": 37,
+      "context": "html"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "📚 Teaching Aid",
+      "translated": "📚 تدریسی امداد",
+      "line_start": 40,
+      "line_end": 41,
+      "context": "heading_h2"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "The Paradigm Shift",
+      "translated": "پیراڈائم شفٹ",
+      "line_start": 46,
+      "line_end": 47,
+      "context": "heading_h3"
+    },
+    {
+      "id": 5,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Feature",
+          "translated": "فیچر"
+        },
+        {
+          "original": "The SaaS Era (Tools)",
+          "translated": "SaaS کا دور (ٹولز)"
+        },
+        {
+          "original": "The Agent Factory Era (Labor)",
+          "translated": "ایجنٹ فیکٹری کا دور (مزدوری)"
+        }
+      ],
+      "line_start": 48,
+      "line_end": 49,
+      "context": "table"
+    },
+    {
+      "id": 6,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Product**",
+          "translated": "**پروڈکٹ**"
+        },
+        {
+          "original": "Software Tools",
+          "translated": "سافٹ ویئر ٹولز"
+        },
+        {
+          "original": "AI Employees",
+          "translated": "AI ملازمین"
+        }
+      ],
+      "line_start": 50,
+      "line_end": 51,
+      "context": "table"
+    },
+    {
+      "id": 7,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Value Metric**",
+          "translated": "**ویلیو میٹرک**"
+        },
+        {
+          "original": "Per-Seat Subscriptions",
+          "translated": "فی سیٹ سبسکرپشنز"
+        },
+        {
+          "original": "Per-Outcome Results",
+          "translated": "فی نتیجہ نتائج"
+        }
+      ],
+      "line_start": 51,
+      "line_end": 52,
+      "context": "table"
+    },
+    {
+      "id": 8,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Execution Model**",
+          "translated": "**ایگزیکیوشن ماڈل**"
+        },
+        {
+          "original": "Manual & Visible",
+          "translated": "دستی اور مرئی"
+        },
+        {
+          "original": "Automated & Industrialized",
+          "translated": "خودکار اور صنعتی"
+        }
+      ],
+      "line_start": 52,
+      "line_end": 53,
+      "context": "table"
+    },
+    {
+      "id": 9,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Human Role**",
+          "translated": "**انسانی کردار**"
+        },
+        {
+          "original": "Operator",
+          "translated": "آپریٹر"
+        },
+        {
+          "original": "Supervisor & Verifier",
+          "translated": "نگران اور تصدیق کنندہ"
+        }
+      ],
+      "line_start": 53,
+      "line_end": 54,
+      "context": "table"
+    },
+    {
+      "id": 10,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Integration**",
+          "translated": "**انٹیگریشن**"
+        },
+        {
+          "original": "Rigid, point-to-point APIs",
+          "translated": "سخت، پوائنٹ ٹو پوائنٹ APIs"
+        },
+        {
+          "original": "Standard Tool Protocols (MCP)",
+          "translated": "معیاری ٹول پروٹوکولز (MCP)"
+        }
+      ],
+      "line_start": 54,
+      "line_end": 55,
+      "context": "table"
+    },
+    {
+      "id": 11,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Focus**",
+          "translated": "**توجہ**"
+        },
+        {
+          "original": "How the work is done",
+          "translated": "کام کیسے ہوتا ہے"
+        },
+        {
+          "original": "_That_ the work is done—verifiably correct",
+          "translated": "_یہ_ کہ کام ہو گیا ہے—تصدیق شدہ طور پر درست"
+        }
+      ],
+      "line_start": 55,
+      "line_end": 56,
+      "context": "table"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "The Industrialized Stack",
+      "translated": "صنعتی اسٹیک",
+      "line_start": 57,
+      "line_end": 58,
+      "context": "heading_h3"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "**Intent:** The high-level blueprint—goals, constraints, budgets, and permissions.",
+      "translated": "**ارادہ:** اعلیٰ سطحی بلیو پرنٹ—اہداف، رکاوٹیں، بجٹ، اور اجازتیں۔",
+      "line_start": 59,
+      "line_end": 60,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "**The Factory:** The production engine that transforms intent into outcomes. Described in detail below.",
+      "translated": "**فیکٹری:** پروڈکشن انجن جو ارادے کو نتائج میں تبدیل کرتا ہے۔ ذیل میں تفصیل سے بیان کیا گیا ہے۔",
+      "line_start": 60,
+      "line_end": 61,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "**Outcome:** High-fidelity actions and artifacts—delivered on demand, verified for accuracy, and continuously improved through feedback loops.",
+      "translated": "**نتیجہ:** اعلیٰ مخلصانہ اعمال اور نمونے—مانگ پر فراہم کیے جاتے ہیں، درستگی کے لیے تصدیق شدہ، اور فیڈ بیک لوپس کے ذریعے مسلسل بہتر ہوتے ہیں۔",
+      "line_start": 61,
+      "line_end": 62,
+      "context": "list_item"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "The Factory: From Intent to Outcome",
+      "translated": "فیکٹری: ارادے سے نتیجے تک",
+      "line_start": 63,
+      "line_end": 64,
+      "context": "heading_h3"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "The Factory is the core of the thesis—the production engine that sits between what someone wants and what they get. It is not a single piece of software. It is an architecture: a set of principles for building systems where agents are manufactured, composed, and deployed the way an industrial plant manufactures goods.",
+      "translated": "فیکٹری اس نظریے کا مرکز ہے—پروڈکشن انجن جو کسی کی خواہش اور جو وہ حاصل کرتا ہے کے درمیان بیٹھتا ہے۔ یہ سافٹ ویئر کا کوئی ایک ٹکڑا نہیں ہے۔ یہ ایک فن تعمیر ہے: ایسے نظام بنانے کے اصولوں کا ایک مجموعہ جہاں ایجنٹوں کو اسی طرح تیار، مرتب اور تعینات کیا جاتا ہے جس طرح ایک صنعتی پلانٹ سامان تیار کرتا ہے۔",
+      "line_start": 65,
+      "line_end": 66,
+      "context": "paragraph"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "A traditional factory takes raw materials, runs them through a series of specialized stations, and produces finished products. The Agent Factory does the same thing—but the raw material is intent, the stations are agents, and the finished product is a verified outcome.",
+      "translated": "ایک روایتی فیکٹری خام مال لیتی ہے، اسے خصوصی اسٹیشنوں کی ایک سیریز سے گزارتی ہے، اور تیار شدہ مصنوعات تیار کرتی ہے۔ ایجنٹ فیکٹری بھی وہی کام کرتی ہے—لیکن خام مال ارادہ ہے، اسٹیشن ایجنٹ ہیں، اور تیار شدہ مصنوعات ایک تصدیق شدہ نتیجہ ہے۔",
+      "line_start": 67,
+      "line_end": 68,
+      "context": "paragraph"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "Three mechanisms power the factory: specs define the work, skills package how it gets done, and feedback loops ensure it improves—with MCP as the universal protocol that connects every agent to every tool.",
+      "translated": "تین میکانزم فیکٹری کو طاقت دیتے ہیں: اسپیکس کام کی وضاحت کرتے ہیں، مہارتیں پیکیج کرتی ہیں کہ یہ کیسے ہوتا ہے، اور فیڈ بیک لوپس اس بات کو یقینی بناتے ہیں کہ یہ بہتر ہو—MCP کے ساتھ یونیورسل پروٹوکول کے طور پر جو ہر ایجنٹ کو ہر ٹول سے جوڑتا ہے۔",
+      "line_start": 69,
+      "line_end": 70,
+      "context": "paragraph"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "The Human in the Loop",
+      "translated": "لوپ میں انسان",
+      "line_start": 71,
+      "line_end": 72,
+      "context": "heading_h3"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "A common fear: agents replace people. The evidence says otherwise. For most tasks, AI paired with a human outperforms either one working alone. The Agent Factory doesn't eliminate the human—it promotes them. From operator to supervisor. From typist to editor. From coder to architect of outcomes.",
+      "translated": "ایک عام خوف: ایجنٹ لوگوں کی جگہ لے لیتے ہیں۔ ثبوت اس کے برعکس کہتے ہیں۔ زیادہ تر کاموں کے لیے، انسان کے ساتھ جوڑا AI اکیلے کام کرنے والے کسی سے بھی بہتر کارکردگی کا مظاہرہ کرتا ہے۔ ایجنٹ فیکٹری انسان کو ختم نہیں کرتی—یہ انہیں فروغ دیتی ہے۔ آپریٹر سے سپروائزر تک۔ ٹائپسٹ سے ایڈیٹر تک۔ کوڈر سے نتائج کے معمار تک۔",
+      "line_start": 73,
+      "line_end": 74,
+      "context": "paragraph"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "This changes what it means to be a \"tech professional.\" A web developer or mobile developer is not just someone who writes React or Swift. They are a **technology expert**—someone who understands systems, data flows, APIs, and user needs. In the Agent Factory era, that expertise becomes far more valuable, because it is no longer spent hand-coding screens. It is spent designing, deploying, and supervising agents that deliver entire products.",
+      "translated": "یہ ایک \"ٹیک پروفیشنل\" ہونے کے معنی بدل دیتا ہے۔ ایک ویب ڈویلپر یا موبائل ڈویلپر صرف کوئی ایسا شخص نہیں ہے جو React یا Swift لکھتا ہے۔ وہ ایک **ٹیکنالوجی ماہر** ہیں—کوئی ایسا شخص جو سسٹم، ڈیٹا فلو، APIs، اور صارف کی ضروریات کو سمجھتا ہے۔ ایجنٹ فیکٹری کے دور میں، یہ مہارت بہت زیادہ قیمتی ہو جاتی ہے، کیونکہ یہ اب ہینڈ کوڈنگ اسکرینوں پر خرچ نہیں ہوتی ہے۔ یہ ایسے ایجنٹوں کو ڈیزائن کرنے، تعینات کرنے اور ان کی نگرانی کرنے پر خرچ کیا جاتا ہے جو پوری مصنوعات فراہم کرتے ہیں۔",
+      "line_start": 75,
+      "line_end": 76,
+      "context": "paragraph"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "The developer doesn't disappear. The developer does _more_.",
+      "translated": "ڈویلپر غائب نہیں ہوتا۔ ڈویلپر _زیادہ_ کرتا ہے۔",
+      "line_start": 77,
+      "line_end": 78,
+      "context": "paragraph"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "The Workforce Opportunity",
+      "translated": "ورک فورس کا موقع",
+      "line_start": 79,
+      "line_end": 80,
+      "context": "heading_h3"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "AI will unbundle jobs into tasks. Some of those tasks will be automated entirely. But unbundling also creates new combinations—new roles, new businesses, new markets that didn't exist when work was locked inside rigid job titles.",
+      "translated": "AI ملازمتوں کو کاموں میں تقسیم کرے گا۔ ان میں سے کچھ کام مکمل طور پر خودکار ہو جائیں گے۔ لیکن تقسیم نئے امتزاج بھی پیدا کرتی ہے—نئے کردار، نئے کاروبار، نئی منڈیاں جو اس وقت موجود نہیں تھیں جب کام سخت ملازمت کے عنوانات کے اندر بند تھا۔",
+      "line_start": 81,
+      "line_end": 82,
+      "context": "paragraph"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "The future workforce must build **dynamic skill portfolios** rather than rely on fixed career paths. Professionals who learn to think with AI, build using AI tools daily, and collaborate with AI as a digital teammate won't just survive the transition—they'll thrive in it.",
+      "translated": "مستقبل کی افرادی قوت کو مقررہ کیریئر کے راستوں پر انحصار کرنے کے بجائے **متحرک مہارت کے پورٹ فولیو** بنانا ہوں گے۔ پیشہ ور افراد جو AI کے ساتھ سوچنا سیکھتے ہیں، روزانہ AI ٹولز کا استعمال کرتے ہوئے تعمیر کرتے ہیں، اور AI کے ساتھ ڈیجیٹل ساتھی کے طور پر تعاون کرتے ہیں، وہ نہ صرف اس منتقلی سے بچیں گے—وہ اس میں ترقی کریں گے۔",
+      "line_start": 83,
+      "line_end": 84,
+      "context": "paragraph"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "The SaaS era created millions of jobs for developers, designers, and product managers. The Agent Factory era will create millions more—for agent designers, outcome architects, verification specialists, and domain experts who teach machines what \"correct\" looks like in their field.",
+      "translated": "SaaS کے دور نے ڈویلپرز، ڈیزائنرز، اور پروڈکٹ مینیجرز کے لیے لاکھوں ملازمتیں پیدا کیں۔ ایجنٹ فیکٹری کا دور لاکھوں مزید پیدا کرے گا—ایجنٹ ڈیزائنرز، نتائج کے معمار، تصدیقی ماہرین، اور ڈومین ماہرین کے لیے جو مشینوں کو سکھاتے ہیں کہ ان کے شعبے میں \"درست\" کیسا لگتا ہے۔",
+      "line_start": 85,
+      "line_end": 86,
+      "context": "paragraph"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "**The opportunity is not smaller. It is broader, and it rewards those who adapt.**",
+      "translated": "**موقع چھوٹا نہیں ہے۔ یہ وسیع ہے، اور یہ ان لوگوں کو انعام دیتا ہے جو اپناتے ہیں۔**",
+      "line_start": 87,
+      "line_end": 88,
+      "context": "paragraph"
+    },
+    {
+      "id": 29,
+      "type": "html_block",
+      "original": "<p style={{\n  fontSize: '1.1rem',\n  lineHeight: '1.9',\n  fontWeight: '500',\n  fontStyle: 'italic',\n  color: 'var(--ifm-color-emphasis-800)'\n}}>\nWinners in this era will be measured not by seats sold, but by outcomes guaranteed—and the problems they solve.\n</p>",
+      "translated": "<p style={{\n  fontSize: '1.1rem',\n  lineHeight: '1.9',\n  fontWeight: '500',\n  fontStyle: 'italic',\n  color: 'var(--ifm-color-emphasis-800)'\n}}>\nاس دور میں جیتنے والوں کا اندازہ فروخت ہونے والی نشستوں سے نہیں، بلکہ ضمانت شدہ نتائج—اور ان کے حل کردہ مسائل سے لگایا جائے گا۔\n</p>",
+      "line_start": 96,
+      "line_end": 105,
+      "context": "html"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "Test Your Understanding",
+      "translated": "اپنی سمجھ کی جانچ کریں",
+      "line_start": 110,
+      "line_end": 111,
+      "context": "heading_h2"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "<Quiz\ntitle=\"The Agent Factory Thesis Assessment\"\nquestionsPerBatch={30}\nquestions={[\n{\nquestion: \"In the Agent Factory era, what is the primary product that companies sell?\",\noptions: [\"Software tools\", \"AI employees\", \"Per-seat subscriptions\", \"Cloud infrastructure\"],\ncorrectOption: 1,\nexplanation: \"The thesis states that the most valuable companies won't sell software—they'll manufacture AI employees: role-based systems that compose tools, spawn specialist agents, and deliver outcomes at scale.\",\nsource: \"Section: The Paradigm Shift\"\n},\n{\nquestion: \"How does the value metric change from the SaaS era to the Agent Factory era?\",\noptions: [\"From per-outcome to per-seat\", \"From free trials to paid plans\", \"From per-seat subscriptions to per-outcome results\", \"From hourly billing to monthly subscriptions\"],\ncorrectOption: 2,\nexplanation: \"The paradigm shift table shows that the value metric moves from per-seat subscriptions (SaaS era) to per-outcome results (Agent Factory era). Buyers pay for results, not access.\",\nsource: \"Section: The Paradigm Shift\"\n},\n{\nquestion: \"What is the human role in the Agent Factory era?\",\noptions: [\"Operator\", \"Programmer\", \"Supervisor and verifier\", \"End user\"],\ncorrectOption: 2,\nexplanation: \"The paradigm shift table explicitly states the human role changes from 'Operator' in the SaaS era to 'Supervisor & Verifier' in the Agent Factory era.\",\nsource: \"Section: The Paradigm Shift\"\n},\n{\nquestion: \"How does the execution model differ between the SaaS era and the Agent Factory era?\",\noptions: [\"Both are manual\", \"SaaS is automated; Agent Factory is manual\", \"SaaS is manual and visible; Agent Factory is automated and industrialized\", \"Both are automated\"],\ncorrectOption: 2,\nexplanation: \"The comparison table shows that the SaaS era execution model is 'Manual & Visible' while the Agent Factory era is 'Automated & Industrialized.'\",\nsource: \"Section: The Paradigm Shift\"\n},\n{\nquestion: \"What is the primary function of the 'Factory' in the Agent Factory architecture?\",\noptions: [\"To sell software licenses\", \"To transform intent into outcomes\", \"To manage human employees\", \"To host a marketplace for AI models\"],\ncorrectOption: 1,\nexplanation: \"The thesis explains that The Factory is the production engine that transforms intent into outcomes, sitting between what someone wants and what they get.\",\nsource: \"Section: The Factory: From Intent to Outcome\"\n},\n{\nquestion: \"Which of the following is NOT a core mechanism that powers the Agent Factory?\",\noptions: [\"Specs defining the work\", \"Skills packaging how work gets done\", \"Feedback loops for improvement\", \"Manual, point-to-point API integrations\"],\ncorrectOption: 3,\nexplanation: \"The thesis states that three mechanisms power the factory: specs, skills, and feedback loops. It contrasts this with the rigid, point-to-point APIs of the SaaS era.\",\nsource: \"Section: The Factory: From Intent to Outcome\"\n},\n{\nquestion: \"According to the thesis, how does the role of a developer change in the Agent Factory era?\",\noptions: [\"Developers become obsolete and are replaced by agents\", \"Developers spend more time hand-coding UI screens\", \"Developers transition from coding to designing, deploying, and supervising agents\", \"Developers only focus on maintaining legacy systems\"],\ncorrectOption: 2,\nexplanation: \"The thesis argues that the developer's expertise becomes more valuable as they shift from hand-coding to designing, deploying, and supervising agents that deliver entire products. The developer does more, not less.\",\nsource: \"Section: The Human in the Loop\"\n},\n{\nquestion: \"What does the thesis suggest is the key to thriving in the future workforce?\",\noptions: [\"Specializing in a single, fixed career path\", \"Avoiding the use of AI tools to prevent dependency\", \"Building dynamic skill portfolios and collaborating with AI\", \"Focusing only on non-technical roles\"],\ncorrectOption: 2,\nexplanation: \"The thesis advises that the future workforce must build dynamic skill portfolios and that professionals who learn to think with, build with, and collaborate with AI will thrive.\",\nsource: \"Section: The Workforce Opportunity\"\n},\n{\nquestion: \"What is the role of Standard Tool Protocols (MCP) in the Agent Factory model?\",\noptions: [\"To provide a rigid, point-to-point integration method\", \"To serve as a universal protocol connecting every agent to every tool\", \"To replace the need for all APIs\", \"To manage billing and subscriptions\"],\ncorrectOption: 1,\nexplanation: \"The text identifies MCP as the 'universal protocol that connects every agent to every tool,' contrasting it with the rigid, point-to-point APIs of the past.\",\nsource: \"Section: The Paradigm Shift & The Factory: From Intent to Outcome\"\n},\n{\nquestion: \"How are winners measured in the Agent Factory era?\",\noptions: [\"By the number of per-seat subscriptions sold\", \"By the number of software tools developed\", \"By the number of employees they have\", \"By the outcomes they guarantee and the problems they solve\"],\ncorrectOption: 3,\nexplanation: \"The concluding statement of the thesis is: 'Winners in this era will be measured not by seats sold, but by outcomes guaranteed—and the problems they solve.'\",\nsource: \"Conclusion Statement\"\n}\n]}\n/>",
+      "translated": "<Quiz\ntitle=\"ایجنٹ فیکٹری تھیسس اسیسمنٹ\"\nquestionsPerBatch={30}\nquestions={[\n{\nquestion: \"ایجنٹ فیکٹری کے دور میں، کمپنیاں بنیادی طور پر کونسی پروڈکٹ فروخت کرتی ہیں؟\",\noptions: [\"سافٹ ویئر ٹولز\", \"AI ملازمین\", \"فی سیٹ سبسکرپشنز\", \"کلاؤڈ انفراسٹرکچر\"],\ncorrectOption: 1,\nexplanation: \"تھیسس میں کہا گیا ہے کہ سب سے قیمتی کمپنیاں سافٹ ویئر فروخت نہیں کریں گی—وہ AI ملازمین تیار کریں گی: رول پر مبنی سسٹمز جو ٹولز کمپوز کرتے ہیں، ماہر ایجنٹس کو جنم دیتے ہیں، اور بڑے پیمانے پر نتائج فراہم کرتے ہیں۔\",\nsource: \"سیکشن: پیراڈائم شفٹ\"\n},\n{\nquestion: \"SaaS کے دور سے ایجنٹ فیکٹری کے دور تک ویلیو میٹرک کیسے تبدیل ہوتا ہے؟\",\noptions: [\"فی نتیجہ سے فی سیٹ تک\", \"مفت ٹرائلز سے بامعاوضہ منصوبوں تک\", \"فی سیٹ سبسکرپشنز سے فی نتیجہ نتائج تک\", \"گھنٹہ وار بلنگ سے ماہانہ سبسکرپشنز تک\"],\ncorrectOption: 2,\nexplanation: \"پیراڈائم شفٹ ٹیبل سے پتہ چلتا ہے کہ ویلیو میٹرک فی سیٹ سبسکرپشنز (SaaS کا دور) سے فی نتیجہ نتائج (ایجنٹ فیکٹری کا دور) کی طرف منتقل ہوتا ہے۔ خریدار نتائج کے لیے ادائیگی کرتے ہیں، رسائی کے لیے نہیں۔\",\nsource: \"سیکشن: پیراڈائم شفٹ\"\n},\n{\nquestion: \"ایجنٹ فیکٹری کے دور میں انسانی کردار کیا ہے؟\",\noptions: [\"آپریٹر\", \"پروگرامر\", \"سپروائزر اور تصدیق کنندہ\", \"آخری صارف\"],\ncorrectOption: 2,\nexplanation: \"پیراڈائم شفٹ ٹیبل واضح طور پر بتاتا ہے کہ انسانی کردار SaaS کے دور میں 'آپریٹر' سے ایجنٹ فیکٹری کے دور میں 'سپروائزر اور تصدیق کنندہ' میں تبدیل ہوجاتا ہے۔\",\nsource: \"سیکشن: پیراڈائم شفٹ\"\n},\n{\nquestion: \"SaaS کے دور اور ایجنٹ فیکٹری کے دور کے درمیان عملدرآمد کا ماڈل کیسے مختلف ہے؟\",\noptions: [\"دونوں دستی ہیں\", \"SaaS خودکار ہے؛ ایجنٹ فیکٹری دستی ہے\", \"SaaS دستی اور نظر آنے والا ہے؛ ایجنٹ فیکٹری خودکار اور صنعتی ہے\", \"دونوں خودکار ہیں\"],\ncorrectOption: 2,\nexplanation: \"موازنہ کی میز سے پتہ چلتا ہے کہ SaaS کے دور کا عملدرآمد ماڈل 'دستی اور نظر آنے والا' ہے جبکہ ایجنٹ فیکٹری کا دور 'خودکار اور صنعتی' ہے۔\",\nsource: \"سیکشن: پیراڈائم شفٹ\"\n},\n{\nquestion: \"ایجنٹ فیکٹری کے فن تعمیر میں 'فیکٹری' کا بنیادی کام کیا ہے؟\",\noptions: [\"سافٹ ویئر لائسنس فروخت کرنا\", \"ارادے کو نتائج میں تبدیل کرنا\", \"انسانی ملازمین کا انتظام کرنا\", \"AI ماڈلز کے لیے ایک بازار کی میزبانی کرنا\"],\ncorrectOption: 1,\nexplanation: \"تھیسس وضاحت کرتا ہے کہ فیکٹری پروڈکشن انجن ہے جو ارادے کو نتائج میں تبدیل کرتا ہے، جو کسی کی خواہش اور جو وہ حاصل کرتا ہے کے درمیان بیٹھتا ہے۔\",\nsource: \"سیکشن: فیکٹری: ارادے سے نتیجے تک\"\n},\n{\nquestion: \"مندرجہ ذیل میں سے کون سا بنیادی میکانزم نہیں ہے جو ایجنٹ فیکٹری کو طاقت دیتا ہے؟\",\noptions: [\"کام کی وضاحت کرنے والے اسپیکس\", \"کام کیسے ہوتا ہے اس کی پیکیجنگ کرنے والی مہارتیں\", \"بہتری کے لیے فیڈ بیک لوپس\", \"دستی، پوائنٹ ٹو پوائنٹ API انٹیگریشنز\"],\ncorrectOption: 3,\nexplanation: \"تھیسس میں کہا گیا ہے کہ تین میکانزم فیکٹری کو طاقت دیتے ہیں: اسپیکس، مہارتیں، اور فیڈ بیک لوپس۔ یہ SaaS کے دور کے سخت، پوائنٹ ٹو پوائنٹ APIs کے برعکس ہے۔\",\nsource: \"سیکشن: فیکٹری: ارادے سے نتیجے تک\"\n},\n{\nquestion: \"تھیسس کے مطابق، ایجنٹ فیکٹری کے دور میں ایک ڈویلپر کا کردار کیسے تبدیل ہوتا ہے؟\",\noptions: [\"ڈویلپرز متروک ہوجاتے ہیں اور ان کی جگہ ایجنٹ لے لیتے ہیں\", \"ڈویلپرز UI اسکرینوں کی ہینڈ کوڈنگ میں زیادہ وقت صرف کرتے ہیں\", \"ڈویلپرز کوڈنگ سے ایجنٹوں کو ڈیزائن کرنے، تعینات کرنے، اور ان کی نگرانی کرنے کی طرف منتقل ہوجاتے ہیں\", \"ڈویلپرز صرف میراثی نظاموں کو برقرار رکھنے پر توجہ دیتے ہیں\"],\ncorrectOption: 2,\nexplanation: \"تھیسس کا तर्क ہے کہ ڈویلپر کی مہارت زیادہ قیمتی ہوجاتی ہے کیونکہ وہ ہینڈ کوڈنگ سے ایسے ایجنٹوں کو ڈیزائن کرنے، تعینات کرنے، اور ان کی نگرانی کرنے کی طرف منتقل ہوتے ہیں جو پوری مصنوعات فراہم کرتے ہیں۔ ڈویلپر کم نہیں، زیادہ کرتا ہے۔\",\nsource: \"سیکشن: لوپ میں انسان\"\n},\n{\nquestion: \"تھیسس کے مطابق مستقبل کی افرادی قوت میں ترقی کرنے کی کلید کیا ہے؟\",\noptions: [\"ایک ہی، مقررہ کیریئر کے راستے میں مہارت حاصل کرنا\", \"انحصار سے بچنے کے لیے AI ٹولز کے استعمال سے گریز کرنا\", \"متحرک مہارت کے پورٹ فولیو بنانا اور AI کے ساتھ تعاون کرنا\", \"صرف غیر تکنیکی کرداروں پر توجہ مرکوز کرنا\"],\ncorrectOption: 2,\nexplanation: \"تھیسس مشورہ دیتا ہے کہ مستقبل کی افرادی قوت کو متحرک مہارت کے پورٹ فولیو بنانا ہوں گے اور جو پیشہ ور AI کے ساتھ سوچنا، اس کے ساتھ تعمیر کرنا، اور اس کے ساتھ تعاون کرنا سیکھتے ہیں وہ ترقی کریں گے۔\",\nsource: \"سیکشن: ورک فورس کا موقع\"\n},\n{\nquestion: \"ایجنٹ فیکٹری ماڈل میں معیاری ٹول پروٹوکولز (MCP) کا کیا کردار ہے؟\",\noptions: [\"ایک سخت، پوائنٹ ٹو پوائنٹ انٹیگریشن کا طریقہ فراہم کرنا\", \"ہر ایجنٹ کو ہر ٹول سے جوڑنے والے ایک یونیورسل پروٹوکول کے طور پر کام کرنا\", \"تمام APIs کی ضرورت کو تبدیل کرنا\", \"بلنگ اور سبسکرپشنز کا انتظام کرنا\"],\ncorrectOption: 1,\nexplanation: \"متن MCP کو 'یونیورسل پروٹوکول جو ہر ایجنٹ کو ہر ٹول سے جوڑتا ہے' کے طور پر شناخت کرتا ہے، جو ماضی کے سخت، پوائنٹ ٹو پوائنٹ APIs کے برعکس ہے۔\",\nsource: \"سیکشن: پیراڈائم شفٹ اور فیکٹری: ارادے سے نتیجے تک\"\n},\n{\nquestion: \"ایجنٹ فیکٹری کے دور میں جیتنے والوں کی پیمائش کیسے کی جاتی ہے؟\",\noptions: [\"فروخت ہونے والی فی سیٹ سبسکرپشنز کی تعداد سے\", \"تیار کردہ سافٹ ویئر ٹولز کی تعداد سے\", \"ان کے ملازمین کی تعداد سے\", \"ان کے ضمانت شدہ نتائج اور ان کے حل کردہ مسائل سے\"],\ncorrectOption: 3,\nexplanation: \"تھیسس کا اختتامی بیان ہے: 'اس دور میں جیتنے والوں کی پیمائش فروخت ہونے والی نشستوں سے نہیں، بلکہ ضمانت شدہ نتائج—اور ان کے حل کردہ مسائل سے کی جائے گی۔'\",\nsource: \"اختتامی بیان\"\n}\n]}\n/>",
+      "line_start": 112,
+      "line_end": 475,
+      "context": "paragraph"
+    }
+  ]
+}

@@ -1,0 +1,265 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\01-General-Agents-Foundations\\01-agent-factory-paradigm\\08-spec-driven-development.summary.md",
+  "source_md5": "7c5433011afe06c378abee2371d35fc1",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 28,
+  "frontmatter_segments": [],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "Core Concept",
+      "translated": "",
+      "line_start": 0,
+      "line_end": 1,
+      "context": "heading_h3"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "Spec-Driven Development (SDD) is a methodology where you write complete specifications before writing code, then AI agents implement against those specifications while you focus on design, architecture, and validation. The core equation: vague idea + AI = 5+ iterations of misalignment; clear specification + AI = 1-2 iterations of refinement. The bottleneck has shifted from implementation to specification quality.",
+      "translated": "",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "Key Mental Models",
+      "translated": "",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "heading_h3"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "**SDD Six-Phase Workflow**: Specify (define what/why) -> Clarify (remove ambiguity) -> Plan (design how) -> Tasks (break down work) -> Implement (AI executes) -> Validate (verify quality). Each phase removes ambiguity before the next begins.",
+      "translated": "",
+      "line_start": 4,
+      "line_end": 5,
+      "context": "list_item"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "**Four Specification Qualities**: Clarity (no ambiguity -- measurable, not vague), Completeness (all scenarios covered -- functional, non-functional, integration), Constraints (explicit boundaries -- technical, business, design), Testability (every criterion verifiable -- quantified, not subjective).",
+      "translated": "",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "list_item"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "**SDD vs Vibe Coding**: SDD invests 20% time specifying and 80% building; Vibe Coding spends 80% coding and 20% fixing. SDD scales to complex systems; Vibe Coding falls apart beyond 1,000 lines.",
+      "translated": "",
+      "line_start": 6,
+      "line_end": 7,
+      "context": "list_item"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "**AI Asks During Planning, Not Implementation**: With SDD, clarifying questions happen in the Clarify phase. Without SDD, AI must guess requirements during implementation, causing misalignment iterations.",
+      "translated": "",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "list_item"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**Decision Framework for SDD Depth**: Full SDD (production features, complex systems, security-critical), Lightweight SDD (simple utilities, prototypes, well-understood patterns), Skip SDD (learning experiments, throwaway code, trivial changes).",
+      "translated": "",
+      "line_start": 8,
+      "line_end": 9,
+      "context": "list_item"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "Key Facts",
+      "translated": "",
+      "line_start": 10,
+      "line_end": 11,
+      "context": "heading_h3"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "**Specification has four elements**: Intent (why this exists), Success Criteria (what correct looks like), Constraints (limits that exist), Non-Goals (what we are NOT building)",
+      "translated": "",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "list_item"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "**Quality gate phases**: Each of the six phases has explicit pass/fail criteria before proceeding to the next",
+      "translated": "",
+      "line_start": 12,
+      "line_end": 13,
+      "context": "list_item"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "**Developer A vs B comparison**: Developer A (code-first) spends 3 months debugging edge cases; Developer B (spec-first) has complete tested implementation in 2 weeks and builds features in months 2-3",
+      "translated": "",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "list_item"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "**Vibe Coding works for**: Learning new frameworks, prototyping throwaway code, simple scripts under 50 lines",
+      "translated": "",
+      "line_start": 14,
+      "line_end": 15,
+      "context": "list_item"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "**SDD is essential for**: Production features, multi-component systems, security/compliance requirements, AI-assisted development, team projects",
+      "translated": "",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "list_item"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "**Task sizing rule**: No single task should exceed 2 hours of work",
+      "translated": "",
+      "line_start": 16,
+      "line_end": 17,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "Critical Patterns",
+      "translated": "",
+      "line_start": 18,
+      "line_end": 19,
+      "context": "heading_h3"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "The specification document structure: Intent (user problem solved) -> Success Criteria (measurable outcomes) -> Constraints (performance, security, compliance, scale) -> Non-Goals (explicit scope boundaries preventing creep)",
+      "translated": "",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "list_item"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "The Clarify phase catches unknowns before they become expensive: edge cases, integration points, error handling specifics, business logic ambiguities",
+      "translated": "",
+      "line_start": 20,
+      "line_end": 21,
+      "context": "list_item"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "The Plan includes architecture, dependency sequence, testing strategy, and documented tradeoffs with rationale",
+      "translated": "",
+      "line_start": 21,
+      "line_end": 22,
+      "context": "list_item"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "Validation confirms implementation matches specification across all success criteria, constraints, edge cases, and quality gates",
+      "translated": "",
+      "line_start": 22,
+      "line_end": 23,
+      "context": "list_item"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Common Mistakes",
+      "translated": "",
+      "line_start": 24,
+      "line_end": 25,
+      "context": "heading_h3"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "Writing the spec after the code (turns specification into retrospective documentation rather than a guide that drives implementation quality)",
+      "translated": "",
+      "line_start": 25,
+      "line_end": 26,
+      "context": "list_item"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "Using vague success criteria like \"user-friendly\" or \"good performance\" instead of measurable criteria like \"95th percentile response time < 200ms\" or \"new users complete in < 60 seconds\"",
+      "translated": "",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "list_item"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "Skipping Non-Goals (without explicit scope boundaries, every conversation becomes \"should we add X?\" leading to scope creep)",
+      "translated": "",
+      "line_start": 27,
+      "line_end": 28,
+      "context": "list_item"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "Treating specs as static documents rather than living artifacts that update when requirements change (spec-implementation drift makes both unreliable)",
+      "translated": "",
+      "line_start": 28,
+      "line_end": 29,
+      "context": "list_item"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "Connections",
+      "translated": "",
+      "line_start": 30,
+      "line_end": 31,
+      "context": "heading_h3"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "**Builds on**: The orchestrator role (Lesson 2) where specification writing is the primary skill; the Nine Pillars (Lesson 6) where SDD is Pillar 7 orchestrating all others; AIDD characteristics (Lesson 6) including Specification-Driven, Quality-Gated, and Human-Verified",
+      "translated": "",
+      "line_start": 31,
+      "line_end": 32,
+      "context": "list_item"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**Leads to**: The Synthesis lesson (Lesson 8) where SDD is positioned as the methodology enabling reliable Digital FTE delegation; practical SDD workflows in later chapters where students execute the six phases on real features",
+      "translated": "",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "list_item"
+    }
+  ],
+  "admonition_segments": [],
+  "mdx_protected_lines": {},
+  "admonition_markers": []
+}

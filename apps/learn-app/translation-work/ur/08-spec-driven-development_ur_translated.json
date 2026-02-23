@@ -1,0 +1,2363 @@
+{
+  "source_file": "D:\\agentfactory-main\\agentfactory-main\\apps\\learn-app\\docs\\01-General-Agents-Foundations\\01-agent-factory-paradigm\\08-spec-driven-development.md",
+  "source_md5": "d0bb0fa89fef7235f131efab1231d7f5",
+  "target_language": "ur",
+  "had_crlf": false,
+  "total_segments": 249,
+  "frontmatter_segments": [
+    {
+      "id": "fm_1",
+      "key": "title",
+      "original": "Spec-Driven Development",
+      "translated": "اسپیک سے چلنے والی ڈویلپمنٹ",
+      "context": "frontmatter",
+      "line_in_fm": 1,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_9",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 9,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_10",
+      "key": "category",
+      "original": "Technical",
+      "translated": "تکنیکی",
+      "context": "frontmatter",
+      "line_in_fm": 10,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_11",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "اطلاق کریں",
+      "context": "frontmatter",
+      "line_in_fm": 11,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_12",
+      "key": "digcomp_area",
+      "original": "Problem-Solving",
+      "translated": "مسئلہ حل کرنا",
+      "context": "frontmatter",
+      "line_in_fm": 12,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_13",
+      "key": "measurable_at_this_level",
+      "original": "Student can write a complete specification with intent, success criteria, constraints, and acceptance criteria",
+      "translated": "طالب علم ارادے، کامیابی کے معیار، پابندیوں، اور قبولیت کے معیار کے ساتھ مکمل تفصیلات لکھ سکتا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 13,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_16",
+      "key": "proficiency_level",
+      "original": "B1",
+      "translated": "B1",
+      "context": "frontmatter",
+      "line_in_fm": 16,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_17",
+      "key": "category",
+      "original": "Conceptual",
+      "translated": "تصوراتی",
+      "context": "frontmatter",
+      "line_in_fm": 17,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_18",
+      "key": "bloom_level",
+      "original": "Analyze",
+      "translated": "تجزیہ کریں",
+      "context": "frontmatter",
+      "line_in_fm": 18,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_19",
+      "key": "digcomp_area",
+      "original": "Critical Thinking",
+      "translated": "تنقیدی سوچ",
+      "context": "frontmatter",
+      "line_in_fm": 19,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_20",
+      "key": "measurable_at_this_level",
+      "original": "Student can assess whether a specification has sufficient detail for AI implementation and identify missing elements",
+      "translated": "طالب علم یہ جانچ سکتا ہے کہ آیا تفصیلات میں AI نفاذ کے لیے کافی تفصیل موجود ہے اور غائب عناصر کی نشاندہی کر سکتا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 20,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_23",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 23,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_24",
+      "key": "category",
+      "original": "Applied",
+      "translated": "اطلاق شدہ",
+      "context": "frontmatter",
+      "line_in_fm": 24,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_25",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "اطلاق کریں",
+      "context": "frontmatter",
+      "line_in_fm": 25,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_26",
+      "key": "digcomp_area",
+      "original": "Project Management",
+      "translated": "پروجیکٹ مینجمنٹ",
+      "context": "frontmatter",
+      "line_in_fm": 26,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_27",
+      "key": "measurable_at_this_level",
+      "original": "Student can execute the six-phase SDD workflow (specify, clarify, plan, tasks, implement, validate) for a feature",
+      "translated": "طالب علم کسی فیچر کے لیے چھ مراحل کے SDD ورک فلو (تفصیل، وضاحت، منصوبہ، کام، نفاذ، تصدیق) کو انجام دے سکتا ہے",
+      "context": "frontmatter",
+      "line_in_fm": 27,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_31",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 31,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_32",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "اطلاق کریں",
+      "context": "frontmatter",
+      "line_in_fm": 32,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_33",
+      "key": "assessment_method",
+      "original": "Specification document includes all required elements and passes quality checklist",
+      "translated": "تفصیلاتی دستاویز میں تمام ضروری عناصر شامل ہیں اور کوالٹی چیک لسٹ پاس کرتی ہے",
+      "context": "frontmatter",
+      "line_in_fm": 33,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_36",
+      "key": "proficiency_level",
+      "original": "B1",
+      "translated": "B1",
+      "context": "frontmatter",
+      "line_in_fm": 36,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_37",
+      "key": "bloom_level",
+      "original": "Analyze",
+      "translated": "تجزیہ کریں",
+      "context": "frontmatter",
+      "line_in_fm": 37,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_38",
+      "key": "assessment_method",
+      "original": "Decision framework applied to 3 project scenarios with justification",
+      "translated": "فیصلہ سازی کا فریم ورک 3 پروجیکٹ منظرناموں پر جواز کے ساتھ لاگو کیا گیا",
+      "context": "frontmatter",
+      "line_in_fm": 38,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_41",
+      "key": "proficiency_level",
+      "original": "A2",
+      "translated": "A2",
+      "context": "frontmatter",
+      "line_in_fm": 41,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_42",
+      "key": "bloom_level",
+      "original": "Apply",
+      "translated": "اطلاق کریں",
+      "context": "frontmatter",
+      "line_in_fm": 42,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_43",
+      "key": "assessment_method",
+      "original": "Complete workflow executed for a feature with artifacts from each phase",
+      "translated": "ہر مرحلے کے آرٹیفیکٹس کے ساتھ فیچر کے لیے مکمل ورک فلو انجام دیا گیا",
+      "context": "frontmatter",
+      "line_in_fm": 43,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_48",
+      "key": "assessment",
+      "original": "6 concepts (specification quality, SDD vs Vibe Coding, six-phase workflow, validation practices, decision framework, quality gates) within A2-B1 limit of 7-9 ✓",
+      "translated": "6 تصورات (تفصیلات کی معیار، SDD بمقابلہ Vibe Coding، چھ مرحلے کا ورک فلو، تصدیقی طریقے، فیصلہ سازی کا فریم ورک، کوالٹی گیٹس) A2-B1 حد 7-9 کے اندر ✓",
+      "context": "frontmatter",
+      "line_in_fm": 48,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_52",
+      "key": "extension_for_advanced",
+      "original": "Research how SDD scales to team environments; explore specification templates for complex systems (microservices, event-driven architectures)",
+      "translated": "تحقیق کریں کہ SDD ٹیم ماحول میں کیسے پھیلتا ہے؛ پیچیدہ سسٹمز کے لیے تفصیلاتی ٹیمپلیٹس دریافت کریں (مائیکرو سروسز، ایونٹ ڈریون آرکیٹیکچر)",
+      "context": "frontmatter",
+      "line_in_fm": 52,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_53",
+      "key": "remedial_for_struggling",
+      "original": "Focus on the specification quality checklist; practice writing specs for simple features before attempting complex workflows",
+      "translated": "تفصیلات کی معیار کی چیک لسٹ پر توجہ دیں؛ پیچیدہ ورک فلوز کو آزمانے سے پہلے سادہ فیچرز کے لیے تفصیلات لکھنے کی مشق کریں",
+      "context": "frontmatter",
+      "line_in_fm": 53,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_56",
+      "key": "lesson_type",
+      "original": "core",
+      "translated": "بنیادی",
+      "context": "frontmatter",
+      "line_in_fm": 56,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_58",
+      "key": "session_title",
+      "original": "SDD, Synthesis, and Enterprise Sales",
+      "translated": "SDD، Synthesis، اور Enterprise Sales",
+      "context": "frontmatter",
+      "line_in_fm": 58,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_84",
+      "key": "generated_by",
+      "original": "content-implementer v3.0.0 (Part 1 consolidation)",
+      "translated": "content-implementer v3.0.0 (Part 1 consolidation)",
+      "context": "frontmatter",
+      "line_in_fm": 84,
+      "quote_char": "\""
+    },
+    {
+      "id": "fm_85",
+      "key": "source_spec",
+      "original": "Part 1 consolidation - Ch1-L07",
+      "translated": "Part 1 consolidation - Ch1-L07",
+      "context": "frontmatter",
+      "line_in_fm": 85,
+      "quote_char": "\""
+    }
+  ],
+  "body_segments": [
+    {
+      "id": 0,
+      "type": "inline",
+      "original": "Spec-Driven Development",
+      "translated": "اسپیک سے چلنے والی ڈویلپمنٹ",
+      "line_start": 1,
+      "line_end": 2,
+      "context": "heading_h1"
+    },
+    {
+      "id": 1,
+      "type": "inline",
+      "original": "Imagine two developers starting the same project on the same day.",
+      "translated": "دو ڈویلپرز کا تصور کریں جو اسی دن ایک ہی پروجیکٹ شروع کر رہے ہیں۔",
+      "line_start": 3,
+      "line_end": 4,
+      "context": "paragraph"
+    },
+    {
+      "id": 2,
+      "type": "inline",
+      "original": "**Developer A** opens their IDE and starts coding. They build a user authentication system, adding features as they think of them. Two weeks later, they realize they forgot password reset functionality. They refactor. Then they discover the session handling doesn't work on mobile. They refactor again. Each discovery means rewriting code. Three months later, they're still debugging edge cases.",
+      "translated": "**ڈویلپر A** اپنا IDE کھولتا ہے اور کوڈنگ شروع کرتا ہے۔ وہ صارف کی تصدیق کا نظام بناتے ہیں، جیسے جیسے فیچرز کا خیال آتا ہے انہیں شامل کرتے ہیں۔ دو ہفتے بعد، انہیں احساس ہوتا ہے کہ وہ پاس ورڈ ری سیٹ کی فعالیت بھول گئے۔ وہ refactor کرتے ہیں۔ پھر انہیں معلوم ہوتا ہے کہ session handling موبائل پر کام نہیں کرتی۔ وہ دوبارہ refactor کرتے ہیں۔ ہر دریافت کا مطلب کوڈ کو دوبارہ لکھنا ہے۔ تین مہینے بعد، وہ ابھی تک edge cases کو debug کر رہے ہیں۔",
+      "line_start": 5,
+      "line_end": 6,
+      "context": "paragraph"
+    },
+    {
+      "id": 3,
+      "type": "inline",
+      "original": "**Developer B** spends day one writing a specification. They define exactly what authentication means in their context: what security requirements matter, what edge cases exist, what success looks like. They clarify ambiguities before writing a single line of code. Then they hand that specification to an AI agent. Two weeks later, they have a complete, tested implementation. They spend months two and three building features, not fixing bugs.",
+      "translated": "**ڈویلپر B** پہلے دن تفصیلات لکھنے میں گزارتے ہیں۔ وہ بالکل واضح کرتے ہیں کہ ان کے سیاق و سباق میں authentication کا کیا مطلب ہے: کون سی security requirements اہم ہیں، کون سے edge cases موجود ہیں، کامیابی کیسی دکھتی ہے۔ وہ ایک لائن کوڈ لکھنے سے پہلے ambiguities کو واضح کرتے ہیں۔ پھر وہ وہ تفصیلات AI agent کو سونپ دیتے ہیں۔ دو ہفتے بعد، ان کے پاس مکمل، ٹیسٹ شدہ نفاذ موجود ہے۔ وہ دوسرے اور تیسرے مہینے فیچرز بنانے میں گزارتے ہیں، bugs ٹھیک کرنے میں نہیں۔",
+      "line_start": 7,
+      "line_end": 8,
+      "context": "paragraph"
+    },
+    {
+      "id": 4,
+      "type": "inline",
+      "original": "Both developers are skilled. Both worked hard. But Developer B practiced **Spec-Driven Development (SDD)**—a methodology that prioritizes clear thinking before implementation.",
+      "translated": "دونوں ڈویلپرز ہنر مند ہیں۔ دونوں نے محنت کی۔ لیکن ڈویلپر B نے **Spec-Driven Development (SDD)** کی مشق کی—یہ ایک طریقہ کار ہے جو نفاذ سے پہلے واضح سوچ کو ترجیح دیتا ہے۔",
+      "line_start": 9,
+      "line_end": 10,
+      "context": "paragraph"
+    },
+    {
+      "id": 5,
+      "type": "inline",
+      "original": "The difference isn't coding ability. It's process.",
+      "translated": "فرق کوڈنگ کی صلاحیت نہیں ہے۔ یہ عمل ہے۔",
+      "line_start": 11,
+      "line_end": 12,
+      "context": "paragraph"
+    },
+    {
+      "id": 6,
+      "type": "inline",
+      "original": "What Is Spec-Driven Development?",
+      "translated": "Spec-Driven Development کیا ہے؟",
+      "line_start": 13,
+      "line_end": 14,
+      "context": "heading_h2"
+    },
+    {
+      "id": 7,
+      "type": "inline",
+      "original": "**Spec-Driven Development (SDD)** is a methodology where you write complete specifications before writing code. AI agents then implement against those specifications while you focus on design, architecture, and validation.",
+      "translated": "**Spec-Driven Development (SDD)** ایک طریقہ کار ہے جہاں آپ کوڈ لکھنے سے پہلے مکمل تفصیلات لکھتے ہیں۔ AI agents پھر ان تفصیلات کے مطابق نفاذ کرتے ہیں جبکہ آپ design، architecture، اور validation پر توجہ مرکوز کرتے ہیں۔",
+      "line_start": 15,
+      "line_end": 16,
+      "context": "paragraph"
+    },
+    {
+      "id": 8,
+      "type": "inline",
+      "original": "This isn't documentation written after the fact. It's not a vague product requirements document. It's a precise specification that serves as the source of truth for implementation.",
+      "translated": "یہ حقیقت کے بعد لکھی گئی دستاویز نہیں ہے۔ یہ مبہم product requirements document نہیں ہے۔ یہ ایک درست تفصیلات ہے جو نفاذ کے لیے سچائی کا ماخذ کے طور پر کام کرتی ہے۔",
+      "line_start": 17,
+      "line_end": 18,
+      "context": "paragraph"
+    },
+    {
+      "id": 9,
+      "type": "inline",
+      "original": "The Core Equation",
+      "translated": "بنیادی مساوات",
+      "line_start": 19,
+      "line_end": 20,
+      "context": "heading_h3"
+    },
+    {
+      "id": 10,
+      "type": "inline",
+      "original": "When you provide AI with a clear specification, you eliminate the guesswork. You tell it exactly what to build, why it matters, what constraints exist, and what success looks like. The AI can then execute precisely.",
+      "translated": "جب آپ AI کو واضح تفصیلات فراہم کرتے ہیں، آپ اندازے کو ختم کر دیتے ہیں۔ آپ اسے بالکل بتاتے ہیں کہ کیا بنانا ہے، یہ کیوں اہم ہے، کون سی پابندیاں موجود ہیں، اور کامیابی کیسی دکھتی ہے۔ AI پھر درست طریقے سے عمل درآمد کر سکتا ہے۔",
+      "line_start": 26,
+      "line_end": 27,
+      "context": "paragraph"
+    },
+    {
+      "id": 11,
+      "type": "inline",
+      "original": "When you provide a vague idea, the AI must guess. Each guess is an opportunity for misalignment. Five iterations later, you've wasted hours fixing things you could have specified upfront.",
+      "translated": "جب آپ ایک مبہم خیال فراہم کرتے ہیں، AI کو اندازہ لگانا پڑتا ہے۔ ہر اندازہ غلط فہمی کا موقع ہے۔ پانچ iterations کے بعد، آپ نے گھنٹوں ضائع کر دیے ہیں ان چیزوں کو ٹھیک کرنے میں جو آپ پہلے سے تفصیل میں بیان کر سکتے تھے۔",
+      "line_start": 28,
+      "line_end": 29,
+      "context": "paragraph"
+    },
+    {
+      "id": 12,
+      "type": "inline",
+      "original": "Why SDD Matters Now",
+      "translated": "اب SDD کیوں اہم ہے",
+      "line_start": 30,
+      "line_end": 31,
+      "context": "heading_h3"
+    },
+    {
+      "id": 13,
+      "type": "inline",
+      "original": "SDD wasn't practical twenty years ago. Writing specifications took as long as writing code. But AI changes the equation:",
+      "translated": "بیس سال پہلے SDD عملی نہیں تھا۔ تفصیلات لکھنے میں اتنا ہی وقت لگتا تھا جتنا کوڈ لکھنے میں۔ لیکن AI مساوات کو بدل دیتا ہے:",
+      "line_start": 32,
+      "line_end": 33,
+      "context": "paragraph"
+    },
+    {
+      "id": 14,
+      "type": "inline",
+      "original": "**AI generates code faster than humans write it**—if the requirements are clear",
+      "translated": "**AI کوڈ انسانوں کے لکھنے سے تیزی سے تیار کرتا ہے**—اگر requirements واضح ہوں",
+      "line_start": 34,
+      "line_end": 35,
+      "context": "list_item"
+    },
+    {
+      "id": 15,
+      "type": "inline",
+      "original": "**AI handles implementation details**—syntax, libraries, frameworks",
+      "translated": "**AI نفاذ کی تفصیلات کو سنبھالتا ہے**—syntax، libraries، frameworks",
+      "line_start": 35,
+      "line_end": 36,
+      "context": "list_item"
+    },
+    {
+      "id": 16,
+      "type": "inline",
+      "original": "**You focus on what humans do best**—design, architecture, business logic",
+      "translated": "**آپ ان چیزوں پر توجہ مرکوز کرتے ہیں جو انسان بہترین کرتے ہیں**—design، architecture، business logic",
+      "line_start": 36,
+      "line_end": 37,
+      "context": "list_item"
+    },
+    {
+      "id": 17,
+      "type": "inline",
+      "original": "The bottleneck shifted from implementation to specification. Your primary skill is no longer writing code—it's writing specifications that guide AI implementation.",
+      "translated": "رکاوٹ نفاذ سے تفصیلات کی طرف منتقل ہو گئی ہے۔ آپ کی بنیادی مہارت اب کوڈ لکھنا نہیں ہے—یہ AI نفاذ کی رہنمائی کرنے والی تفصیلات لکھنا ہے۔",
+      "line_start": 38,
+      "line_end": 39,
+      "context": "paragraph"
+    },
+    {
+      "id": 18,
+      "type": "inline",
+      "original": "The SDD Workflow: Six Phases",
+      "translated": "SDD ورک فلو: چھ مراحل",
+      "line_start": 40,
+      "line_end": 41,
+      "context": "heading_h2"
+    },
+    {
+      "id": 19,
+      "type": "inline",
+      "original": "SDD provides a systematic workflow from idea to validated implementation. Each phase removes ambiguity before the next phase begins.",
+      "translated": "SDD خیال سے لے کر تصدیق شدہ نفاذ تک ایک منظم ورک فلو فراہم کرتا ہے۔ ہر مرحلہ اگلے مرحلے کے شروع ہونے سے پہلے ambiguity کو ختم کرتا ہے۔",
+      "line_start": 42,
+      "line_end": 43,
+      "context": "paragraph"
+    },
+    {
+      "id": 20,
+      "type": "inline",
+      "original": "Phase 1: Specify (Define What)",
+      "translated": "مرحلہ 1: تفصیل (کیا ہے اس کی تعریف)",
+      "line_start": 44,
+      "line_end": 45,
+      "context": "heading_h3"
+    },
+    {
+      "id": 21,
+      "type": "inline",
+      "original": "**Question**: What are we building and why does it matter?",
+      "translated": "**سوال**: ہم کیا بنا رہے ہیں اور یہ کیوں اہم ہے؟",
+      "line_start": 46,
+      "line_end": 47,
+      "context": "paragraph"
+    },
+    {
+      "id": 22,
+      "type": "inline",
+      "original": "**Output**: A specification document with four elements:",
+      "translated": "**آؤٹ پٹ**: چار عناصر کے ساتھ تفصیلاتی دستاویز:",
+      "line_start": 48,
+      "line_end": 49,
+      "context": "paragraph"
+    },
+    {
+      "id": 23,
+      "type": "inline",
+      "original": "**Intent**: Why does this feature exist? What user problem does it solve?",
+      "translated": "**ارادہ**: یہ فیچر کیوں موجود ہے؟ یہ کون سا صارف کا مسئلہ حل کرتا ہے؟",
+      "line_start": 50,
+      "line_end": 51,
+      "context": "list_item"
+    },
+    {
+      "id": 24,
+      "type": "inline",
+      "original": "**Success Criteria**: What does correct implementation look like? How do we measure success?",
+      "translated": "**کامیابی کا معیار**: درست نفاذ کیسا دکھتا ہے؟ ہم کامیابی کی پیمائش کیسے کرتے ہیں؟",
+      "line_start": 51,
+      "line_end": 52,
+      "context": "list_item"
+    },
+    {
+      "id": 25,
+      "type": "inline",
+      "original": "**Constraints**: What limits exist? Performance, security, compliance, scale, technical constraints",
+      "translated": "**پابندیاں**: کون سی حدیں موجود ہیں؟ Performance، security، compliance، scale، technical پابندیاں",
+      "line_start": 52,
+      "line_end": 53,
+      "context": "list_item"
+    },
+    {
+      "id": 26,
+      "type": "inline",
+      "original": "**Non-Goals**: What are we explicitly NOT building? (prevents scope creep)",
+      "translated": "**Non-Goals**: ہم واضح طور پر کیا نہیں بنا رہے؟ (scope creep کو روکتا ہے)",
+      "line_start": 53,
+      "line_end": 54,
+      "context": "list_item"
+    },
+    {
+      "id": 27,
+      "type": "inline",
+      "original": "**Example Specification**:",
+      "translated": "**مثال کی تفصیلات**:",
+      "line_start": 55,
+      "line_end": 56,
+      "context": "paragraph"
+    },
+    {
+      "id": 28,
+      "type": "inline",
+      "original": "Phase 2: Clarify (Remove Ambiguity)",
+      "translated": "مرحلہ 2: وضاحت (Ambiguity کو ختم کریں)",
+      "line_start": 81,
+      "line_end": 82,
+      "context": "heading_h3"
+    },
+    {
+      "id": 29,
+      "type": "inline",
+      "original": "**Question**: What's underspecified or ambiguous?",
+      "translated": "**سوال**: کیا کم تفصیل یا مبہم ہے؟",
+      "line_start": 83,
+      "line_end": 84,
+      "context": "paragraph"
+    },
+    {
+      "id": 30,
+      "type": "inline",
+      "original": "**Output**: A list of clarification questions with answers encoded back into the specification.",
+      "translated": "**آؤٹ پٹ**: وضاحتی سوالات کی فہرست جن کے جوابات واپس تفصیلات میں شامل کیے گئے ہیں۔",
+      "line_start": 85,
+      "line_end": 86,
+      "context": "paragraph"
+    },
+    {
+      "id": 31,
+      "type": "inline",
+      "original": "Before planning, you must identify what you don't know. Common ambiguities:",
+      "translated": "منصوبہ بندی سے پہلے، آپ کو یہ معلوم کرنا ہوگا کہ آپ کیا نہیں جانتے۔ عام ambiguities:",
+      "line_start": 87,
+      "line_end": 88,
+      "context": "paragraph"
+    },
+    {
+      "id": 32,
+      "type": "inline",
+      "original": "**Edge cases**: What happens when email service is down? When user enters emoji in password?",
+      "translated": "**Edge cases**: جب email service بند ہو تو کیا ہوتا ہے؟ جب صارف پاس ورڈ میں emoji درج کرتا ہے؟",
+      "line_start": 89,
+      "line_end": 90,
+      "context": "list_item"
+    },
+    {
+      "id": 33,
+      "type": "inline",
+      "original": "**Integration points**: Does this connect to existing user database? Create new one?",
+      "translated": "**Integration points**: کیا یہ موجودہ user database سے جڑتا ہے؟ نیا بنائیں؟",
+      "line_start": 90,
+      "line_end": 91,
+      "context": "list_item"
+    },
+    {
+      "id": 34,
+      "type": "inline",
+      "original": "**Error handling**: What error message for \"email already registered\" vs \"invalid email format\"?",
+      "translated": "**Error handling**: \"email already registered\" بمقابلہ \"invalid email format\" کے لیے کیا error message؟",
+      "line_start": 91,
+      "line_end": 92,
+      "context": "list_item"
+    },
+    {
+      "id": 35,
+      "type": "inline",
+      "original": "**Business logic**: Can users register multiple accounts with same email? Trial period?",
+      "translated": "**Business logic**: کیا صارفین ایک ہی email سے متعدد اکاؤنٹس رجسٹر کر سکتے ہیں؟ Trial period؟",
+      "line_start": 92,
+      "line_end": 93,
+      "context": "list_item"
+    },
+    {
+      "id": 36,
+      "type": "inline",
+      "original": "**Example Clarification**:",
+      "translated": "**مثال کی وضاحت**:",
+      "line_start": 94,
+      "line_end": 95,
+      "context": "paragraph"
+    },
+    {
+      "id": 37,
+      "type": "inline",
+      "original": "Phase 3: Plan (Design How)",
+      "translated": "مرحلہ 3: منصوبہ (کیسے کی design)",
+      "line_start": 108,
+      "line_end": 109,
+      "context": "heading_h3"
+    },
+    {
+      "id": 38,
+      "type": "inline",
+      "original": "**Question**: How will we approach building this?",
+      "translated": "**سوال**: ہم اسے بنانے کا کیہ طریقہ اپنائیں گے؟",
+      "line_start": 110,
+      "line_end": 111,
+      "context": "paragraph"
+    },
+    {
+      "id": 39,
+      "type": "inline",
+      "original": "**Output**: A plan showing architecture, dependencies, testing strategy, and tradeoffs.",
+      "translated": "**آؤٹ پٹ**: ایک منصوبہ جو architecture، dependencies، testing strategy، اور tradeoffs کو ظاہر کرتا ہے۔",
+      "line_start": 112,
+      "line_end": 113,
+      "context": "paragraph"
+    },
+    {
+      "id": 40,
+      "type": "inline",
+      "original": "**Example Plan**:",
+      "translated": "**مثال کا منصوبہ**:",
+      "line_start": 114,
+      "line_end": 115,
+      "context": "paragraph"
+    },
+    {
+      "id": 41,
+      "type": "inline",
+      "original": "Phase 4: Tasks (Break Down Work)",
+      "translated": "مرحلہ 4: کام (کام کو تقسیم کریں)",
+      "line_start": 145,
+      "line_end": 146,
+      "context": "heading_h3"
+    },
+    {
+      "id": 42,
+      "type": "inline",
+      "original": "**Question**: What are the concrete work items?",
+      "translated": "**سوال**: ٹھوس کام کے آئٹمز کیا ہیں؟",
+      "line_start": 147,
+      "line_end": 148,
+      "context": "paragraph"
+    },
+    {
+      "id": 43,
+      "type": "inline",
+      "original": "**Output**: A task list with dependencies and acceptance criteria.",
+      "translated": "**آؤٹ پٹ**: dependencies اور acceptance criteria کے ساتھ ٹاسک کی فہرست۔",
+      "line_start": 149,
+      "line_end": 150,
+      "context": "paragraph"
+    },
+    {
+      "id": 44,
+      "type": "inline",
+      "original": "**Example Tasks**:",
+      "translated": "**مثال کے کام**:",
+      "line_start": 151,
+      "line_end": 152,
+      "context": "paragraph"
+    },
+    {
+      "id": 45,
+      "type": "inline",
+      "original": "Phase 5: Implement (AI Executes)",
+      "translated": "مرحلہ 5: نفاذ (AI عمل درآمد کرتا ہے)",
+      "line_start": 183,
+      "line_end": 184,
+      "context": "heading_h3"
+    },
+    {
+      "id": 46,
+      "type": "inline",
+      "original": "**Question**: How do we execute the plan?",
+      "translated": "**سوال**: ہم منصوبے کو کیسے انجام دیتے ہیں؟",
+      "line_start": 185,
+      "line_end": 186,
+      "context": "paragraph"
+    },
+    {
+      "id": 47,
+      "type": "inline",
+      "original": "**Output**: Working code that matches the specification and passes acceptance criteria.",
+      "translated": "**آؤٹ پٹ**: کام کرنے والا کوڈ جو تفصیلات سے مطابقت رکھتا ہے اور acceptance criteria پاس کرتا ہے۔",
+      "line_start": 187,
+      "line_end": 188,
+      "context": "paragraph"
+    },
+    {
+      "id": 48,
+      "type": "inline",
+      "original": "**Implementation Strategy**:",
+      "translated": "**نفاذ کی حکمت عملی**:",
+      "line_start": 189,
+      "line_end": 190,
+      "context": "paragraph"
+    },
+    {
+      "id": 49,
+      "type": "inline",
+      "original": "Provide AI with the specification, plan, and tasks",
+      "translated": "AI کو تفصیلات، منصوبہ، اور کام فراہم کریں",
+      "line_start": 190,
+      "line_end": 191,
+      "context": "list_item"
+    },
+    {
+      "id": 50,
+      "type": "inline",
+      "original": "Review code before committing (human-in-the-loop)",
+      "translated": "commit کرنے سے پہلے کوڈ کا جائزہ لیں (human-in-the-loop)",
+      "line_start": 191,
+      "line_end": 192,
+      "context": "list_item"
+    },
+    {
+      "id": 51,
+      "type": "inline",
+      "original": "Run tests and validate against success criteria",
+      "translated": "ٹیسٹ چلائیں اور کامیابی کے معیار کے خلاف تصدیق کریں",
+      "line_start": 192,
+      "line_end": 193,
+      "context": "list_item"
+    },
+    {
+      "id": 52,
+      "type": "inline",
+      "original": "Iterate only if implementation doesn't match spec",
+      "translated": "صرف تب iterate کریں جب نفاذ spec سے مطابقت نہ رکھتا ہو",
+      "line_start": 193,
+      "line_end": 194,
+      "context": "list_item"
+    },
+    {
+      "id": 53,
+      "type": "inline",
+      "original": "**Example Prompt**:",
+      "translated": "**مثال کا Prompt**:",
+      "line_start": 195,
+      "line_end": 196,
+      "context": "paragraph"
+    },
+    {
+      "id": 54,
+      "type": "inline",
+      "original": "Phase 6: Validate (Verify Quality)",
+      "translated": "مرحلہ 6: تصدیق (کوالٹی کی توثیق)",
+      "line_start": 212,
+      "line_end": 213,
+      "context": "heading_h3"
+    },
+    {
+      "id": 55,
+      "type": "inline",
+      "original": "**Question**: Did we build what we specified?",
+      "translated": "**سوال**: کیا ہم نے وہی بنایا جو ہم نے تفصیل میں بیان کیا؟",
+      "line_start": 214,
+      "line_end": 215,
+      "context": "paragraph"
+    },
+    {
+      "id": 56,
+      "type": "inline",
+      "original": "**Output**: Validation report confirming implementation matches specification.",
+      "translated": "**آؤٹ پٹ**: تصدیقی رپورٹ جو تصدیق کرتی ہے کہ نفاذ تفصیلات سے مطابقت رکھتا ہے۔",
+      "line_start": 216,
+      "line_end": 217,
+      "context": "paragraph"
+    },
+    {
+      "id": 57,
+      "type": "inline",
+      "original": "**Validation Checklist**:",
+      "translated": "**تصدیقی چیک لسٹ**:",
+      "line_start": 218,
+      "line_end": 219,
+      "context": "paragraph"
+    },
+    {
+      "id": 58,
+      "type": "inline",
+      "original": "[ ] All success criteria met",
+      "translated": "[ ] تمام کامیابی کے معیار پورے ہوئے",
+      "line_start": 219,
+      "line_end": 220,
+      "context": "list_item"
+    },
+    {
+      "id": 59,
+      "type": "inline",
+      "original": "[ ] All constraints satisfied (performance, security)",
+      "translated": "[ ] تمام پابندیاں پوری ہوئیں (performance، security)",
+      "line_start": 220,
+      "line_end": 221,
+      "context": "list_item"
+    },
+    {
+      "id": 60,
+      "type": "inline",
+      "original": "[ ] All edge cases tested",
+      "translated": "[ ] تمام edge cases ٹیسٹ ہوئے",
+      "line_start": 221,
+      "line_end": 222,
+      "context": "list_item"
+    },
+    {
+      "id": 61,
+      "type": "inline",
+      "original": "[ ] Code follows project patterns",
+      "translated": "[ ] کوڈ پروجیکٹ کے patterns کی پیروی کرتا ہے",
+      "line_start": 222,
+      "line_end": 223,
+      "context": "list_item"
+    },
+    {
+      "id": 62,
+      "type": "inline",
+      "original": "[ ] Tests pass (unit, integration, edge cases)",
+      "translated": "[ ] ٹیسٹ پاس ہوئے (unit، integration، edge cases)",
+      "line_start": 223,
+      "line_end": 224,
+      "context": "list_item"
+    },
+    {
+      "id": 63,
+      "type": "inline",
+      "original": "[ ] Documentation updated",
+      "translated": "[ ] دستاویزات اپ ڈیٹ ہوئیں",
+      "line_start": 224,
+      "line_end": 225,
+      "context": "list_item"
+    },
+    {
+      "id": 64,
+      "type": "inline",
+      "original": "**Example Validation**:",
+      "translated": "**مثال کی تصدیق**:",
+      "line_start": 226,
+      "line_end": 227,
+      "context": "paragraph"
+    },
+    {
+      "id": 65,
+      "type": "inline",
+      "original": "What Makes a Good Specification?",
+      "translated": "اچھی تفصیلات کو کیا بناتا ہے؟",
+      "line_start": 259,
+      "line_end": 260,
+      "context": "heading_h2"
+    },
+    {
+      "id": 66,
+      "type": "inline",
+      "original": "A good specification has four characteristics: clarity, completeness, constraints, and testability.",
+      "translated": "اچھی تفصیلات میں چار خصوصیات ہوتی ہیں: clarity، completeness، constraints، اور testability۔",
+      "line_start": 261,
+      "line_end": 262,
+      "context": "paragraph"
+    },
+    {
+      "id": 67,
+      "type": "inline",
+      "original": "1. Clarity: No Ambiguity",
+      "translated": "1. Clarity: کوئی Ambiguity نہیں",
+      "line_start": 263,
+      "line_end": 264,
+      "context": "heading_h3"
+    },
+    {
+      "id": 68,
+      "type": "inline",
+      "original": "Bad: \"Build a registration system\"\nGood: \"Build a user registration system with email verification, password requirements, and rate limiting... [truncated]",
+      "translated": "خراب: \"ایک رجسٹریشن سسٹم بنائیں\"\nاچھا: \"ایک صارف رجسٹریشن سسٹم بنائیں جس میں email verification، password requirements، اور rate limiting ہو... [مختصر]",
+      "line_start": 265,
+      "line_end": 267,
+      "context": "paragraph"
+    },
+    {
+      "id": 69,
+      "type": "inline",
+      "original": "Bad: \"Make it fast\"\nGood: \"Response time < 200ms for 95th percentile of requests\"",
+      "translated": "خراب: \"اسے تیز بنائیں\"\nاچھا: \"درخواستوں کے 95th percentile کے لیے response time < 200ms\"",
+      "line_start": 268,
+      "line_end": 270,
+      "context": "paragraph"
+    },
+    {
+      "id": 70,
+      "type": "inline",
+      "original": "Bad: \"Handle errors gracefully\"\nGood: \"Return user-friendly error messages, never stack traces. Log errors for debugging.\"",
+      "translated": "خراب: \"errors کو اچھی طرح ہینڈل کریں\"\nاچھا: \"صارف دوست error messages واپس کریں، کبھی stack traces نہیں۔ debugging کے لیے errors کو log کریں۔\"",
+      "line_start": 271,
+      "line_end": 273,
+      "context": "paragraph"
+    },
+    {
+      "id": 71,
+      "type": "inline",
+      "original": "2. Completeness: Cover All Scenarios",
+      "translated": "2. Completeness: تمام منظرناموں کا احاطہ کریں",
+      "line_start": 274,
+      "line_end": 275,
+      "context": "heading_h3"
+    },
+    {
+      "id": 72,
+      "type": "inline",
+      "original": "Use this checklist to ensure completeness:",
+      "translated": "completeness کو یقینی بنانے کے لیے اس چیک لسٹ کا استعمال کریں:",
+      "line_start": 276,
+      "line_end": 277,
+      "context": "paragraph"
+    },
+    {
+      "id": 73,
+      "type": "inline",
+      "original": "**Functional Requirements**:",
+      "translated": "**Functional Requirements**:",
+      "line_start": 278,
+      "line_end": 279,
+      "context": "paragraph"
+    },
+    {
+      "id": 74,
+      "type": "inline",
+      "original": "[ ] What are all the inputs? (data types, formats, validation)",
+      "translated": "[ ] تمام inputs کیا ہیں؟ (data types، formats، validation)",
+      "line_start": 279,
+      "line_end": 280,
+      "context": "list_item"
+    },
+    {
+      "id": 75,
+      "type": "inline",
+      "original": "[ ] What are all the outputs? (success responses, error cases)",
+      "translated": "[ ] تمام outputs کیا ہیں؟ (success responses، error cases)",
+      "line_start": 280,
+      "line_end": 281,
+      "context": "list_item"
+    },
+    {
+      "id": 76,
+      "type": "inline",
+      "original": "[ ] What are all the edge cases? (null, empty, invalid, unexpected)",
+      "translated": "[ ] تمام edge cases کیا ہیں؟ (null، empty، invalid، unexpected)",
+      "line_start": 281,
+      "line_end": 282,
+      "context": "list_item"
+    },
+    {
+      "id": 77,
+      "type": "inline",
+      "original": "[ ] What are all the states? (initial, processing, success, failure)",
+      "translated": "[ ] تمام states کیا ہیں؟ (initial، processing، success، failure)",
+      "line_start": 282,
+      "line_end": 283,
+      "context": "list_item"
+    },
+    {
+      "id": 78,
+      "type": "inline",
+      "original": "**Non-Functional Requirements**:",
+      "translated": "**Non-Functional Requirements**:",
+      "line_start": 284,
+      "line_end": 285,
+      "context": "paragraph"
+    },
+    {
+      "id": 79,
+      "type": "inline",
+      "original": "[ ] Performance: Response time, throughput, concurrent users",
+      "translated": "[ ] Performance: Response time، throughput، concurrent users",
+      "line_start": 285,
+      "line_end": 286,
+      "context": "list_item"
+    },
+    {
+      "id": 80,
+      "type": "inline",
+      "original": "[ ] Security: Authentication, authorization, encryption, rate limiting",
+      "translated": "[ ] Security: Authentication، authorization، encryption، rate limiting",
+      "line_start": 286,
+      "line_end": 287,
+      "context": "list_item"
+    },
+    {
+      "id": 81,
+      "type": "inline",
+      "original": "[ ] Compliance: GDPR, HIPAA, SOC2, industry regulations",
+      "translated": "[ ] Compliance: GDPR، HIPAA، SOC2، industry regulations",
+      "line_start": 287,
+      "line_end": 288,
+      "context": "list_item"
+    },
+    {
+      "id": 82,
+      "type": "inline",
+      "original": "[ ] Scalability: Expected load, growth projections, caching strategy",
+      "translated": "[ ] Scalability: متوقع load، growth projections، caching strategy",
+      "line_start": 288,
+      "line_end": 289,
+      "context": "list_item"
+    },
+    {
+      "id": 83,
+      "type": "inline",
+      "original": "**Integration Requirements**:",
+      "translated": "**Integration Requirements**:",
+      "line_start": 290,
+      "line_end": 291,
+      "context": "paragraph"
+    },
+    {
+      "id": 84,
+      "type": "inline",
+      "original": "[ ] What external services does this connect to? (databases, APIs, third-party services)",
+      "translated": "[ ] یہ کون سی external services سے جڑتا ہے؟ (databases، APIs، third-party services)",
+      "line_start": 291,
+      "line_end": 292,
+      "context": "list_item"
+    },
+    {
+      "id": 85,
+      "type": "inline",
+      "original": "[ ] What happens when those services are slow or unavailable?",
+      "translated": "[ ] جب وہ services سست یا دستیاب نہ ہوں تو کیا ہوتا ہے؟",
+      "line_start": 292,
+      "line_end": 293,
+      "context": "list_item"
+    },
+    {
+      "id": 86,
+      "type": "inline",
+      "original": "[ ] What data formats do we use? (JSON, protobuf, CSV)",
+      "translated": "[ ] ہم کون سے data formats استعمال کرتے ہیں؟ (JSON، protobuf، CSV)",
+      "line_start": 293,
+      "line_end": 294,
+      "context": "list_item"
+    },
+    {
+      "id": 87,
+      "type": "inline",
+      "original": "[ ] What authentication do we need? (API keys, OAuth, tokens)",
+      "translated": "[ ] ہمیں کون سی authentication کی ضرورت ہے؟ (API keys، OAuth، tokens)",
+      "line_start": 294,
+      "line_end": 295,
+      "context": "list_item"
+    },
+    {
+      "id": 88,
+      "type": "inline",
+      "original": "3. Constraints: Define Boundaries",
+      "translated": "3. Constraints: حدود کی تعریف کریں",
+      "line_start": 296,
+      "line_end": 297,
+      "context": "heading_h3"
+    },
+    {
+      "id": 89,
+      "type": "inline",
+      "original": "Constraints prevent \"just add this feature\" scope creep. Explicitly state:",
+      "translated": "Constraints \"بس یہ فیچر شامل کریں\" scope creep کو روکتے ہیں۔ واضح طور پر بیان کریں:",
+      "line_start": 298,
+      "line_end": 299,
+      "context": "paragraph"
+    },
+    {
+      "id": 90,
+      "type": "inline",
+      "original": "**Technical Constraints**:",
+      "translated": "**Technical Constraints**:",
+      "line_start": 300,
+      "line_end": 301,
+      "context": "paragraph"
+    },
+    {
+      "id": 91,
+      "type": "inline",
+      "original": "Must use Python 3.11+ (company standard)",
+      "translated": "Python 3.11+ استعمال کرنا ہوگا (company standard)",
+      "line_start": 301,
+      "line_end": 302,
+      "context": "list_item"
+    },
+    {
+      "id": 92,
+      "type": "inline",
+      "original": "Must support PostgreSQL and MySQL (customer requirement)",
+      "translated": "PostgreSQL اور MySQL کو سپورٹ کرنا ہوگا (customer requirement)",
+      "line_start": 302,
+      "line_end": 303,
+      "context": "list_item"
+    },
+    {
+      "id": 93,
+      "type": "inline",
+      "original": "Must work offline for 30 days (PWA requirement)",
+      "translated": "30 دنوں تک offline کام کرنا ہوگا (PWA requirement)",
+      "line_start": 303,
+      "line_end": 304,
+      "context": "list_item"
+    },
+    {
+      "id": 94,
+      "type": "inline",
+      "original": "**Business Constraints**:",
+      "translated": "**Business Constraints**:",
+      "line_start": 305,
+      "line_end": 306,
+      "context": "paragraph"
+    },
+    {
+      "id": 95,
+      "type": "inline",
+      "original": "Must launch by Q2 (marketing deadline)",
+      "translated": "Q2 تک launch ہونا چاہیے (marketing deadline)",
+      "line_start": 306,
+      "line_end": 307,
+      "context": "list_item"
+    },
+    {
+      "id": 96,
+      "type": "inline",
+      "original": "Budget: $500/month for cloud services",
+      "translated": "بجٹ: cloud services کے لیے $500/مہینہ",
+      "line_start": 307,
+      "line_end": 308,
+      "context": "list_item"
+    },
+    {
+      "id": 97,
+      "type": "inline",
+      "original": "No external dependencies beyond approved list",
+      "translated": "منظور شدہ فہرست سے باہر کوئی external dependencies نہیں",
+      "line_start": 308,
+      "line_end": 309,
+      "context": "list_item"
+    },
+    {
+      "id": 98,
+      "type": "inline",
+      "original": "**Design Constraints**:",
+      "translated": "**Design Constraints**:",
+      "line_start": 310,
+      "line_end": 311,
+      "context": "paragraph"
+    },
+    {
+      "id": 99,
+      "type": "inline",
+      "original": "Must follow existing design system",
+      "translated": "موجودہ design system کی پیروی کرنی ہوگی",
+      "line_start": 311,
+      "line_end": 312,
+      "context": "list_item"
+    },
+    {
+      "id": 100,
+      "type": "inline",
+      "original": "Must be accessible (WCAG 2.1 AA)",
+      "translated": "accessible ہونا چاہیے (WCAG 2.1 AA)",
+      "line_start": 312,
+      "line_end": 313,
+      "context": "list_item"
+    },
+    {
+      "id": 101,
+      "type": "inline",
+      "original": "Must support mobile and desktop",
+      "translated": "mobile اور desktop کو سپورٹ کرنا ہوگا",
+      "line_start": 313,
+      "line_end": 314,
+      "context": "list_item"
+    },
+    {
+      "id": 102,
+      "type": "inline",
+      "original": "4. Testability: Can We Verify Success?",
+      "translated": "4. Testability: کیا ہم کامیابی کی تصدیق کر سکتے ہیں؟",
+      "line_start": 315,
+      "line_end": 316,
+      "context": "heading_h3"
+    },
+    {
+      "id": 103,
+      "type": "inline",
+      "original": "Every success criterion must be measurable:",
+      "translated": "ہر کامیابی کا معیار قابل پیمائش ہونا چاہیے:",
+      "line_start": 317,
+      "line_end": 318,
+      "context": "paragraph"
+    },
+    {
+      "id": 104,
+      "type": "inline",
+      "original": "Bad: \"User-friendly interface\"\nGood: \"New users can complete registration in < 60 seconds without documentation\"",
+      "translated": "خراب: \"صارف دوست انٹرفیس\"\nاچھا: \"نئے صارفین دستاویزات کے بغیر < 60 سیکنڈ میں رجسٹریشن مکمل کر سکتے ہیں\"",
+      "line_start": 319,
+      "line_end": 321,
+      "context": "paragraph"
+    },
+    {
+      "id": 105,
+      "type": "inline",
+      "original": "Bad: \"Good performance\"\nGood: \"95th percentile response time < 200ms under 1,000 concurrent users\"",
+      "translated": "خراب: \"اچھی performance\"\nاچھا: \"1,000 concurrent users کے تحت 95th percentile response time < 200ms\"",
+      "line_start": 322,
+      "line_end": 324,
+      "context": "paragraph"
+    },
+    {
+      "id": 106,
+      "type": "inline",
+      "original": "Bad: \"Secure implementation\"\nGood: \"Passes OWASP Top 10 security checklist, no critical vulnerabilities\"",
+      "translated": "خراب: \"محفوظ نفاذ\"\nاچھا: \"OWASP Top 10 security checklist پاس کرتا ہے، کوئی critical vulnerabilities نہیں\"",
+      "line_start": 325,
+      "line_end": 327,
+      "context": "paragraph"
+    },
+    {
+      "id": 107,
+      "type": "inline",
+      "original": "SDD vs Vibe Coding",
+      "translated": "SDD بمقابلہ Vibe Coding",
+      "line_start": 328,
+      "line_end": 329,
+      "context": "heading_h2"
+    },
+    {
+      "id": 108,
+      "type": "inline",
+      "original": "\"Vibe Coding\" is writing code based on intuition—trying things, seeing what works, iterating reactively. SDD is thinking systematically—specifying first, then implementing.",
+      "translated": "\"Vibe Coding\" intuition کی بنیاد پر کوڈ لکھنا ہے—چیزوں کو آزمانا، دیکھنا کہ کیا کام کرتا ہے، reactively iterate کرنا۔ SDD منظم طریقے سے سوچنا ہے—پہلے تفصیل لکھنا، پھر نفاذ کرنا۔",
+      "line_start": 330,
+      "line_end": 331,
+      "context": "paragraph"
+    },
+    {
+      "id": 109,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "Aspect",
+          "translated": "پہلو"
+        },
+        {
+          "original": "Vibe Coding",
+          "translated": "Vibe Coding"
+        },
+        {
+          "original": "Spec-Driven Development",
+          "translated": "Spec-Driven Development"
+        }
+      ],
+      "line_start": 332,
+      "line_end": 333,
+      "context": "table"
+    },
+    {
+      "id": 110,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Starting Point**",
+          "translated": "**شروع کا نقطہ**"
+        },
+        {
+          "original": "Open IDE, start coding",
+          "translated": "IDE کھولیں، کوڈنگ شروع کریں"
+        },
+        {
+          "original": "Write specification first",
+          "translated": "پہلے تفصیلات لکھیں"
+        }
+      ],
+      "line_start": 334,
+      "line_end": 335,
+      "context": "table"
+    },
+    {
+      "id": 111,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Decision Making**",
+          "translated": "**فیصلہ سازی**"
+        },
+        {
+          "original": "Figure it out as you code",
+          "translated": "کوڈنگ کے دوران معلوم کریں"
+        },
+        {
+          "original": "Make decisions upfront",
+          "translated": "پہلے سے فیصلے کریں"
+        }
+      ],
+      "line_start": 335,
+      "line_end": 336,
+      "context": "table"
+    },
+    {
+      "id": 112,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Iteration**",
+          "translated": "**Iteration**"
+        },
+        {
+          "original": "5-10 cycles of \"fix what I forgot\"",
+          "translated": "\"میں نے کیا بھولا اسے ٹھیک کریں\" کے 5-10 cycles"
+        },
+        {
+          "original": "1-2 cycles of refinement",
+          "translated": "بہتری کے 1-2 cycles"
+        }
+      ],
+      "line_start": 336,
+      "line_end": 337,
+      "context": "table"
+    },
+    {
+      "id": 113,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Edge Cases**",
+          "translated": "**Edge Cases**"
+        },
+        {
+          "original": "Discovered in production",
+          "translated": "production میں دریافت ہوئے"
+        },
+        {
+          "original": "Planned in advance",
+          "translated": "پہلے سے منصوبہ بند"
+        }
+      ],
+      "line_start": 337,
+      "line_end": 338,
+      "context": "table"
+    },
+    {
+      "id": 114,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**AI Collaboration**",
+          "translated": "**AI Collaboration**"
+        },
+        {
+          "original": "\"Build me a thing\" (guesses)",
+          "translated": "\"میرے لیے ایک چیز بنائیں\" (اندازے)"
+        },
+        {
+          "original": "\"Implement this spec\" (precision)",
+          "translated": "\"اس spec کو نافذ کریں\" (درستگی)"
+        }
+      ],
+      "line_start": 338,
+      "line_end": 339,
+      "context": "table"
+    },
+    {
+      "id": 115,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Time Distribution**",
+          "translated": "**وقت کی تقسیم**"
+        },
+        {
+          "original": "80% coding, 20% fixing",
+          "translated": "80% کوڈنگ، 20% ٹھیک کرنا"
+        },
+        {
+          "original": "20% specifying, 80% building",
+          "translated": "20% تفصیل، 80% تعمیر"
+        }
+      ],
+      "line_start": 339,
+      "line_end": 340,
+      "context": "table"
+    },
+    {
+      "id": 116,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Scalability**",
+          "translated": "**Scalability**"
+        },
+        {
+          "original": "Falls apart beyond 1,000 lines",
+          "translated": "1,000 لائنوں سے آگے ٹوٹ جاتا ہے"
+        },
+        {
+          "original": "Scales to complex systems",
+          "translated": "پیچیدہ سسٹمز تک پھیلتا ہے"
+        }
+      ],
+      "line_start": 340,
+      "line_end": 341,
+      "context": "table"
+    },
+    {
+      "id": 117,
+      "type": "table_row",
+      "cells": [
+        {
+          "original": "**Team Coordination**",
+          "translated": "**ٹیم کوآرڈینیشن**"
+        },
+        {
+          "original": "\"Read the code\"",
+          "translated": "\"کوڈ پڑھیں\""
+        },
+        {
+          "original": "\"Read the spec\"",
+          "translated": "\"spec پڑھیں\""
+        }
+      ],
+      "line_start": 341,
+      "line_end": 342,
+      "context": "table"
+    },
+    {
+      "id": 118,
+      "type": "inline",
+      "original": "**When Vibe Coding Works**:",
+      "translated": "**جب Vibe Coding کام کرتا ہے**:",
+      "line_start": 343,
+      "line_end": 344,
+      "context": "paragraph"
+    },
+    {
+      "id": 119,
+      "type": "inline",
+      "original": "Learning a new framework (exploration phase)",
+      "translated": "نیا framework سیکھنا (exploration phase)",
+      "line_start": 344,
+      "line_end": 345,
+      "context": "list_item"
+    },
+    {
+      "id": 120,
+      "type": "inline",
+      "original": "Prototyping throwaway code (proof-of-concept)",
+      "translated": "Prototyping throwaway code (proof-of-concept)",
+      "line_start": 345,
+      "line_end": 346,
+      "context": "list_item"
+    },
+    {
+      "id": 121,
+      "type": "inline",
+      "original": "Simple scripts with no edge cases (< 50 lines)",
+      "translated": "سادہ scripts جن میں کوئی edge cases نہیں (< 50 لائنیں)",
+      "line_start": 346,
+      "line_end": 347,
+      "context": "list_item"
+    },
+    {
+      "id": 122,
+      "type": "inline",
+      "original": "**When SDD Is Essential**:",
+      "translated": "**جب SDD ضروری ہے**:",
+      "line_start": 348,
+      "line_end": 349,
+      "context": "paragraph"
+    },
+    {
+      "id": 123,
+      "type": "inline",
+      "original": "Production features with business impact",
+      "translated": "business impact کے ساتھ production فیچرز",
+      "line_start": 349,
+      "line_end": 350,
+      "context": "list_item"
+    },
+    {
+      "id": 124,
+      "type": "inline",
+      "original": "Systems with multiple components or integrations",
+      "translated": "متعدد components یا integrations کے ساتھ سسٹمز",
+      "line_start": 350,
+      "line_end": 351,
+      "context": "list_item"
+    },
+    {
+      "id": 125,
+      "type": "inline",
+      "original": "Projects where requirements matter (security, compliance, performance)",
+      "translated": "وہ پروجیکٹس جہاں requirements اہم ہیں (security، compliance، performance)",
+      "line_start": 351,
+      "line_end": 352,
+      "context": "list_item"
+    },
+    {
+      "id": 126,
+      "type": "inline",
+      "original": "Work involving AI agents or multiple developers",
+      "translated": "AI agents یا متعدد ڈویلپرز پر مشتمل کام",
+      "line_start": 352,
+      "line_end": 353,
+      "context": "list_item"
+    },
+    {
+      "id": 127,
+      "type": "inline",
+      "original": "When to Use SDD",
+      "translated": "SDD کب استعمال کریں",
+      "line_start": 354,
+      "line_end": 355,
+      "context": "heading_h2"
+    },
+    {
+      "id": 128,
+      "type": "inline",
+      "original": "Not every project needs full SDD. Use this decision framework:",
+      "translated": "ہر پروجیکٹ کو مکمل SDD کی ضرورت نہیں ہے۔ اس فیصلہ سازی کے فریم ورک کا استعمال کریں:",
+      "line_start": 356,
+      "line_end": 357,
+      "context": "paragraph"
+    },
+    {
+      "id": 129,
+      "type": "inline",
+      "original": "Use Full SDD When:",
+      "translated": "مکمل SDD استعمال کریں جب:",
+      "line_start": 358,
+      "line_end": 359,
+      "context": "heading_h3"
+    },
+    {
+      "id": 130,
+      "type": "inline",
+      "original": "**Production features**: User-facing functionality that impacts business metrics",
+      "translated": "**Production فیچرز**: صارف کی فعالیت جو business metrics کو متاثر کرتی ہے",
+      "line_start": 360,
+      "line_end": 361,
+      "context": "list_item"
+    },
+    {
+      "id": 131,
+      "type": "inline",
+      "original": "**Complex systems**: Multiple components, integrations, or workflows",
+      "translated": "**پیچیدہ سسٹمز**: متعدد components، integrations، یا workflows",
+      "line_start": 361,
+      "line_end": 362,
+      "context": "list_item"
+    },
+    {
+      "id": 132,
+      "type": "inline",
+      "original": "**Security-critical**: Authentication, payments, data processing",
+      "translated": "**Security-critical**: Authentication، payments، data processing",
+      "line_start": 362,
+      "line_end": 363,
+      "context": "list_item"
+    },
+    {
+      "id": 133,
+      "type": "inline",
+      "original": "**Team projects**: Multiple developers need shared understanding",
+      "translated": "**ٹیم پروجیکٹس**: متعدد ڈویلپرز کو مشترکہ تفہیم کی ضرورت ہے",
+      "line_start": 363,
+      "line_end": 364,
+      "context": "list_item"
+    },
+    {
+      "id": 134,
+      "type": "inline",
+      "original": "**AI-assisted development**: You're using AI agents for implementation",
+      "translated": "**AI-assisted development**: آپ نفاذ کے لیے AI agents استعمال کر رہے ہیں",
+      "line_start": 364,
+      "line_end": 365,
+      "context": "list_item"
+    },
+    {
+      "id": 135,
+      "type": "inline",
+      "original": "**Example**: Building a payment processing system—use full SDD. Security matters, edge cases are critical, and errors cost money.",
+      "translated": "**مثال**: payment processing سسٹم بنانا—مکمل SDD استعمال کریں۔ Security اہم ہے، edge cases اہم ہیں، اور errors کی قیمت ہوتی ہے۔",
+      "line_start": 366,
+      "line_end": 367,
+      "context": "paragraph"
+    },
+    {
+      "id": 136,
+      "type": "inline",
+      "original": "Use Lightweight SDD When:",
+      "translated": "Lightweight SDD استعمال کریں جب:",
+      "line_start": 368,
+      "line_end": 369,
+      "context": "heading_h3"
+    },
+    {
+      "id": 137,
+      "type": "inline",
+      "original": "**Simple utilities**: Internal tools, scripts, automation",
+      "translated": "**سادہ utilities**: اندرونی tools، scripts، automation",
+      "line_start": 370,
+      "line_end": 371,
+      "context": "list_item"
+    },
+    {
+      "id": 138,
+      "type": "inline",
+      "original": "**Prototype code**: Exploratory work that will be discarded",
+      "translated": "**Prototype code**: exploratory کام جسے ضائع کر دیا جائے گا",
+      "line_start": 371,
+      "line_end": 372,
+      "context": "list_item"
+    },
+    {
+      "id": 139,
+      "type": "inline",
+      "original": "**Well-understood patterns**: CRUD APIs, basic web pages",
+      "translated": "**اچھی طرح سمجھے گئے patterns**: CRUD APIs، بنیادی web pages",
+      "line_start": 372,
+      "line_end": 373,
+      "context": "list_item"
+    },
+    {
+      "id": 140,
+      "type": "inline",
+      "original": "**Example**: Building a CSV parser for a one-time data migration—use lightweight SDD. Write down input format, output format, and error handling, then implement.",
+      "translated": "**مثال**: ایک بار کی data migration کے لیے CSV parser بنانا—lightweight SDD استعمال کریں۔ input format، output format، اور error handling لکھیں، پھر نافذ کریں۔",
+      "line_start": 374,
+      "line_end": 375,
+      "context": "paragraph"
+    },
+    {
+      "id": 141,
+      "type": "inline",
+      "original": "Skip SDD When:",
+      "translated": "SDD چھوڑ دیں جب:",
+      "line_start": 376,
+      "line_end": 377,
+      "context": "heading_h3"
+    },
+    {
+      "id": 142,
+      "type": "inline",
+      "original": "**Learning experiments**: You're exploring a new technology",
+      "translated": "**Learning experiments**: آپ نئی technology کو دریافت کر رہے ہیں",
+      "line_start": 378,
+      "line_end": 379,
+      "context": "list_item"
+    },
+    {
+      "id": 143,
+      "type": "inline",
+      "original": "**Throwaway prototypes**: Code that won't reach production",
+      "translated": "**Throwaway prototypes**: وہ کوڈ جو production تک نہیں پہنچے گا",
+      "line_start": 379,
+      "line_end": 380,
+      "context": "list_item"
+    },
+    {
+      "id": 144,
+      "type": "inline",
+      "original": "**Trivial changes**: Fixing a typo, updating a color",
+      "translated": "**Trivial changes**: typo ٹھیک کرنا، color اپ ڈیٹ کرنا",
+      "line_start": 380,
+      "line_end": 381,
+      "context": "list_item"
+    },
+    {
+      "id": 145,
+      "type": "inline",
+      "original": "**Example**: Updating button color from blue to green—just make the change.",
+      "translated": "**مثال**: بٹن کا رنگ نیلے سے سبز میں اپ ڈیٹ کرنا—بس تبدیلی کریں۔",
+      "line_start": 382,
+      "line_end": 383,
+      "context": "paragraph"
+    },
+    {
+      "id": 146,
+      "type": "inline",
+      "original": "Validation Practices and Quality Gates",
+      "translated": "تصدیقی طریقے اور Quality Gates",
+      "line_start": 384,
+      "line_end": 385,
+      "context": "heading_h2"
+    },
+    {
+      "id": 147,
+      "type": "inline",
+      "original": "SDD includes validation at every phase. Each phase has quality gates that must pass before proceeding.",
+      "translated": "SDD میں ہر مرحلے پر تصدیق شامل ہے۔ ہر مرحلے میں quality gates ہوتے ہیں جنہیں آگے بڑھنے سے پہلے پاس کرنا ہوتا ہے۔",
+      "line_start": 386,
+      "line_end": 387,
+      "context": "paragraph"
+    },
+    {
+      "id": 148,
+      "type": "inline",
+      "original": "Phase Quality Gates",
+      "translated": "مرحلے کے Quality Gates",
+      "line_start": 388,
+      "line_end": 389,
+      "context": "heading_h3"
+    },
+    {
+      "id": 149,
+      "type": "inline",
+      "original": "**Specify Phase Gate**:",
+      "translated": "**Specify Phase Gate**:",
+      "line_start": 390,
+      "line_end": 391,
+      "context": "paragraph"
+    },
+    {
+      "id": 150,
+      "type": "inline",
+      "original": "[ ] Intent is clear (why this exists)",
+      "translated": "[ ] ارادہ واضح ہے (یہ کیوں موجود ہے)",
+      "line_start": 391,
+      "line_end": 392,
+      "context": "list_item"
+    },
+    {
+      "id": 151,
+      "type": "inline",
+      "original": "[ ] Success criteria are measurable",
+      "translated": "[ ] کامیابی کے معیار قابل پیمائش ہیں",
+      "line_start": 392,
+      "line_end": 393,
+      "context": "list_item"
+    },
+    {
+      "id": 152,
+      "type": "inline",
+      "original": "[ ] Constraints are explicit",
+      "translated": "[ ] constraints واضح ہیں",
+      "line_start": 393,
+      "line_end": 394,
+      "context": "list_item"
+    },
+    {
+      "id": 153,
+      "type": "inline",
+      "original": "[ ] Non-goals are defined",
+      "translated": "[ ] non-goals کی تعریف کی گئی ہے",
+      "line_start": 394,
+      "line_end": 395,
+      "context": "list_item"
+    },
+    {
+      "id": 154,
+      "type": "inline",
+      "original": "[ ] Stakeholders approve (if team project)",
+      "translated": "[ ] Stakeholders منظور کرتے ہیں (اگر ٹیم پروجیکٹ ہے)",
+      "line_start": 395,
+      "line_end": 396,
+      "context": "list_item"
+    },
+    {
+      "id": 155,
+      "type": "inline",
+      "original": "**Clarify Phase Gate**:",
+      "translated": "**Clarify Phase Gate**:",
+      "line_start": 397,
+      "line_end": 398,
+      "context": "paragraph"
+    },
+    {
+      "id": 156,
+      "type": "inline",
+      "original": "[ ] All ambiguous terms defined",
+      "translated": "[ ] تمام مبہم اصطلاحات کی تعریف کی گئی",
+      "line_start": 398,
+      "line_end": 399,
+      "context": "list_item"
+    },
+    {
+      "id": 157,
+      "type": "inline",
+      "original": "[ ] Edge cases identified",
+      "translated": "[ ] Edge cases کی نشاندہی ہوئی",
+      "line_start": 399,
+      "line_end": 400,
+      "context": "list_item"
+    },
+    {
+      "id": 158,
+      "type": "inline",
+      "original": "[ ] Integration points specified",
+      "translated": "[ ] Integration points کی تفصیل",
+      "line_start": 400,
+      "line_end": 401,
+      "context": "list_item"
+    },
+    {
+      "id": 159,
+      "type": "inline",
+      "original": "[ ] Error handling defined",
+      "translated": "[ ] Error handling کی تعریف",
+      "line_start": 401,
+      "line_end": 402,
+      "context": "list_item"
+    },
+    {
+      "id": 160,
+      "type": "inline",
+      "original": "**Plan Phase Gate**:",
+      "translated": "**Plan Phase Gate**:",
+      "line_start": 403,
+      "line_end": 404,
+      "context": "paragraph"
+    },
+    {
+      "id": 161,
+      "type": "inline",
+      "original": "[ ] Architecture diagram exists",
+      "translated": "[ ] Architecture diagram موجود ہے",
+      "line_start": 404,
+      "line_end": 405,
+      "context": "list_item"
+    },
+    {
+      "id": 162,
+      "type": "inline",
+      "original": "[ ] Dependencies identified",
+      "translated": "[ ] Dependencies کی نشاندہی",
+      "line_start": 405,
+      "line_end": 406,
+      "context": "list_item"
+    },
+    {
+      "id": 163,
+      "type": "inline",
+      "original": "[ ] Testing strategy defined",
+      "translated": "[ ] Testing strategy کی تعریف",
+      "line_start": 406,
+      "line_end": 407,
+      "context": "list_item"
+    },
+    {
+      "id": 164,
+      "type": "inline",
+      "original": "[ ] Tradeoffs documented",
+      "translated": "[ ] Tradeoffs دستاویزی",
+      "line_start": 407,
+      "line_end": 408,
+      "context": "list_item"
+    },
+    {
+      "id": 165,
+      "type": "inline",
+      "original": "**Tasks Phase Gate**:",
+      "translated": "**Tasks Phase Gate**:",
+      "line_start": 409,
+      "line_end": 410,
+      "context": "paragraph"
+    },
+    {
+      "id": 166,
+      "type": "inline",
+      "original": "[ ] Each task has acceptance criteria",
+      "translated": "[ ] ہر ٹاسک کے acceptance criteria ہیں",
+      "line_start": 410,
+      "line_end": 411,
+      "context": "list_item"
+    },
+    {
+      "id": 167,
+      "type": "inline",
+      "original": "[ ] Dependencies between tasks explicit",
+      "translated": "[ ] ٹاسکس کے درمیان dependencies واضح",
+      "line_start": 411,
+      "line_end": 412,
+      "context": "list_item"
+    },
+    {
+      "id": 168,
+      "type": "inline",
+      "original": "[ ] No task exceeds 2 hours",
+      "translated": "[ ] کوئی ٹاسک 2 گھنٹے سے زیادہ نہیں",
+      "line_start": 412,
+      "line_end": 413,
+      "context": "list_item"
+    },
+    {
+      "id": 169,
+      "type": "inline",
+      "original": "[ ] Tasks ordered correctly",
+      "translated": "[ ] ٹاسکس درست ترتیب میں",
+      "line_start": 413,
+      "line_end": 414,
+      "context": "list_item"
+    },
+    {
+      "id": 170,
+      "type": "inline",
+      "original": "**Implement Phase Gate**:",
+      "translated": "**Implement Phase Gate**:",
+      "line_start": 415,
+      "line_end": 416,
+      "context": "paragraph"
+    },
+    {
+      "id": 171,
+      "type": "inline",
+      "original": "[ ] Code follows specification",
+      "translated": "[ ] کوڈ تفصیلات کی پیروی کرتا ہے",
+      "line_start": 416,
+      "line_end": 417,
+      "context": "list_item"
+    },
+    {
+      "id": 172,
+      "type": "inline",
+      "original": "[ ] Code follows project patterns",
+      "translated": "[ ] کوڈ پروجیکٹ کے patterns کی پیروی کرتا ہے",
+      "line_start": 417,
+      "line_end": 418,
+      "context": "list_item"
+    },
+    {
+      "id": 173,
+      "type": "inline",
+      "original": "[ ] Tests pass (unit, integration)",
+      "translated": "[ ] ٹیسٹ پاس ہوئے (unit، integration)",
+      "line_start": 418,
+      "line_end": 419,
+      "context": "list_item"
+    },
+    {
+      "id": 174,
+      "type": "inline",
+      "original": "[ ] Code review approved",
+      "translated": "[ ] Code review منظور ہوا",
+      "line_start": 419,
+      "line_end": 420,
+      "context": "list_item"
+    },
+    {
+      "id": 175,
+      "type": "inline",
+      "original": "**Validate Phase Gate**:",
+      "translated": "**Validate Phase Gate**:",
+      "line_start": 421,
+      "line_end": 422,
+      "context": "paragraph"
+    },
+    {
+      "id": 176,
+      "type": "inline",
+      "original": "[ ] All success criteria met",
+      "translated": "[ ] تمام کامیابی کے معیار پورے ہوئے",
+      "line_start": 422,
+      "line_end": 423,
+      "context": "list_item"
+    },
+    {
+      "id": 177,
+      "type": "inline",
+      "original": "[ ] All constraints satisfied",
+      "translated": "[ ] تمام constraints پورے ہوئے",
+      "line_start": 423,
+      "line_end": 424,
+      "context": "list_item"
+    },
+    {
+      "id": 178,
+      "type": "inline",
+      "original": "[ ] Edge cases tested",
+      "translated": "[ ] Edge cases ٹیسٹ ہوئے",
+      "line_start": 424,
+      "line_end": 425,
+      "context": "list_item"
+    },
+    {
+      "id": 179,
+      "type": "inline",
+      "original": "[ ] Documentation updated",
+      "translated": "[ ] دستاویزات اپ ڈیٹ ہوئیں",
+      "line_start": 425,
+      "line_end": 426,
+      "context": "list_item"
+    },
+    {
+      "id": 180,
+      "type": "inline",
+      "original": "[ ] Stakeholder sign-off",
+      "translated": "[ ] Stakeholder sign-off",
+      "line_start": 426,
+      "line_end": 427,
+      "context": "list_item"
+    },
+    {
+      "id": 181,
+      "type": "inline",
+      "original": "Automated Quality Checks",
+      "translated": "خودکار Quality Checks",
+      "line_start": 428,
+      "line_end": 429,
+      "context": "heading_h3"
+    },
+    {
+      "id": 182,
+      "type": "inline",
+      "original": "Where possible, automate quality gates:",
+      "translated": "جہاں ممکن ہو، quality gates کو خودکار کریں:",
+      "line_start": 430,
+      "line_end": 431,
+      "context": "paragraph"
+    },
+    {
+      "id": 183,
+      "type": "inline",
+      "original": "SDD and AI Collaboration",
+      "translated": "SDD اور AI Collaboration",
+      "line_start": 452,
+      "line_end": 453,
+      "context": "heading_h2"
+    },
+    {
+      "id": 184,
+      "type": "inline",
+      "original": "SDD transforms AI from a chatbot into an implementation partner. The workflow looks different:",
+      "translated": "SDD AI کو chatbot سے implementation partner میں تبدیل کرتا ہے۔ ورک فلو مختلف دکھتا ہے:",
+      "line_start": 454,
+      "line_end": 455,
+      "context": "paragraph"
+    },
+    {
+      "id": 185,
+      "type": "inline",
+      "original": "Without SDD",
+      "translated": "SDD کے بغیر",
+      "line_start": 456,
+      "line_end": 457,
+      "context": "heading_h3"
+    },
+    {
+      "id": 186,
+      "type": "inline",
+      "original": "With SDD",
+      "translated": "SDD کے ساتھ",
+      "line_start": 474,
+      "line_end": 475,
+      "context": "heading_h3"
+    },
+    {
+      "id": 187,
+      "type": "inline",
+      "original": "The key difference: **AI asks clarifying questions during planning, not during implementation.**",
+      "translated": "بنیادی فرق: **AI منصوبہ بندی کے دوران وضاحتی سوالات پوچھتا ہے، نفاذ کے دوران نہیں۔**",
+      "line_start": 490,
+      "line_end": 491,
+      "context": "paragraph"
+    },
+    {
+      "id": 188,
+      "type": "inline",
+      "original": "Common SDD Mistakes",
+      "translated": "عام SDD غلطیاں",
+      "line_start": 492,
+      "line_end": 493,
+      "context": "heading_h2"
+    },
+    {
+      "id": 189,
+      "type": "inline",
+      "original": "Mistake 1: Writing the Spec After the Code",
+      "translated": "غلطی 1: کوڈ کے بعد Spec لکھنا",
+      "line_start": 494,
+      "line_end": 495,
+      "context": "heading_h3"
+    },
+    {
+      "id": 190,
+      "type": "inline",
+      "original": "**Anti-pattern**: Build the feature, then document what you built.",
+      "translated": "**Anti-pattern**: فیچر بنائیں، پھر دستاویز کریں کہ آپ نے کیا بنایا۔",
+      "line_start": 496,
+      "line_end": 497,
+      "context": "paragraph"
+    },
+    {
+      "id": 191,
+      "type": "inline",
+      "original": "**Why it fails**: You're documenting decisions, not making them. The spec becomes a retrospective, not a guide.",
+      "translated": "**یہ کیوں ناکام ہوتا ہے**: آپ فیصلوں کو دستاویز کر رہے ہیں، انہیں نہیں بنا رہے۔ spec رہنما نہیں بلکہ retrospective بن جاتا ہے۔",
+      "line_start": 498,
+      "line_end": 499,
+      "context": "paragraph"
+    },
+    {
+      "id": 192,
+      "type": "inline",
+      "original": "**Fix**: Write the spec first. Revise it only if you discover something truly unknowable upfront.",
+      "translated": "**ٹھیک کریں**: پہلے spec لکھیں۔ اسے صرف تب نظر ثانی کریں جب آپ کو پہلے سے کچھ واقعی غیر معلوم دریافت ہو۔",
+      "line_start": 500,
+      "line_end": 501,
+      "context": "paragraph"
+    },
+    {
+      "id": 193,
+      "type": "inline",
+      "original": "Mistake 2: Vague Success Criteria",
+      "translated": "غلطی 2: مبہم کامیابی کے معیار",
+      "line_start": 502,
+      "line_end": 503,
+      "context": "heading_h3"
+    },
+    {
+      "id": 194,
+      "type": "inline",
+      "original": "**Anti-pattern**: \"User-friendly interface\", \"Good performance\", \"Secure implementation\"",
+      "translated": "**Anti-pattern**: \"صارف دوست انٹرفیس\"، \"اچھی performance\"، \"محفوظ نفاذ\"",
+      "line_start": 504,
+      "line_end": 505,
+      "context": "paragraph"
+    },
+    {
+      "id": 195,
+      "type": "inline",
+      "original": "**Why it fails**: These aren't testable. You can't verify if you succeeded.",
+      "translated": "**یہ کیوں ناکام ہوتا ہے**: یہ testable نہیں ہیں۔ آپ تصدیق نہیں کر سکتے کہ آپ کامیاب ہوئے یا نہیں۔",
+      "line_start": 506,
+      "line_end": 507,
+      "context": "paragraph"
+    },
+    {
+      "id": 196,
+      "type": "inline",
+      "original": "**Fix**: Make every criterion measurable. \"95th percentile response time < 200ms\", \"Passes OWASP Top 10 checklist\", \"New users complete registration in < 60s without documentation\"",
+      "translated": "**ٹھیک کریں**: ہر معیار کو قابل پیمائش بنائیں۔ \"95th percentile response time < 200ms\"، \"OWASP Top 10 checklist پاس کرتا ہے\"، \"نئے صارفین دستاویزات کے بغیر < 60s میں رجسٹریشن مکمل کرتے ہیں\"",
+      "line_start": 508,
+      "line_end": 509,
+      "context": "paragraph"
+    },
+    {
+      "id": 197,
+      "type": "inline",
+      "original": "Mistake 3: Skipping Non-Goals",
+      "translated": "غلطی 3: Non-Goals کو چھوڑنا",
+      "line_start": 510,
+      "line_end": 511,
+      "context": "heading_h3"
+    },
+    {
+      "id": 198,
+      "type": "inline",
+      "original": "**Anti-pattern**: No explicit statement of what you're NOT building.",
+      "translated": "**Anti-pattern**: آپ کیا نہیں بنا رہے اس کا کوئی واضح بیان نہیں۔",
+      "line_start": 512,
+      "line_end": 513,
+      "context": "paragraph"
+    },
+    {
+      "id": 199,
+      "type": "inline",
+      "original": "**Why it fails**: Scope creeps. Every conversation becomes \"should we add X?\"",
+      "translated": "**یہ کیوں ناکام ہوتا ہے**: Scope creep ہوتا ہے۔ ہر بات چیت \"کیا ہم X شامل کریں؟\" بن جاتی ہے۔",
+      "line_start": 514,
+      "line_end": 515,
+      "context": "paragraph"
+    },
+    {
+      "id": 200,
+      "type": "inline",
+      "original": "**Fix**: Explicitly list non-goals. When someone asks for feature X, say \"That's in our non-goals list for Phase 1. We'll consider it for Phase 2.\"",
+      "translated": "**ٹھیک کریں**: non-goals کو واضح طور پر فہرست کریں۔ جب کوئی فیچر X کے لیے پوچھے، کہیں \"وہ ہمارے Phase 1 کے non-goals فہرست میں ہے۔ ہم اسے Phase 2 کے لیے غور کریں گے۔\"",
+      "line_start": 516,
+      "line_end": 517,
+      "context": "paragraph"
+    },
+    {
+      "id": 201,
+      "type": "inline",
+      "original": "Mistake 4: Treating Specs as Static",
+      "translated": "غلطی 4: Specs کو Static سمجھنا",
+      "line_start": 518,
+      "line_end": 519,
+      "context": "heading_h3"
+    },
+    {
+      "id": 202,
+      "type": "inline",
+      "original": "**Anti-pattern**: Write spec, never update it, even when requirements change.",
+      "translated": "**Anti-pattern**: spec لکھیں، کبھی اسے اپ ڈیٹ نہ کریں، چاہے requirements تبدیل ہو جائیں۔",
+      "line_start": 520,
+      "line_end": 521,
+      "context": "paragraph"
+    },
+    {
+      "id": 203,
+      "type": "inline",
+      "original": "**Why it fails**: Spec becomes outdated. Implementation drifts from spec.",
+      "translated": "**یہ کیوں ناکام ہوتا ہے**: spec پرانا ہو جاتا ہے۔ نفاذ spec سے ہٹ جاتا ہے۔",
+      "line_start": 522,
+      "line_end": 523,
+      "context": "paragraph"
+    },
+    {
+      "id": 204,
+      "type": "inline",
+      "original": "**Fix**: Treat specs as living documents. Update them when requirements change. Keep spec and implementation in sync.",
+      "translated": "**ٹھیک کریں**: specs کو living documents سمجھیں۔ جب requirements تبدیل ہوں تو انہیں اپ ڈیٹ کریں۔ spec اور نفاذ کو sync میں رکھیں۔",
+      "line_start": 524,
+      "line_end": 525,
+      "context": "paragraph"
+    },
+    {
+      "id": 205,
+      "type": "inline",
+      "original": "Try With AI",
+      "translated": "AI کے ساتھ آزمائیں",
+      "line_start": 526,
+      "line_end": 527,
+      "context": "heading_h2"
+    },
+    {
+      "id": 206,
+      "type": "inline",
+      "original": "Prompt 1: Write a Specification",
+      "translated": "Prompt 1: ایک تفصیلات لکھیں",
+      "line_start": 528,
+      "line_end": 529,
+      "context": "heading_h3"
+    },
+    {
+      "id": 207,
+      "type": "inline",
+      "original": "**What you're learning**: How to think systematically about requirements before implementation. You're practicing moving from vague ideas to precise specifications.",
+      "translated": "**آپ کیا سیکھ رہے ہیں**: نفاذ سے پہلے requirements کے بارے میں منظم طریقے سے کیسے سوچنا ہے۔ آپ مبہم خیالات سے درست تفصیلات کی طرف جانے کی مشق کر رہے ہیں۔",
+      "line_start": 538,
+      "line_end": 539,
+      "context": "paragraph"
+    },
+    {
+      "id": 208,
+      "type": "inline",
+      "original": "Prompt 2: Evaluate Your Current Workflow",
+      "translated": "Prompt 2: اپنے موجودہ ورک فلو کا جائزہ لیں",
+      "line_start": 540,
+      "line_end": 541,
+      "context": "heading_h3"
+    },
+    {
+      "id": 209,
+      "type": "inline",
+      "original": "**What you're learning**: Self-awareness about your development process. Understanding your current workflow helps you identify where SDD would have the most impact.",
+      "translated": "**آپ کیا سیکھ رہے ہیں**: اپنے ڈویلپمنٹ عمل کے بارے میں خود آگاہی۔ اپنے موجودہ ورک فلو کو سمجھنے سے آپ کو یہ معلوم کرنے میں مدد ملتی ہے کہ SDD کہاں سب سے زیادہ اثر انداز ہوگا۔",
+      "line_start": 555,
+      "line_end": 556,
+      "context": "paragraph"
+    },
+    {
+      "id": 210,
+      "type": "inline",
+      "original": "Prompt 3: SDD vs Vibe Coding Scenarios",
+      "translated": "Prompt 3: SDD بمقابلہ Vibe Coding منظرنامے",
+      "line_start": 557,
+      "line_end": 558,
+      "context": "heading_h3"
+    },
+    {
+      "id": 211,
+      "type": "inline",
+      "original": "**What you're learning**: Decision-making skills. You're learning to recognize when SDD is essential vs when it's overkill. This judgment is as important as knowing how to write specs.",
+      "translated": "**آپ کیا سیکھ رہے ہیں**: فیصلہ سازی کی مہارتیں۔ آپ یہ سیکھ رہے ہیں کہ کب SDD ضروری ہے بمقابلہ کب یہ ضرورت سے زیادہ ہے۔ یہ فیصلہ specs لکھنا جاننے جتنا ہی اہم ہے۔",
+      "line_start": 574,
+      "line_end": 575,
+      "context": "paragraph"
+    },
+    {
+      "id": 212,
+      "type": "inline",
+      "original": "What's Next",
+      "translated": "آگے کیا ہے",
+      "line_start": 578,
+      "line_end": 579,
+      "context": "heading_h2"
+    },
+    {
+      "id": 213,
+      "type": "inline",
+      "original": "You now understand the SDD methodology. In upcoming lessons, you'll practice writing specifications for real features and learn to use AI agents to implement them.",
+      "translated": "اب آپ SDD طریقہ کار کو سمجھتے ہیں۔ آنے والے اسباق میں، آپ حقیقی فیچرز کے لیے تفصیلات لکھنے کی مشق کریں گے اور انہیں نافذ کرنے کے لیے AI agents استعمال کرنا سیکھیں گے۔",
+      "line_start": 580,
+      "line_end": 581,
+      "context": "paragraph"
+    },
+    {
+      "id": 214,
+      "type": "inline",
+      "original": "The core insight: **In the agentic era, how clearly you think before you code determines how quickly you ship.**",
+      "translated": "بنیادی بصیرت: **agentic دور میں، کوڈنگ سے پہلے آپ کتنی واضح سوچتے ہیں یہ طے کرتا ہے کہ آپ کتنی جلدی ship کرتے ہیں۔**",
+      "line_start": 582,
+      "line_end": 583,
+      "context": "paragraph"
+    },
+    {
+      "id": 215,
+      "type": "inline",
+      "original": "SDD isn't bureaucracy. It's acceleration. By thinking systematically upfront, you eliminate the iterations that slow you down. You ship faster, with fewer bugs, and more confidence.",
+      "translated": "SDD بیوروکریسی نہیں ہے۔ یہ تیزی ہے۔ پہلے سے منظم طریقے سے سوچ کر، آپ ان iterations کو ختم کر دیتے ہیں جو آپ کو سست کرتے ہیں۔ آپ تیزی سے ship کرتے ہیں، کم bugs کے ساتھ، اور زیادہ اعتماد کے ساتھ۔",
+      "line_start": 584,
+      "line_end": 585,
+      "context": "paragraph"
+    },
+    {
+      "id": 216,
+      "type": "inline",
+      "original": "Your new role: specification engineer and system architect. AI's role: implementation partner. Together, you build what matters—faster than ever before.",
+      "translated": "آپ کا نیا کردار: specification engineer اور system architect۔ AI کا کردار: implementation partner۔ مل کر، آپ اہم چیزیں بناتے ہیں—پہلے سے کہیں زیادہ تیزی سے۔",
+      "line_start": 586,
+      "line_end": 587,
+      "context": "paragraph"
+    }
+  ],
+  "admonition_segments": [],
+  "mdx_protected_lines": {},
+  "admonition_markers": []
+}

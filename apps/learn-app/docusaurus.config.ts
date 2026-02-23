@@ -219,7 +219,73 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
-    locales: ["en"],
+    locales: ["en", "fr", "de", "es", "zh", "ar", "ur", "hi"],
+    localeConfigs: {
+      en: {
+        label: "English",
+        direction: "ltr",
+        htmlLang: "en-US",
+        calendar: "gregory",
+        path: "en",
+        translate: false,
+      },
+      fr: {
+        label: "Français",
+        direction: "ltr",
+        htmlLang: "fr-FR",
+        calendar: "gregory",
+        path: "fr",
+        translate: true,
+      },
+      de: {
+        label: "Deutsch",
+        direction: "ltr",
+        htmlLang: "de-DE",
+        calendar: "gregory",
+        path: "de",
+        translate: true,
+      },
+      es: {
+        label: "Español",
+        direction: "ltr",
+        htmlLang: "es-ES",
+        calendar: "gregory",
+        path: "es",
+        translate: true,
+      },
+      zh: {
+        label: "中文 (简体)",
+        direction: "ltr",
+        htmlLang: "zh-CN",
+        calendar: "gregory",
+        path: "zh",
+        translate: true,
+      },
+      ar: {
+        label: "العربية",
+        direction: "rtl",
+        htmlLang: "ar-SA",
+        calendar: "gregory",
+        path: "ar",
+        translate: true,
+      },
+      ur: {
+        label: "اردو",
+        direction: "rtl",
+        htmlLang: "ur-PK",
+        calendar: "gregory",
+        path: "ur",
+        translate: true,
+      },
+      hi: {
+        label: "हिन्दी",
+        direction: "ltr",
+        htmlLang: "hi-IN",
+        calendar: "gregory",
+        path: "hi",
+        translate: true,
+      },
+    },
   },
 
   presets: [
@@ -448,6 +514,10 @@ const config: Config = {
         },
         {
           type: "custom-searchBar",
+          position: "right",
+        },
+        {
+          type: "localeDropdown",
           position: "right",
         },
         {
