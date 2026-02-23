@@ -238,7 +238,7 @@ if __name__ == "__main__":
     main()
 ```
 
-This file uses two Python features — `def` and the `if __name__` guard — that you will learn about in later chapters. For now, the only line that matters is `print("Hello from smartnotes!")`. That is the line that produces the greeting you see in the terminal. When you run `uv run main.py`, Python executes this file and prints the message. You will understand every line of this file by the end of Chapter 14.2.
+This file uses two Python features — `def` and the `if __name__` guard — that you will learn about in later chapters. For now, the only line that matters is `print("Hello from smartnotes!")`. That is the line that produces the greeting you see in the terminal. When you run `uv run main.py`, Python executes this file and prints the message. You will understand every line of this file in later chapters.
 
 **`.gitignore`** tells Git which files to exclude from version control. uv generates a default that excludes virtual environments and Python cache files — things that should never be committed to a repository.
 
