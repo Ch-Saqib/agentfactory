@@ -1,0 +1,71 @@
+deck:
+  id: "preface-agent-native"
+  title: "PREFACE: The AI Agent Factory"
+  description: "Key concepts from the preface — the SaaSpocalypse, why autonomous agents are disrupting enterprise software"
+  tags: ["preface", "agent-factory", "part-0"]
+  version: 1
+
+cards:
+  - id: "preface-001"
+    front: "The 'SaaSpocalypse'"
+    back: "Anthropic's release of open-source agentic plugins proved autonomous agents can do the work that previously justified expensive SaaS subscriptions."
+    tags: ["event", "market"]
+    difficulty: "basic"
+
+  - id: "preface-002"
+    front: "SaaS vs. Agents"
+    back: "SaaS: Paying for a 'seat' to click buttons.\nAgents: Paying for an autonomous system to deliver outcomes."
+    tags: ["paradigm-shift"]
+    difficulty: "intermediate"
+    why: "Why did investors react so dramatically to open-source agent plugins?"
+
+  - id: "preface-003"
+    front: "Spec-Driven Development (SDD)"
+    back: "Human-written specifications are the source of truth.\nHumans specify WHAT; agents handle HOW."
+    tags: ["methodology", "sdd"]
+    difficulty: "intermediate"
+    why: "Why must the spec be human-written rather than AI-generated?"
+
+  - id: "preface-004"
+    front: "The Book's 3 Pillars"
+    back: "1. AI Agents (Digital FTEs)\n2. Factory Infrastructure (Manufacturing)\n3. Business Model (Outcomes-as-a-service)"
+    tags: ["book-structure"]
+    difficulty: "basic"
+
+  - id: "preface-005"
+    front: "Agent Factory Business Model"
+    back: "Sell verified outcomes delivered by AI, not software subscriptions. Revenue scales with results, not seats."
+    tags: ["business-model"]
+    difficulty: "intermediate"
+
+  - id: "preface-006"
+    front: "Open-Source Agent Threat"
+    back: "If agent infrastructure is free, value shifts entirely from tool access to outcome delivery."
+    tags: ["market", "strategy"]
+    difficulty: "advanced"
+    why: "What defensible advantage can companies build if infrastructure is open-source?"
+
+  - id: "preface-007"
+    front: "The New Workflow"
+    back: "Buyers define intent.\nAgents execute.\nHumans supervise & verify."
+    tags: ["workflow", "core-concept"]
+    difficulty: "basic"
+
+  - id: "preface-008"
+    front: "Reusable Skill"
+    back: "A packaged capability (persona, logic, tools, safety) that agents invoke to perform specific work."
+    tags: ["definition", "skills"]
+    difficulty: "intermediate"
+
+  - id: "preface-009"
+    front: "4 Elements of Industrialized Execution"
+    back: "1. Specs\n2. Reusable Skills\n3. Standard Tool Protocols (MCP)\n4. Cloud-native Infrastructure"
+    tags: ["architecture"]
+    difficulty: "intermediate"
+    why: "What breaks if you remove MCP from this stack?"
+
+  - id: "preface-010"
+    front: "SaaS era vs. Agent Factory era"
+    back: "SaaS: Focus on HOW work is done (interfaces).\nAgent Factory: Focus on THAT work is done (verified outcomes)."
+    tags: ["paradigm-shift"]
+    difficulty: "basic"

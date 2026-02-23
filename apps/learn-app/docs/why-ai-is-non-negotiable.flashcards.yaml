@@ -1,0 +1,68 @@
+deck:
+  id: "why-ai-is-non-negotiable"
+  title: "Why AI Is Non-Negotiable"
+  description: "Key arguments from the AI debate lesson — why adopting AI is not optional and what it means for the workforce"
+  tags: ["ai-debate", "workforce", "part-0"]
+  version: 1
+
+cards:
+  - id: "non-negotiable-001"
+    front: "The Inevitability of AI"
+    back: "Like the steam engine or internet, societies that adopt AI flourish; those that resist are absorbed."
+    tags: ["history", "argument"]
+    difficulty: "basic"
+
+  - id: "non-negotiable-002"
+    front: "How AI Differs from Past Tech"
+    back: "Past tools augmented physical labor or routine math. AI augments cognition (reasoning, synthesis, creation)."
+    tags: ["distinction", "core-concept"]
+    difficulty: "intermediate"
+    why: "Why does augmenting cognition have broader implications than physical tools?"
+
+  - id: "non-negotiable-003"
+    front: "The Two AI Camps"
+    back: "1. Existential threat (hit the brakes)\n2. Engine of prosperity (adapt and build)\nFears are real but require management, not stagnation."
+    tags: ["debate", "society"]
+    difficulty: "basic"
+
+  - id: "non-negotiable-004"
+    front: "Capacity to Serve"
+    back: "AI expands the total capacity to solve problems and serve human needs, rather than just redistributing a fixed amount of work."
+    tags: ["economics", "workforce"]
+    difficulty: "intermediate"
+
+  - id: "non-negotiable-005"
+    front: "Job Displacement Myth"
+    back: "AI unbundles rigid jobs into tasks. Automating some tasks creates new unbundled roles, businesses, and markets."
+    tags: ["workforce", "jobs"]
+    difficulty: "intermediate"
+
+  - id: "non-negotiable-006"
+    front: "Why opting out fails"
+    back: "Competitive advantage belongs to adopters. Resistors become obsolete."
+    tags: ["strategy", "argument"]
+    difficulty: "basic"
+
+  - id: "non-negotiable-007"
+    front: "Risk vs. Harm"
+    back: "Risk is probability; Harm is actual damage. Manage risks via governance instead of avoiding the tech entirely."
+    tags: ["risk", "governance"]
+    difficulty: "advanced"
+
+  - id: "non-negotiable-008"
+    front: "A New Evolutionary Leap"
+    back: "AI is the first technology to augment reasoning, fundamentally redefining 'productive' human labor."
+    tags: ["evolution", "core-concept"]
+    difficulty: "intermediate"
+
+  - id: "non-negotiable-009"
+    front: "The Professional's Response"
+    back: "Build dynamic skill portfolios, learn to think and collaborate with AI daily."
+    tags: ["workforce", "strategy"]
+    difficulty: "basic"
+
+  - id: "non-negotiable-010"
+    front: "How AI benefits the individual"
+    back: "It drastically amplifies individual capability — a single adopter can deliver what used to require an entire team."
+    tags: ["personal", "value"]
+    difficulty: "intermediate"

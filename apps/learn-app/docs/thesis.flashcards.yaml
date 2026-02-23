@@ -1,0 +1,81 @@
+deck:
+  id: "thesis"
+  title: "The Agent Factory Thesis"
+  description: "Core concepts from the Agent Factory thesis — the paradigm shift from SaaS tools to AI employees"
+  tags: ["thesis", "agent-factory", "part-0"]
+  version: 1
+
+cards:
+  - id: "thesis-001"
+    front: "Digital FTE"
+    back: "A role-based AI system that acts as a full-time digital employee, composing tools to deliver outcomes."
+    tags: ["definition", "core-concept"]
+    difficulty: "basic"
+
+  - id: "thesis-002"
+    front: "Agent Factory Era vs. SaaS Era"
+    back: "Selling AI employees (outcomes) instead of software tool subscriptions (access)."
+    tags: ["paradigm-shift"]
+    difficulty: "basic"
+
+  - id: "thesis-003"
+    front: "Value Metric Shift"
+    back: "From per-seat subscriptions → to per-outcome results."
+    tags: ["paradigm-shift"]
+    difficulty: "basic"
+
+  - id: "thesis-004"
+    front: "Human Role in Agent Factory"
+    back: "Supervisor & Verifier. Defines intent and oversees agent execution."
+    tags: ["human-in-the-loop"]
+    difficulty: "basic"
+
+  - id: "thesis-005"
+    front: "3 Layers of the Industrialized Stack"
+    back: "1. Intent (Goals)\n2. The Factory (Agents)\n3. Outcome (Verified artifacts)"
+    tags: ["architecture"]
+    difficulty: "intermediate"
+    why: "Why keep the Intent layer separate from The Factory layer?"
+
+  - id: "thesis-006"
+    front: "Mechanisms Powering The Factory"
+    back: "Specs (define work), Skills (package how-to), and Feedback loops (continuous improvement)."
+    tags: ["architecture", "factory"]
+    difficulty: "intermediate"
+
+  - id: "thesis-007"
+    front: "MCP (Model Context Protocol)"
+    back: "A standard tool-connection protocol enabling universal connectivity between agents and tools."
+    tags: ["definition", "mcp"]
+    difficulty: "basic"
+
+  - id: "thesis-008"
+    front: "AI Tool vs. AI Employee"
+    back: "AI Tool: Performs a single requested task.\nAI Employee: Operates autonomously within a role to deliver a complete outcome."
+    tags: ["distinction", "core-concept"]
+    difficulty: "intermediate"
+    why: "Why does an AI employee eliminate 'glue work' compared to an AI tool?"
+
+  - id: "thesis-009"
+    front: "AI Replacement Myth"
+    back: "AI pairs with humans to outperform either alone. Humans are promoted to supervisors, not replaced."
+    tags: ["human-in-the-loop"]
+    difficulty: "intermediate"
+
+  - id: "thesis-010"
+    front: "Capability on Demand"
+    back: "Agent-delivered capabilities that activate instantly when requested, skipping manual software workflows."
+    tags: ["paradigm-shift"]
+    difficulty: "basic"
+
+  - id: "thesis-011"
+    front: "New Roles in Agent Factory Era"
+    back: "Agent Designers, Outcome Architects, Verification Specialists, and Domain Experts."
+    tags: ["workforce"]
+    difficulty: "advanced"
+
+  - id: "thesis-012"
+    front: "Dynamic Skill Portfolios"
+    back: "Learning to think and build with AI as a digital teammate, rather than relying on fixed manual career paths."
+    tags: ["workforce"]
+    difficulty: "intermediate"
