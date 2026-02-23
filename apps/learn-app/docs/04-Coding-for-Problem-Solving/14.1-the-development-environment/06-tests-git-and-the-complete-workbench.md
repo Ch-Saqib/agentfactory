@@ -297,20 +297,20 @@ This is Axiom IX in its purest form: verification as a pipeline, not a checklist
 
 James has seen all five tools in action. He also knows four new ways to undermine them. Each anti-pattern below seems like a shortcut. Each one has a specific cost.
 
-The first anti-pattern is **"Testing later."** A developer writes five functions, then plans to add tests "once the code stabilizes." The code never stabilizes. Each new function changes the behavior of existing ones, and the developer's memory of the original intent fades. By the time tests get written, they test the current behavior -- which may include bugs that have existed since week one.
+The first anti-pattern is **"Testing later."** James writes five pieces of code, then plans to add tests "once the code stabilizes." The code never stabilizes. Each new piece changes the behavior of existing ones, and his memory of the original intent fades. By the time tests get written, they test the current behavior -- which may include bugs that have existed since week one.
 
-The second is **"Not committing early."** A developer works for three hours without a single commit. The code is in a half-finished state. The laptop's battery dies, a forced restart clears unsaved changes, or the developer takes a wrong turn and cannot remember what the project looked like when it worked. Three hours of progress exist only in memory.
+The second is **"Not committing early."** James works for three hours without a single commit. The code is in a half-finished state. The laptop's battery dies, a forced restart clears unsaved changes, or he takes a wrong turn and cannot remember what the project looked like when it worked. Three hours of progress exist only in memory.
 
-The third is **"Skipping the pipeline."** A developer runs pytest but not ruff, or runs ruff but not pyright. The tools catch different categories of problems. A codebase that passes tests but fails type checking has undiscovered bugs hiding in type mismatches.
+The third is **"Skipping the pipeline."** James runs pytest but not ruff, or runs ruff but not pyright. The tools catch different categories of problems. A codebase that passes tests but fails type checking has undiscovered bugs hiding in type mismatches.
 
-The fourth is **"Manual testing only."** A developer checks that code works by running it and looking at the output. This verifies exactly one scenario, one time. It does not document what "correct" means, does not run automatically, and does not catch regressions when the code changes.
+The fourth is **"Manual testing only."** James checks that code works by running it and looking at the output. This verifies exactly one scenario, one time. It does not document what "correct" means, does not run automatically, and does not catch regressions when the code changes.
 
 | Anti-Pattern | The Mistake | The Cost | The Fix |
 |---|---|---|---|
-| **"Testing later"** | Writing code first, planning tests for some unspecified future date | Specifications fade from memory; tests end up documenting bugs, not intended behavior | Write the first test before or alongside the first function |
+| **"Testing later"** | Writing code first, planning tests for some unspecified future date | Specifications fade from memory; tests end up documenting bugs, not intended behavior | Write the first test before or alongside the first piece of code |
 | **"Not committing early"** | Working for hours without a Git checkpoint | One mistake or crash destroys all progress with no recovery | Commit after every meaningful change -- small commits are better than large ones |
 | **"Skipping the pipeline"** | Running only some tools instead of the full verification chain | Bugs hide in the gaps between tools | Always run the full pipeline: `uv run ruff check . && uv run pyright && uv run pytest` |
-| **"Manual testing only"** | Checking output visually instead of writing automated assertions | Verifies one scenario once; no regression protection, no documentation | Write an `assert` for every behavior you care about |
+| **"Manual testing only"** | Checking output visually instead of writing automated checks | Verifies one scenario once; no regression protection, no documentation | Write an `assert` for every behavior you care about |
 
 ---
 
@@ -321,18 +321,19 @@ Open your AI coding assistant. Try these three prompts to deepen your understand
 ### Prompt 1: Write a Failing Test and Explain the Output
 
 ```
-I have a Python function:
+I am new to Python and learning about testing tools. I have this
+piece of code:
 
 def add(a: int, b: int) -> int:
     return a - b  # Bug: subtracts instead of adding
 
-Write a pytest test for this function that will fail. Then show me
+Write a pytest test for this code that will fail. Then show me
 exactly what the pytest output will look like when it fails. Explain
-each part of the failure output: the F character, the assertion error,
-the expected vs actual values.
+each part of the failure output in simple terms: what the F character
+means, what the error message says, and how to tell what went wrong.
 ```
 
-**What you're learning:** You are building the skill of reading pytest failure output before you encounter it in your own code. The AI will generate a realistic failure message, and by studying it now -- when you are not under pressure -- you will recognize the pattern instantly when your own tests fail. Pay attention to the `>` line (the failing assertion) and the `E` line (the explanation of what went wrong).
+**What you're learning:** You are building the skill of reading pytest failure output before you encounter it in your own code. The AI will generate a realistic failure message, and by studying it now -- when you are not under pressure -- you will recognize the pattern instantly when your own tests fail. Pay attention to the `>` line (the failing line) and the `E` line (the explanation of what went wrong).
 
 ### Prompt 2: Explain the Verification Pipeline Order
 
@@ -370,9 +371,9 @@ OS-specific files, and pytest cache directories.
 
 ## Key Takeaways
 
-1. **pytest uses plain `assert` statements as specifications.** `assert func(3) == 4` means: this function, given 3, must return 4. No special syntax, no framework boilerplate. The `assert` keyword is how you express what "correct" means.
+1. **pytest uses plain `assert` as specifications.** `assert func(3) == 4` means: this piece of code, given 3, must return 4. No special setup, no extra tools. The `assert` keyword is how you express what "correct" means.
 
-2. **pytest discovers tests by naming convention.** Files named `test_*.py`, functions named `def test_*()` -- pytest finds and runs them automatically. Naming is the only configuration required.
+2. **pytest discovers tests by naming convention.** Files named `test_*.py`, test names starting with `test_` -- pytest finds and runs them automatically. Naming is the only configuration required.
 
 3. **Git makes every change reversible.** `git init` creates the repository. `git add .` stages your files. `git commit -m "message"` records a snapshot. Every commit is a checkpoint you can return to.
 
@@ -386,4 +387,4 @@ OS-specific files, and pytest cache directories.
 
 Your workbench is built. uv manages your project. pyproject.toml holds your configuration. ruff checks your style. pyright checks your types. pytest checks your behavior. Git records your history. Five tools, five axioms, one unified system protecting your code from the moment you start writing it.
 
-In Chapter 14.2, you will put this workbench to use. James and Emma will start reading Python -- variables, types, expressions, and the building blocks that AI generates when you give it a specification. Every line of code you encounter will be linted by ruff, type-checked by pyright, and tested by pytest. The workbench is no longer something you are building. It is something you are using.
+In Chapter 14.2, you will put this workbench to use. James and Emma will start reading Python -- learning how to store values, label their types, and combine them into expressions. Every line of code you encounter will be checked by ruff, type-checked by pyright, and tested by pytest. The workbench is no longer something you are building. It is something you are using.
