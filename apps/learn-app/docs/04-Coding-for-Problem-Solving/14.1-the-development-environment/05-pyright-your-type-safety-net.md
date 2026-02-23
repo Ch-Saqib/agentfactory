@@ -139,6 +139,22 @@ Pyright has four type checking modes, each progressively stricter:
 | `"standard"` | Moderate coverage (CLI default) | General-purpose development |
 | `"strict"` | All rules enabled; requires complete type annotations | This course, new projects, AI-generated code |
 
+You switch modes by changing one word in `pyproject.toml` — the command to run pyright is always the same (`uv run pyright`):
+
+```toml
+# off — pyright does almost nothing
+typeCheckingMode = "off"
+
+# basic — catches obvious mismatches only
+typeCheckingMode = "basic"
+
+# standard — the default if you don't set anything
+typeCheckingMode = "standard"
+
+# strict — checks everything, requires type labels on all code
+typeCheckingMode = "strict"
+```
+
 Your SmartNotes `pyproject.toml` already has pyright configured in strict mode from Lesson 3:
 
 ```toml
