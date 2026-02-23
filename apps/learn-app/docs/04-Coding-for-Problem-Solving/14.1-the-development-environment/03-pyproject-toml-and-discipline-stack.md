@@ -239,7 +239,7 @@ addopts = "-ra -q"
 testpaths = ["tests"]
 ```
 
-This tells pytest to show a short summary of all test results (`-ra`), use quiet output (`-q`), and look for tests in the `tests/` directory.
+Pytest is the tool that runs your tests — small checks you write to prove your code does what it should. `addopts` sets default options that apply every time you run tests: `-ra` means "after all tests finish, show a summary of which ones passed and which failed," and `-q` means "keep the output short instead of printing every detail." `testpaths = ["tests"]` tells pytest where to find your test files — in a folder called `tests/` inside your project.
 
 ### The Complete pyproject.toml
 
