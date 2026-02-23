@@ -11,40 +11,40 @@ duration_minutes: 40
 skills:
   - name: "Understanding Open Standards Economics"
     proficiency_level: "A1"
-    category: "تصوراتی"
-    bloom_level: "سمجھیں"
-    digcomp_area: "معلوماتی خواندگی"
+    category: "Conceptual"
+    bloom_level: "Understand"
+    digcomp_area: "Information Literacy"
     measurable_at_this_level: "طالب علم وضاحت کرسکتا ہے کہ کھلے معیارات (جیسے USB، HTTP) نیٹ ورک اثرات کے ذریعے ملکیتی متبادلات سے زیادہ قدر کیوں پیدا کرتے ہیں۔"
 
   - name: "Mapping Standards to Digital FTE Architecture"
     proficiency_level: "A2"
-    category: "تکنیکی"
-    bloom_level: "درخواست دیں"
-    digcomp_area: "مسئلہ حل کرنا"
+    category: "Technical"
+    bloom_level: "Apply"
+    digcomp_area: "Problem-Solving"
     measurable_at_this_level: "طالب علم مخصوص ڈیجیٹل FTE ڈیزائن کے مسائل پر MCP (کنیکٹیویٹی)، AGENTS.md (موافقت)، اسکلز (مہارت)، اور گوز (فن تعمیر) کو صحیح طریقے سے لاگو کرسکتا ہے۔"
 
   - name: "Evaluating Distribution and Monetization Strategies"
     proficiency_level: "A2"
-    category: "اطلاقی"
-    bloom_level: "جائزہ"
-    digcomp_area: "ڈیجیٹل مواد کی تخلیق"
+    category: "Applied"
+    bloom_level: "Evaluate"
+    digcomp_area: "Digital Content Creation"
     measurable_at_this_level: "طالب علم رسائی اور آمدنی کو بہتر بنانے کے لیے ایپس SDK کی تقسیم، MCP ایپس کی کراس پلیٹ فارم پورٹیبلٹی، اور کسٹم انٹرفیس کا موازنہ کرسکتا ہے۔"
 
 learning_objectives:
   - objective: "Explain why AAIF standards matter for building portable Digital FTEs that work across AI platforms"
     proficiency_level: "A1"
-    bloom_level: "سمجھیں"
-    assessment_method: "USB امپلیمینٹرز فورم کی تشبیہ کا استعمال کرتے ہوئے پورٹیبلٹی کے فوائد کی وضاحت۔"
+    bloom_level: "Understand"
+    assessment_method: "Articulation of portability benefits using USB Implementers Forum analogy"
 
   - objective: "Distinguish MCP, AGENTS.md, goose, and Skills by their purposes and correctly apply them to Digital FTE architecture"
     proficiency_level: "A2"
-    bloom_level: "تجزیہ"
-    assessment_method: "صلاحیتوں کی درجہ بندی کنیکٹیویٹی (MCP)، موافقت (AGENTS.md)، مہارت (اسکلز)، فن تعمیر کے نمونوں (گوز) میں۔"
+    bloom_level: "Analyze"
+    assessment_method: "Classification of capabilities into connectivity (MCP), adaptability (AGENTS.md), expertise (Skills), architecture patterns (goose)"
 
   - objective: "Design an AGENTS.md and SKILL.md for a specific domain, applying progressive disclosure and proper structure"
     proficiency_level: "A2"
-    bloom_level: "درخواست دیں"
-    assessment_method: "مناسب فرنٹ میٹر، ایکٹیویشن کی شرائط، اور عمل درآمد کے مراحل کے ساتھ درست AGENTS.md اور SKILL.md فائلوں کی تخلیق۔"
+    bloom_level: "Apply"
+    assessment_method: "Creation of valid AGENTS.md and SKILL.md files with proper frontmatter, activation conditions, and execution steps"
 
 cognitive_load:
   new_concepts: 7

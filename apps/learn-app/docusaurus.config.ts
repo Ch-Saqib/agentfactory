@@ -226,8 +226,6 @@ const config: Config = {
         direction: "ltr",
         htmlLang: "en-US",
         calendar: "gregory",
-        path: "en",
-        translate: false,
       },
       fr: {
         label: "Français",
@@ -235,7 +233,6 @@ const config: Config = {
         htmlLang: "fr-FR",
         calendar: "gregory",
         path: "fr",
-        translate: true,
       },
       de: {
         label: "Deutsch",
@@ -243,7 +240,6 @@ const config: Config = {
         htmlLang: "de-DE",
         calendar: "gregory",
         path: "de",
-        translate: true,
       },
       es: {
         label: "Español",
@@ -251,7 +247,6 @@ const config: Config = {
         htmlLang: "es-ES",
         calendar: "gregory",
         path: "es",
-        translate: true,
       },
       zh: {
         label: "中文 (简体)",
@@ -259,7 +254,6 @@ const config: Config = {
         htmlLang: "zh-CN",
         calendar: "gregory",
         path: "zh",
-        translate: true,
       },
       ar: {
         label: "العربية",
@@ -267,7 +261,6 @@ const config: Config = {
         htmlLang: "ar-SA",
         calendar: "gregory",
         path: "ar",
-        translate: true,
       },
       ur: {
         label: "اردو",
@@ -275,7 +268,6 @@ const config: Config = {
         htmlLang: "ur-PK",
         calendar: "gregory",
         path: "ur",
-        translate: true,
       },
       hi: {
         label: "हिन्दी",
@@ -283,7 +275,6 @@ const config: Config = {
         htmlLang: "hi-IN",
         calendar: "gregory",
         path: "hi",
-        translate: true,
       },
     },
   },

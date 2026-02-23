@@ -19,45 +19,45 @@ duration_minutes: 45
 skills:
   - name: "Enterprise Sales Positioning"
     proficiency_level: "A2"
-    category: "اطلاق شدہ"
-    bloom_level: "اطلاق کریں"
-    digcomp_area: "کاروباری آغاز"
+    category: "Applied"
+    bloom_level: "Apply"
+    digcomp_area: "Entrepreneurship"
     measurable_at_this_level: "طالب علم چار value propositions میں سے کون سی ان کی صلاحیتوں سے ملتی ہے کی نشاندہی کر سکتا ہے اور اپنی positioning کو بیان کر سکتا ہے"
 
   - name: "Consultative Selling for Technical Products"
     proficiency_level: "A2"
     category: "Soft Skills"
-    bloom_level: "سمجھیں"
-    digcomp_area: "مواصلات"
+    bloom_level: "Understand"
+    digcomp_area: "Communication"
     measurable_at_this_level: "طالب علم مختلف C-suite سامعین (CFO، COO، CIO، CEO) کے لیے sales messaging کو ڈھال سکتا ہے"
 
   - name: "Outcome-Based Pricing Strategy"
     proficiency_level: "A2"
-    category: "حکمت عملی کی سوچ"
-    bloom_level: "تجزیہ کریں"
-    digcomp_area: "مسئلہ حل کرنا"
+    category: "Strategic Thinking"
+    bloom_level: "Analyze"
+    digcomp_area: "Problem-Solving"
     measurable_at_this_level: "طالب علم قابل پیمائش business outcomes کے ساتھ ہم آہنگ pricing models ڈیزائن کر سکتا ہے"
 
 learning_objectives:
   - objective: "Understand the $100-400 billion agentic AI market opportunity and enterprise adoption trends"
     proficiency_level: "A2"
-    bloom_level: "سمجھیں"
-    assessment_method: "C-suite adoption اور budget expectations پر McKinsey کے اعداد و شمار کا حوالہ"
+    bloom_level: "Understand"
+    assessment_method: "Citation of McKinsey statistics on C-suite adoption and budget expectations"
 
   - objective: "Identify which of the four value propositions (Enabler, Implementer, Custom Developer, Disruptor) matches your capabilities"
     proficiency_level: "A2"
-    bloom_level: "تجزیہ کریں"
-    assessment_method: "جواز کے ساتھ صلاحیتوں کو مناسب value proposition سے ملانے کی خود تشخیص"
+    bloom_level: "Analyze"
+    assessment_method: "Self-assessment mapping capabilities to appropriate value proposition with justification"
 
   - objective: "Apply the six enterprise selection factors to position your Digital FTE offerings"
     proficiency_level: "A2"
-    bloom_level: "اطلاق کریں"
-    assessment_method: "customization، domain expertise، اور outcome-based pricing کو مخاطب کرنے والا positioning statement"
+    bloom_level: "Apply"
+    assessment_method: "Positioning statement addressing customization, domain expertise, and outcome-based pricing"
 
   - objective: "Design outcome-based pricing models that align incentives with enterprise customers"
     proficiency_level: "A2"
-    bloom_level: "اطلاق کریں"
-    assessment_method: "جواز کے ساتھ subscription، fixed-price، یا gain-share models کا استعمال کرتے ہوئے pricing proposal"
+    bloom_level: "Apply"
+    assessment_method: "Pricing proposal using subscription, fixed-price, or gain-share models with justification"
 
 cognitive_load:
   new_concepts: 5

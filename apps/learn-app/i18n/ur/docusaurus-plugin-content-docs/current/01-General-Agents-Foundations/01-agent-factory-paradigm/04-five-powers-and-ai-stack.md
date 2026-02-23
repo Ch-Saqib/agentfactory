@@ -9,45 +9,45 @@ sidebar_position: 4
 skills:
   - name: "Understanding the UX→Intent Paradigm Shift"
     proficiency_level: "A2"
-    category: "تصوراتی"
-    bloom_level: "سمجھیں"
-    digcomp_area: "ڈیجیٹل خواندگی"
+    category: "Conceptual"
+    bloom_level: "Understand"
+    digcomp_area: "Digital Literacy"
     measurable_at_this_level: "طالب علم نیویگیشن پر مبنی انٹرفیس سے گفتگو پر مبنی ارادے میں منتقلی کی وضاحت کرسکتا ہے اور ان ورک فلو کی نشاندہی کرسکتا ہے جو ایجنٹک AI سے فائدہ اٹھاتے ہیں۔"
 
   - name: "Identifying the Five Powers of AI Agents"
     proficiency_level: "A2"
-    category: "تصوراتی"
-    bloom_level: "تجزیہ"
-    digcomp_area: "معلوماتی خواندگی"
+    category: "Conceptual"
+    bloom_level: "Analyze"
+    digcomp_area: "Information Literacy"
     measurable_at_this_level: "طالب علم حقیقی نظاموں میں ایجنٹ کی صلاحیتوں (دیکھیں، سنیں، استدلال کریں، عمل کریں، یاد رکھیں) کو پہچان اور درجہ بندی کرسکتا ہے اور وضاحت کرسکتا ہے کہ وہ خود مختار آرکیسٹریشن کو فعال کرنے کے لیے کیسے یکجا ہوتے ہیں۔"
 
   - name: "Understanding the Three-Layer AI Development Architecture"
     proficiency_level: "A2"
-    category: "تصوراتی"
-    bloom_level: "سمجھیں"
-    digcomp_area: "معلوماتی خواندگی"
+    category: "Conceptual"
+    bloom_level: "Understand"
+    digcomp_area: "Information Literacy"
     measurable_at_this_level: "طالب علم جدید AI اسٹیک کی تین پرتوں کی نشاندہی اور وضاحت کرسکتا ہے: فرنٹیئر ماڈلز، AI-فرسٹ IDEs، اور ترقیاتی ایجنٹس، نیز باہمی تعاون کے معیار کے طور پر MCP کا کردار۔"
 
 learning_objectives:
   - objective: "Understand the paradigm shift from User Interface (navigation-based) to User Intent (conversation-based) interaction"
     proficiency_level: "A2"
-    bloom_level: "سمجھیں"
-    assessment_method: "روایتی UX ورک فلو بمقابلہ ایجنٹک ارادے سے چلنے والے ورک فلو کا موازنہ کرنے والی وضاحت ٹھوس مثالوں کے ساتھ۔"
+    bloom_level: "Understand"
+    assessment_method: "Explanation comparing traditional UX workflows versus agentic intent-driven workflows with concrete examples"
 
   - objective: "Identify the Five Powers (See, Hear, Reason, Act, Remember) and explain how they combine to enable autonomous orchestration"
     proficiency_level: "A2"
-    bloom_level: "تجزیہ"
-    assessment_method: "پانچ طاقتوں کے فریم ورک کے ذریعہ صلاحیتوں کی درجہ بندی کرنے کے لئے حقیقی ایجنٹک نظاموں کا تجزیہ۔"
+    bloom_level: "Analyze"
+    assessment_method: "Analysis of real agentic systems to categorize capabilities by the Five Powers framework"
 
   - objective: "Recognize the three layers of the modern AI stack and describe what each layer provides"
     proficiency_level: "A2"
-    bloom_level: "سمجھیں"
-    assessment_method: "AI ٹولز (ماڈلز، IDEs، ایجنٹس) کی درجہ بندی مناسب اسٹیک پرتوں میں ان کے کردار کی وضاحت کے ساتھ۔"
+    bloom_level: "Understand"
+    assessment_method: "Classification of AI tools (models, IDEs, agents) into appropriate stack layers with explanation of their roles"
 
   - objective: "Understand how Model Context Protocol enables tool interoperability and prevents vendor lock-in"
     proficiency_level: "A2"
-    bloom_level: "سمجھیں"
-    assessment_method: "MCP کی وضاحت بطور یونیورسل معیار جو ایجنٹوں کو ڈیٹا/خدمات سے جوڑتا ہے، کمپیوٹنگ کے لیے USB کے مترادف۔"
+    bloom_level: "Understand"
+    assessment_method: "Explanation of MCP as universal standard connecting agents to data/services, analogous to USB for computing"
 
 # Cognitive load tracking
 cognitive_load:

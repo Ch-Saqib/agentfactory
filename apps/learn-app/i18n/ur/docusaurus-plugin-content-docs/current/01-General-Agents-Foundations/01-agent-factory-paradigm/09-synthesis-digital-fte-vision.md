@@ -13,40 +13,40 @@ concepts: 3
 skills:
   - name: "Understanding the Digital FTE Concept"
     proficiency_level: "A1"
-    category: "بنیادی"
-    bloom_level: "سمجھیں"
-    digcomp_area: "ڈیجیٹل لٹریسی"
+    category: "Foundational"
+    bloom_level: "Understand"
+    digcomp_area: "Digital Literacy"
     measurable_at_this_level: "طالب علم وضاحت کر سکتا ہے کہ AI agents خصوصی صلاحیتوں کے ساتھ ڈیجیٹل ٹیم ممبرز کے طور پر کیسے کام کرتے ہیں"
 
   - name: "Distinguishing Vibe Coding from Spec-Driven Development"
     proficiency_level: "A1"
-    category: "بنیادی"
-    bloom_level: "سمجھیں"
-    digcomp_area: "مسئلہ حل کرنا"
+    category: "Foundational"
+    bloom_level: "Understand"
+    digcomp_area: "Problem-Solving"
     measurable_at_this_level: "طالب علم ہر طریقہ کی خصوصیات کی نشاندہی کر سکتا ہے اور وضاحت کر سکتا ہے کہ AI کے ساتھ نظم و ضبط کیوں زیادہ اہم ہے"
 
   - name: "Recognizing AI Amplification"
     proficiency_level: "A1"
-    category: "تصوراتی"
-    bloom_level: "سمجھیں"
-    digcomp_area: "ڈیجیٹل لٹریسی"
+    category: "Conceptual"
+    bloom_level: "Understand"
+    digcomp_area: "Digital Literacy"
     measurable_at_this_level: "طالب علم وضاحت کر سکتا ہے کہ AI اچھی مشقوں اور بری عادتوں دونوں کو کیسے بڑھاتا ہے"
 
 learning_objectives:
   - objective: "Understand the Digital FTE concept as the culmination of the Agent Factory paradigm"
     proficiency_level: "A1"
-    bloom_level: "سمجھیں"
-    assessment_method: "وضاحت کہ Custom Agents خصوصی ڈیجیٹل ٹیم ممبرز کیسے بنتے ہیں"
+    bloom_level: "Understand"
+    assessment_method: "Explanation of how Custom Agents become specialized digital team members"
 
   - objective: "Distinguish between Vibe Coding and Spec-Driven Development approaches"
     proficiency_level: "A1"
-    bloom_level: "سمجھیں"
-    assessment_method: "اس کی نشاندہی کہ کون سا طریقہ AI کے ساتھ پائیدار نتائج دیتا ہے"
+    bloom_level: "Understand"
+    assessment_method: "Identification of which approach leads to sustainable results with AI"
 
   - objective: "Recognize that AI amplifies your existing habits and practices"
     proficiency_level: "A1"
-    bloom_level: "سمجھیں"
-    assessment_method: "وضاحت کہ AI-native ڈویلپمنٹ میں نظم و ضبط کم نہیں بلکہ زیادہ اہم کیوں ہو جاتا ہے"
+    bloom_level: "Understand"
+    assessment_method: "Explanation of why discipline becomes more critical, not less, in AI-native development"
 
 cognitive_load:
   new_concepts: 3

@@ -32,17 +32,17 @@ learning_objectives:
   - objective: "Understand the nine core AIDD characteristics that distinguish it from traditional development"
     proficiency_level: "A1"
     bloom_level: "Understand"
-    assessment_method: "ہر خصوصیت اور اس کے عملی اثر کی وضاحت"
+    assessment_method: "Explanation of each characteristic and its practical implication"
 
   - objective: "Identify the nine enabling pillars and how each removes specific development barriers"
     proficiency_level: "A1"
     bloom_level: "Understand"
-    assessment_method: "ستون ٹولز کی پہچان اور ہر ایک کیا ممکن بناتا ہے"
+    assessment_method: "Recognition of pillar tools and what each enables"
 
   - objective: "Evaluate the M-shaped developer profile and how pillar mastery enables multi-domain expertise"
     proficiency_level: "A2"
     bloom_level: "Evaluate"
-    assessment_method: "موجودہ مہارت کی بنیاد پر ذاتی M-shaped راستے کا جائزہ"
+    assessment_method: "Assessment of personal M-shaped pathway based on existing expertise"
 
 cognitive_load:
   new_concepts: 6

@@ -9,40 +9,40 @@ duration_minutes: 30
 skills:
   - name: "Writing Clear Specifications"
     proficiency_level: "A2"
-    category: "تکنیکی"
-    bloom_level: "اطلاق کریں"
-    digcomp_area: "مسئلہ حل کرنا"
+    category: "Technical"
+    bloom_level: "Apply"
+    digcomp_area: "Problem-Solving"
     measurable_at_this_level: "طالب علم ارادے، کامیابی کے معیار، پابندیوں، اور قبولیت کے معیار کے ساتھ مکمل تفصیلات لکھ سکتا ہے"
 
   - name: "Evaluating Specification Quality"
     proficiency_level: "B1"
-    category: "تصوراتی"
-    bloom_level: "تجزیہ کریں"
-    digcomp_area: "تنقیدی سوچ"
+    category: "Conceptual"
+    bloom_level: "Analyze"
+    digcomp_area: "Critical Thinking"
     measurable_at_this_level: "طالب علم یہ جانچ سکتا ہے کہ آیا تفصیلات میں AI نفاذ کے لیے کافی تفصیل موجود ہے اور غائب عناصر کی نشاندہی کر سکتا ہے"
 
   - name: "Applying SDD Workflow"
     proficiency_level: "A2"
-    category: "اطلاق شدہ"
-    bloom_level: "اطلاق کریں"
-    digcomp_area: "پروجیکٹ مینجمنٹ"
+    category: "Applied"
+    bloom_level: "Apply"
+    digcomp_area: "Project Management"
     measurable_at_this_level: "طالب علم کسی فیچر کے لیے چھ مراحل کے SDD ورک فلو (تفصیل، وضاحت، منصوبہ، کام، نفاذ، تصدیق) کو انجام دے سکتا ہے"
 
 learning_objectives:
   - objective: "Write a complete specification with intent, success criteria, constraints, and acceptance criteria"
     proficiency_level: "A2"
-    bloom_level: "اطلاق کریں"
-    assessment_method: "تفصیلاتی دستاویز میں تمام ضروری عناصر شامل ہیں اور کوالٹی چیک لسٹ پاس کرتی ہے"
+    bloom_level: "Apply"
+    assessment_method: "Specification document includes all required elements and passes quality checklist"
 
   - objective: "Evaluate when to use Spec-Driven Development vs traditional coding approaches"
     proficiency_level: "B1"
-    bloom_level: "تجزیہ کریں"
-    assessment_method: "فیصلہ سازی کا فریم ورک 3 پروجیکٹ منظرناموں پر جواز کے ساتھ لاگو کیا گیا"
+    bloom_level: "Analyze"
+    assessment_method: "Decision framework applied to 3 project scenarios with justification"
 
   - objective: "Execute the six-phase SDD workflow from specification to validation"
     proficiency_level: "A2"
-    bloom_level: "اطلاق کریں"
-    assessment_method: "ہر مرحلے کے آرٹیفیکٹس کے ساتھ فیچر کے لیے مکمل ورک فلو انجام دیا گیا"
+    bloom_level: "Apply"
+    assessment_method: "Complete workflow executed for a feature with artifacts from each phase"
 
 # Cognitive load tracking
 cognitive_load:
