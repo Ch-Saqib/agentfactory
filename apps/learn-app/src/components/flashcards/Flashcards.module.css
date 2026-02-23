@@ -659,25 +659,7 @@
   box-shadow: 0 4px 20px rgba(52, 211, 153, 0.2);
 }
 
-.ratingMissed:hover .ratingCount {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-}
 
-.ratingGotIt:hover .ratingCount {
-  background: rgba(16, 185, 129, 0.15);
-  color: #059669;
-}
-
-[data-theme="dark"] .ratingMissed:hover .ratingCount {
-  background: rgba(248, 113, 113, 0.2);
-  color: #fca5a5;
-}
-
-[data-theme="dark"] .ratingGotIt:hover .ratingCount {
-  background: rgba(52, 211, 153, 0.2);
-  color: #6ee7b7;
-}
 
 /* ===== Session complete ===== */
 .sessionComplete {
