@@ -216,7 +216,20 @@ quote-style = "double"
 indent-style = "space"
 ```
 
-This tells ruff to enforce a maximum line length of 88 characters, target Python 3.12, enable six rule categories for linting (pycodestyle errors, Pyflakes, isort, pyupgrade, flake8-bugbear, flake8-simplify), and format with double quotes and spaces.
+Ruff does two jobs: **linting** (finding mistakes and bad habits in your code) and **formatting** (making your code look consistent). `line-length = 88` means no line of code should be longer than 88 characters — long lines are hard to read. `target-version = "py312"` tells ruff your project uses Python 3.12.
+
+The `select` list tells ruff which categories of problems to look for. Each letter is a code for a category:
+
+| Code | Name | What It Catches |
+|------|------|-----------------|
+| `"E"` | pycodestyle Errors | Basic style problems — wrong spacing, bad indentation |
+| `"F"` | pyFlakes | Real bugs — unused imports, undefined variables, code that cannot run |
+| `"I"` | isort | Import ordering — keeps your `import` lines organized alphabetically |
+| `"UP"` | pyUpgrade | Old Python syntax — suggests modern replacements available in Python 3.12 |
+| `"B"` | Bugbear | Subtle bugs — common mistakes that Python allows but usually cause problems |
+| `"SIM"` | Simplify | Unnecessary complexity — code that can be written in a simpler way |
+
+The `[tool.ruff.format]` section controls how ruff formats your code: double quotes around strings (`"hello"` not `'hello'`) and spaces for indentation (not tabs).
 
 **Pytest configuration:**
 
