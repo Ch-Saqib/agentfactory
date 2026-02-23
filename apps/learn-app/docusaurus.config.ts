@@ -219,7 +219,9 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "fr", "de", "es", "zh", "ar", "ur", "hi"],
+    // Only enable locales with actual translated content
+    // Add others when translations are complete
+    locales: ["en", "ur"],
     localeConfigs: {
       en: {
         label: "English",
@@ -227,54 +229,12 @@ const config: Config = {
         htmlLang: "en-US",
         calendar: "gregory",
       },
-      fr: {
-        label: "Français",
-        direction: "ltr",
-        htmlLang: "fr-FR",
-        calendar: "gregory",
-        path: "fr",
-      },
-      de: {
-        label: "Deutsch",
-        direction: "ltr",
-        htmlLang: "de-DE",
-        calendar: "gregory",
-        path: "de",
-      },
-      es: {
-        label: "Español",
-        direction: "ltr",
-        htmlLang: "es-ES",
-        calendar: "gregory",
-        path: "es",
-      },
-      zh: {
-        label: "中文 (简体)",
-        direction: "ltr",
-        htmlLang: "zh-CN",
-        calendar: "gregory",
-        path: "zh",
-      },
-      ar: {
-        label: "العربية",
-        direction: "rtl",
-        htmlLang: "ar-SA",
-        calendar: "gregory",
-        path: "ar",
-      },
       ur: {
         label: "اردو",
         direction: "rtl",
         htmlLang: "ur-PK",
         calendar: "gregory",
         path: "ur",
-      },
-      hi: {
-        label: "हिन्दी",
-        direction: "ltr",
-        htmlLang: "hi-IN",
-        calendar: "gregory",
-        path: "hi",
       },
     },
   },
