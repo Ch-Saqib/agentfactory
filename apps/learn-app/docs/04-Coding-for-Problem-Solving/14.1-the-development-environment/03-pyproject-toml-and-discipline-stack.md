@@ -199,7 +199,7 @@ typeCheckingMode = "strict"
 pythonVersion = "3.12"
 ```
 
-This tells pyright to run in strict mode (requiring complete type annotations on every function) and to check against Python 3.12 syntax.
+Python lets you add **type annotations** — labels that say what kind of data a variable holds or what a function expects and returns. For example, `name: str` says "name is text" and `age: int` says "age is a whole number." You will learn how to write these annotations in later chapters. For now, just know that pyright reads them and warns you when something does not match — like passing text where a number is expected. `"strict"` mode means pyright checks everything thoroughly, and `pythonVersion = "3.12"` tells it which version of Python your project uses.
 
 **Ruff configuration:**
 
