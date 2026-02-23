@@ -52,23 +52,23 @@ differentiation:
 
 In Lesson 3, James installed the discipline stack and configured every tool inside `pyproject.toml`. SmartNotes now has pytest, pyright, and ruff listed as dev dependencies, each with its own configuration section. But none of the tools have actually run yet. The configuration is in place. The verification has not started.
 
-Emma decides to test whether James understands the difference. She dictates a small Python function and asks James to type it into `src/smartnotes/main.py`. James types exactly what she says -- including an import he never uses, a variable he assigns but never references, and inconsistent spacing around operators. He runs the file: `uv run python src/smartnotes/main.py`. It prints the expected output. James leans back. "Works fine."
+Emma decides to test whether James understands the difference. She gives James a small block of Python code and asks him to type it into `src/smartnotes/main.py`. James types exactly what she says -- including a line that loads a library he never uses, a line that stores a value he never looks at again, and messy spacing that changes from line to line. He runs the file: `uv run python src/smartnotes/main.py`. It prints the expected output. James leans back. "Works fine."
 
 Emma does not argue. She types one command into his terminal: `uv run ruff check .`. The screen fills with warnings. Five lines, each pointing to a specific problem that Python's interpreter silently ignored. James stares at the output. "But... it ran."
 
-"Running and being correct are different things," Emma says. "Python will execute code with unused imports, dead variables, and inconsistent style. It does not care. Ruff does. Ruff catches what the interpreter ignores -- before those small problems become big ones in production."
+"Running and being correct are different things," Emma says. "Python will execute code with unused libraries, forgotten values, and messy spacing. It does not care. Ruff does. Ruff catches what Python ignores -- before those small problems become big ones."
 
 ---
 
 ## The Problem Without a Linter
 
-James's function ran. Python did not complain. But the code had three problems that would cause real trouble on a team:
+James's code ran. Python did not complain. But the code had three problems that would cause real trouble on a team:
 
-**The unused import.** James imported `os` at the top of the file but never used it. In a small script, this is clutter. In a large codebase with hundreds of files, unused imports slow down startup time, confuse readers about what the file actually depends on, and create false leads when debugging. A developer searching for where the `os` module is used will find this file and waste time reading it, only to discover the import is dead weight.
+**The unused library.** One line loaded an external library that was never used anywhere in the file. In a small file, this is clutter. In a large project with hundreds of files, unused libraries slow things down, confuse readers about what the file actually needs, and create false leads when debugging.
 
-**The unused variable.** James assigned a value to `temp_result` but never referenced it again. This is almost always a bug. Either the developer forgot to use the variable (the computation is wasted), or they used the wrong variable name later (the computation is lost). Python will never tell you. The code runs. The bug hides.
+**The stored-but-forgotten value.** One line saved a result that was never looked at again. This is almost always a bug. Either the developer forgot to use it (the work is wasted), or they made a typo and used a different name later (the result is lost). Python will never tell you. The code runs. The bug hides.
 
-**The inconsistent style.** James wrote `x=1` in one place and `y = 2` in another. Mixed spacing makes code harder to read, and on a team of five developers, each person's style preferences create merge conflicts over formatting -- not over logic. Code review devolves into debates about spaces instead of discussions about architecture.
+**The inconsistent spacing.** Some lines had spaces around the equals sign and others did not. Mixed spacing makes code harder to read, and on a team of five developers, each person's style creates conflicts over appearance -- not over logic.
 
 These are not theoretical problems. They are the daily reality of every team that writes Python without automated quality checks. The solution is a **linter**: a tool that reads your code and reports problems that the language itself does not catch.
 
