@@ -14,7 +14,7 @@ cards:
 
   - id: "non-neg-002"
     front: "A government debates pausing AI development to protect jobs. According to the text, what historical pattern makes this approach fail?"
-    back: "No society has ever prospered by rejecting a foundational technology. Societies that adopted fire, agriculture, the printing press, and the steam engine flourished; those that resisted were absorbed by those that didn't."
+    back: "Historically, no society has ever prospered by rejecting a foundational technology. Societies that adopted fire, agriculture, the printing press, and the steam engine flourished; those that resisted were absorbed by those that didn't."
     tags: ["history", "adoption"]
     difficulty: "intermediate"
     why: "Why is absorption — not just falling behind — the consequence the text emphasizes?"
