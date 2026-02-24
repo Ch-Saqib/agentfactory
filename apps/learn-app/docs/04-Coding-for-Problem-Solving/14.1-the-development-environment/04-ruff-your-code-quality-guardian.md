@@ -52,7 +52,7 @@ differentiation:
 
 In Lesson 3, James installed the discipline stack and configured every tool inside `pyproject.toml`. SmartNotes now has pytest, pyright, and ruff listed as dev dependencies, each with its own configuration section. But none of the tools have actually run yet. The configuration is in place. The verification has not started.
 
-Emma decides to test whether James understands the difference. She gives James a small block of Python code and asks him to type it into `main.py`. James types exactly what she says -- including a line that loads a library he never uses, a line that stores a value he never looks at again, and messy spacing that changes from line to line. He runs the file: `uv run python main.py`. It prints the expected output. James leans back. "Works fine."
+Emma decides to test whether James understands the difference. She gives James a small block of Python code and asks him to type it into `main.py`. James types exactly what she says -- including a line that loads a library he never uses, a line that stores a value he never looks at again, and messy spacing that changes from line to line. He runs the file: `uv run main.py`. It prints the expected output. James leans back. "Works fine."
 
 Emma does not argue. She types one command into his terminal: `uv run ruff check .`. The screen fills with warnings. Five lines, each pointing to a specific problem that Python's interpreter silently ignored. James stares at the output. "But... it ran."
 
@@ -192,12 +192,14 @@ The rule code is the key to understanding what ruff found. Each code starts with
 | **B** | flake8-bugbear | Common programming mistakes and design problems | B006, B905 |
 | **SIM** | flake8-simplify | Code that can be written more simply | SIM102, SIM110 |
 
-In the SmartNotes output, all four errors use **F** (Pyflakes) rules: three unused imports (F401) and one unused stored value (F841). The message says "Local variable `temp_result`" — that is the Python term for a value you store inside a function. In earlier lessons, we called this a "stored value" or a "stored-but-forgotten value." "Local variable" is just the technical name for the same thing. You will learn the full definition in a later chapter. For now, the important point is that these are not style preferences. They are actual problems -- dead code that clutters the file and may indicate bugs.
+In the SmartNotes output, all four errors use **F** (Pyflakes) rules: three unused imports (F401) and one unused stored value (F841). The message says "Local variable `temp_result`" — that is the Python term for a value you store inside a function. In earlier lessons, we called this a "stored value" or a "stored-but-forgotten value." "Local variable" is the technical name for the same thing.
+
+You will learn the full definition in a later chapter. For now, the important point is that these are not style preferences. They are actual problems -- dead code that clutters the file and may indicate bugs.
 
 **Read and Predict**: The output says `[*]` next to the F401 errors but not next to the F841 error (unused variable). What do you think `[*]` means for the auto-fix behavior? Why might ruff be willing to auto-fix an unused import but not an unused variable?
 
 :::tip AI in Practice
-When you ask an AI assistant to write Python code, it often includes extra imports or unused stored values -- just like the example above. This is exactly why the discipline stack exists. Instead of reading every generated line searching for problems, you run `uv run ruff check .` and the tool finds them in milliseconds. The faster code gets generated, the more you need automated verification.
+When you ask an AI assistant to write Python code, the result is not guaranteed to be clean. AI-generated code often includes extra imports, unused stored values, and inconsistent formatting -- exactly the problems ruff was built to catch. The AI is not wrong on purpose; it optimizes for working code, not clean code. That is why you never trust generated code by reading it. You run `uv run ruff check .` and let the tool verify what your eyes cannot. The faster code gets generated, the more you need automated verification.
 :::
 
 ### Step 3: Auto-fix With --fix
@@ -371,14 +373,16 @@ Write a Python function called `find_duplicates` that takes a list of
 strings and returns only the strings that appear more than once.
 ```
 
-**After the AI responds**, do not just read the code. Paste the AI's function into `main.py` (replacing the current contents) and run:
+**After the AI responds**, do not read the code looking for problems. Paste the AI's function into `main.py` (replacing the current contents) and run:
 
 ```bash
 uv run ruff check .
 uv run ruff format --check .
 ```
 
-**What you're learning:** This is a preview of the central skill in this chapter: using tools to verify AI-generated code instead of reading every line. Did the AI include unused imports? Did it format consistently with your project's settings? You will not know by reading alone -- you will know by running the tools. If ruff finds issues, try `uv run ruff check --fix .` and `uv run ruff format .` to clean them up. This habit -- generate, then verify -- is what separates using AI from trusting AI blindly.
+If ruff reports issues, do not fix them by hand yet. First, ask the AI: *"Ruff found these issues in your code: [paste ruff output]. Why did you include these, and how should I fix them?"* Compare the AI's explanation to what you learned about rule codes in this lesson. Then run `uv run ruff check --fix .` and `uv run ruff format .` to clean up.
+
+**What you're learning:** This is the iterative cycle you will use throughout the course: generate code with AI, verify it with tools, ask AI to explain what the tools found, then fix and re-verify. You are not trusting the AI blindly, and you are not ignoring it either. The tools catch what reading alone cannot, and the AI helps you understand what the tools report. This three-way collaboration -- you, AI, and tools -- is how professional developers work.
 
 ---
 

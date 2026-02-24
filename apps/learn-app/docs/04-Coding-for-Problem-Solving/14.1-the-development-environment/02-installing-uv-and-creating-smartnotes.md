@@ -71,7 +71,7 @@ Emma does not argue. She opens her own terminal, types one command, and waits th
 
 ## The Problem Without uv
 
-Before uv existed, setting up a Python project required coordinating multiple tools that knew nothing about each other. Each tool handled one piece of the puzzle, and the pieces did not fit together cleanly.
+Before uv existed, setting up a Python project required coordinating multiple tools that knew nothing about each other. Each tool handled one piece of the puzzle, and the pieces did not fit together cleanly. This fragmentation matters even more when you work with AI assistants -- an AI can scaffold a project in seconds, but if the environment is not reproducible, the code it generates will only work on the machine that generated it.
 
 | Task | Without uv | With uv |
 |------|-----------|---------|

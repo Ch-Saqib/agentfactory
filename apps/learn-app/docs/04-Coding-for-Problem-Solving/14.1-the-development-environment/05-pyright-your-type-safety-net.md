@@ -50,7 +50,7 @@ differentiation:
 
 # Pyright -- Your Type Safety Net
 
-In Lesson 4, James ran ruff on his first block of Python code and discovered the difference between code that runs and code that is correct. Ruff caught style problems and potential bugs. But there is an entire category of errors that ruff cannot see -- errors where the code uses the wrong kind of data. A piece of code expects a name, and someone passes it a number. Another piece returns text, and someone tries to do math with the result. Python does not complain about any of this until the program is already running.
+In Lesson 4, James ran ruff on his first block of Python code and discovered the difference between code that runs and code that is correct. Ruff caught style problems and potential bugs. But there is an entire category of errors that ruff cannot see -- errors where the code uses the wrong kind of data. A piece of code expects a name, and someone passes it a number. Another piece returns text, and someone tries to do math with the result. Python does not complain about any of this until the program is already running. AI assistants can introduce these same errors -- generating code that passes a number where a string is expected -- and neither you nor the AI will notice by reading alone.
 
 Emma gives James two files. Both contain the same piece of code -- called `greet` -- that takes a name and returns a greeting.
 
@@ -442,7 +442,7 @@ Explain:
 4. Is there ever a good reason to use standard instead of strict?
 ```
 
-**What you're learning:** You saw the difference yourself before asking AI to explain it. The gap between standard and strict is not abstract -- you measured it in error counts on your own project. The AI's explanation will now connect to something you observed, not just something you read. This is the pattern for the entire course: try it, see the result, then use AI to deepen your understanding.
+**What you're learning:** You saw the difference yourself before asking AI to explain it. The gap between standard and strict is not abstract -- you measured it in error counts on your own project. The AI's explanation will now connect to something you observed, not something you read about. This is the iterative pattern for the entire course: try it yourself, observe the result, ask AI to deepen your understanding, then apply what you learned. The understanding comes from the cycle, not from any single step.
 
 ---
 
