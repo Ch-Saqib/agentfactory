@@ -70,8 +70,8 @@ const config: Config = {
       swcJsMinimizer: true,     // Use SWC to minify JS (faster than Terser)
       swcHtmlMinimizer: true,   // Use SWC to minify HTML
       lightningCssMinimizer: true, // Use Lightning CSS instead of cssnano
-      // rspackBundler: false,  // Skip Rspack - use default webpack (Linux native binding issues)
       mdxCrossCompilerCache: true, // Compile MDX once instead of twice
+      // rspackBundler: false,  // Skip Rspack - use webpack (more stable with memory)
     },
   },
 
