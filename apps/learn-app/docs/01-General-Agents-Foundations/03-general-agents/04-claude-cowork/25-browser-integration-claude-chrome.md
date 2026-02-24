@@ -319,3 +319,8 @@ When you finish a browser automation task, consider deactivating the extension. 
 ## What's Next
 
 Browser integration extends Claude's reach to web-based workflows. But there's another extension point: Connectors, which integrate external data sources and services directly into Cowork. The next lesson explores how Connectors enable Cowork to work with data beyond your local files and the open web.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

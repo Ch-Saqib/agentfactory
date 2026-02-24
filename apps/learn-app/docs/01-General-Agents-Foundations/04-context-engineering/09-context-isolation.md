@@ -1185,3 +1185,8 @@ In the final lesson, you'll bring all these techniques together into a coherent 
 
 - Anthropic. (2026). "[Orchestrate teams of Claude Code sessions](https://code.claude.com/docs/en/agent-teams)." Claude Code Documentation.
 - Anthropic. (2026). "[Building a C Compiler with Parallel Claude Agents](https://www.anthropic.com/engineering/building-c-compiler)." Anthropic Engineering Blog.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

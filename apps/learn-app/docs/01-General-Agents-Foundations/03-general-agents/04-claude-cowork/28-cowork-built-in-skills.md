@@ -377,3 +377,8 @@ These Skills are pre-installed—you don't need to create or configure them. The
 ## What's Next
 
 You've explored Cowork's interface, workflows, browser integration, connectors, and built-in Skills. The final lesson in this Cowork section brings everything together with a decision framework—helping you choose between Claude Code and Claude Cowork for any given task, and understanding when to use both together.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

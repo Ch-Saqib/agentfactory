@@ -526,3 +526,7 @@ You still need programming knowledge—you can't validate what you don't underst
 > After going through all 5 phases, which one shows the biggest time savings? Which one requires the most careful human oversight despite AI assistance?"
 
 **What you're learning:** How the orchestrator role applies across the entire software development lifecycle—not just in coding, but in planning, testing, deployment, and operations. You'll see where AI accelerates work and where human judgment remains indispensable.
+
+## Flashcards Study Aid
+
+<Flashcards />

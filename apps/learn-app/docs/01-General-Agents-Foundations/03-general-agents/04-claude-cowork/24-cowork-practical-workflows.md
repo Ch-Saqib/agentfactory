@@ -303,3 +303,8 @@ The key insight: Cowork doesn't just speed up tasks—it makes tasks feasible th
 ## What's Next
 
 These workflows demonstrate Cowork's capabilities with local files. The next lesson explores browser integration, extending Cowork's reach to web-based workflows and automating interactions with websites and web applications.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

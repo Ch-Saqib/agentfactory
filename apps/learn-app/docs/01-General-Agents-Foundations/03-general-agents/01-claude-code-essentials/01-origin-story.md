@@ -237,3 +237,8 @@ The rest of this chapter covers both interfaces. You'll learn when to use each, 
 **What you're learning:** Transferring the paradigm shift to your specific context. The goal isn't just understanding Claude Code—it's recognizing where agentic AI transforms YOUR work.
 
 **Note:** Start with non-sensitive projects. Review changes before accepting.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

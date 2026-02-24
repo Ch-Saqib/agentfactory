@@ -351,3 +351,8 @@ Understanding what's coming helps you plan:
 > "Knowledge Bases are coming. How should I organize my documents now to prepare? What folder structure, naming conventions, and document organization would make future AI retrieval more effective?"
 
 **What you're learning:** Forward-thinking organization—structuring work not just for today's use but for future AI capabilities. Good document organization serves both human and AI needs.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

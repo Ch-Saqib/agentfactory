@@ -435,3 +435,8 @@ You now understand the complete system: what AIDD is (nine characteristics), how
 But understanding the system isn't enough—you need to see it in action. In the next lesson, we'll explore how these pillars come together in real development workflows, showing you concrete examples of specification-driven development from idea to deployment.
 
 The paradigm shift isn't about using individual AI tools better—it's about orchestrating a complete system where human creativity and AI capabilities merge into something neither can achieve alone. Maya's one-week platform wasn't magic; it was the system working as designed. Your journey is learning to work within that same system.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

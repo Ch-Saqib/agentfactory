@@ -1025,3 +1025,8 @@ That approach creates features. Systematic thinking creates products.
 Your Digital FTE is waiting on the other side of this strategic clarity. The question isn't "Can I build an AI agent?" The question is "What does my domain expertise enable that generic tools cannot, and how do I turn that into a defensible business?"
 
 When you can answer that question clearly, you're ready to build.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

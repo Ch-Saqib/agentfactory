@@ -662,3 +662,8 @@ Format as a table with columns: Knowledge Type | Strategy | Reasoning
 ```
 
 **What you're learning:** Not all context needs the same injection strategy. Some context is stable across the entire session. Some evolves with the workflow. This prompt builds intuition for matching context to injection timing in your professional domain.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

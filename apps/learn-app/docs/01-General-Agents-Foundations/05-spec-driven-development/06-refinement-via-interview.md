@@ -356,3 +356,8 @@ For each gap:
 ```
 
 **What you're learning:** Perfect specs don't exist. The goal is specs good enough that writing doesn't require restructuring. Whether to use bullet points vs prose can stay flexible; whether to include a security section cannot.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

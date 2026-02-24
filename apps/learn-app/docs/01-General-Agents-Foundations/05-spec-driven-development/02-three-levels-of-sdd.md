@@ -339,3 +339,8 @@ haven't considered.
 ```
 
 **What you're learning:** Spec-as-Source sounds appealing in theory. This prompt surfaces practical issues: determinism problems breaking git workflows, debugging challenges when generated code varies, and edge cases requiring manual patches that get overwritten on regeneration.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

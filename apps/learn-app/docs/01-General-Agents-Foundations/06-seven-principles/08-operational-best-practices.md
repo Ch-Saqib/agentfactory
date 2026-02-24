@@ -457,3 +457,8 @@ When might I want to use sandbox mode?
 ### Safety Note
 
 The `--dangerously-skip-permissions` flag exists for sandboxed environments only. Never use it on your main development machine or with access to production systems. Similarly, permissive allowlists should be built gradually—start with read-only commands (ls, cat, grep) and add write commands only after you've observed how Claude uses them in your specific workflows. When in doubt, keep the permission prompt active; the few seconds it takes to approve an action is always cheaper than recovering from an unintended one.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

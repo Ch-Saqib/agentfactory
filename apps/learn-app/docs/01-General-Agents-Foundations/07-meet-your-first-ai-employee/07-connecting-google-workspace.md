@@ -424,3 +424,8 @@ exact gog command to reduce scope to the minimum.
 **What you're learning:** Applied security auditing on your own infrastructure. This is the lethal trifecta from Lesson 5 made concrete -- you are evaluating real OAuth scopes on your real account, not a hypothetical scenario. The habit of auditing your own setup after connecting new services is what separates secure deployments from vulnerable ones.
 
 **Safety Note:** The OAuth credentials you created grant real access to your Google account. Do not share your `client_secret.json` file, your gog auth tokens, or screenshots showing your email content. If you are working through this lesson in a shared environment, consider using a dedicated test Google account rather than your primary one.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -242,3 +242,8 @@ This is why learning the patterns matters: agentic behavior, filesystem access, 
 ## What's Next
 
 The next lessons dive deeper into Cowork's capabilities: getting started, practical workflows, browser integration, connectors, and built-in Skills. You'll see concrete examples of how agentic AI transforms knowledge work.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

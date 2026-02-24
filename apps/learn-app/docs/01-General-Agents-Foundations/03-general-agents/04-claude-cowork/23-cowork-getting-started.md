@@ -324,3 +324,8 @@ As you start using Cowork, keep these safety principles in mind:
 ## What's Next
 
 Now that you're set up, the next lessons explore practical workflows: organizing files, processing documents, integrating with browsers, and using connectors. You'll see Cowork handle real-world tasks that save hours of manual work.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

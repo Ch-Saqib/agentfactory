@@ -413,3 +413,8 @@ that help you understand what context you actually need.
 | **Limited Context** | Fixed window for all information; content competes for space | Engineer context carefully; prioritize quality over quantity; use smart tools |
 
 Understanding these constraints is prerequisite knowledge for everything else in this book. They explain *why* the methodologies exist and *how* to apply them effectively. With this foundation, you're ready to learn the specific techniques that transform these constraints from limitations into design parameters.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

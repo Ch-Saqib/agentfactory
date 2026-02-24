@@ -305,3 +305,8 @@ If writing reveals complexity, note what research we'd need.
 ```
 
 **What you're learning:** Lightweight specs are your probe. "Blog post about AI adoption" sounds simple until you write constraints: "Don't reveal vendor pricing" (wait, can we share ROI without that?), "Don't criticize tools we evaluated" (or do we want honest comparisons?). The spec reveals hidden decisions.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

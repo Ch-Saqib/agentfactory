@@ -680,3 +680,8 @@ The core insight: **In the agentic era, how clearly you think before you code de
 SDD isn't bureaucracy. It's acceleration. By thinking systematically upfront, you eliminate the iterations that slow you down. You ship faster, with fewer bugs, and more confidence.
 
 Your new role: specification engineer and system architect. AI's role: implementation partner. Together, you build what matters—faster than ever before.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

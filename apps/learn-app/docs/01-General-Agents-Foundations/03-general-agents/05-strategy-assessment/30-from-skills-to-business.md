@@ -241,3 +241,8 @@ You don't need Part 6 to make money. Skills + MCP integrations = immediate consu
 Part 6 teaches you to build production Custom Agents with SDKs. You'll go from Skills (expertise packs) to full agents with guardrails and deployment. The business models here apply directly to those agents—but Custom Agents give you more control, reliability, and scalability.
 
 Your journey from learner to builder to business owner begins now.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

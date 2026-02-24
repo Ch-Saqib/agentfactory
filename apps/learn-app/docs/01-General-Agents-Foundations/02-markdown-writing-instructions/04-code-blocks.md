@@ -612,3 +612,8 @@ From **Prompt 1**: Your AI confirms your code block syntax is correct
 From **Prompt 2**: Your AI can parse your specification and understand output format, language, and commands
 
 From **Prompt 3**: Your AI generates Python code matching your expected output
+
+
+## Flashcards Study Aid
+
+<Flashcards />

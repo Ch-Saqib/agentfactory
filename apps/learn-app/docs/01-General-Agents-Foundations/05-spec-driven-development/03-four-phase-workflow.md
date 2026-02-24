@@ -316,3 +316,8 @@ List the actual artifacts, not just the process.
 ```
 
 **What you're learning:** Vibe coding produces a draft that might not fit your audience. SDD produces: research.md (what CTOs need), report-spec.md (structure decisions), and sections written to spec. The artifacts persist; the conversation doesn't.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

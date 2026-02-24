@@ -238,3 +238,8 @@ failure mode.
 You have now seen what OpenClaw proved, what it left unsolved, and how the ecosystem responded. Individual patterns are powerful. Composed patterns are transformative. And choosing the right Body for your threat model is an engineering decision, not a popularity contest.
 
 In the next lesson, you will look closely at NanoClaw -- the implementation optimized for container isolation and regulated data -- and see how it connects to the Agent Factory blueprint for building AI Employees for every profession.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

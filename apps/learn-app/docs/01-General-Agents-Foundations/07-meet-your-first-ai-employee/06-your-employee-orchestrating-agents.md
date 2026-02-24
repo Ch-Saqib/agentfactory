@@ -302,3 +302,8 @@ of letting you write code yourself?
 ```
 
 **What you're learning:** Getting your employee to articulate the delegation pattern. Its answer reveals whether it understands the principle: the right tool for the right job, with verification to make sure the work actually happened.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

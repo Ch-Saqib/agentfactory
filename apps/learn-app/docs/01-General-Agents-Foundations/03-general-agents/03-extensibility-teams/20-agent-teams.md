@@ -569,3 +569,8 @@ Lesson 21 provides hands-on exercises to practice everything from this lesson --
 > "Think of a complex problem in your professional domain that would benefit from parallel investigation. Design 3-4 specialist roles -- what does each investigate, and how do they share findings? Create the team and run it. After the team finishes, reflect: which findings only emerged because the specialists could discuss with each other?"
 
 **What you're learning:** Decomposing problems into parallel workstreams and coordinating independent specialists. This skill -- breaking a complex question into focused investigations that cross-pollinate -- extends to any professional domain where multiple perspectives produce better answers than one.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

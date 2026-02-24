@@ -747,3 +747,8 @@ These seven principles form the foundation for effective problem-solving with Ge
 - **Building Custom Agents** (All principles at scale)
 
 Each workflow will demonstrate how the principles combine in practice, using whichever interface—Claude Code or Cowork—best fits the task. The principles don't change; only their application deepens.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

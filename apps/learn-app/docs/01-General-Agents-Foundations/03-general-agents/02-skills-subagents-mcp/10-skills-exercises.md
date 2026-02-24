@@ -897,3 +897,8 @@ Unlike Capstones A and B, these skills solve YOUR actual problems. This is where
 You've built skills from scratch, tested them systematically, composed them into pipelines, and created complete skill suites for real scenarios. You've gone from understanding what a SKILL.md is to building production-ready skill libraries.
 
 Next in **Lesson 11: Subagents and Orchestration**, you'll learn how Claude delegates complex tasks to specialized sub-agents — the same skill composition principles you practiced here, but automated. Then in **Lesson 12: MCP Integration**, you'll connect your skills to external tools and services through the Model Context Protocol.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

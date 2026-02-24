@@ -291,3 +291,8 @@ Steinberger joined OpenAI on February 15, 2026, saying "I want to change the wor
 ### Why did OpenClaw grow so fast?
 
 Three factors: (1) messaging app integration created a viral loop -- you could demo the product by simply forwarding a conversation to a friend, (2) the project was free and open-source at a moment when demand for AI Employees was peaking, and (3) Steinberger's intense personal commitment to the codebase meant the product improved visibly every day.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

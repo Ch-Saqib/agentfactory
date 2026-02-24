@@ -274,3 +274,8 @@ The AI model and market landscape change rapidly. Figures in this lesson reflect
 ## What's Next
 
 You've completed the full Chapter 3 journey -- from your first Claude Code session through skills, MCP, hooks, plugins, agent teams, and now cross-vendor fluency. Next up: the **Chapter Quiz** (Lesson 32) to test your understanding across all 31 lessons.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

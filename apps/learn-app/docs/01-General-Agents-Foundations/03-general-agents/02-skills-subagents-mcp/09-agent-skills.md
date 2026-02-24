@@ -462,3 +462,8 @@ Head to **Lesson 10: Agent Skills Exercises** for 27 hands-on exercises that tak
 > "I work on [describe your project type]. Help me identify 3-5 skills I should create that would work together. For each skill, suggest: what it does, when it activates, and how it complements the others."
 
 **What you're learning:** How to think in skill ecosystems, not isolated tools. Skills that complement each other create more value than skills that work alone.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

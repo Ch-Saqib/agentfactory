@@ -324,3 +324,8 @@ Connectors require granting Claude access to your external accounts. Consider:
 ## What's Next
 
 Connectors extend Cowork's reach to external data sources. But Cowork is still evolving. The next lesson covers current limitations, safety considerations, and what's coming in future updates—including Knowledge Bases that will give Claude persistent memory across sessions.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

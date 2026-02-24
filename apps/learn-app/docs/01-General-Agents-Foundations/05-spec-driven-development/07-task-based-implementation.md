@@ -326,3 +326,8 @@ subagents. Commit each independently when complete.
 ```
 
 **What you're learning:** Independent sections can be written simultaneously. If "Tool Comparison" and "Implementation Risks" don't cross-reference, parallel execution halves the time. The spec keeps both subagents aligned on audience, tone, and depth.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

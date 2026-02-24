@@ -418,3 +418,8 @@ would a CTO ask that our research doesn't answer?
 ```
 
 **What you're learning:** Research isn't just collecting data—it's identifying gaps. CTOs might ask: "How do we measure success?" "What's the learning curve?" "How do we handle security review?" If research.md doesn't answer these, the spec needs to address how we'll fill them.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

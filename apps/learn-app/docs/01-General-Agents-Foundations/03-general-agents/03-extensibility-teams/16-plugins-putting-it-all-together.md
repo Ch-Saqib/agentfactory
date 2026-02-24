@@ -565,3 +565,8 @@ You can now discover, install, and **create** plugins—the complete lifecycle. 
 > "I have a plugin ready. Help me create a marketplace.json file, push it to GitHub, and show me how others can install my plugin."
 
 **What you're learning:** Plugin distribution—sharing your work with teammates or the broader community through marketplace catalogs.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -390,3 +390,8 @@ Rewrite each criterion so I could verify it:
 ```
 
 **What you're learning:** Vague criteria let anything pass. "Each tool section includes pricing and limitations" is testable. "CTO can justify tool selection to their board" defines actual success.
+
+
+## Flashcards Study Aid
+
+<Flashcards />
