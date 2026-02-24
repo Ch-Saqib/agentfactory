@@ -3,7 +3,7 @@ sidebar_position: 2
 title: "Installing uv and Creating SmartNotes"
 description: "Install uv on any platform and create the SmartNotes project with a single command, connecting package management to Axiom I: Shell as Orchestrator."
 keywords: ["uv", "install uv", "uv init", "python project", "smartnotes", "package manager", "pyproject.toml", "python-version", "uv run", "shell orchestrator"]
-chapter: 14.1
+chapter: 15
 lesson: 2
 duration_minutes: 25
 

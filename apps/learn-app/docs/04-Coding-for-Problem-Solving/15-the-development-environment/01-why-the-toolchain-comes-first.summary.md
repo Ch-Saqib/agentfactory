@@ -12,7 +12,7 @@ Professional Python development begins with tooling infrastructure, not syntax. 
 - **Five tools in the stack**: uv (package management), pyright (type checking), ruff (linting and formatting), pytest (testing), Git (version control).
 - **uv replaces four tools**: uv consolidates pip, pyenv, poetry, and virtualenv into a single command, eliminating the fragmentation of traditional Python package management.
 - **Axiom-tool mapping**: uv maps to Axiom I (Shell as Orchestrator), pyright to Axiom V (Types Are Guardrails), pytest to Axiom VII (Tests Are the Specification), Git to Axiom VIII (Version Control is Memory), ruff to Axiom IX (Verification is a Pipeline).
-- **SmartNotes is the running project**: Every lesson in Chapter 14.1 builds on the same SmartNotes project, which starts as an empty directory and ends with all five tools configured.
+- **SmartNotes is the running project**: Every lesson in Chapter 15 builds on the same SmartNotes project, which starts as an empty directory and ends with all five tools configured.
 - **AI-era relevance**: The discipline stack is the safety net for verifying AI-generated code, which arrives too fast to review manually without automated checks.
 
 ### Critical Patterns

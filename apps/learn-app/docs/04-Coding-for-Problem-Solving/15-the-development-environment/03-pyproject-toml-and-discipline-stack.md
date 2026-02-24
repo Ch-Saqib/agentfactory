@@ -3,7 +3,7 @@ sidebar_position: 3
 title: "The pyproject.toml and the Discipline Stack"
 description: "Install the discipline stack with uv add --dev and understand pyproject.toml as the single source of truth for your Python project"
 keywords: ["pyproject.toml", "uv add", "dev dependencies", "dependency-groups", "uv.lock", "lockfile", "tool configuration", "ruff", "pyright", "pytest", "discipline stack"]
-chapter: 14.1
+chapter: 15
 lesson: 3
 duration_minutes: 25
 

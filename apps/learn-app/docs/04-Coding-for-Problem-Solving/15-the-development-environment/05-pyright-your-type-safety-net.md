@@ -3,7 +3,7 @@ sidebar_position: 5
 title: "Pyright -- Your Type Safety Net"
 description: "Run pyright to catch type errors before your code runs, compare typed vs untyped Python code, and understand why strict mode requires complete type labels"
 keywords: ["pyright", "static type checker", "type annotations", "strict mode", "type error", "type safety", "Python types", "uv run pyright", "str | None", "type checking"]
-chapter: 14.1
+chapter: 15
 lesson: 5
 duration_minutes: 22
 

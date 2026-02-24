@@ -1,6 +1,6 @@
 ---
 sidebar_position: 15
-title: "Chapter 14.1: The Development Environment"
+title: "Chapter 15: The Development Environment"
 description: "Install and configure the five-tool Python discipline stack -- uv, pyright, ruff, pytest, and Git -- each connected to an axiom from Chapter 14."
 keywords:
   [
@@ -21,7 +21,7 @@ keywords:
   ]
 ---
 
-# Chapter 14.1: The Development Environment
+# Chapter 15: The Development Environment
 
 James opens his laptop, creates a file called `app.py`, writes a function, and runs it. It works. He pushes the file to a shared folder. Emma pulls it down on her machine and nothing works -- wrong Python version, missing library, different operating system assumptions baked into every line. James stares at the error messages. "But it ran fine on my computer."
 

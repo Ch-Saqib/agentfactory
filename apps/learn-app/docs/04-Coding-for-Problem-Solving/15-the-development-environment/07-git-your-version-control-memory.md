@@ -3,7 +3,7 @@ sidebar_position: 7
 title: "Git -- Your Version Control Memory"
 description: "Initialize a Git repository, make your first commit, and run the complete verification pipeline that chains ruff, pyright, and pytest into a single command."
 keywords: ["git", "version control", "git init", "git add", "git commit", "verification pipeline", "discipline stack", "SmartNotes", "git log"]
-chapter: 14.1
+chapter: 15
 lesson: 7
 duration_minutes: 20
 
@@ -334,4 +334,4 @@ uv run ruff check . && uv run pyright && uv run pytest
 
 Your workbench is built. uv manages your project. pyproject.toml holds your configuration. ruff checks your style. pyright checks your types. pytest checks your behavior. Git records your history. Five tools, five axioms, one unified system protecting your code from the moment you start writing it.
 
-In Chapter 14.2, James and Emma will start reading Python -- learning how to store values, label their types, and combine them into expressions. Every line of code will be checked by ruff, type-checked by pyright, and tested by pytest. The workbench is no longer something you are building. It is something you are using.
+In Chapter 16, James and Emma will start reading Python -- learning how to store values, label their types, and combine them into expressions. Every line of code will be checked by ruff, type-checked by pyright, and tested by pytest. The workbench is no longer something you are building. It is something you are using.

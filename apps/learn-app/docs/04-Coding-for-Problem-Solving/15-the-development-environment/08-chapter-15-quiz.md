@@ -1,9 +1,9 @@
 ---
 sidebar_position: 8
-title: "Chapter 14.1: The Development Environment Quiz"
+title: "Chapter 15: The Development Environment Quiz"
 ---
 
-# Chapter 14.1 Quiz
+# Chapter 15 Quiz
 
 Before taking the quiz, verify that you can do each of these without looking at the lessons:
 
@@ -18,7 +18,7 @@ If any feel uncertain, revisit the specific lesson before continuing.
 Test your understanding of the Python discipline stack by solving real-world scenarios. Each question presents a situation you might encounter while working with uv, pyright, ruff, pytest, and Git.
 
 <Quiz
-  title="Chapter 14.1: The Development Environment"
+  title="Chapter 15: The Development Environment"
   questions={[
     {
       question: "A developer writes 500 lines of code over two weeks and plans to add tests 'once the code stabilizes.' By week three, a bug report comes in but they cannot remember whether a function was supposed to return a list or a dictionary. Which anti-pattern from the discipline stack caused this problem?",

@@ -3,7 +3,7 @@ sidebar_position: 4
 title: "Ruff -- Your Code Quality Guardian"
 description: "Run ruff check and ruff format on your SmartNotes project to discover the difference between code that runs and code that is correct"
 keywords: ["ruff", "linter", "formatter", "ruff check", "ruff format", "F401", "E501", "I001", "code quality", "pycodestyle", "pyflakes", "isort", "auto-fix", "verification pipeline"]
-chapter: 14.1
+chapter: 15
 lesson: 4
 duration_minutes: 22
 

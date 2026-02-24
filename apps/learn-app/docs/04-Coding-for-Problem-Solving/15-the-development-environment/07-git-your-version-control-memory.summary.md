@@ -27,4 +27,4 @@ This lesson completes the developer workbench by adding Git for version control 
 
 ### Connections
 - **Builds on**: Lesson 6: Testing With pytest (the third verification tool; this lesson adds the fourth tool and ties all five together)
-- **Leads to**: Chapter 14.2: Reading Python -- where students begin writing actual Python code with the complete workbench already in place, using all five tools to verify every line they write
+- **Leads to**: Chapter 16: Reading Python -- where students begin writing actual Python code with the complete workbench already in place, using all five tools to verify every line they write
