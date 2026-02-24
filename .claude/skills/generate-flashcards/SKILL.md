@@ -19,7 +19,7 @@ Read this section first. Everything else is mechanics.
 
 ### Recall Cards (half the deck)
 
-One question, one answer. Atomic. Self-contained. A student should be able to answer in under 5 seconds.
+Follow the **minimum information principle** (one question, one answer). Keep questions concise but explicit (**under 40 words**). Ensure each card is self-contained and atomic (tests only one concept). Focus on **key terms, formulas, and relationships**. A student should be able to answer in under 5 seconds.
 
 **The test**: Cover the back — can a student who read the lesson produce the answer from memory? If yes, the card works. If the card requires context not on the front, it fails.
 
@@ -51,7 +51,7 @@ One question, one answer. Atomic. Self-contained. A student should be able to an
 
 ### Thinking Cards (half the deck)
 
-The question itself is a Why or How question that forces the student to reason, not just retrieve. These cards take 10-30 seconds to answer.
+Focus on **understanding, not just rote memorization**. The question itself must be a **Why** or **How** question to encourage deeper thinking and force the student to reason, not just retrieve. These cards take 10-30 seconds to answer.
 
 **The test**: Does answering this card require the student to _think_, not just _remember_? If a parrot could answer it, it's not a thinking card.
 
@@ -144,14 +144,16 @@ Write **recall cards** for things worth memorizing. Write **thinking cards** for
 
 **Recall cards**:
 
-- Direct question, atomic answer
+- Direct explicit question (**under 40 words**), atomic answer
+- Focus on key terms, formulas, and relationships
 - No `why` field
 - Difficulty: `basic` or `intermediate`
 - Keep fronts concise. Keep backs crisp — just the fact, no explanation.
 
 **Thinking cards**:
 
-- Scenario-based or Why/How question
+- Focus on **understanding, not just rote memorization**
+- Scenario-based or **Why/How** question
 - Always has `why` field (single question, under 20 words)
 - Difficulty: `intermediate` or `advanced`
 - Back includes reasoning, not just the answer word.
