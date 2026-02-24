@@ -196,7 +196,11 @@ Ruff produced no output -- silence means zero issues. Pyright reported zero erro
 
 You might notice that `ruff format` is not in the pipeline. The pipeline checks for problems -- `ruff check` finds bugs, pyright finds type errors, pytest finds wrong behavior. Formatting is a pre-step: run `uv run ruff format .` before the pipeline to make your code consistent, then run the pipeline to verify it is correct.
 
-This is Axiom IX in its purest form: verification as a pipeline, not a checklist you remember to run. The command runs the same way every time, regardless of whether you are tired, distracted, or in a rush. And now that the pipeline passes, the natural next step is to commit the result:
+This is Axiom IX in its purest form: verification as a pipeline, not a checklist you remember to run. The command runs the same way every time, regardless of whether you are tired, distracted, or in a rush.
+
+**Read and Predict**: Imagine James introduces a type error in `main.py` -- he changes the return type label from `str` to `int` but keeps the function returning text. He runs the full pipeline command. Which tool stops the pipeline? Does pytest ever run? What would James see in the terminal?
+
+And now that the pipeline passes, the natural next step is to commit the result:
 
 ```bash
 git add . && git commit -m "Verified: all tools pass"

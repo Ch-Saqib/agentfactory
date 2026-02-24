@@ -213,7 +213,7 @@ def clean_title(title):
     return cleaned.strip()
 ```
 
-James runs `uv run ruff check .` and sees zero errors. But there is still a problem that ruff found silently fixable. Look at the imports: which one is never used in the function body? What ruff rule code would flag it? (Hint: check the rule prefix table above.)
+Before running any tool, read the code yourself. Look at the two imports at the top and the function body below. Which import is never used in the function body? What ruff rule code would flag it? (Hint: check the rule prefix table above.)
 
 ### Step 3: Auto-fix With --fix
 
