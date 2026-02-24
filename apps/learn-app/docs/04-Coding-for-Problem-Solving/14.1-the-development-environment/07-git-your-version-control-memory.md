@@ -90,7 +90,9 @@ The common thread: every change is permanent. There is no undo beyond the editor
 
 In Axiom VIII from Chapter 14, you learned that version control is memory. Human memory is unreliable -- James could not remember the exact logic of his deleted `format_title` code after twenty minutes. Git memory is permanent -- every commit records the complete state of every file in the project.
 
-This matters more than it seems. James's lost code was a small problem -- twenty minutes of rewriting. But the pattern scales dangerously. A team of developers working without version control has no way to answer basic questions: Who changed this file? When did this bug appear? What did the project look like before the refactor? These are not edge cases. They are daily questions on any project larger than a single file.
+This matters even more when working with AI assistants. An AI can generate fifty lines of code in seconds. If you experiment with that code, rewrite it, and lose the working version, the AI cannot reproduce the exact same output -- each generation is different. Git solves this by recording every version permanently.
+
+James's lost code was a small problem -- twenty minutes of rewriting. But the pattern scales dangerously. A team of developers working without version control has no way to answer basic questions: Who changed this file? When did this bug appear? What did the project look like before the refactor? These are not edge cases. They are daily questions on any project larger than a single file.
 
 If James had committed his working `format_title` code before rewriting it, recovery would have taken seconds. One command to see the history (`git log`), one command to see the difference (`git diff`), and the original code is back. That is the promise of Axiom VIII: mistakes become reversible, and the project's history becomes a permanent, searchable record.
 
@@ -124,6 +126,8 @@ Git uses a two-step process: *stage* the files you want to record, then *commit*
 git add .
 git commit -m "Initial SmartNotes project with discipline stack"
 ```
+
+The `git add .` command stages every file in the directory. In SmartNotes, this is safe because `.gitignore` already excludes `.venv/` and `__pycache__/`. In future projects, you may want to stage specific files by name (like `git add main.py pyproject.toml`) to avoid accidentally including files that should stay private.
 
 **Output:**
 
@@ -183,13 +187,14 @@ uv run ruff check . && uv run pyright && uv run pytest
 **Output (all passing):**
 
 ```
-All checks passed!
 0 errors, 0 warnings, 0 informations
 tests/test_main.py .                                             [100%]
 1 passed in 0.12s
 ```
 
-Three tools. Three green outputs. The `&&` operator is doing the critical work here: it ensures that if ruff finds a lint error, the pipeline stops. Pyright never runs. Pytest never runs. The problem is clear and isolated. If ruff passes but pyright finds a type error, the pipeline stops at pyright. Only when all three tools pass do you have a verified, clean project.
+Ruff produced no output -- silence means zero issues. Pyright reported zero errors. Pytest showed one passing test. Three tools, three clean results. The `&&` operator is doing the critical work here: it ensures that if ruff finds a lint error, the pipeline stops. Pyright never runs. Pytest never runs. The problem is clear and isolated. If ruff passes but pyright finds a type error, the pipeline stops at pyright. Only when all three tools pass do you have a verified, clean project.
+
+You might notice that `ruff format` is not in the pipeline. The pipeline checks for problems -- `ruff check` finds bugs, pyright finds type errors, pytest finds wrong behavior. Formatting is a pre-step: run `uv run ruff format .` before the pipeline to make your code consistent, then run the pipeline to verify it is correct.
 
 This is Axiom IX in its purest form: verification as a pipeline, not a checklist you remember to run. The command runs the same way every time, regardless of whether you are tired, distracted, or in a rush. And now that the pipeline passes, the natural next step is to commit the result:
 

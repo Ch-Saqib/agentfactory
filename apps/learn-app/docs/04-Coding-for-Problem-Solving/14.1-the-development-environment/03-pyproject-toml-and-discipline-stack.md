@@ -78,7 +78,7 @@ Before `pyproject.toml` became the standard, a typical Python project scattered 
 | Test config | `pytest.ini` or `setup.cfg` | Yet another file, yet another format |
 | Build system | `setup.py` or `setup.cfg` | Python script that ran arbitrary code during installation |
 
-A new developer joining the project had to find and read six files in three different formats to understand how the project was configured. An AI agent trying to understand the project had to parse JSON, INI, TOML, and Python -- four different parsers for four different formats. And the worst part: none of these files knew about each other. A version constraint in `requirements.txt` could contradict a version constraint in `setup.cfg`, and nothing would catch the conflict until deployment failed.
+A new developer joining the project had to find and read six files in three different formats to understand how the project was configured. An AI assistant trying to understand the project faced the same problem -- it had to parse JSON, INI, TOML, and Python, four different formats with four different rules. And the worst part: none of these files knew about each other. A version constraint in `requirements.txt` could contradict a version constraint in `setup.cfg`. Nothing would catch the conflict until deployment failed.
 
 This is the world James narrowly avoided by not typing `pip install pytest`.
 
