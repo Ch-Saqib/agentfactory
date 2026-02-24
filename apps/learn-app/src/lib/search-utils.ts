@@ -224,7 +224,7 @@ export async function searchContent(query: string): Promise<SearchResult[]> {
             // For longer terms, allow 2 edits (fuzzy matching)
             const edits = term.length < 4 ? 1 : 2;
             // Add wildcard at end for partial matching: term*~2
-            return `${term}*~\${edits}`;
+            return `${term}*~${edits}`;
           })
           .join(' ');
 
