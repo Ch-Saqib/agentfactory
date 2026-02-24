@@ -8,10 +8,14 @@ Three principles that matter. Everything else is noise.
 
 One card, one concept. Break complex material into the simplest possible items. If a card tests two things, split it.
 
-**For recall cards**: Front is a concise, explicit question (**under 40 words**). Back is the atomic answer — no explanation, no filler. Focus on **key terms, formulas, and relationships**.
-**For thinking cards**: Front is a single scenario or **Why/How** question focused on **understanding, not just rote memorization**. Back explains the reasoning for that one thing.
+**For recall cards**: Front is a concise, explicit question (**under 40 words**). Back is the atomic answer — **under 15 words**, no explanation, no filler. Focus on **key terms, formulas, and relationships**. If the back needs a "because" or an explanation, it's a thinking card — reclassify.
+**For thinking cards**: Front is a single scenario or **Why/How** question focused on **understanding, not just rote memorization**. Back explains the reasoning for that one thing in **20-40 words** — lead with the insight, add one reasoning step.
 
-**Anti-pattern**: "What are the three pillars and how do they interact?" → Split into a recall card (name them) and a thinking card (how they interact).
+**Anti-patterns**:
+
+- "What are the three pillars and how do they interact?" → Split into a recall card (name them) and a thinking card (how they interact).
+- Recall back that's a paragraph → Trim to just the fact. "AI employees (Digital FTEs)" not "AI employees — role-based systems that compose tools, spawn specialist agents, and deliver outcomes at scale."
+- Thinking card whose back is a memorizable comparison → That's disguised recall. The back must contain BECAUSE/THEREFORE reasoning.
 
 ## 2. Retrieval Practice
 

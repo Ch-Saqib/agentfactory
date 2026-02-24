@@ -46,12 +46,26 @@ Two kinds of cards. Each has a clear test for quality.
 - front: "What is SDD and what is MCP?"
   back: "SDD is spec-driven development. MCP is model context protocol."
 
+# BAD: Compound question — "and" joins two distinct questions
+- front: "What is a Golden Dataset, and what accuracy threshold is recommended?"
+  back: "50+ real-world scenarios. 97%+ accuracy."
+# FIXED: Split into two cards:
+#   Card A front: "What is a Golden Dataset?"  back: "50+ real-world scenarios representing actual agent work."
+#   Card B front: "What accuracy threshold is recommended before deploying an agent to production?"  back: "97%+"
+
 # BAD: Answer is a paragraph — violates minimum information principle
 - front: "What is a Digital FTE?"
   back: "A Digital FTE is an AI agent that functions as an autonomous employee,
     working 24/7 without breaks, capable of handling tasks that previously
     required human workers, and can be instantly cloned to scale operations
     exponentially rather than linearly."
+# FIXED: back: "An AI agent built, hired, and priced like a human employee — working 24/7."
+
+# BAD: Back has explanation — recall backs are JUST the fact
+- front: "In the Agent Factory era, what do companies manufacture?"
+  back: "AI employees — role-based systems that compose tools, spawn specialist
+    agents, and deliver outcomes at scale."
+# FIXED: back: "AI employees (Digital FTEs)"
 ```
 
 ## Thinking Cards
@@ -92,6 +106,18 @@ Two kinds of cards. Each has a clear test for quality.
 # BAD: Just a recall card with "Why" stapled on — answer is a single fact
 - front: "Why is SDD important?"
   back: "Because specs are the source of truth."
+
+# BAD: Disguised recall — back is a memorizable before/after, not reasoning
+- front: "How does the human role change from SaaS to the Agent Factory era?"
+  back: "From operator to supervisor and verifier."
+# This is a FACT, not reasoning. A parrot could memorize it.
+# FIXED as recall: front: "In the Agent Factory, what is the human role?"  back: "Supervisor and verifier."
+# FIXED as thinking: front: "Why does shifting from operator to supervisor require fundamentally new skills?"
+
+# BAD: Formulaic front — sounds like an exam, not a flashcard
+- front: "Why does the lesson argue that open-source AI models are critical?"
+  back: "They prevent monopoly on intelligence."
+# FIXED: front: "Open-source AI models are free, yet governments still build proprietary ones. Why?"
 
 # BAD: Answer too short — no reasoning shown
 - front: "A company's AI agents keep failing in production. What's the likely cause?"
