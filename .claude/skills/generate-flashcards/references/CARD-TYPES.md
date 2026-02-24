@@ -68,6 +68,55 @@ Two kinds of cards. Each has a clear test for quality.
 # FIXED: back: "AI employees (Digital FTEs)"
 ```
 
+### Discrimination Cards (recall subtype)
+
+When the source has comparison tables or contrasting pairs, generate either/or discrimination cards that force the student to classify.
+
+```yaml
+# Era transition — forces classification
+- id: "ch01-factory-paradigm-010"
+  front: "SaaS era product: software tools. Agent Factory era product?"
+  back: "AI employees."
+  tags: ["paradigm-shift"]
+  difficulty: "basic"
+
+# Before/after — forces discrimination between states
+- id: "ch01-factory-paradigm-011"
+  front: "SaaS scaling model: hire more humans. Agent Factory scaling model?"
+  back: "Clone the agent instantly."
+  tags: ["scaling"]
+  difficulty: "basic"
+
+# Role shift — forces pairing
+- id: "ch01-factory-paradigm-012"
+  front: "In SaaS, humans are operators. In the Agent Factory, humans are?"
+  back: "Supervisors and verifiers."
+  tags: ["human-role"]
+  difficulty: "intermediate"
+```
+
+**Trigger**: comparison tables, before/after lists, era transitions. These count as recall cards (no `why` field, basic/intermediate difficulty).
+
+### Mapping Cards (recall subtype)
+
+When the answer is a set of paired items, use multiline `\n` format. Word count applies to total words across all lines.
+
+```yaml
+# Three paired items — structured back
+- id: "ch05-reusable-skills-010"
+  front: "In SDD, what do specs, skills, and feedback loops each provide?"
+  back: "Specs: WHAT to do.\nSkills: HOW to do it.\nFeedback loops: IMPROVE over time."
+  tags: ["sdd", "components"]
+  difficulty: "intermediate"
+
+# Framework mapping
+- id: "ch01-factory-paradigm-013"
+  front: "What are the three Agent Factory pillars and what does each provide?"
+  back: "AI Agents: the workforce.\nCloud Infrastructure: the factory floor.\nBusiness Model: the revenue engine."
+  tags: ["agent-factory", "pillars"]
+  difficulty: "basic"
+```
+
 ## Thinking Cards
 
 **Test**: Does answering this require the student to _think_, not just _remember_? If a parrot could answer it, it's not a thinking card.

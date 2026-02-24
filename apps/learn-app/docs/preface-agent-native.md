@@ -713,6 +713,10 @@ The skills compound. The revenue recurs. The opportunity is now.
 
 Let's begin.
 
+## Flashcards Study Aid
+
+<Flashcards />
+
 ---
 
 ## Test Your Understanding
@@ -1326,6 +1330,4 @@ source: "Section: The Agent Factory Vision"
 
 ---
 
-## Flashcards Study Aid
 
-<Flashcards />
