@@ -1,0 +1,104 @@
+deck:
+  id: "ch02-01-introduction"
+  title: "Why Markdown Matters for AI Communication"
+  description: "Covers markdown as structured text, the AIDD three-layer model, and the Verification Framework for checking AI responses."
+  tags: ["markdown", "aidd", "structured-text", "verification"]
+  version: 1
+
+cards:
+  - id: "ch02-01-introduction-001"
+    type: recall
+    front: "What is markdown?"
+    back: "Structured text that humans can read easily and computers can parse perfectly."
+    tags: ["markdown", "definition"]
+    difficulty: "basic"
+
+  - id: "ch02-01-introduction-002"
+    type: thinking
+    front: "An AI receives the same app requirements as a paragraph and as a markdown list. Why does the list version produce better code?"
+    back: "BECAUSE a markdown list makes each requirement a distinct, countable item, THEREFORE the AI knows exactly how many features exist and doesn't have to guess what's required vs optional."
+    tags: ["structured-text", "ai-parsing"]
+    difficulty: "intermediate"
+    why: "What specific ambiguities arise when an AI reads a paragraph of requirements?"
+
+  - id: "ch02-01-introduction-003"
+    type: recall
+    front: "What are the three layers of AI-Driven Development (AIDD) and who works in each?"
+    back: "Intent Layer: human writes spec.\nReasoning Layer: AI plans implementation.\nImplementation Layer: AI generates code."
+    tags: ["aidd", "three-layers"]
+    difficulty: "basic"
+
+  - id: "ch02-01-introduction-004"
+    type: thinking
+    front: "Why does the markdown spec stay under human control in Layer 1, even when AI helps draft it?"
+    back: "BECAUSE the spec is the authoritative definition of what should be built and implementation must match it, THEREFORE human approval authority over the spec ensures the human stays in control of intent."
+    tags: ["aidd", "intent-layer", "human-control"]
+    difficulty: "advanced"
+    why: "What would go wrong if the AI could modify the spec without human approval?"
+
+  - id: "ch02-01-introduction-005"
+    type: recall
+    front: "Name any 3 of the 4 real-world scenarios where markdown is used in AI-driven development?"
+    back: "1. GitHub README files\n2. Specifications for AI agents\n3. Documentation sites\n4. AI chat prompts"
+    tags: ["markdown", "real-world-uses"]
+    difficulty: "intermediate"
+
+  - id: "ch02-01-introduction-006"
+    type: recall
+    front: "Who created markdown and when did CommonMark formalize it?"
+    back: "John Gruber created markdown in 2004. CommonMark formal specification started in 2014."
+    tags: ["markdown", "history"]
+    difficulty: "basic"
+
+  - id: "ch02-01-introduction-007"
+    type: thinking
+    front: "How does adding headings and lists create something beyond formatting that AI can actually use?"
+    back: "BECAUSE headings and lists give the AI attention cues and clear token boundaries, THEREFORE it can focus on relevant sections instead of treating the document as one continuous stream — structure creates semantic meaning."
+    tags: ["structured-text", "semantic-meaning"]
+    difficulty: "advanced"
+    why: "How do LLM attention mechanisms benefit from structured token boundaries?"
+
+  - id: "ch02-01-introduction-008"
+    type: recall
+    front: "What are the 4 steps of the Verification Framework for checking AI responses?"
+    back: "1. Check against what you know\n2. Ask AI to explain its reasoning\n3. Test specific claims\n4. Cross-reference other sources"
+    tags: ["verification-framework"]
+    difficulty: "basic"
+
+  - id: "ch02-01-introduction-009"
+    type: thinking
+    front: "How can you test whether your markdown specification is truly clear enough for AI?"
+    back: "BECAUSE AI implements exactly what the spec says, THEREFORE asking it to build from your spec and comparing the output to your intent reveals whether the specification was truly clear."
+    tags: ["verification", "spec-clarity"]
+    difficulty: "intermediate"
+    why: "Why is asking AI to implement a spec a better clarity test than asking 'is this clear enough?'"
+
+  - id: "ch02-01-introduction-010"
+    type: thinking
+    front: "Why should you verify AI responses instead of trusting when AI says your markdown is correct?"
+    back: "BECAUSE AI agents make mistakes and can incorrectly approve flawed markdown, THEREFORE the Verification Framework is needed to catch errors that blind trust would miss."
+    tags: ["verification", "ai-partnership"]
+    difficulty: "intermediate"
+    why: "What verification step would catch an AI incorrectly approving a broken heading hierarchy?"
+
+  - id: "ch02-01-introduction-011"
+    type: recall
+    front: "How does GitHub Flavored Markdown (GFM) extend CommonMark?"
+    back: "Adds tables, task lists, and strikethrough."
+    tags: ["markdown", "gfm", "commonmark"]
+    difficulty: "basic"
+
+  - id: "ch02-01-introduction-012"
+    type: thinking
+    front: "Why does markdown's dual nature make it the universal format for AI-driven development?"
+    back: "BECAUSE markdown needs no special software to read yet has enough structure for AI to extract meaning, THEREFORE both humans and AI work from the same document without translation — unlike proprietary formats."
+    tags: ["markdown", "dual-nature"]
+    difficulty: "intermediate"
+    why: "What would break if teams used Word documents as AI specifications instead of markdown?"
+
+  - id: "ch02-01-introduction-013"
+    type: recall
+    front: "Unstructured text: AI guesses requirements. Structured markdown version of the same content?"
+    back: "AI sees each requirement as a distinct, countable item."
+    tags: ["structured-text", "discrimination"]
+    difficulty: "intermediate"

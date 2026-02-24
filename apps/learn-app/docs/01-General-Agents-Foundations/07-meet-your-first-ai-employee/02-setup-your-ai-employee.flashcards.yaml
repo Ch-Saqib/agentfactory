@@ -1,0 +1,97 @@
+deck:
+  id: "ch07-02-setup-ai-employee"
+  title: "Setup Your AI Employee (Free)"
+  description: "Installing OpenClaw, connecting messaging channels, understanding gateway security, and recognizing the universal setup pattern for any agent framework."
+  tags: ["openclaw-setup", "gateway", "security", "messaging-channels"]
+  version: 1
+
+cards:
+  - id: "ch07-02-setup-ai-employee-001"
+    type: recall
+    front: "What is the macOS/Linux command to install OpenClaw?"
+    back: "curl -fsSL https://openclaw.ai/install.sh | bash"
+    tags: ["installation", "cli"]
+    difficulty: "basic"
+
+  - id: "ch07-02-setup-ai-employee-002"
+    type: thinking
+    front: "Why is binding the gateway to 0.0.0.0 without authentication dangerous?"
+    back: "BECAUSE 0.0.0.0 accepts connections from any device on the network or internet, THEREFORE anyone could control your AI Employee and access your files, email, and calendar without restriction."
+    tags: ["security", "bind-address"]
+    difficulty: "intermediate"
+    why: "What specific actions could an attacker perform through an exposed gateway?"
+
+  - id: "ch07-02-setup-ai-employee-003"
+    type: recall
+    front: "What is the default gateway port for OpenClaw?"
+    back: "18789."
+    tags: ["gateway", "configuration"]
+    difficulty: "basic"
+
+  - id: "ch07-02-setup-ai-employee-004"
+    type: recall
+    front: "What default bind address does the OpenClaw gateway use?"
+    back: "127.0.0.1 (localhost only)."
+    tags: ["gateway", "security"]
+    difficulty: "basic"
+
+  - id: "ch07-02-setup-ai-employee-005"
+    type: thinking
+    front: "Why is the security acknowledgment during OpenClaw setup a teaching moment rather than a formality?"
+    back: "BECAUSE an agent with access to email, calendar, and files is a high-value target, THEREFORE reading security warnings trains the habit of assessing risk before granting powerful capabilities to software."
+    tags: ["security", "onboarding"]
+    difficulty: "intermediate"
+    why: "What real-world consequence could result from dismissing the security warning?"
+
+  - id: "ch07-02-setup-ai-employee-006"
+    type: thinking
+    front: "Why does OpenClaw's use of Baileys for WhatsApp create a platform risk?"
+    back: "BECAUSE Baileys reverse-engineers the WhatsApp Web protocol rather than using Meta's official API, THEREFORE OpenClaw's WhatsApp integration violates Meta's Terms of Service and could be blocked at any time."
+    why: "What alternative would eliminate this risk, and why isn't it used?"
+    tags: ["whatsapp", "baileys"]
+    difficulty: "intermediate"
+
+  - id: "ch07-02-setup-ai-employee-007"
+    type: recall
+    front: "Which service and library does OpenClaw use for Telegram bot creation?"
+    back: "BotFather for bot registration and grammY as the bot framework."
+    tags: ["telegram", "botfather"]
+    difficulty: "intermediate"
+
+  - id: "ch07-02-setup-ai-employee-008"
+    type: recall
+    front: "What are the four DM policies available in OpenClaw?"
+    back: "Pairing (default), allowlist, open, and disabled."
+    tags: ["access-control", "dm-policies"]
+    difficulty: "intermediate"
+
+  - id: "ch07-02-setup-ai-employee-009"
+    type: thinking
+    front: "Why does the onboarding conversation where you name your agent matter beyond personalization?"
+    back: "BECAUSE the first conversation seeds persistent memory that shapes all future interactions, THEREFORE you are not configuring a tool but onboarding a colleague whose behavior adapts based on that initial context."
+    tags: ["onboarding", "memory"]
+    difficulty: "advanced"
+    why: "How would skipping personalization affect the agent's responses in later sessions?"
+
+  - id: "ch07-02-setup-ai-employee-010"
+    type: recall
+    front: "What are the five steps of the universal agent setup pattern?"
+    back: "Install the runtime, configure the intelligence, connect I/O channels, verify end-to-end, and secure the boundary."
+    tags: ["universal-pattern", "setup"]
+    difficulty: "intermediate"
+
+  - id: "ch07-02-setup-ai-employee-011"
+    type: thinking
+    front: "Why do TUI, messaging app, and Control UI share one agent instead of running separate instances?"
+    back: "BECAUSE all three channels connect through the same gateway to one agent with shared memory, THEREFORE the channel adapter pattern ensures consistent behavior and knowledge regardless of which interface you use."
+    why: "What would break if each channel ran its own agent instance?"
+    tags: ["channel-adapter", "architecture"]
+    difficulty: "intermediate"
+
+  - id: "ch07-02-setup-ai-employee-012"
+    type: thinking
+    front: "Why would you choose pairing over allowlist as a DM policy?"
+    back: "BECAUSE pairing lets unknown senders request access that you can approve or deny dynamically, THEREFORE it balances openness with control — unlike allowlist which requires pre-specifying every permitted number."
+    why: "In what scenario would allowlist be safer than pairing?"
+    tags: ["dm-policies", "discrimination"]
+    difficulty: "advanced"

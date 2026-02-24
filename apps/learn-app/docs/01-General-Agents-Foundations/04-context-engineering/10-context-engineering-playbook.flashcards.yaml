@@ -1,0 +1,233 @@
+deck:
+  id: "ch04-10-context-playbook"
+  title: "The Context Engineering Playbook: Decision Frameworks for Quality"
+  description: "Capstone lesson synthesizing the complete context engineering toolkit — decision tree, token budget allocation, seven budgeting strategies, quality criteria, and production agent architecture."
+  tags: ["context-playbook", "decision-framework", "token-budget", "quality-criteria", "production-agent"]
+  version: 1
+
+cards:
+  - id: "ch04-10-context-playbook-001"
+    type: recall
+    front: "What separates a $50/month agent from a $5,000/month agent?"
+    back: "Context engineering discipline, not model access."
+    tags: ["thesis", "competitive-moat"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-002"
+    type: thinking
+    front: "How does the decision tree map symptoms to context engineering techniques?"
+    back: "Each branch diagnoses a specific problem: utilization above 70% triggers compaction, because that threshold predicts degradation. Multi-session work triggers progress files, workflow drift triggers memory injection, and multi-agent conflicts trigger context isolation."
+    tags: ["decision-tree"]
+    difficulty: "intermediate"
+    why: "What happens when multiple branches apply simultaneously to the same situation?"
+
+  - id: "ch04-10-context-playbook-003"
+    type: thinking
+    front: "Why does the decision tree recommend /compact rather than /clear when context exceeds 70% mid-task?"
+    back: "The task is incomplete, so clearing would lose critical decisions and progress, because context contains both noise and valuable state. Compacting with custom instructions therefore preserves essential context while removing accumulated conversation debris."
+    tags: ["decision-tree", "compaction"]
+    difficulty: "intermediate"
+    why: "What should you specify in the custom compact instructions to preserve the right context?"
+
+  - id: "ch04-10-context-playbook-004"
+    type: recall
+    front: "If context utilization exceeds 70% and the task is complete, what action applies?"
+    back: "Use /clear for a fresh start."
+    tags: ["decision-tree", "compaction"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-005"
+    type: thinking
+    front: "Why does message history consuming 50% of context in late sessions cause quality degradation?"
+    back: "Useful context like CLAUDE.md and tool definitions gets proportionally less attention, because message history crowds the fixed-size window. The model therefore allocates less processing to instructions and more to accumulated conversation noise."
+    tags: ["token-budget", "degradation"]
+    difficulty: "intermediate"
+    why: "What specific budget shift between early and late sessions causes this degradation?"
+
+  - id: "ch04-10-context-playbook-006"
+    type: recall
+    front: "What percentage of context does message history consume in late sessions with 50+ messages?"
+    back: "50%."
+    tags: ["token-budget", "message-history"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-007"
+    type: recall
+    front: "What recommended percentage should the reserve buffer occupy in context budget?"
+    back: "10-15%."
+    tags: ["token-budget", "reserve-buffer"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-008"
+    type: thinking
+    front: "Why is the reserve buffer in context budget allocation critical?"
+    back: "Without headroom, any file read might push utilization into degradation territory, because tool outputs are unpredictable in size. Maintaining reserve therefore prevents accidental quality drops from routine operations."
+    tags: ["token-budget", "reserve-buffer"]
+    difficulty: "intermediate"
+    why: "How would you adjust the reserve buffer for tasks with many large file reads?"
+
+  - id: "ch04-10-context-playbook-009"
+    type: thinking
+    front: "How do the seven token budgeting strategies collectively address different types of budget pressure?"
+    back: "They target different sources of bloat: summarize and chunk reduce input size, offload and relevancy checks prevent unnecessary inclusion, because each addresses a different cause of budget waste. Structuring prompts, monitoring, and multi-round processing therefore handle the remaining lifecycle phases."
+    tags: ["token-budget", "strategies"]
+    difficulty: "intermediate"
+    why: "Which strategy would you apply first when context utilization suddenly spikes?"
+
+  - id: "ch04-10-context-playbook-010"
+    type: thinking
+    front: "Why is summarizing preferable to including full documents when they exceed 2,000 tokens?"
+    back: "Full documents consume disproportionate attention budget relative to their useful content, because most sections are irrelevant to the current task. Summarizing therefore preserves the key information while freeing budget for actual work."
+    tags: ["token-budget", "summarize"]
+    difficulty: "intermediate"
+    why: "When would including the full document be necessary despite the token cost?"
+
+  - id: "ch04-10-context-playbook-011"
+    type: recall
+    front: "When should you use multi-round processing as a token budgeting strategy?"
+    back: "When analysis tasks require more input than one context window allows."
+    tags: ["token-budget", "multi-round"]
+    difficulty: "intermediate"
+
+  - id: "ch04-10-context-playbook-012"
+    type: thinking
+    front: "How does multi-round processing maintain context quality across rounds?"
+    back: "Each round uses fresh context and produces a summary, because earlier rounds compress the information into essential findings. The final round therefore operates on distilled summaries, keeping utilization low while covering all inputs."
+    tags: ["token-budget", "multi-round"]
+    difficulty: "intermediate"
+    why: "What risk does aggressive summarization in early rounds pose to the final synthesis?"
+
+  - id: "ch04-10-context-playbook-013"
+    type: recall
+    front: "What monitoring threshold should trigger a /compact suggestion?"
+    back: "70% context utilization or above."
+    tags: ["token-budget", "monitoring"]
+    difficulty: "intermediate"
+
+  - id: "ch04-10-context-playbook-014"
+    type: recall
+    front: "What technique does the when-to-use framework recommend for ignored critical instructions?"
+    back: "Position optimization (Lesson 3)."
+    tags: ["when-to-use", "position-sensitivity"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-015"
+    type: recall
+    front: "What technique does the when-to-use framework recommend when an agent drifts from intent?"
+    back: "Memory injection (Lesson 8)."
+    tags: ["when-to-use", "memory-injection"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-016"
+    type: thinking
+    front: "Why do agent quality problems often have multiple contributing causes rather than a single root cause?"
+    back: "Symptoms like missed details can stem from position, noise, or budget problems simultaneously, because context components interact with each other. Fixing one cause therefore may not resolve the issue if other contributing factors remain active."
+    tags: ["when-to-use", "diagnosis"]
+    difficulty: "advanced"
+    why: "How should you prioritize which contributing cause to address first?"
+
+  - id: "ch04-10-context-playbook-017"
+    type: recall
+    front: "What are the four quality assessment criteria for production-ready Digital FTEs?"
+    back: "Consistency\nPersistence\nScalability\nKnowledge"
+    tags: ["quality-criteria"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-018"
+    type: recall
+    front: "What does the Consistency quality criterion measure?"
+    back: "Same quality output at turn 1 versus turn 50."
+    tags: ["quality-criteria", "consistency"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-019"
+    type: recall
+    front: "What does the Persistence quality criterion measure?"
+    back: "Ability to resume work after a 24-hour session break."
+    tags: ["quality-criteria", "persistence"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-020"
+    type: thinking
+    front: "Why does the Scalability criterion score a 3 when an agent needs 2-3 corrections in a 10-step task?"
+    back: "The agent maintained overall goal alignment but required human intervention to correct drift, because accumulated context gradually shifted focus. A score of 3 therefore indicates the agent is functional but needs guardrails for reliable production use."
+    tags: ["quality-criteria", "scalability"]
+    difficulty: "intermediate"
+    why: "What context engineering techniques would move this score from 3 to 5?"
+
+  - id: "ch04-10-context-playbook-021"
+    type: recall
+    front: "What minimum score on all four quality criteria indicates production-readiness?"
+    back: "3 out of 5 on every criterion."
+    tags: ["quality-criteria", "production-readiness"]
+    difficulty: "intermediate"
+
+  - id: "ch04-10-context-playbook-022"
+    type: thinking
+    front: "Why does a well-optimized CLAUDE.md with progress files sometimes outscore a system using vector databases?"
+    back: "Quality depends on signal-to-noise ratio rather than technical complexity, because attention budget is finite. A simple system with high signal density therefore outperforms a complex system where noise dilutes the useful context."
+    tags: ["quality-criteria", "signal-vs-noise"]
+    difficulty: "advanced"
+    why: "When would the vector database approach become necessary despite its complexity?"
+
+  - id: "ch04-10-context-playbook-023"
+    type: thinking
+    front: "How do attention budget management and compaction timing jointly affect the Consistency quality score?"
+    back: "Without budget management, late-session responses degrade as message history dominates, because the model has less attention for instructions. Compaction timing determines whether degradation is caught before quality drops, therefore both must work together to maintain turn-1 quality at turn-50."
+    tags: ["quality-criteria", "consistency"]
+    difficulty: "intermediate"
+    why: "Which factor matters more for consistency: position sensitivity or compaction timing?"
+
+  - id: "ch04-10-context-playbook-024"
+    type: thinking
+    front: "Why does poor decision documentation hurt the Persistence quality score more than missing progress files?"
+    back: "Progress files track what was done, but decision documentation captures why choices were made, because rationale is harder to reconstruct from artifacts alone. Without documented reasoning, the resuming agent therefore repeats rejected approaches or contradicts earlier decisions."
+    tags: ["quality-criteria", "persistence"]
+    difficulty: "advanced"
+    why: "How would you structure decision documentation to maximize resumption speed?"
+
+  - id: "ch04-10-context-playbook-025"
+    type: thinking
+    front: "How does the Knowledge criterion differ from the other three quality criteria?"
+    back: "It measures whether domain expertise is applied automatically without prompting, because the other three measure operational reliability. Knowledge therefore tests whether tacit rules are internalized, not just whether the agent functions correctly."
+    tags: ["quality-criteria", "knowledge"]
+    difficulty: "advanced"
+    why: "What happens to Knowledge scores when CLAUDE.md exceeds 60 lines of signal?"
+
+  - id: "ch04-10-context-playbook-026"
+    type: recall
+    front: "What target line count does the lesson recommend for CLAUDE.md signal content?"
+    back: "Under 60 lines of pure signal."
+    tags: ["production-agent", "claude-md"]
+    difficulty: "basic"
+
+  - id: "ch04-10-context-playbook-027"
+    type: thinking
+    front: "Why does the lesson place critical constraints in the first 10% of CLAUDE.md?"
+    back: "The first zone receives highest attention allocation from the model, because position sensitivity means early content gets disproportionate processing. Critical constraints therefore go first to ensure they are never ignored during long sessions."
+    tags: ["production-agent", "position-sensitivity"]
+    difficulty: "intermediate"
+    why: "What belongs in the last 10% zone and why does that position also get elevated attention?"
+
+  - id: "ch04-10-context-playbook-028"
+    type: thinking
+    front: "How does the lesson connect all context engineering techniques back to Principle 5?"
+    back: "Every technique supports persisting state in files, because files survive session boundaries where memory does not. Context engineering therefore transforms file-based state from cargo cult practice into a disciplined capability."
+    tags: ["principle-5", "synthesis"]
+    difficulty: "advanced"
+    why: "Why would file-based persistence be cargo cult without context engineering understanding?"
+
+  - id: "ch04-10-context-playbook-029"
+    type: thinking
+    front: "Why does the lesson argue that prompt optimization hits diminishing returns while context engineering does not?"
+    back: "Prompts represent only 0.1% of what the model processes, because the remaining 99.9% is context. Improving context therefore has a much larger surface area for quality improvement than polishing a single instruction."
+    tags: ["thesis", "prompts-vs-context"]
+    difficulty: "advanced"
+    why: "At what point would investing more in context engineering also hit diminishing returns?"
+
+  - id: "ch04-10-context-playbook-030"
+    type: recall
+    front: "What technique does the when-to-use framework recommend for work spanning multiple days?"
+    back: "Progress files (Lesson 7)."
+    tags: ["when-to-use", "progress-files"]
+    difficulty: "basic"

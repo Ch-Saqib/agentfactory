@@ -1,0 +1,129 @@
+deck:
+  id: "ch03-cowork-terminal-to-desktop"
+  title: "From Terminal to Desktop: The Cowork Story"
+  description: "Flashcards covering Claude Cowork as agentic AI for knowledge workers, its comparison with Claude Code, shared SDK foundation, and when to use each tool."
+  tags: [claude-cowork, claude-code, agentic-ai, knowledge-workers, desktop-agent]
+  version: 1
+
+cards:
+  # Recall cards (8)
+  - id: "ch03-cowork-terminal-to-desktop-001"
+    type: recall
+    front: "What is Claude Cowork?"
+    back: "Agentic AI in the Claude Desktop app."
+    tags: [claude-cowork, definition]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-002"
+    type: recall
+    front: "What underlying technology do both Claude Code and Claude Cowork share?"
+    back: "The Claude Agent SDK."
+    tags: [claude-agent-sdk, shared-foundation]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-003"
+    type: recall
+    front: "What is the key difference between Cowork and a web chatbot?"
+    back: "Cowork is an agent that acts, not a chatbot that only responds."
+    tags: [claude-cowork, agent-vs-chatbot]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-004"
+    type: recall
+    front: "How many steps does the traditional web chat workflow require versus Claude Cowork?"
+    back: "Web chat requires 8 steps; Cowork requires 4 steps."
+    tags: [workflow-comparison, efficiency]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-005"
+    type: recall
+    front: "Who are the primary users of Claude Code versus Claude Cowork?"
+    back: "Claude Code: developers\nClaude Cowork: knowledge workers"
+    tags: [target-users, code-vs-cowork]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-006"
+    type: recall
+    front: "What four native document formats can Cowork's built-in Skills handle?"
+    back: "docx (Word)\nxlsx (Excel)\npptx (PowerPoint)\npdf"
+    tags: [document-formats, cowork-skills]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-007"
+    type: recall
+    front: "What three capabilities define what makes Cowork different from basic desktop chat?"
+    back: "Persistent context\nDocument-aware Skills\nVisual feedback"
+    tags: [cowork-capabilities, differentiators]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-008"
+    type: recall
+    front: "Can a Skill created in Claude Code be used in Claude Cowork?"
+    back: "Skills transfer across both platforms in either direction."
+    tags: [skills-portability, cross-platform]
+    difficulty: "intermediate"
+
+  # Thinking cards (8)
+  - id: "ch03-cowork-terminal-to-desktop-009"
+    type: thinking
+    front: "Why does direct filesystem access matter more than copy-paste convenience?"
+    back: "BECAUSE when Claude sees your entire folder structure, it can make connections between documents you might miss, THEREFORE enabling cross-document insights impossible through pasting fragments."
+    why: "Distinguishes capability gain from mere time savings."
+    tags: [filesystem-access, capability-vs-convenience]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-010"
+    type: thinking
+    front: "How does Cowork fill the automation gap that office macros and no-code tools left?"
+    back: "BECAUSE macros require programming knowledge and no-code tools are limited to predefined workflows, Cowork fills the gap THEREFORE by accepting plain language instructions to perform flexible file operations without coding."
+    why: "Explores why existing tools failed knowledge workers."
+    tags: [automation-gap, knowledge-workers]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-011"
+    type: thinking
+    front: "If Code and Cowork share the same SDK, why offer two separate interfaces?"
+    back: "BECAUSE developers need terminal tools like git and testing while knowledge workers need visual document handling, THEREFORE the same agentic AI is optimized through different interfaces for different workflows."
+    why: "Tests understanding that interface design serves distinct user needs."
+    tags: [interface-design, user-optimization]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-012"
+    type: thinking
+    front: "How would choosing Cowork over Code change a spreadsheet analysis task?"
+    back: "BECAUSE Cowork has built-in xlsx Skills and preserves formulas while offering a visual interface, THEREFORE a non-developer can analyze spreadsheets directly without writing scripts or using the terminal."
+    why: "Applies tool selection to a concrete scenario."
+    tags: [tool-selection, scenario-analysis]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-013"
+    type: thinking
+    front: "Why does the convergence path between Code and Cowork matter for someone learning Skills today?"
+    back: "BECAUSE both platforms share the Claude Agent SDK, Skills built today transfer across interfaces, THEREFORE investing in agentic patterns now yields value regardless of which interface dominates later."
+    why: "Connects present learning investment to future platform evolution."
+    tags: [convergence-path, skills-investment]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-014"
+    type: thinking
+    front: "Why is Cowork described as an agent rather than a simplified version of Claude Code?"
+    back: "BECAUSE Cowork has its own document-specific capabilities and targets different workflows, it is a separate interface optimized for knowledge work, THEREFORE not a downgrade but a different optimization of the same AI."
+    why: "Addresses the common misconception of Cowork as 'Code lite.'"
+    tags: [agent-identity, misconception]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-015"
+    type: thinking
+    front: "Why would removing visual feedback from Cowork undermine user trust in file operations?"
+    back: "BECAUSE knowledge workers are not accustomed to invisible terminal actions, removing visual feedback would THEREFORE undermine trust and make users reluctant to grant filesystem access for batch operations."
+    why: "Explores trust as a design requirement for non-developer users."
+    tags: [visual-feedback, user-trust, counterfactual]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-016"
+    type: thinking
+    front: "Why does Cowork require you to approve folder access before working with files?"
+    back: "BECAUSE agentic AI can read and modify files directly, requiring explicit folder approval THEREFORE ensures the user controls which parts of their filesystem the agent can access, maintaining security boundaries."
+    why: "Connects filesystem permissions to security design."
+    tags: [folder-approval, security, permissions]
+    difficulty: "intermediate"

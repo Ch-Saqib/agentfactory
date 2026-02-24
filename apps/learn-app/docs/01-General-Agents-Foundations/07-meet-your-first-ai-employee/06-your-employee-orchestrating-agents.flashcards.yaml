@@ -1,0 +1,89 @@
+deck:
+  id: "ch07-06-delegation-claude-code"
+  title: "Your Employee Delegating to Claude Code"
+  description: "Two-tier delegation pattern where the human manages, the AI Employee coordinates, and Claude Code executes coding tasks in verifiable tmux sessions."
+  tags: ["delegation", "claude-code", "tmux", "verification"]
+  version: 1
+
+cards:
+  - id: "ch07-06-delegation-claude-code-001"
+    type: recall
+    front: "What three roles make up the two-tier delegation pattern?"
+    back: "You (manager), your AI Employee (coordinator), Claude Code (coder)"
+    tags: ["delegation"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-002"
+    type: thinking
+    front: "Why must delegation to Claude Code be set up with an explicit rule?"
+    back: "BECAUSE the employee will not discover Claude Code on its own and may claim delegation happened when it did not, THEREFORE an explicit rule is required so the employee knows which tool to use for coding tasks."
+    tags: ["delegation", "hallucination"]
+    difficulty: "intermediate"
+    why: "What happens if you ask for code without setting the delegation rule?"
+
+  - id: "ch07-06-delegation-claude-code-003"
+    type: recall
+    front: "What is the role of tmux in the delegation pattern?"
+    back: "Background terminal sessions where Claude Code runs, verifiable via tmux ls."
+    tags: ["tmux"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-004"
+    type: thinking
+    front: "Why is verification over trust essential when an employee claims it delegated work?"
+    back: "BECAUSE LLMs produce plausible but potentially false claims about actions, THEREFORE running tmux ls proves whether a session actually exists — distinguishing real delegation from hallucinated claims."
+    tags: ["verification"]
+    difficulty: "intermediate"
+    why: "What specific false claim might an employee make about delegation?"
+
+  - id: "ch07-06-delegation-claude-code-005"
+    type: recall
+    front: "What does rule-based delegation mean in the context of managing an AI Employee?"
+    back: "You set the delegation rule once and the employee handles the mechanics every time"
+    tags: ["delegation"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-006"
+    type: thinking
+    front: "How does the research-then-build pattern combine employee and Claude Code strengths?"
+    back: "BECAUSE the employee holds your context, memory, and web search for research, while Claude Code specializes in writing code, THEREFORE splitting research (employee) from implementation (Claude Code) uses each tool's strength."
+    tags: ["delegation", "research-build"]
+    difficulty: "intermediate"
+    why: "Why is the employee better suited for the research phase than Claude Code?"
+
+  - id: "ch07-06-delegation-claude-code-007"
+    type: recall
+    front: "What might an employee fabricate when claiming it delegated to Claude Code?"
+    back: "Fake session IDs, nonexistent working directories, and plausible but false status reports"
+    tags: ["hallucination"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-008"
+    type: thinking
+    front: "Why does adding the employee as a coordination layer add value over using Claude Code directly?"
+    back: "BECAUSE the employee holds your context from MEMORY.md, manages session logistics, and handles research, THEREFORE you give high-level intent instead of typing every instruction — the employee coordinates while Claude Code executes."
+    tags: ["delegation", "value"]
+    difficulty: "advanced"
+    why: "What did you have to do differently when using Claude Code directly in Chapter 3?"
+
+  - id: "ch07-06-delegation-claude-code-009"
+    type: recall
+    front: "Which two tmux commands verify that delegation actually occurred?"
+    back: "tmux ls (list sessions) and tmux attach -t session-name (watch live work)"
+    tags: ["tmux", "verification"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-010"
+    type: recall
+    front: "How should you respond when tmux ls shows no sessions after your employee claimed delegation?"
+    back: "Tell the employee it did not run Claude Code and instruct it to do so now."
+    tags: ["verification", "hallucination"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-011"
+    type: thinking
+    front: "Why does parallel delegation work by running separate tmux sessions?"
+    back: "BECAUSE each tmux session is independent, THEREFORE two Claude Code instances can work on different tasks simultaneously without interfering with each other."
+    tags: ["delegation", "tmux"]
+    difficulty: "advanced"
+    why: "What would happen if both tasks ran in the same session?"

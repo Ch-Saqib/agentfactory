@@ -1,0 +1,127 @@
+deck:
+  id: "ch03-connectors-mcp-everyone"
+  title: "Connectors: MCP for Everyone"
+  description: "Flashcards covering Connectors as pre-built MCP integrations for knowledge workers, including setup, permissions, combination power, and security considerations."
+  tags: ["connectors", "mcp", "cowork", "integration", "external-data"]
+  version: 1
+
+cards:
+  - id: "ch03-connectors-mcp-everyone-001"
+    type: recall
+    front: "What are Connectors in Claude Cowork?"
+    back: "Pre-packaged MCP servers maintained by Anthropic and partners for common services."
+    tags: ["connectors", "definition"]
+    difficulty: "basic"
+
+  - id: "ch03-connectors-mcp-everyone-002"
+    type: recall
+    front: "What is the relationship between Connectors and MCP?"
+    back: "Connectors are MCP servers that someone else built, packaged, and maintains."
+    tags: ["connectors", "mcp", "relationship"]
+    difficulty: "basic"
+
+  - id: "ch03-connectors-mcp-everyone-003"
+    type: recall
+    front: "Who is the target audience for MCP servers versus Connectors?"
+    back: "MCP servers target developers.\nConnectors target knowledge workers."
+    tags: ["connectors", "mcp", "audience"]
+    difficulty: "basic"
+
+  - id: "ch03-connectors-mcp-everyone-004"
+    type: recall
+    front: "What are the four steps when adding a Connector to Cowork?"
+    back: "Authentication\nPermission grant\nTool registration\nQuerying"
+    tags: ["connectors", "setup"]
+    difficulty: "basic"
+
+  - id: "ch03-connectors-mcp-everyone-005"
+    type: recall
+    front: "What are the three permission scopes available for Connectors?"
+    back: "Read-only\nRead-write\nSpecific resources"
+    tags: ["connectors", "permissions"]
+    difficulty: "basic"
+
+  - id: "ch03-connectors-mcp-everyone-006"
+    type: recall
+    front: "What are the four categories of available Connectors?"
+    back: "Document and Knowledge\nCommunication\nDevelopment\nBusiness Data"
+    tags: ["connectors", "categories"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-007"
+    type: recall
+    front: "What kind of data do Connectors provide — real-time streams or snapshots?"
+    back: "Current snapshots at query time, not live streams."
+    tags: ["connectors", "limitations"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-008"
+    type: recall
+    front: "Who builds and maintains Connector integrations?"
+    back: "Anthropic and its partners."
+    tags: ["connectors", "maintenance"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-009"
+    type: thinking
+    front: "Why should you start with read-only Connector permissions?"
+    back: "BECAUSE granting write access before understanding Claude's behavior risks unintended modifications, THEREFORE starting read-only lets you build trust incrementally."
+    why: "How does the Principle of Least Privilege apply to Connector setup?"
+    tags: ["connectors", "permissions", "security"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-010"
+    type: thinking
+    front: "Why do Connectors exist when MCP already works?"
+    back: "BECAUSE MCP requires programming and server maintenance, most knowledge workers lack those skills. THEREFORE Connectors package MCP as no-code integrations, democratizing access."
+    why: "What barrier does MCP impose that Connectors remove?"
+    tags: ["connectors", "mcp", "accessibility"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-011"
+    type: thinking
+    front: "Why is combining multiple Connectors more powerful than using one?"
+    back: "BECAUSE real tasks draw data from several platforms, combining Connectors lets Claude cross-reference and synthesize in a single request. THEREFORE the value exceeds what any single source provides."
+    why: "What limitation of single-source access does combination solve?"
+    tags: ["connectors", "combination-power"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-012"
+    type: thinking
+    front: "How does the Principle of Least Privilege protect you when using Connectors?"
+    back: "BECAUSE limiting access to only what is needed reduces the blast radius of mistakes. THEREFORE granting specific-resource read-only access prevents accidental data modification or exposure."
+    why: "What concrete harm could over-permissioning cause?"
+    tags: ["connectors", "security", "least-privilege"]
+    difficulty: "advanced"
+
+  - id: "ch03-connectors-mcp-everyone-013"
+    type: thinking
+    front: "Why are Connectors less ideal for massive data exports?"
+    back: "BECAUSE external APIs have rate limits that throttle large pulls, THEREFORE native export features handle bulk data more reliably than Connector queries."
+    why: "What technical constraint makes bulk pulling impractical?"
+    tags: ["connectors", "limitations", "rate-limits"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-014"
+    type: thinking
+    front: "Why might a Connector require periodic re-authentication?"
+    back: "BECAUSE external services expire OAuth tokens for security, THEREFORE users must re-authorize periodically to maintain the connection."
+    why: "What security mechanism causes token expiration?"
+    tags: ["connectors", "authentication"]
+    difficulty: "intermediate"
+
+  - id: "ch03-connectors-mcp-everyone-015"
+    type: thinking
+    front: "How does the quarterly report scenario illustrate Connector value?"
+    back: "BECAUSE the report needs data from Sheets, Notion, Slack, and local files, Connectors let Claude pull from all four in one request. THEREFORE manual export and copy-paste is eliminated."
+    why: "What manual steps does the multi-source workflow replace?"
+    tags: ["connectors", "combination-power", "workflow"]
+    difficulty: "advanced"
+
+  - id: "ch03-connectors-mcp-everyone-016"
+    type: thinking
+    front: "Why should you regularly audit active Connectors?"
+    back: "BECAUSE unused Connectors still grant Claude access to external accounts, THEREFORE revoking unneeded connections reduces your security surface area over time."
+    why: "What risk do forgotten active Connectors introduce?"
+    tags: ["connectors", "security", "audit"]
+    difficulty: "advanced"

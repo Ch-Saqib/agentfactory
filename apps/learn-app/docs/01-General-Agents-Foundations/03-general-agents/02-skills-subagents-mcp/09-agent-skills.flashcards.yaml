@@ -1,0 +1,112 @@
+deck:
+  id: "ch03-09-building-skills"
+  title: "Building Your Own Skills"
+  description: "Covers hands-on skill creation: SKILL.md anatomy, YAML frontmatter, description writing, the description formula, co-learning refinement, and skill-creator meta-skill."
+  tags: ["skills", "skill-creation", "yaml", "co-learning", "hands-on"]
+  version: 1
+
+cards:
+  - id: "ch03-09-building-skills-001"
+    type: recall
+    front: "What are the two parts of a SKILL.md file?"
+    back: "YAML frontmatter (the ID card) and markdown body (the instructions)."
+    tags: ["skill-anatomy"]
+    difficulty: "basic"
+
+  - id: "ch03-09-building-skills-002"
+    type: recall
+    front: "Where do all skills live in a Claude Code project?"
+    back: "In folders inside the .claude/skills/ directory."
+    tags: ["skill-structure"]
+    difficulty: "basic"
+
+  - id: "ch03-09-building-skills-003"
+    type: recall
+    front: "What is the only required file in a skill folder?"
+    back: "SKILL.md"
+    tags: ["skill-structure"]
+    difficulty: "basic"
+
+  - id: "ch03-09-building-skills-004"
+    type: thinking
+    front: "Why is the description field the most important line in a SKILL.md file?"
+    back: "Because Claude reads descriptions at startup to decide which skills apply to a request. A poor description means the skill never activates, therefore the entire skill becomes useless regardless of instruction quality."
+    tags: ["description-field"]
+    difficulty: "intermediate"
+    why: "Connects the three-level loading architecture to practical skill activation"
+
+  - id: "ch03-09-building-skills-005"
+    type: recall
+    front: "What is the description formula for writing skill activation triggers?"
+    back: "[Action verb] + [input] + [output] + [key features]. Use when [trigger]."
+    tags: ["description-formula"]
+    difficulty: "intermediate"
+
+  - id: "ch03-09-building-skills-006"
+    type: thinking
+    front: "How does a too-vague skill description like 'Helps with notes' cause problems?"
+    back: "Because 'notes' could mean anything, so Claude cannot determine when to activate the skill. The description lacks specificity about inputs, outputs, and trigger conditions."
+    tags: ["description-field"]
+    difficulty: "intermediate"
+    why: "Demonstrates the practical consequence of missing the description formula components"
+
+  - id: "ch03-09-building-skills-007"
+    type: thinking
+    front: "How does a too-narrow description like 'Summarizes Zoom marketing meeting transcripts' cause problems?"
+    back: "Because it excludes valid use cases like Teams calls, non-marketing meetings, or live notes. The skill fails to activate for most situations where it would be useful."
+    tags: ["description-field"]
+    difficulty: "intermediate"
+    why: "Shows the opposite failure mode from vague descriptions — over-specificity"
+
+  - id: "ch03-09-building-skills-008"
+    type: recall
+    front: "What is a skill-creator?"
+    back: "A meta-skill that creates other skills by guiding users through the skill-building process."
+    tags: ["skill-creator"]
+    difficulty: "basic"
+
+  - id: "ch03-09-building-skills-009"
+    type: thinking
+    front: "Why is skill-creator called a meta-skill?"
+    back: "Because it is a skill whose purpose is to create other skills — it operates on the skill-creation process itself rather than performing domain work directly."
+    tags: ["skill-creator"]
+    difficulty: "intermediate"
+    why: "Illustrates the recursive power of the skills architecture"
+
+  - id: "ch03-09-building-skills-010"
+    type: recall
+    front: "What are the three roles in the co-learning skill refinement cycle?"
+    back: "AI as Teacher (suggests improvements), Student as Teacher (specifies constraints), and Convergence (iterate together)."
+    tags: ["co-learning"]
+    difficulty: "intermediate"
+
+  - id: "ch03-09-building-skills-011"
+    type: thinking
+    front: "Why does the co-learning cycle produce better skills than writing alone?"
+    back: "Because the AI suggests improvements the creator didn't consider, while the creator adds domain constraints the AI doesn't know. Together they converge on a skill that combines both perspectives."
+    tags: ["co-learning"]
+    difficulty: "advanced"
+    why: "Each party contributes knowledge the other lacks, making the result stronger than either alone"
+
+  - id: "ch03-09-building-skills-012"
+    type: thinking
+    front: "Why does skipping YAML frontmatter and writing only the markdown body break skill discovery?"
+    back: "Claude cannot discover or auto-activate the skill, because the description field in frontmatter is what Claude scans at startup to identify available skills."
+    tags: ["yaml-frontmatter"]
+    difficulty: "intermediate"
+    why: "Links the technical requirement to the three-level loading architecture"
+
+  - id: "ch03-09-building-skills-013"
+    type: recall
+    front: "What are the four steps to create and test a skill?"
+    back: "Create folder, create SKILL.md, test by prompting, verify activation."
+    tags: ["skill-creation"]
+    difficulty: "basic"
+
+  - id: "ch03-09-building-skills-014"
+    type: thinking
+    front: "Why are skills described as reusable intellectual property?"
+    back: "Because skills created now integrate directly into custom agents built later, can be shared across teams, versioned in Git, and their value compounds as they improve through iteration."
+    tags: ["strategic-value"]
+    difficulty: "advanced"
+    why: "Transforms one-time effort into persistent, growing organizational assets"

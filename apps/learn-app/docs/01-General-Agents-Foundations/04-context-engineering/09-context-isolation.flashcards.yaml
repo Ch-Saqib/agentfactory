@@ -1,0 +1,231 @@
+deck:
+  id: "ch04-09-context-isolation"
+  title: "Context Isolation: Why Clean Slates Beat Dirty States"
+  description: "How to coordinate multiple agents without conflicts using context isolation, the orchestrator pattern, subagent design patterns, agent teams, and context amnesia workarounds."
+  tags: ["context-isolation", "multi-agent", "orchestrator-pattern", "subagent-patterns", "agent-teams"]
+  version: 1
+
+cards:
+  - id: "ch04-09-context-isolation-001"
+    type: recall
+    front: "What is the dirty slate problem in multi-agent pipelines?"
+    back: "Accumulated process artifacts from earlier agents pollute later agents' context."
+    tags: ["dirty-slate", "context-pollution"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-002"
+    type: recall
+    front: "In a linear pipeline where Agent A uses 30% of context, what utilization does Agent C inherit before starting?"
+    back: "55% (30% from A plus 25% from B)."
+    tags: ["dirty-slate", "attention-budget"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-003"
+    type: thinking
+    front: "Why do multi-agent systems paradoxically fail from missing context while drowning in irrelevant context?"
+    back: "Exploratory work and process artifacts consume attention budget, because signal gets buried in noise. The useful context therefore receives proportionally less attention, making it effectively missing even though the window is full."
+    tags: ["dirty-slate", "signal-vs-noise"]
+    difficulty: "intermediate"
+    why: "What metric from earlier lessons predicts when this paradox will cause failures?"
+
+  - id: "ch04-09-context-isolation-004"
+    type: thinking
+    front: "How does the orchestrator coordinate subagents in the Clean Context Pattern?"
+    back: "It delegates with fresh context, receives only summaries back, because each subagent works in isolation. The orchestrator therefore synthesizes summaries into the final output without inheriting process artifacts."
+    tags: ["clean-context-pattern", "orchestrator"]
+    difficulty: "intermediate"
+    why: "What would happen if the orchestrator passed full subagent outputs instead of summaries?"
+
+  - id: "ch04-09-context-isolation-005"
+    type: thinking
+    front: "Why does the clean context pattern enable parallel execution while the dirty slate pattern cannot?"
+    back: "Each subagent operates independently with fresh context, because there is no sequential dependency on accumulated state. Agents therefore do not need to wait for predecessors to finish before starting their own work."
+    tags: ["clean-context-pattern", "parallel-execution"]
+    difficulty: "intermediate"
+    why: "Under what condition would clean context subagents still need to run sequentially?"
+
+  - id: "ch04-09-context-isolation-006"
+    type: recall
+    front: "What does each subagent return to the orchestrator in the Clean Context Pattern?"
+    back: "Only a summary, not its full process."
+    tags: ["clean-context-pattern", "summary-return"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-007"
+    type: thinking
+    front: "How does context isolation improve debugging compared to dirty slate pipelines?"
+    back: "Each agent can be evaluated independently by checking its summary, because inputs and outputs have clear boundaries. You can therefore rerun a single agent without rerunning the entire pipeline."
+    tags: ["clean-context-pattern", "debugging"]
+    difficulty: "intermediate"
+    why: "What makes debugging a dirty slate pipeline feel like archaeology?"
+
+  - id: "ch04-09-context-isolation-008"
+    type: recall
+    front: "What are the three subagent design patterns for multi-agent work?"
+    back: "Stateless (Subagent)\nStateful (Handoff)\nShared (Network)"
+    tags: ["subagent-patterns"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-009"
+    type: recall
+    front: "What context handling does the Stateless subagent pattern use?"
+    back: "Fresh context each call with strong isolation."
+    tags: ["subagent-patterns", "stateless"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-010"
+    type: recall
+    front: "What fundamental constraint applies to subagents in the Stateless pattern?"
+    back: "Only the orchestrator can delegate; subagents cannot spawn subagents."
+    tags: ["subagent-patterns", "stateless"]
+    difficulty: "intermediate"
+
+  - id: "ch04-09-context-isolation-011"
+    type: thinking
+    front: "Why is the Stateful handoff pattern essentially the dirty slate pattern?"
+    back: "Context transfers between agents in sequence, because each agent inherits the full context of its predecessor. This therefore accumulates process artifacts exactly like a linear pipeline."
+    tags: ["subagent-patterns", "stateful"]
+    difficulty: "intermediate"
+    why: "When is accepting the dirty slate tradeoff of stateful handoff genuinely worth it?"
+
+  - id: "ch04-09-context-isolation-012"
+    type: recall
+    front: "What is the Shared (Network) pattern best suited for?"
+    back: "Long-running projects with persistent state spanning multiple sessions."
+    tags: ["subagent-patterns", "shared-network"]
+    difficulty: "intermediate"
+
+  - id: "ch04-09-context-isolation-013"
+    type: thinking
+    front: "How do agents maintain clean context in the Shared pattern despite accessing common memory?"
+    back: "Each agent reads shared state at start, works in fresh context, then writes updates back, because the memory layer is external. The agent's own context window therefore stays clean while still accessing persistent project knowledge."
+    tags: ["subagent-patterns", "shared-network"]
+    difficulty: "intermediate"
+    why: "What failure mode occurs when the shared state file itself becomes too large?"
+
+  - id: "ch04-09-context-isolation-014"
+    type: recall
+    front: "If tasks must operate without influencing each other, which subagent pattern should you select?"
+    back: "Stateless (Subagent)."
+    tags: ["subagent-patterns", "pattern-selection"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-015"
+    type: recall
+    front: "How do agent teams differ from subagents in their communication model?"
+    back: "Teammates message each other directly; subagents only report to their caller."
+    tags: ["agent-teams", "communication"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-016"
+    type: thinking
+    front: "Why do agent teams use significantly more tokens than subagents?"
+    back: "Each teammate is a separate Claude instance with its own full context window, because the team model requires independent processing. Token cost therefore scales linearly with the number of teammates rather than being centralized in one orchestrator."
+    tags: ["agent-teams", "token-cost"]
+    difficulty: "intermediate"
+    why: "What determines whether the extra token cost of agent teams produces enough value to justify it?"
+
+  - id: "ch04-09-context-isolation-017"
+    type: recall
+    front: "What single question determines whether to use agent teams or subagents?"
+    back: "Do the workers need to talk to each other?"
+    tags: ["agent-teams", "decision-rule"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-018"
+    type: recall
+    front: "How does delegate mode change the lead agent's behavior in agent teams?"
+    back: "It restricts the lead to coordination-only tools, preventing implementation."
+    tags: ["agent-teams", "delegate-mode"]
+    difficulty: "intermediate"
+
+  - id: "ch04-09-context-isolation-019"
+    type: thinking
+    front: "Why must task-specific details go in the spawn prompt when creating agent teammates?"
+    back: "Teammates load CLAUDE.md automatically but do not inherit the lead's conversation history, because each teammate starts with a fresh context window. Critical task details therefore must be explicitly included in the spawn prompt."
+    tags: ["agent-teams", "context-amnesia"]
+    difficulty: "advanced"
+    why: "How does this relate to Strategy 3 from the context amnesia workarounds?"
+
+  - id: "ch04-09-context-isolation-020"
+    type: recall
+    front: "How many parallel Claude instances did the C compiler case study use?"
+    back: "16 parallel instances."
+    tags: ["case-study", "compiler"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-021"
+    type: thinking
+    front: "How did the 16-agent compiler project use documentation to solve context amnesia at scale?"
+    back: "Agents maintained extensively updated READMEs and progress files, because each new agent session started fresh. These documents therefore served as the master-clone strategy, orienting new agents without human intervention."
+    tags: ["case-study", "master-clone"]
+    difficulty: "advanced"
+    why: "What would happen if those documentation files became stale or contradictory?"
+
+  - id: "ch04-09-context-isolation-022"
+    type: recall
+    front: "What is context amnesia in multi-agent systems?"
+    back: "Subagents start fresh and lack project-specific knowledge."
+    tags: ["context-amnesia"]
+    difficulty: "basic"
+
+  - id: "ch04-09-context-isolation-023"
+    type: thinking
+    front: "How does the Skills preloading strategy address context amnesia differently from the master-clone approach?"
+    back: "Skills encode stable domain conventions loaded automatically, because they persist across projects. Master-clone loads a full project brief at task start, therefore consuming more token budget but providing project-specific rather than domain-general knowledge."
+    tags: ["context-amnesia", "skills-preloading"]
+    difficulty: "advanced"
+    why: "What type of knowledge is better suited to Skills versus master-clone?"
+
+  - id: "ch04-09-context-isolation-024"
+    type: recall
+    front: "What does Strategy 3 for context amnesia require the orchestrator to do?"
+    back: "Extract and include only critical context in each delegation prompt."
+    tags: ["context-amnesia", "delegation-prompt"]
+    difficulty: "intermediate"
+
+  - id: "ch04-09-context-isolation-025"
+    type: thinking
+    front: "Why should the master-clone project brief stay under 60 lines?"
+    back: "Longer briefs consume too much of the subagent's token budget, because the brief competes with the actual task for attention. Keeping it concise therefore preserves the attention budget for productive work."
+    tags: ["context-amnesia", "master-clone"]
+    difficulty: "advanced"
+    why: "How would you decide which content to cut from a 120-line project brief?"
+
+  - id: "ch04-09-context-isolation-026"
+    type: thinking
+    front: "Why does the lesson restrict read-only reviewers to Read, Grep, and Glob tools?"
+    back: "Restricting tools prevents reviewers from accidentally modifying files, because tool access is another form of isolation. Capability isolation therefore complements context isolation by limiting both what agents know and what they can do."
+    tags: ["tool-access-control"]
+    difficulty: "intermediate"
+    why: "What risk remains even with tool restrictions if the reviewer's summary is wrong?"
+
+  - id: "ch04-09-context-isolation-027"
+    type: thinking
+    front: "Why should parallel subagents receive shared constraints before delegation rather than making independent decisions?"
+    back: "Without shared constraints, parallel subagents make incompatible assumptions, because each operates in isolation. Pre-delegating key decisions therefore prevents contradictory outputs that fail to synthesize."
+    tags: ["failure-modes", "parallel-execution"]
+    difficulty: "advanced"
+    why: "What type of constraint is most critical to share versus letting subagents decide independently?"
+
+  - id: "ch04-09-context-isolation-028"
+    type: recall
+    front: "What is the recommended fix when an orchestrator becomes a bottleneck?"
+    back: "Increase task granularity into larger, meaningful work units."
+    tags: ["failure-modes", "orchestrator"]
+    difficulty: "intermediate"
+
+  - id: "ch04-09-context-isolation-029"
+    type: thinking
+    front: "How does the lesson recommend combining all three subagent patterns in a real workflow?"
+    back: "Use Stateless subagents for parallel research, collect summaries into a Shared progress file, then apply Stateful handoff for sequential refinement, because different phases have different isolation needs. This hybrid therefore matches each pattern to the coordination requirement of its phase."
+    tags: ["subagent-patterns", "hybrid"]
+    difficulty: "advanced"
+    why: "What signals tell you when to transition from one pattern to the next?"
+
+  - id: "ch04-09-context-isolation-030"
+    type: recall
+    front: "What are the three states of tasks in an agent team's shared task list?"
+    back: "Pending, in progress, and completed."
+    tags: ["agent-teams", "task-list"]
+    difficulty: "basic"

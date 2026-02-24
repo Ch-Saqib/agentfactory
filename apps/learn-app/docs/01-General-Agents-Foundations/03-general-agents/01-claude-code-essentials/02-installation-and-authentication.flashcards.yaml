@@ -1,0 +1,82 @@
+deck:
+  id: "ch03-02-installation-auth"
+  title: "Installing and Authenticating Claude Code"
+  description: "Key concepts from Claude Code installation methods, authentication paths, security practices, and system diagnostics."
+  tags: ["installation", "authentication", "security", "claude-code"]
+  version: 1
+
+cards:
+  - id: "ch03-02-installation-auth-001"
+    type: recall
+    front: "What is the recommended Claude Code installation method for macOS and Linux?"
+    back: "Native install via curl/bash script."
+    tags: ["installation", "recommended"]
+    difficulty: "basic"
+
+  - id: "ch03-02-installation-auth-002"
+    type: recall
+    front: "What is the current status of npm-based Claude Code installation?"
+    back: "Deprecated — use the native installation method when possible."
+    tags: ["installation", "npm", "deprecated"]
+    difficulty: "basic"
+
+  - id: "ch03-02-installation-auth-003"
+    type: recall
+    front: "What are the three Claude Code authentication paths?"
+    back: "1. Claude App (subscription)\n2. Console API (pay-per-use)\n3. Enterprise (Bedrock/Vertex/Foundry)"
+    tags: ["authentication", "setup"]
+    difficulty: "basic"
+
+  - id: "ch03-02-installation-auth-004"
+    type: thinking
+    front: "Why does `claude doctor` check four different areas instead of just verifying installation?"
+    back: "BECAUSE Claude Code depends on installation integrity, valid authentication, system compatibility, and network connectivity, THEREFORE a failure in any single area blocks operation — checking all four pinpoints the actual problem."
+    tags: ["diagnostics", "troubleshooting"]
+    difficulty: "intermediate"
+    why: "Multi-area diagnostics prevent wasted time debugging the wrong layer."
+
+  - id: "ch03-02-installation-auth-005"
+    type: thinking
+    front: "Why should you start Claude Code sessions in project directories rather than system directories?"
+    back: "BECAUSE Claude Code can read and write files wherever you run it, THEREFORE starting in system directories risks unintended modifications to critical files — project directories scope access to safe working files."
+    tags: ["security", "best-practices"]
+    difficulty: "intermediate"
+    why: "What could happen if Claude Code proposed a file change in a system directory and you approved it without reviewing?"
+
+  - id: "ch03-02-installation-auth-006"
+    type: thinking
+    front: "Why does choosing between Claude.ai subscription and Console API affect more than just access?"
+    back: "BECAUSE subscription gives fixed monthly cost while Console API is pay-per-token, THEREFORE the choice shapes your cost management strategy and usage patterns for all future work."
+    tags: ["authentication", "cost-management"]
+    difficulty: "intermediate"
+    why: "Which billing model better suits exploratory learning versus production deployment?"
+
+  - id: "ch03-02-installation-auth-007"
+    type: recall
+    front: "Claude.ai subscription billing: fixed monthly cost. Console API billing model?"
+    back: "Pay-per-use based on token consumption."
+    tags: ["authentication", "billing"]
+    difficulty: "basic"
+
+  - id: "ch03-02-installation-auth-008"
+    type: thinking
+    front: "Why is WSL recommended over Git Bash for Windows Claude Code users?"
+    back: "BECAUSE Claude Code requires a bash-compatible shell with full Linux tooling, THEREFORE WSL provides best compatibility as a complete Linux environment, while Git Bash works but offers limited capabilities."
+    tags: ["windows", "wsl", "installation"]
+    difficulty: "intermediate"
+    why: "What limitations might you encounter using Git Bash instead of WSL for agentic AI workflows?"
+
+  - id: "ch03-02-installation-auth-009"
+    type: recall
+    front: "What shell requirement must Windows users satisfy before Claude Code can run?"
+    back: "A bash-compatible shell — either WSL or Git for Windows."
+    tags: ["windows", "requirements"]
+    difficulty: "intermediate"
+
+  - id: "ch03-02-installation-auth-010"
+    type: thinking
+    front: "A developer installs Claude Code via npm. Why might this cause problems in the future?"
+    back: "BECAUSE npm installation is deprecated and future updates may drop npm support entirely, THEREFORE the developer risks losing access to new features — native installers receive priority updates and require no Node.js dependency."
+    tags: ["installation", "npm", "maintenance"]
+    difficulty: "advanced"
+    why: "How does depending on a deprecated installation method affect your ability to stay current with new features?"

@@ -1,0 +1,112 @@
+deck:
+  id: "ch03-12-mcp-integration"
+  title: "MCP Integration"
+  description: "Model Context Protocol for safe external access: installation, Playwright and Context7 servers, Tool Search optimization, Three Pillars architecture, and security boundaries."
+  tags: ["chapter-3", "mcp", "external-access", "claude-code"]
+  version: 1
+
+cards:
+  - id: "ch03-12-mcp-integration-001"
+    type: recall
+    front: "What does MCP stand for in Claude Code?"
+    back: "Model Context Protocol."
+    tags: ["mcp", "definition"]
+    difficulty: "basic"
+
+  - id: "ch03-12-mcp-integration-002"
+    type: recall
+    front: "What is the command syntax to install an MCP server in Claude Code?"
+    back: "claude mcp add --transport stdio <name> <command>"
+    tags: ["mcp", "installation"]
+    difficulty: "basic"
+
+  - id: "ch03-12-mcp-integration-003"
+    type: recall
+    front: "What are the two beginner-friendly MCP servers taught in this lesson?"
+    back: "Playwright (web browsing) and Context7 (up-to-date documentation)."
+    tags: ["mcp", "servers"]
+    difficulty: "basic"
+
+  - id: "ch03-12-mcp-integration-004"
+    type: recall
+    front: "What command lists all MCP servers currently installed in Claude Code?"
+    back: "claude mcp list"
+    tags: ["mcp", "commands"]
+    difficulty: "basic"
+
+  - id: "ch03-12-mcp-integration-005"
+    type: thinking
+    front: "Why are Skills called 'Expertise Packs' and MCP called 'Data Pipes' in the Skills + MCP framework?"
+    back: "BECAUSE Skills encode how-to procedures (domain knowledge), while MCP provides where-to-get access (external information), THEREFORE they serve complementary roles — expertise without data is blind, data without expertise is directionless."
+    tags: ["mcp", "skills", "architecture"]
+    difficulty: "intermediate"
+    why: "The naming reveals each component's unique contribution to autonomous workflows."
+
+  - id: "ch03-12-mcp-integration-006"
+    type: recall
+    front: "What are the Three Pillars of AI-Native Development?"
+    back: "CLAUDE.md (project context), Skills (procedures), and MCP (external access)."
+    tags: ["mcp", "three-pillars"]
+    difficulty: "intermediate"
+
+  - id: "ch03-12-mcp-integration-007"
+    type: recall
+    front: "What threshold activates MCP Tool Search by default?"
+    back: "When tool definitions exceed 10% of context window."
+    tags: ["mcp", "tool-search"]
+    difficulty: "intermediate"
+
+  - id: "ch03-12-mcp-integration-008"
+    type: recall
+    front: "What approximate token overhead does Playwright MCP add?"
+    back: "Approximately 5,000 to 8,000 tokens of tool definitions."
+    tags: ["mcp", "overhead"]
+    difficulty: "intermediate"
+
+  - id: "ch03-12-mcp-integration-009"
+    type: thinking
+    front: "Why does Claude Code need MCP when it already has access to local files?"
+    back: "Because local files only contain what is on your computer. MCP provides safe, standardized access to external systems like websites, databases, and APIs that hold information Claude cannot otherwise reach."
+    tags: ["mcp", "purpose"]
+    difficulty: "basic"
+    why: "What limitation of local-only access does MCP solve?"
+
+  - id: "ch03-12-mcp-integration-010"
+    type: thinking
+    front: "How does MCP Tool Search reduce context overhead automatically?"
+    back: "Instead of loading all tool definitions upfront, it defers loading until tools are actually needed. Because only used tools get loaded on-demand, this achieves approximately 85% reduction in MCP overhead."
+    tags: ["mcp", "tool-search"]
+    difficulty: "intermediate"
+    why: "What is the difference between eager and lazy tool loading?"
+
+  - id: "ch03-12-mcp-integration-011"
+    type: thinking
+    front: "Why are untrusted MCP servers a security risk?"
+    back: "Because MCP servers can access the internet, APIs, and external systems on your behalf. Therefore a malicious server could expose your system, read your files, or access your tokens without your knowledge."
+    tags: ["mcp", "security"]
+    difficulty: "intermediate"
+    why: "What capabilities make MCP servers potentially dangerous?"
+
+  - id: "ch03-12-mcp-integration-012"
+    type: thinking
+    front: "Why are skills and MCP complementary rather than alternatives?"
+    back: "Because skills encode domain procedures (how to do something) while MCP provides data access (where to get information). A skill without MCP lacks live data; MCP without skills lacks structured expertise. Together they enable autonomous workflows."
+    tags: ["mcp", "skills", "architecture"]
+    difficulty: "advanced"
+    why: "What is missing when you have only one without the other?"
+
+  - id: "ch03-12-mcp-integration-013"
+    type: thinking
+    front: "How do the Three Pillars combine to create a Digital FTE?"
+    back: "CLAUDE.md gives project-specific context so Claude is not generic. Skills give repeatable procedures so Claude is not forgetful. MCP gives external access so Claude is not blind. Therefore Context + Procedures + Access produces an autonomous digital employee."
+    tags: ["mcp", "three-pillars", "digital-fte"]
+    difficulty: "advanced"
+    why: "What happens when any single pillar is missing?"
+
+  - id: "ch03-12-mcp-integration-014"
+    type: thinking
+    front: "Why should you avoid MCP for private data and untrusted servers?"
+    back: "BECAUSE MCP servers access external systems on your behalf with broad permissions, THEREFORE private data risks exposure through third-party servers, and untrusted servers could read files or tokens without your knowledge."
+    tags: ["mcp", "security", "boundaries"]
+    difficulty: "intermediate"
+    why: "MCP's power comes from broad access, which is also its security risk."

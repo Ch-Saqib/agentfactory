@@ -1,0 +1,97 @@
+deck:
+  id: "ch05-02-three-levels-of-sdd"
+  title: "The Three Levels of SDD"
+  description: "Spec-First, Spec-Anchored, and Spec-as-Source — when to use each level, the determinism problem, the MDD parallel, and how to choose the right level."
+  tags: ["sdd", "spec-driven-development", "specification-levels", "chapter-5"]
+  version: 1
+
+cards:
+  - id: "ch05-02-three-levels-of-sdd-001"
+    type: recall
+    front: "What are the three levels of SDD in order of increasing maturity?"
+    back: "Spec-First, Spec-Anchored, and Spec-as-Source."
+    tags: ["recall", "sdd-levels"]
+    difficulty: "basic"
+
+  - id: "ch05-02-three-levels-of-sdd-002"
+    type: recall
+    front: "What is Spec-First SDD?"
+    back: "A spec guides implementation then is discarded."
+    tags: ["recall", "spec-first"]
+    difficulty: "basic"
+
+  - id: "ch05-02-three-levels-of-sdd-003"
+    type: recall
+    front: "What defines Spec-Anchored SDD?"
+    back: "Both spec and code are maintained as living artifacts, requiring ongoing synchronization discipline."
+    tags: ["recall", "spec-anchored"]
+    difficulty: "basic"
+
+  - id: "ch05-02-three-levels-of-sdd-004"
+    type: recall
+    front: "What is Spec-as-Source SDD?"
+    back: "The spec is the primary artifact and code is regenerated on demand. Explored by Tessl."
+    tags: ["recall", "spec-as-source"]
+    difficulty: "intermediate"
+
+  - id: "ch05-02-three-levels-of-sdd-005"
+    type: recall
+    front: "What three discipline rules does Spec-Anchored SDD require?"
+    back: "Spec changes before code changes, code reviews check spec alignment, and specs live near code."
+    tags: ["recall", "spec-anchored", "discipline"]
+    difficulty: "intermediate"
+
+  - id: "ch05-02-three-levels-of-sdd-006"
+    type: recall
+    front: "What is the determinism problem in Spec-as-Source?"
+    back: "Identical specs produce syntactically different code each time, preventing reliable regeneration."
+    tags: ["recall", "spec-as-source", "determinism"]
+    difficulty: "intermediate"
+
+  - id: "ch05-02-three-levels-of-sdd-007"
+    type: thinking
+    front: "Why is Spec-First appropriate for roughly 80% of tasks?"
+    back: "BECAUSE most tasks are single-session and short-lived, THEREFORE maintaining the spec after code works adds cost without benefit — the spec's value was structuring thinking upfront, not long-term documentation."
+    tags: ["thinking", "spec-first"]
+    difficulty: "intermediate"
+    why: "Connects zero-maintenance overhead to the reality that most development work is short-lived and doesn't benefit from spec upkeep."
+
+  - id: "ch05-02-three-levels-of-sdd-008"
+    type: thinking
+    front: "Why can outdated specs be worse than having no specs at all?"
+    back: "BECAUSE a stale spec gives false confidence, THEREFORE developers make wrong assumptions without checking actual code — whereas having no spec forces them to read the implementation directly."
+    tags: ["thinking", "spec-anchored", "discipline"]
+    difficulty: "intermediate"
+    why: "Reveals that partial Spec-Anchored commitment produces negative value, not just zero value."
+
+  - id: "ch05-02-three-levels-of-sdd-009"
+    type: thinking
+    front: "Why does Spec-as-Source face the same challenges as MDD from the 2000s?"
+    back: "BECAUSE generated output needs manual patches and abstractions leak, THEREFORE maintaining the source artifact becomes as complex as maintaining code itself — the same failure pattern that killed MDD in the 2000s."
+    tags: ["thinking", "spec-as-source", "mdd"]
+    difficulty: "advanced"
+    why: "Links Spec-as-Source to MDD's historical failure, showing this is a recurring industry pattern rather than a novel problem."
+
+  - id: "ch05-02-three-levels-of-sdd-010"
+    type: thinking
+    front: "Why do repetitive, disposable, and strongly-tested codebases suit Spec-as-Source?"
+    back: "BECAUSE repetitive code tolerates syntactic variation and disposable code needs no long-term maintenance, THEREFORE the determinism problem is neutralized — strong tests catch any regeneration errors immediately."
+    tags: ["thinking", "spec-as-source", "use-cases"]
+    difficulty: "intermediate"
+    why: "What makes the determinism problem less damaging when code is short-lived?"
+
+  - id: "ch05-02-three-levels-of-sdd-011"
+    type: thinking
+    front: "How should you choose between SDD levels based on project characteristics?"
+    back: "BECAUSE team size, maintenance horizon, and compliance needs vary per project, THEREFORE solo short-lived work fits Spec-First, team projects with long horizons fit Spec-Anchored, and repetitive disposable code can experiment with Spec-as-Source."
+    tags: ["thinking", "sdd-levels", "decision-framework"]
+    difficulty: "advanced"
+    why: "Forces application of the maturity spectrum to concrete project variables rather than treating levels as abstract categories."
+
+  - id: "ch05-02-three-levels-of-sdd-012"
+    type: thinking
+    front: "Why does Spec-Anchored without discipline produce the worst possible outcome?"
+    back: "BECAUSE teams pay full maintenance cost yet stale specs actively mislead, THEREFORE they get negative value — worse than Spec-First at zero cost or disciplined Spec-Anchored with accurate documentation."
+    tags: ["thinking", "spec-anchored", "discipline"]
+    difficulty: "advanced"
+    why: "Shows that Spec-Anchored occupies a dangerous middle ground where partial commitment yields worse results than either simpler alternative."

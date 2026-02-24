@@ -1,0 +1,112 @@
+deck:
+  id: ch03-18-creator-workflow
+  title: 'The Creator''s Workflow: Claude Code Best Practices'
+  description: Flashcards covering Boris Cherny's Claude Code best practices — context management, parallel sessions, self-evolving documentation, and verification.
+  tags:
+  - best-practices
+  - workflow
+  - boris-cherny
+  - claude-code
+  version: 1
+cards:
+- id: ch03-18-creator-workflow-001
+  difficulty: basic
+  front: According to Boris Cherny, what is THE fundamental constraint that every Claude Code practice manages?
+  back: The context window filling up and degrading performance.
+  tags: &id001
+  - best-practices
+  - context-management
+- id: ch03-18-creator-workflow-002
+  difficulty: intermediate
+  front: Why are parallel sessions the single biggest productivity unlock?
+  back: BECAUSE each session has a finite context window, THEREFORE running multiple sessions lets you pursue several tasks simultaneously without any single context becoming overloaded.
+  why: Connects the context constraint to the parallelization strategy.
+  tags: *id001
+- id: ch03-18-creator-workflow-003
+  difficulty: basic
+  front: How many concurrent Claude Code sessions does Boris Cherny typically run?
+  back: 15 to 20 concurrent sessions.
+  tags: &id002
+  - best-practices
+  - boris-cherny
+- id: ch03-18-creator-workflow-004
+  difficulty: advanced
+  front: Why does Session B catch blind spots that Session A missed in the Claude-reviews-Claude pattern?
+  back: BECAUSE Session B starts with fresh context and no accumulated assumptions, THEREFORE it evaluates the plan objectively like a staff engineer reviewing someone else's work.
+  why: Fresh context eliminates the confirmation bias of the authoring session.
+  tags: *id001
+- id: ch03-18-creator-workflow-005
+  difficulty: intermediate
+  front: What is the magic phrase that makes CLAUDE.md self-writing?
+  back: '"Update your CLAUDE.md so you don''t make that mistake again."'
+  tags: &id003
+  - best-practices
+  - self-evolving-docs
+- id: ch03-18-creator-workflow-006
+  difficulty: intermediate
+  front: Why does Claude write better CLAUDE.md rules for itself than humans do?
+  back: BECAUSE Claude has exact context of what went wrong and how its reasoning failed, THEREFORE it can write precise prevention rules targeting the specific failure mode.
+  why: Self-knowledge of the failure mechanism produces more targeted rules.
+  tags: *id001
+- id: ch03-18-creator-workflow-007
+  difficulty: basic
+  front: What is Boris Cherny's heuristic for when to turn a task into a skill?
+  back: If you do something more than once a day.
+  tags: *id002
+- id: ch03-18-creator-workflow-008
+  difficulty: intermediate
+  front: Why should you always use Plan Mode before switching to auto-accept for non-trivial tasks?
+  back: BECAUSE iterating on a plan in Plan Mode is cheap and fast, THEREFORE catching design mistakes before execution avoids expensive rework and wasted context.
+  why: Front-loading thinking preserves context for execution.
+  tags: *id001
+- id: ch03-18-creator-workflow-009
+  difficulty: intermediate
+  front: What keyboard shortcut activates Plan Mode in Claude Code?
+  back: Shift+Tab twice.
+  tags:
+  - best-practices
+  - plan-mode
+- id: ch03-18-creator-workflow-010
+  difficulty: advanced
+  front: How does giving Claude a way to verify its work improve output quality?
+  back: BECAUSE verification creates a feedback loop where Claude checks its own results against concrete criteria, THEREFORE errors are caught and corrected within the same session, yielding 2-3x quality
+    improvement.
+  why: Self-correction within a session prevents error accumulation.
+  tags:
+  - best-practices
+  - verification
+- id: ch03-18-creator-workflow-011
+  difficulty: basic
+  front: What does a PostToolUse hook for formatting do in Claude Code?
+  back: Runs a formatter automatically after every Write or Edit operation.
+  tags:
+  - best-practices
+  - hooks
+- id: ch03-18-creator-workflow-012
+  difficulty: intermediate
+  front: Why is a 10-20% session abandonment rate healthy rather than wasteful?
+  back: BECAUSE exploration sometimes reveals a path is unproductive, THEREFORE abandoning early preserves time and context for better approaches instead of forcing completion on a bad trajectory.
+  why: Sunk cost avoidance is a feature of good session management.
+  tags: *id001
+- id: ch03-18-creator-workflow-013
+  difficulty: intermediate
+  front: What are the five operational takeaways from Boris Cherny's Claude Code workflow?
+  back: Context is Constraint, Parallelization Over Optimization, Plan Mode Discipline, Self-Evolving Docs, Verification Infrastructure.
+  tags: *id001
+- id: ch03-18-creator-workflow-014
+  difficulty: advanced
+  front: How does the compound effect of CLAUDE.md corrections create institutional memory?
+  back: BECAUSE each correction adds a precise prevention rule, THEREFORE the accumulated rules encode the team's learned patterns and failures, making every future session smarter than the last.
+  why: Individual corrections aggregate into organizational knowledge.
+  tags: *id003
+- id: ch03-18-creator-workflow-015
+  difficulty: intermediate
+  front: When should you clear context and start a new Claude Code session?
+  back: When you've corrected Claude twice on the same issue or context is cluttered.
+  tags: *id001
+- id: ch03-18-creator-workflow-016
+  difficulty: intermediate
+  front: Why does Boris Cherny prefer Opus 4.5 with thinking over faster models?
+  back: BECAUSE a wrong fast answer requires rework that costs more total time and context, THEREFORE investing in a slower correct answer is more efficient across the full workflow.
+  why: Total cost includes rework, not just initial generation time.
+  tags: *id001

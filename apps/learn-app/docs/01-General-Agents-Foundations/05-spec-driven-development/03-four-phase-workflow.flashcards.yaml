@@ -1,0 +1,103 @@
+deck:
+  id: "ch05-03-four-phase-workflow"
+  title: "The Four-Phase Workflow"
+  description: "SDD's four sequential phases, their deliverables, skip consequences, and why separating planning from execution produces durable artifacts."
+  tags: ["sdd", "four-phases", "workflow", "spec-driven-development"]
+  version: 1
+
+cards:
+  # ── RECALL CARDS (6) ──────────────────────────────────────────
+
+  - id: "ch05-03-four-phase-workflow-001"
+    type: recall
+    front: "What are the four SDD phases in order?"
+    back: "Research, Specification, Refinement, Implementation."
+    tags: ["four-phases", "enumeration"]
+    difficulty: "basic"
+
+  - id: "ch05-03-four-phase-workflow-002"
+    type: recall
+    front: "What is the deliverable of the Research phase?"
+    back: "Written summaries from parallel subagents."
+    tags: ["research", "deliverable"]
+    difficulty: "basic"
+
+  - id: "ch05-03-four-phase-workflow-003"
+    type: recall
+    front: "What is the deliverable of the Specification phase?"
+    back: "A comprehensive spec.md document."
+    tags: ["specification", "deliverable"]
+    difficulty: "basic"
+
+  - id: "ch05-03-four-phase-workflow-004"
+    type: recall
+    front: "What is the deliverable of the Refinement phase?"
+    back: "Updated spec with ambiguities resolved."
+    tags: ["refinement", "deliverable"]
+    difficulty: "basic"
+
+  - id: "ch05-03-four-phase-workflow-005"
+    type: recall
+    front: "What six elements does a spec.md capture?"
+    back: "What you're building, research patterns, architecture fit, implementation approach, explicit constraints, success criteria."
+    tags: ["specification", "contents"]
+    difficulty: "intermediate"
+
+  # ── DISCRIMINATION CARD (recall subtype) ─────────────────────
+
+  - id: "ch05-03-four-phase-workflow-006"
+    type: recall
+    front: "Vibe coding persistence: conversation lost on restart. SDD persistence?"
+    back: "Spec.md survives across sessions."
+    tags: ["vibe-coding-vs-sdd", "persistence"]
+    difficulty: "intermediate"
+
+  # ── THINKING CARDS (6) ────────────────────────────────────────
+
+  - id: "ch05-03-four-phase-workflow-007"
+    type: thinking
+    front: "Why must the four SDD phases occur in sequence?"
+    back: "BECAUSE each phase consumes the prior phase's deliverable, THEREFORE skipping or reordering phases forces later phases to operate on assumptions instead of validated artifacts."
+    tags: ["four-phases", "sequence"]
+    difficulty: "intermediate"
+    why: "Skipping or reordering phases forces later phases to operate on assumptions instead of artifacts."
+
+  - id: "ch05-03-four-phase-workflow-008"
+    type: thinking
+    front: "Why does skipping the Research phase compromise every later SDD phase?"
+    back: "The specification encodes assumptions instead of evidence, BECAUSE no subagents investigated the problem space. Flawed assumptions then compound through every later phase."
+    tags: ["research", "skip-consequence"]
+    difficulty: "intermediate"
+    why: "Without multi-angle investigation, biases and gaps in the spec go undetected until implementation fails."
+
+  - id: "ch05-03-four-phase-workflow-009"
+    type: thinking
+    front: "Why does SDD separate planning from execution entirely?"
+    back: "BECAUSE interleaving causes approval fatigue and context drift, THEREFORE separation lets you review once at each phase gate and then let implementation proceed from an agreed plan."
+    tags: ["planning-execution", "separation"]
+    difficulty: "advanced"
+    why: "Continuous review degrades human attention; phase gates concentrate review where it has the highest leverage."
+
+  - id: "ch05-03-four-phase-workflow-010"
+    type: thinking
+    front: "Why is reviewing at phase gates better than reviewing during coding?"
+    back: "BECAUSE phase-gate reviews catch design errors before code exists, THEREFORE changes cost only a spec edit — whereas mid-coding reviews force expensive rework on already-written code."
+    tags: ["phase-gates", "review-timing"]
+    difficulty: "advanced"
+    why: "The cost of fixing an error rises sharply once implementation has begun, making early-gate feedback far cheaper."
+
+  - id: "ch05-03-four-phase-workflow-011"
+    type: thinking
+    front: "Why does one hour of SDD produce more durable artifacts than one hour of vibe coding?"
+    back: "BECAUSE SDD's first hour produces a persistent spec encoding decisions and constraints, THEREFORE the reasoning survives session restarts — whereas vibe coding's reasoning vanishes with the session."
+    tags: ["durability", "vibe-coding-vs-sdd"]
+    difficulty: "intermediate"
+    why: "Durability comes from externalizing decisions into documents that survive session restarts, not from code volume."
+
+  - id: "ch05-03-four-phase-workflow-012"
+    type: thinking
+    front: "How does editing the spec differ from editing generated code as a correction method?"
+    back: "BECAUSE editing the spec fixes the root cause, THEREFORE regenerated code is correct — whereas editing code only patches symptoms while the flawed plan produces the same errors again."
+    tags: ["correction-method", "spec-vs-code"]
+    difficulty: "intermediate"
+    why: "Patching code without updating the spec creates divergence between intent and implementation that compounds over time."

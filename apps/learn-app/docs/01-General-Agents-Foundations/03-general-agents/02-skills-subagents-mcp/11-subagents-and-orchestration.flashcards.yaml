@@ -1,0 +1,112 @@
+deck:
+  id: "ch03-11-subagents-orchestration"
+  title: "Subagents and Orchestration"
+  description: "Subagent architecture in Claude Code: built-in agents, parallel invocation, context isolation, custom subagent creation, and skills vs subagents decision criteria."
+  tags: ["chapter-3", "subagents", "orchestration", "claude-code"]
+  version: 1
+
+cards:
+  - id: "ch03-11-subagents-orchestration-001"
+    type: recall
+    front: "What is a subagent in Claude Code?"
+    back: "A specialized AI agent with its own instructions and isolated context window."
+    tags: ["subagents", "definition"]
+    difficulty: "basic"
+
+  - id: "ch03-11-subagents-orchestration-002"
+    type: recall
+    front: "What command reveals the built-in agents available in Claude Code?"
+    back: "/agents"
+    tags: ["subagents", "commands"]
+    difficulty: "basic"
+
+  - id: "ch03-11-subagents-orchestration-003"
+    type: recall
+    front: "What model does the Explore subagent use, and what is it best for?"
+    back: "Haiku (fast). Best for finding files, searching code, and understanding codebase structure."
+    tags: ["subagents", "explore"]
+    difficulty: "basic"
+
+  - id: "ch03-11-subagents-orchestration-004"
+    type: recall
+    front: "What model does the Plan subagent use, and what is it best for?"
+    back: "Sonnet (smart). Best for complex multi-step tasks and creating implementation strategies."
+    tags: ["subagents", "plan"]
+    difficulty: "basic"
+
+  - id: "ch03-11-subagents-orchestration-005"
+    type: recall
+    front: "Where are project-level custom subagents stored?"
+    back: "In .claude/agents/ within the project directory."
+    tags: ["subagents", "custom-agents"]
+    difficulty: "intermediate"
+
+  - id: "ch03-11-subagents-orchestration-006"
+    type: thinking
+    front: "Why do custom subagent definitions use Markdown with YAML frontmatter rather than code?"
+    back: "BECAUSE Markdown is human-readable and YAML frontmatter provides structured metadata (name, description, model), THEREFORE domain experts can create specialized agents without programming skills."
+    tags: ["subagents", "custom-agents"]
+    difficulty: "intermediate"
+    why: "Lowering the authoring barrier enables non-developers to define AI agent behavior."
+
+  - id: "ch03-11-subagents-orchestration-007"
+    type: recall
+    front: "What happens to a subagent after it completes its assigned task?"
+    back: "It returns results to main Claude Code and terminates."
+    tags: ["subagents", "execution-model"]
+    difficulty: "intermediate"
+
+  - id: "ch03-11-subagents-orchestration-008"
+    type: thinking
+    front: "Why do subagents use isolated context windows instead of sharing the main conversation?"
+    back: "Because shared context accumulates clutter from prior tasks, causing confusion. Isolation gives each specialist a clean workspace, so research notes never contaminate a planning task."
+    tags: ["subagents", "context-isolation"]
+    difficulty: "intermediate"
+    why: "What problem would occur if all subagents shared one context?"
+
+  - id: "ch03-11-subagents-orchestration-009"
+    type: thinking
+    front: "How does Claude Code decide when to automatically delegate to a subagent?"
+    back: "It evaluates task complexity, request type, and subagent descriptions to match the task to the right specialist. Therefore multi-step or specialized requests trigger delegation without explicit user commands."
+    tags: ["subagents", "auto-delegation"]
+    difficulty: "intermediate"
+    why: "What factors influence whether delegation happens automatically?"
+
+  - id: "ch03-11-subagents-orchestration-010"
+    type: thinking
+    front: "Why is the subagent execution model described as one-task-one-completion?"
+    back: "Because a subagent is launched for a specific goal, works independently, then returns results and terminates. Therefore it prevents persistent state that could leak between unrelated tasks."
+    tags: ["subagents", "execution-model"]
+    difficulty: "intermediate"
+    why: "What would go wrong if subagents persisted like chatbots?"
+
+  - id: "ch03-11-subagents-orchestration-011"
+    type: thinking
+    front: "How does parallel subagent invocation work in Claude Code?"
+    back: "You request multiple agents in a single prompt. Claude Code launches them simultaneously with isolated contexts, and their results combine into one response. Therefore you get orchestrated output faster than sequential invocation."
+    tags: ["subagents", "parallel"]
+    difficulty: "intermediate"
+    why: "What advantage does parallel execution have over sequential?"
+
+  - id: "ch03-11-subagents-orchestration-012"
+    type: thinking
+    front: "Why would you choose a subagent over a skill for a security audit?"
+    back: "Because a security audit is a complex multi-step task requiring guaranteed execution and isolated context. Skills share the main conversation and are lightweight, so they risk context pollution and incomplete coverage on complex tasks."
+    tags: ["subagents", "skills-vs-subagents"]
+    difficulty: "advanced"
+    why: "What properties of skills make them unsuitable for complex audits?"
+
+  - id: "ch03-11-subagents-orchestration-013"
+    type: thinking
+    front: "How does context isolation in subagents prevent the pollution problem?"
+    back: "Each subagent starts with a fresh context window containing only its task. Because prior conversation history is excluded, the specialist focuses purely on its assignment without distraction from unrelated information."
+    tags: ["subagents", "context-isolation"]
+    difficulty: "advanced"
+    why: "What specifically gets excluded from a subagent's context?"
+
+  - id: "ch03-11-subagents-orchestration-014"
+    type: recall
+    front: "Name any 2 of 4 factors that distinguish skills from subagents?"
+    back: "Invocation, context isolation, complexity level, and invocation guarantee."
+    tags: ["subagents", "skills-vs-subagents"]
+    difficulty: "intermediate"

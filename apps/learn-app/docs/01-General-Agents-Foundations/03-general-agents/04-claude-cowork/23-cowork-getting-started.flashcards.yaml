@@ -1,0 +1,142 @@
+deck:
+  id: "ch03-cowork-getting-started"
+  title: "Getting Started with Cowork"
+  description: "Flashcards covering Claude Cowork setup, interface navigation, folder permissions, and the approval workflow."
+  tags: [cowork, setup, desktop-app, folder-access, approval-workflow]
+  version: 1
+
+cards:
+  - id: "ch03-cowork-getting-started-001"
+    type: recall
+    front: "What subscription tiers are required to use Claude Cowork?"
+    back: "Claude Pro or Max"
+    tags: [subscription, requirements]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-002"
+    type: recall
+    front: "What operating system does Claude Cowork currently support?"
+    back: "macOS only (Windows in development)"
+    tags: [platform, requirements]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-003"
+    type: recall
+    front: "What are the two interaction modes in Claude Desktop?"
+    back: "Chat mode\nCowork mode"
+    tags: [interface, modes]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-004"
+    type: recall
+    front: "What are the three main panels in the Cowork interface?"
+    back: "Conversation panel\nExecution panel\nArtifacts panel"
+    tags: [interface, panels]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-005"
+    type: recall
+    front: "What does the Execution Panel show during a Cowork task?"
+    back: "Files being read or written, operations in progress, and warnings or errors"
+    tags: [interface, execution-panel]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-006"
+    type: recall
+    front: "Which file operations in Cowork require user approval?"
+    back: "Create new files\nModify existing files\nDelete files\nMove or rename files"
+    tags: [approval-workflow, security]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-007"
+    type: recall
+    front: "Which file operation type does Cowork perform without requiring approval?"
+    back: "Reading files"
+    tags: [approval-workflow, security]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-008"
+    type: recall
+    front: "What is the first troubleshooting step if Cowork mode does not appear in Claude Desktop?"
+    back: "Ensure you are on a Pro or Max subscription"
+    tags: [troubleshooting, subscription]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-009"
+    type: recall
+    front: "What visual indicator confirms you are in Cowork mode rather than Chat mode?"
+    back: "The folder access panel is visible"
+    tags: [interface, modes]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-010"
+    type: thinking
+    front: "Why does Claude Cowork require a Pro or Max subscription instead of being available on the free tier?"
+    back: "BECAUSE Cowork's agentic capabilities (filesystem access, document processing, persistent context) require significant infrastructure, THEREFORE Anthropic reserves it for paid tiers that support enhanced functionality."
+    why: "Connects subscription cost to the technical demands of agentic file operations"
+    tags: [subscription, infrastructure]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-011"
+    type: thinking
+    front: "Why is folder access called a critical security boundary in Cowork?"
+    back: "BECAUSE Claude can only access folders you explicitly approve, THEREFORE malicious or accidental operations on sensitive files outside those folders are impossible without your consent."
+    why: "Explores the trust model between a user and an agentic AI system"
+    tags: [folder-access, security]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-012"
+    type: thinking
+    front: "Why does Cowork allow reads without approval but require approval for writes?"
+    back: "BECAUSE reading files is non-destructive and needed for Claude to understand context, THEREFORE only operations that change data (create, modify, delete, move) carry risk and need explicit user confirmation."
+    why: "Relates the read/write asymmetry to the principle of least privilege"
+    tags: [approval-workflow, security-design]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-getting-started-013"
+    type: thinking
+    front: "How does the propose-approve-execute cycle protect users during file operations?"
+    back: "BECAUSE Claude proposes a plan and displays it in the Execution Panel before acting, THEREFORE users can review exactly what will change and reject unsafe operations before any files are modified."
+    why: "Connects the three-step cycle to preventing unintended data loss"
+    tags: [approval-workflow, execution-panel]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-014"
+    type: thinking
+    front: "Why should you start Cowork with a test folder instead of your important documents?"
+    back: "BECAUSE early tasks are for learning Cowork's behavior and approval workflow, THEREFORE using test data lets you experiment freely without risking valuable files if you approve an unintended action."
+    why: "Applies the sandbox principle to learning a new agentic tool"
+    tags: [safety, best-practices]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-015"
+    type: thinking
+    front: "Why should you avoid granting Cowork access to your entire home directory?"
+    back: "BECAUSE the home directory contains sensitive system files and personal data, THEREFORE granting broad access increases the blast radius if you accidentally approve a destructive operation on the wrong files."
+    why: "Links the principle of least privilege to practical folder permissions"
+    tags: [folder-access, security, best-practices]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-getting-started-016"
+    type: thinking
+    front: "How does Cowork's folder permission model compare to phone app permissions?"
+    back: "BECAUSE both systems require explicit user grants for each resource (folders or sensors), THEREFORE the user retains control and the application cannot access anything beyond what was approved."
+    why: "Draws a cross-platform analogy to reinforce permission design principles"
+    tags: [folder-access, security-design, analogy]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-getting-started-017"
+    type: thinking
+    front: "Why does the first Cowork task (organizing a messy folder) require no code?"
+    back: "BECAUSE Cowork lets you describe intent in natural language and Claude executes file operations on your behalf, THEREFORE non-programmers can automate file tasks through the propose-approve-execute cycle."
+    why: "Illustrates how agentic AI shifts work from coding to directing"
+    tags: [first-task, natural-language, agentic]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-018"
+    type: thinking
+    front: "Why should you revoke Cowork folder access after finishing sensitive work?"
+    back: "BECAUSE persistent access means future sessions could still reach those files, THEREFORE revoking access after a project limits exposure and follows the principle of least privilege over time."
+    why: "Extends security thinking from initial setup to ongoing access management"
+    tags: [folder-access, security, best-practices]
+    difficulty: "advanced"

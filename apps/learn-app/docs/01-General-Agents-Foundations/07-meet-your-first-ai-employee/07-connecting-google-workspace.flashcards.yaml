@@ -1,0 +1,89 @@
+deck:
+  id: "ch07-07-google-workspace"
+  title: "Connecting Google Workspace"
+  description: "Flashcards covering gog CLI integration with Google Workspace, OAuth setup, least privilege scoping, and the security implications of granting an AI Employee access to real productivity data."
+  tags: ["google-workspace", "gog", "oauth", "security", "integrations"]
+  version: 1
+
+cards:
+  - id: "ch07-07-google-workspace-001"
+    type: recall
+    front: "What is gog in the context of OpenClaw?"
+    back: "A CLI tool bridging OpenClaw and six Google Workspace services."
+    tags: ["gog", "integrations"]
+    difficulty: "basic"
+
+  - id: "ch07-07-google-workspace-002"
+    type: thinking
+    front: "Why is the moment an agent reads your real email considered the emotional turning point of the chapter?"
+    back: "BECAUSE it transforms 'AI Employee' from a metaphor into reality -- the agent is handling actual personal data, not self-generated content, making the concept tangible and the stakes immediate."
+    why: "What changes about the agent's data source before versus after this moment?"
+    tags: ["turning-point", "real-data"]
+    difficulty: "intermediate"
+
+  - id: "ch07-07-google-workspace-003"
+    type: recall
+    front: "What are the five major steps to set up gog OAuth credentials?"
+    back: "Create a GCP project, enable APIs, configure the OAuth consent screen, create Desktop app credentials, and register the downloaded JSON with gog."
+    tags: ["oauth", "setup"]
+    difficulty: "intermediate"
+
+  - id: "ch07-07-google-workspace-004"
+    type: thinking
+    front: "How does Google Workspace access complete the lethal trifecta from Lesson 5?"
+    back: "BECAUSE after gog, all three conditions are met simultaneously: the agent accesses private data (email, calendar, files), processes untrusted content (incoming emails and shared docs from anyone), and can communicate externally (send emails, modify shared documents)."
+    why: "What was missing from the trifecta before gog was connected?"
+    tags: ["lethal-trifecta", "security"]
+    difficulty: "advanced"
+
+  - id: "ch07-07-google-workspace-005"
+    type: recall
+    front: "What gog command limits OAuth scope to only Gmail, Calendar, and Drive?"
+    back: "`gog auth add --services gmail,calendar,drive`"
+    tags: ["gog", "least-privilege"]
+    difficulty: "basic"
+
+  - id: "ch07-07-google-workspace-006"
+    type: thinking
+    front: "Why is even read-only Gmail access a security risk for an AI agent?"
+    back: "BECAUSE the agent (and any malicious skill) can see every email, including password reset links and financial statements, enabling account takeover or data exfiltration without needing write access."
+    why: "What specific sensitive email types make read-only access dangerous?"
+    tags: ["security", "gmail"]
+    difficulty: "intermediate"
+
+  - id: "ch07-07-google-workspace-007"
+    type: recall
+    front: "Before gog, what kind of data did the AI Employee operate on?"
+    back: "Self-generated data only -- competitor research from training data, goal files it created, and reports it wrote."
+    tags: ["before-after", "data-source"]
+    difficulty: "basic"
+
+  - id: "ch07-07-google-workspace-008"
+    type: thinking
+    front: "Why is the OAuth integration pattern (register, authorize, scope) considered universal?"
+    back: "BECAUSE every SaaS tool the agent will access -- Slack, GitHub, Notion, Jira -- uses the same three-step pattern, making it a reusable skill rather than a Google-specific procedure."
+    why: "What other productivity tools follow this same pattern?"
+    tags: ["oauth", "transferability"]
+    difficulty: "intermediate"
+
+  - id: "ch07-07-google-workspace-009"
+    type: recall
+    front: "What principle governs how many OAuth scopes you should grant your AI Employee?"
+    back: "Least privilege -- grant only the access needed for tasks you actually delegate."
+    tags: ["least-privilege", "security"]
+    difficulty: "basic"
+
+  - id: "ch07-07-google-workspace-010"
+    type: thinking
+    front: "Why does the lesson argue that tool access is what makes the 'employee' label accurate?"
+    back: "BECAUSE intelligence, the agent loop, and skills give capability and expertise, but THEREFORE an agent that cannot access your email, calendar, or files is not actually working for you -- tool access to real systems completes the definition."
+    why: "What three prior capabilities does tool access build upon?"
+    tags: ["employee-threshold", "definition"]
+    difficulty: "advanced"
+
+  - id: "ch07-07-google-workspace-011"
+    type: recall
+    front: "What four malicious actions could a compromised skill perform with gog access?"
+    back: "Read email to extract sensitive info, send emails from your account, access confidential Drive documents, and exfiltrate contacts to an external server."
+    tags: ["security", "attack-vectors"]
+    difficulty: "intermediate"
