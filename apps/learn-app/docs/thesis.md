@@ -127,12 +127,9 @@ The shift from software tools to AI employees is not just a metaphor — it is b
 
 This is what an industrial transition looks like. The factories of the Agent era are not hypothetical. They are under construction.
 
-<figure>
-<img src="/img/monthly-spending-data-center-us.png" alt="Monthly spending on data center construction in the United States — from near zero in 2014 to over $2.5 billion per month by 2025" style={{maxWidth: '100%', borderRadius: '8px'}} />
-<figcaption style={{fontSize: '0.85rem', color: 'var(--ifm-color-emphasis-600)', marginTop: '0.5rem', textAlign: 'center'}}>
-Source: U.S. Census Bureau (2025), Our World in Data — CC BY
-</figcaption>
-</figure>
+![Monthly spending on data center construction in the United States — from near zero in 2014 to over $2.5 billion per month by 2025](../static/img/monthly-spending-data-center-us.png)
+
+_Source: U.S. Census Bureau (2025), Our World in Data — CC BY_
 
 ---
 
