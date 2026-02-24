@@ -3,7 +3,7 @@ sidebar_position: 4
 title: "Reading Function Signatures"
 description: "Read function signatures as contracts -- understand parameters, return types, default values, and the critical distinction between print and return"
 keywords: ["function signature", "parameters", "return type", "type annotation", "def", "default value", "print vs return", "function contract", "None", "-> str", "-> int", "-> None"]
-chapter: 14.2
+chapter: 16
 lesson: 4
 duration_minutes: 25
 

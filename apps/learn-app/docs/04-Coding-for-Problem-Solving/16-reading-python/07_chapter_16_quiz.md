@@ -1,14 +1,14 @@
 ---
 sidebar_position: 7
-title: "Chapter 14.2: Reading Python Quiz"
+title: "Chapter 16: Reading Python Quiz"
 ---
 
-# Chapter 14.2 Quiz
+# Chapter 16 Quiz
 
 Test your understanding of reading typed Python code. Each session presents a random selection of questions with immediate feedback.
 
 <Quiz
-  title="Chapter 14.2: Reading Python Assessment"
+  title="Chapter 16: Reading Python Assessment"
   questions={[
     {
       question: "James generates 50 lines of Python with AI and ships them without reading. According to the PRIMM framework, which critical step did he skip first?",

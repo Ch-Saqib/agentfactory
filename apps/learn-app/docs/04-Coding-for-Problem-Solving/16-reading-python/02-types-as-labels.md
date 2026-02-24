@@ -3,7 +3,7 @@ sidebar_position: 2
 title: "Types as Labels — str, int, float, bool"
 description: "Learn to recognize the four primitive Python types and read type annotations as labels that tell you what a variable holds without running the code."
 keywords: ["python types", "str", "int", "float", "bool", "type annotations", "type conversion", "truthiness", "falsy", "None", "type hints", "primitive types"]
-chapter: 14.2
+chapter: 16
 lesson: 2
 duration_minutes: 25
 
@@ -47,7 +47,7 @@ differentiation:
 
 # Types as Labels — str, int, float, bool
 
-In Chapter 14.1, James installed the discipline stack and created SmartNotes with `uv init`. Now he opens the SmartNotes `main.py` and sees something new. The function definition reads `def main() -> str:`. James points at the arrow. "What does `-> str` mean?"
+In Chapter 15, James installed the discipline stack and created SmartNotes with `uv init`. Now he opens the SmartNotes `main.py` and sees something new. The function definition reads `def main() -> str:`. James points at the arrow. "What does `-> str` mean?"
 
 Emma does not rush to answer. She picks up a glass jar from the shelf, the kind with a screw-on lid. It has a label on the front: **SUGAR**. She holds it up. "Before you open this jar, what is inside?" James shrugs. "Sugar. The label says so." Emma nods. "That is exactly what `-> str` does. It is a label. It tells you this function returns text. You know what is inside before you run the code."
 

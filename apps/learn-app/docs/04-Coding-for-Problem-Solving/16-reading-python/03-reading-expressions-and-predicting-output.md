@@ -3,7 +3,7 @@ sidebar_position: 3
 title: "Reading Expressions and Predicting Output"
 description: "Learn to predict what Python expressions evaluate to — arithmetic, string operations, boolean logic — and build trace tables to track variable state line by line"
 keywords: ["python expressions", "operator precedence", "trace tables", "arithmetic operators", "boolean logic", "string operations", "f-strings", "floor division", "modulo", "short-circuit evaluation"]
-chapter: 14.2
+chapter: 16
 lesson: 3
 duration_minutes: 30
 

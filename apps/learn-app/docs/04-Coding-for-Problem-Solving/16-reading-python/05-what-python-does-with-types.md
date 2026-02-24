@@ -3,7 +3,7 @@ sidebar_position: 5
 title: "What Python Does (and Doesn't Do) with Types"
 description: "Discover that Python ignores type annotations at runtime, learn why annotations still matter for humans and tools, and read the five categories of errors that Pyright catches before your code runs"
 keywords: ["python types", "runtime type checking", "static type checking", "pyright errors", "type annotations", "gradual typing", "reportArgumentType", "reportAssignmentType", "reportReturnType", "None safety"]
-chapter: 14.2
+chapter: 16
 lesson: 5
 duration_minutes: 25
 

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 16
-title: "Chapter 14.2: Reading Python"
+title: "Chapter 16: Reading Python"
 description: "Learn to read typed Python code — primitive types, expressions, function signatures, and type annotations — through prediction exercises and code tracing."
 keywords:
   [
@@ -19,11 +19,11 @@ keywords:
   ]
 ---
 
-# Chapter 14.2: Reading Python
+# Chapter 16: Reading Python
 
 James watches Claude generate fifty lines of typed Python in under ten seconds. He is impressed by the speed. Emma glances at the screen and points to line twelve. "What does that line do?" James stares at it. He cannot answer. Emma does not look surprised. "Speed means nothing without understanding. If you cannot read the code your tools produce, you cannot verify it, debug it, or trust it."
 
-In Chapter 14.1, you built the workbench -- uv, pyright, ruff, pytest, and Git. Every tool is installed, every configuration file is in place, and your SmartNotes project has a clean foundation. Now you learn the language those tools process. Before you write Python, you read it. Before you generate code with AI, you learn to predict what code does line by line, so that every function signature, type annotation, and expression is something you understand rather than something you hope works.
+In Chapter 15, you built the workbench -- uv, pyright, ruff, pytest, and Git. Every tool is installed, every configuration file is in place, and your SmartNotes project has a clean foundation. Now you learn the language those tools process. Before you write Python, you read it. Before you generate code with AI, you learn to predict what code does line by line, so that every function signature, type annotation, and expression is something you understand rather than something you hope works.
 
 This chapter teaches you to read typed Python. You will trace expressions by hand, predict output before running code, and read function signatures the way a mechanic reads a wiring diagram -- understanding what goes in, what comes out, and what the types guarantee. Every lesson uses the same method: predict first, run second, investigate third.
 
@@ -55,4 +55,4 @@ Every lesson in this chapter follows the **Predict-Run-Investigate** method. You
 
 ## Prerequisites
 
-- **Chapter 14.1: The Development Environment** -- You must have the discipline stack installed (uv, pyright, ruff, pytest, Git) and a working SmartNotes project. Every lesson in this chapter runs code inside that project.
+- **Chapter 15: The Development Environment** -- You must have the discipline stack installed (uv, pyright, ruff, pytest, Git) and a working SmartNotes project. Every lesson in this chapter runs code inside that project.

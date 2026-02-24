@@ -3,7 +3,7 @@ sidebar_position: 6
 title: "Reading SmartNotes — Your First Code Review"
 description: "Apply every code reading skill from this chapter to a real SmartNotes module. Read function signatures, trace logic, predict output, and explain each function in plain English."
 keywords: ["code review", "SmartNotes", "function signatures", "plain English explanation", "type annotations", "Parsons problem", "syntax card", "Pyright", "reading Python", "PRIMM"]
-chapter: 14.2
+chapter: 16
 lesson: 6
 duration_minutes: 30
 
@@ -323,7 +323,7 @@ If you got it right without the guide, the checklist has become intuition. If yo
 
 ## Running the Verification Pipeline
 
-This is the Chapter 14.2 checkpoint. Copy the SmartNotes module into your project and run the full verification pipeline:
+This is the Chapter 16 checkpoint. Copy the SmartNotes module into your project and run the full verification pipeline:
 
 ```bash
 uv run pyright
@@ -337,17 +337,17 @@ uv run pyright
 
 Every type annotation in the module is correct. Pyright confirms that `search_notes` returns `list[Note]` (not `None`), that `count_by_tag` returns `dict[str, int]`, and that `main` calls each function with the right argument types. The module passes the type checker with zero errors.
 
-If you want to run the full pipeline from Chapter 14.1:
+If you want to run the full pipeline from Chapter 15:
 
 ```bash
 uv run ruff check . && uv run pyright && uv run pytest
 ```
 
-All three tools should pass. The discipline stack you built in Chapter 14.1 is now verifying real code.
+All three tools should pass. The discipline stack you built in Chapter 15 is now verifying real code.
 
 ---
 
-## Chapter 14.2 Syntax Card
+## Chapter 16 Syntax Card
 
 Every piece of new syntax from this chapter, in one place. Keep this as a reference.
 
@@ -456,7 +456,7 @@ What code does Python generate automatically? Show me what Note
 would look like WITHOUT @dataclass so I can see what it replaces.
 ```
 
-**What you're learning:** You are building a mental model of what `@dataclass` does by seeing the code it replaces. The AI will show you that without `@dataclass`, you would need to write an `__init__` method, a `__repr__` method, and an `__eq__` method manually. This preview prepares you for Chapter 14.3 where you will encounter decorators and classes in more depth.
+**What you're learning:** You are building a mental model of what `@dataclass` does by seeing the code it replaces. The AI will show you that without `@dataclass`, you would need to write an `__init__` method, a `__repr__` method, and an `__eq__` method manually. This preview prepares you for Chapter 17 where you will encounter decorators and classes in more depth.
 
 ---
 
@@ -470,10 +470,10 @@ would look like WITHOUT @dataclass so I can see what it replaces.
 
 4. **Edge cases reveal robustness.** What does `search_notes` return when nothing matches? An empty list, not None. What does `format_title` do with an empty string? Returns an empty string, no crash. These details matter because they determine whether the code handles unexpected input gracefully.
 
-5. **The syntax card is your chapter reference.** Every type annotation, conversion, string method, and operator from Chapter 14.2 is collected in one place. Use it as a quick lookup when you encounter unfamiliar syntax in future chapters.
+5. **The syntax card is your chapter reference.** Every type annotation, conversion, string method, and operator from Chapter 16 is collected in one place. Use it as a quick lookup when you encounter unfamiliar syntax in future chapters.
 
 ---
 
 ## Looking Ahead
 
-You can read Python. You traced types, predicted output, decoded function signatures, and reviewed a complete SmartNotes module using a structured checklist. In Chapter 14.3, you will cross from reading to writing -- but not the way you might expect. Your first lines of code will be a test: five lines that define what "correct" means. Then you will watch AI implement the function that passes your test. That is Test-Driven Generation -- the bridge from reading code to owning it.
+You can read Python. You traced types, predicted output, decoded function signatures, and reviewed a complete SmartNotes module using a structured checklist. In Chapter 17, you will cross from reading to writing -- but not the way you might expect. Your first lines of code will be a test: five lines that define what "correct" means. Then you will watch AI implement the function that passes your test. That is Test-Driven Generation -- the bridge from reading code to owning it.

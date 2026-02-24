@@ -3,7 +3,7 @@ sidebar_position: 1
 title: "Why Reading Comes Before Writing"
 description: "Understand why reading and verifying code is the most important skill in AI-driven development, and learn the PRIMM method for reading Python."
 keywords: ["code reading", "PRIMM", "predict run investigate", "AI code review", "reading before writing", "code comprehension"]
-chapter: 14.2
+chapter: 16
 lesson: 1
 duration_minutes: 15
 
@@ -47,7 +47,7 @@ differentiation:
 
 # Why Reading Comes Before Writing
 
-In Chapter 14.1, you built the workbench -- uv, pyright, ruff, pytest, and Git, all configured and ready. Now you will use that workbench for its first real job: reading Python.
+In Chapter 15, you built the workbench -- uv, pyright, ruff, pytest, and Git, all configured and ready. Now you will use that workbench for its first real job: reading Python.
 
 James watches AI generate fifty lines of typed Python in four seconds. Variables with type annotations, a function with a return type, an import he has never seen before. He leans back, impressed. "That was fast. Ship it." Emma points at line 12. "What does this do?" James stares at the screen. He reads the line. He reads it again. He cannot explain what it does. Emma does not look surprised. "You just accepted fifty lines of code you cannot explain. That is not programming. That is hoping."
 
@@ -68,7 +68,7 @@ This is not a theoretical concern. GitClear's 2025 research on AI-assisted code 
 | Pre-AI | Production -- typing code from scratch | Writing |
 | AI-assisted | Verification -- confirming code is correct | Reading |
 
-James's mistake was not using AI. His mistake was trusting output he could not read. The discipline stack from Chapter 14.1 catches some errors automatically -- pyright flags type mismatches, ruff catches style violations, pytest verifies behavior. But those tools check what they are designed to check. They do not check whether the code does what *you* intended. Only you can verify that, and you verify it by reading.
+James's mistake was not using AI. His mistake was trusting output he could not read. The discipline stack from Chapter 15 catches some errors automatically -- pyright flags type mismatches, ruff catches style violations, pytest verifies behavior. But those tools check what they are designed to check. They do not check whether the code does what *you* intended. Only you can verify that, and you verify it by reading.
 
 ---
 
@@ -98,7 +98,7 @@ This chapter follows a research-backed framework called **PRIMM**, developed by 
 | **Run** | Execute the code and compare the actual output to your prediction | Run it. Output: `3`. Prediction confirmed. |
 | **Investigate** | Trace execution, annotate code, explain logic in plain English | "The `//` operator performs floor division, discarding the remainder" |
 
-The remaining stages -- Modify and Make -- involve changing and writing code. Those come in Chapter 14.3. For now, you are a reader. You predict, run, and investigate. That is enough.
+The remaining stages -- Modify and Make -- involve changing and writing code. Those come in Chapter 17. For now, you are a reader. You predict, run, and investigate. That is enough.
 
 Why start with reading? Because understanding must precede creation. Every prediction you make -- right or wrong -- builds your mental model of how Python works. Every wrong prediction is especially valuable: it reveals a gap between what you assumed and what Python actually does. Those gaps are where learning happens.
 
@@ -117,7 +117,7 @@ Here is the progression for the six lessons ahead:
 | **Lesson 5** | Runtime vs static types | Understanding what Pyright catches |
 | **Lesson 6** | A SmartNotes module (~80 lines) | Performing your first code review |
 
-By Lesson 6, you will read a real module of AI-generated typed Python -- the SmartNotes project you configured in Chapter 14.1 -- and explain every function in plain English. That is the target.
+By Lesson 6, you will read a real module of AI-generated typed Python -- the SmartNotes project you configured in Chapter 15 -- and explain every function in plain English. That is the target.
 
 ---
 
@@ -129,7 +129,7 @@ Children read thousands of sentences before writing their first paragraph. Langu
 
 Programming works the same way. Before you write `def greet(name: str) -> str:`, you need to have read dozens of function signatures. Before you write a conditional, you need to have traced how `if`/`else` branches execute. The reading builds the mental library that writing draws from.
 
-This chapter is your reading phase. Thousands of lines of typed Python, observed and explained, before you write your first line in Chapter 14.3.
+This chapter is your reading phase. Thousands of lines of typed Python, observed and explained, before you write your first line in Chapter 17.
 
 ---
 
@@ -229,11 +229,11 @@ just from reading the code (without running it).
 
 2. **Active reading means predicting, tracing, and explaining -- not scanning.** Predict what code does before running it. Trace variable changes line by line. Explain functions in plain English. If you cannot explain it, you do not understand it.
 
-3. **PRIMM is your method: Predict, Run, Investigate.** These three stages structure every lesson in this chapter. Modify and Make come later, in Chapter 14.3.
+3. **PRIMM is your method: Predict, Run, Investigate.** These three stages structure every lesson in this chapter. Modify and Make come later, in Chapter 17.
 
 4. **Speed of generation without ability to verify is dangerous.** James accepted fifty lines of code he could not explain. The discipline stack catches some errors, but only a human reader can verify intent.
 
-5. **This chapter focuses on reading only -- writing comes in Chapter 14.3.** Like learning a natural language, you build a library of patterns through reading before producing your own code.
+5. **This chapter focuses on reading only -- writing comes in Chapter 17.** Like learning a natural language, you build a library of patterns through reading before producing your own code.
 
 ---
 
