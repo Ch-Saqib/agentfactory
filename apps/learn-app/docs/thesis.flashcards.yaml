@@ -51,13 +51,6 @@ cards:
     difficulty: "intermediate"
     why: "What happens to a per-outcome seller whose agents produce unverified results?"
 
-  - id: "thesis-agent-factory-008"
-    front: "How does automating execution change the focus from HOW to THAT?"
-    back: "Because when agents handle execution, the method is interchangeable — what matters is that outcomes are verifiably correct, not which steps produced them."
-    tags: ["focus-shift", "outcomes"]
-    difficulty: "intermediate"
-    why: "How would you verify an outcome if you can't see the steps that produced it?"
-
   - id: "thesis-agent-factory-009"
     front: "What three words summarize what remains in the Agent Factory model?"
     back: "Intent. Verification. Outcome."
@@ -94,12 +87,6 @@ cards:
 
   # --- The Factory ---
 
-  - id: "thesis-agent-factory-014"
-    front: "In the Factory analogy, what maps to raw material, specialized stations, and finished product?"
-    back: "Raw material: intent.\nStations: agents.\nFinished product: verified outcome."
-    tags: ["factory-analogy", "architecture"]
-    difficulty: "intermediate"
-
   - id: "thesis-agent-factory-015"
     front: "Why does the thesis say The Factory is an architecture, not a single piece of software?"
     back: "Because it's a set of principles for building systems where agents are manufactured, composed, and deployed — not one program but a production pattern."
@@ -126,13 +113,6 @@ cards:
     tags: ["mcp", "factory-mechanisms"]
     difficulty: "intermediate"
     why: "How does MCP change the economics of building new agents?"
-
-  - id: "thesis-agent-factory-019"
-    front: "Why is MCP described as universal rather than just another API standard?"
-    back: "Because one shared protocol lets every agent connect to every tool — eliminating the N-by-M explosion of custom point-to-point integrations that rigid APIs require."
-    tags: ["mcp", "integration"]
-    difficulty: "intermediate"
-    why: "What would happen to agent interoperability without a universal protocol?"
 
   - id: "thesis-agent-factory-020"
     front: "What four elements does the thesis say industrialize execution?"
@@ -162,13 +142,6 @@ cards:
     tags: ["tech-professional", "redefinition"]
     difficulty: "intermediate"
     why: "What parts of a developer's current skillset become MORE important under this redefinition?"
-
-  - id: "thesis-agent-factory-024"
-    front: "Why does a developer's expertise become MORE valuable in the Agent Factory era?"
-    back: "Because it's no longer spent hand-coding screens — it's spent designing, deploying, and supervising agents that deliver entire products."
-    tags: ["developer-role", "expertise"]
-    difficulty: "intermediate"
-    why: "What new skills must a developer add to their existing technical expertise?"
 
   # --- Workforce Opportunity ---
 
@@ -219,37 +192,12 @@ cards:
     tags: ["physical-evidence", "data-centers", "milestone"]
     difficulty: "basic"
 
-  - id: "thesis-agent-factory-032"
-    front: "How much did U.S. data center construction reach by mid-2025, annualized?"
-    back: "$42 billion — up 400% since 2021."
-    tags: ["physical-evidence", "data-centers", "statistics"]
-    difficulty: "intermediate"
-
-  - id: "thesis-agent-factory-033"
-    front: "How much copper does a single hyperscale AI facility require?"
-    back: "Up to 50,000 tons — ten times a conventional data center."
-    tags: ["physical-evidence", "infrastructure", "resources"]
-    difficulty: "intermediate"
-
-  - id: "thesis-agent-factory-034"
-    front: "What is the projected combined AI infrastructure spend by Meta, Google, Amazon, and Microsoft for 2026?"
-    back: "Over $600 billion."
-    tags: ["physical-evidence", "infrastructure", "spending"]
-    difficulty: "intermediate"
-
   - id: "thesis-agent-factory-035"
     front: "Why does spending more on data centers than offices strengthen the Agent Factory argument?"
     back: "Because physical capital allocation reveals where the economy is heading — countries are literally building more workspace for digital workers than human ones, making agent infrastructure an economic fact, not a prediction."
     tags: ["physical-evidence", "thesis-argument"]
     difficulty: "advanced"
     why: "What would weaken this argument — what if the spending reversed?"
-
-  - id: "thesis-agent-factory-036"
-    front: "How does comparing AI infrastructure spending to 1850s railroads and 1950s highways change the framing?"
-    back: "Because it reframes AI infrastructure as nation-building, not a tech trend — railroads and highways reshaped entire economies, implying AI data centers will too."
-    tags: ["physical-evidence", "historical-comparison"]
-    difficulty: "advanced"
-    why: "Railroads created new industries that didn't exist before. What new industries might data centers create?"
 
   - id: "thesis-agent-factory-037"
     front: "Office construction fell 35% from its peak while data centers surged 400%. Why do inverse trends matter more than either trend alone?"
