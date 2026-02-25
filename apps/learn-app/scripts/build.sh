@@ -3,19 +3,16 @@ set -euo pipefail
 
 # Build script for Docusaurus with i18n support
 #
-# With multiple locales (en + ur), Docusaurus builds them sequentially in one
-# process. There is a known memory leak between locale builds (gray-matter cache,
+# Docusaurus has a known memory leak between locale builds (gray-matter cache,
 # MDX processor cache, webpack compiler objects) — see:
 # https://github.com/facebook/docusaurus/issues/10944
 #
-# Mitigations:
-# 1. Heap size set to 8GB (up from 4GB) to handle 2-locale builds
-# 2. @docusaurus/faster flags enabled (SWC + Lightning CSS) for speed
-# 3. rspackBundler intentionally DISABLED — it leaks more memory per locale
+# Strategy: Build each locale in a SEPARATE Node process so leaked memory is
+# reclaimed by the OS between builds. This keeps peak usage under 4 GB,
+# fitting comfortably on Vercel's standard 8 GB build machines.
 #
-# If more locales are added (3+), switch to building locales separately:
-#   docusaurus build --locale en && docusaurus build --locale ur --out-dir build/ur
-#   (requires baseUrl adjustments per locale)
+# @docusaurus/faster flags (SWC + Lightning CSS) are enabled for speed.
+# rspackBundler is intentionally DISABLED — it leaks more memory per locale.
 
 # Change to learn-app directory (parent of scripts/)
 cd "$(dirname "$0")/.."
@@ -25,10 +22,8 @@ cd "$(dirname "$0")/.."
 
 NODE_VERSION=$(node -v | cut -d'.' -f1 | sed 's/v//')
 
-# 8GB heap to handle multi-locale builds (en + ur = ~1472 docs x 2)
-# The en build alone fits in 4GB, but memory leaks between locale builds
-# push total usage past 4GB. 8GB gives ~4GB headroom for the second locale.
-HEAP_SIZE="--max-old-space-size=8192"
+# 4 GB heap per locale — each build runs in its own process
+HEAP_SIZE="--max-old-space-size=4096"
 
 # Node.js 25+ requires --localstorage-file flag
 EXTRA_FLAGS=""
@@ -36,4 +31,23 @@ if [ "$NODE_VERSION" -ge 25 ]; then
   EXTRA_FLAGS="--localstorage-file=/tmp/docusaurus-localstorage"
 fi
 
-NODE_OPTIONS="$HEAP_SIZE $EXTRA_FLAGS" npx docusaurus build
+export NODE_OPTIONS="$HEAP_SIZE $EXTRA_FLAGS"
+
+echo "==> Building locale: en (default)"
+npx docusaurus build --locale en
+
+echo "==> Building locale: ur"
+npx docusaurus build --locale ur --out-dir build-ur
+
+# Merge: Docusaurus puts non-default locale at <outDir>/ur/ for single-domain
+# deployment. Copy it into the main build directory.
+if [ -d "build-ur/ur" ]; then
+  cp -r build-ur/ur build/ur
+else
+  # Fallback: if ur content is at root of build-ur (no subdirectory)
+  mkdir -p build/ur
+  cp -r build-ur/* build/ur/
+fi
+rm -rf build-ur
+
+echo "==> Build complete (en + ur merged into build/)"
