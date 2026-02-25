@@ -9,6 +9,7 @@
  */
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import { Search, X } from "lucide-react";
 
 interface ShortsSearchProps {
   /** Current search query */
@@ -78,12 +79,14 @@ export function ShortsSearch({
     <div
       className={`relative flex items-center rounded-full border transition-all ${
         isFocused
-          ? "border-blue-500 bg-gray-800"
-          : "border-gray-700 bg-gray-900"
+          ? "border-primary ring-2 ring-primary/20"
+          : "border-border hover:border-primary/50"
       }`}
     >
       {/* Search Icon */}
-      <span className="pl-4 text-gray-400">🔍</span>
+      <span className="pl-4 text-muted-foreground">
+        <Search className="w-4 h-4" />
+      </span>
 
     {/* Input Field */}
     <input
@@ -94,23 +97,23 @@ export function ShortsSearch({
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       placeholder={placeholder}
-      className="flex-1 bg-transparent py-2 pr-10 text-sm text-white placeholder-gray-500 focus:outline-none"
+      className="flex-1 bg-transparent py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
     />
 
     {/* Clear Button */}
     {hasValue && (
       <button
         onClick={handleClear}
-        className="mr-3 rounded-full p-1 text-gray-400 hover:text-white transition-colors"
+        className="absolute right-3 p-1 rounded-full hover:bg-muted text-muted-foreground transition-colors"
       >
-        ✕
+        <X className="w-4 h-4" />
       </button>
     )}
 
     {/* Keyboard Shortcut Hint */}
     {!hasValue && !isFocused && (
-      <span className="absolute right-3 hidden text-xs text-gray-500 sm:block">
-        Ctrl+K
+      <span className="absolute right-3 hidden text-xs text-muted-foreground sm:block">
+        ⌘K
       </span>
     )}
   </div>

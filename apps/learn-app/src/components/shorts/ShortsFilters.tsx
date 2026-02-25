@@ -1,15 +1,9 @@
 /**
- * ShortsFilters - Filter bar for shorts feed
- *
- * Features:
- * - Filter by Part (01-09)
- * - Filter by Chapter within Part
- * - Sort options (Recent, Popular, Relevant)
- * - Active filter indicators
- * - Clear all filters
+ * Shorts Filters - Minimal, themed filter chips
  */
 
 import React, { useState, useCallback } from "react";
+import { X, Filter } from "lucide-react";
 import type { ShortsFilters } from "../types";
 
 interface ShortsFiltersProps {
@@ -73,17 +67,6 @@ export function ShortsFilters({
     [filters, onFiltersChange]
   );
 
-  // Update chapter filter
-  const handleChapterChange = useCallback(
-    (chapter: string) => {
-      onFiltersChange({
-        ...filters,
-        chapter: chapter || undefined,
-      });
-    },
-    [filters, onFiltersChange]
-  );
-
   // Update sort
   const handleSortChange = useCallback(
     (sort: "recent" | "popular" | "relevant") => {
@@ -95,76 +78,45 @@ export function ShortsFilters({
     [filters, onFiltersChange]
   );
 
-  // Get available chapters for selected part
-  const chaptersForPart = filters.part
-    ? availableChapters[filters.part] || []
-    : [];
-
   return (
-    <div className="flex flex-wrap items-center gap-2 border-b border-gray-800 bg-gray-900/50 p-2">
-      {/* Filter Toggle Button */}
+    <div className="flex flex-wrap items-center gap-3">
+      {/* Filter Toggle */}
       <button
         onClick={() => setShowFilters(!showFilters)}
-        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-          showFilters
-            ? "bg-blue-500 text-white"
-            : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+        className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
+          showFilters || activeFilterCount > 0
+            ? "bg-primary text-primary-foreground"
+            : "bg-muted hover:bg-primary/20"
         }`}
       >
-        <span>{showFilters ? "Hide" : "Filters"}</span>
+        <Filter className="w-4 h-4" />
+        <span>Filters</span>
         {activeFilterCount > 0 && (
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-xs text-white">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-background text-xs">
             {activeFilterCount}
           </span>
         )}
       </button>
 
-      {/* Expanded Filters Panel */}
+      {/* Expanded Filters */}
       {showFilters && (
-        <div className="flex flex-wrap items-center gap-3">
-          {/* Part Filter */}
-          <div className="relative">
-            <select
-              value={filters.part || ""}
-              onChange={(e) => handlePartChange(e.target.value || undefined)}
-              className="appearance-none rounded-full border border-gray-700 bg-gray-800 px-4 py-2 pr-8 text-sm text-white hover:border-gray-600 focus:border-blue-500 focus:outline-none"
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Part Chips */}
+          {availableParts.map((part) => (
+            <button
+              key={part}
+              onClick={() => handlePartChange(filters.part === part ? "" : part)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                filters.part === part
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted hover:bg-primary/20"
+              }`}
             >
-              <option value="">All Parts</option>
-              {availableParts.map((part) => (
-                <option key={part} value={part}>
-                  {PART_NAMES[part] || part} ({part})
-                </option>
-              ))}
-            </select>
-            <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
-              ▼
-            </div>
-          </div>
+              {PART_NAMES[part] || part}
+            </button>
+          ))}
 
-          {/* Chapter Filter (shown only when part is selected) */}
-          {filters.part && chaptersForPart.length > 0 && (
-            <div className="relative">
-              <select
-                value={filters.chapter || ""}
-                onChange={(e) =>
-                  handleChapterChange(e.target.value || undefined)
-                }
-                className="appearance-none rounded-full border border-gray-700 bg-gray-800 px-4 py-2 pr-8 text-sm text-white hover:border-gray-600 focus:border-blue-500 focus:outline-none"
-              >
-                <option value="">All Chapters</option>
-                {chaptersForPart.map((chapter) => (
-                  <option key={chapter} value={chapter}>
-                    {chapter}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
-                ▼
-              </div>
-            </div>
-          )}
-
-          {/* Sort Options */}
+          {/* Sort */}
           <div className="relative">
             <select
               value={filters.sort || "recent"}
@@ -173,7 +125,7 @@ export function ShortsFilters({
                   e.target.value as "recent" | "popular" | "relevant"
                 )
               }
-              className="appearance-none rounded-full border border-gray-700 bg-gray-800 px-4 py-2 pr-8 text-sm text-white hover:border-gray-600 focus:border-blue-500 focus:outline-none"
+              className="appearance-none rounded-full border bg-muted px-3 py-1.5 pr-6 text-xs hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary"
             >
               {SORT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -181,18 +133,15 @@ export function ShortsFilters({
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
-              ▼
-            </div>
           </div>
 
-          {/* Clear Filters Button */}
+          {/* Clear */}
           {activeFilterCount > 0 && (
             <button
               onClick={handleClearFilters}
-              className="rounded-full border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700"
+              className="p-1.5 rounded-full hover:bg-muted text-muted-foreground transition-colors"
             >
-              Clear
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
