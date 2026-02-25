@@ -21,11 +21,19 @@ from shorts_generator.core.config import settings
 logger = logging.getLogger(__name__)
 
 # Create Celery app
+# Upstash Redis requires SSL - convert redis:// to rediss://
+broker_url = settings.redis_url
+if broker_url.startswith("redis://"):
+    broker_url = broker_url.replace("redis://", "rediss://", 1)
+
 celery_app = Celery(
     "shorts_generator",
-    broker=settings.redis_url,
-    backend=settings.redis_url,
+    broker=broker_url,
+    backend=broker_url,
     include=["shorts_generator.workers.tasks"],
+    broker_use_ssl=True,
+    redis_socket_connect_timeout=10,
+    redis_socket_timeout=10,
 )
 
 # Celery configuration

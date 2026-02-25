@@ -8,7 +8,7 @@ import { SearchBar } from '@/components/SearchBar';
 import { useLocation } from '@docusaurus/router';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu, BookOpen, Layers, Lightbulb, Github, X } from "lucide-react";
+import { Menu, BookOpen, Layers, Lightbulb, Github, Play, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
@@ -89,6 +89,16 @@ export default function Navbar() {
                     {/* RIGHT: Actions */}
                     <div className="flex items-center gap-2">
 
+                        {/* Shorts - Shows at 997px+ */}
+                        {!isHomepage && (
+                            <Button variant="ghost" size="sm" asChild className="hidden docs:inline-flex items-center gap-2">
+                                <Link to="/shorts">
+                                    <Play className="w-4 h-4" />
+                                    Shorts
+                                </Link>
+                            </Button>
+                        )}
+
                         {/* GitHub - Hidden on Homepage, shows at 997px+ */}
                         {!isHomepage && (
                             <Button variant="ghost" size="icon" asChild className="hidden docs:inline-flex">
@@ -135,6 +145,12 @@ export default function Navbar() {
                                     ) : (
                                         // On non-doc pages, show generic navigation
                                         <nav className="flex flex-col gap-1 p-4">
+                                            <Button variant="ghost" asChild className="justify-start h-12" onClick={() => setMobileMenuOpen(false)}>
+                                                <Link to="/shorts">
+                                                    <Play className="w-5 h-5" />
+                                                    Shorts
+                                                </Link>
+                                            </Button>
                                             <Button variant="ghost" asChild className="justify-start h-12" onClick={() => setMobileMenuOpen(false)}>
                                                 <Link to="/docs/preface-agent-native">
                                                     <BookOpen className="w-5 h-5" />

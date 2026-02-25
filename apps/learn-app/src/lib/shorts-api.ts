@@ -12,11 +12,21 @@
 import type { ShortVideo, ShortsFilters } from "../components/shorts/types";
 
 // API base URL (configure based on environment)
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_SHORTS_API_URL ||
-  (typeof window !== "undefined" && window.location.hostname === "localhost"
-    ? "http://localhost:8001"
-    : "https://shorts-api.panaversity.org") + "/api/v1";
+const getApiBaseUrl = () => {
+  // Check for environment variable (server-side or build-time)
+  if (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_SHORTS_API_URL) {
+    return process.env.NEXT_PUBLIC_SHORTS_API_URL + "/api/v1";
+  }
+  // Client-side detection
+  if (typeof window !== "undefined") {
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    return (isLocalhost ? "http://localhost:8001" : "https://shorts-api.panaversity.org") + "/api/v1";
+  }
+  // Default fallback
+  return "http://localhost:8001/api/v1";
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * API error class

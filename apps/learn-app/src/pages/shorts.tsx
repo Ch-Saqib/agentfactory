@@ -11,6 +11,7 @@
  * - Keyboard navigation (arrows, space)
  */
 
+import { useState } from "react";
 import { ShortsFeed, ShortsFilters, ShortsSearch, RecommendedShorts } from "../components/shorts";
 import type { ShortsFilters as ShortsFiltersType } from "../components/shorts/types";
 import { useShortsFeed } from "../components/shorts/hooks/useShortsFeed";
@@ -72,6 +73,3 @@ export default function ShortsPage() {
     </div>
   );
 }
-
-// Add any necessary imports at the top
-import { useState } from "react";
