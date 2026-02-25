@@ -10,6 +10,7 @@ import { Rating } from "ts-fsrs";
 import FlashcardCard from "./FlashcardCard";
 import RatingButtons from "./RatingButtons";
 import { useFSRS } from "./useFSRS";
+import Link from "@docusaurus/Link";
 import styles from "./Flashcards.module.css";
 
 export default function Flashcards({ cards: deck }: FlashcardsProps) {
@@ -399,6 +400,14 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
         >
           &#8645; Shuffle
         </button>
+        <Link
+          className={styles.utilityButton}
+          to="/guide#flashcards"
+          title="How flashcards work"
+          aria-label="How flashcards work"
+        >
+          &#9432; Guide
+        </Link>
         <div className={styles.downloadWrapper}>
           <button
             className={styles.utilityButton}

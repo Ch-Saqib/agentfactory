@@ -501,6 +501,55 @@ options: ["Machine-readable specs", "Reusable skills", "Standard Tool Protocols 
 correctOption: 3,
 explanation: "The thesis lists four elements: 'machine-readable specs, reusable skills, Standard Tool Protocols (MCP), and cloud-native infrastructure.' Blockchain is never mentioned.",
 source: "Section: The Paradigm Shift"
+},
+{
+question: "How much did U.S. data center construction spending reach by mid-2025?",
+options: ["$8.5 billion", "$20 billion", "$42 billion annualized", "$600 billion"],
+correctOption: 2,
+explanation: "By mid-2025, data center construction surged to $42 billion annualized — up 400% since 2021. The $8.5 billion figure was 2019 spending, and $600 billion is the projected combined AI infrastructure spending by four tech giants for 2026.",
+source: "Section: The Workforce Opportunity"
+},
+{
+question: "What milestone did U.S. data center vs. office construction spending reach?",
+options: ["Data center spending reached 50% of office spending", "The lines crossed — more is now spent building for digital workers than human ones", "Office spending doubled to match data centers", "Both declined equally"],
+correctOption: 1,
+explanation: "The thesis states: 'The lines have now crossed: America spends more building workplaces for digital workers than for human ones.' Office construction plunged 35% while data centers surged 400%.",
+source: "Section: The Workforce Opportunity"
+},
+{
+question: "How much copper does a single hyperscale AI facility require compared to a conventional data center?",
+options: ["About the same amount", "Twice as much", "Five times as much", "Up to ten times as much — up to 50,000 tons"],
+correctOption: 3,
+explanation: "The thesis states a single hyperscale AI facility requires up to 50,000 tons of copper, up to ten times what a conventional data center needs.",
+source: "Section: The Workforce Opportunity"
+},
+{
+question: "What historical infrastructure projects does the thesis compare AI data center investment to?",
+options: ["The Panama Canal and Hoover Dam", "The railroad expansion of the 1850s and the interstate highway system of the 1950s", "The space program of the 1960s and internet buildout of the 1990s", "The transcontinental telegraph and telephone networks"],
+correctOption: 1,
+explanation: "The thesis states that projected AI infrastructure spending 'as a share of GDP, rivals the railroad expansion of the 1850s and the interstate highway system of the 1950s.'",
+source: "Section: The Workforce Opportunity"
+},
+{
+question: "How much are Meta, Google, Amazon, and Microsoft projected to spend on AI infrastructure in 2026?",
+options: ["Over $100 billion", "Over $300 billion", "Over $600 billion", "Over $1 trillion"],
+correctOption: 2,
+explanation: "The thesis states: 'Meta, Google, Amazon, and Microsoft alone project over $600 billion in AI infrastructure spending for 2026.'",
+source: "Section: The Workforce Opportunity"
+},
+{
+question: "What does the thesis mean by saying 'the factories of the Agent era are not hypothetical'?",
+options: ["Agent software is already widely deployed", "Massive physical data center construction is already underway at industrial scale", "All companies have adopted the Agent Factory model", "AI employees are already replacing human workers"],
+correctOption: 1,
+explanation: "The thesis uses data center construction as physical evidence: spending surged 400%, surpassed office construction, and tech giants plan $600B+ in 2026. The factories are literally being built.",
+source: "Section: The Workforce Opportunity"
+},
+{
+question: "In 2019, U.S. data center construction was roughly what percentage of office building construction?",
+options: ["About 50%", "About 25%", "About 11%", "About 5%"],
+correctOption: 2,
+explanation: "The thesis states: 'In 2019, the United States spent $8.5 billion constructing data centers — roughly 11% of what it spent on office buildings.'",
+source: "Section: The Workforce Opportunity"
 }
 ]}
 />

@@ -3,7 +3,7 @@ deck:
   title: "The Agent Factory Thesis"
   description: "Core concepts from the Agent Factory thesis — the paradigm shift from SaaS tools to AI employees that deliver outcomes at scale."
   tags: ["agent-factory", "thesis", "paradigm-shift", "ai-employees"]
-  version: 2
+  version: 3
 
 cards:
   # --- Paradigm Shift (table decomposition + discrimination cards) ---
@@ -210,3 +210,57 @@ cards:
     tags: ["outcomes", "measurement"]
     difficulty: "intermediate"
     why: "How would you price an outcome-based product versus a seat-based one?"
+
+  # --- Physical Evidence: Data Center Construction ---
+
+  - id: "thesis-agent-factory-031"
+    front: "By mid-2025, what milestone did U.S. data center vs office construction spending reach?"
+    back: "Data center spending surpassed office construction spending."
+    tags: ["physical-evidence", "data-centers", "milestone"]
+    difficulty: "basic"
+
+  - id: "thesis-agent-factory-032"
+    front: "How much did U.S. data center construction reach by mid-2025, annualized?"
+    back: "$42 billion — up 400% since 2021."
+    tags: ["physical-evidence", "data-centers", "statistics"]
+    difficulty: "intermediate"
+
+  - id: "thesis-agent-factory-033"
+    front: "How much copper does a single hyperscale AI facility require?"
+    back: "Up to 50,000 tons — ten times a conventional data center."
+    tags: ["physical-evidence", "infrastructure", "resources"]
+    difficulty: "intermediate"
+
+  - id: "thesis-agent-factory-034"
+    front: "What is the projected combined AI infrastructure spend by Meta, Google, Amazon, and Microsoft for 2026?"
+    back: "Over $600 billion."
+    tags: ["physical-evidence", "infrastructure", "spending"]
+    difficulty: "intermediate"
+
+  - id: "thesis-agent-factory-035"
+    front: "Why does spending more on data centers than offices strengthen the Agent Factory argument?"
+    back: "Because physical capital allocation reveals where the economy is heading — countries are literally building more workspace for digital workers than human ones, making agent infrastructure an economic fact, not a prediction."
+    tags: ["physical-evidence", "thesis-argument"]
+    difficulty: "advanced"
+    why: "What would weaken this argument — what if the spending reversed?"
+
+  - id: "thesis-agent-factory-036"
+    front: "How does comparing AI infrastructure spending to 1850s railroads and 1950s highways change the framing?"
+    back: "Because it reframes AI infrastructure as nation-building, not a tech trend — railroads and highways reshaped entire economies, implying AI data centers will too."
+    tags: ["physical-evidence", "historical-comparison"]
+    difficulty: "advanced"
+    why: "Railroads created new industries that didn't exist before. What new industries might data centers create?"
+
+  - id: "thesis-agent-factory-037"
+    front: "Office construction fell 35% from its peak while data centers surged 400%. Why do inverse trends matter more than either trend alone?"
+    back: "Because the crossover shows capital reallocation, not just growth — resources are actively shifting from human workplaces to digital ones, signaling structural economic change."
+    tags: ["physical-evidence", "workforce-shift"]
+    difficulty: "intermediate"
+    why: "What would it mean if both office and data center construction were rising simultaneously?"
+
+  - id: "thesis-agent-factory-038"
+    front: "Why does a hyperscale AI facility needing 50,000 tons of copper signal more than just high costs?"
+    back: "Because 10x the copper of conventional data centers means AI infrastructure competes for physical resources at industrial scale — it's a material commitment that can't be easily reversed."
+    tags: ["physical-evidence", "infrastructure", "irreversibility"]
+    difficulty: "intermediate"
+    why: "How does resource irreversibility differ from software investment reversibility?"

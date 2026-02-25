@@ -101,6 +101,8 @@ February 2026 wasn't a random market fluctuation. It was a **repricing of the en
 
 **The Implication.** If your business model relies on humans navigating legacy software, you are being disrupted. The value is shifting to those who own the agents.
 
+![The Anthropic Hit List — February 2026](../static/img/anthropic-hit-list-feb-2026.png)
+
 ---
 
 ## The Death of the "Software Seat"
