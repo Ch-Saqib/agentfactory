@@ -346,3 +346,8 @@ engineering red flags.
 :::warning[Safety Note]
 The security incidents described in this lesson involve real attack techniques that caused real damage. When experimenting with security concepts, work only with your own test data in isolated environments. Never attempt to reproduce these attacks against systems you do not own. The goal is defensive understanding, not offensive capability.
 :::
+
+
+## Flashcards Study Aid
+
+<Flashcards />

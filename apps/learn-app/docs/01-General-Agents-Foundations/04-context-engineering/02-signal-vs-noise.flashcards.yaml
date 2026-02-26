@@ -1,0 +1,142 @@
+deck:
+  id: "ch04-02-signal-vs-noise"
+  title: "Signal vs Noise: Auditing Your Context for Quality"
+  description: "The 4-question audit framework for distinguishing high-value context from attention-wasting noise, the three-zone positioning strategy, and progressive disclosure via file references."
+  tags: ["signal-vs-noise", "context-audit", "progressive-disclosure", "attention-budget"]
+  version: 1
+
+cards:
+  - id: "ch04-02-signal-vs-noise-001"
+    type: recall
+    front: "According to enterprise research, what percentage of tokens sent to AI models add no value?"
+    back: "Roughly 30% to 60%."
+    tags: ["signal-vs-noise", "enterprise-research"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-002"
+    type: recall
+    front: "What is the approximate instruction limit that frontier LLMs can reliably follow?"
+    back: "150 to 200 distinct instructions."
+    tags: ["instruction-limit", "llm-constraints"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-003"
+    type: recall
+    front: "How many instructions does Claude Code's system prompt already consume?"
+    back: "Roughly 50 instructions."
+    tags: ["instruction-limit", "system-prompt"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-004"
+    type: recall
+    front: "After the system prompt, how many instructions remain for your CLAUDE.md before hitting diminishing returns?"
+    back: "Approximately 100 to 150 instructions."
+    tags: ["instruction-limit", "claude-md"]
+    difficulty: "intermediate"
+
+  - id: "ch04-02-signal-vs-noise-005"
+    type: recall
+    front: "What are the four questions in the CLAUDE.md audit framework?"
+    back: "1. Would Claude ask me about this if I didn't include it?\n2. Could Claude figure this out from existing materials?\n3. Does this change frequently?\n4. Is this a default convention Claude already knows?"
+    tags: ["audit-framework", "four-questions"]
+    difficulty: "intermediate"
+
+  - id: "ch04-02-signal-vs-noise-006"
+    type: recall
+    front: "In the audit framework, what verdict does a section get if Claude would proceed correctly without being told?"
+    back: "NOISE — potentially removable."
+    tags: ["audit-framework", "noise"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-007"
+    type: thinking
+    front: "Why do commands and workflows Claude cannot guess survive audits as signal while standard conventions do not?"
+    back: "Commands and workflows are project-specific knowledge Claude has no way to infer from training data or existing files, because they encode unique organizational decisions. Standard conventions are already in Claude's training, therefore restating them wastes instruction budget."
+    tags: ["signal", "categories"]
+    difficulty: "intermediate"
+    why: "How would you test whether a specific instruction is truly unguessable by Claude?"
+
+  - id: "ch04-02-signal-vs-noise-008"
+    type: thinking
+    front: "Why does the U-shaped attention curve make middle-positioned CLAUDE.md content less effective?"
+    back: "LLMs allocate significantly more attention to the beginning (primacy) and end (recency) of context, because attention mechanisms prioritize boundary positions. Middle content receives roughly 30% less recall, therefore rules placed there are more likely to be overlooked."
+    tags: ["attention-pattern", "u-shaped-curve"]
+    difficulty: "intermediate"
+    why: "How would you verify that a specific rule is suffering from middle-position attention loss?"
+
+  - id: "ch04-02-signal-vs-noise-009"
+    type: recall
+    front: "In the three-zone strategy, what content belongs in Zone 1 (first 10%)?"
+    back: "Critical constraints, identity, and non-negotiable rules."
+    tags: ["three-zones", "zone-1", "primacy"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-010"
+    type: recall
+    front: "In the three-zone strategy, what content belongs in Zone 3 (last 10%)?"
+    back: "Workflow instructions, \"how to start\", and \"when done\" triggers."
+    tags: ["three-zones", "zone-3", "recency"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-011"
+    type: recall
+    front: "What is the target line count for a lean CLAUDE.md after auditing?"
+    back: "Under 60 lines."
+    tags: ["claude-md", "optimization"]
+    difficulty: "basic"
+
+  - id: "ch04-02-signal-vs-noise-012"
+    type: thinking
+    front: "How would agent behavior change if you moved a 30-line review process from CLAUDE.md to an external file?"
+    back: "CLAUDE.md drops from 30 lines to one reference line, freeing instruction budget for critical rules. The review process still loads when Claude encounters a review task, therefore compliance with other rules improves while review guidance remains accessible on demand."
+    tags: ["progressive-disclosure", "optimization"]
+    difficulty: "intermediate"
+    why: "What types of content benefit most from being moved to external files versus kept inline?"
+
+  - id: "ch04-02-signal-vs-noise-013"
+    type: thinking
+    front: "Why do instructions beyond the 150-200 limit actively degrade AI compliance rather than simply being ignored?"
+    back: "Excess instructions compete with essential ones for the model's limited attention, because the model tries to reconcile all instructions simultaneously. Conflicting or overlapping rules therefore cause the model to apply them inconsistently rather than cleanly ignoring extras."
+    tags: ["instruction-limit", "degradation"]
+    difficulty: "intermediate"
+    why: "How would you detect that your CLAUDE.md has crossed the instruction limit threshold?"
+
+  - id: "ch04-02-signal-vs-noise-014"
+    type: thinking
+    front: "How would a CLAUDE.md with stale rules perform compared to one with those rules removed entirely?"
+    back: "The stale version performs worse because the model follows outdated rules as if current, producing systematic errors. The empty version allows the model to ask or infer from actual files, therefore making fewer mistakes than actively wrong guidance causes."
+    tags: ["stale-information", "context-poisoning"]
+    difficulty: "intermediate"
+    why: "Which audit question specifically catches information that will become stale?"
+
+  - id: "ch04-02-signal-vs-noise-015"
+    type: thinking
+    front: "How does progressive disclosure reduce attention budget consumption while preserving information access?"
+    back: "File references consume one CLAUDE.md line instead of dozens, because detailed content loads only when Claude encounters a relevant task. This keeps instruction count low, therefore reserving attention budget for high-priority rules."
+    tags: ["progressive-disclosure", "attention-budget"]
+    difficulty: "advanced"
+    why: "When would progressive disclosure fail to improve performance compared to inline content?"
+
+  - id: "ch04-02-signal-vs-noise-016"
+    type: thinking
+    front: "Why does the position of rules in CLAUDE.md matter as much as their content?"
+    back: "The U-shaped attention curve means middle content receives roughly 30% less recall than beginning or end content. Critical rules in the middle are therefore more likely ignored because attention allocation is position-driven."
+    tags: ["three-zones", "attention-pattern"]
+    difficulty: "advanced"
+    why: "How should you decide whether a rule belongs in Zone 1 versus Zone 3?"
+
+  - id: "ch04-02-signal-vs-noise-017"
+    type: thinking
+    front: "How would you compare the instruction compliance of a 50-line CLAUDE.md versus a 300-line version?"
+    back: "The 50-line version stays within the 150-200 compliance ceiling, so each instruction receives a larger attention share. The 300-line version exceeds the ceiling, therefore the model applies rules inconsistently as attention dilutes across hundreds of competing instructions."
+    tags: ["signal-vs-noise", "optimization"]
+    difficulty: "intermediate"
+    why: "What evidence would prove that a shorter CLAUDE.md actually performs better?"
+
+  - id: "ch04-02-signal-vs-noise-018"
+    type: thinking
+    front: "Why is comparison testing after an audit essential rather than optional?"
+    back: "Removing content you classify as noise might accidentally remove signal the model actually needed, because human judgment about what Claude needs is imperfect. Empirical testing therefore reveals whether the lean version maintains quality or has been cut too aggressively."
+    tags: ["audit-framework", "testing"]
+    difficulty: "intermediate"
+    why: "What specific metrics would you compare between old and new CLAUDE.md versions?"

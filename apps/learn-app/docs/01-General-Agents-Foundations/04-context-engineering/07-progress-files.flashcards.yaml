@@ -1,0 +1,142 @@
+deck:
+  id: "ch04-07-progress-files"
+  title: "Long-Horizon Work: Progress Files and Session Architecture"
+  description: "How progress files, task decomposition, and session protocols enable complex multi-session projects without losing context or repeating work."
+  tags: ["progress-files", "session-architecture", "task-decomposition", "harness-architecture"]
+  version: 1
+
+cards:
+  - id: "ch04-07-progress-files-001"
+    type: recall
+    front: "What problem does closing your laptop mid-project create when resuming the next day?"
+    back: "~30 minutes lost re-establishing context each session."
+    tags: ["context-loss", "multi-session"]
+    difficulty: "basic"
+
+  - id: "ch04-07-progress-files-002"
+    type: thinking
+    front: "Why does using --continue fail for projects spanning more than 3-4 days?"
+    back: "Because sessions accumulate context rot with too many tangents and noise. Therefore resumed sessions become convoluted, requiring a file-based architecture instead."
+    tags: ["context-rot", "session-limits"]
+    difficulty: "intermediate"
+    why: "What symptoms would you notice when context rot degrades session quality?"
+
+  - id: "ch04-07-progress-files-003"
+    type: recall
+    front: "What is the harness architecture for long-horizon tasks?"
+    back: "Independent sessions coordinated through a shared progress file."
+    tags: ["harness-architecture"]
+    difficulty: "basic"
+
+  - id: "ch04-07-progress-files-004"
+    type: thinking
+    front: "Why do independent sessions coordinated through a file outperform one continuous conversation?"
+    back: "Because continuous conversations accumulate noise and context rot, while independent sessions start clean and grounded in documented state. Therefore the progress file replaces conversation history."
+    tags: ["harness-architecture", "session-design"]
+    difficulty: "intermediate"
+    why: "What would happen to a week-long project managed entirely through --continue?"
+
+  - id: "ch04-07-progress-files-005"
+    type: thinking
+    front: "Why must the Initializer Agent create the progress file before any Working Agent sessions begin?"
+    back: "Because Working Agents depend on the progress file to understand current state and select tasks. Without it, each session starts blind and risks duplicating or skipping work."
+    tags: ["initializer-agent", "harness-architecture"]
+    difficulty: "intermediate"
+    why: "What four specific outputs should the Initializer Agent produce in its first session?"
+
+  - id: "ch04-07-progress-files-006"
+    type: thinking
+    front: "How does the Working Agent use the progress file to maintain continuity across sessions?"
+    back: "Because it reads current state from the file, selects the highest-priority incomplete task, does focused work, then writes results back. Therefore each session is self-contained but coordinated."
+    tags: ["working-agent", "harness-architecture"]
+    difficulty: "intermediate"
+    why: "What would a Working Agent miss if the progress file was not updated at the end of the prior session?"
+
+  - id: "ch04-07-progress-files-007"
+    type: recall
+    front: "What are the five required sections of a progress file?"
+    back: "Completed\nIn Progress\nBlocked\nDecisions Made\nKnown Issues"
+    tags: ["progress-file-structure"]
+    difficulty: "intermediate"
+
+  - id: "ch04-07-progress-files-008"
+    type: thinking
+    front: "Why is the Decisions Made section considered the most undervalued part of a progress file?"
+    back: "Because without it, you revisit settled decisions in later sessions, wasting time re-researching tradeoffs. Therefore recording rationale and alternatives preserves institutional memory."
+    tags: ["decisions-made", "institutional-memory"]
+    difficulty: "advanced"
+    why: "What specific information should each decision entry contain to prevent revisiting?"
+
+  - id: "ch04-07-progress-files-009"
+    type: recall
+    front: "What purpose do session markers serve in the Completed section?"
+    back: "They trace when work happened for debugging later."
+    tags: ["session-markers", "progress-tracking"]
+    difficulty: "basic"
+
+  - id: "ch04-07-progress-files-010"
+    type: recall
+    front: "What must blocked items include beyond the task description?"
+    back: "A specific blocker identifying who or what is needed."
+    tags: ["blocked-items", "progress-file-structure"]
+    difficulty: "basic"
+
+  - id: "ch04-07-progress-files-011"
+    type: thinking
+    front: "How do Known Issues differ from failures in a progress file?"
+    back: "Because Known Issues are conscious acknowledgments with assessed impact and a plan, not unexpected problems. Therefore documenting them prevents rediscovering limitations you already identified."
+    tags: ["known-issues", "risk-management"]
+    difficulty: "intermediate"
+    why: "What three elements should each Known Issue entry capture?"
+
+  - id: "ch04-07-progress-files-012"
+    type: recall
+    front: "What four characteristics define well-decomposed tasks?"
+    back: "Concrete\nVerifiable\nCompletable (30-90 min)\nSequenced"
+    tags: ["task-decomposition", "task-quality"]
+    difficulty: "intermediate"
+
+  - id: "ch04-07-progress-files-013"
+    type: recall
+    front: "What is the 10-15 rule for task decomposition?"
+    back: "For ~5 hours of work, create 10-15 tasks each 30-90 minutes."
+    tags: ["task-decomposition", "10-15-rule"]
+    difficulty: "basic"
+
+  - id: "ch04-07-progress-files-014"
+    type: thinking
+    front: "Why does a vague task like 'do the research' undermine progress tracking?"
+    back: "Because it lacks concrete deliverables or completion criteria, making it impossible to measure progress. Therefore it stays perpetually in progress across multiple sessions."
+    tags: ["task-decomposition", "anti-patterns"]
+    difficulty: "intermediate"
+    why: "How would you rewrite 'handle feedback' into concrete, verifiable tasks?"
+
+  - id: "ch04-07-progress-files-015"
+    type: recall
+    front: "What are the five steps of the session initialization protocol?"
+    back: "Check context\nRead progress file\nVerify deliverable state\nSelect priority item\nEstablish baseline"
+    tags: ["session-initialization", "session-protocol"]
+    difficulty: "intermediate"
+
+  - id: "ch04-07-progress-files-016"
+    type: recall
+    front: "What are the two steps of the session exit protocol?"
+    back: "Save work at stable checkpoint\nUpdate progress file"
+    tags: ["session-exit", "session-protocol"]
+    difficulty: "basic"
+
+  - id: "ch04-07-progress-files-017"
+    type: thinking
+    front: "Why must you never end a session with work in an unstable state?"
+    back: "Because unstable work forces the next session to start with cleanup instead of progress, and you forget what was half-finished. Therefore always reach a clean stopping point first."
+    tags: ["checkpoint-pattern", "session-exit"]
+    difficulty: "advanced"
+    why: "What should you do if cleanup requires more than 10 minutes at session end?"
+
+  - id: "ch04-07-progress-files-018"
+    type: thinking
+    front: "How does a progress file enable team coordination and handoffs without shared conversation history?"
+    back: "Because it documents state, decisions, and context independently of conversation, so new team members read the file instead of reconstructing context. Therefore it replaces meetings with asynchronous coordination."
+    tags: ["team-coordination", "handoffs"]
+    difficulty: "advanced"
+    why: "Why is a progress file more effective than a conversation transcript for onboarding?"

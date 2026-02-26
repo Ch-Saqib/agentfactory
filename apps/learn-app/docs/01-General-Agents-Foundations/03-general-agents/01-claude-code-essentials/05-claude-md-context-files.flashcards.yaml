@@ -1,0 +1,112 @@
+deck:
+  id: "ch03-05-claude-md"
+  title: "CLAUDE.md Context Files"
+  description: "Persistent project context with CLAUDE.md, LLM statelessness, the AGENTS.md universal standard, and the Three Roles collaboration framework."
+  tags: ["claude-md", "context", "agents-md", "stateless", "three-roles"]
+  version: 1
+
+cards:
+  - id: "ch03-05-claude-md-001"
+    type: recall
+    front: "What is CLAUDE.md in Claude Code?"
+    back: "Markdown file in project root, auto-loaded at every session start for persistent context."
+    tags: ["claude-md", "definition"]
+    difficulty: "basic"
+
+  - id: "ch03-05-claude-md-002"
+    type: recall
+    front: "What does it mean that LLMs like Claude are 'stateless'?"
+    back: "They store no memory between API calls — each request is processed in complete isolation."
+    tags: ["stateless", "llm-architecture"]
+    difficulty: "basic"
+
+  - id: "ch03-05-claude-md-003"
+    type: thinking
+    front: "Why does CLAUDE.md solve the context problem better than re-sending chat history?"
+    back: "BECAUSE chat history grows too long and eventually gets truncated, THEREFORE CLAUDE.md solves context better by persisting as a compact filesystem-based project brief that provides consistent context without accumulating conversation bloat."
+    tags: ["claude-md", "context-management"]
+    difficulty: "intermediate"
+    why: "What happens to conversation-based context when you close your terminal and start fresh tomorrow?"
+
+  - id: "ch03-05-claude-md-004"
+    type: recall
+    front: "What are the six standard sections of a CLAUDE.md file?"
+    back: "1. Project Overview\n2. Technology Stack\n3. Directory Structure\n4. Coding Conventions\n5. Key Commands\n6. Important Notes"
+    tags: ["claude-md", "template"]
+    difficulty: "basic"
+
+  - id: "ch03-05-claude-md-005"
+    type: thinking
+    front: "Why must Claude Code re-send full message history with every API call?"
+    back: "BECAUSE LLMs are stateless and retain nothing between calls, THEREFORE Claude Code must replay the entire conversation each time so the model can reconstruct context and maintain the illusion of continuity."
+    tags: ["stateless", "conversation-history"]
+    difficulty: "intermediate"
+    why: "Statelessness is the fundamental constraint that shapes how all LLM applications manage context."
+
+  - id: "ch03-05-claude-md-006"
+    type: thinking
+    front: "Why is having Claude generate CLAUDE.md from your codebase better than writing it manually from scratch?"
+    back: "BECAUSE Claude reads actual project files to propose accurate tech stack, structure, and dependencies you might describe imprecisely, THEREFORE AI-generated context is more accurate — you then refine with domain knowledge Claude lacks."
+    tags: ["claude-md", "collaboration"]
+    difficulty: "intermediate"
+    why: "What kind of project knowledge can only come from you, not from reading the codebase?"
+
+  - id: "ch03-05-claude-md-007"
+    type: recall
+    front: "What is AGENTS.md and how does it differ from CLAUDE.md?"
+    back: "AGENTS.md: universal standard for all AI tools.\nCLAUDE.md: Claude-specific with richer features."
+    tags: ["agents-md", "standards"]
+    difficulty: "intermediate"
+
+  - id: "ch03-05-claude-md-008"
+    type: recall
+    front: "What is the Agentic AI Foundation (AAIF) and what three projects were donated to it?"
+    back: "Formed December 9, 2025 under Linux Foundation.\n1. MCP (Anthropic)\n2. AGENTS.md (OpenAI)\n3. Goose (Block)"
+    tags: ["aaif", "standards", "linux-foundation"]
+    difficulty: "intermediate"
+
+  - id: "ch03-05-claude-md-009"
+    type: thinking
+    front: "Why should you use both CLAUDE.md and AGENTS.md rather than choosing one?"
+    back: "BECAUSE AGENTS.md provides portable context any AI agent can read while CLAUDE.md adds Claude-specific features (skills, hooks, MCP configs), THEREFORE using both gives universal compatibility plus deep Claude integration without duplication."
+    tags: ["agents-md", "claude-md", "best-practices"]
+    difficulty: "intermediate"
+    why: "What would you lose if you only used AGENTS.md and skipped CLAUDE.md entirely?"
+
+  - id: "ch03-05-claude-md-010"
+    type: recall
+    front: "Universal project context goes in AGENTS.md. What type of content belongs only in CLAUDE.md?"
+    back: "Claude-specific features: skills, MCP server configs, subagent definitions, and hooks configuration."
+    tags: ["agents-md", "claude-md", "content-separation"]
+    difficulty: "intermediate"
+
+  - id: "ch03-05-claude-md-011"
+    type: thinking
+    front: "How does the Three Roles Framework produce better CLAUDE.md files than either party working alone?"
+    back: "BECAUSE AI knows best-practice sections you might miss and you know team constraints AI lacks, THEREFORE the Three Roles converge to co-create context neither party could produce alone."
+    tags: ["three-roles", "collaboration"]
+    difficulty: "advanced"
+    why: "Which role — AI as teacher, you as teacher, or convergence — contributes the most unique value?"
+
+  - id: "ch03-05-claude-md-012"
+    type: recall
+    front: "What four things must be true for CLAUDE.md to auto-load in a new session?"
+    back: "1. Named exactly CLAUDE.md (case-sensitive)\n2. In the project root\n3. Claude Code session restarted\n4. File has content (not empty)"
+    tags: ["claude-md", "troubleshooting"]
+    difficulty: "basic"
+
+  - id: "ch03-05-claude-md-013"
+    type: thinking
+    front: "Why must CLAUDE.md be self-contained if Claude re-reads it fresh every session?"
+    back: "BECAUSE Claude has no memory of previous sessions and each session starts completely blank, THEREFORE CLAUDE.md must be self-contained — every piece of information Claude needs must be explicitly written in the file."
+    tags: ["claude-md", "stateless"]
+    difficulty: "advanced"
+    why: "What symptoms would you see if your CLAUDE.md assumed Claude remembered something from a previous session?"
+
+  - id: "ch03-05-claude-md-014"
+    type: thinking
+    front: "Why is 'specify once, benefit always' a more sustainable approach than explaining context every session?"
+    back: "BECAUSE CLAUDE.md persists in the filesystem while conversation history resets each session, THEREFORE one-time context creation compounds — every future session starts informed without additional effort from you."
+    tags: ["claude-md", "productivity"]
+    difficulty: "advanced"
+    why: "How does this principle apply beyond CLAUDE.md to other aspects of AI-native development?"

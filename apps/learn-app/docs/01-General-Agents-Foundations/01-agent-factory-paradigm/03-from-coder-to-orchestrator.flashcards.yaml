@@ -1,0 +1,202 @@
+deck:
+  id: "ch01-coder-to-orchestrator"
+  title: "From Coder to Orchestrator and the OODA Loop"
+  description: "The identity shift from typist to orchestrator, the OODA Loop reasoning framework for autonomous agents, five generations of AI tools, and how AI transforms every SDLC phase."
+  tags: ["orchestrator", "ooda-loop", "ai-generations", "sdlc", "judgment-layer"]
+  version: 1
+
+cards:
+  - id: "ch01-coder-to-orchestrator-001"
+    type: recall
+    front: "What three categories account for 80% of traditional developer implementation work?"
+    back: "1. Mechanical repetition (loops, CRUD, configs)\n2. Pattern application (known solutions)\n3. Context transfer (intent to syntax)"
+    tags: ["typist", "implementation-work"]
+    difficulty: "intermediate"
+
+  - id: "ch01-coder-to-orchestrator-002"
+    type: recall
+    front: "How is orchestration defined in the context of AI-native development?"
+    back: "Informed direction of intelligent systems."
+    tags: ["orchestration", "definition"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-003"
+    type: thinking
+    front: "Why is orchestration more than simple delegation to AI?"
+    back: "BECAUSE orchestration requires understanding the problem deeply enough to specify requirements, set constraints, and validate output quality, THEREFORE it demands active direction — unlike delegation, which is handing off a task and hoping for results."
+    tags: ["orchestration", "delegation"]
+    difficulty: "intermediate"
+    why: "What happens when a developer delegates to AI without constraint awareness?"
+
+  - id: "ch01-coder-to-orchestrator-004"
+    type: recall
+    front: "What three capabilities define the orchestrator's judgment layer?"
+    back: "1. Problem clarity\n2. Constraint awareness\n3. Quality standards"
+    tags: ["judgment-layer", "orchestrator-capabilities"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-005"
+    type: recall
+    front: "What does OODA stand for, and who developed the framework?"
+    back: "Observe, Orient, Decide, Act — developed by military strategist John Boyd."
+    tags: ["ooda-loop", "definition"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-006"
+    type: thinking
+    front: "How does OODA Loop reasoning differ from passive AI prediction?"
+    back: "BECAUSE OODA-based agents continuously cycle through observe-orient-decide-act and gather new information after each action, THEREFORE they converge on solutions through structured iteration — unlike passive AI, which generates a single response without observing results."
+    tags: ["ooda-loop", "agentic-reasoning"]
+    difficulty: "intermediate"
+    why: "Why does iteration matter more than first-attempt accuracy for autonomous agents?"
+
+  - id: "ch01-coder-to-orchestrator-007"
+    type: recall
+    front: "What tool launched Gen 1 AI development (2021-2022), and what was the human role?"
+    back: "GitHub Copilot launched Gen 1. Human role: Typist with intelligent autocomplete."
+    tags: ["gen-1", "autocomplete"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-008"
+    type: recall
+    front: "What defined Gen 2 AI tools (2022-2023), and what was the primary bottleneck?"
+    back: "Function generation from natural language (ChatGPT). Bottleneck: prompting skill and manual copy-pasting."
+    tags: ["gen-2", "function-generation"]
+    difficulty: "intermediate"
+
+  - id: "ch01-coder-to-orchestrator-009"
+    type: thinking
+    front: "Why was reading the entire codebase a breakthrough for Gen 3 AI tools?"
+    back: "BECAUSE Gen 2 tools were blind to project structure, they produced hallucinated APIs and inconsistent styles. Gen 3 tools read the full codebase, THEREFORE they could modify multiple files while maintaining project consistency and existing patterns."
+    tags: ["gen-3", "feature-implementation"]
+    difficulty: "intermediate"
+    why: "What problems arise when AI generates code without project context?"
+
+  - id: "ch01-coder-to-orchestrator-010"
+    type: recall
+    front: "In Gen 4 (Agentic Mainstream), what is the human role?"
+    back: "Orchestrator — defines the Definition of Done and reviews the final output."
+    tags: ["gen-4", "agentic", "orchestrator"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-011"
+    type: thinking
+    front: "Why does Gen 5 (Resident AI) shift the human role from Orchestrator to Policy Governor?"
+    back: "BECAUSE Gen 5 systems live inside infrastructure as self-healing layers that detect issues, reproduce them, and patch autonomously, the human no longer directs individual tasks. THEREFORE the role shifts to setting high-level guardrails for security, budget, and ethics."
+    tags: ["gen-5", "resident-ai", "policy-governor"]
+    difficulty: "advanced"
+    why: "What new risks emerge when AI acts without waiting for human direction?"
+
+  - id: "ch01-coder-to-orchestrator-012"
+    type: thinking
+    front: "Why do Gen 4 agentic tools not replace Gen 1-3 tools?"
+    back: "Each generation serves a different scope of autonomy. BECAUSE autocomplete (Gen 1) is still useful for quick line completions, function generation (Gen 2) for isolated snippets, and feature tools (Gen 3) for guided multi-file edits — THEREFORE all generations coexist as complementary layers."
+    tags: ["ai-generations", "coexistence"]
+    difficulty: "intermediate"
+    why: "How would you decide which generation of tool to use for a specific task?"
+
+  - id: "ch01-coder-to-orchestrator-013"
+    type: recall
+    front: "Who coined the term 'Full-Stack Builder' and in what context?"
+    back: "Satya Nadella (Microsoft CEO) at the World Economic Forum in Davos, January 2026."
+    tags: ["full-stack-builder", "nadella", "davos"]
+    difficulty: "intermediate"
+
+  - id: "ch01-coder-to-orchestrator-014"
+    type: thinking
+    front: "Why is a Full-Stack Builder limited by orchestration ability rather than coding speed?"
+    back: "BECAUSE AI handles implementation details across every stack layer (CSS, SQL, specs), a single person can own an entire vertical slice of value. THEREFORE the bottleneck shifts from typing speed to how effectively you can specify, direct, and validate across all layers."
+    tags: ["full-stack-builder", "bottleneck-shift"]
+    difficulty: "intermediate"
+    why: "What previous limitation kept developers confined to single stack layers?"
+
+  - id: "ch01-coder-to-orchestrator-015"
+    type: recall
+    front: "What are the five phases of the software development lifecycle?"
+    back: "1. Planning\n2. Coding\n3. Testing\n4. Deployment\n5. Operations"
+    tags: ["sdlc", "phases"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-016"
+    type: thinking
+    front: "How does AI transform the human role across all five SDLC phases?"
+    back: "In every phase, human work shifts from execution to judgment. BECAUSE AI handles the implementation work (generating specs, writing code, creating tests, orchestrating deployments, monitoring systems), THEREFORE humans focus on validating whether AI's output meets requirements and standards."
+    tags: ["sdlc", "execution-to-judgment"]
+    difficulty: "intermediate"
+    why: "Which SDLC phase requires the most careful human oversight despite AI assistance?"
+
+  - id: "ch01-coder-to-orchestrator-017"
+    type: recall
+    front: "What are the estimated hours for a traditional project versus an AI-orchestrated project?"
+    back: "Traditional: 140 hours. AI-orchestrated: 33 hours."
+    tags: ["time-savings", "productivity"]
+    difficulty: "basic"
+
+  - id: "ch01-coder-to-orchestrator-018"
+    type: thinking
+    front: "Why does AI-orchestrated development produce better outcomes, not just faster ones?"
+    back: "BECAUSE the orchestrator focuses energy on judgment and validation instead of being exhausted from 80+ hours of typing implementation, THEREFORE they catch more issues, write better specifications, and produce more thoroughly tested code with better documentation."
+    tags: ["quality", "orchestrator-advantage"]
+    difficulty: "advanced"
+    why: "How does cognitive fatigue from implementation work affect code quality?"
+
+  - id: "ch01-coder-to-orchestrator-019"
+    type: recall
+    front: "What four skills define the typist's traditional skill stack?"
+    back: "1. Programming language syntax\n2. Framework knowledge\n3. Algorithm implementation\n4. Debugging skills"
+    tags: ["typist", "skill-stack"]
+    difficulty: "intermediate"
+
+  - id: "ch01-coder-to-orchestrator-020"
+    type: recall
+    front: "What four skills define the orchestrator's new skill stack?"
+    back: "1. Problem decomposition and specification\n2. Quality validation and judgment\n3. Constraint analysis and tradeoffs\n4. Prompting and direction"
+    tags: ["orchestrator", "skill-stack"]
+    difficulty: "intermediate"
+
+  - id: "ch01-coder-to-orchestrator-021"
+    type: thinking
+    front: "Why do orchestrators still need programming knowledge despite AI writing most code?"
+    back: "BECAUSE you cannot validate what you do not understand. Reviewing AI-generated code for correctness, security vulnerabilities, and architectural fitness requires deep programming knowledge — THEREFORE the orchestrator reads and evaluates code rather than writing it."
+    tags: ["orchestrator", "validation", "programming-knowledge"]
+    difficulty: "intermediate"
+    why: "What specific risks emerge when a non-technical person orchestrates AI code generation?"
+
+  - id: "ch01-coder-to-orchestrator-022"
+    type: thinking
+    front: "How does the OODA Loop enable autonomous debugging in agents like Claude Code?"
+    back: "The agent OBSERVES the error, ORIENTS by identifying root causes, DECIDES which to investigate, and ACTS by running tests. BECAUSE each cycle narrows the problem space, THEREFORE it converges on a fix through structured iteration rather than a single guess."
+    tags: ["ooda-loop", "debugging", "agentic-reasoning"]
+    difficulty: "advanced"
+    why: "Why is structured OODA iteration more reliable than a single AI prediction for complex bugs?"
+
+  - id: "ch01-coder-to-orchestrator-023"
+    type: thinking
+    front: "Why does MCP (Model Context Protocol) matter for Gen 4 agentic tools?"
+    back: "BECAUSE agents need to interact with external systems (databases, cloud logs, Jira) to complete multi-step tasks autonomously, MCP provides universal adapters that standardize these connections. THEREFORE agents can orchestrate across an entire tech stack without custom integrations."
+    tags: ["mcp", "gen-4", "connectivity"]
+    difficulty: "intermediate"
+    why: "How would Gen 4 agents be limited without a standardized connection protocol?"
+
+  - id: "ch01-coder-to-orchestrator-024"
+    type: thinking
+    front: "Why does developer value shift from lines-of-code written to intelligence effectively directed?"
+    back: "BECAUSE AI can generate code faster and more tirelessly than any human, raw coding output becomes commoditized. THEREFORE a developer's value becomes proportional to how much intelligent work they can direct, validate, and govern — which scales with judgment quality, not typing speed."
+    tags: ["value-shift", "orchestrator-economics"]
+    difficulty: "advanced"
+    why: "How does this value shift change hiring criteria for software developers?"
+
+  - id: "ch01-coder-to-orchestrator-025"
+    type: thinking
+    front: "Why is the ~76% SWE-bench Verified score significant for Gen 4 tools?"
+    back: "SWE-bench Verified tests agents on real-world GitHub issues, not synthetic benchmarks. BECAUSE top models solve 3 out of 4 genuine software engineering problems unassisted, THEREFORE agentic tools have crossed from novelty into practical daily-driver reliability for senior engineers."
+    tags: ["swe-bench", "gen-4", "benchmarks"]
+    difficulty: "intermediate"
+    why: "How does real-world benchmark performance differ from synthetic test accuracy?"
+
+  - id: "ch01-coder-to-orchestrator-026"
+    type: recall
+    front: "What is the primary bottleneck in Gen 4 (Agentic) AI development?"
+    back: "Human review speed."
+    tags: ["gen-4", "bottleneck"]
+    difficulty: "basic"

@@ -471,3 +471,8 @@ Give me concrete recommendations for improving my stack composition.
 ```
 
 **What you're learning:** Recognizing how real tools compose into the three-layer architecture, identifying which layers you already use, and understanding how modularity enables flexibility and prevents vendor lock-in.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

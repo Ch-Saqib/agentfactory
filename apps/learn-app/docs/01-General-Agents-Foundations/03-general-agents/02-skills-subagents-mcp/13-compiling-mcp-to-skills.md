@@ -709,3 +709,8 @@ Research and tools supporting this lesson:
 **Compare Direct MCP vs Compiled Skill:**
 
 > "I want to understand the difference: (1) Run a browser automation task using Playwright MCP directly, (2) Run the same task using browsing-with-playwright skill, (3) Show me the exact token difference and explain where savings come from."
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -1,0 +1,82 @@
+deck:
+  id: "ch03-14-settings-hierarchy"
+  title: "Settings Hierarchy"
+  description: "Claude Code's three-level settings system for personal preferences, team standards, and local overrides."
+  tags: ["settings", "configuration", "hierarchy", "team-collaboration"]
+  version: 1
+
+cards:
+  - id: "ch03-14-settings-hierarchy-001"
+    type: recall
+    front: "What are the three levels of Claude Code's settings hierarchy from most general to most specific?"
+    back: "User, Project, Local"
+    tags: ["hierarchy"]
+    difficulty: "basic"
+
+  - id: "ch03-14-settings-hierarchy-002"
+    type: recall
+    front: "What is the file path for user-level settings in Claude Code?"
+    back: "~/.claude/settings.json"
+    tags: ["file-paths"]
+    difficulty: "basic"
+
+  - id: "ch03-14-settings-hierarchy-003"
+    type: recall
+    front: "What is the file path for project-level settings in Claude Code?"
+    back: ".claude/settings.json inside the project directory"
+    tags: ["file-paths"]
+    difficulty: "intermediate"
+
+  - id: "ch03-14-settings-hierarchy-004"
+    type: thinking
+    front: "Why does the most specific settings level win in a precedence conflict?"
+    back: "BECAUSE general settings cannot anticipate every project's or machine's needs, allowing specific overrides ensures local context takes priority, THEREFORE Local beats Project beats User."
+    tags: ["precedence"]
+    difficulty: "intermediate"
+    why: "Specificity reflects closeness to the actual working context"
+
+  - id: "ch03-14-settings-hierarchy-005"
+    type: thinking
+    front: "Why should .claude/settings.local.json be gitignored rather than committed?"
+    back: "BECAUSE local settings contain personal overrides and temporary experiments, committing them would impose one developer's machine-specific preferences on the entire team, THEREFORE they must stay private."
+    tags: ["git", "team-collaboration"]
+    difficulty: "intermediate"
+    why: "Personal experiments should not become team standards"
+
+  - id: "ch03-14-settings-hierarchy-006"
+    type: thinking
+    front: "Why does Claude Code use three settings levels instead of a single global configuration file?"
+    back: "BECAUSE teams need shared standards while individuals need personal customization and safe experimentation, THEREFORE layered settings provide consistency and flexibility without conflicts."
+    tags: ["hierarchy", "team-collaboration"]
+    difficulty: "intermediate"
+    why: "Rigid single-file configs force a choice between standardization and personalization"
+
+  - id: "ch03-14-settings-hierarchy-007"
+    type: thinking
+    front: "Why should team security policies like denying .env access be set at project level rather than user level?"
+    back: "BECAUSE user-level settings only apply to one developer's machine, project-level settings are shared via git and enforced for every team member automatically, THEREFORE security policies reach the entire team."
+    tags: ["when-to-use", "team-collaboration"]
+    difficulty: "intermediate"
+    why: "Version-controlled settings guarantee consistent enforcement"
+
+  - id: "ch03-14-settings-hierarchy-008"
+    type: thinking
+    front: "How can a forgotten settings.local.json silently break team workflows?"
+    back: "BECAUSE local settings have highest precedence, a leftover local override silently takes priority over project-level team standards, THEREFORE the developer operates under different rules without realizing it."
+    tags: ["precedence", "pitfalls"]
+    difficulty: "advanced"
+    why: "Highest-precedence files can mask team agreements invisibly"
+
+  - id: "ch03-14-settings-hierarchy-009"
+    type: recall
+    front: "Which settings file should be version controlled and shared with the team?"
+    back: ".claude/settings.json (project-level settings)"
+    tags: ["git", "team-collaboration"]
+    difficulty: "basic"
+
+  - id: "ch03-14-settings-hierarchy-010"
+    type: recall
+    front: "What happens if you delete the .claude/ directory from a project?"
+    back: "All project-level settings and configuration reset to defaults"
+    tags: ["claude-directory"]
+    difficulty: "basic"

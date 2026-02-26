@@ -249,3 +249,8 @@ You're building a **mental model**. The tools are the same; the architecture is 
 > "Ask Claude to create a file, and when it asks for approval, press Esc to reject. Then ask it to do something different. Notice how Claude adapts without frustration."
 
 **Next Up:** Now that you're comfortable conversing with Claude, let's teach Claude about YOUR preferences.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

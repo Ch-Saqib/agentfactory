@@ -922,3 +922,8 @@ This guide synthesizes research from:
 ---
 
 _Last updated: January 2026_
+
+
+## Flashcards Study Aid
+
+<Flashcards />

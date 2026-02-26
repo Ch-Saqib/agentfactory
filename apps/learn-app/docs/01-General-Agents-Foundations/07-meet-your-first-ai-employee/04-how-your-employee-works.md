@@ -398,3 +398,8 @@ perform an autopsy: which missing pattern was the likely cause of death?
 ```
 
 **What you're learning:** The 6 patterns are not just a classification scheme. They are a diagnostic tool. Learning to identify which missing pattern killed a project is the fastest way to internalize why each pattern matters. This forensic skill transfers directly to evaluating any agent framework you encounter.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

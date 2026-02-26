@@ -1,0 +1,97 @@
+deck:
+  id: "ch07-03-first-real-work"
+  title: "Your First Real Work"
+  description: "Delegating tasks to an AI Employee, iterating on output, understanding the agent loop phases, and configuring autonomous daily workflows."
+  tags: ["agent-loop", "task-delegation", "autonomous-workflow", "morning-briefing"]
+  version: 1
+
+cards:
+  - id: "ch07-03-first-real-work-001"
+    type: recall
+    front: "What are the four phases of the agent loop in order?"
+    back: "Parse, plan, execute, report."
+    tags: ["agent-loop", "phases"]
+    difficulty: "basic"
+
+  - id: "ch07-03-first-real-work-002"
+    type: thinking
+    front: "How does autonomous invocation transform a tool into an employee?"
+    back: "BECAUSE the agent fires on a schedule and runs the parse-plan-execute-report cycle without being prompted, THEREFORE it acts like a colleague who works independently rather than a tool that waits for commands."
+    tags: ["autonomous", "scheduling"]
+    difficulty: "intermediate"
+    why: "What changes about the user's workflow when the agent acts without being asked?"
+
+  - id: "ch07-03-first-real-work-003"
+    type: recall
+    front: "What distinguishes reactive tasks from autonomous tasks?"
+    back: "Reactive tasks require you to ask first; autonomous tasks run on a schedule without prompting."
+    tags: ["reactive", "autonomous"]
+    difficulty: "basic"
+
+  - id: "ch07-03-first-real-work-004"
+    type: thinking
+    front: "Why are first drafts from an AI Employee described as cheap while human judgment is the expensive part?"
+    back: "BECAUSE the agent generates structured output in seconds at near-zero cost, THEREFORE the real value comes from your domain expertise in editing, correcting, and deciding what to keep or discard."
+    tags: ["iteration", "judgment"]
+    difficulty: "intermediate"
+    why: "What happens to output quality if a user accepts agent drafts without review?"
+
+  - id: "ch07-03-first-real-work-005"
+    type: recall
+    front: "What does a morning briefing configured as an autonomous task do?"
+    back: "Runs on schedule, checks recent files, summarizes yesterday's work, and suggests today's priorities."
+    tags: ["morning-briefing", "autonomous"]
+    difficulty: "intermediate"
+
+  - id: "ch07-03-first-real-work-006"
+    type: thinking
+    front: "Why is an employee who explains reasoning and allows overrides more valuable than one who never pushes back?"
+    back: "BECAUSE transparent reasoning lets you evaluate the logic behind suggestions, THEREFORE you can make informed accept/reject decisions rather than blindly trusting or dismissing the output."
+    tags: ["iteration", "delegation"]
+    difficulty: "advanced"
+    why: "How does the ability to override differ from the agent simply being wrong?"
+
+  - id: "ch07-03-first-real-work-007"
+    type: recall
+    front: "Name three task types where AI Employees excel?"
+    back: "Research and summarization, professional writing, and structured analysis."
+    tags: ["strengths", "capabilities"]
+    difficulty: "intermediate"
+
+  - id: "ch07-03-first-real-work-008"
+    type: recall
+    front: "Name three task types where AI Employees struggle?"
+    back: "Tasks requiring real-time data, highly subjective decisions, and creative work requiring originality."
+    tags: ["weaknesses", "limitations"]
+    difficulty: "basic"
+
+  - id: "ch07-03-first-real-work-009"
+    type: thinking
+    front: "Why does the shift from reactive tasks to autonomous scheduling represent the pivotal difference between AI Employee and chatbot?"
+    back: "BECAUSE a chatbot only responds when prompted while an AI Employee acts on its own schedule, THEREFORE autonomous invocation is the single architectural addition that elevates a conversational tool into an independent worker."
+    tags: ["autonomous", "chatbot-vs-agent"]
+    difficulty: "advanced"
+    why: "Which of the six chatbot-vs-employee dimensions does scheduling directly address?"
+
+  - id: "ch07-03-first-real-work-010"
+    type: recall
+    front: "During which agent loop phase does the agent decide what to do and in what order?"
+    back: "The plan phase."
+    tags: ["agent-loop", "planning"]
+    difficulty: "basic"
+
+  - id: "ch07-03-first-real-work-011"
+    type: thinking
+    front: "How does specific feedback like 'add X, remove Y' differ from vague feedback like 'make it better' when iterating on agent output?"
+    back: "BECAUSE specific feedback gives the agent actionable constraints to modify precisely, THEREFORE iteration converges faster and produces output matching your actual requirements instead of random variations."
+    tags: ["iteration", "feedback"]
+    difficulty: "intermediate"
+    why: "What does vague feedback cause the agent to do differently in its plan phase?"
+
+  - id: "ch07-03-first-real-work-012"
+    type: thinking
+    front: "Why do AI Employees excel at information-heavy, structure-dependent, repeatable tasks?"
+    back: "BECAUSE these tasks have clear patterns the model can follow, structured outputs it can generate reliably, and repetition that justifies the setup cost, THEREFORE they maximize the agent's strengths while minimizing its weaknesses in judgment and originality."
+    why: "What characteristic of creative tasks makes them poor candidates for AI Employees?"
+    tags: ["strengths", "task-selection"]
+    difficulty: "intermediate"

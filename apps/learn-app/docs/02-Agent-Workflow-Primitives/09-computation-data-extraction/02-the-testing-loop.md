@@ -212,22 +212,22 @@ Total: 40.0
 
 Exit code 0. No errors. No warnings. The answer is wrong — it should be 100 — but Bash says "success."
 
-| What Exit Code 0 Means | What Exit Code 0 Does NOT Mean |
-|---|---|
-| The script ran without crashing | The script produced the right answer |
-| Python didn't raise an exception | The logic is correct |
-| The process terminated normally | Your data is intact |
+| What Exit Code 0 Means           | What Exit Code 0 Does NOT Mean       |
+| -------------------------------- | ------------------------------------ |
+| The script ran without crashing  | The script produced the right answer |
+| Python didn't raise an exception | The logic is correct                 |
+| The process terminated normally  | Your data is intact                  |
 
 **Exit codes catch crashes. They don't catch logic errors.** The buggy script from the challenge had perfect exit codes on every run. Only your test data — specifically, testing with numbers starting with 6, 7, 8, 9 — exposed the bug.
 
 :::note Common Exit Codes (Reference)
 
-| Code | Meaning | Example |
-|------|---------|---------|
-| 0 | Success — didn't crash | Script ran, output appeared |
-| 1 | General error | Python raised an exception |
-| 127 | Command not found | Typo in script name |
-| 130 | Interrupted by Ctrl+C | You cancelled a long run |
+| Code | Meaning                | Example                     |
+| ---- | ---------------------- | --------------------------- |
+| 0    | Success — didn't crash | Script ran, output appeared |
+| 1    | General error          | Python raised an exception  |
+| 127  | Command not found      | Typo in script name         |
+| 130  | Interrupted by Ctrl+C  | You cancelled a long run    |
 
 `$?` holds the exit code of the **most recent** command — run `echo $?` immediately after the command you care about.
 :::
@@ -268,6 +268,7 @@ echo $?
 ```
 
 **Output:**
+
 ```
 Error: no numbers received
 1
@@ -293,12 +294,12 @@ This works because:
 
 ### Pattern Variations
 
-| What You're Testing | The Prompt |
-|---------------------|------------|
-| Sum script | "Verify sum.py with test data 10, 20, 30 (expected: 60)" |
-| Average script | "Verify average.py with test data 10, 20, 30 (expected: 20)" |
-| Max script | "Verify max.py with test data 10, 50, 30 (expected: 50)" |
-| Filter script | "Verify filter.py keeps only numbers > 20 from 10, 30, 50 (expected: 30, 50)" |
+| What You're Testing | The Prompt                                                                    |
+| ------------------- | ----------------------------------------------------------------------------- |
+| Sum script          | "Verify sum.py with test data 10, 20, 30 (expected: 60)"                      |
+| Average script      | "Verify average.py with test data 10, 20, 30 (expected: 20)"                  |
+| Max script          | "Verify max.py with test data 10, 50, 30 (expected: 50)"                      |
+| Filter script       | "Verify filter.py keeps only numbers > 20 from 10, 30, 50 (expected: 30, 50)" |
 
 The tool changes. The verification pattern stays the same.
 
@@ -325,11 +326,15 @@ You: Test sum.py with these edge cases:
 
 If any test fails, you've discovered a bug before it touched real data. Fix it now — Lesson 3 builds on a working sum.py.
 
-You now have a verified script and a verification habit. That habit — test with known answers, check the math yourself, never trust exit code 0 — is more valuable than the script itself. The script handles numbers. The habit handles *everything you'll ever build*.
+You now have a verified script and a verification habit. That habit — test with known answers, check the math yourself, never trust exit code 0 — is more valuable than the script itself. The script handles numbers. The habit handles _everything you'll ever build_.
 
 Human provides the evidence criteria. Agent generates the code and tests. Neither alone can guarantee correctness — and that division is not a limitation. It's the primitive.
 
 Now try something. Download your actual bank statement as a CSV. Point sum.py at the amount column. Watch what happens when real-world data — with commas inside merchant names, dollar signs in amounts, and header rows that aren't numbers — hits a script that expects clean numbers, one per line.
+
+## Flashcards Study Aid
+
+<Flashcards />
 
 ---
 

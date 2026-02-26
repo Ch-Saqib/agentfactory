@@ -1,0 +1,142 @@
+deck:
+  id: "ch04-03-context-architecture"
+  title: "Context Architecture: The Complete System"
+  description: "How CLAUDE.md, Skills, Subagents, and Hooks work together as a context management system with distinct loading patterns and cost profiles."
+  tags: ["context-architecture", "CLAUDE-md", "skills", "subagents", "hooks", "context-cost"]
+  version: 1
+
+cards:
+  - id: "ch04-03-context-architecture-001"
+    type: recall
+    front: "What are the four context tools in Claude Code's context architecture?"
+    back: "1. CLAUDE.md\n2. Skills\n3. Subagents\n4. Hooks"
+    tags: ["context-tools"]
+    difficulty: "basic"
+
+  - id: "ch04-03-context-architecture-002"
+    type: recall
+    front: "When does CLAUDE.md load, and what is its context cost?"
+    back: "Loads at session start with full content, costing tokens on every request."
+    tags: ["CLAUDE-md", "loading-pattern"]
+    difficulty: "basic"
+
+  - id: "ch04-03-context-architecture-003"
+    type: recall
+    front: "How do Skills load into context?"
+    back: "Descriptions (~100 tokens each) load at start; full content loads only when invoked."
+    tags: ["skills", "on-demand-loading"]
+    difficulty: "basic"
+
+  - id: "ch04-03-context-architecture-004"
+    type: recall
+    front: "What is the context cost of a Subagent in the main session?"
+    back: "Zero tokens — Subagents run in fresh, isolated context."
+    tags: ["subagents", "context-cost"]
+    difficulty: "basic"
+
+  - id: "ch04-03-context-architecture-005"
+    type: recall
+    front: "What is the context cost of Hooks?"
+    back: "Zero — Hooks run externally without loading anything into context."
+    tags: ["hooks", "context-cost"]
+    difficulty: "basic"
+
+  - id: "ch04-03-context-architecture-006"
+    type: recall
+    front: "What five things load into context at session start?"
+    back: "1. System prompt\n2. CLAUDE.md (full)\n3. Skill descriptions\n4. MCP tool definitions\n5. Git status and workspace info"
+    tags: ["loading-timeline", "session-start"]
+    difficulty: "intermediate"
+
+  - id: "ch04-03-context-architecture-007"
+    type: thinking
+    front: "Why should always-needed, stable information go in CLAUDE.md rather than a Skill?"
+    back: "Because CLAUDE.md loads automatically every session, so always-needed information is guaranteed to be available without requiring an explicit invocation. Putting it in a Skill would risk it not being loaded when needed."
+    tags: ["CLAUDE-md", "decision-framework"]
+    difficulty: "intermediate"
+    why: "What could go wrong if critical project conventions were stored only in a Skill?"
+
+  - id: "ch04-03-context-architecture-008"
+    type: thinking
+    front: "Why are Skills the best tool for sometimes-needed, stable information?"
+    back: "Because Skills load on-demand, they save context tokens during tasks that don't need them. Therefore, substantial domain-specific content stays available without consuming baseline context every request."
+    tags: ["skills", "decision-framework"]
+    difficulty: "intermediate"
+    why: "What happens to attention quality when sometimes-needed information sits in CLAUDE.md instead?"
+
+  - id: "ch04-03-context-architecture-009"
+    type: thinking
+    front: "Why do Subagents prevent context pollution during research tasks?"
+    back: "Because Subagents run in isolated context, all file reads and searches accumulate in their own window. Therefore, only a summary returns to the main session, keeping the main context clean for reasoning."
+    tags: ["subagents", "context-pollution"]
+    difficulty: "intermediate"
+    why: "What degrades in the main session if you do extensive research without using a Subagent?"
+
+  - id: "ch04-03-context-architecture-010"
+    type: thinking
+    front: "Why are Hooks the best choice for deterministic, must-happen-every-time tasks?"
+    back: "Because Hooks run externally with zero context cost and no LLM variance. Therefore, repetitive validation tasks consume no tokens and produce consistent results every time."
+    tags: ["hooks", "deterministic"]
+    difficulty: "intermediate"
+    why: "What is wasted when you use Claude for checks that require no reasoning?"
+
+  - id: "ch04-03-context-architecture-011"
+    type: recall
+    front: "In the marketing consultant example, what was the baseline context load without architecture versus with architecture?"
+    back: "Without: ~7,300 tokens every request.\nWith: ~550 tokens every request (13x reduction)."
+    tags: ["marketing-example", "context-cost"]
+    difficulty: "intermediate"
+
+  - id: "ch04-03-context-architecture-012"
+    type: thinking
+    front: "How does a 13x reduction in baseline context improve agent performance?"
+    back: "Because baseline tokens are consumed on every request regardless of task, reducing them frees thousands of tokens for actual work. Therefore, more context window is available for reasoning, file content, and task-specific information."
+    tags: ["context-cost", "performance"]
+    difficulty: "advanced"
+    why: "How would you measure whether context savings actually improved output quality?"
+
+  - id: "ch04-03-context-architecture-013"
+    type: recall
+    front: "What symptom indicates everything is overloaded into CLAUDE.md?"
+    back: "Claude ignores important instructions because attention is diluted."
+    tags: ["architecture-mistakes", "CLAUDE-md"]
+    difficulty: "basic"
+
+  - id: "ch04-03-context-architecture-014"
+    type: thinking
+    front: "Why does a 300-line CLAUDE.md perform worse than a 50-line one with Skills handling the rest?"
+    back: "Because LLM attention is finite, a large CLAUDE.md dilutes focus across content that is only sometimes relevant. Therefore, critical instructions get less attention and Claude misses or ignores them."
+    tags: ["architecture-mistakes", "attention-dilution"]
+    difficulty: "advanced"
+    why: "How would you diagnose whether your CLAUDE.md is too long?"
+
+  - id: "ch04-03-context-architecture-015"
+    type: thinking
+    front: "Why does skipping Subagents for research tasks degrade output quality?"
+    back: "Because all file reads and search results accumulate in the main context window, the context fills rapidly with raw data. Therefore, less space remains for reasoning, and Claude's attention spreads thin across irrelevant content."
+    tags: ["architecture-mistakes", "subagents"]
+    difficulty: "intermediate"
+    why: "How would you recognize that context pollution is causing quality loss?"
+
+  - id: "ch04-03-context-architecture-016"
+    type: thinking
+    front: "Why do Skills with unclear descriptions fail to get invoked by Claude?"
+    back: "Because Claude matches tasks to Skills using their one-line descriptions, vague or generic descriptions don't signal when the Skill is relevant. Therefore, Claude cannot distinguish when to load the Skill versus handle the task directly."
+    tags: ["architecture-mistakes", "skills"]
+    difficulty: "intermediate"
+    why: "What makes a Skill description effective enough for Claude to invoke it reliably?"
+
+  - id: "ch04-03-context-architecture-017"
+    type: thinking
+    front: "How would you decide whether a piece of information belongs in CLAUDE.md or a Skill?"
+    back: "Ask whether Claude needs it for every task. Because CLAUDE.md costs tokens on every request, only always-needed stable information belongs there. Therefore, anything needed only sometimes should be a Skill to save baseline context."
+    tags: ["decision-framework", "architecture-design"]
+    difficulty: "advanced"
+    why: "What criteria would you use to audit an existing CLAUDE.md for items to move to Skills?"
+
+  - id: "ch04-03-context-architecture-018"
+    type: recall
+    front: "What symptom indicates you are forgetting to use Hooks?"
+    back: "Repetitive validation tasks consume LLM calls unnecessarily."
+    tags: ["architecture-mistakes", "hooks"]
+    difficulty: "basic"

@@ -557,3 +557,8 @@ Then, help me create the missing pieces one by one.
 ### Safety Note
 
 Never persist sensitive data (API keys, passwords, tokens, personal information) in context files like CLAUDE.md. These files are committed to version control and visible to anyone with repository access. Use environment variables (`.env` files in `.gitignore`) for secrets. If you accidentally commit a secret, rotate it immediately—removing it from git history is not enough.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

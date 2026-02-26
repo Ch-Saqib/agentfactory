@@ -1,0 +1,71 @@
+# Promptfoo Proof-of-Concept: Mock Config
+# Uses golden output fixture as the "model response" to test the full pipeline
+# (prompt -> provider -> deterministic assertion) without an API key.
+
+description: "Flashcard Skill Eval - F01 Mock Pipeline Test"
+
+prompts:
+  - file://prompt.txt
+
+providers:
+  - id: file://mock-provider.js
+    label: "Mock (Golden F01)"
+
+tests:
+  - description: "F01 Explicit Dual Prompt Single Lesson"
+    vars:
+      user_prompt: >-
+        Act as an expert study aid creator...minimum information principle...under
+        40 words...self-contained and atomic...focus on key terms, formulas, and
+        relationships. Also create understanding-focused Why/How cards. Generate
+        half from each prompt style.
+      lesson_content: |
+        # Agent Memory Basics
+
+        Agent memory has three layers:
+
+        1. **Episodic memory**: stores specific interaction events.
+        2. **Semantic memory**: stores stable facts and definitions.
+        3. **Procedural memory**: stores reusable action patterns.
+
+        A robust agent does not retrieve all memory at once. It runs a pipeline:
+
+        1. Filter candidate memories by scope and time.
+        2. Rank candidates by relevance score.
+        3. Select top results under token budget.
+        4. Inject selected context into the prompt.
+
+        The relevance score can combine keyword match and vector similarity. A simple weighted score is:
+
+        `relevance = 0.6 * semantic_similarity + 0.4 * keyword_overlap`
+
+        This relationship matters because high semantic similarity with zero keyword overlap can still indicate useful context, but pure keyword overlap often catches exact constraints like IDs or dates.
+
+        When the context window is tight, semantic memory should usually win over episodic memory unless the user asks about a specific previous decision. In troubleshooting workflows, procedural memory becomes more valuable because it captures step order and guardrails.
+      _caseDef:
+        id: "F01_explicit_dual_prompt_single_lesson"
+        name: "Explicit Dual Prompt Single Lesson"
+        scenario: "explicit_trigger"
+        input:
+          source_lessons:
+            - "evals/flashcards/fixtures/lessons/f01-agent-memory-basics.md"
+          user_prompt: >-
+            Act as an expert study aid creator...minimum information
+            principle...under 40 words...self-contained and atomic...focus on key
+            terms, formulas, and relationships. Also create understanding-focused
+            Why/How cards. Generate half from each prompt style.
+        expected:
+          should_generate: true
+          target_decks: 1
+          min_cards: 8
+          max_cards: 16
+          recall_ratio_min: 0.45
+          recall_ratio_max: 0.55
+          thinking_ratio_min: 0.45
+          thinking_ratio_max: 0.55
+          thinking_front_why_how_ratio_min: 0.75
+          require_formula_focus: false
+          require_relationship_focus: true
+    assert:
+      - type: javascript
+        value: file://deterministic-adapter.js

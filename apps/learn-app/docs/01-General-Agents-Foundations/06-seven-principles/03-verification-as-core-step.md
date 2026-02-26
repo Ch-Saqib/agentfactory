@@ -666,3 +666,8 @@ Verification is your safety net. Never skip verification for code that will:
 - Affect compliance or legal requirements (legal risk)
 
 For these areas, thorough verification is non-negotiable, no matter how much you trust the AI.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -235,3 +235,8 @@ Be specific about what you find.
 **What you're learning:** Diagnosis comes before treatment. This prompt helps you identify which rot type (if any) is affecting your current session, so you can apply the right fix.
 
 **Safety note:** When running context diagnostics, you're examining the session state, not changing it. This is observational—safe to run at any time.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

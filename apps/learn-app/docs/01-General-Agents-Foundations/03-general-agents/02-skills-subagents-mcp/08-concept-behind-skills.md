@@ -458,3 +458,8 @@ This lesson is based on the Anthropic talk "Don't Build Agents, Build Skills Ins
 **What you're learning:** The limits of skills—essential for deciding when to use Part 6's SDK-based agents. Not everything should be a skill.
 
 ---
+
+
+## Flashcards Study Aid
+
+<Flashcards />

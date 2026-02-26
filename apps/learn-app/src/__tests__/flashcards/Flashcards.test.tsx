@@ -128,12 +128,16 @@ describe("Flashcards", () => {
     render(<Flashcards cards={mockDeck} />);
 
     // Before flip — no rating buttons
-    expect(screen.queryByRole("button", { name: "Missed it" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Missed it" }),
+    ).not.toBeInTheDocument();
 
     await userEvent.keyboard(" ");
 
     // After flip — rating buttons visible
-    expect(screen.getByRole("button", { name: "Missed it" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Missed it" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Got it" })).toBeInTheDocument();
   });
 
@@ -147,5 +151,12 @@ describe("Flashcards", () => {
 
     await userEvent.keyboard("{ArrowUp}");
     expect(screen.getByText("1 / 3 cards")).toBeInTheDocument();
+  });
+
+  it("utility row contains a guide link to /guide#flashcards", () => {
+    render(<Flashcards cards={mockDeck} />);
+    const link = screen.getByRole("link", { name: "How flashcards work" });
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/guide#flashcards");
   });
 });

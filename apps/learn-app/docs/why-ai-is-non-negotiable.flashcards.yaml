@@ -1,170 +1,180 @@
 deck:
   id: "why-ai-is-non-negotiable"
   title: "Why AI Is Non-Negotiable"
-  description: "The honest debate on AI adoption — eight objections, evidence-based rebuttals, capacity to serve, sovereign AI, bias visibility, and why building better beats building less."
-  tags: ["ai-debate", "workforce", "policy", "part-0"]
+  description: "Eight objections to AI, eight rebuttals, and the case that every fear is an argument for building better — not building less."
+  tags: ["ai-debate", "objections", "capacity-to-serve", "geopolitics", "ethics"]
   version: 2
 
 cards:
-  - id: "non-neg-001"
-    front: "Every previous technology augmented bodies or automated routine computation. What makes AI fundamentally different?"
-    back: "AI augments cognition itself — the ability to reason, synthesize, create, and decide. This is the first technology that extends what the mind can do, not just what the body or calculator can do."
-    tags: ["core-thesis", "cognition"]
+  # RECALL — AI augments cognition
+  - id: "why-ai-is-non-negotiable-001"
+    front: "What makes AI different from every previous foundational technology?"
+    back: "It augments cognition itself, not just bodies or routine computation."
+    tags: ["ai-uniqueness", "cognition"]
     difficulty: "basic"
 
-  - id: "non-neg-002"
-    front: "A government debates pausing AI development to protect jobs. According to the text, what historical pattern makes this approach fail?"
-    back: "Historically, no society has ever prospered by rejecting a foundational technology. Societies that adopted fire, agriculture, the printing press, and the steam engine flourished; those that resisted were absorbed by those that didn't."
-    tags: ["history", "adoption"]
-    difficulty: "intermediate"
-    why: "Why is absorption — not just falling behind — the consequence the text emphasizes?"
-
-  - id: "non-neg-003"
-    front: "Old paradigm vs. new reality of work: how does the text contrast them?"
-    back: "Old: Hire humans for every task, train for months, hope they stay, watch AI from the sidelines.\nNew: Build AI employees in hours, they work 24/7, you lead the transformation instead of watching it."
-    tags: ["paradigm-shift", "workforce"]
-    difficulty: "intermediate"
-    why: "Why does the text frame watching from the sidelines as the bigger risk than building imperfect agents?"
-
-  - id: "non-neg-004"
-    front: "Cost to serve vs. capacity to serve — what is the distinction?"
-    back: "Cost to serve: doing the same work at a lower price point (historical pattern).\nCapacity to serve: doing work at a scale previously impossible.\nAI introduces both, but capacity to serve is the more powerful dimension."
-    tags: ["economics", "capacity-to-serve"]
-    difficulty: "intermediate"
-    why: "Why is expanding who gets served more transformative than making existing service cheaper?"
-
-  - id: "non-neg-005"
-    front: "AI diagnostic tools screen for diabetic retinopathy in Indian villages that never had an ophthalmologist. Which concept does this illustrate?"
-    back: "Capacity to serve — AI makes specialist-level healthcare accessible where no specialist existed. It doesn't replace the doctor; it makes it possible for every village to have one."
+  # THINKING — capacity to serve vs cost to serve
+  - id: "why-ai-is-non-negotiable-002"
+    front: "Villages with no ophthalmologist now get AI screening for diabetic retinopathy. Why is this 'capacity to serve' rather than just 'cost to serve'?"
+    back: "Cost to serve requires a provider to already exist. Capacity to serve creates access where there were zero specialists — no amount of cost reduction helps when supply is zero."
     tags: ["capacity-to-serve", "healthcare"]
     difficulty: "intermediate"
+    why: "What other professional services have zero presence in underserved regions that AI could unlock?"
 
-  - id: "non-neg-006"
-    front: "According to the text, AI is the enemy of mediocrity, not of excellence. What determines who thrives?"
-    back: "The dividing line is those who coast versus those who grow — not blue-collar vs. white-collar. A radiologist who combines clinical judgment with AI-assisted detection becomes indispensable; one who merely reads standard scans feels pressure."
-    tags: ["workforce", "excellence"]
-    difficulty: "intermediate"
-    why: "Why does the text say the real risk is refusing to learn, not AI taking your job?"
-
-  - id: "non-neg-007"
-    front: "The text identifies the missing consumer dividend from AI as what kind of failure?"
-    back: "A marketing failure, not a technology failure. The industry spent years selling AGI hype to investors instead of explaining practical value to citizens. The benefits are real but were poorly communicated."
-    tags: ["consumer-dividend", "marketing"]
+  # RECALL — eight objections (lightened)
+  - id: "why-ai-is-non-negotiable-003"
+    front: "Name any four of the eight core objections to AI from the lesson."
+    back: "Mass unemployment, no consumer benefit, surveillance, geopolitical arms race, erosion of reality, existential risk, environmental cost, bias/discrimination."
+    tags: ["objections", "framework"]
     difficulty: "basic"
 
-  - id: "non-neg-008"
-    front: "A single mother in Ohio, a shopkeeper in Karachi, and a student in rural Mexico all use AI. What do their examples collectively demonstrate?"
-    back: "The consumer dividend is real and already reaching ordinary people — drafting a lease dispute letter that would have cost $400 at a lawyer's office, negotiating directly with a Chinese supplier without a middleman, and exam prep where no test-prep center exists within 100km."
-    tags: ["consumer-dividend", "examples"]
-    difficulty: "intermediate"
-
-  - id: "non-neg-009"
-    front: "Insilico Medicine used AI to compress a pharmaceutical timeline. What was the result?"
-    back: "Moved a novel drug candidate from target discovery to Phase I clinical trials in under 30 months — a process that traditionally takes four to six years."
-    tags: ["pharma", "consumer-dividend"]
-    difficulty: "basic"
-
-  - id: "non-neg-010"
-    front: "The text calls the surveillance objection the strongest of all eight. What three real-world examples support this claim?"
-    back: "1. China's social credit experiments\n2. Law enforcement misuse of facial recognition in the US and UK\n3. The Pegasus spyware scandal"
-    tags: ["surveillance", "evidence"]
-    difficulty: "basic"
-
-  - id: "non-neg-011"
-    front: "A critic argues AI surveillance cannot be controlled. What two-pronged answer does the text provide?"
-    back: "Legal: Binding limits are achievable (San Francisco's facial recognition ban, EU AI Act classifying surveillance as high-risk).\nTechnical: Open-source models (LLaMA, Mistral) prevent monopoly control — anyone can inspect and modify AI."
-    tags: ["surveillance", "countermeasures"]
-    difficulty: "advanced"
-    why: "Why does the text say open-source AI shifts the balance of power on surveillance?"
-
-  - id: "non-neg-012"
-    front: "Every powerful technology can be weaponized — the printing press, encryption, AI. What has the answer always been?"
-    back: "Not prohibition, but the deliberate construction of countervailing power — open models, transparent audit trails, democratic oversight encoded into the architecture from the start."
-    tags: ["surveillance", "governance"]
-    difficulty: "intermediate"
-
-  - id: "non-neg-013"
-    front: "In ten years, nations will fall into three categories regarding AI. What are they?"
-    back: "1. Exporters of AI intelligence\n2. Strategic partners with sovereign capability\n3. Digital vassal states dependent on foreign infrastructure for critical systems"
-    tags: ["geopolitics", "sovereignty"]
-    difficulty: "intermediate"
-    why: "Why is the real arms race about cultivating talent, not just building models?"
-
-  - id: "non-neg-014"
-    front: "A developing nation's healthcare, education, and defense all run on foreign AI models subject to foreign licensing. What has this country become?"
-    back: "A digital vassal state — dependent on foreign infrastructure, subject to foreign licensing terms, and vulnerable to foreign policy leverage."
-    tags: ["geopolitics", "sovereignty"]
-    difficulty: "advanced"
-
-  - id: "non-neg-015"
-    front: "How do open-source AI foundations change the equation for Global South nations?"
-    back: "A university in Lahore or Lagos can fine-tune a frontier-class model for local needs today — trained on local languages, tailored to local industries. This was unimaginable five years ago."
-    tags: ["geopolitics", "open-source"]
-    difficulty: "intermediate"
-
-  - id: "non-neg-016"
-    front: "The text reframes the 'erosion of reality' concern as what kind of problem?"
-    back: "A content-verification problem, not an AI problem. The printing press also flooded the world with misinformation; the answer was building verification institutions (journalism, peer review, scientific method, libel law)."
-    tags: ["misinformation", "verification"]
-    difficulty: "intermediate"
-    why: "Why is AI both the cause of and the best available solution for synthetic media?"
-
-  - id: "non-neg-017"
-    front: "Serious researchers warn about existential AI risk. Why does the text argue a moratorium increases rather than decreases danger?"
-    back: "AI development is global and distributed. A pause by safety-conscious democracies doesn't stop development — it relocates the frontier to actors with fewer safety commitments, less transparency, and no democratic accountability."
+  # THINKING — moratorium relocates frontier
+  - id: "why-ai-is-non-negotiable-004"
+    front: "Why does a democratic moratorium on AI increase existential risk rather than reduce it?"
+    back: "AI development is global and distributed. A democratic pause hands the frontier to actors with fewer safety commitments and no accountability — it doesn't stop progress."
     tags: ["existential-risk", "moratorium"]
     difficulty: "advanced"
-    why: "What do alignment researchers actually advocate instead of a moratorium?"
+    why: "How could safety-conscious nations maintain influence without leading the frontier?"
 
-  - id: "non-neg-018"
-    front: "Critics say AI's environmental cost is unsustainable. How does the text contextualize data center energy consumption?"
-    back: "All global data centers account for 1-2% of electricity. The fashion industry produces 2-8% of carbon emissions. Residential air conditioning alone consumes more than all data centers combined. We don't ban clothing or cooling — we invest in cleaner methods."
-    tags: ["environment", "context"]
-    difficulty: "intermediate"
-
-  - id: "non-neg-019"
-    front: "Amazon scrapped an AI hiring tool that penalized women. A healthcare algorithm directed resources away from Black patients. What 'crucial inversion' does the text identify about AI bias?"
-    back: "AI doesn't introduce bias into fair systems — it makes existing bias visible in systems that were never fair. Human biased decisions are invisible and unauditable; AI biased decisions are logged, measurable, and fixable."
-    tags: ["bias", "discrimination"]
-    difficulty: "advanced"
-    why: "Why is visibility the prerequisite for correction, and why can't you fix what you can't measure?"
-
-  - id: "non-neg-020"
-    front: "Khan Academy's Khanmigo delivers something close to one-on-one instruction to students who would otherwise sit in classrooms of sixty. Which concept from the text does this illustrate?"
-    back: "Capacity to serve — AI makes personalized education accessible at scale where individual tutoring was previously impossible. It doesn't replace the teacher; it multiplies the teacher's reach."
-    tags: ["capacity-to-serve", "education"]
-    difficulty: "intermediate"
-    why: "Why does the text argue that halting AI to protect existing roles denies these students the services they need today?"
-
-  - id: "non-neg-021"
-    front: "Every fear about AI — unemployment, surveillance, bias, existential risk — is an argument for what, according to the text's conclusion?"
-    back: "Building AI better — not building less of it. The fears deserve serious engagement, but each one is addressed by better architecture, governance, and verification, not by retreat."
-    tags: ["bottom-line", "conclusion"]
+  # RECALL — cost to serve vs capacity to serve
+  - id: "why-ai-is-non-negotiable-005"
+    front: "What is the difference between 'cost to serve' and 'capacity to serve'?"
+    back: "Cost to serve: same work cheaper. Capacity to serve: work at a scale previously impossible."
+    tags: ["capacity-to-serve", "economics"]
     difficulty: "basic"
 
-  - id: "non-neg-022"
-    front: "Anthropic CEO Dario Amodei warned publicly in 2026 about a specific risk of AI-driven abundance. What was it?"
-    back: "That AI could create trillionaires and ignite severe public backlash if economic gains concentrate at the top. He called for new tax frameworks and said concentration — not capability — is the real risk."
-    tags: ["policy", "wealth-concentration"]
+  # THINKING — bias inversion
+  - id: "why-ai-is-non-negotiable-006"
+    front: "A company discovers its hiring algorithm is biased. Why is this better than the pre-AI status quo?"
+    back: "Human bias is invisible and unauditable. Algorithmic bias is logged, measurable, and fixable — because visibility is the prerequisite for correction."
+    tags: ["bias", "accountability"]
     difficulty: "intermediate"
-    why: "Why does the text say the correct response to Amodei's warning is to accelerate distribution mechanisms, not slow down AI?"
+    why: "What institutional mechanisms make algorithmic audits more rigorous than human performance reviews?"
 
-  - id: "non-neg-023"
-    front: "A technology that makes 8 billion people's need for healthcare, education, and legal counsel actually serviceable for the first time in human history"
-    back: "The capacity-to-serve dimension of AI — the largest expansion of the service economy in human history, making specialist-level services accessible where they never existed."
-    tags: ["capacity-to-serve", "reversal"]
+  # RECALL — unbundles jobs
+  - id: "why-ai-is-non-negotiable-007"
+    front: "According to the lesson, what does AI do to jobs?"
+    back: "Unbundles them into tasks — some automated, many recombined into new roles."
+    tags: ["employment", "job-transformation"]
+    difficulty: "basic"
+
+  # THINKING — marketing failure
+  - id: "why-ai-is-non-negotiable-008"
+    front: "Why is the missing 'consumer dividend' from AI a marketing failure, not a technology failure?"
+    back: "The benefits are real and documented. The industry sold AGI hype to investors instead of explaining practical value to citizens — raising capital at the cost of public trust."
+    tags: ["consumer-dividend", "marketing"]
+    difficulty: "intermediate"
+    why: "How does measuring success in verified outcomes rather than benchmarks rebuild that trust?"
+
+  # THINKING — Global South sovereignty (upgraded from recall)
+  - id: "why-ai-is-non-negotiable-009"
+    front: "Why is building domestic AI capability existential for Global South nations like Pakistan, Brazil, and Nigeria?"
+    back: "Without sovereign AI, their agriculture, healthcare, education, and defense run on foreign models subject to foreign licensing and policy leverage — they become permanent consumers of someone else's intelligence."
+    tags: ["geopolitics", "sovereignty", "global-south"]
+    difficulty: "advanced"
+    why: "How does open-source AI change this equation compared to proprietary technology?"
+
+  # THINKING — open-source vs surveillance
+  - id: "why-ai-is-non-negotiable-010"
+    front: "How do open-source AI models counter the surveillance objection?"
+    back: "When anyone can inspect, modify, and deploy a model, no single institution holds a monopoly on intelligence — shifting the balance of power away from centralized control."
+    tags: ["open-source", "surveillance", "power"]
+    difficulty: "intermediate"
+    why: "Could open-source models also enable surveillance by bad actors?"
+
+  # RECALL — content-verification reframe
+  - id: "why-ai-is-non-negotiable-011"
+    front: "The lesson reframes 'erosion of reality' as what kind of problem?"
+    back: "A content-verification problem, not an AI problem."
+    tags: ["misinformation", "verification"]
+    difficulty: "basic"
+
+  # THINKING — engaging with dangerous capabilities
+  - id: "why-ai-is-non-negotiable-012"
+    front: "Why does the lesson cite nuclear weapons and engineered pathogens as precedents for managing AI risk?"
+    back: "In every case, societies that engaged with the dangerous capability built governance expertise — those that disengaged forfeited their seat at the table."
+    tags: ["existential-risk", "governance", "history"]
+    difficulty: "advanced"
+    why: "Where might this historical pattern break down with AI specifically?"
+
+  # RECALL — enemy of mediocrity
+  - id: "why-ai-is-non-negotiable-013"
+    front: "The lesson says AI is the enemy of what, not the enemy of what?"
+    back: "The enemy of mediocrity, not of excellence."
+    tags: ["employment", "growth"]
+    difficulty: "basic"
+
+  # THINKING — halting hurts the underserved
+  - id: "why-ai-is-non-negotiable-014"
+    front: "Why does pausing AI to protect workers in stagnant roles cause more harm than it prevents?"
+    back: "It only delays those workers' reckoning while denying billions of underserved people the healthcare, education, and legal services AI could provide today."
+    tags: ["employment", "capacity-to-serve", "ethics"]
+    difficulty: "intermediate"
+    why: "How should societies support displaced workers without slowing service expansion to the underserved?"
+
+  # RECALL — the real risk
+  - id: "why-ai-is-non-negotiable-015"
+    front: "What is 'the real risk' regarding AI and employment?"
+    back: "Refusing to learn the tools that redefine your job."
+    tags: ["employment", "adaptation"]
     difficulty: "intermediate"
 
-  - id: "non-neg-024"
-    front: "AI unbundles jobs into tasks. The SaaS era created unpredicted roles. What new roles does the AI era create?"
-    back: "Agent designers, outcome architects, verification specialists, and domain experts who teach machines what 'correct' looks like. LinkedIn 2024 data showed AI skill postings grew 3.5x faster than the overall market."
-    tags: ["workforce", "new-roles"]
+  # THINKING — environmental argument inverted
+  - id: "why-ai-is-non-negotiable-016"
+    front: "Critics say AI's energy footprint is irresponsible. Why does the environmental argument actually support accelerating AI?"
+    back: "AI is one of the most powerful tools for reducing environmental damage (grid optimization, precision agriculture, materials science), and building it on clean infrastructure solves both problems at once."
+    tags: ["environment", "energy"]
     difficulty: "intermediate"
-    why: "Why do these new roles span healthcare, logistics, education, and finance — not just tech?"
+    why: "What happens if efficiency gains in model architecture fail to keep pace with deployment growth?"
 
-  - id: "non-neg-025"
-    front: "Human biased decisions vs. AI biased decisions: what is the key structural difference?"
-    back: "Human bias: invisible, unrepeatable, nearly impossible to audit.\nAI bias: logged, measurable, and fixable.\nA biased algorithm can be audited, retrained, and stress-tested across demographic groups — a biased human decision-maker cannot."
-    tags: ["bias", "comparison"]
+  # RECALL — environmental context
+  - id: "why-ai-is-non-negotiable-017"
+    front: "What percentage of global electricity does the data center industry consume?"
+    back: "Roughly 1-2%."
+    tags: ["environment", "data-centers"]
+    difficulty: "basic"
+
+  # THINKING — every objection = build better
+  - id: "why-ai-is-non-negotiable-018"
+    front: "Why is 'build better' the answer to every objection rather than 'build less'?"
+    back: "Each fear requires engaged builders to solve — specifications enforce intent, verification catches errors, humans stay in the loop. Disengagement forfeits the ability to shape the tool."
+    tags: ["bottom-line", "thesis"]
     difficulty: "intermediate"
-    why: "Why does the EU AI Act mandate bias audits for high-risk applications, and why is this only possible with AI systems?"
+    why: "Which specific architectural elements does the lesson cite as guardrails?"
+
+  # RECALL — printing press analogy
+  - id: "why-ai-is-non-negotiable-019"
+    front: "What historical analogy does the lesson draw to AI-generated misinformation?"
+    back: "The printing press — society built verification institutions rather than banning the technology."
+    tags: ["misinformation", "history", "verification"]
+    difficulty: "intermediate"
+
+  # THINKING — ending with people, not policy
+  - id: "why-ai-is-non-negotiable-020"
+    front: "Why does the lesson end with a shopkeeper, a student, and a patient rather than with policy frameworks?"
+    back: "Because abstract debate ignores the people who need AI most. They don't need the debate resolved — they need it built to work for them."
+    tags: ["bottom-line", "capacity-to-serve", "equity"]
+    difficulty: "intermediate"
+    why: "How does centering underserved populations change which AI risks feel most urgent?"
+
+  # RECALL — three nation categories (new)
+  - id: "why-ai-is-non-negotiable-021"
+    front: "What three categories will nations fall into regarding AI, according to the lesson?"
+    back: "Exporters of AI intelligence, strategic partners, or digital vassal states."
+    tags: ["geopolitics", "sovereignty"]
+    difficulty: "intermediate"
+
+  # RECALL — sovereign AI definition (new)
+  - id: "why-ai-is-non-negotiable-022"
+    front: "What three properties define 'sovereign AI capacity' in the lesson?"
+    back: "AI trained on local languages, tailored to local industries, governed by local institutions."
+    tags: ["sovereignty", "global-south"]
+    difficulty: "intermediate"
+
+  # THINKING — Dario Amodei warning (new)
+  - id: "why-ai-is-non-negotiable-023"
+    front: "Anthropic's CEO Dario Amodei warned that AI could create trillionaires. Why does the lesson cite this as evidence for building faster, not slower?"
+    back: "Because the risk isn't capability — it's concentration. Amodei's point is that distribution mechanisms (open models, accessible tools, progressive policy) must be built with the same urgency as the technology itself."
+    tags: ["wealth-concentration", "policy", "distribution"]
+    difficulty: "advanced"
+    why: "What distribution mechanisms does the lesson specifically recommend?"

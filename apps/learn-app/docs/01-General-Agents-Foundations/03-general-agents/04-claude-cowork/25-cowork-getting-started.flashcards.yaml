@@ -1,0 +1,141 @@
+deck:
+  id: "ch03-cowork-getting-started"
+  title: "Getting Started with Cowork"
+  description: "Flashcards covering Claude Cowork setup, interface navigation, folder permissions, and the approval workflow."
+  tags: [cowork, setup, desktop-app, folder-access, approval-workflow]
+  version: 2
+
+cards:
+  - id: "ch03-cowork-getting-started-001"
+    type: recall
+    front: "Which Claude subscription tiers include access to Cowork?"
+    back: "Pro, Max, Team Premium, and Enterprise (free and Team Standard excluded)"
+    tags: [subscription, requirements]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-002"
+    type: recall
+    front: "What platforms does Claude Cowork support as of its February 2026 Windows launch?"
+    back: "macOS and Windows (x64)"
+    tags: [platform, requirements]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-003"
+    type: recall
+    front: "What are the three tabs across the top of the Claude Desktop window?"
+    back: "Chat\nCowork\nCode"
+    tags: [interface, modes]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-004"
+    type: recall
+    front: "What visual indicator confirms you are in Cowork mode rather than Chat mode?"
+    back: "The folder access panel is visible"
+    tags: [interface, modes]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-005"
+    type: recall
+    front: "What are the three main panels in the Cowork interface?"
+    back: "Conversation panel\nExecution panel\nArtifacts panel"
+    tags: [interface, panels]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-006"
+    type: recall
+    front: "What does the Execution Panel show during a Cowork task?"
+    back: "Files being read or written, operations in progress, warnings or errors"
+    tags: [interface, execution-panel]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-007"
+    type: recall
+    front: "Which Cowork file operations require explicit user approval?"
+    back: "Create new files\nModify existing files\nDelete files\nMove or rename files"
+    tags: [approval-workflow, security]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-008"
+    type: recall
+    front: "Which file operation type does Cowork perform without requiring approval?"
+    back: "Reading files"
+    tags: [approval-workflow, security]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-getting-started-009"
+    type: recall
+    front: "What is the first troubleshooting step if Cowork mode does not appear in Claude Desktop?"
+    back: "Ensure you have a Pro, Max, Team Premium, or Enterprise subscription"
+    tags: [troubleshooting, subscription]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-010"
+    type: recall
+    front: "On macOS, where do you go to fix a denied folder access error for Claude Desktop?"
+    back: "System Settings > Privacy & Security > Files and Folders"
+    tags: [troubleshooting, macos, folder-access]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-011"
+    type: thinking
+    front: "Why does Claude Cowork require a paid subscription rather than being available on the free tier?"
+    back: "Cowork's agentic capabilities—filesystem access, document processing, and persistent context—require significant infrastructure, so Anthropic limits it to paid tiers that fund that enhanced functionality."
+    why: "What would break architecturally if every free user ran persistent filesystem agents simultaneously?"
+    tags: [subscription, infrastructure]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-012"
+    type: thinking
+    front: "Why is explicit folder access called a critical security boundary in Cowork?"
+    back: "Claude can only reach folders you explicitly approve, so the scope of any accidental or unintended operation is bounded by your grant—sensitive files outside that scope are completely unreachable."
+    why: "How does this boundary change your risk exposure compared to a desktop app with full filesystem access?"
+    tags: [folder-access, security]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-013"
+    type: thinking
+    front: "Why does Cowork allow reads without approval but require approval for all write operations?"
+    back: "Reads are non-destructive and necessary for Claude to understand context, while writes change or remove data. Only state-changing operations carry real risk, so requiring approval there protects users without slowing down exploration."
+    why: "How does this asymmetry relate to the principle of least privilege?"
+    tags: [approval-workflow, security-design]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-getting-started-014"
+    type: thinking
+    front: "How does the propose-approve-execute cycle protect users from unintended file changes?"
+    back: "Claude displays its full plan in the Execution Panel before acting, so you can review exactly what will change and reject anything unsafe—no file is modified until you explicitly approve the proposal."
+    why: "What category of mistakes does this cycle prevent that a standard undo feature cannot?"
+    tags: [approval-workflow, execution-panel]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-015"
+    type: thinking
+    front: "Why should you start Cowork with a test folder rather than your real documents?"
+    back: "Early tasks build familiarity with the approval workflow—using throwaway data means an accidentally approved operation causes no real harm, letting you learn Cowork's behavior without risking valuable files."
+    why: "How does this sandbox principle apply beyond Cowork to learning any new agentic tool?"
+    tags: [safety, best-practices]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-016"
+    type: thinking
+    front: "Why should you avoid granting Cowork access to your entire home directory?"
+    back: "The home directory contains sensitive system files and personal data across many projects. Broad access maximizes the blast radius if you accidentally approve a destructive operation on the wrong folder."
+    why: "What is the minimum folder scope that still lets Cowork do useful work on a given project?"
+    tags: [folder-access, security, best-practices]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-getting-started-017"
+    type: thinking
+    front: "Why did the first Cowork demo task require no code to organize a messy folder?"
+    back: "Cowork maps natural-language intent to file operations directly, so describing what you want is sufficient—the propose-approve-execute cycle handles execution, which lowers the barrier from programmers to anyone who can articulate a task."
+    why: "What class of workers gains the most capability from natural-language file automation?"
+    tags: [first-task, natural-language, agentic]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-getting-started-018"
+    type: thinking
+    front: "A colleague grants Cowork access to a project folder, completes the work, and leaves access enabled. What risk does this create?"
+    back: "Future sessions retain access to that folder, so a later task—or accidental approval—could modify or delete files from the completed project. Revoking access after a project limits exposure over time."
+    why: "How does persistent-access risk differ from the risk present during active use?"
+    tags: [folder-access, security, best-practices]
+    difficulty: "advanced"

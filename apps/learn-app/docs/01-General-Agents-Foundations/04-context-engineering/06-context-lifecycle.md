@@ -722,3 +722,8 @@ Then explain what I might lose even with good compaction instructions, so I know
 ```
 
 **What you're learning:** Compaction instruction crafting. Effective compaction requires understanding both what you want to keep AND what will inevitably be lost. This prompt practices creating precise compaction instructions while acknowledging the tradeoffs—preparing you to use external documentation (progress files, saved notes, commits) as backup.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -765,3 +765,8 @@ The same pattern powers production AI employees:
 - DevOps agents that iterate toward successful deployment
 
 Mastering Ralph Loop teaches you the mechanics of autonomous iteration—essential for building and selling Digital FTEs.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

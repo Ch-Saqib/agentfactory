@@ -111,6 +111,7 @@ Save as ~/finances/test-2025.csv.
 ```
 
 Calculate expected totals by hand BEFORE running anything:
+
 - Medical (CVS + WALGREENS + DR MARTINEZ): $219.12
 - Charitable (UNITED WAY): $100.00
 - Business (OFFICE DEPOT): $89.50
@@ -398,6 +399,10 @@ The agent wrote all the code. You made all the decisions that mattered.
 | Writing the prompts | Specifying outcomes and interfaces — the one contribution the agent cannot make for itself |
 
 The specific tools (Python, regex, find/xargs) will change. The patterns — verify first, compose through pipes, guard against false positives — will not.
+
+## Flashcards Study Aid
+
+<Flashcards />
 
 ---
 

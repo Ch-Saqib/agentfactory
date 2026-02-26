@@ -201,7 +201,7 @@ At first glance, that looks right. Medical, charitable, business — all categor
 :::warning Challenge: Find the Fraud
 Scan the medical entries above. One of them would get you audited by the IRS. Another inflates your deductions by $200. Can you spot them both before reading on?
 
-Take 30 seconds. Read each line. Ask yourself: is this *actually* a medical expense?
+Take 30 seconds. Read each line. Ask yourself: is this _actually_ a medical expense?
 :::
 
 ## The Bug
@@ -349,6 +349,10 @@ The agent adds a guard list. FALSE_POSITIVES became KNOWN_BENIGN. Word boundary 
 The workflow is the workflow. Build tools, verify first, guard false positives — only the domain knowledge changed. Dr. Pepper became `/health 404`. Medical categories became status codes. And that domain knowledge is yours, not the agent's.
 
 Your categorizer works on one file. But tax season means 12 months of bank statements, not one. The capstone puts it all together.
+
+## Flashcards Study Aid
+
+<Flashcards />
 
 ---
 

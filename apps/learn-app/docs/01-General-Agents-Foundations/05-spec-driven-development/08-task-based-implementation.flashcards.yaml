@@ -1,0 +1,97 @@
+deck:
+  id: "ch05-07-task-based-implementation"
+  title: "Phase 4: Task-Based Implementation"
+  description: "Flashcards covering the task-based implementation pattern: core prompt, task system tools, context isolation, atomic commits, backpressure, and decision heuristics."
+  tags: ["sdd", "phase-4", "task-delegation", "subagents", "atomic-commits"]
+  version: 1
+
+cards:
+  - id: "ch05-07-task-based-implementation-001"
+    type: recall
+    front: "What prompt pattern triggers task-based implementation in Phase 4?"
+    back: "\"Implement @spec. Use the task tool, each task by a subagent. After each task, commit.\""
+    tags: ["prompt-pattern", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-07-task-based-implementation-002"
+    type: recall
+    front: "What are the four task system tools in Claude Code?"
+    back: "TaskCreate, TaskUpdate, TaskList, TaskGet."
+    tags: ["task-tools", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-07-task-based-implementation-003"
+    type: recall
+    front: "What is Agent Amnesia in task-based implementation?"
+    back: "Progress lost when a new session starts without documented state."
+    tags: ["context-isolation", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-07-task-based-implementation-004"
+    type: recall
+    front: "What is Context Pollution in long-running agent sessions?"
+    back: "A full context window causes the agent to drop discovered bugs."
+    tags: ["context-isolation", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-07-task-based-implementation-005"
+    type: thinking
+    front: "Why does giving each subagent fresh context prevent error propagation across tasks?"
+    back: "BECAUSE a wrong assumption dies when that subagent completes, THEREFORE the next subagent starts clean and the flaw never compounds into later tasks or cascades into harder-to-find failures downstream."
+    tags: ["context-isolation", "thinking"]
+    difficulty: "intermediate"
+    why: "Connects context isolation to the contamination timeline where a minute-10 assumption normally cascades to a minute-55 failure."
+
+  - id: "ch05-07-task-based-implementation-006"
+    type: thinking
+    front: "How do atomic commits per task enable rollbacks that a single-session approach cannot?"
+    back: "BECAUSE each task produces its own commit, THEREFORE if task 7 fails, tasks 1-6 remain safely committed — you surgically revert only the broken task instead of untangling one large interleaved commit."
+    tags: ["atomic-commits", "thinking"]
+    difficulty: "intermediate"
+    why: "Single-session work tangles changes into one commit, making partial rollback impossible without manual surgery."
+
+  - id: "ch05-07-task-based-implementation-007"
+    type: recall
+    front: "What is the backpressure pattern from Steve Yegge's Beads project?"
+    back: "Pre-commit hooks as quality gates rejecting commits when standards drop."
+    tags: ["backpressure", "recall"]
+    difficulty: "intermediate"
+
+  - id: "ch05-07-task-based-implementation-008"
+    type: thinking
+    front: "Why do the alexop.dev results demonstrate that task-based implementation scales without rollbacks?"
+    back: "BECAUSE each subagent's fresh context prevented error compounding, THEREFORE 14 tasks produced 14 atomic commits in 45 minutes with 0 rollbacks — and 71% context usage shows the main agent retained coordination capacity throughout."
+    tags: ["case-study", "thinking"]
+    difficulty: "intermediate"
+    why: "Connects the concrete metrics to the theoretical benefits of context isolation and atomic commits."
+
+  - id: "ch05-07-task-based-implementation-009"
+    type: thinking
+    front: "Why is task-based implementation inappropriate for a two-line bug fix?"
+    back: "BECAUSE the overhead of creating tasks, spawning subagents, and producing separate commits exceeds the work itself, THEREFORE the pattern targets 5+ distinct items — a small fix fits one commit with no delegation."
+    tags: ["decision-heuristic", "thinking"]
+    difficulty: "intermediate"
+    why: "Forces evaluation of when coordination overhead outweighs the isolation and rollback benefits."
+
+  - id: "ch05-07-task-based-implementation-010"
+    type: recall
+    front: "What is the recommended task size heuristic?"
+    back: "Each task should take 5-15 minutes."
+    tags: ["heuristic", "recall"]
+    difficulty: "intermediate"
+
+  - id: "ch05-07-task-based-implementation-011"
+    type: thinking
+    front: "How does the contamination timeline differ from the isolation timeline when a wrong assumption enters at minute 10?"
+    back: "BECAUSE without isolation each phase builds on the wrong assumption (minute 25 designs, minute 40 codes, minute 55 fails), THEREFORE 45 minutes are wasted — with isolation the assumption dies with its subagent, affecting only one task."
+    tags: ["context-isolation", "thinking"]
+    difficulty: "advanced"
+    why: "Contrasts the two timelines to show isolation bounds the blast radius of errors to one task."
+
+  - id: "ch05-07-task-based-implementation-012"
+    type: thinking
+    front: "Why is parallel task execution possible when tasks have no dependencies?"
+    back: "BECAUSE independent tasks touch separate files and need no shared state, THEREFORE multiple subagents run simultaneously without conflicts — each produces its own atomic commit that merges cleanly with no ordering constraint."
+    tags: ["parallel-execution", "thinking"]
+    difficulty: "advanced"
+    why: "Connects task independence to both safe parallelism and the atomic commit model that prevents merge conflicts."

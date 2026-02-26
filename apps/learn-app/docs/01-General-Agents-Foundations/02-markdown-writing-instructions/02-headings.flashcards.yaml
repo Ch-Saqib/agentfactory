@@ -1,0 +1,82 @@
+deck:
+  id: "ch02-02-headings"
+  title: "Headings - Creating Document Hierarchy"
+  description: "Covers hash symbol syntax for headings, proper hierarchy rules, and why heading structure matters for AI parsing and accessibility."
+  tags: ["markdown", "headings", "hierarchy", "document-structure"]
+  version: 1
+
+cards:
+  - id: "ch02-02-headings-001"
+    type: recall
+    front: "In markdown, how do you create headings and control their size?"
+    back: "Use hash symbols (#). More hashes = smaller heading (# is largest, ###### is smallest)."
+    tags: ["headings", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-02-headings-002"
+    type: recall
+    front: "What are heading levels 1 through 4 each used for in a specification?"
+    back: "Level 1: document title (once).\nLevel 2: main sections.\nLevel 3: subsections.\nLevel 4: deep technical details."
+    tags: ["headings", "levels"]
+    difficulty: "intermediate"
+
+  - id: "ch02-02-headings-003"
+    type: thinking
+    front: "Why does jumping from a Level 1 heading directly to Level 3 break AI parsing?"
+    back: "BECAUSE AI builds a logical tree from heading levels, THEREFORE skipping Level 2 creates a broken hierarchy where it cannot determine what the Level 3 content belongs to, losing structural relationships."
+    tags: ["headings", "hierarchy", "ai-parsing"]
+    difficulty: "intermediate"
+    why: "How would a screen reader user experience a document with skipped heading levels?"
+
+  - id: "ch02-02-headings-004"
+    type: recall
+    front: "How many Level 1 headings (#) should a markdown document have?"
+    back: "Exactly one — for the document title."
+    tags: ["headings", "level-1"]
+    difficulty: "basic"
+
+  - id: "ch02-02-headings-005"
+    type: recall
+    front: "What common syntax error prevents a markdown heading from rendering?"
+    back: "Missing the space after the hash symbol(s). #Heading is wrong; # Heading is correct."
+    tags: ["headings", "syntax", "common-mistakes"]
+    difficulty: "basic"
+
+  - id: "ch02-02-headings-006"
+    type: thinking
+    front: "How do clear heading levels help AI agents work with your specification?"
+    back: "BECAUSE clear heading levels let AI parse document structure and map sections to functions, THEREFORE it can find specific sections instantly, validate completeness, and generate better code."
+    tags: ["headings", "ai-parsing", "code-generation"]
+    difficulty: "intermediate"
+    why: "Why would a spec with vague headings like 'Part A' and 'Part B' produce worse code than one with 'Features' and 'Installation'?"
+
+  - id: "ch02-02-headings-007"
+    type: recall
+    front: "What analogy describes heading hierarchy as folder organization?"
+    back: "Level 1 = Main Folder, Level 2 = Subfolders, Level 3 = Files inside subfolders."
+    tags: ["headings", "hierarchy", "analogy"]
+    difficulty: "basic"
+
+  - id: "ch02-02-headings-008"
+    type: thinking
+    front: "Why do multiple Level 1 headings in one document confuse both humans and AI?"
+    back: "BECAUSE Level 1 marks the single document title, THEREFORE multiple Level 1 headings make every section look equally top-level, destroying the hierarchy AI needs to understand section relationships."
+    tags: ["headings", "level-1", "anti-pattern"]
+    difficulty: "intermediate"
+    why: "If an AI sees three Level 1 headings, how might it misinterpret the document's scope?"
+
+  - id: "ch02-02-headings-009"
+    type: thinking
+    front: "Why does needing Level 5-6 headings suggest a structural problem in your specification?"
+    back: "BECAUSE deep nesting signals overly complex document structure, THEREFORE reorganizing with better Level 2-3 sections eliminates excessive depth and improves readability for both humans and AI."
+    tags: ["headings", "document-design"]
+    difficulty: "advanced"
+    why: "How would you restructure a deeply nested document to stay within 3-4 heading levels?"
+
+  - id: "ch02-02-headings-010"
+    type: thinking
+    front: "Why does proper heading hierarchy matter for accessibility beyond AI parsing?"
+    back: "BECAUSE screen readers use heading levels to help visually impaired users navigate documents, THEREFORE skipped levels break this navigation, causing users to lose critical structural context."
+    tags: ["headings", "accessibility", "screen-readers"]
+    difficulty: "advanced"
+    why: "What two audiences both depend on correct heading hierarchy for navigation?"

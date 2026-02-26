@@ -428,3 +428,8 @@ From **Prompt 3**, you should understand:
 - Whether your structure is implementable
 - How the AI agent reads and interprets document structure
 - Confirmation that clear hierarchy = clearer AI-generated code
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -142,6 +142,10 @@ AI is non-negotiable. How we build it is the only decision that remains.
 
 </div>
 
+## Flashcards Study Aid
+
+<Flashcards />
+
 ---
 
 ## Test Your Understanding
@@ -838,7 +842,3 @@ source: "Section: Why None of These Are Reasons to Stop — Bias and Discriminat
 />
 
 ---
-
-## Flashcards Study Aid
-
-<Flashcards />

@@ -99,7 +99,7 @@ teaching_guide:
     - "The privacy note about bank CSVs is important — remind students they can remove account numbers before processing, or use the provided test data"
     - "Connect to Lesson 2's zero-trust philosophy: even this csv-module script should be verified with known-answer test data before running on real bank statements"
   assessment_quick_check:
-    - "Give students the line '2024-01-07,\"AMAZON, INC.\",-89.50' and ask: what does 'awk -F, \"{print $3}\"' return and why?"
+    - 'Give students the line ''2024-01-07,"AMAZON, INC.",-89.50'' and ask: what does ''awk -F, "{print $3}"'' return and why?'
     - "Ask: 'When should you use awk and when should you use Python csv module?' — tests understanding of the decision table"
     - "Ask students to write a prompt that would steer the agent toward a robust CSV solution instead of a naive awk approach"
 ---
@@ -198,14 +198,14 @@ Notice the script checks `if amount < 0` before summing. Bank CSVs use negative 
 
 ## When to Use Which
 
-| Data Type | Use awk | Use csv module |
-|-----------|---------|----------------|
-| Log files with consistent delimiters | Yes | |
-| Tab-separated data | Yes | |
-| Data you control (no embedded delimiters) | Yes | |
-| Bank exports | | Yes |
-| Downloaded datasets | | Yes |
-| Any external CSV | | Yes |
+| Data Type                                 | Use awk | Use csv module |
+| ----------------------------------------- | ------- | -------------- |
+| Log files with consistent delimiters      | Yes     |                |
+| Tab-separated data                        | Yes     |                |
+| Data you control (no embedded delimiters) | Yes     |                |
+| Bank exports                              |         | Yes            |
+| Downloaded datasets                       |         | Yes            |
+| Any external CSV                          |         | Yes            |
 
 Rule of thumb: If the CSV came from outside your control, use a proper CSV parser.
 
@@ -220,9 +220,9 @@ Be careful - [edge case that could break naive parsing]."
 
 Mentioning the edge case helps the agent choose robust solutions. Compare:
 
-| Prompt | Agent's Likely Response |
-|--------|------------------------|
-| "Sum the third column of this CSV" | Might use awk (faster, simpler) |
+| Prompt                                                   | Agent's Likely Response              |
+| -------------------------------------------------------- | ------------------------------------ |
+| "Sum the third column of this CSV"                       | Might use awk (faster, simpler)      |
 | "Sum the Amount column. Some merchant names have commas" | Uses csv module (handles edge cases) |
 
 The second prompt gives context that guides the agent to the right tool. You're teaching the agent about your data -- and the agent is teaching you which tools handle that data correctly.
@@ -270,6 +270,10 @@ The agent organized your script into `~/tools`, made it executable, checked your
 :::
 
 You've just installed your second Unix-style command. The first (`sum.py`) handles numbers. This one handles structured data. The pattern is the same: stdin in, result out, pipes connect everything. But one tool isn't a toolkit — and the next lesson shows why that matters.
+
+## Flashcards Study Aid
+
+<Flashcards />
 
 ---
 

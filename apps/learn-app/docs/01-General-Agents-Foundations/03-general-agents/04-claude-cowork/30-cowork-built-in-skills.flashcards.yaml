@@ -1,0 +1,195 @@
+deck:
+  id: "ch03-cowork-built-in-skills"
+  title: "Built-in Skills: Documents, Spreadsheets, Presentations"
+  description: "Flashcards covering Cowork's built-in Skills (docx, xlsx, pptx, pdf, canvas-design, skill-creator), their capabilities, limitations, Plugin architecture context, and when to use built-in vs custom Skills."
+  tags: [cowork, built-in-skills, documents, spreadsheets, presentations, pdf, plugins]
+  version: 2
+
+cards:
+  - id: "ch03-cowork-built-in-skills-001"
+    type: recall
+    front: "What are the four document-focused built-in Skills available in Claude Cowork?"
+    back: "docx (Word)\nxlsx (Excel)\npptx (PowerPoint)\npdf (PDF extraction)"
+    tags: [built-in-skills, overview]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-002"
+    type: recall
+    front: "What setup is required for built-in Skills before use?"
+    back: "None — they are pre-installed and automatically available."
+    tags: [built-in-skills, setup]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-003"
+    type: recall
+    front: "Which built-in Skill is read-only and cannot create or edit files?"
+    back: "The pdf Skill — extraction only."
+    tags: [pdf, limitations]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-004"
+    type: recall
+    front: "Which built-in Skill supports tracked changes?"
+    back: "Only the docx Skill."
+    tags: [docx, tracked-changes]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-005"
+    type: recall
+    front: "Which built-in Skill supports spreadsheet formulas?"
+    back: "Only the xlsx Skill."
+    tags: [xlsx, formulas]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-006"
+    type: recall
+    front: "What happens to macros and VBA code when the docx Skill processes a Word document?"
+    back: "Macros and VBA are not executed or modified."
+    tags: [docx, limitations]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-built-in-skills-007"
+    type: recall
+    front: "What xlsx features may not preserve correctly when processed by the built-in Skill?"
+    back: "Power Query and Power Pivot operations."
+    tags: [xlsx, limitations]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-built-in-skills-008"
+    type: recall
+    front: "What pptx elements may be lost when editing presentations with the built-in Skill?"
+    back: "Complex animations, transitions, and embedded videos."
+    tags: [pptx, limitations]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-built-in-skills-009"
+    type: recall
+    front: "What type of PDFs cannot be read by the pdf built-in Skill?"
+    back: "Password-protected PDFs."
+    tags: [pdf, limitations]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-010"
+    type: recall
+    front: "In the Capability Matrix, which formats support creating new files?"
+    back: "docx, xlsx, and pptx — not pdf."
+    tags: [capability-matrix, overview]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-built-in-skills-011"
+    type: thinking
+    front: "Why is the pdf Skill limited to extraction rather than creation?"
+    back: "The pdf Skill is designed for reading and understanding existing documents. Therefore it handles text extraction and structure identification rather than file generation — a deliberate scope constraint, not a technical gap."
+    tags: [pdf, design-rationale]
+    difficulty: "intermediate"
+    why: "What makes PDF different from the other three formats in Cowork's design?"
+
+  - id: "ch03-cowork-built-in-skills-012"
+    type: thinking
+    front: "Why use tracked changes when Claude edits a docx file?"
+    back: "Tracked changes let the human review each modification individually. Therefore the collaborator can accept or reject changes without re-reading the entire document — maintaining oversight without losing speed."
+    tags: [docx, tracked-changes, collaboration]
+    difficulty: "intermediate"
+    why: "How does this feature bridge the gap between AI editing and human oversight?"
+
+  - id: "ch03-cowork-built-in-skills-013"
+    type: thinking
+    front: "How do built-in Skills differ from custom Skills in purpose?"
+    back: "Built-in Skills handle file format mechanics — reading, writing, preserving structure. Custom Skills encode domain-specific reasoning and expertise. Therefore both are needed because format handling and domain knowledge are separate problems."
+    tags: [built-in-skills, custom-skills, comparison]
+    difficulty: "intermediate"
+    why: "What gap would remain if only built-in Skills existed?"
+
+  - id: "ch03-cowork-built-in-skills-014"
+    type: thinking
+    front: "Why should you back up spreadsheets before bulk modifications with the xlsx Skill?"
+    back: "Bulk operations can overwrite data or break formula dependencies. Therefore a backup ensures you can restore the original if results are incorrect — spreadsheet errors compound across dependent cells and are hard to reverse."
+    tags: [xlsx, best-practices]
+    difficulty: "intermediate"
+    why: "What specific risks make spreadsheet bulk edits harder to reverse than text edits?"
+
+  - id: "ch03-cowork-built-in-skills-015"
+    type: thinking
+    front: "Why is combining a built-in Skill with a custom Skill more powerful than either alone?"
+    back: "Built-in Skills handle format mechanics while custom Skills handle domain reasoning. Combining them produces correctly formatted output with expert-level content — neither can achieve both on its own."
+    tags: [skill-composition, custom-skills]
+    difficulty: "advanced"
+    why: "What would be lost if you used only one type of Skill for a complex task?"
+
+  - id: "ch03-cowork-built-in-skills-016"
+    type: thinking
+    front: "Why test formula changes on a small data sample before applying to a full spreadsheet?"
+    back: "Formulas can have unintended effects on dependent cells. Testing on a small sample verifies correctness before risking the full dataset — formula errors in large spreadsheets cascade and are difficult to detect and undo."
+    tags: [xlsx, best-practices, formulas]
+    difficulty: "intermediate"
+    why: "What makes formula errors particularly dangerous in large spreadsheets?"
+
+  - id: "ch03-cowork-built-in-skills-017"
+    type: thinking
+    front: "How does the xlsx Skill avoid breaking existing formula dependencies?"
+    back: "The Skill understands cell references and formula structures. Therefore it correctly references cells when adding data and preserves existing formula chains — rather than inserting data naively and invalidating downstream calculations."
+    tags: [xlsx, formulas, format-preservation]
+    difficulty: "advanced"
+    why: "What would happen if new data were inserted without awareness of existing formulas?"
+
+  - id: "ch03-cowork-built-in-skills-018"
+    type: thinking
+    front: "Why might a custom Skill be needed even when built-in Skills cover the file format?"
+    back: "Built-in Skills only handle format operations. Domain-specific tasks like legal review or financial analysis require custom Skills that encode specialized reasoning — format fidelity and domain expertise are independent capabilities."
+    tags: [custom-skills, skill-selection]
+    difficulty: "advanced"
+    why: "What kind of knowledge cannot be captured by format-handling alone?"
+
+  - id: "ch03-cowork-built-in-skills-019"
+    type: thinking
+    front: "How does format preservation benefit collaborative document workflows?"
+    back: "Built-in Skills maintain styles, headers, and layouts during editing. Therefore recipients see consistent formatting and the document remains professional without manual cleanup — automated edits don't introduce format regression."
+    tags: [format-preservation, collaboration]
+    difficulty: "intermediate"
+    why: "What collaboration problems arise when formatting breaks during automated edits?"
+
+  - id: "ch03-cowork-built-in-skills-020"
+    type: thinking
+    front: "Why can the pdf Skill handle scanned documents?"
+    back: "The pdf Skill includes OCR capability for scanned content. Therefore it can extract text from image-based PDFs in addition to text-based ones — making it useful for digitized documents, not just natively digital files."
+    tags: [pdf, ocr, capabilities]
+    difficulty: "intermediate"
+    why: "What types of PDFs would be unreadable without OCR support?"
+
+  - id: "ch03-cowork-built-in-skills-021"
+    type: recall
+    front: "What two additional built-in Skills does Cowork include beyond the four document formats?"
+    back: "canvas-design (visual designs and diagrams)\nskill-creator (build custom Skills from within Cowork)"
+    tags: [built-in-skills, canvas-design, skill-creator]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-built-in-skills-022"
+    type: recall
+    front: "Where can the open-source community find and share Skills beyond Anthropic's built-in offerings?"
+    back: "github.com/anthropics/skills"
+    tags: [built-in-skills, community, open-source]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-built-in-skills-023"
+    type: thinking
+    front: "What makes skill-creator a meta-skill, and why does that matter?"
+    back: "skill-creator lets users build new custom Skills without leaving Cowork. This matters because the creation process itself becomes part of the workflow — no context switching to an external tool to extend Cowork's capabilities."
+    tags: [skill-creator, meta-skill]
+    difficulty: "intermediate"
+    why: "How does this change the workflow for a team building domain-specific Skills?"
+
+  - id: "ch03-cowork-built-in-skills-024"
+    type: thinking
+    front: "How does the Plugin architecture change what a 'Skill' can do in Cowork?"
+    back: "A Plugin bundles multiple Skills with Connectors and slash commands into a complete workflow package. Therefore Skills are now components of larger orchestrations — a Legal Review Plugin combines docx, contract-analysis, and a court-filing Connector."
+    tags: [plugin-architecture, skill-composition]
+    difficulty: "advanced"
+    why: "What kinds of workflows become possible when Skills are bundled into Plugins?"
+
+  - id: "ch03-cowork-built-in-skills-025"
+    type: thinking
+    front: "How does cross-app orchestration in Cowork eliminate manual work between document formats?"
+    back: "Cowork chains built-in Skills across formats — e.g., xlsx Skill reads and analyzes data, then pptx Skill creates a presentation using that analysis. Context passes between Skills automatically, eliminating the export-reformat-import cycle."
+    tags: [cross-app, skill-composition, orchestration]
+    difficulty: "intermediate"
+    why: "What manual steps does cross-app orchestration replace in a typical Excel-to-PowerPoint reporting workflow?"

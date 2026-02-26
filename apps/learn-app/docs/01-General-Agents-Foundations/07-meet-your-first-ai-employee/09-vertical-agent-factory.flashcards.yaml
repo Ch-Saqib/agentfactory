@@ -1,0 +1,142 @@
+deck:
+  id: "ch07-09-nanoclaw-agent-factory"
+  title: "NanoClaw and the Agent Factory"
+  description: "Flashcards covering NanoClaw's container isolation architecture, Body + Brain + Orchestrator separation, Programmatic Tool Calling, the six-layer reference architecture, Agent Skills and MCP portability, and the vertical AI Employee vision."
+  tags: ["nanoclaw", "container-isolation", "agent-skills", "mcp", "reference-architecture", "portability"]
+  version: 1
+
+cards:
+  - id: "ch07-09-nanoclaw-agent-factory-001"
+    type: recall
+    front: "Who created NanoClaw?"
+    back: "Gavriel Cohen, released January 31, 2026."
+    tags: ["nanoclaw", "history"]
+    difficulty: "basic"
+
+  - id: "ch07-09-nanoclaw-agent-factory-002"
+    type: thinking
+    front: "How does NanoClaw invert OpenClaw's security default?"
+    back: "BECAUSE OpenClaw makes everything accessible unless explicitly restricted, NanoClaw makes nothing accessible unless explicitly granted -- THEREFORE even a compromised component cannot reach data it was not given permission to access."
+    why: "What vulnerability class does this inversion directly address?"
+    tags: ["security", "container-isolation"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-003"
+    type: recall
+    front: "What are the three components of the Body + Brain + Orchestrator separation?"
+    back: "NanoClaw (Body), Claude Agent SDK (Brain), and OpenAI Agents SDK (Orchestrator)."
+    tags: ["architecture", "body-brain"]
+    difficulty: "basic"
+
+  - id: "ch07-09-nanoclaw-agent-factory-004"
+    type: thinking
+    front: "Why does Programmatic Tool Calling keep raw data inside the container?"
+    back: "BECAUSE the agent executes local Python scripts that process data without sending it to the LLM provider, THEREFORE sensitive information never traverses external API calls — a critical requirement for data sovereignty and compliance."
+    why: "What compliance frameworks specifically prohibit data leaving the local environment?"
+    tags: ["programmatic-tool-calling", "security"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-005"
+    type: thinking
+    front: "Why is Programmatic Tool Calling essential for regulated industries?"
+    back: "BECAUSE HIPAA and SOX do not permit sensitive data to traverse external API calls to language model providers -- THEREFORE keeping data local inside the container while leveraging AI reasoning is a compliance requirement, not a nice-to-have."
+    why: "What specific regulations prohibit patient or financial data from leaving the container?"
+    tags: ["regulation", "hipaa", "sox"]
+    difficulty: "advanced"
+
+  - id: "ch07-09-nanoclaw-agent-factory-006"
+    type: recall
+    front: "Name any 5 of the 7 capabilities NanoClaw's Body provides."
+    back: "Container isolation\nMulti-channel presence\nPer-group memory\nCron scheduling\nAgent Swarms\nMCP integration\nFull auditability"
+    tags: ["nanoclaw", "capabilities"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-007"
+    type: thinking
+    front: "Why are Agent Skills and MCP servers complementary rather than redundant?"
+    back: "BECAUSE Agent Skills encode domain knowledge (how to THINK) while MCP servers encode domain tools (how to ACT), THEREFORE an agent needs both — skills to reason correctly and MCP servers to execute actions in the real world."
+    why: "What happens if an agent has MCP tools but no domain skills?"
+    tags: ["agent-skills", "mcp"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-008"
+    type: recall
+    front: "How many lines of code make up NanoClaw's core?"
+    back: "Approximately 500 lines of TypeScript."
+    tags: ["nanoclaw", "auditability"]
+    difficulty: "basic"
+
+  - id: "ch07-09-nanoclaw-agent-factory-009"
+    type: thinking
+    front: "Why is Layer 3 (Intelligence) the only fully platform-independent layer in the six-layer architecture?"
+    back: "BECAUSE Agent Skills and MCP servers use open standards that work across every major platform, while all other layers (Security, Data, Brain, Orchestration, Body) are tied to specific implementations -- THEREFORE Layer 3 is where your investment compounds permanently."
+    why: "What happens to the other five layers when you switch platforms?"
+    tags: ["reference-architecture", "portability"]
+    difficulty: "advanced"
+
+  - id: "ch07-09-nanoclaw-agent-factory-010"
+    type: recall
+    front: "Name any 4 of the 6 layers in the reference architecture."
+    back: "Security (1)\nData (2)\nIntelligence (3)\nBrain (4)\nOrchestration (5)\nBody (6)"
+    tags: ["reference-architecture", "layers"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-011"
+    type: recall
+    front: "Name any 5 of the 8+ platforms that support the SKILL.md format."
+    back: "Claude Code\nOpenAI Codex\nCursor\nGitHub Copilot\nGemini CLI\nOpenClaw\nNanoClaw\nand others"
+    tags: ["portability", "agent-skills"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-012"
+    type: thinking
+    front: "How do agents building agents create a recursive loop in NanoClaw?"
+    back: "BECAUSE Claude Code builds and configures NanoClaw (the Body), which runs Claude Agent SDK (the Brain), which uses Claude Code skills to extend its own capabilities -- THEREFORE the tool that builds the system is also the tool that runs inside it."
+    why: "What role does Claude Code play in both building and operating NanoClaw?"
+    tags: ["recursive", "agents-building-agents"]
+    difficulty: "advanced"
+
+  - id: "ch07-09-nanoclaw-agent-factory-013"
+    type: recall
+    front: "Does OpenClaw use application-level or OS-level isolation?"
+    back: "Application-level isolation using allowlists and pairing codes."
+    tags: ["openclaw", "security-comparison"]
+    difficulty: "basic"
+
+  - id: "ch07-09-nanoclaw-agent-factory-014"
+    type: recall
+    front: "What market valuations validate the AI Employee model for specific verticals?"
+    back: "Devin at over $2 billion (coding), Harvey at $8 billion (law), and Manus at $2 billion (Meta acquisition)."
+    tags: ["market-validation", "verticals"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-015"
+    type: thinking
+    front: "Why does the profession table show every vertical needs its own AI Employee?"
+    back: "BECAUSE each profession has unique domain knowledge (Agent Skills), unique domain tools (MCP servers), and unique data sensitivity requirements (container isolation) -- THEREFORE a generic AI Employee cannot encode the specific expertise and compliance rules each field demands."
+    why: "What three components must be customized per profession?"
+    tags: ["vertical-ai", "professions"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-016"
+    type: thinking
+    front: "Why is the MIT AI Agent Index finding about undocumented safety practices alarming?"
+    back: "BECAUSE most agent developers are not documenting safety policies, testing, or risk management, THEREFORE agents are being deployed without the governance infrastructure needed to prevent harm at scale."
+    why: "What specific consequence follows from deploying agents without documented safety policies?"
+    tags: ["mit-index", "risk-management"]
+    difficulty: "intermediate"
+
+  - id: "ch07-09-nanoclaw-agent-factory-017"
+    type: recall
+    front: "How many AI agents did the MIT AI Agent Index catalog?"
+    back: "30 prominent AI agents across chat, browser, and enterprise categories."
+    tags: ["mit-index", "statistics"]
+    difficulty: "basic"
+
+  - id: "ch07-09-nanoclaw-agent-factory-018"
+    type: thinking
+    front: "Why does NanoClaw add capabilities through skills instead of code contributions?"
+    back: "BECAUSE each code addition to OpenClaw increased attack surface and made auditing harder (341 malicious skills among 2,857 on ClawHub) -- THEREFORE NanoClaw loads capabilities on demand as skills and MCP servers, keeping the core codebase small and auditable."
+    why: "How did OpenClaw's growth to 430,000+ lines affect its security posture?"
+    tags: ["skills-over-features", "architecture"]
+    difficulty: "advanced"

@@ -604,3 +604,8 @@ Then, let's actually build the feature using approach B and see how it feels.
 ### Safety Note
 
 `git reset --hard` and `git revert` are powerful recovery tools—but they can also destroy work if used carelessly. Before running any reset command, always check `git status` and `git stash` any uncommitted work you want to keep. The "revert, don't fix" mindset only works if you have clean commits to revert to.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -289,6 +289,10 @@ This prompt pattern works because it gives the agent two constraints: single res
 
 You can extract, filter, and summarize any column in any CSV. But tax season needs something these generic tools can't do: look at a merchant name and decide if it's medical, charitable, or business. That's not filtering — that's *judgment*. And judgment needs patterns.
 
+## Flashcards Study Aid
+
+<Flashcards />
+
 ---
 
 ## Try With AI

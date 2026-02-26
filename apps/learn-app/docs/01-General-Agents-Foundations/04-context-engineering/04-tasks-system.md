@@ -513,3 +513,8 @@ CLAUDE_CODE_TASK_LIST_ID=my-project claude
 ```
 
 Both sessions now share the same task list.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

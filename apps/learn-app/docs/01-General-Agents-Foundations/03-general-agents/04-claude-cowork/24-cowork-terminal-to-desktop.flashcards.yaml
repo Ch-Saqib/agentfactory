@@ -1,0 +1,155 @@
+deck:
+  id: "ch03-cowork-terminal-to-desktop"
+  title: "From Terminal to Desktop: The Cowork Story"
+  description: "Flashcards covering Claude Cowork as agentic AI for knowledge workers, the Code vs Cowork comparison, the shared Claude Agent SDK foundation, and when to use each tool."
+  tags: [claude-cowork, claude-code, agentic-ai, knowledge-workers, desktop-agent]
+  version: 2
+
+cards:
+  - id: "ch03-cowork-terminal-to-desktop-001"
+    type: recall
+    front: "What is Claude Cowork?"
+    back: "Agentic AI in the Claude Desktop app, available on macOS and Windows."
+    tags: [claude-cowork, definition]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-002"
+    type: recall
+    front: "What underlying technology do both Claude Code and Claude Cowork share?"
+    back: "The Claude Agent SDK."
+    tags: [claude-agent-sdk, shared-foundation]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-003"
+    type: recall
+    front: "What is the key distinction between Claude Cowork and a web chatbot?"
+    back: "Cowork is an agent that acts; a chatbot only responds."
+    tags: [agent-vs-chatbot, cowork-definition]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-004"
+    type: recall
+    front: "How many steps does the traditional web chat AI workflow require versus Claude Cowork?"
+    back: "Web chat: 8 steps. Cowork: 4 steps."
+    tags: [workflow-comparison, efficiency]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-005"
+    type: recall
+    front: "Who are the primary users of Claude Code versus Claude Cowork?"
+    back: "Claude Code: developers.\nClaude Cowork: knowledge workers."
+    tags: [target-users, code-vs-cowork]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-006"
+    type: thinking
+    front: "Why does Cowork's direct filesystem access matter beyond saving copy-paste steps?"
+    back: "When Claude sees your entire folder structure, it can make connections between documents you might miss. Capability expands beyond what pasting fragments into chat can achieve."
+    why: "What kinds of cross-document insights become possible that are impossible through chat?"
+    tags: [filesystem-access, capability-vs-convenience]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-007"
+    type: recall
+    front: "What are the three tabs in the Claude Desktop app?"
+    back: "Chat, Cowork, and Code."
+    tags: [claude-desktop, three-tab-model]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-terminal-to-desktop-008"
+    type: recall
+    front: "What is Claude Code best for versus what is Claude Cowork best for?"
+    back: "Code: writing software, tests, debugging.\nCowork: documents, reports, analysis."
+    tags: [code-vs-cowork, best-for]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-009"
+    type: thinking
+    front: "If Code and Cowork share the same Claude Agent SDK, why are they separate interfaces?"
+    back: "Developers need terminal tools like git and testing; knowledge workers need visual document handling. The same agentic AI is optimized through different interfaces to match each group's workflow."
+    why: "How does the interface design reflect a difference in workflow, not in AI capability?"
+    tags: [interface-design, user-optimization, shared-sdk]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-010"
+    type: recall
+    front: "What three automation options existed for knowledge workers before Cowork, and what limited each?"
+    back: "Office macros (require programming).\nNo-code tools (predefined workflows only).\nManual work (time-consuming, error-prone)."
+    tags: [automation-gap, knowledge-workers]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-011"
+    type: thinking
+    front: "How does Cowork fill the gap that office macros and no-code tools left for knowledge workers?"
+    back: "Macros require programming knowledge; no-code tools are limited to predefined workflows. Cowork accepts plain language instructions, so workers describe what they need and Claude handles flexible file operations without code."
+    why: "What category of task was simply impossible for non-developers before Cowork?"
+    tags: [automation-gap, plain-language, knowledge-workers]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-012"
+    type: recall
+    front: "What four document formats do Cowork's built-in Skills handle natively?"
+    back: "docx (Word)\nxlsx (Excel)\npptx (PowerPoint)\npdf"
+    tags: [document-formats, cowork-skills]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-013"
+    type: thinking
+    front: "How would using Cowork instead of Code change handling a folder of Excel spreadsheets?"
+    back: "Cowork's built-in xlsx Skills read and modify spreadsheets while preserving formulas, and a visual interface means no scripting is needed. A non-developer can analyze files directly without writing or running code."
+    why: "What would a developer need to do in Code to accomplish the same task?"
+    tags: [xlsx, tool-selection, scenario]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-014"
+    type: recall
+    front: "What does Cowork's visual feedback capability show before executing file operations?"
+    back: "Exactly what will change, so the user can review and confirm before Claude proceeds."
+    tags: [visual-feedback, cowork-capabilities]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-015"
+    type: thinking
+    front: "Why would removing visual feedback from Cowork undermine adoption by knowledge workers?"
+    back: "Knowledge workers are not accustomed to invisible terminal actions. Without seeing what will change, they would resist granting filesystem access, making batch file operations feel unsafe regardless of actual risk."
+    why: "How does trust relate to granting an agent permission to modify files?"
+    tags: [visual-feedback, user-trust, design]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-016"
+    type: recall
+    front: "Can a Skill created in Claude Code be used in Claude Cowork?"
+    back: "Skills transfer across both platforms in either direction."
+    tags: [skills-portability, cross-platform]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-017"
+    type: thinking
+    front: "Why does Cowork's three-tab convergence with Code matter for someone building Skills today?"
+    back: "Skills built for one platform work across all three tabs. Investing in agentic patterns now yields value regardless of which interface you or your users prefer, because the Claude Agent SDK is the shared foundation."
+    why: "How would the value of a Skill change if platforms diverged instead of converging?"
+    tags: [convergence-path, skills-investment, three-tab-model]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-018"
+    type: thinking
+    front: "Why is Cowork a distinct interface rather than a simplified version of Claude Code?"
+    back: "Cowork has its own document-specific Skills and targets entirely different workflows. It is not a downgrade but a separate optimization of the same AI for knowledge work, not a stripped-down developer tool."
+    why: "What would be lost if Cowork were designed as Code with fewer features?"
+    tags: [cowork-identity, misconception, interface-design]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-terminal-to-desktop-019"
+    type: thinking
+    front: "Why does persistent context across an approved workspace enable outcomes a per-session chatbot cannot?"
+    back: "A chatbot sees only what you paste per session. Persistent context lets Claude know which files exist, how they relate, and what previous work looked like, enabling cross-document synthesis and multi-file operations."
+    why: "What class of tasks requires knowing about files you never explicitly mention?"
+    tags: [persistent-context, cowork-capabilities, agent-vs-chatbot]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-terminal-to-desktop-020"
+    type: recall
+    front: "What must a user do before Cowork can read or modify files in a folder?"
+    back: "Grant explicit folder access approval."
+    tags: [folder-approval, security, permissions]
+    difficulty: "intermediate"

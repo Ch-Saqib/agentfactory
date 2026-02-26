@@ -603,3 +603,7 @@ If you're uncertain, I've cut too much.
 ```
 
 **What you're learning:** Whether you've gone too far. A CLAUDE.md can be too lean—stripped of signal Claude actually needs. This prompt stress-tests your audit by checking whether essential information survived. If Claude can't answer these questions, you need to restore some content.
+
+## Flashcards Study Aid
+
+<Flashcards />

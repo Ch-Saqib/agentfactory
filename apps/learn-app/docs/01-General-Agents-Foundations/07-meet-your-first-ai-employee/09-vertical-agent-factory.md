@@ -323,3 +323,8 @@ Which layer requires zero work?
 ```
 
 **What you're learning:** Platform migration as an architectural litmus test. The answer reveals why Layer 3 investment is the most durable -- your Agent Skills and MCP servers transfer with zero changes while infrastructure layers require varying degrees of rework. Understanding this before you build prevents the most expensive mistake in agent development: building expertise that is locked to a single platform.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

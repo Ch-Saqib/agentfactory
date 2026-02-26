@@ -645,3 +645,7 @@ Use General Agents when requirements are unclear, you need exploration, this is 
 ### What skills do I need for AI-native development?
 
 Traditional programming emphasized syntax mastery and algorithm optimization. AI-native development requires specification writing (clear specs determine AI output quality), prompting and collaboration (directing AI requires precision about intent), agent design (orchestrating intelligent systems rather than writing code), system thinking (understanding component interactions), and validation (evaluating AI output as quality control). This book addresses these skills explicitly.
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -302,3 +302,8 @@ What should it do in the morning, during work hours, and at end of day?
 ```
 
 **What you're learning:** Thinking in workflows rather than individual tasks. A daily routine combines research, analysis, and scheduling into automated sequences -- the foundation for building an always-on employee.
+
+
+## Flashcards Study Aid
+
+<Flashcards />
