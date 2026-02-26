@@ -114,7 +114,7 @@ function HomepageHeader() {
                 </span>
                 {/* Stat */}
                 <span className="text-lg font-bold text-foreground tracking-tight">
-                  16,884
+                  17,035
                 </span>
                 <span className="text-sm text-muted-foreground">
                   professionals learning
