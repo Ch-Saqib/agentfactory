@@ -74,7 +74,7 @@ EXTERNAL DEPENDENCIES:
 └──────────────┘    └────────────────┘    └────────────────┘
 ```
 
-- **SSO** → JWT/JWKS authentication. `learner_id = user.sub` from JWT (no mapping table)
+- **SSO** → JWT/JWKS authentication. `learner_id` is the raw `sub` claim from JWT — a string identity from the auth provider. No UUID generation, no mapping table.
 - **Content API** → Serves lesson content. Frontend orchestrates: gets lesson from content-api, gets profile from this service, sends both to personalization engine
 - **Study Mode API** → PHM session data. This service pulls PHM data to update profiles
 - **Redis** → Shared instance. Profile cache with `lp:` namespace prefix
@@ -89,7 +89,8 @@ This is the evolved schema incorporating all Phase 1 research findings and user 
 
 ```json
 {
-  "learner_id": "string — UUID v4, auto-generated on profile creation",
+  "id": "UUID v4 — internal primary key, auto-generated",
+  "learner_id": "string — JWT `sub` claim from auth. NOT a UUID we generate. This is the auth identity string.",
   "name": "string | null",
   "profile_created": "ISO-8601 datetime",
   "last_updated": "ISO-8601 datetime",
@@ -101,7 +102,8 @@ This is the evolved schema incorporating all Phase 1 research findings and user 
 
 | Field | Status | Notes |
 |---|---|---|
-| `learner_id` | MODIFIED | Now explicitly UUID v4 (was ambiguous "uuid or human-readable") |
+| `id` | `[NEW]` | Internal UUID v4 primary key. Never exposed in API responses. |
+| `learner_id` | `[CLARIFIED]` | Auth subject string from JWT `sub`. NOT auto-generated, NOT UUID v4. This is the stable identity from SSO. |
 | `last_updated` | `[NEW]` | Staleness detection. Updated on every profile modification |
 | `consent_given` | `[NEW]` | GDPR requirement. Must be `true` for profile to be stored |
 | `consent_date` | `[NEW]` | When consent was granted |
@@ -288,7 +290,7 @@ All fields optional. Defaults are conservative (standard, no special needs assum
 | Rule | Condition | Behavior |
 |---|---|---|
 | `analogy_domain` fallback | Field is null | Use `professional_context.industry`. If also null, use generic everyday analogies |
-| `include_code_samples` conditional default | `programming.level` is `none` or absent | Default to `false` |
+| `include_code_samples` deterministic chain | Evaluation order: (1) If user explicitly set → use user value. (2) If `programming.level == none` → `false`. (3) If `programming.level >= beginner` → `true`. Note: `programming.level` defaults to `beginner`, so a brand-new profile gets `true` — but this is inferred, not user-set, so `_field_sources` records it as `inferred`. | `[P1-1 FIX]` |
 | `code_verbosity` dependency | `include_code_samples` is `false` | `code_verbosity` is ignored |
 | `domain_name` conditional | `domain.level` is `none` | `domain_name` should be null |
 | Inferred `language_complexity` | Not set by learner | Derive from expertise levels (see Onboarding Inference Rules) |
@@ -301,13 +303,13 @@ All fields optional. Defaults are conservative (standard, no special needs assum
 |---|---|
 | All freetext fields | Max character limits as documented per field |
 | All arrays | Max item limits as documented per field |
-| `learner_id` | UUID v4 format |
+| `learner_id` | Auth subject string from JWT `sub`. Max 255 chars. Set by system from token, not user-provided. `[P0-1 FIX]` |
 | `profile_version` | Semver string, set by system (not user) |
 | Expertise level enums | Must be one of: `none\|beginner\|intermediate\|advanced\|expert` |
 | `consent_given` | Must be `true` for profile creation |
 | `known_misconceptions` | Max 5 entries |
 | `real_projects` | Max 5 entries |
-| `domain` array | Max 5 entries, exactly one `is_primary: true` |
+| `domain` array | Max 5 entries. Exactly one `is_primary: true` when list is non-empty. **Auto-primary rule `[P1-2 FIX]`:** If no entry has `is_primary: true`, the first entry is auto-marked primary. If multiple entries have `is_primary: true`, only the first is kept as primary, rest set to `false`. Empty array is valid (no domain expertise yet). |
 | Duplicate detection | `topics_already_mastered[].topic` — deduplicated, case-normalized |
 
 ### Security: Freetext Field Handling
@@ -382,6 +384,14 @@ Structured form for fields with clear answer spaces (dropdowns, selects) + optio
 8. `professional_context.industry` — text input / dropdown
 9. `professional_context.organization_type` — dropdown (optional)
 
+**Phase 3.5: Accessibility (10-20 seconds) `[ACCESSIBILITY FIX]`**
+10. `accessibility.screen_reader` — toggle (default off)
+11. `accessibility.cognitive_load_preference` — 2-option: Standard / Reduced
+12. `accessibility.dyslexia_friendly` — toggle (default off)
+13. "Any other accessibility needs?" → `accessibility.notes` (optional text, max 300 chars)
+
+Note: `color_blind_safe` is not asked directly — it's handled by the frontend theme, not content personalization. Kept in schema for future use.
+
 **Phase 4: AI Enrichment (optional, 0-5 minutes)**
 After the form, an optional AI conversation enriches open-ended fields:
 - "Tell me about a project you'd like to apply this to" → `real_projects`
@@ -398,7 +408,7 @@ After the form, an optional AI conversation enriches open-ended fields:
 | `communication.tone` | Inferred from `language_complexity` |
 | `communication.analogy_domain` | Inferred from `industry` |
 | `delivery.*` | All defaults or inferred |
-| `accessibility.*` | Settings page only (not onboarding) |
+| `accessibility.color_blind_safe` | Frontend theme concern, not content personalization — settings page only |
 | `expertise.subject_specific.*` | Inferred from quiz performance and engagement |
 | `known_misconceptions` | Detected through assessment, never asked |
 
@@ -408,7 +418,41 @@ After the form, an optional AI conversation enriches open-ended fields:
 
 **When inference runs:** On profile creation (`POST /`), on section update (`PATCH /me/sections/expertise`), and on PHM sync. Inference does NOT overwrite fields the user has explicitly set.
 
-**Override rule:** If a user manually sets `language_complexity = expert` but their expertise says `beginner`, the manual value sticks. Inferred values have a lower priority than explicit values. Track which fields were user-set vs inferred via a `_inferred_fields: list[str]` metadata array stored in the profile (not exposed in API responses).
+**Override rule:** If a user manually sets `language_complexity = expert` but their expertise says `beginner`, the manual value sticks. Inferred values have a lower priority than explicit values.
+
+**Field provenance tracking (`_field_sources`)** — `[P0-5 FIX]`:
+
+Every non-identity field has a source tracked in `_field_sources: dict[str, str]` stored as JSONB metadata (not exposed in API responses). Sources:
+
+| Source | Meaning | Override Priority (highest wins) |
+|---|---|---|
+| `user` | Explicitly set by user via API, onboarding, or settings | 4 (highest) |
+| `phm` | Set by PHM sync from tutoring session data | 3 |
+| `inferred` | Derived by inference rules from expertise levels | 2 |
+| `default` | System default from Appendix B | 1 (lowest) |
+
+**Rules:**
+- A field can only be overwritten by a source with **equal or higher** priority
+- `user` always wins: PHM and inference never overwrite user-set values
+- PHM can overwrite `inferred` and `default` values
+- Inference can overwrite `default` values only
+- When PHM downranking is enabled (future): PHM can overwrite `inferred` values in both directions (upgrade AND downgrade)
+- `_field_sources` is updated atomically with the field value
+
+**Example:**
+```json
+{
+  "_field_sources": {
+    "communication.language_complexity": "inferred",
+    "communication.tone": "user",
+    "communication.verbosity": "inferred",
+    "delivery.include_code_samples": "inferred",
+    "expertise.programming.level": "user",
+    "expertise.ai_ml.level": "phm",
+    "goals.primary_learning_goal": "user"
+  }
+}
+```
 
 | Max Expertise Level | Inferred `language_complexity` | Inferred `tone` | Inferred `verbosity` | Inferred `code_verbosity` | Inferred `include_code_samples` |
 |---|---|---|---|---|---|
@@ -455,25 +499,28 @@ After the form, an optional AI conversation enriches open-ended fields:
 | Phase 1: Goals | `goals` | `goals` |
 | Phase 2: Background | `expertise` | `expertise` |
 | Phase 3: Professional Context | `professional_context` | `professional_context` |
+| Phase 3.5: Accessibility | `accessibility` | `accessibility` |
 | Phase 4: AI Enrichment | `goals` (career_goal, immediate_application), `professional_context` (real_projects), `expertise` (subject_specific) | `ai_enrichment` |
 
-**Sections NOT tracked in onboarding** (inferred or deferred): `communication`, `delivery`, `accessibility`. These are populated by inference rules or via the settings page.
+**Sections NOT tracked in onboarding** (inferred or deferred): `communication`, `delivery`. These are populated by inference rules or via the settings page.
 
-The `onboarding_sections_completed` keys are the 4 **onboarding phases**, not the 7 schema sections:
+The onboarding phase keys are the 5 **onboarding phases**, not the 7 schema sections. DB column `onboarding_sections_completed` maps to API response field `sections_completed` `[P1-4 FIX]`:
 ```json
 {
-  "onboarding_sections_completed": {
+  "sections_completed": {
     "goals": true,
     "expertise": true,
     "professional_context": false,
+    "accessibility": false,
     "ai_enrichment": false
   },
-  "onboarding_completed": false,
-  "profile_completeness": 0.55
+  "overall_completed": false,
+  "onboarding_progress": 0.40,
+  "profile_completeness": 0.65
 }
 ```
 
-`next_section` in `OnboardingStatus` returns one of: `"goals"`, `"expertise"`, `"professional_context"`, `"ai_enrichment"`, or `null` (all complete).
+`next_section` in `OnboardingStatus` returns one of: `"goals"`, `"expertise"`, `"professional_context"`, `"accessibility"`, `"ai_enrichment"`, or `null` (all complete).
 
 ---
 
@@ -538,8 +585,8 @@ class LearnerProfile(SQLModel, table=True):
     __tablename__ = "learner_profiles"
 
     # Identity (relational columns, indexed)
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    learner_id: str = Field(index=True, unique=True, max_length=255)
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)  # Internal PK, never exposed in API
+    learner_id: str = Field(max_length=255)  # Auth subject string from JWT `sub`. NOT a UUID we generate.
     name: str | None = Field(default=None, max_length=255)
     profile_version: str = Field(default="1.1", max_length=10)
 
@@ -558,6 +605,10 @@ class LearnerProfile(SQLModel, table=True):
     # Onboarding State
     onboarding_completed: bool = Field(default=False)
     onboarding_sections_completed: dict[str, Any] = Field(sa_column=Column(JSONB, nullable=False, server_default=text("'{}'")))
+
+    # Field Provenance (P0-5 FIX) — tracks source of each field value
+    _field_sources: dict[str, str] = Field(sa_column=Column("field_sources", JSONB, nullable=False, server_default=text("'{}'")))
+    # Keys: dotted field paths (e.g. "communication.tone"), Values: "user"|"phm"|"inferred"|"default"
 
     # Timestamps (M-8: use timezone-aware UTC, not deprecated utcnow)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -582,8 +633,8 @@ class ProfileAuditLog(SQLModel, table=True):
 ### Indexes
 
 ```sql
-CREATE UNIQUE INDEX idx_profiles_learner_id ON learner_profiles (learner_id);
-CREATE INDEX idx_profiles_not_deleted ON learner_profiles (learner_id) WHERE deleted_at IS NULL;
+CREATE UNIQUE INDEX idx_profiles_learner_id ON learner_profiles (learner_id);  -- Full unique: one row per auth sub, always
+CREATE INDEX idx_profiles_not_deleted ON learner_profiles (learner_id) WHERE deleted_at IS NULL;  -- Fast lookup for active profiles
 CREATE INDEX idx_audit_learner_id ON profile_audit_log (learner_id, created_at DESC);
 ```
 
@@ -594,7 +645,7 @@ All endpoints prefixed with `/api/v1/profiles`.
 | Method | Path | Purpose | Auth | Success | Error |
 |---|---|---|---|---|---|
 | `GET` | `/health` | Health check (Redis + DB ping) | None | 200 | 503 |
-| `POST` | `/` | Create profile (requires `consent_given: true`) | Required | 201 | 400 (no consent), 409 (duplicate) |
+| `POST` | `/` | Create profile (requires `consent_given: true`). If soft-deleted profile exists for this user, **restores** it (clears `deleted_at`, resets onboarding). Returns 200 for restore, 201 for new. | Required | 201/200 | 400 (no consent), 409 (active profile exists) |
 | `GET` | `/me` | Get current user's profile | Required | 200 | 404 (no profile) |
 | `GET` | `/{learner_id}` | Get profile by ID (admin/service) | Required (admin) | 200 | 403, 404 |
 | `PATCH` | `/me` | Update profile (partial, replace semantics per section) | Required | 200 | 404, 422 |
@@ -612,10 +663,11 @@ All endpoints prefixed with `/api/v1/profiles`.
 
 **PATCH semantics (M-4):** JSONB sections use **replace** semantics, not deep merge. Sending `{ "expertise": { "programming": { "level": "advanced" } } }` replaces the entire `expertise` section. Concurrent updates to the same section may lose changes. Acceptable for v1 (single-user profiles).
 
-**Delete lifecycle (I-4):**
+**Delete lifecycle (I-4, P0-2 FIX):**
 - Soft delete (`DELETE /me`): sets `deleted_at`, profile hidden from `GET /me`. Recoverable.
-- GDPR erase (`DELETE /me/gdpr-erase`): works on both active AND soft-deleted profiles. Irreversible.
-- After soft delete: `POST /` creates a new profile (old record stays soft-deleted unless GDPR erased).
+- Restore after soft delete: `POST /` on a soft-deleted profile **restores** the existing row (clears `deleted_at`, resets `onboarding_sections_completed`). Does NOT create a new row. Learner gets their old data back with onboarding reset.
+- Fresh start: To truly start over, GDPR-erase first (`DELETE /me/gdpr-erase`), then `POST /` creates a new row.
+- GDPR erase (`DELETE /me/gdpr-erase`): works on both active AND soft-deleted profiles. Irreversible. After erase, `POST /` creates a genuinely new profile.
 
 ### Rate Limits — `[B-6 FIX]`
 
@@ -686,18 +738,22 @@ class RealProject(BaseModel):
     project_name: str = Field(max_length=100)
     description: str = Field(max_length=500)
 
+ToolName = Annotated[str, Field(max_length=50)]  # P1-5 FIX: per-item constraint
+
 class ProfessionalContextSection(BaseModel):
     current_role: str | None = Field(None, max_length=100)
     industry: str | None = Field(None, max_length=100)
     organization_type: str | None = Field(None, max_length=50)
     team_context: str | None = Field(None, max_length=200)
     real_projects: list[RealProject] = Field(default_factory=list, max_length=5)
-    tools_in_use: list[str] = Field(default_factory=list, max_length=20)
+    tools_in_use: list[ToolName] = Field(default_factory=list, max_length=20)  # Each item max 50 chars
     constraints: str | None = Field(None, max_length=300)
+
+SecondaryGoal = Annotated[str, Field(max_length=200)]  # P1-5 FIX: per-item constraint
 
 class GoalsSection(BaseModel):
     primary_learning_goal: str | None = Field(None, max_length=500)
-    secondary_goals: list[str] = Field(default_factory=list, max_length=5)
+    secondary_goals: list[SecondaryGoal] = Field(default_factory=list, max_length=5)  # Each item max 200 chars
     urgency: Literal["low", "medium", "high"] | None = None
     urgency_note: str | None = Field(None, max_length=200)
     career_goal: str | None = Field(None, max_length=300)
@@ -732,7 +788,7 @@ class AccessibilitySection(BaseModel):
 # === Request models ===
 
 class ProfileCreate(BaseModel):
-    consent_given: bool  # Must be True
+    consent_given: bool  # Must be True — enforced in route handler as 400, NOT here (P1-3 FIX)
     name: str | None = Field(None, max_length=255)
     expertise: ExpertiseSection = Field(default_factory=ExpertiseSection)
     professional_context: ProfessionalContextSection = Field(default_factory=ProfessionalContextSection)
@@ -740,13 +796,8 @@ class ProfileCreate(BaseModel):
     communication: CommunicationSection = Field(default_factory=CommunicationSection)
     delivery: DeliverySection = Field(default_factory=DeliverySection)
     accessibility: AccessibilitySection = Field(default_factory=AccessibilitySection)
-
-    @field_validator("consent_given")
-    @classmethod
-    def consent_must_be_true(cls, v):
-        if not v:
-            raise ValueError("consent_given must be True to create a profile")
-        return v
+    # NOTE: No field_validator for consent here. Route handler checks consent_given
+    # and returns 400 (consent_required) before any other validation runs.
 
 class ProfileUpdate(BaseModel):
     """All fields optional. Only provided fields are updated."""
@@ -775,22 +826,25 @@ class ProfileResponse(BaseModel):
     delivery: DeliverySection
     accessibility: AccessibilitySection
     onboarding_completed: bool
-    profile_completeness: float  # 0.0 - 1.0
+    onboarding_progress: float  # 0.0-1.0 — user actions only
+    profile_completeness: float  # 0.0-1.0 — personalization readiness
     created_at: datetime
     updated_at: datetime
 
 class OnboardingStatus(BaseModel):
     learner_id: str
-    sections_completed: dict[str, bool]  # keys: goals, expertise, professional_context, ai_enrichment
+    sections_completed: dict[str, bool]  # keys: goals, expertise, professional_context, accessibility, ai_enrichment
     overall_completed: bool
-    next_section: str | None  # one of: goals, expertise, professional_context, ai_enrichment, or null
-    profile_completeness: float
+    next_section: str | None  # one of: goals, expertise, professional_context, accessibility, ai_enrichment, or null
+    onboarding_progress: float  # 0.0-1.0 — user actions only (P0-4 FIX)
+    profile_completeness: float  # 0.0-1.0 — personalization readiness (includes inferred/defaults)
 
 class CompletenessResponse(BaseModel):
     learner_id: str
-    overall: float  # 0.0 - 1.0
-    per_section: dict[str, float]
-    highest_impact_missing: list[str]  # ordered by impact (see algorithm below)
+    profile_completeness: float  # 0.0-1.0 — personalization readiness (includes inferred/defaults)
+    onboarding_progress: float  # 0.0-1.0 — user actions only (completed phases / total phases)
+    per_section: dict[str, float]  # per-section completeness (weighted)
+    highest_impact_missing: list[str]  # sections where user has NOT explicitly set values, ordered by weight
 
 class ErrorResponse(BaseModel):
     """Standard error response for all non-2xx responses."""
@@ -803,14 +857,31 @@ class ErrorResponse(BaseModel):
 
 | HTTP Status | `error` code | When |
 |---|---|---|
-| 400 | `consent_required` | `POST /` with `consent_given: false` or missing |
+| 400 | `consent_required` | `POST /` with `consent_given: false` or missing. **`[P1-3 FIX]`:** Checked in route handler BEFORE Pydantic validation — explicit `if not body.consent_given: raise HTTPException(400)`. Do NOT rely on Pydantic `field_validator` (which raises 422). |
 | 403 | `forbidden` | Accessing another user's profile without admin role |
 | 404 | `not_found` | Profile doesn't exist, or unknown section name |
 | 409 | `profile_exists` | `POST /` for a user that already has a profile |
 | 422 | `validation_error` | Invalid enum value, exceeds max length, array too large. `details` contains per-field errors |
+| 429 | `rate_limited` | Request exceeds rate limit. Response includes `Retry-After` header (seconds). `details: { "limit": 30, "window": "1h", "retry_after": 1742 }` `[P2-1 FIX]` |
 | 502 | `upstream_unavailable` | PHM sync failed due to Study Mode API being down |
 
-### Profile Completeness Algorithm — `[B-3 FIX]`
+### Two Separate Metrics — `[P0-4 FIX]`
+
+The system tracks **two distinct metrics** to avoid conflating user actions with system readiness:
+
+#### 1. `onboarding_progress` (User Actions Only)
+
+Tracks what the learner has **explicitly done**. Used for UX (progress bar, XP, nudges).
+
+- Denominator: 5 onboarding phases (goals, expertise, professional_context, accessibility, ai_enrichment)
+- Numerator: phases the user has completed (stored in `onboarding_sections_completed`)
+- Formula: `completed_phases / total_phases` → 0.0 to 1.0
+- Inferred/default values do NOT count
+- This drives: progress bar, "Profile X% complete" banner, XP rewards
+
+#### 2. `profile_completeness` (Personalization Readiness)
+
+Tracks how ready the profile is for downstream personalization. Includes inferred and default values.
 
 **Section weights** (sum = 1.0):
 
@@ -823,12 +894,9 @@ class ErrorResponse(BaseModel):
 | `delivery` | 0.10 | Drives format (often inferred or defaulted) |
 | `accessibility` | 0.10 | Drives accessibility adaptations |
 
-**Section "filled" definition:** A section is filled if at least one non-default, non-null value is set within it. Examples:
-- `expertise` with `programming.level: "advanced"` → filled (non-default, since default is `beginner`)
-- `goals` with only default values → not filled
-- `communication` with all values inferred by the system → filled (inferred values count)
+**Section "filled" definition:** A section is filled if at least one non-null value exists — whether user-set, inferred, or default. A brand new profile with all defaults has `profile_completeness > 0` because defaults are functional.
 
-**`highest_impact_missing`:** Returns unfilled sections ordered by weight (highest first). Static priority within a section: `primary_learning_goal` > `programming.level` > `ai_ml.level` > `domain.level` > `current_role` > `industry` > remaining fields.
+**`highest_impact_missing`:** Returns sections where the user has NOT explicitly set any values, ordered by weight. Static priority within a section: `primary_learning_goal` > `programming.level` > `ai_ml.level` > `domain.level` > `current_role` > `industry` > remaining fields. Uses `_field_sources` to distinguish user-set from default.
 
 ### Cache Strategy
 
@@ -874,20 +942,31 @@ class ErrorResponse(BaseModel):
 | `test_include_code_samples_conditional_default` | `programming.level: none` → `include_code_samples` defaults to `false` |
 | `test_freetext_length_limits` | Notes field with 500+ chars → 422 validation error |
 | `test_expertise_enum_validation` | `expertise.domain[0].level: "superexpert"` → 422 |
+| `test_consent_returns_400_not_422` | `POST /` with `consent_given: false` → 400 (not 422). `[P1-3]` |
+| `test_learner_id_is_jwt_sub` | Profile's `learner_id` matches JWT `sub` claim exactly. `[P0-1]` |
+| `test_restore_after_soft_delete` | `POST /` after soft delete → 200, restores existing row. `[P0-2]` |
 
 ### P1 — Must Pass Before v1 Launch
 
 | Test | What It Verifies |
 |---|---|
-| `test_onboarding_status_initially_incomplete` | New profile → all sections incomplete |
-| `test_completing_all_sections_marks_done` | After all sections → `onboarding_completed: true` |
-| `test_partial_onboarding_saves_progress` | Complete 2 of 4 sections, abandon → profile has 2 sections filled |
-| `test_profile_completeness_score` | Profile with 3/7 sections → ~0.43 completeness |
+| `test_onboarding_status_initially_incomplete` | New profile → all 5 phases incomplete |
+| `test_completing_all_sections_marks_done` | After all 5 phases → `onboarding_completed: true` |
+| `test_partial_onboarding_saves_progress` | Complete 2 of 5 phases, abandon → profile has 2 phases filled |
+| `test_onboarding_progress_vs_completeness` | `onboarding_progress` counts user actions only; `profile_completeness` includes inferred. New profile: `onboarding_progress=0.0`, `profile_completeness > 0.0`. `[P0-4]` |
 | `test_completeness_highest_impact` | Missing expertise → `highest_impact_missing` includes expertise fields |
 | `test_phm_sync_updates_profile` | PHM data maps to profile fields per Appendix A |
+| `test_phm_respects_provenance` | PHM sync does not overwrite `user`-sourced fields. `[P0-5]` |
+| `test_phm_misconception_transform` | PHM string misconception → `{topic, misconception}` object with placeholder text. `[P0-3]` |
 | `test_inference_rules_from_expertise` | `programming: none` → inferred `language_complexity: plain` |
+| `test_inference_sets_field_sources` | After inference, `_field_sources` records `inferred` for affected fields. `[P0-5]` |
+| `test_user_override_preserves_source` | User sets `language_complexity` manually → `_field_sources` records `user`, inference doesn't overwrite. `[P0-5]` |
 | `test_domain_array_with_primary` | Create profile with 2 domains, exactly one `is_primary: true` |
+| `test_domain_auto_primary` | Create profile with 1 domain, no `is_primary` set → auto-marked `true`. `[P1-2]` |
 | `test_misconceptions_capped_at_5` | Submitting 6 misconceptions → 422 or truncated |
+| `test_accessibility_in_onboarding` | Accessibility phase tracked in `sections_completed`, fields stored correctly |
+| `test_tools_in_use_item_length` | `tools_in_use` item with 60 chars → 422. `[P1-5]` |
+| `test_secondary_goals_item_length` | `secondary_goals` item with 250 chars → 422. `[P1-5]` |
 | `test_dev_mode_bypasses_auth` | `DEV_MODE=true` → requests succeed without token |
 | `test_cache_invalidated_on_update` | PATCH /me → Redis cache key deleted |
 
@@ -899,9 +978,10 @@ class ErrorResponse(BaseModel):
 | `test_duplicate_topics_deduplicated` | `topics_already_mastered: ["Python", "python"]` → stored as one entry |
 | `test_unicode_in_all_fields` | Arabic name, Urdu notes → stored and returned correctly |
 | `test_profile_version_set_automatically` | Client cannot override `profile_version` |
-| `test_create_after_soft_delete` | Can create new profile after soft-deleting old one |
+| `test_restore_after_soft_delete` | `POST /` after soft delete → 200, restores existing row, clears `deleted_at`, resets onboarding. `[P0-2 FIX]` |
 | `test_audit_log_created_on_update` | Every PATCH creates an audit log entry |
-| `test_concurrent_updates` | Two simultaneous PATCHes → no data loss (last write wins on JSONB sections) |
+| `test_rate_limit_returns_429` | Exceed `PATCH /me` rate limit → 429 with `Retry-After` header and `rate_limited` error code. `[P2-1]` |
+| `test_concurrent_updates_last_write_wins` | Two simultaneous PATCHes to same section → deterministic last-write-wins (later timestamp overwrites). No crash, no partial merge. `[P2-2 FIX]` |
 
 ---
 
@@ -939,6 +1019,12 @@ class ErrorResponse(BaseModel):
 | D-9 | Multi-domain | **Array in v1** | Target audience is multi-domain experts |
 | D-10 | Onboarding abandonment | **Save partial + nudge** | Never block content access |
 | D-11 | Database hosting | **Neon (serverless PG)** | Zero ops, `pool_pre_ping` for cold starts |
+| D-12 | `learner_id` identity | **Auth sub string** | JWT `sub` claim, not generated UUID. Internal `id` is UUID PK. `[P0-1]` |
+| D-13 | Soft-delete lifecycle | **Restore old row** | `POST /` on soft-deleted profile restores it. GDPR-erase first for true fresh start. `[P0-2]` |
+| D-14 | Completeness metrics | **Two separate metrics** | `onboarding_progress` (user actions) + `profile_completeness` (personalization readiness). XP potential. `[P0-4]` |
+| D-15 | Field provenance | **`_field_sources` map** | `user > phm > inferred > default` priority. Enables PHM respect + future downranking. `[P0-5]` |
+| D-16 | PHM downranking | **Disabled in v1, config flag for future** | `PHM_ALLOW_DOWNRANK=false`. When enabled, PHM can lower `inferred`-sourced values. |
+| D-17 | Accessibility onboarding | **Include in Phase 3.5** | User confirmed: must collect accessibility needs during first-session experience. |
 
 ---
 
@@ -952,7 +1038,7 @@ class ErrorResponse(BaseModel):
 | `expertise_level.business_experience` | `expertise.business.level` | Direct enum mapping |
 | `knowledge_map.mastered[].topic` | `expertise.subject_specific.topics_already_mastered[]` | Each topic → `{ "topic": "<value>", "treatment": "reference" }`. Default `treatment` is `reference` (brief recap allowed). Deduplicate by case-normalized topic name. |
 | `knowledge_map.topics_to_skip[]` | `expertise.subject_specific.topics_already_mastered[]` | Each topic → `{ "topic": "<value>", "treatment": "skip" }`. Merged into same array. If topic exists with `reference`, PHM `skip` overrides to `skip`. |
-| `knowledge_map.known_misconceptions[]` | `expertise.subject_specific.known_misconceptions[]` | Direct string array. Capped at 5. |
+| `knowledge_map.known_misconceptions[]` | `expertise.subject_specific.known_misconceptions[]` | PHM sends strings (topic names where misconception detected). Transform: each string → `{ "topic": "<value>", "misconception": "Detected via tutoring session — details pending review" }`. If topic already exists in array, skip (don't duplicate). Capped at 5. |
 | `professional_context.current_role` | `professional_context.current_role` | Direct string copy |
 | `professional_context.industry` | `professional_context.industry` | Direct string copy |
 | `professional_context.real_projects[]` | `professional_context.real_projects[]` | Direct array copy |
@@ -963,10 +1049,12 @@ class ErrorResponse(BaseModel):
 | `communication_preferences.verbosity_preference` | `communication.verbosity` | Direct enum mapping |
 | `learning_style_signals.prefers_examples_before_theory` | `communication.preferred_structure` | `true` → `examples-first`, `false` → `theory-first` |
 
-**PHM Sync Conflict Rules:**
-- PHM data **never overwrites** user-set values (fields that were set via API/onboarding).
-- PHM data only fills **null/default** fields, OR updates `topics_already_mastered` (additive — new topics are appended, existing topics upgraded from `reference` → `skip` if PHM says skip, but never downgraded from `skip` → `reference`).
-- If PHM and user disagree on an expertise level, user-set value wins.
+**PHM Sync Conflict Rules (uses `_field_sources` provenance):**
+- PHM **never overwrites** `user`-sourced values. Check `_field_sources` before any update.
+- PHM can overwrite `inferred` and `default` sourced values. When it does, set `_field_sources[field] = "phm"`.
+- `topics_already_mastered`: additive — new topics appended, existing topics can be upgraded from `reference` → `skip` but not downgraded.
+- **v1 behavior**: PHM can only raise expertise levels (e.g., `beginner` → `intermediate`), never lower them.
+- **Future (when downranking enabled)**: PHM will be allowed to downgrade `inferred`-sourced expertise levels based on assessment evidence. `user`-sourced values still never overwritten. Controlled by config flag `PHM_ALLOW_DOWNRANK=false` (default).
 
 ---
 
@@ -992,7 +1080,7 @@ class ErrorResponse(BaseModel):
 | `accessibility.cognitive_load_preference` | `standard` | |
 | `accessibility.color_blind_safe` | `false` | |
 | `accessibility.dyslexia_friendly` | `false` | |
-| `goals.primary_learning_goal` | Inferred from lesson title | |
+| `goals.primary_learning_goal` | `null` | `[P1-6 FIX]` This service stores `null`. Lesson-context inference happens transiently in personalization engine (out of scope). |
 | `communication.analogy_domain` | `professional_context.industry` or generic | Cascading fallback |
 
 ---
@@ -1014,6 +1102,7 @@ class ErrorResponse(BaseModel):
 | `DB_POOL_SIZE` | No | `5` | SQLAlchemy async pool size |
 | `DB_POOL_PRE_PING` | No | `true` | Validate connections before use (required for Neon cold starts) |
 | `RATE_LIMIT_ENABLED` | No | `true` | Enable/disable rate limiting |
+| `PHM_ALLOW_DOWNRANK` | No | `false` | When `true`, PHM sync can lower `inferred`-sourced expertise levels. v1 ships with `false`. |
 
 **Secret management:** All secrets (`DATABASE_URL`, `REDIS_URL`, JWT config) via environment variables only. Never committed to git. `.env.example` provided with placeholder values.
 
