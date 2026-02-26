@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+sidebar_label: "Lesson 1: The CLI Architect Mindset"
 title: "The CLI Architect Mindset"
 description: "Discover why command-line mastery is essential for building AI agents that live on servers, and learn to navigate the Linux filesystem with confidence"
 keywords: ["linux", "cli", "terminal", "shell", "bash", "filesystem", "navigation", "pwd", "ls", "cd", "paths", "agent deployment"]
@@ -79,7 +80,7 @@ teaching_guide:
   session_group: 1
   session_title: "CLI Foundations and Navigation"
   key_points:
-    - "Terminal vs shell distinction is foundational — students will debug shell-specific issues in later lessons (bash scripting in lesson 6, tmux in lesson 5)"
+    - "Terminal vs shell distinction is foundational — students will debug shell-specific issues in later lessons (tmux in lesson 4, bash scripting in lesson 5)"
     - "The unified filesystem tree (single / root) is the mental model that makes all Linux navigation intuitive — contrast explicitly with Windows drive letters"
     - "Absolute vs relative paths is not just syntax — deployment scripts must use absolute paths to avoid 'where am I?' failures in production"
   misconceptions:
@@ -90,7 +91,7 @@ teaching_guide:
     - "If your AI agent runs on a headless server with no GUI, how would you check its log files or restart it? What alternatives to the CLI exist (hint: none in production)?"
     - "Why do you think Linux separates config (/etc), logs (/var), and programs (/usr) into different directories instead of keeping everything together per application?"
   teaching_tips:
-    - "This is the chapter opener — set expectations that every lesson builds toward deploying a real agent on a Linux server by lesson 14"
+    - "This is the chapter opener — set expectations that every lesson builds toward deploying a real agent on a Linux server by lesson 12"
     - "Open a terminal live and run pwd, ls -la, cd together with students — seeing hidden files appear with the -a flag is a memorable 'aha' moment"
     - "The five-directory table (/home, /etc, /var, /usr, /) is whiteboard-worthy — draw it as a tree and have students predict where agent configs and logs would go"
     - "Spend extra time on absolute vs relative paths — this distinction causes real bugs in deployment scripts and recurs throughout the chapter"
@@ -106,11 +107,19 @@ version: "2.0.0"
 
 # The CLI Architect Mindset
 
-When you build a Digital FTE -- an AI agent that works for your customers around the clock -- where does it actually live? Not on your laptop. Not behind a graphical interface with buttons and menus. Your agents live on Linux servers in the cloud, accessed through command-line interfaces. They run in Docker containers, cloud VMs, and remote systems where graphical desktops do not exist.
+Aisha shipped her first AI customer-service agent on a Tuesday afternoon. It ran perfectly on her laptop -- answered questions, looked up order status, escalated edge cases to a human. She pushed it to a cloud server, watched the health check go green, and closed her laptop feeling like a real engineer.
 
-This reality makes command-line mastery non-negotiable. The terminal is not a relic from the 1970s that developers tolerate out of tradition. It is the native interface for every server your agents will ever run on. Imagine managing a team of employees who only accept written instructions -- you need to be precise, clear, and efficient. That is the CLI.
+Three days later, at 11pm, she got the email. A customer had been waiting forty minutes for a response. The agent was down. Aisha grabbed her phone, opened an SSH connection from her tablet, and stared at a blinking cursor on a black screen. No buttons. No file explorer. No right-click menus. Just a prompt waiting for a command she did not know how to type. She tried the one thing she remembered -- restarted the process. The agent came back. Forty-five seconds later, it crashed again. Same error, whatever the error was. She had no idea where the log files lived, no idea which configuration had drifted, no idea how to even find out what directory she was standing in.
 
-In this lesson, you will discover the Linux filesystem through hands-on exploration. You will open a terminal, find out where you are, look around, move between directories, and build the mental model that makes all future Linux work intuitive. Every command you run will show its output so you can verify what happened. By the end, you will navigate with confidence -- and understand why this skill is foundational to everything else in this chapter.
+That moment -- staring at a terminal with a downed agent and no map of the filesystem -- is where CLI skills stop being "nice to have" and become the difference between an agent that recovers in minutes and one that stays down until morning. Aisha's agent was well-built. Her deployment was sound. But she had never learned to navigate the server it lived on, and that single gap turned a five-minute fix into a three-hour ordeal.
+
+Most agents that must run reliably 24/7 end up on Linux infrastructure: cloud VMs, containers, or Linux-based managed platforms. Not on your laptop with its desktop and drag-and-drop file manager. On a headless machine in the cloud — headless means no monitor, no keyboard, no graphical desktop; just the network and the command line — accessible through a CLI. Even when a platform abstracts the server, the operational surface is still usually Linux-flavored. The terminal is not a relic from the 1970s. It is the operational interface you need when things go wrong.
+
+In Chapter 6, Principle 1 established that Bash is the Key -- the single capability that transforms AI from a passive advisor into an active agent. Claude uses Bash to act. You need Bash to deploy, manage, and rescue the agents that use it. This lesson is where that key becomes real in your hands. You will open a terminal, find out where you are, look around, move between directories, and build the mental model that makes all future Linux work intuitive. Every command you run will show its output so you can verify what happened. By the end, you will navigate with confidence -- and Aisha's midnight panic will never be yours.
+
+:::tip[The principle]
+Navigation without a map is wandering. CLI mastery is the map.
+:::
 
 ## Terminal vs Shell: Two Different Things
 
@@ -142,6 +151,23 @@ This tells you the default shell. Throughout this chapter, we use bash -- the mo
 ## The Linux Filesystem: One Tree, One Root
 
 Unlike Windows, which uses drive letters (C:\, D:\), Linux organizes everything into a single unified tree. Every file, every directory, every device starts from one point: `/` (called "root").
+
+```
+/  (root — everything starts here)
+├── home/                      ← you work here (cd ~ takes you home)
+│   └── yourname/
+│       ├── .bashrc            ← your shell config (hidden — ls -la shows it)
+│       └── .ssh/              ← your SSH keys (hidden — L7, L8)
+├── etc/                       ← ALL configuration files
+│   ├── systemd/system/        ← service unit files go here (L9)
+│   └── ssh/sshd_config        ← SSH server config (L7, L8)
+├── var/                       ← everything that changes at runtime
+│   └── log/                   ← agent logs and system logs (L10)
+├── usr/                       ← installed programs and utilities
+│   └── bin/                   ← where grep, python, curl live
+└── opt/                       ← third-party apps — YOUR AGENTS LIVE HERE
+    └── agent-prod/            ← SupportBot's production home (L12)
+```
 
 Open your terminal and go to the top of the tree:
 
@@ -240,24 +266,17 @@ Those last two entries (`.` and `..`) are not just display artifacts. They are r
 
 ### Move There (cd)
 
+`cd` changes your working directory. After running it, `pwd` confirms your new location:
+
 ```bash
-cd /etc
-pwd
+cd /etc                # → move into the system configuration directory
+pwd                    # → confirm: /etc
+ls                     # → see what configuration files live here
 ```
 
 **Output:**
 ```
 /etc
-```
-
-`cd` changes your working directory. After running it, `pwd` confirms your new location. Let us explore what lives in `/etc`:
-
-```bash
-ls
-```
-
-**Output:**
-```
 apt  bash.bashrc  crontab  hostname  hosts  nginx  passwd  ssh  systemd
 ```
 
@@ -266,8 +285,8 @@ These are configuration files for the entire system. When you deploy an agent, i
 Return home with the shortcut:
 
 ```bash
-cd ~
-pwd
+cd ~                   # → the ~ character always means "my home directory"
+pwd                    # → confirm: /home/yourname
 ```
 
 **Output:**
@@ -275,7 +294,7 @@ pwd
 /home/yourname
 ```
 
-The `~` character always means "my home directory." It is the fastest way to get back to base.
+The `~` is the fastest way to get back to base.
 
 ## Absolute vs Relative Paths
 
@@ -316,31 +335,22 @@ The path `bin` does not start with `/`, so the shell interprets it relative to w
 
 ### Navigating Up with ..
 
-The `..` shortcut moves you up one level:
+The `..` shortcut moves you up one level, and you can chain it to traverse multiple levels:
 
 ```bash
-cd ..
-pwd
+cd ..                  # → move up one level (from /usr/bin to /usr)
+pwd                    # → /usr
+cd ../home             # → move up to / then down into /home
+pwd                    # → /home
 ```
 
 **Output:**
 ```
 /usr
-```
-
-You can chain `..` to move up multiple levels:
-
-```bash
-cd ../home
-pwd
-```
-
-**Output:**
-```
 /home
 ```
 
-This moved up from `/usr` to `/`, then down into `/home` -- all in one command.
+The second command moved up from `/usr` to `/`, then down into `/home` -- all in one command.
 
 ### When to Use Which
 
@@ -350,6 +360,11 @@ This moved up from `/usr` to `/`, then down into `/home` -- all in one command.
 | Relative | `../config/settings.yaml` | Interactive terminal work, quick navigation |
 
 **Rule of thumb:** If a human will run the command interactively, relative paths save typing. If a script or agent will run it automatically, absolute paths prevent "where am I?" errors.
+
+
+:::tip[Minimum Viable Skill]
+If you take one thing from this lesson: `ls -la` and `cd` — navigate to any directory, list its contents. Every server you will ever manage starts here. This alone will orient you within 30 seconds of connecting to an unfamiliar machine.
+:::
 
 ## Exercises: Verify Your Understanding
 
@@ -425,15 +440,26 @@ Then explain which you'd use in a deployment script vs interactive debugging.
 **What you're learning:** Building judgment about when to use absolute paths (scripts, automation, deployment) versus relative paths (interactive work, quick exploration). This directly applies when you write agent deployment scripts later in this chapter.
 
 ```
-Design a mental model diagram for the Linux filesystem as a building:
-- What floor is / (root)?
-- Where do residents live (/home)?
-- Where is the control room (/etc)?
-- Where are the activity logs kept (/var)?
-- Where is the tool shed (/usr)?
+Give me a navigation drill. SupportBot crashed at 3am and I need to
+diagnose it fast. Quiz me through these steps — show me the starting
+location, ask what command I'd type, then reveal the answer:
 
-Then extend the analogy: if I'm deploying a Digital FTE (an AI agent that
-runs 24/7), where in this building does it live, and why?
+1. I'm in /home/developer/. Find the SupportBot service file in
+   /etc/systemd/system/ using only two commands.
+2. I'm in /etc/systemd/system/. Navigate to SupportBot's log directory
+   at /var/log/agents/ using a relative path.
+3. I'm in /var/log/agents/. Check which log file was modified most
+   recently without moving directories.
+4. Navigate home in one keystroke.
+
+After I answer each one, tell me if I was right and show the fastest
+alternative if a shorter command exists.
 ```
 
-**What you're learning:** Translating filesystem structure into a spatial mental model. Spatial reasoning makes navigation intuitive rather than mechanical -- you stop memorizing paths and start understanding the architecture.
+**What you're learning:** Navigation under pressure. Real incidents don't wait for you to remember paths — this drill builds the reflex of moving through the filesystem in 2-3 commands, not 10.
+
+---
+
+You now know how to find your way around a Linux server. Navigation gets you to any file, any directory, any log. But finding your way is only useful if you can also carry things -- create, copy, move, and delete files without accidentally destroying production data. In the next lesson, you'll meet the command that junior developers fear and senior engineers respect: `rm`. Used right, it's essential. Used wrong, it's irreversible. That's exactly where the next mistake lives.
+
+Everything in this chapter builds toward one deployment. In Lesson 12, you'll stand up **SupportBot** -- a real production FastAPI agent -- as a service that restarts on boot, handles its own failures, and serves customers 24/7. You need to know where files live before you can put SupportBot's files there. This lesson is the first step.

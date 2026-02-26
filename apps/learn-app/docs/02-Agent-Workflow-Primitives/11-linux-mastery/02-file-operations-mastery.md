@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+sidebar_label: "Lesson 2: File Operations Mastery"
 chapter: 11
 lesson: 2
 title: "File Operations Mastery"
@@ -87,9 +88,9 @@ teaching_guide:
   session_group: 1
   session_title: "CLI Foundations and Navigation"
   key_points:
-    - "mkdir -p is the go-to for workspace creation — it creates all parent directories and never fails on existing dirs, used repeatedly in deployment lessons (lesson 14)"
+    - "mkdir -p is the go-to for workspace creation — it creates all parent directories and never fails on existing dirs, used repeatedly in deployment lessons (lesson 12)"
     - "rm -rf is permanent with no undo — the safe pattern (ls first, rm -i to verify, then rm -rf) must become habit before students touch production servers"
-    - "Wildcards (*, ?, []) are not just for listing — they apply to cp, mv, rm and recur in bash scripting (lesson 6) and text processing (lesson 7)"
+    - "Wildcards (*, ?, []) are not just for listing — they apply to cp, mv, rm and recur in bash scripting (lesson 5) and text processing (lesson 6)"
     - "Choosing the right file reader (cat vs head vs tail vs less) depends on file size and what you need — tail is the default for agent debugging"
   misconceptions:
     - "Students assume deleted files go to a trash folder like on Windows/Mac — Linux rm is permanent, there is no recycle bin"
@@ -101,7 +102,7 @@ teaching_guide:
   teaching_tips:
     - "Build the agent workspace live with students using mkdir -p and brace expansion — seeing {src,config,logs,data} expand is a powerful demo"
     - "The rm -rf danger box is a whiteboard moment — draw what happens when you run rm -rf / and why the system requires confirmation for directories"
-    - "Spend extra time on wildcards — students breeze through file creation/copying but stumble on pattern matching, which is critical for lesson 7 (text processing)"
+    - "Spend extra time on wildcards — students breeze through file creation/copying but stumble on pattern matching, which is critical for lesson 6 (text processing)"
     - "Have students run ls after every command to build the verify-after-action habit before they reach production scenarios"
   assessment_quick_check:
     - "Ask: create a nested directory structure three levels deep with one command (expected: mkdir -p a/b/c)"
@@ -119,11 +120,19 @@ version: "1.0.0"
 
 # File Operations Mastery
 
-In Lesson 1, you learned to navigate the Linux filesystem -- moving between directories, understanding paths, and building a mental map of where things live. Now it's time to shape that filesystem.
+You're deploying a new version of your AI agent at 11 PM on a Thursday. The routing rules are updated, the environment variables are mapped across three environments -- staging, canary, production. Four hours of careful configuration work. You've done this deployment cleanup a hundred times, so you type the command from muscle memory: `rm -rf` followed by the path to the old deployment directory. You press Enter. No confirmation prompt. No progress bar. Just your terminal, sitting there, cursor blinking, waiting for the next command.
 
-Every AI agent you deploy needs a workspace: directories for source code, configuration files, log output, and data storage. Before any agent can run, someone has to create that structure, populate it with files, and maintain it over time. That someone is you, and your tools are the file operation commands you'll learn in this lesson.
+You run `ls` to verify the cleanup. The directory you meant to delete is still there. The directory you didn't mean to delete -- the one containing four hours of configuration work, the custom routing rules, the environment variable mappings, the entire configuration tree for three environments -- is empty. Not the files inside it. The directory itself, gutted. Gone. No recycle bin on Linux. No undo. No "Are you sure?" that you accidentally dismissed. Just silence, and then the slow realization of what happened.
 
-Think of file operations as the construction tools of the CLI architect. Navigation was reading the blueprint. Now you're picking up the hammer, saw, and measuring tape. By the end of this lesson, you'll be able to build, organize, and manage the directory structures that your Digital FTEs depend on.
+The cost was concrete: four hours rebuilding every configuration file from memory and scattered Slack messages. A release that should have shipped at midnight slipped to 4 AM. Three customers hit the old routing rules during the gap. Your team lead's message at 12:30 AM -- "What's the status?" -- still sits in your inbox.
+
+The fix that would have prevented all of it was three flags and one habit. `rm -i` prompts you before every deletion -- "remove this file?" -- so you see exactly what's about to disappear. `rm -v` prints each file as it's deleted, so silence never means mystery. And the habit: run `ls` on your target before any destructive command, every single time, even when you've done it a hundred times before. Especially when you've done it a hundred times before, because that's when muscle memory types the wrong path.
+
+This lesson makes file operations deliberate -- so you never have a silent `rm -rf` story of your own.
+
+:::tip[The principle]
+Linux has no undo button. The skill is knowing exactly what you're about to delete before you delete it.
+:::
 
 ---
 
@@ -209,7 +218,7 @@ The `-p` flag is your go-to for building workspace structures. It never fails be
 
 ### Building a Complete Agent Workspace
 
-Let's build a realistic workspace structure using brace expansion -- a shell feature that generates multiple directory names from a pattern:
+Let's build a realistic workspace structure using brace expansion — a shell shortcut that automatically expands `{src,config,logs,data}` into four separate names, saving you from typing each one individually:
 
 ```bash
 mkdir -p ~/agents/customer-bot/{src,config,logs,data}
@@ -296,64 +305,32 @@ This is a safety mechanism -- copying directories involves potentially thousands
 
 ## Moving and Renaming Files
 
-The `mv` command serves two purposes: moving files to a different location and renaming them. Under the hood, both operations are the same -- changing where a file's name points in the filesystem.
-
-### Moving a File to Another Directory
+The `mv` command serves two purposes: moving files to a different location and renaming them. Under the hood, both operations are the same -- changing where a file's name points in the filesystem. Here are all four variations in sequence:
 
 ```bash
-touch src/main.py
-mv src/main.py src/handlers/
-ls src/handlers/
+touch src/main.py                              # → create a file to work with
+mv src/main.py src/handlers/                   # → move it into a subdirectory
+ls src/handlers/                               # → confirm: main.py
+
+mv src/handlers/main.py src/handlers/agent_main.py  # → rename (same directory)
+ls src/handlers/                               # → confirm: agent_main.py
+
+mv src/handlers/agent_main.py src/app.py       # → move AND rename in one step
+ls src/                                        # → confirm: app.py  handlers
+
+mv config-staging config-production            # → rename a directory (no flags needed)
+ls -d config-production                        # → confirm: config-production
 ```
 
 **Output:**
 ```
 main.py
-```
-
-The file is no longer in `src/` -- it has been moved to `src/handlers/`.
-
-### Renaming a File
-
-```bash
-mv src/handlers/main.py src/handlers/agent_main.py
-ls src/handlers/
-```
-
-**Output:**
-```
 agent_main.py
-```
-
-Same command, different effect. When the source and destination are in the same directory, `mv` renames. When they're in different directories, `mv` moves.
-
-### Moving and Renaming at the Same Time
-
-```bash
-mv src/handlers/agent_main.py src/app.py
-ls src/
-```
-
-**Output:**
-```
 app.py  handlers
-```
-
-The file was moved from `src/handlers/` to `src/` and renamed to `app.py` in a single operation.
-
-### Renaming Directories
-
-`mv` works on directories too, without needing any special flags:
-
-```bash
-mv config-staging config-production
-ls -d config-production
-```
-
-**Output:**
-```
 config-production
 ```
+
+The pattern: when source and destination are in the same directory, `mv` renames. When they are in different directories, `mv` moves. You can do both at once. And unlike `cp -r`, directories need no special flags -- `mv` handles them directly.
 
 ---
 
@@ -433,6 +410,15 @@ rm -rf target-directory/
 
 **The safe pattern**: Use `rm -i` first to see what will be deleted. Once you've confirmed the target is correct, then use `rm -rf` if needed for speed.
 
+:::
+
+:::note[Destructive vs deliberate operations]
+| Without file operation mastery | With file operation mastery |
+|-------------------------------|----------------------------|
+| `rm -rf` without confirming location | `pwd` then `ls` then `rm -i` |
+| Copy overwrites without warning | `cp -n` (no-clobber) or backup first |
+| Lost configs rebuilt from memory | Backup copies before changes |
+| Hours of rework | Minutes of caution |
 :::
 
 ---
@@ -532,101 +518,7 @@ less logs/agent.log
 
 ## Wildcards and Globbing
 
-When you manage multiple agents, each producing logs, configs, and data files, you need to work with groups of files at once. Wildcards let you match patterns instead of typing every filename.
-
-### The * Wildcard (Any Characters)
-
-The `*` matches zero or more characters:
-
-```bash
-cd ~/agents/customer-bot/logs
-touch agent.log error.log access.log debug.log
-ls *.log
-```
-
-**Output:**
-```
-access.log  agent.log  debug.log  error.log
-```
-
-You can use `*` anywhere in a pattern:
-
-```bash
-touch report-jan.csv report-feb.csv report-mar.csv summary.csv
-ls report-*.csv
-```
-
-**Output:**
-```
-report-feb.csv  report-jan.csv  report-mar.csv
-```
-
-The pattern `report-*.csv` matched all files starting with `report-` and ending with `.csv`, excluding `summary.csv`.
-
-### The ? Wildcard (Single Character)
-
-The `?` matches exactly one character:
-
-```bash
-touch agent-1.log agent-2.log agent-3.log agent-10.log
-ls agent-?.log
-```
-
-**Output:**
-```
-agent-1.log  agent-2.log  agent-3.log
-```
-
-Notice `agent-10.log` was not matched -- `?` matches exactly one character, not two. This precision helps when you need to target specific file groups.
-
-### The [] Wildcard (Character Set)
-
-Square brackets match any single character from a set:
-
-```bash
-ls agent-[12].log
-```
-
-**Output:**
-```
-agent-1.log  agent-2.log
-```
-
-You can also specify ranges:
-
-```bash
-touch file-a.txt file-b.txt file-c.txt file-1.txt file-2.txt
-ls file-[a-c].txt
-```
-
-**Output:**
-```
-file-a.txt  file-b.txt  file-c.txt
-```
-
-```bash
-ls file-[0-9].txt
-```
-
-**Output:**
-```
-file-1.txt  file-2.txt
-```
-
-### Combining Wildcards
-
-Wildcards combine to create precise patterns:
-
-```bash
-ls *-[0-9].log
-```
-
-**Output:**
-```
-agent-1.log  agent-2.log  agent-3.log
-```
-
-This matched any file ending in a single digit followed by `.log`.
+File pattern matching — using `*`, `?`, and `[]` to operate on groups of files — is one of the most powerful CLI skills. You'll meet it properly in [Lesson 6](./06-text-processing-automation.md) where it becomes essential for log parsing pipelines. For now, one rule covers most situations: `ls *.log` lists all log files. The `*` matches anything.
 
 ---
 
@@ -674,6 +566,11 @@ This opens a detailed reference in `less` (the same viewer you learned earlier).
 Man pages are organized into sections: NAME, SYNOPSIS, DESCRIPTION, OPTIONS, and EXAMPLES. When you need to understand a specific flag, search with `/` followed by the flag name (like `/-r`).
 
 ---
+
+
+:::tip[Minimum Viable Skill]
+If you take one thing from this lesson: `cp file file.backup` before editing anything critical. This single habit prevents the most common production data loss — editing a file and discovering ten minutes later that it cannot be restored.
+:::
 
 ## Exercises
 
@@ -772,20 +669,25 @@ All five match because each has exactly one character between `agent-` and `.log
 
 ## Try With AI
 
-**Design an Agent Workspace:**
+**Build SupportBot's Home:**
 
 ```
-I'm deploying 3 AI agents that each need directories for source code,
-configuration, logs, and data. Design the directory structure and give
-me the mkdir commands to create it all. The agents are:
-1. customer-support-bot (handles tickets)
-2. analytics-engine (processes data)
-3. content-moderator (reviews submissions)
+I'm deploying SupportBot — a FastAPI agent — to a production Linux server.
+Help me set up its workspace step by step. For each command, show me what
+to type and what output to expect:
 
-Also suggest what files would go in each directory.
+1. Create the application directory at /opt/support-bot/
+2. Create a config directory at /etc/support-bot/
+3. Create a logs directory at /var/log/support-bot/
+4. Create a placeholder agent_main.py in the application directory
+5. Verify all three directories exist with a single ls command
+
+After we create everything, ask me to navigate between the three locations
+using both absolute and relative paths to make sure I can find them under
+pressure.
 ```
 
-**What you're learning:** Translating deployment requirements into filesystem structure. The AI can suggest organizational patterns you might not consider, like shared configuration directories or centralized log locations.
+**What you're learning:** Translating a real deployment requirement into filesystem commands. SupportBot needs exactly this directory structure in Lesson 12 — the file organization you practice here is the same structure you'll use when the deployment is real.
 
 **Understand Copy vs Move:**
 
@@ -808,3 +710,7 @@ Give me specific commands and habits I should build.
 ```
 
 **What you're learning:** Defensive file management practices. Linux doesn't have an undo button, so prevention strategies (aliases, backups, interactive mode defaults) are essential skills for anyone managing production agent deployments.
+
+---
+
+You can now create, copy, move, and delete files -- and more importantly, do it deliberately without losing production data. But managing files is only half the work. The other half is reading them. In the next lesson, you'll discover that `cat` is often the wrong tool for a 2GB log file, and that a single pipe character can turn five separate commands into one powerful operation. The unix philosophy of small tools chained together is about to become your fastest diagnostic weapon.

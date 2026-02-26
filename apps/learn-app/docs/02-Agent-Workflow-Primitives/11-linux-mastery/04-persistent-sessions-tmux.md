@@ -1,10 +1,10 @@
 ---
-sidebar_position: 5
-title: "Persistent Sessions with tmux"
+sidebar_position: 4
+title: "Lesson 4: Persistent Sessions with tmux"
 description: "Create terminal sessions that survive disconnections, split panes for multi-task monitoring, write session scripts for repeatable layouts, and manage windows for complex agent workflows"
 keywords: ["tmux", "terminal multiplexer", "persistent sessions", "pane splitting", "named sessions", "session scripts", "window management", "copy mode", "SSH persistence"]
 chapter: 11
-lesson: 5
+lesson: 4
 duration_minutes: 55
 
 # HIDDEN SKILLS METADATA
@@ -94,7 +94,7 @@ teaching_guide:
   key_points:
     - "tmux sessions survive disconnections — this is non-negotiable for production agent management where SSH drops would otherwise kill running processes"
     - "The four-operation lifecycle (create, detach, attach, kill) is the foundation — all advanced tmux usage builds on these four commands"
-    - "Session scripts make layouts reproducible across servers — this is the first time students write a bash script, previewing lesson 6 (bash scripting)"
+    - "Session scripts make layouts reproducible across servers — this is the first time students write a bash script, previewing lesson 5 (bash scripting)"
     - "Named sessions provide project isolation — each agent project gets its own tmux session with independent state, working directory, and processes"
   misconceptions:
     - "Students confuse detaching (Ctrl+b then d, session lives on) with closing the terminal (may kill the session) — drill the difference explicitly"
@@ -105,7 +105,7 @@ teaching_guide:
     - "How would you organize tmux sessions for managing 5 different AI agents on the same server — one session per agent, or one session with 5 windows?"
   teaching_tips:
     - "Demo the detach-reattach cycle live with a running counter — students seeing a process continue while 'disconnected' is the most powerful moment in this lesson"
-    - "The tmux quick reference table is a handout moment — students will reference it constantly during exercises and the capstone (lesson 14)"
+    - "The tmux quick reference table is a handout moment — students will reference it constantly during exercises and the capstone (lesson 12)"
     - "Build the 3-pane monitoring layout step by step before showing the session script — students need to understand what the script automates"
     - "Pane splitting shortcuts (Ctrl+b % and Ctrl+b \") look arbitrary — explain that % looks like two side-by-side panes and \" looks like a horizontal line"
   assessment_quick_check:
@@ -120,13 +120,32 @@ version: "2.0.0"
 
 # Persistent Sessions with tmux
 
-In Lesson 4, you customized your shell with aliases, installed tools with `apt`, and added smart navigation with `zoxide` and `fzf`. Your terminal is now fast and personalized. But there is a critical gap: **your terminal dies when your connection drops.**
+A data engineer kicks off a 4-hour agent training run on a remote server over SSH. The terminal fills with progress output -- iteration 12 of 500, loss decreasing nicely. She minimizes her laptop and heads to lunch, confident the run will finish by mid-afternoon.
 
-When you SSH into a server to run a long-running agent process, what happens when your laptop sleeps, your WiFi drops, or the SSH connection times out? Everything stops. Your agent halts mid-task. Your data pipeline aborts. Your debug session vanishes. Hours of work, gone -- because your process was tied to your terminal session.
+When she returns forty minutes later, her laptop screen is dark. It went to sleep. WiFi reconnected automatically, but the SSH session did not. She opens the terminal: `broken pipe`. She SSHes back in and checks. The training process is gone. Not paused -- gone. The operating system killed it the moment the SSH connection dropped, because the process was a child of that connection. Four hours of GPU compute, wasted. She will restart it tonight and leave her laptop plugged in, lid open, screen burning, unable to close -- because her work is hostage to her connection.
 
-**tmux** (terminal multiplexer) solves this by creating sessions that live on the server, independent of your connection. Think of tmux as a persistent workspace: you walk into a room, set up your work, walk out, and when you come back everything is exactly as you left it. For Digital FTE deployment, where agents run for hours or days, tmux is non-negotiable. Your connection should never be your agent's single point of failure.
+The next week, same engineer, same 4-hour training run. But this time she starts it inside a **tmux session**. She watches the first few iterations to confirm everything is healthy, then closes her laptop and goes home. She has dinner with her family. She watches a movie. Six hours later, she opens her laptop, SSHes back into the server, and types two words: `tmux attach`. The terminal fills with output. The training completed successfully two hours ago. The model weights are saved. The evaluation metrics are waiting. The process ran the entire time without her -- because it was never attached to her connection in the first place.
+
+The difference between these two weeks is one tool. In Chapter 6, Principle 5 covered persisting state in files -- the practice of writing progress to disk so it survives session loss. tmux extends this same principle to processes themselves. Not just your notes, but your running programs, survive disconnection. Where CLAUDE.md persists *knowledge* across sessions, tmux persists *execution* across connections.
+
+This lesson makes your terminal sessions unkillable.
+
+:::tip[The principle]
+Your SSH connection is fragile. Your work doesn't have to be.
+:::
 
 ## The tmux Session Lifecycle
+
+```
+Server (keeps running)
+└── tmux session: "agent-training"
+    ├── window 1: training run (still running while you sleep)
+    ├── window 2: monitoring
+    └── window 3: logs
+
+Your laptop  ──── SSH connection ──── tmux session
+[closes]          [drops]              [survives]
+```
 
 Every tmux workflow follows four operations: create, detach, attach, kill. Master these four and you control session persistence.
 
@@ -626,6 +645,11 @@ Three panes, created automatically from your script. Run this script on any serv
 
 **Session cleanup**: Forgotten sessions consume server memory. Periodically run `tmux ls` and kill sessions you no longer need with `tmux kill-session -t name`. On shared servers, abandoned sessions also confuse other administrators.
 
+
+:::tip[Minimum Viable Skill]
+If you take one thing from this lesson: `tmux new -s work` and `tmux attach -t work`. These two commands mean your work survives a dropped connection — the difference between a 4-hour job that finishes and one that disappears mid-run.
+:::
+
 ## Exercises
 
 ### Exercise 1: Create a Multi-Pane Monitoring Layout
@@ -745,3 +769,9 @@ tmux isn't installed? Add error handling for each case."
 ```
 
 **What you're learning:** Iterative review catches problems that neither you nor AI considered in the initial design. Error handling transforms a working script into a production-ready script -- the difference between a tool that works on your machine and one that works on any server.
+
+---
+
+You can now run processes that outlive your SSH connection. Sessions persist, panes split, and scripts reproduce your layout on any server in seconds.
+
+SupportBot's deployment script -- the one you will write in Lesson 5 -- runs inside a tmux session so you can disconnect while it installs dependencies, configures the environment, and starts the service. But that script does not exist yet. Right now, deploying SupportBot would mean typing 30+ commands by hand, in order, without mistakes. Miss one step and the agent starts with the wrong config. Skip another and the logs write to a directory that does not exist. The next lesson turns that fragile manual process into a single, repeatable command that stops the moment anything goes wrong.

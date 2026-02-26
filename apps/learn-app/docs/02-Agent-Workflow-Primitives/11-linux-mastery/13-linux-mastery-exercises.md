@@ -1,14 +1,14 @@
 ---
 title: "Practice: Linux Mastery Exercises"
 practice_exercise: ch11-linux
-sidebar_position: 15
+sidebar_position: 13
 chapter: 11
-lesson: 15
+lesson: 13
 duration_minutes: 180
 
 primary_layer: "Layer 1"
 layer_progression: "L1 (Manual Foundation)"
-layer_1_foundation: "Hands-on practice applying Lessons 1-14 Linux operations workflows through 14 guided exercises and 3 capstones"
+layer_1_foundation: "Hands-on practice applying Lessons 1-12 Linux operations workflows through 14 guided exercises and 3 capstones"
 layer_2_collaboration: "N/A"
 layer_3_intelligence: "N/A"
 layer_4_capstone: "N/A"
@@ -51,7 +51,7 @@ learning_objectives:
 
 cognitive_load:
   new_concepts: 3
-  assessment: "3 meta-concepts (workflow application, systematic debugging, pipeline design) — within B1-B2 range. Exercises reinforce existing L01-L14 knowledge rather than introducing new tools."
+  assessment: "3 meta-concepts (workflow application, systematic debugging, pipeline design) — within B1-B2 range. Exercises reinforce existing L01-L12 knowledge rather than introducing new tools."
 
 differentiation:
   extension_for_advanced: "Complete all 3 capstone projects; attempt exercises with minimal prompts; write reusable automation scripts"
@@ -72,7 +72,7 @@ teaching_guide:
     - "Students try to complete all 17 exercises in one session — recommend one module per sitting to prevent fatigue and allow reflection"
   discussion_prompts:
     - "Which exercise was hardest? What did the difficulty reveal about gaps in your understanding from the lessons?"
-    - "When debugging a broken exercise, how did you decide where to start investigating? Did you follow the triage methodology from lesson 11?"
+    - "When debugging a broken exercise, how did you decide where to start investigating? Did you follow the triage methodology from lesson 10?"
   teaching_tips:
     - "This is the chapter closer for practice — set expectations that students should complete at least 7 exercises (one per module) plus one capstone to demonstrate proficiency"
     - "Encourage students to attempt exercises without the starter prompts first — the starter prompts are safety nets, not starting points"
@@ -86,11 +86,28 @@ teaching_guide:
 
 # Practice: Linux Mastery Exercises
 
+These exercises cover the 12 instructional lessons of Chapter 11 (Lessons 1-12). Rather than one undifferentiated 3-hour block, they are organized into five sessions matching the chapter's session structure. Each session builds directly on the lessons in that group.
+
+**How to use this lesson:**
+- Complete one session per day if you want spaced practice
+- Complete the whole set in one sitting if you prefer intensive review
+- Each exercise includes a difficulty label: **Foundational** (direct application), **Applied** (combines concepts), or **Capstone** (requires judgment)
+- You do not need to complete every exercise — the difficulty labels help you prioritize
+
+**Suggested entry paths:**
+- **Beginner minimum path (start here):** 1.1, 2.1, 3.1, 5.1, 6.2, Capstone A
+- **Core deployment path:** all Build exercises (skip Debug on first pass)
+- **Full mastery path:** all exercises + all three capstones
+
+:::tip[The right pace]
+Three hours of exercises done across three days with reflection is worth more than three hours done in one anxious sprint. Pick the pace that lets you actually think.
+:::
+
 You've learned to navigate Linux filesystems, edit configs with pipes and streams, script deployments in bash, harden security, manage systemd services, and debug production failures. That's real capability. But knowing the commands and using them under pressure when a production agent is down at 3am are different things. The gap between understanding `grep` and using it to isolate the one log line that explains why your agent crashed across 50,000 lines of output is where most people stall. These exercises close the gap between understanding and fluency.
 
-These 14 exercises plus 3 capstone projects cover the full range of Linux operations you've studied in Lessons 1-14. Each module gives you two exercises: a **Build** exercise where you apply skills to a realistic server scenario, and a **Debug** exercise where you diagnose what went wrong in a broken system. Three skills run through every exercise: **Linux system administration** (applying filesystem navigation, text processing, scripting, and service management), **production debugging** (diagnosing failures by systematic layer-by-layer investigation), and **deployment pipeline design** (combining all skills into automated, idempotent workflows).
+These 14 exercises plus 3 capstone projects cover the full range of Linux operations from Lessons 1-12. Each module gives you two exercises: a **Build** exercise where you apply skills to a realistic server scenario, and a **Debug** exercise where you diagnose what went wrong in a broken system. Three skills run through every exercise: **Linux system administration** (applying filesystem navigation, text processing, scripting, and service management), **production debugging** (diagnosing failures by systematic layer-by-layer investigation), and **deployment pipeline design** (combining all skills into automated, idempotent workflows).
 
-Every exercise uses real starter files — actual configs, log files, broken scripts, and service definitions you'll investigate, fix, and deploy. This isn't hypothetical. By the end, you'll have practiced every Linux operations workflow on messy, realistic server scenarios where one wrong `chmod` can lock you out and one missed log line can hide the root cause for hours.
+Every exercise uses real starter files — actual configs, log files, broken scripts, and service definitions you'll investigate, fix, and deploy. This isn't hypothetical. You do not need to finish all 17 activities before moving on; completing one path with reflection is better than rushing through everything.
 
 :::info Download Exercise Files
 **[Download Linux Mastery Exercises (ZIP)](https://github.com/panaversity/claude-code-linux-mastery-exercises/releases/latest/download/linux-mastery-exercises.zip)**
@@ -126,7 +143,7 @@ You don't need to complete all 17 exercises in one sitting. Work through one mod
 
 ## Key Differences from Chapter Lessons
 
-In Lessons 1-14, you learned each Linux skill in isolation with guided walkthroughs. These exercises are different in four ways:
+In Lessons 1-12, you learned each Linux skill in isolation with guided walkthroughs. These exercises are different in four ways:
 
 - **No step-by-step instructions.** The exercises describe the scenario and the goal. You decide the approach, choose the commands, and handle edge cases yourself.
 - **Build + Debug pairing.** Every module has a Build exercise (apply the skill) and a Debug exercise (diagnose someone else's broken system). Debugging someone else's server develops different skills than setting up your own — you learn to read logs, trace dependencies, and think backwards from symptoms to root causes.
@@ -168,6 +185,10 @@ For each exercise, evaluate yourself on:
 
 ---
 
+:::note[Session 1: CLI Foundations (L1–L3)]
+Lessons covered: CLI Architect Mindset, File Operations Mastery, Text Editing, Pipes & I/O Streams
+:::
+
 ## Module 1: Filesystem Recon
 
 > **Core Skill:** Mapping an unfamiliar server before touching anything (Lessons 1-2)
@@ -175,6 +196,8 @@ For each exercise, evaluate yourself on:
 <ExerciseCard id="1.1" title="Agent Server Recon" />
 
 ### Exercise 1.1 — Agent Server Recon (Build)
+
+**[Foundational]** Map an unfamiliar server's agent deployment using filesystem navigation commands.
 
 **The Problem:**
 Open the `module-1-filesystem-recon/exercise-1.1-agent-server-recon/` folder. You'll find a simulated server directory structure with 3 AI agents deployed across it: a chatbot agent in `/opt/agents/chatbot/`, a data-pipeline agent in `/opt/agents/pipeline/`, and a monitoring agent in `/opt/agents/monitor/`. Each agent has its own configs, logs, data directories, virtual environments, and systemd service files scattered across `/etc/`, `/var/log/`, `/opt/`, and `/home/`. There's no documentation. The previous admin left without a handoff.
@@ -207,6 +230,8 @@ After exploring with `find /opt/agents -type f | head -40`, `du -sh /opt/agents/
 <ExerciseCard id="1.2" title="Misplaced Deployment" />
 
 ### Exercise 1.2 — Misplaced Deployment (Debug)
+
+**[Applied]** Audit a broken deployment against the Linux Filesystem Hierarchy Standard and fix every misplaced file.
 
 **The Problem:**
 Open the `module-1-filesystem-recon/exercise-1.2-misplaced-deployment/` folder. You'll find a server where someone deployed an agent incorrectly. Files are in the wrong Linux directories: application binaries in `/tmp/`, config files in `/home/deploy/` instead of `/etc/`, logs writing to `/opt/` instead of `/var/log/`, the systemd service file pointing to wrong paths, and data directories with wrong permissions. The agent technically starts but is fragile — a reboot would break it, a cleanup cron would delete its binaries, and logs are invisible to standard monitoring.
@@ -243,6 +268,8 @@ After running `find / -name "agent-*" -type f 2>/dev/null` and `systemctl cat ag
 <ExerciseCard id="2.1" title="Config Pipeline" />
 
 ### Exercise 2.1 — Config Pipeline (Build)
+
+**[Applied]** Chain text processing tools into a multi-stage pipeline that assembles production configs from fragments.
 
 **The Problem:**
 Open the `module-2-text-and-pipes/exercise-2.1-config-pipeline/` folder. You'll find `config-fragments/` — a directory with 12 partial configuration files. The previous admin kept agent configurations split across multiple fragment files: `base.conf`, `database.env`, `auth-secrets.template`, `nginx-upstream.conf`, `rate-limits.yaml`, and more. Each fragment has placeholder variables like `{{AGENT_PORT}}`, `{{DB_HOST}}`, and `{{LOG_LEVEL}}`. There's also a `variables.env` file with the actual values.
@@ -304,6 +331,10 @@ After running `cat pipeline.sh` and `head -5 input.log`: "Debug this 4-stage pip
 
 ---
 
+:::note[Session 2: Agent Operations (L4–L6)]
+Lessons covered: Persistent Sessions with tmux, Bash Scripting, Text Processing & Automation
+:::
+
 ## Module 3: Sessions & Scripting
 
 > **Core Skill:** Persistent sessions and bash scripting for automation (Lessons 5-6)
@@ -355,6 +386,10 @@ Read the script line by line. Find all 5 bugs. For each bug, document: the line 
 3. What checks would you add to the beginning of the script to catch problems early? (Hint: `set -euo pipefail`, prerequisite checks, root detection.)
 
 ---
+
+:::note[Session 3: Production Security (L7–L8)]
+Lessons covered: Security Hardening, Networking & SSH
+:::
 
 ## Module 4: Logs & Security
 
@@ -415,6 +450,10 @@ Audit the entire server for security violations. For each finding, document: wha
 3. How long did your audit take? What would you automate for a recurring weekly audit?
 
 ---
+
+:::note[Session 4: Deployment & Debugging (L9–L10)]
+Lessons covered: Process Control & Systemd, Debugging & Troubleshooting
+:::
 
 ## Module 5: Networking & Services
 
@@ -511,7 +550,7 @@ Trace the failure from the user-facing symptom (HTTP 502) through all 5 layers t
 ### Exercise 6.2 — Deploy Pipeline (Build)
 
 **The Problem:**
-Open the `module-6-debugging-and-workflows/exercise-6.2-deploy-pipeline/` folder. You'll find `deploy-spec.md` — a specification for a complete agent deployment pipeline that chains every skill from Lessons 1-14. The spec describes deploying a new agent to a fresh server: create user, set up directories, clone code, install dependencies, configure nginx, create systemd service, set permissions, configure firewall, run health check, and send notification.
+Open the `module-6-debugging-and-workflows/exercise-6.2-deploy-pipeline/` folder. You'll find `deploy-spec.md` — a specification for a complete agent deployment pipeline that chains every skill from Lessons 1-12. The spec describes deploying a new agent to a fresh server: create user, set up directories, clone code, install dependencies, configure nginx, create systemd service, set permissions, configure firewall, run health check, and send notification.
 
 **Your Task:**
 Implement `deploy-agent.sh` — a single script that executes the entire deployment pipeline. The script must be: **idempotent** (running it twice produces the same result, not duplicate users or broken configs), **logged** (every action written to `/var/log/agent-deploy.log`), **validated** (each step checks prerequisites before running), and **reversible** (a companion `rollback-agent.sh` undoes the deployment). Test by running deploy, verifying the agent works, running rollback, and deploying again.
@@ -530,11 +569,15 @@ Implement `deploy-agent.sh` — a single script that executes the entire deploym
 
 ---
 
+:::note[Session 5: Mastery & Capstone (L11–L12)]
+Lessons covered: Advanced Patterns & Reusable Skills, Capstone Deployment
+:::
+
 ## Module 7: Capstone Projects
 
 > **Choose one (or more). This is where everything comes together — no starter prompts provided.**
 
-Capstones are different from the exercises above. There are no guided prompts — you design the entire approach yourself. Each project requires applying skills from across all 14 lessons to solve a realistic production scenario. Where module exercises test individual skills, capstones test your ability to orchestrate those skills into a coherent, documented pipeline. The quality of your documentation matters as much as the result — someone should be able to follow your process and reproduce it on a different server.
+Capstones are different from the exercises above. There are no guided prompts — you design the entire approach yourself. Each project requires applying skills from across Lessons 1-12 to solve a realistic production scenario. Where module exercises test individual skills, capstones test your ability to orchestrate those skills into a coherent, documented pipeline. The quality of your documentation matters as much as the result — someone should be able to follow your process and reproduce it on a different server.
 
 <ExerciseCard id="A" title="Full Production Deployment" />
 
