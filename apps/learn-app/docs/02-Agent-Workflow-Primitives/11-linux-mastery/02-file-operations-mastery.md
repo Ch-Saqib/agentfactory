@@ -87,9 +87,9 @@ teaching_guide:
   session_group: 1
   session_title: "CLI Foundations and Navigation"
   key_points:
-    - "mkdir -p is the go-to for workspace creation — it creates all parent directories and never fails on existing dirs, used repeatedly in deployment lessons (lesson 14)"
+    - "mkdir -p is the go-to for workspace creation — it creates all parent directories and never fails on existing dirs, used repeatedly in deployment lessons (lesson 12)"
     - "rm -rf is permanent with no undo — the safe pattern (ls first, rm -i to verify, then rm -rf) must become habit before students touch production servers"
-    - "Wildcards (*, ?, []) are not just for listing — they apply to cp, mv, rm and recur in bash scripting (lesson 6) and text processing (lesson 7)"
+    - "Wildcards (*, ?, []) are not just for listing — they apply to cp, mv, rm and recur in bash scripting (lesson 5) and text processing (lesson 6)"
     - "Choosing the right file reader (cat vs head vs tail vs less) depends on file size and what you need — tail is the default for agent debugging"
   misconceptions:
     - "Students assume deleted files go to a trash folder like on Windows/Mac — Linux rm is permanent, there is no recycle bin"
@@ -101,7 +101,7 @@ teaching_guide:
   teaching_tips:
     - "Build the agent workspace live with students using mkdir -p and brace expansion — seeing {src,config,logs,data} expand is a powerful demo"
     - "The rm -rf danger box is a whiteboard moment — draw what happens when you run rm -rf / and why the system requires confirmation for directories"
-    - "Spend extra time on wildcards — students breeze through file creation/copying but stumble on pattern matching, which is critical for lesson 7 (text processing)"
+    - "Spend extra time on wildcards — students breeze through file creation/copying but stumble on pattern matching, which is critical for lesson 6 (text processing)"
     - "Have students run ls after every command to build the verify-after-action habit before they reach production scenarios"
   assessment_quick_check:
     - "Ask: create a nested directory structure three levels deep with one command (expected: mkdir -p a/b/c)"

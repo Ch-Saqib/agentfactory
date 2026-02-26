@@ -87,8 +87,8 @@ teaching_guide:
   session_group: 1
   session_title: "CLI Foundations and Navigation"
   key_points:
-    - "The Unix philosophy (small tools connected by pipes) is the design principle behind all Linux command-line work — this recurs in bash scripting (lesson 6) and text processing (lesson 7)"
-    - "Three I/O streams (stdin=0, stdout=1, stderr=2) are separate channels — understanding this distinction is essential for agent log management in production (lesson 14)"
+    - "The Unix philosophy (small tools connected by pipes) is the design principle behind all Linux command-line work — this recurs in bash scripting (lesson 5) and text processing (lesson 6)"
+    - "Three I/O streams (stdin=0, stdout=1, stderr=2) are separate channels — understanding this distinction is essential for agent log management in production (lesson 12)"
     - "The difference between > (overwrite) and >> (append) prevents data loss — agents in production always use >> for logs"
     - "nano is the safe default editor for remote servers — students must know Ctrl+O (save) and Ctrl+X (exit) cold before touching production configs"
   misconceptions:

@@ -152,7 +152,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "The correct workflow is: first apt update to download the latest package catalog from repositories, then apt install <package> to install using that current catalog. Without updating first, you may install outdated versions or encounter 'package not found' errors if the catalog is stale. Installing before updating (A) risks getting old versions with known vulnerabilities. apt upgrade (C) upgrades all installed packages, which is a different operation from refreshing the catalog. apt search and apt download (D) are for discovery and offline installation, not the standard install workflow. Always update before installing, especially on freshly provisioned agent servers.",
-source: "Lesson 4: Modern Terminal Environment"
+source: "Chapter 11: Supplemental CLI Tooling"
 },
 {
 question: "Which statement accurately describes the purpose of shell aliases in ~/.bashrc?",
@@ -164,7 +164,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "Shell aliases are text substitutions defined in your shell configuration file. When you type the alias name, the shell expands it to the full command before execution. For example, alias deploy='cd /var/agents && ./deploy.sh' lets you type 'deploy' instead of the full sequence. Aliases are per-user, not system-wide (A) — they live in your ~/.bashrc, not /etc. They are not compiled (C) — they are expanded at runtime by the shell interpreter. They do not encrypt anything (D) — alias definitions are plain text. Aliases streamline repetitive agent management tasks, turning common multi-step commands into single memorable shortcuts.",
-source: "Lesson 4: Modern Terminal Environment"
+source: "Chapter 11: Supplemental CLI Tooling"
 },
 {
 question: "How does zoxide improve directory navigation compared to the standard cd command?",
@@ -176,7 +176,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "zoxide maintains a database of directories you visit, ranked by frequency (how often) and recency (how recently). When you type z project, it fuzzy-matches against this history and jumps to the highest-ranked match. It does not replace cd entirely (A) — cd still works, and zoxide does not use AI prediction, just frequency-based ranking. It does not create symbolic links (B) — it changes your working directory directly using its internal database. It does not cache directory listings (D) — it tracks navigation patterns, not filesystem contents. For agent developers managing multiple project directories, zoxide eliminates typing long paths like /var/agents/production/configs repeatedly.",
-source: "Lesson 4: Modern Terminal Environment"
+source: "Chapter 11: Supplemental CLI Tooling"
 },
 {
 question: "What happens to a tmux session when you close the terminal window or lose your SSH connection?",
@@ -188,7 +188,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "tmux sessions run as server processes independent of your terminal connection. When you close the window or lose SSH, the tmux server keeps the session alive with all running processes intact. You reattach with tmux attach -t session-name and everything is exactly as you left it. Sessions do not terminate on disconnect (A) — that is what happens without tmux, which is exactly the problem it solves. Sessions do not pause (C) — processes continue running, they are not suspended. tmux does not save state to disk (D) — it keeps sessions in memory on the running server. This is critical for long-running agent deployments over unstable network connections.",
-source: "Lesson 5: Persistent Sessions with tmux"
+source: "Lesson 4: Persistent Sessions with tmux"
 },
 {
 question: "Which key sequence detaches from a tmux session without stopping it?",
@@ -200,7 +200,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "Ctrl+B is the tmux prefix key, and D (detach) tells tmux to disconnect your terminal from the session while keeping it running. You return to your original shell and the session continues in the background. Ctrl+C (A) sends an interrupt signal that may kill the foreground process inside tmux — it does not detach. Ctrl+D (B) sends EOF which closes the shell inside tmux, potentially terminating the session. Triple Escape (D) is not a tmux shortcut. The prefix-then-action pattern (Ctrl+B → action key) is fundamental to all tmux commands and avoids conflicts with programs running inside the session.",
-source: "Lesson 5: Persistent Sessions with tmux"
+source: "Lesson 4: Persistent Sessions with tmux"
 },
 {
 question: "How do you split the current tmux pane horizontally to view logs alongside a running process?",
@@ -212,7 +212,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "Ctrl+B then \" (double-quote) splits the current pane horizontally, creating a top and bottom layout. This is ideal for watching agent logs in one pane while running commands in another. Ctrl+B % (A) creates a vertical split (left and right), not horizontal. Ctrl+B S (C) is not the standard split command — in some configurations it lists sessions. Ctrl+B H (D) is not a default tmux binding. The visual mnemonic: \" looks like a horizontal line dividing space, while % looks like two circles side by side (vertical). Combined with tail -f on logs, horizontal splits create effective agent monitoring dashboards.",
-source: "Lesson 5: Persistent Sessions with tmux"
+source: "Lesson 4: Persistent Sessions with tmux"
 },
 {
 question: "What is the purpose of a tmux session startup script for agent deployment?",
@@ -224,7 +224,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "A tmux session script automates your workspace setup: creating a named session, opening specific windows for different tasks, splitting panes, and running initial commands like tail -f on log files. Instead of manually configuring your monitoring layout each time, one script recreates your exact environment. It does not compile tmux (A) — that is a build task, not a session script. It does not encrypt traffic (C) — tmux runs locally and SSH handles encryption for remote sessions. While you could trigger scripts from cron (D), the script itself defines layout, not scheduling. Session scripts ensure every Digital FTE monitoring session starts with a consistent, productive workspace layout.",
-source: "Lesson 5: Persistent Sessions with tmux"
+source: "Lesson 4: Persistent Sessions with tmux"
 },
 {
 question: "What does the shebang line '#!/bin/bash' at the top of a script file accomplish?",
@@ -236,7 +236,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "The shebang (#!) tells the OS kernel which interpreter to use when executing the script as a program. #!/bin/bash means run this file through the bash shell interpreter. Without it, the system may use the wrong interpreter or fail entirely. It is not a comment (A) — while # normally starts comments in bash, #! on line 1 is special kernel syntax. It does not import functions (B) — bash loads its built-ins regardless of the shebang. It does not enable error checking (D) — that requires separate set commands. After adding the shebang, you need chmod +x script.sh to make it executable. Every agent deployment script must start with the correct shebang line.",
-source: "Lesson 6: Bash Scripting Fundamentals"
+source: "Lesson 5: Bash Scripting Foundations"
 },
 {
 question: "What does 'set -euo pipefail' do when placed at the top of a bash script?",
@@ -248,7 +248,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "set -euo pipefail combines three safety flags: -e exits immediately when any command fails (nonzero exit code), -u treats unset variables as errors instead of expanding to empty strings, and pipefail makes pipelines fail if any command in the chain fails, not just the last one. It does not enable verbose logging (A) — that would be set -x. While it relates to error handling (C is partially right), that description is too vague — the critical detail is the specific behaviors of each flag. It does not create file backups (D). This line is essential in agent deployment scripts because silent failures in production lead to corrupted states, missing configurations, and difficult-to-diagnose agent outages.",
-source: "Lesson 6: Bash Scripting Fundamentals"
+source: "Lesson 5: Bash Scripting Foundations"
 },
 {
 question: "Why must bash variables be quoted as \"${VAR}\" rather than used bare as $VAR in production scripts?",
@@ -260,7 +260,7 @@ question: "Why must bash variables be quoted as \"${VAR}\" rather than used bare
       ],
       correctOption: 1,
       explanation: "Without quotes, bash performs word splitting and glob expansion on variable values. If AGENT_PATH='/var/my agents/config', then cp $AGENT_PATH /backup becomes cp /var/my agents/config /backup — bash splits it into three arguments at the space. Quoted \"${AGENT_PATH}\" preserves the value as a single argument. Quoting does not affect speed (A) — it changes parsing behavior, not performance. Bare variables are not deprecated (C) — they work but are unsafe. Unquoted variables still interpolate (D) — the issue is what happens after interpolation. This bug commonly appears in agent paths containing spaces or special characters, causing deployment scripts to fail unpredictably.",
-source: "Lesson 6: Bash Scripting Fundamentals"
+source: "Lesson 5: Bash Scripting Foundations"
 },
 {
 question: "In a bash script, what is the purpose of defining reusable functions like 'deploy_agent()' and 'check_health()'?",
@@ -272,7 +272,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "Bash functions encapsulate a block of commands under a name, allowing you to call that logic multiple times without duplicating code. deploy_agent() might contain ten lines of deployment commands — calling it by name keeps the main script readable and maintainable. Functions do not run in separate processes by default (A) — they execute in the current shell context unless explicitly backgrounded. Bash is interpreted, not compiled (B) — functions are parsed at call time. They do not automatically retry (C) — you must implement retry logic yourself within the function. Well-structured deployment scripts use functions for each logical phase: validate, deploy, verify, rollback.",
-source: "Lesson 6: Bash Scripting Fundamentals"
+source: "Lesson 5: Bash Scripting Foundations"
 },
 {
 question: "What does a for loop iterating over files look like in bash, and why is it preferred over manual repetition?",
@@ -284,7 +284,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "Bash for loops use the syntax: for variable in list; do commands; done. The glob *.yaml expands to all matching files, and the loop processes each one. Note the quoted \"$file\" inside the loop to handle filenames with spaces safely. foreach (A) is not a bash keyword — it exists in csh/tcsh shells. C-style loop and curly braces (B) are not valid bash syntax. Java-style for-each with parentheses and colons (C) does not work in bash. Loops are essential for batch operations like deploying multiple agent configurations: for config in /var/agents/configs/*.yaml; do validate \"$config\"; done processes every YAML config file automatically.",
-source: "Lesson 6: Bash Scripting Fundamentals"
+source: "Lesson 5: Bash Scripting Foundations"
 },
 {
 question: "Which grep command searches for lines containing 'ERROR' or 'FATAL' in all log files recursively?",
@@ -296,7 +296,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "grep -rE combines -r (recursive search through directories) with -E (extended regex for the alternation operator |). The pattern 'ERROR|FATAL' matches lines containing either word. Multiple bare arguments (B) make grep interpret 'FATAL' as a filename, not a pattern. The + operator (C) is not valid for alternation in grep, and *.log only matches top-level files. The find syntax (D) is malformed — it would need separate -exec grep 'ERROR\\|FATAL' {} \\; syntax. Recursive grep with regex is the fastest way to triage agent failures — grep -rE 'ERROR|FATAL|Exception' /var/log/agents/ immediately reveals what went wrong across all log files.",
-source: "Lesson 7: Text Processing Power Tools"
+source: "Lesson 6: Text Processing & Automation"
 },
 {
 question: "How does sed perform an in-place substitution to change a configuration value across a file?",
@@ -308,7 +308,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "sed -i performs in-place editing, and 's/old_value/new_value/g' is the substitution command: s for substitute, g flag for global (all occurrences on each line, not just the first). Without -i, sed prints to stdout without modifying the file. 'replace' (A) is not a sed command — the correct command prefix is 's'. --modify (B) is not a valid sed flag. Arrow syntax (C) is not supported by sed. sed is indispensable for automated configuration management — updating port numbers, changing API endpoints, or modifying environment values across agent config files without opening an editor: sed -i 's/PORT=8000/PORT=8080/g' .env updates all port references.",
-source: "Lesson 7: Text Processing Power Tools"
+source: "Lesson 6: Text Processing & Automation"
 },
 {
 question: "What does the awk command 'awk '{print $1, $3}' access.log' extract from each line?",
@@ -320,7 +320,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "awk automatically splits each input line into fields at whitespace boundaries. $1 is the first field, $3 is the third field. For a log line like '192.168.1.1 - GET /api/health 200', $1 is the IP address and $3 is the HTTP method. It does not extract characters (B) — awk works with fields (columns), not individual characters. It does not select line numbers (C) — awk processes every line and applies the print action to each. Byte extraction (D) is not how awk operates. awk excels at extracting structured data from agent logs: awk '{print $1, $NF}' access.log shows IP addresses and status codes for quick traffic analysis.",
-source: "Lesson 7: Text Processing Power Tools"
+source: "Lesson 6: Text Processing & Automation"
 },
 {
 question: "In cron scheduling syntax, what does the expression '0 */6 * * *' mean?",
@@ -332,7 +332,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "Cron fields are: minute hour day-of-month month day-of-week. '0 */6 * * *' means minute 0, every 6th hour (*/6 = step value), every day, every month, every weekday. This fires at 00:00, 06:00, 12:00, and 18:00. It is not every 6 minutes (A) — that would be */6 in the minute field: '*/6 * * * *'. Cron does not pick random intervals (B) — it follows deterministic schedules. The expression does not reference day-of-month (C) — the */6 is in the hour field. Cron scheduling is essential for agent maintenance tasks like log rotation, health checks, and periodic model updates running on predictable intervals.",
-source: "Lesson 7: Text Processing Power Tools"
+source: "Lesson 6: Text Processing & Automation"
 },
 {
 question: "Which text processing pipeline counts the number of unique IP addresses in an access log?",
@@ -344,7 +344,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "This pipeline chains four tools: awk extracts the IP field ($1), sort orders them alphabetically (required by uniq), uniq -c counts consecutive duplicates, and sort -rn sorts by count in descending numeric order. The result shows which IPs generated the most traffic. count (A) is not a standard Linux command. grep -c (B) counts lines matching a literal string, not unique values. The sed approach (D) splits all words and counts total tokens, not unique IPs. This pipeline pattern is a core agent operations skill — identifying abusive IPs, tracking API usage distribution, and debugging connection issues all start with extracting and counting unique values from logs.",
-source: "Lesson 7: Text Processing Power Tools"
+source: "Lesson 6: Text Processing & Automation"
 },
 {
 question: "What is the correct command to create a new system user specifically for running an agent service?",
@@ -356,7 +356,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "useradd --system creates a system account (low UID, no aging), --no-create-home skips the home directory since services do not need one, and --shell /usr/sbin/nologin prevents interactive login, which is a security best practice for service accounts. adduser --interactive (A) is for human users with passwords and home directories — too permissive for a service account. usermod (B) modifies existing users, it does not create new ones. passwd (C) sets passwords for existing users, it does not create accounts. Running agents under dedicated service accounts follows the principle of least privilege — if the agent is compromised, the attacker only has access to that service account's limited permissions.",
-source: "Lesson 8: Security and Permissions"
+source: "Lesson 7: Security Hardening & Least Privilege"
 },
 {
 question: "What does chmod 755 script.sh set as the file permissions?",
@@ -368,7 +368,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "chmod uses octal digits where 7=rwx (read+write+execute), 5=r-x (read+execute), 5=r-x. So 755 means: owner gets full access (rwx), group can read and execute but not modify (r-x), others also get read and execute (r-x). All users rwx (B) would be 777 — dangerously permissive. Owner rw only (C) would be 644, which lacks execute permission entirely. Owner-only access (D) would be 700. The 755 permission is the standard for deployment scripts and executables — the owner (typically the deployment user) can modify the script, while others can run it but not alter it, maintaining both usability and security.",
-source: "Lesson 8: Security and Permissions"
+source: "Lesson 7: Security Hardening & Least Privilege"
 },
 {
 question: "What is the difference between setting a variable with and without export in a bash session?",
@@ -380,7 +380,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "export marks a variable for inheritance by child processes. Without export, API_KEY=secret is only visible in the current shell — if you launch python agent.py, that subprocess cannot see API_KEY. With export API_KEY=secret, the variable is copied into the environment of every child process. export does not save to disk (A) — the variable is lost when the shell exits regardless. export does not encrypt anything (B) — values remain plaintext in the process environment. There is a significant functional difference (C). This distinction is critical for agent deployment: agent processes need access to API keys and configuration values, so those variables must be exported before launching the agent.",
-source: "Lesson 8: Security and Permissions"
+source: "Lesson 7: Security Hardening & Least Privilege"
 },
 {
 question: "Why should .env files never be committed to version control, and how should they be managed?",
@@ -392,7 +392,7 @@ options: [
 ],
 correctOption: 0,
 explanation: ".env files typically contain API keys, database passwords, and other secrets. Once committed to git, those secrets exist in the repository history forever — even deleting the file later does not remove it from past commits. Anyone with repository access can extract them. File size (B) is not the concern — .env files are tiny. Format incompatibility (C) is false — git handles .env files like any text file. They are not auto-generated (D) — they are manually created with environment-specific values. The proper workflow: add .env to .gitignore, provide a .env.example template with placeholder values, and distribute actual secrets through secure channels like encrypted vaults or secret management services.",
-source: "Lesson 8: Security and Permissions"
+source: "Lesson 7: Security Hardening & Least Privilege"
 },
 {
 question: "What is the practical difference between binding a service to localhost (127.0.0.1) versus 0.0.0.0?",
@@ -404,7 +404,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "Binding to 127.0.0.1 (localhost) means only processes on the same machine can connect — external traffic is rejected at the network layer. Binding to 0.0.0.0 means the service listens on all network interfaces and accepts connections from anywhere. localhost does not skip the network stack (A) — it still uses the loopback interface, just restricted. 0.0.0.0 handles all protocols, not just IPv6 (B). There is a critical security difference (D). For agent deployment: internal services like databases should bind to localhost for security. Only the reverse proxy (nginx) should bind to 0.0.0.0 to accept public traffic, forwarding it to internal services on localhost.",
-source: "Lesson 9: Networking and SSH"
+source: "Lesson 8: Networking Fundamentals & SSH Remote Access"
 },
 {
 question: "What does an SSH config entry in ~/.ssh/config achieve for managing multiple servers?",
@@ -416,7 +416,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "An SSH config entry creates a named shortcut for connections. Instead of typing ssh -i ~/.ssh/agent-key.pem -p 2222 deploy@192.168.1.100, you define a Host block and type ssh agent-server. Each entry specifies HostName, User, Port, IdentityFile, and other options. SSH config does not store passwords (A) — it references key files for certificate-based authentication. It does not create persistent tunnels automatically (B) — you must initiate connections manually or use separate tools like autossh. It configures the client, not the server daemon (C) — server configuration lives in /etc/ssh/sshd_config. Managing multiple agent servers becomes practical with config entries for production, staging, and development environments.",
-source: "Lesson 9: Networking and SSH"
+source: "Lesson 8: Networking Fundamentals & SSH Remote Access"
 },
 {
 question: "Which ufw commands would you use to allow only SSH and HTTPS traffic to an agent server?",
@@ -428,7 +428,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "The secure approach is: first set default policy to deny all incoming (ufw default deny incoming), then explicitly allow only needed ports — 22/tcp for SSH access and 443/tcp for HTTPS. This follows the principle of least privilege: deny everything, then allow only what is required. Allowing all then denying (A) is backwards and insecure — the default allow grants access during the configuration window. Default allow (B) permits all traffic, which defeats the purpose of a firewall. Only allowing port 80 (D) provides unencrypted HTTP and blocks SSH, locking you out of the server. For agent servers, you may also need custom ports for agent APIs, added individually after the default deny.",
-source: "Lesson 9: Networking and SSH"
+source: "Lesson 8: Networking Fundamentals & SSH Remote Access"
 },
 {
 question: "What is a network port, and why would two agent services fail if configured to use the same port?",
@@ -440,7 +440,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "A port is a 16-bit number (0-65535) that identifies a specific service on a machine. When a service binds to a port, it claims exclusive listening rights — the operating system refuses to let a second service bind to the same port, raising an 'Address already in use' error. Ports are not physical connectors (B) — they are logical networking constructs within the TCP/IP stack. They are not speed settings (C) or security credentials (D). In agent deployment, each service needs a unique port: agent API on 8000, monitoring dashboard on 3000, metrics exporter on 9090. Port conflicts are a top-5 deployment error — diagnosed with ss -tlnp or lsof -i :PORT.",
-source: "Lesson 9: Networking and SSH"
+source: "Lesson 8: Networking Fundamentals & SSH Remote Access"
 },
 {
 question: "What are the three required sections in a systemd service file and what does each configure?",
@@ -452,7 +452,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "[Unit] defines service metadata — Description, documentation, and dependency ordering (After=, Requires=). [Service] configures how the process runs — ExecStart command, User, WorkingDirectory, Restart policy, and resource limits. [Install] determines boot integration — WantedBy=multi-user.target enables the service at startup. [Setup]/[Run]/[Stop] (A) are not valid systemd sections. [Config]/[Process]/[Network] (B) are fabricated section names. [Header]/[Body]/[Footer] (C) are not systemd concepts. Understanding these three sections is fundamental to deploying Digital FTEs that start automatically, run under correct users, and restart after failures.",
-source: "Lesson 10: Systemd Service Management"
+source: "Lesson 9: Process Control & Systemd Services"
 },
 {
 question: "Why is Restart=on-failure preferred over Restart=always for production agent services?",
@@ -464,7 +464,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "Restart=on-failure restarts the service only when it exits with a non-zero (error) exit code. If you intentionally stop the service with systemctl stop, it stays stopped because that is a clean exit (code 0). Restart=always restarts even after clean stops, making intentional shutdowns difficult — the service keeps coming back like a zombie. Resource usage (B) is identical during normal operation — the difference is only in restart behavior. Restart=always works regardless of user (C). There is a critical operational difference (D) — always makes maintenance windows frustrating when you need the service to stay down. For agent deployment, on-failure gives you crash resilience while maintaining operational control.",
-source: "Lesson 10: Systemd Service Management"
+source: "Lesson 9: Process Control & Systemd Services"
 },
 {
 question: "How do you view the last 50 log entries for a specific systemd service and follow new entries in real time?",
@@ -476,7 +476,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "journalctl is systemd's log viewer. -u agent.service filters to that specific unit, -n 50 shows the last 50 entries, and -f follows new output in real time (like tail -f). This is the primary tool for debugging agent service behavior. cat /var/log/syslog (A) shows all system logs unfiltered and does not follow. systemctl logs (B) is not valid syntax — systemctl manages services, journalctl reads logs. dmesg (D) shows kernel ring buffer messages, not application or service logs. During agent troubleshooting, journalctl -u agent.service -n 100 -f is typically your first diagnostic command to see what the service is doing right now.",
-source: "Lesson 10: Systemd Service Management"
+source: "Lesson 9: Process Control & Systemd Services"
 },
 {
 question: "What do MemoryMax=512M and CPUQuota=50% accomplish in a systemd service file's [Service] section?",
@@ -488,7 +488,7 @@ options: [
 ],
 correctOption: 2,
 explanation: "MemoryMax=512M kills the service if it tries to use more than 512 megabytes of RAM — this prevents a memory leak from consuming all server memory and affecting other services. CPUQuota=50% limits the service to half of one CPU core's processing time. These are hard limits enforced by the kernel's cgroup mechanism, not suggestions. They are not minimum guarantees (A) — they are maximum caps. They are not soft warnings (B) — exceeding MemoryMax triggers an OOM kill. They do not configure dashboards (D). Resource limits are essential in multi-agent deployments where several Digital FTEs share a server — one misbehaving agent must not starve the others of resources.",
-source: "Lesson 10: Systemd Service Management"
+source: "Lesson 9: Process Control & Systemd Services"
 },
 {
 question: "What is the correct order of ExecStartPre, ExecStart, and ExecStartPost in a systemd service lifecycle?",
@@ -500,7 +500,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "systemd executes them in strict order: ExecStartPre runs first for validation and setup (checking configs, creating directories), ExecStart launches the main service process, and ExecStartPost runs after the main process starts (health checks, notifications). If ExecStartPre fails, the service does not start. ExecStart does not run first (B) — pre-checks must complete before launch. They do not run in parallel (C) — sequential ordering ensures each phase completes before the next begins. ExecStartPost does not run first (D) — it runs last. This lifecycle enables robust agent deployment: pre-check validates configuration, start launches the agent, post-check confirms it is healthy.",
-source: "Lesson 10: Systemd Service Management"
+source: "Lesson 9: Process Control & Systemd Services"
 },
 {
 question: "When an agent crashes in production, what is the correct diagnostic triage order?",
@@ -512,7 +512,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "The diagnostic triage methodology follows a systematic order: first check logs (journalctl -u service -n 100) to understand what happened, then verify resources (df -h for disk, free -h for memory, top for CPU) to identify resource exhaustion, then inspect process state (ps aux, ss -tlnp) to understand current system behavior. Reinstalling before diagnosing (A) destroys evidence and rarely fixes the underlying issue. Blind restarts (B) mask recurring problems and prevent root cause analysis. Waiting for external help (C) wastes critical time during outages. This methodology applies to every agent failure — logs tell you what happened, resources tell you why, and process state tells you where things stand now.",
-source: "Lesson 11: Debugging and Diagnostics"
+source: "Lesson 10: Debugging & Troubleshooting"
 },
 {
 question: "What is the difference between 'df -h' and 'du -sh /var/log/' for diagnosing disk space issues?",
@@ -524,7 +524,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "df (disk free) shows overall filesystem usage — how much total space exists, how much is used, and how much remains on each mounted partition. du (disk usage) measures how much space a specific directory and its contents consume. They answer different questions: df answers 'Is the disk full?' while du answers 'What directory is consuming the space?' They are not identical (C) — df operates at the filesystem level, du at the directory level. Neither checks hardware health (df) or measures performance (du) (B, D). The diagnostic workflow is: df -h reveals the /var partition is 95% full, then du -sh /var/log/\* identifies that agent log files consumed 40GB through lack of rotation.",
-source: "Lesson 11: Debugging and Diagnostics"
+source: "Lesson 10: Debugging & Troubleshooting"
 },
 {
 question: "Which command shows all processes listening on network ports, and what information does it reveal?",
@@ -536,7 +536,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "ss -tlnp combines flags: -t (TCP only), -l (listening sockets only), -n (numeric ports, no DNS resolution), -p (show process name/PID). This reveals which services are bound to which ports — essential for diagnosing port conflicts and verifying agent services are running. netstat -all (A) is deprecated on modern systems in favor of ss, and 'all' shows every connection, not just listeners. ifconfig (B) shows network interface configuration, not port bindings. lsof -network (C) is not valid syntax — the correct form would be lsof -i. When an agent fails to start with 'Address already in use', ss -tlnp immediately shows what process is occupying the conflicting port.",
-source: "Lesson 11: Debugging and Diagnostics"
+source: "Lesson 10: Debugging & Troubleshooting"
 },
 {
 question: "How does 'journalctl -u agent.service --since \"1 hour ago\" -p err' help narrow down production issues?",
@@ -548,7 +548,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "This command combines three filters: -u agent.service restricts to one specific service, --since '1 hour ago' limits the time window, and -p err shows only error-priority and above messages (err, crit, alert, emerg). The combination cuts through noise to show exactly what went wrong, when, for which service. It does not show all entries regardless of filters (B) — the whole point is precise filtering. It does not delete logs (C) — journalctl is read-only by default, vacuuming requires separate commands. It does not send logs externally (D) — journalctl reads from the local journal. This targeted query is the standard first step in agent incident response: what errors occurred in the last hour?",
-source: "Lesson 11: Debugging and Diagnostics"
+source: "Lesson 10: Debugging & Troubleshooting"
 },
 {
 question: "What deployment strategy restarts the service with new code but causes brief downtime?",
@@ -560,7 +560,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "The restart strategy (stop → deploy → start) is the simplest deployment method: stop the running service, replace the code, then start it again. During the stop-to-start window, the service is unavailable — this is acceptable for internal tools and non-critical agents. Blue-green (A) eliminates downtime by maintaining two environments and switching traffic atomically. Rolling deployment (B) updates instances gradually to maintain availability. Canary (C) tests new versions with limited traffic before full rollout. For Digital FTE deployment, the restart strategy is appropriate for development and staging. Production agents serving live traffic should use blue-green or rolling strategies to maintain availability.",
-source: "Lesson 12: Agent Deployment Workflow Integration"
+source: "Lesson 11: Workflow Patterns & Reusable Skills"
 },
 {
 question: "How does blue-green deployment eliminate downtime during agent updates?",
@@ -572,7 +572,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "Blue-green deployment maintains two identical environments: blue (current live) and green (new version). You deploy and test the new code on green while blue continues serving traffic. Once green is verified healthy, you switch the reverse proxy or load balancer to route all traffic from blue to green — an atomic operation with zero downtime. It does not pause traffic (B) — that would cause downtime, defeating the purpose. Incremental deployment (C) describes rolling updates, not blue-green. Response caching (D) is not part of deployment strategy — it is a performance optimization. Blue-green is the gold standard for production agent deployments where any downtime means missed tasks and failed automations.",
-source: "Lesson 12: Agent Deployment Workflow Integration"
+source: "Lesson 11: Workflow Patterns & Reusable Skills"
 },
 {
 question: "What role does log rotation with logrotate serve in long-running agent deployments?",
@@ -584,7 +584,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "logrotate periodically rotates (renames), compresses, and eventually deletes old log files on a configurable schedule. Without rotation, a busy agent writing megabytes of logs daily will eventually fill the disk partition, crashing the service and potentially the entire server. It does not split for search indexing (A) — that is a log aggregation feature. It does not convert formats (B) — log format is determined by the application, not the rotator. It does not encrypt (C) — rotated files maintain their original access permissions. A typical logrotate config for agents rotates daily, keeps 7 compressed copies, and triggers the agent to reopen its log file handle after rotation.",
-source: "Lesson 12: Agent Deployment Workflow Integration"
+source: "Lesson 11: Workflow Patterns & Reusable Skills"
 },
 {
 question: "When should a recurring Linux workflow be formalized into a reusable skill specification?",
@@ -596,7 +596,7 @@ options: [
 ],
 correctOption: 0,
 explanation: "The two-repetition threshold identifies patterns worth capturing: if you perform the same multi-step workflow twice, the third time should invoke a skill rather than repeating commands manually. The skill should be parameterized — accepting inputs like service name, port, and environment — rather than hardcoded. Documenting every command (B) creates noise that obscures important patterns. Waiting for ten uses (C) wastes significant effort on manual repetition before formalizing. Never formalizing (D) means rebuilding the same workflow from memory each time, which is error-prone and slow. Pattern recognition is the bridge between Linux competence and agent deployment expertise — repeated workflows become reliable, tested, shareable skills.",
-source: "Lesson 13: Building Reusable Linux Skills"
+source: "Lesson 11: Workflow Patterns & Reusable Skills"
 },
 {
 question: "What key sections should a DEPLOYMENT-SPEC.md contain for a reproducible agent deployment workflow?",
@@ -608,7 +608,7 @@ options: [
 ],
 correctOption: 3,
 explanation: "A comprehensive deployment specification includes: prerequisites (server requirements, installed dependencies, access credentials), step-by-step procedures (ordered commands with explanations), verification commands (health checks confirming success), and rollback instructions (how to revert if deployment fails). Only the final command (A) offers no context for troubleshooting when it fails. Marketing content (B) does not belong in operational documentation. Embedding full source code (C) mixes concerns — deployment docs reference the application but do not contain it. The DEPLOYMENT-SPEC.md serves as both a runbook for humans and a specification that AI agents can follow, making deployments reproducible regardless of who or what executes them.",
-source: "Lesson 13: Building Reusable Linux Skills"
+source: "Lesson 12: Capstone — Spec-First Production Deployment"
 }
 ]}
 questionsPerBatch={18}

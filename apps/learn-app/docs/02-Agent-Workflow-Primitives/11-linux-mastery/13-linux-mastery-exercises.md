@@ -8,7 +8,7 @@ duration_minutes: 180
 
 primary_layer: "Layer 1"
 layer_progression: "L1 (Manual Foundation)"
-layer_1_foundation: "Hands-on practice applying Lessons 1-14 Linux operations workflows through 14 guided exercises and 3 capstones"
+layer_1_foundation: "Hands-on practice applying Lessons 1-12 Linux operations workflows through 14 guided exercises and 3 capstones"
 layer_2_collaboration: "N/A"
 layer_3_intelligence: "N/A"
 layer_4_capstone: "N/A"
@@ -72,7 +72,7 @@ teaching_guide:
     - "Students try to complete all 17 exercises in one session — recommend one module per sitting to prevent fatigue and allow reflection"
   discussion_prompts:
     - "Which exercise was hardest? What did the difficulty reveal about gaps in your understanding from the lessons?"
-    - "When debugging a broken exercise, how did you decide where to start investigating? Did you follow the triage methodology from lesson 11?"
+    - "When debugging a broken exercise, how did you decide where to start investigating? Did you follow the triage methodology from lesson 10?"
   teaching_tips:
     - "This is the chapter closer for practice — set expectations that students should complete at least 7 exercises (one per module) plus one capstone to demonstrate proficiency"
     - "Encourage students to attempt exercises without the starter prompts first — the starter prompts are safety nets, not starting points"
@@ -100,7 +100,7 @@ Three hours of exercises done across three days with reflection is worth more th
 
 You've learned to navigate Linux filesystems, edit configs with pipes and streams, script deployments in bash, harden security, manage systemd services, and debug production failures. That's real capability. But knowing the commands and using them under pressure when a production agent is down at 3am are different things. The gap between understanding `grep` and using it to isolate the one log line that explains why your agent crashed across 50,000 lines of output is where most people stall. These exercises close the gap between understanding and fluency.
 
-These 14 exercises plus 3 capstone projects cover the full range of Linux operations you've studied in Lessons 1-14. Each module gives you two exercises: a **Build** exercise where you apply skills to a realistic server scenario, and a **Debug** exercise where you diagnose what went wrong in a broken system. Three skills run through every exercise: **Linux system administration** (applying filesystem navigation, text processing, scripting, and service management), **production debugging** (diagnosing failures by systematic layer-by-layer investigation), and **deployment pipeline design** (combining all skills into automated, idempotent workflows).
+These 14 exercises plus 3 capstone projects cover the full range of Linux operations you've studied in Lessons 1-12. Each module gives you two exercises: a **Build** exercise where you apply skills to a realistic server scenario, and a **Debug** exercise where you diagnose what went wrong in a broken system. Three skills run through every exercise: **Linux system administration** (applying filesystem navigation, text processing, scripting, and service management), **production debugging** (diagnosing failures by systematic layer-by-layer investigation), and **deployment pipeline design** (combining all skills into automated, idempotent workflows).
 
 Every exercise uses real starter files — actual configs, log files, broken scripts, and service definitions you'll investigate, fix, and deploy. This isn't hypothetical. By the end, you'll have practiced every Linux operations workflow on messy, realistic server scenarios where one wrong `chmod` can lock you out and one missed log line can hide the root cause for hours.
 
@@ -138,7 +138,7 @@ You don't need to complete all 17 exercises in one sitting. Work through one mod
 
 ## Key Differences from Chapter Lessons
 
-In Lessons 1-14, you learned each Linux skill in isolation with guided walkthroughs. These exercises are different in four ways:
+In Lessons 1-12, you learned each Linux skill in isolation with guided walkthroughs. These exercises are different in four ways:
 
 - **No step-by-step instructions.** The exercises describe the scenario and the goal. You decide the approach, choose the commands, and handle edge cases yourself.
 - **Build + Debug pairing.** Every module has a Build exercise (apply the skill) and a Debug exercise (diagnose someone else's broken system). Debugging someone else's server develops different skills than setting up your own — you learn to read logs, trace dependencies, and think backwards from symptoms to root causes.
@@ -181,7 +181,7 @@ For each exercise, evaluate yourself on:
 ---
 
 :::note[Session 1: CLI Foundations (L1–L3)]
-Lessons covered: CLI Architect Mindset, File Operations, Text Editing & Pipes, Modern Terminal Environment
+Lessons covered: CLI Architect Mindset, File Operations Mastery, Text Editing, Pipes & I/O Streams
 :::
 
 ## Module 1: Filesystem Recon
@@ -545,7 +545,7 @@ Trace the failure from the user-facing symptom (HTTP 502) through all 5 layers t
 ### Exercise 6.2 — Deploy Pipeline (Build)
 
 **The Problem:**
-Open the `module-6-debugging-and-workflows/exercise-6.2-deploy-pipeline/` folder. You'll find `deploy-spec.md` — a specification for a complete agent deployment pipeline that chains every skill from Lessons 1-14. The spec describes deploying a new agent to a fresh server: create user, set up directories, clone code, install dependencies, configure nginx, create systemd service, set permissions, configure firewall, run health check, and send notification.
+Open the `module-6-debugging-and-workflows/exercise-6.2-deploy-pipeline/` folder. You'll find `deploy-spec.md` — a specification for a complete agent deployment pipeline that chains every skill from Lessons 1-12. The spec describes deploying a new agent to a fresh server: create user, set up directories, clone code, install dependencies, configure nginx, create systemd service, set permissions, configure firewall, run health check, and send notification.
 
 **Your Task:**
 Implement `deploy-agent.sh` — a single script that executes the entire deployment pipeline. The script must be: **idempotent** (running it twice produces the same result, not duplicate users or broken configs), **logged** (every action written to `/var/log/agent-deploy.log`), **validated** (each step checks prerequisites before running), and **reversible** (a companion `rollback-agent.sh` undoes the deployment). Test by running deploy, verifying the agent works, running rollback, and deploying again.

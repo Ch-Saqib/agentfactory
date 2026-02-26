@@ -94,7 +94,7 @@ teaching_guide:
   key_points:
     - "tmux sessions survive disconnections — this is non-negotiable for production agent management where SSH drops would otherwise kill running processes"
     - "The four-operation lifecycle (create, detach, attach, kill) is the foundation — all advanced tmux usage builds on these four commands"
-    - "Session scripts make layouts reproducible across servers — this is the first time students write a bash script, previewing lesson 6 (bash scripting)"
+    - "Session scripts make layouts reproducible across servers — this is the first time students write a bash script, previewing lesson 5 (bash scripting)"
     - "Named sessions provide project isolation — each agent project gets its own tmux session with independent state, working directory, and processes"
   misconceptions:
     - "Students confuse detaching (Ctrl+b then d, session lives on) with closing the terminal (may kill the session) — drill the difference explicitly"

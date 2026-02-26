@@ -700,7 +700,7 @@ Add this content:
 ```bash
 #!/bin/bash
 # Canonical agent health check - referenced from other lessons
-# Location: Taught in Lesson 10, section "Agent Health Checks"
+# Location: Taught in Lesson 9, section "Agent Health Checks"
 set -euo pipefail
 
 SERVICE_NAME="${1:?Usage: check-agent-health.sh <service-name>}"

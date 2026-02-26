@@ -85,7 +85,7 @@ teaching_guide:
   session_title: "Skills, Capstone, and Practice"
   key_points:
     - "Spec-first deployment (write DEPLOYMENT-SPEC.md before touching the terminal) is the professional pattern — it prevents the 'type commands until it works' anti-pattern"
-    - "This capstone integrates every skill from lessons 1-13: navigation, file ops, scripting, security, networking, systemd, debugging, patterns, and skills"
+    - "This capstone integrates every skill from lessons 1-11: navigation, file ops, scripting, security, networking, systemd, debugging, patterns, and skills"
     - "Layered validation (service, network, security, monitoring, resources) catches failures that single-point checks miss — each layer tests a different dimension"
     - "Deployment packaging (idempotent deploy.sh) makes the deployment reproducible — anyone can run the same script on a clean server and get the same result"
   misconceptions:

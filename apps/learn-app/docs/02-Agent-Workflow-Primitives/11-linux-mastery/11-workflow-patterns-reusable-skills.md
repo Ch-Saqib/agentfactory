@@ -139,7 +139,7 @@ teaching_guide:
     - "Students assume their deployment works everywhere because it works on their machine -- fresh-system testing reveals hidden state dependencies"
   discussion_prompts:
     - "Your agent serves paying customers. Compare restart deployment versus blue-green -- when is 30 seconds downtime acceptable?"
-    - "Look back at lessons 5-12. Which operational patterns did you repeat most often? Which would benefit from being encoded as a reusable skill?"
+    - "Look back at lessons 5-10. Which operational patterns did you repeat most often? Which would benefit from being encoded as a reusable skill?"
   teaching_tips:
     - "Start with the pattern comparison table -- students should understand the trade-offs before implementing any specific pattern"
     - "Demo the blue-green switch live: show the active service, deploy to the standby, health check, then switch"
@@ -162,7 +162,7 @@ version: "3.0.0"
 
 # Workflow Patterns & Reusable Skills
 
-In Lesson 11, you automated environment configuration so that a fresh server arrives ready for agent deployment. Now you face a different problem: you have deployed five agents, and each deployment followed the same pattern -- create a user, set permissions, write a service file, start the service, verify health. Five times you typed those commands. Five scripts sit in different directories.
+In Lessons 9 and 10, you deployed and diagnosed production services so that a fresh server can run your agents reliably. Now you face a different problem: you have deployed five agents, and each deployment followed the same pattern -- create a user, set permissions, write a service file, start the service, verify health. Five times you typed those commands. Five scripts sit in different directories.
 
 You open those scripts side by side. Three have bugs. One forgot `StartLimitBurst`. Another hardcodes a port that conflicts with a service you deployed later. The third skips the health check entirely -- it declares success after `systemctl start` without verifying the agent actually responds. The other two scripts work, but they differ in small ways: different `RestartSec` values, different `MemoryMax` limits, different user names. There is no canonical version. Every deployment is a fork of whatever you remembered at the time.
 
@@ -945,7 +945,7 @@ Combine all three sections plus an Implementation section listing deploy steps i
 
 ### The Deploy Script as Skill Implementation
 
-The skill specification tells an AI agent *what* to do. A script *does* it. This script combines user creation (L06), service file writing (L09), permissions (L04), and [health verification from Lesson 9](09-process-control-systemd.md):
+The skill specification tells an AI agent *what* to do. A script *does* it. This script combines user creation and permissions (L07), service file writing (L09), and [health verification from Lesson 9](09-process-control-systemd.md):
 
 ```bash
 #!/bin/bash

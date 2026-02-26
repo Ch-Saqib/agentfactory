@@ -106,7 +106,7 @@ teaching_guide:
   teaching_tips:
     - "Present the triage methodology as a checklist before teaching any specific tools — students who learn the framework first apply individual commands more effectively"
     - "Create a simulated failure scenario and walk through the triage live — a stopped service, a full disk, or a port conflict makes the methodology concrete"
-    - "Connect journalctl filtering back to grep from lesson 7 — same filtering concept (by time, by severity, by service) but using systemd's built-in tools"
+    - "Connect journalctl filtering back to grep from lesson 6 — same filtering concept (by time, by severity, by service) but using systemd's built-in tools"
     - "Spend most time on logs and disk (most common issues) and less on strace/lsof (advanced, rarely needed for typical agent failures)"
   assessment_quick_check:
     - "Ask: what is the correct triage order? (Expected: logs -> network -> disk -> processes)"
