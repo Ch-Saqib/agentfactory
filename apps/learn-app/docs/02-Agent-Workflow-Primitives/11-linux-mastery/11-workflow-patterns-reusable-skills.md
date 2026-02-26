@@ -168,7 +168,7 @@ You open those scripts side by side. Three have bugs. One forgot `StartLimitBurs
 
 The fourth time you need to deploy, you stop. You look at the five scripts, the three bugs, the two inconsistencies, and you realize: copying is not scaling. Every copy is a chance to introduce a new variation, a new bug, a new gap in your process. The pattern is solid. The execution is fragile. What you need is one authoritative version -- a deployment pattern that you write once, test once, and reuse every time.
 
-In [Chapter 6](../../03-SDD-RI-Fundamentals/14-build-test-iterate-skills/), the book itself is built on reusable skills -- SKILL.md files that package expertise for permanent reuse. Now you apply the same pattern to operations. Instead of copying deployment scripts, you will build a single, tested deployment workflow, and then package it as a reusable skill that an AI coding agent can execute without your supervision.
+In [Chapter 6](../../01-General-Agents-Foundations/06-seven-principles/), the book itself is built on reusable skills -- SKILL.md files that package expertise for permanent reuse. Now you apply the same pattern to operations. Instead of copying deployment scripts, you will build a single, tested deployment workflow, and then package it as a reusable skill that an AI coding agent can execute without your supervision.
 
 This lesson teaches you to recognize when repetition has become a liability, and how to turn that liability into leverage.
 
