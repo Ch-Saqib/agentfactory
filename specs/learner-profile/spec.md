@@ -116,7 +116,7 @@ This is the evolved schema incorporating all Phase 1 research findings and user 
     "domain": [
       {
         "level": "none | beginner | intermediate | advanced | expert",
-        "domain_name": "string | null — required when level is beginner or above",
+        "domain_name": "string | null — prompted in UI when level >= beginner, but accepted as null by API (PHM/defaults may not have it) [P0-R3-3 FIX]",
         "is_primary": "boolean — true for the primary domain",
         "notes": "string | null (max 300 chars)"
       }
@@ -161,7 +161,7 @@ This is the evolved schema incorporating all Phase 1 research findings and user 
 | Field | Status | Notes |
 |---|---|---|
 | `domain` | MODIFIED | Now an **array** with `is_primary` flag (was single object) |
-| `domain.domain_name` | MODIFIED | Nullable, required only when `level >= beginner` |
+| `domain.domain_name` | MODIFIED | Always nullable at API level. UI prompts when `level >= beginner`. `[P0-R3-3]` |
 | `ai_ml.level` | MODIFIED | Enum standardized to `none\|beginner\|intermediate\|advanced\|expert` (was `conceptual`) |
 | `topics_to_skip` | `[REMOVED]` | Merged into `topics_already_mastered` with `treatment: reference\|skip` |
 | All `notes` fields | MODIFIED | Max 300 chars enforced |
@@ -292,7 +292,7 @@ All fields optional. Defaults are conservative (standard, no special needs assum
 | `analogy_domain` fallback | Field is null | Use `professional_context.industry`. If also null, use generic everyday analogies |
 | `include_code_samples` deterministic chain | Evaluation order: (1) If user explicitly set → use user value. (2) If `programming.level == none` → `false`. (3) If `programming.level >= beginner` → `true`. Note: `programming.level` defaults to `beginner`, so a brand-new profile gets `true` — but this is inferred, not user-set, so `_field_sources` records it as `inferred`. | `[P1-1 FIX]` |
 | `code_verbosity` dependency | `include_code_samples` is `false` | `code_verbosity` is ignored |
-| `domain_name` conditional | `domain.level` is `none` | `domain_name` should be null |
+| `domain_name` guidance | `domain.level` is `none` | `domain_name` should be null. When `level >= beginner`, UI prompts for `domain_name` but API accepts null (PHM/defaults may not have it). `[P0-R3-3 FIX]` |
 | `include_visual_descriptions` conditional | `accessibility.screen_reader` is `true` | Default to `true` (provide alt-text descriptions). Otherwise `false`. `[P1-R2-3 FIX]` |
 | Inferred `language_complexity` | Not set by learner | Derive from expertise levels (see Onboarding Inference Rules) |
 | Inferred `tone` | Not set by learner | Derive from `language_complexity` |
@@ -345,7 +345,7 @@ This section documents what the schema must support for the future personalizati
 
 ### Engine Invariants (Schema Must Support)
 
-1. Every schema field drives at least one personalization dimension
+1. Every **personalization-relevant** schema field drives at least one personalization dimension. `[P2-R3-1 FIX]` Excluded from this invariant: identity fields (`id`, `learner_id`, `created_at`, `updated_at`, `profile_version`), consent fields (`consent_given`, `consent_date`), system metadata (`_field_sources`, `onboarding_*`, `deleted_at`), and `accessibility.color_blind_safe` (frontend theme concern, not content personalization).
 2. Partial profiles produce progressively better output (never worse than no profile)
 3. Personalization changes presentation, never accuracy
 4. Conflict resolution follows: Invariants > Explicit preferences > Inferred/defaults > Source fidelity
@@ -417,7 +417,7 @@ After the form, an optional AI conversation enriches open-ended fields:
 
 **Algorithm:** Take the **maximum** expertise level across `programming`, `ai_ml`, `domain[primary]`, and `business`. Map to communication/delivery fields using the table below. User-set values ALWAYS override inferences. Inferred values are stored in the DB on profile creation/update (not computed on-the-fly).
 
-**When inference runs:** On profile creation (`POST /`), on section update (`PATCH /me/sections/expertise`), and on PHM sync. Inference does NOT overwrite fields the user has explicitly set.
+**When inference runs `[P0-R3-2 FIX]`:** On section update (`PATCH /me/sections/expertise`), on PHM sync, and on onboarding phase completion — but **NOT on initial profile creation** (`POST /`). Rationale: at creation, all expertise fields are `default`-sourced (`beginner`). Inferring communication preferences from default expertise is meaningless — it would produce inferred values that aren't based on real learner data. Inference activates only when at least one expertise field has a `user` or `phm` source. This means a fresh profile has `profile_completeness = 0.0` (all defaults, no inferences). After the user completes onboarding Phase 2 (expertise), inference runs and populates communication/delivery fields.
 
 **Override rule:** If a user manually sets `language_complexity = expert` but their expertise says `beginner`, the manual value sticks. Inferred values have a lower priority than explicit values.
 
@@ -650,7 +650,7 @@ All endpoints prefixed with `/api/v1/profiles`.
 | `GET` | `/health` | Health check (Redis + DB ping) | None | 200 | 503 |
 | `POST` | `/` | Create profile (requires `consent_given: true`). If soft-deleted profile exists, **restores** it (clears `deleted_at`, preserves data + onboarding). Returns 200 for restore, 201 for new. | Required | 201/200 | 400 (no consent), 409 (active profile exists) |
 | `GET` | `/me` | Get current user's profile | Required | 200 | 404 (no profile) |
-| `GET` | `/{learner_id}` | Get profile by ID (admin/service) | Required (admin) | 200 | 403, 404 |
+| `GET` | `/admin/by-learner/{learner_id}` | Get profile by learner ID (admin/service only). `learner_id` must be URL-encoded (e.g., `auth0%7Cabc123`). Returns active profiles only; soft-deleted profiles return 404 (use DB query for audit). `[P1-R3-1 FIX]` | Required (admin) | 200 | 403, 404 |
 | `PATCH` | `/me` | Update profile (partial, replace semantics per section) | Required | 200 | 404, 422 |
 | `PATCH` | `/me/sections/{section}` | Update single JSONB section | Required | 200 | 404 (section or profile) |
 | `DELETE` | `/me` | Soft-delete profile | Required | 204 | 404 |
@@ -664,24 +664,35 @@ All endpoints prefixed with `/api/v1/profiles`.
 
 **Valid section names for `/me/sections/{section}` (I-5):** `expertise`, `professional_context`, `goals`, `communication`, `delivery`, `accessibility`. Case-sensitive, lowercase. Returns 404 for unknown sections.
 
-**PATCH semantics (M-4, P0-R2-3 FIX):** JSONB sections use **replace** semantics, not deep merge. However, **only explicitly-provided fields update `_field_sources`** to `user`. Fields filled by Pydantic defaults during deserialization are detected via `model_fields_set` (Pydantic v2) and **excluded from source updates**.
+**PATCH semantics `[P0-R3-1 FIX]`:** JSONB sections use **merge** semantics — only explicitly-sent fields are written; omitted fields keep their existing values. This prevents data loss when a client updates one nested field without resending the entire section.
 
-**Implementation detail:**
+**Implementation algorithm:**
 ```python
-# In service layer, after receiving validated ProfileUpdate:
-update_data = body.model_dump(exclude_unset=True)  # Only fields client actually sent
-# For each section in update_data:
-#   1. Replace entire JSONB section in DB (replace semantics)
-#   2. Walk the section model's .model_fields_set recursively
-#   3. Only fields in model_fields_set → _field_sources[field] = "user"
-#   4. Fields NOT in model_fields_set → preserve existing _field_sources entry
+# In service layer, after receiving validated ProfileUpdate/SectionUpdate:
+def merge_section(existing_json: dict, update_model: BaseModel) -> dict:
+    """Merge only explicitly-provided fields into existing section data."""
+    merged = existing_json.copy()
+    # model_fields_set tracks which fields the client actually sent (Pydantic v2)
+    for field_name in update_model.model_fields_set:
+        value = getattr(update_model, field_name)
+        if isinstance(value, BaseModel):
+            # Recurse: nested model (e.g., ProgrammingExpertise within ExpertiseSection)
+            merged[field_name] = merge_section(
+                merged.get(field_name, {}), value
+            )
+        else:
+            merged[field_name] = value  # Scalar/list: overwrite
+    return merged
+
+# For _field_sources: only fields in model_fields_set (recursively) get marked "user".
+# All other fields preserve their existing _field_sources entry.
 ```
 
 **Example:** Client sends `{ "expertise": { "programming": { "level": "advanced" } } }`:
-- `expertise` section is fully replaced in DB (replace semantics)
-- `expertise.programming.level` → `_field_sources = "user"` (explicitly sent)
-- `expertise.ai_ml.level` → keeps existing `_field_sources` (e.g., `"inferred"`) because it was Pydantic default, not in `model_fields_set`
-- Concurrent updates to the same section: last write wins. Acceptable for v1 (single-user profiles).
+- `expertise.programming.level` → updated to `"advanced"`, `_field_sources = "user"`
+- `expertise.ai_ml.level` → **unchanged** (keeps existing value AND existing `_field_sources`)
+- `expertise.domain` → **unchanged** (not in `model_fields_set`)
+- Concurrent updates to different fields within the same section: safe (merge preserves untouched fields). Same field: last write wins. Acceptable for v1 (single-user profiles).
 
 **Delete lifecycle (I-4, P0-2 FIX):**
 - Soft delete (`DELETE /me`): sets `deleted_at`, profile hidden from `GET /me`. Recoverable.
@@ -986,7 +997,7 @@ Each field within a section contributes to completeness based on its `_field_sou
 | `test_onboarding_status_initially_incomplete` | New profile → all 5 phases incomplete |
 | `test_completing_all_sections_marks_done` | After all 5 phases → `onboarding_completed: true` |
 | `test_partial_onboarding_saves_progress` | Complete 2 of 5 phases, abandon → profile has 2 phases filled |
-| `test_onboarding_progress_vs_completeness` | `onboarding_progress` counts user actions only; `profile_completeness` includes inferred. New profile: `onboarding_progress=0.0`, `profile_completeness > 0.0`. `[P0-4]` |
+| `test_onboarding_progress_vs_completeness` | `onboarding_progress` counts user actions only; `profile_completeness` weights by provenance. New profile: both `0.0`. After filling expertise: `onboarding_progress = 0.2` (1/5 phases), `profile_completeness > 0.0` (user-sourced expertise + inferred comm/delivery). `[P0-4, P0-R3-2]` |
 | `test_completeness_highest_impact` | Missing expertise → `highest_impact_missing` includes expertise fields |
 | `test_phm_sync_updates_profile` | PHM data maps to profile fields per Appendix A |
 | `test_phm_respects_provenance` | PHM sync does not overwrite `user`-sourced fields. `[P0-5]` |
@@ -1013,7 +1024,7 @@ Each field within a section contributes to completeness based on its `_field_sou
 | `test_unicode_in_all_fields` | Arabic name, Urdu notes → stored and returned correctly |
 | `test_profile_version_set_automatically` | Client cannot override `profile_version` |
 | `test_restore_preserves_data_and_onboarding` | `POST /` after soft delete → 200, restores existing row with all data + onboarding state intact. `[D-13 nuance]` |
-| `test_patch_only_marks_explicit_fields_as_user_source` | PATCH with `{expertise: {programming: {level: "advanced"}}}` → `_field_sources["expertise.programming.level"] = "user"`, but `_field_sources["expertise.ai_ml.level"]` unchanged. `[P0-R2-3]` |
+| `test_merge_patch_preserves_untouched_fields` | PATCH with `{expertise: {programming: {level: "advanced"}}}` → `expertise.programming.level = "advanced"` AND `expertise.ai_ml.level` unchanged (not wiped to default). `_field_sources["expertise.programming.level"] = "user"`, other sources unchanged. `[P0-R3-1]` |
 | `test_completeness_zero_for_fresh_profile` | New profile with all defaults → `profile_completeness = 0.0`. `[P0-R2-4]` |
 | `test_audit_log_created_on_update` | Every PATCH creates an audit log entry |
 | `test_rate_limit_returns_429` | Exceed `PATCH /me` rate limit → 429 with `Retry-After` header and `rate_limited` error code. `[P2-1]` |
@@ -1066,6 +1077,10 @@ Each field within a section contributes to completeness based on its `_field_sou
 | D-20 | Completeness scoring | **Weight by `_field_sources` provenance** | `user=1.0, phm=0.8, inferred=0.4, default=0.0`. Prevents always-1.0 trap. `[P0-R2-4]` |
 | D-21 | Restore preserves state | **No onboarding reset on restore** | Old progress is valid. GDPR-erase + recreate for true fresh start. `[D-13 nuance]` |
 | D-22 | Onboarding skip semantics | **Skip counts as phase complete** | Distinction tracked via `_field_sources` (skipped = `default`). `[P1-R2-2]` |
+| D-23 | PATCH semantics | **Merge (not replace)** | Use `model_fields_set` recursively. Only explicitly-sent fields are written; omitted fields preserve existing values. Prevents data loss. `[P0-R3-1]` |
+| D-24 | Inference timing | **Deferred until real data exists** | Inference does NOT run at profile creation (all defaults = meaningless). Runs after first user/PHM expertise update. `[P0-R3-2]` |
+| D-25 | `domain_name` requirement | **Optional at API, prompted in UI** | PHM and defaults may create domain entries with null `domain_name`. UI encourages filling it. `[P0-R3-3]` |
+| D-26 | Admin route path | **`/admin/by-learner/{learner_id}`** | Avoids JWT sub encoding issues (`auth0\|...`) and route shadowing. `[P1-R3-1]` |
 
 ---
 
@@ -1099,31 +1114,99 @@ Each field within a section contributes to completeness based on its `_field_sou
 
 ---
 
-## Appendix B — Complete Defaults Table (v1.1)
+## Appendix B — Complete Defaults Table (v1.1) `[Updated P2-R3-2]`
+
+Every field has an explicit default. This is the full baseline for a brand-new profile with zero user input.
+
+**Identity & System (set by system, not defaults):**
+
+| Field | Initial Value | Notes |
+|---|---|---|
+| `id` | Auto-generated UUID v4 | Internal PK |
+| `learner_id` | JWT `sub` | Set from token |
+| `name` | `null` | |
+| `created_at` / `updated_at` | Current UTC timestamp | |
+| `profile_version` | `"1.1"` | |
+| `consent_given` | `true` | Required at creation |
+| `consent_date` | Current UTC timestamp | Auto-set when consent given |
+| `onboarding_completed` | `false` | |
+| `onboarding_sections_completed` | `{}` | All phases uncompleted |
+| `_field_sources` | `{}` | Empty — all fields are implicitly `default`-sourced until explicitly set |
+| `deleted_at` | `null` | |
+
+**Expertise (Section 2):**
 
 | Field | Default | Condition |
 |---|---|---|
-| `expertise.*.level` | `beginner` | All expertise fields |
-| `communication.language_complexity` | `professional` | |
+| `expertise.domain` | `[]` (empty array) | No domain expertise until user provides |
+| `expertise.programming.level` | `beginner` | |
+| `expertise.programming.languages` | `[]` | |
+| `expertise.programming.notes` | `null` | |
+| `expertise.ai_ml.level` | `beginner` | |
+| `expertise.ai_ml.notes` | `null` | |
+| `expertise.business.level` | `beginner` | |
+| `expertise.business.notes` | `null` | |
+| `expertise.subject_specific.topics_already_mastered` | `[]` | |
+| `expertise.subject_specific.topics_partially_known` | `[]` | |
+| `expertise.subject_specific.known_misconceptions` | `[]` | |
+
+**Professional Context (Section 3):**
+
+| Field | Default |
+|---|---|
+| `professional_context.current_role` | `null` |
+| `professional_context.industry` | `null` |
+| `professional_context.organization_type` | `null` |
+| `professional_context.team_context` | `null` |
+| `professional_context.real_projects` | `[]` |
+| `professional_context.tools_in_use` | `[]` |
+| `professional_context.constraints` | `null` |
+
+**Goals (Section 4):**
+
+| Field | Default |
+|---|---|
+| `goals.primary_learning_goal` | `null` — transient inference in engine (out of scope for this service) |
+| `goals.secondary_goals` | `[]` |
+| `goals.urgency` | `null` |
+| `goals.urgency_note` | `null` |
+| `goals.career_goal` | `null` |
+| `goals.immediate_application` | `null` |
+
+**Communication (Section 5) — applied as defaults, upgraded to `inferred` when expertise is set:**
+
+| Field | Default | Condition |
+|---|---|---|
+| `communication.language_complexity` | `professional` | Overridden by inference when expertise is `user`/`phm`-sourced |
 | `communication.preferred_structure` | `examples-first` | |
-| `communication.verbosity` | `moderate` | |
-| `communication.tone` | `professional` | |
+| `communication.verbosity` | `moderate` | Overridden by inference |
+| `communication.analogy_domain` | `null` → falls back to `professional_context.industry` or generic at query time | Cascading fallback |
+| `communication.tone` | `professional` | Overridden by inference |
 | `communication.wants_summaries` | `true` | |
 | `communication.wants_check_in_questions` | `true` | |
+| `communication.format_notes` | `null` | |
+
+**Delivery (Section 6):**
+
+| Field | Default | Condition |
+|---|---|---|
 | `delivery.output_format` | `structured-with-headers` | |
 | `delivery.target_length` | `match-source` | |
-| `delivery.include_code_samples` | `false` | When `programming.level == none` or absent |
-| `delivery.include_code_samples` | `true` | When `programming.level >= beginner` |
-| `delivery.code_verbosity` | Inferred from `programming.level` | `beginner→fully-explained, intermediate→annotated, advanced/expert→minimal` |
-| `delivery.include_visual_descriptions` | `false` | `[P1-R2-3 FIX]` Added. Only relevant for screen reader users — set to `true` when `accessibility.screen_reader = true`. |
-| `delivery.language` | `English` | |
-| `delivery.language_proficiency` | `native` | |
-| `accessibility.screen_reader` | `false` | |
-| `accessibility.cognitive_load_preference` | `standard` | |
-| `accessibility.color_blind_safe` | `false` | |
-| `accessibility.dyslexia_friendly` | `false` | |
-| `goals.primary_learning_goal` | `null` | `[P1-6 FIX]` This service stores `null`. Lesson-context inference happens transiently in personalization engine (out of scope). |
-| `communication.analogy_domain` | `professional_context.industry` or generic | Cascading fallback |
+| `delivery.include_code_samples` | Conditional | `false` when `programming.level == none`; `true` when `>= beginner`. Since default programming is `beginner`, default is `true` — but as `default`-sourced, contributes 0.0 to completeness |
+| `delivery.code_verbosity` | Conditional | `beginner→fully-explained, intermediate→annotated, advanced/expert→minimal`. Ignored when `include_code_samples == false` |
+| `delivery.include_visual_descriptions` | `false` | `true` when `accessibility.screen_reader = true` |
+| `delivery.language` | `"English"` | |
+| `delivery.language_proficiency` | `null` | |
+
+**Accessibility (Section 7):**
+
+| Field | Default |
+|---|---|
+| `accessibility.screen_reader` | `false` |
+| `accessibility.cognitive_load_preference` | `"standard"` |
+| `accessibility.color_blind_safe` | `false` |
+| `accessibility.dyslexia_friendly` | `false` |
+| `accessibility.notes` | `null` |
 
 ---
 
