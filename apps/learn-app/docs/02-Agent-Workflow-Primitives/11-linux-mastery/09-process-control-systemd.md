@@ -125,16 +125,21 @@ version: "2.1.0"
 
 # Process Control & Systemd Services
 
-It is 9:03 on a Monday morning. The lead engineer opens Slack to 47 unread messages in the support channel, all variations of the same question: "Is the agent down?" She pulls up the monitoring dashboard. The customer-facing agent -- the one that had been running flawlessly all week, handling hundreds of requests per day -- shows offline since 2:13am. Six hours and fifty minutes of silence. She checks the server. The ops team applied a critical security patch at 2:00am. The server rebooted. The agent never came back.
+Compare two reboot outcomes:
 
-The postmortem conversation writes itself. "Why didn't the agent restart after reboot?" Because it was not a service. It was a process -- started manually in a tmux session during last Tuesday's deploy, running on hope and the assumption that servers never reboot. Tmux is great for interactive sessions, as you learned in Lesson 4. But tmux does not survive a reboot. When the kernel came back up at 2:10am, tmux was gone, and the agent went with it.
+- **Unmanaged process:** server reboots after patching, agent stays down until a human notices.
+- **Managed service:** server reboots after patching, agent starts automatically.
+
+In many teams, the first outcome happens because the agent is still "just a process."
+
+The postmortem question writes itself: "Why didn't the agent restart?" Because it was not a service. It was started manually in a tmux session and left running on hope. Tmux is excellent for interactive work, as you learned in Lesson 4, but it does not survive reboot as a boot-managed unit.
 
 :::note[Glossary: daemon]
 A **daemon** is a background service process that runs independently of any user session. Daemons start at boot, run continuously, and are managed by the system — not by a human sitting at a terminal. systemd turns your agent into a proper daemon.
 :::
 
 
-Now picture the alternate timeline. Same security patch. Same 2:00am reboot. But this time the agent is registered as a systemd service. The server finishes booting at 2:10am. At 2:10 and ten seconds, systemd starts the agent automatically -- no human intervention, no Slack messages, no 47 support tickets. The monitoring dashboard never flickers. Nobody wakes up. The customers never notice.
+Now picture the alternate workflow: the same patch cycle, but with the agent registered in systemd. Boot completes, systemd starts the service, and recovery happens without human intervention.
 
 In Chapter 6, Principle 7 -- Observability -- was about seeing what your agent is doing. systemd's journal and restart policies are observability built directly into your infrastructure. You don't just know when your agent is running -- you know when it died, why it died, and what it did before it died. Every start, every crash, every restart attempt is recorded in the system journal with timestamps you can query with a single command.
 

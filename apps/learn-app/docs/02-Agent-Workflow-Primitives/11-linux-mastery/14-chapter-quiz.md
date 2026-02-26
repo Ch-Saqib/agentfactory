@@ -9,6 +9,7 @@ Test your understanding of Linux command-line skills for Digital FTE deployment.
 
 <Quiz
 title="Chapter 11: Linux Mastery Assessment"
+questionsPerBatch={30}
 questions={[
 {
 question: "What is the difference between a terminal emulator and a shell?",

@@ -126,13 +126,13 @@ version: "1.0.0"
 
 Your pager fires at 3am. The billing system has detected a 1,000% spike in API errors over the last hour. You have 15 minutes before the incident auto-escalates to the VP of Engineering. You SSH into the production server and find the log file: 847MB. There is no Kibana. There is no Datadog dashboard. There is no GUI at all. Just you, a terminal, and a ticking clock.
 
-You type four commands chained together:
+You run four commands chained together:
 
 ```
 grep "ERROR" api.log | awk '{print $6}' | sort | uniq -c | sort -rn | head -20
 ```
 
-Ninety seconds later, the answer is on your screen. One API endpoint -- `/api/v2/process` -- has been returning 503 errors for the last 37 minutes. Every other endpoint is clean. You restart the upstream service that `/api/v2/process` depends on, confirm the error rate drops to zero, and close the incident. The VP never woke up.
+Ninety seconds later, the answer is on your screen. One API endpoint -- `/api/v2/process` -- has been returning 503 errors for the last 37 minutes. Every other endpoint is clean. You restart the upstream dependency for `/api/v2/process`, confirm the error rate drops, and close the incident.
 
 That is the difference text processing makes. Without it, you are opening an 847MB file in an editor that crashes, scrolling through thousands of lines, guessing. With it, you are extracting the exact pattern from the noise in under two minutes. The gap between those two outcomes is not talent -- it is tooling.
 

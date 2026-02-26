@@ -94,15 +94,20 @@ These exercises cover the 12 instructional lessons of Chapter 11 (Lessons 1-12).
 - Each exercise includes a difficulty label: **Foundational** (direct application), **Applied** (combines concepts), or **Capstone** (requires judgment)
 - You do not need to complete every exercise — the difficulty labels help you prioritize
 
+**Suggested entry paths:**
+- **Beginner minimum path (start here):** 1.1, 2.1, 3.1, 5.1, 6.2, Capstone A
+- **Core deployment path:** all Build exercises (skip Debug on first pass)
+- **Full mastery path:** all exercises + all three capstones
+
 :::tip[The right pace]
 Three hours of exercises done across three days with reflection is worth more than three hours done in one anxious sprint. Pick the pace that lets you actually think.
 :::
 
 You've learned to navigate Linux filesystems, edit configs with pipes and streams, script deployments in bash, harden security, manage systemd services, and debug production failures. That's real capability. But knowing the commands and using them under pressure when a production agent is down at 3am are different things. The gap between understanding `grep` and using it to isolate the one log line that explains why your agent crashed across 50,000 lines of output is where most people stall. These exercises close the gap between understanding and fluency.
 
-These 14 exercises plus 3 capstone projects cover the full range of Linux operations you've studied in Lessons 1-12. Each module gives you two exercises: a **Build** exercise where you apply skills to a realistic server scenario, and a **Debug** exercise where you diagnose what went wrong in a broken system. Three skills run through every exercise: **Linux system administration** (applying filesystem navigation, text processing, scripting, and service management), **production debugging** (diagnosing failures by systematic layer-by-layer investigation), and **deployment pipeline design** (combining all skills into automated, idempotent workflows).
+These 14 exercises plus 3 capstone projects cover the full range of Linux operations from Lessons 1-12. Each module gives you two exercises: a **Build** exercise where you apply skills to a realistic server scenario, and a **Debug** exercise where you diagnose what went wrong in a broken system. Three skills run through every exercise: **Linux system administration** (applying filesystem navigation, text processing, scripting, and service management), **production debugging** (diagnosing failures by systematic layer-by-layer investigation), and **deployment pipeline design** (combining all skills into automated, idempotent workflows).
 
-Every exercise uses real starter files — actual configs, log files, broken scripts, and service definitions you'll investigate, fix, and deploy. This isn't hypothetical. By the end, you'll have practiced every Linux operations workflow on messy, realistic server scenarios where one wrong `chmod` can lock you out and one missed log line can hide the root cause for hours.
+Every exercise uses real starter files — actual configs, log files, broken scripts, and service definitions you'll investigate, fix, and deploy. This isn't hypothetical. You do not need to finish all 17 activities before moving on; completing one path with reflection is better than rushing through everything.
 
 :::info Download Exercise Files
 **[Download Linux Mastery Exercises (ZIP)](https://github.com/panaversity/claude-code-linux-mastery-exercises/releases/latest/download/linux-mastery-exercises.zip)**

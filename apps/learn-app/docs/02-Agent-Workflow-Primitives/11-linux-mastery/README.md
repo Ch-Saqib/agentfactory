@@ -7,7 +7,7 @@ keywords: ["linux", "cli", "bash", "tmux", "systemd", "ssh", "networking", "devo
 
 # Chapter 11: Linux Mastery for Digital FTEs
 
-Every production agent failure traces back to one of three root causes: a misconfigured environment, a network isolation issue, or a permissions problem. Developers who know Linux diagnose and fix these in minutes. Developers who don't spend hours guessing, restarting containers blindly, and eventually rebuilding from scratch. The difference between a deployed Digital FTE and an abandoned side project is whether you can read a log file, trace a port conflict, and fix a service unit -- all from the command line. This chapter ends guessing.
+Many production agent incidents come from a small set of operational gaps: environment drift, network reachability, permissions, and resource limits. Developers with Linux fluency usually diagnose these quickly. Teams without it often lose time to blind restarts and trial-and-error fixes. The difference between a deployed Digital FTE and a stalled side project is often whether you can read logs, trace a port conflict, and fix a service unit from the command line.
 
 :::note[The Skill Gap]
 DORA's 2024 research identifies a stark divide: elite engineering teams restore service from production failures in **under 1 hour**, while low-performing teams take **between 1 month and 6 months** — a gap exceeding 700×. At an average incident cost of **$4,537 per minute** (PagerDuty, 2024), the difference between a 30-minute recovery and a 3-day recovery represents millions of dollars per event. The practices that distinguish elite teams — rapid diagnosis, executable runbooks, and tool fluency — are exactly what this chapter builds.
@@ -32,12 +32,12 @@ This chapter transforms you from a "user" who clicks buttons into an "architect"
 
 ## From Principle to Practice: The Chapter 6 Bridge
 
-In Chapter 6, Principle 1 established that **Bash is the Key** -- the single capability that transforms AI from passive advisor to active agent. You saw Vercel strip 80% of their agent's tools and get 3.5x faster performance with a 100% success rate, all because simple terminal access gave the model room to reason. That was the theory. Chapter 11 is that principle made real.
+In Chapter 6, Principle 1 established that **Bash is the Key** -- the capability that transforms AI from passive advisor to active agent. You saw Vercel strip 80% of their agent's tools and report 3.5x faster performance with a 100% success rate on their measured workload, because simple terminal access gave the model room to reason. That was the theory. Chapter 11 is that principle made real in deployment workflows.
 
 Claude uses Bash to act. Your agents use Bash to run. And you need Bash to deploy, manage, and rescue the agents that depend on it. Every `systemd` unit file you write, every `ssh` tunnel you open, every `grep` through a log file -- these are Principle 1 in practice. This chapter is not supplementary Linux skills. It is the practical vocabulary of the Digital FTE architecture.
 
 :::tip[Chapter Thesis]
-Most agent failures aren't bad code — they're missing Linux skills. Developers who know Linux fix production in minutes. Developers who don't rebuild from scratch. This chapter ends guessing.
+Many agent failures are not code-quality failures but operations failures. Linux fluency reduces mean time to diagnosis and recovery.
 :::
 
 ## Connection to the Digital FTE Vision
@@ -120,13 +120,26 @@ Not everyone needs every lesson. Choose the path that fits your situation:
 
 **Full Track** (~10.5 hours): Lessons 1-12 for complete Linux operational fluency.
 
+## Beginner Pacing (Recommended)
+
+If you are new to Linux, do not try to complete everything in one sprint.
+
+- **Week 1 (Foundations):** L1, L2, L3
+- **Week 2 (Operations Core):** L5, L9
+- **Week 3 (Deployment):** L12 capstone
+- **Then expand:** L4, L6, L7, L8, L10, L11
+
+This keeps cognitive load manageable while still getting you to a real deployment.
+
 ## Prerequisites
 
 Before starting this chapter, you should have completed:
 
 - **Chapter 6: Seven Principles of Agent Work** -- You understand the seven principles, especially Principle 1 (Bash is the Key) and Principle 5 (Persisting State in Files). These principles reappear throughout every lesson.
 
-**No prior Linux experience required** -- this chapter starts from absolute first principles. We assume you've never opened a terminal before.
+**No prior Linux experience is required for the Core Track** -- Lessons 1, 2, and 3 start from first principles and assume you've never opened a terminal before.
+
+**Full Track note:** Lessons 6-11 introduce broader operations depth. Treat those as progressive mastery, not day-one requirements.
 
 :::note Windows Users
 If you're on Windows, you'll need WSL2 (Windows Subsystem for Linux) installed. Run `wsl --install` in PowerShell as Administrator, then restart your computer. All commands in this chapter work in WSL2 Ubuntu.

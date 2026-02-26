@@ -124,15 +124,21 @@ version: "2.0.0"
 
 # Debugging & Troubleshooting
 
-It is 3:47 AM and Alex's phone buzzes. The alert says their agent service -- the one they deployed to production for the first time just two days ago -- is down. Customers are hitting a dead endpoint. Alex's pulse spikes, and their first instinct is the instinct everyone has: restart the service. They SSH in and run `sudo systemctl restart my-agent`. The service comes back. Forty-five seconds later, it crashes again. Same error, same dead endpoint.
+Most bad debugging sessions follow this pattern:
 
-So Alex does the thing that separates debugging from guessing. They stop restarting and start reading:
+1. Restart service
+2. See it recover briefly
+3. Watch it fail again
+4. Restart again
+5. Escalate with no root cause
+
+That loop feels active but produces almost no information. The first useful move is usually this:
 
 ```bash
 journalctl -u my-agent -p err --since "30 minutes ago"
 ```
 
-The output is three lines long. The third line says: `No space left on device`. The agent was not broken. The code had not changed. The disk had filled up overnight because nobody configured log rotation, and the agent's verbose output had quietly consumed every remaining byte on `/dev/sda1`. A `df -h` confirmed it: 100% usage. Alex cleared the old logs, set up rotation, and the service stayed up. Total time from "reading the logs" to "root cause fixed": four minutes. Total time spent restarting and hoping: twelve wasted minutes of escalating panic.
+The output is three lines long. The third line says: `No space left on device`. The agent was not broken. The code had not changed. The disk had filled up because log rotation was missing. `df -h` confirmed 100% usage. After clearing old logs and setting rotation, the service stayed up.
 
 This pattern repeats everywhere. The restart reflex feels productive -- something is happening, the service is coming back -- but it fixes nothing when the underlying cause persists. A full disk stays full after a restart. A memory leak leaks again. An expired certificate stays expired. Reading the logs is not the slow path. It is the only path that leads to the actual problem.
 
