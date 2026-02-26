@@ -5,57 +5,59 @@ title: "Chapter 12: Version Control & Safe Experimentation"
 
 # Chapter 12: Version Control & Safe Experimentation
 
-You've been working on a document for three hours. You try something experimental. It breaks everything. You frantically press Ctrl+Z twenty times hoping to get back to the working version. Sometimes it works. Sometimes you lose an hour of progress.
+Every Claude Code session runs `git` commands behind the scenes. When you told it to "fix my authentication logic" last chapter, it ran `git add`, `git commit`, and `git diff` — commands you've never seen. It was protecting you without your knowledge.
 
-**The problem isn't experimentation. It's experimenting without a safety net.**
+**What happens when it can't protect you?** When you're working outside Claude Code — editing files manually, moving folders, collaborating with someone — there's no safety net. One bad change overwrites an hour of work. One accidental delete loses a week of progress.
 
-This chapter teaches you to use Git and GitHub — not by memorizing commands, but by understanding how version control gives you the confidence to experiment freely. Every change is tracked. Every experiment can be rolled back. Your AI Employee will use these same patterns to work autonomously without risking your data.
+This chapter teaches you the system your agent already uses. Not to memorize commands — your agent handles those. To understand the *concepts* so you can direct your agent's safety features intentionally, not accidentally.
+
+> **"Your agent already uses version control. This chapter teaches you to direct it intentionally instead of accidentally."**
+
+### Meet Sarah
+
+Throughout this chapter, you'll follow Sarah. She's organizing a community fundraiser with her friend Maya. They share a project folder with budget spreadsheets, flyer designs, and volunteer lists. Sarah has never used version control. By the end of this chapter, she'll wonder how she ever worked without it.
 
 ## Principles Applied
 
-| Principle                           | How It Applies                                            |
-| ----------------------------------- | --------------------------------------------------------- |
+In [The Seven Principles of General Agent Problem Solving](/docs/General-Agents-Foundations/seven-principles), you learned the operational patterns that make AI collaboration reliable. This chapter puts four of them into practice — Git is where those principles become muscle memory.
+
+| Principle | How It Applies in Git |
+| --- | --- |
 | **Small, Reversible Decomposition** | Commit small changes you can undo; branch for experiments |
-| **Verification as Core Step**       | Check status before and after every operation             |
-| **Constraints and Safety**          | Branches isolate experiments; never push untested code    |
-| **Observability**                   | Git log shows exactly what changed, when, and why         |
-| **Bash is the Key**                 | Git operations happen in the terminal                     |
-
-## Interface Focus
-
-**Primary**: Code (Git is a command-line tool)
-**Secondary**: Cowork (for understanding concepts and planning branching strategies)
+| **Verification as Core Step** | Check status before and after every operation |
+| **Constraints and Safety** | Branches isolate experiments; never push untested code |
+| **Observability** | Git log shows exactly what changed, when, and why |
 
 ## What You'll Learn
 
 By the end of this chapter, you'll be able to:
 
-- Create repositories and track changes with meaningful commit messages
-- View differences and safely undo changes at multiple levels
-- Use branches to test ideas without risking working code
-- Push to GitHub for cloud backup and portfolio building
-- Use pull requests for code review (even reviewing your own AI-generated code)
-- Apply reusable Git patterns for common development scenarios
+- Create project folders that track every change automatically
+- Undo mistakes at any level — from a single edit to an entire experiment
+- Test two ideas at once without risking your working project
+- Back up your work to the cloud so a dead laptop doesn't mean lost work
+- Review changes before combining them — even your own
+- Follow three reusable patterns that professionals use daily
 
 ## Lessons
 
-| Lesson                                         | Title                           | Focus                                           |
-| ---------------------------------------------- | ------------------------------- | ----------------------------------------------- |
-| [L01](./01-your-first-git-repository.md)       | Your First Git Repository       | init, add, commit — the basic snapshot cycle    |
-| [L02](./02-viewing-changes-safe-undo.md)       | Viewing Changes & Safe Undo     | diff, log, restore — understanding what changed |
-| [L03](./03-testing-ai-safely-with-branches.md) | Testing AI Safely with Branches | branch, checkout, merge — isolated experiments  |
-| [L04](./04-cloud-backup-portfolio.md)          | Cloud Backup & Portfolio        | remote, push, pull — GitHub as your safety net  |
-| [L05](./05-code-review-pull-requests.md)       | Code Review & Pull Requests     | PR workflow for reviewing AI-generated changes  |
-| [L06](./06-reusable-git-patterns.md)           | Reusable Git Patterns           | Common workflows you'll use repeatedly          |
-| [Quiz](./08-chapter-quiz.md)                   | Chapter Quiz                    | Test your understanding                         |
+| Lesson | Title | Focus |
+| --- | --- | --- |
+| [L01](./01-git-foundations.md) | Git Foundations | Snapshots, staging, undo — the core concepts |
+| [L02](./02-testing-ai-safely-with-branches.md) | Testing AI Safely with Branches | Parallel timelines for safe experimentation |
+| [L03](./03-cloud-backup-portfolio.md) | Cloud Backup & Portfolio | GitHub as your safety net and career showcase |
+| [L04](./04-code-review-pull-requests.md) | Code Review & Pull Requests | Review before you trust — even your own work |
+| [L05](./05-reusable-git-patterns.md) | Reusable Git Patterns | Three patterns you'll use for the rest of your career |
+| [Exercises](./06-version-control-exercises.md) | Exercises | Hands-on practice |
+| [Quiz](./07-chapter-quiz.md) | Chapter Quiz | Test your understanding |
 
-## Connection to Building Your AI Employee (Chapter 13)
+## Connection to Building Your First AI Employee
 
-The version control patterns you build here provide the safety infrastructure for building your own AI Employee. In Chapter 13, Git enables:
+The version control patterns you build here provide the safety infrastructure for [building your own AI Employee](/docs/Agent-Workflow-Primitives/build-first-ai-employee). In that chapter, Git enables:
 
 - Tracking all changes your AI Employee makes to your vault
 - Rolling back automated actions that produce unexpected results
-- Branching strategies for testing new employee behaviors
+- Testing new employee behaviors on a separate branch
 - Audit trails showing exactly what your employee did and when
 
 **Version control is what makes autonomous AI operation safe.**
