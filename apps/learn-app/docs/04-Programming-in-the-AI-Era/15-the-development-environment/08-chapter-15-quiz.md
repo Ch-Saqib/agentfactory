@@ -563,13 +563,13 @@ Test your understanding of the Python discipline stack by solving real-world sce
     {
       question: "James edits his working format_title function, realizes the original was better, and tries to undo. The undo history is gone because he closed the file between versions. He has no Git commits. What should he have done differently to prevent this loss?",
       options: [
-        "He should have copied the function to a separate backup file before making any changes to it",
-        "He should have used pyright to create a checkpoint of the function's type signatures before editing",
         "He should have run 'git add . && git commit -m \"working format_title\"' before starting the rewrite",
+        "He should have used pyright to create a checkpoint of the function's type signatures before editing",
+        "He should have copied the function to a separate backup file before making any changes to it",
         "He should have run the function through pytest first so the test output would preserve the code"
       ],
-      correctOption: 2,
-      explanation: "A git commit before rewriting would have recorded the working function as a permanent snapshot. If the rewrite went wrong, James could recover with git log and git checkout. This is Axiom VIII (Version Control is Memory) in practice. Option A works in theory but is fragile and does not scale. Option B is wrong because pyright checks types, not snapshots. Option D is wrong because pytest output shows pass/fail results, not source code. The lesson opens with this exact scenario as the motivation for Git.",
+      correctOption: 0,
+      explanation: "A git commit before rewriting would have recorded the working function as a permanent snapshot. If the rewrite went wrong, James could recover with git log and git checkout. This is Axiom VIII (Version Control is Memory) in practice. Option C works in theory but is fragile and does not scale. Option B is wrong because pyright checks types, not snapshots. Option D is wrong because pytest output shows pass/fail results, not source code. The lesson opens with this exact scenario as the motivation for Git.",
       source: "Lesson 7: Git -- Your Version Control Memory"
     },
     {
@@ -600,12 +600,12 @@ Test your understanding of the Python discipline stack by solving real-world sce
       question: "A developer runs 'git init' in SmartNotes, then 'git add .' and 'git commit -m \"initial project\"'. The next day they accidentally delete main.py and panic. What Git command can recover the deleted file from the commit?",
       options: [
         "git pull origin main to download the file from the remote server that automatically saved everything",
-        "git stash pop to retrieve the file from Git's automatic backup clipboard memory buffer storage",
         "git checkout HEAD -- main.py to restore the file from the most recent commit snapshot in history",
+        "git stash pop to retrieve the file from Git's automatic backup clipboard memory buffer storage",
         "git reset --hard to revert the entire repository to its factory default empty initial state"
       ],
-      correctOption: 2,
-      explanation: "git checkout HEAD -- main.py restores main.py from the most recent commit without affecting other files. This is Axiom VIII (Version Control is Memory) in practice -- the commit recorded the file permanently. Option A is wrong because no remote server was set up. Option B is wrong because git stash is for temporarily shelving changes, not recovering from commits. Option D is destructive and would discard all uncommitted changes without selectively restoring one file. The lesson explains that commits are permanent checkpoints.",
+      correctOption: 1,
+      explanation: "git checkout HEAD -- main.py restores main.py from the most recent commit without affecting other files. This is Axiom VIII (Version Control is Memory) in practice -- the commit recorded the file permanently. Option A is wrong because no remote server was set up. Option C is wrong because git stash is for temporarily shelving changes, not recovering from commits. Option D is destructive and would discard all uncommitted changes without selectively restoring one file. The lesson explains that commits are permanent checkpoints.",
       source: "Lesson 7: Git -- Your Version Control Memory"
     },
     {
