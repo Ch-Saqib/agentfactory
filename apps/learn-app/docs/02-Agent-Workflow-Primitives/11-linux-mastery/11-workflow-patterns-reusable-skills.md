@@ -1240,3 +1240,7 @@ Always test deployment scripts on a non-production server first. Blue-green depl
 The deployment skill you package in this lesson IS the SupportBot deployment. Lesson 12 uses it. One command, one clean server, one running production agent. Every principle you encoded -- non-root users, restart policies, resource limits, health verification -- fires automatically.
 
 Lesson 12 is the moment everything connects. You will write the specification, deploy SupportBot to a production server, validate five layers of production readiness, and package the result as a script anyone on your team can run. The midnight panic from Lesson 1 was the problem. Lesson 12 is the solution you built with your own hands across eleven lessons of Linux mastery.
+
+## Flashcards Study Aid
+
+<Flashcards />

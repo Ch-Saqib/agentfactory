@@ -1030,3 +1030,7 @@ You can navigate any Linux filesystem, manipulate files deliberately, extract si
 The agent you just deployed is a production-grade Digital FTE. It starts on boot, restarts on crash, runs under a dedicated user, logs everything, and passes all five validation layers. You did not guess — you proved it.
 
 This is what it means to operate in Linux. Not just knowing commands, but owning the system your agents live on.
+
+## Flashcards Study Aid
+
+<Flashcards />

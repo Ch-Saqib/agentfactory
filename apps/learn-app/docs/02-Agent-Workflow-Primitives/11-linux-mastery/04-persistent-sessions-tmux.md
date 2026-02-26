@@ -775,3 +775,7 @@ tmux isn't installed? Add error handling for each case."
 You can now run processes that outlive your SSH connection. Sessions persist, panes split, and scripts reproduce your layout on any server in seconds.
 
 SupportBot's deployment script -- the one you will write in Lesson 5 -- runs inside a tmux session so you can disconnect while it installs dependencies, configures the environment, and starts the service. But that script does not exist yet. Right now, deploying SupportBot would mean typing 30+ commands by hand, in order, without mistakes. Miss one step and the agent starts with the wrong config. Skip another and the logs write to a directory that does not exist. The next lesson turns that fragile manual process into a single, repeatable command that stops the moment anything goes wrong.
+
+## Flashcards Study Aid
+
+<Flashcards />

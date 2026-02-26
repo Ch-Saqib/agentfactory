@@ -463,3 +463,7 @@ alternative if a shorter command exists.
 You now know how to find your way around a Linux server. Navigation gets you to any file, any directory, any log. But finding your way is only useful if you can also carry things -- create, copy, move, and delete files without accidentally destroying production data. In the next lesson, you'll meet the command that junior developers fear and senior engineers respect: `rm`. Used right, it's essential. Used wrong, it's irreversible. That's exactly where the next mistake lives.
 
 Everything in this chapter builds toward one deployment. In Lesson 12, you'll stand up **SupportBot** -- a real production FastAPI agent -- as a service that restarts on boot, handles its own failures, and serves customers 24/7. You need to know where files live before you can put SupportBot's files there. This lesson is the first step.
+
+## Flashcards Study Aid
+
+<Flashcards />

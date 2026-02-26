@@ -992,3 +992,7 @@ a race condition? How do production systems handle this?"
 You can now extract, count, and pattern-match anything from any log file, and schedule those analyses to run while you sleep. SupportBot will generate hundreds of log entries per hour. The cron job you set up in this lesson is what keeps its log directory from filling the disk -- and the grep pipelines are how you will diagnose its failures in production without a GUI.
 
 But SupportBot running with full root access to that log directory is a deployment waiting to be compromised. One misconfigured endpoint, one leaked API key, and an attacker owns not just SupportBot's logs but the entire server. The next lesson changes that -- you will lock down file permissions, create a dedicated service user, and ensure SupportBot can only touch exactly what it needs.
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -960,3 +960,7 @@ Always test service configurations on a non-production server first. A misconfig
 SupportBot is now a service. It starts on boot, restarts on crash, logs to journalctl, and runs as a dedicated non-root user. This is production-grade deployment -- the kind that lets you sleep through a server reboot without waking up to 47 Slack messages.
 
 The problem is that SupportBot WILL fail in ways you did not predict. A memory leak at 3am. A dependency that silently changes its API. A disk that fills up because nobody configured log rotation. The next lesson teaches you to find out why -- without restarting blindly until it accidentally works again.
+
+## Flashcards Study Aid
+
+<Flashcards />

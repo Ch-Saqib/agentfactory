@@ -759,3 +759,7 @@ What security issues do you see? What chmod commands would fix them?
 Everything in this chapter builds toward one deployment. In Lesson 12, you will stand up **SupportBot** -- a real production FastAPI agent -- as a service that handles customer requests 24/7. SupportBot needs a dedicated user with no login shell, its files owned to that user, and its API keys in a `.env` file only that user can read. You now know how to set all three up.
 
 But a perfectly secured agent that nobody can reach is useless. The next lesson answers: how do you expose SupportBot's port 8080 to the right people while blocking everyone else? You have locked the door. Now you need to make sure the right traffic can still get in.
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -714,3 +714,7 @@ Give me specific commands and habits I should build.
 ---
 
 You can now create, copy, move, and delete files -- and more importantly, do it deliberately without losing production data. But managing files is only half the work. The other half is reading them. In the next lesson, you'll discover that `cat` is often the wrong tool for a 2GB log file, and that a single pipe character can turn five separate commands into one powerful operation. The unix philosophy of small tools chained together is about to become your fastest diagnostic weapon.
+
+## Flashcards Study Aid
+
+<Flashcards />

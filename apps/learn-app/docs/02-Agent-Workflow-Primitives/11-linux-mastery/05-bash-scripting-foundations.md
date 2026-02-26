@@ -892,3 +892,7 @@ Always test scripts in a non-production environment first. Use a VM, container, 
 You can now script deployments, handle errors, and loop over configurations. One script replaces a 36-step checklist. The `deploy.sh` script you will use in Lesson 12 to deploy SupportBot is exactly this kind of script -- with `set -euo pipefail`, functions, and exit codes that tell you precisely where a deployment failed.
 
 But a script that deploys is only half the automation. The other half is what you do after deployment: parse the logs to confirm it worked. SupportBot will produce hundreds of log entries per hour, and you need to turn that wall of text into a one-screen summary of what is healthy and what is broken. The next lesson gives you grep, awk, and sed -- the fastest debugging toolkit you have never used.
+
+## Flashcards Study Aid
+
+<Flashcards />
