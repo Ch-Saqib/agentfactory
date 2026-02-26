@@ -108,7 +108,19 @@ The bug was caught without executing a single line of code. James reads the mess
 
 Python does not check what kind of data your code uses ahead of time. When you write code that accepts a `name`, Python does not know or care whether `name` will hold text, a number, or something else entirely. It figures it out only when the code is already running.
 
-This flexibility is convenient for small projects. It becomes dangerous in real ones:
+This flexibility is convenient for small projects. It becomes dangerous in real ones. Here is a concrete example:
+
+```python
+def get_username(user_id: int) -> str:
+    # Imagine this looks up a user in a database
+    if user_id == 0:
+        return None  # Bug: returns None, not str
+    return "alice"
+```
+
+Python runs this without complaint. The function promises to return text (`str`) but sometimes returns `None` instead. The caller writes `greeting = "Hello, " + get_username(0)` and gets a crash -- not at the line with the bug, but at a completely different line, in a completely different context. Without pyright, this bug hides until someone passes the right input at the wrong time. With pyright in strict mode, the error appears instantly: `Type "None" is not assignable to return type "str"`.
+
+The broader pattern:
 
 | Scenario | What Happens Without Type Checking |
 |----------|----------------------------------|

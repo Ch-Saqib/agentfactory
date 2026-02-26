@@ -189,6 +189,8 @@ The `[dependency-groups]` section is where development dependencies live. The `d
 
 Look at the new `uv.lock` file that uv created. This file records the exact version of every package installed, including transitive dependencies. While `pyproject.toml` says `"pytest>=9.0.2"` (any version 9.0.2 or higher), the lockfile says exactly which version was resolved.
 
+Think of `pyproject.toml` as your wish list ("I need pytest 9 or higher") and `uv.lock` as the receipt ("You got pytest 9.0.2 specifically, with these exact transitive dependencies"). The wish list says what you want. The receipt records exactly what you got.
+
 The lockfile is a cross-platform reproducibility guarantee. When another developer runs `uv sync` on their machine -- whether that machine runs Windows, macOS, or Linux -- they get the exact same package versions. No "it works on my machine" surprises.
 
 **Rule**: Commit `uv.lock` to Git. It belongs in version control alongside `pyproject.toml`.
