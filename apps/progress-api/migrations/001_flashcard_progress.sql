@@ -10,8 +10,9 @@ CREATE TABLE IF NOT EXISTS flashcard_completions (
     deck_id         VARCHAR(100) NOT NULL,
     chapter_slug    VARCHAR(200) NOT NULL,
     score_pct       INTEGER NOT NULL CHECK (score_pct BETWEEN 0 AND 100),
-    cards_correct   INTEGER NOT NULL,
+    cards_correct   INTEGER NOT NULL CHECK (cards_correct >= 0),
     cards_total     INTEGER NOT NULL CHECK (cards_total >= 1),
+    CHECK (cards_correct <= cards_total),
     xp_earned       INTEGER NOT NULL DEFAULT 0,
     is_first        BOOLEAN NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()

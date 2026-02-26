@@ -36,15 +36,14 @@ async def complete_flashcard_session(
     Steps:
     1. UPSERT user from JWT claims
     2. CHECK if first completion of this deck (race-safe with FOR UPDATE)
-    3. CALCULATE score and XP
+    3. CALCULATE score, XP, and unique deck count
     4. INSERT flashcard_completion row
-    5. COUNT unique decks completed (for deck-master badge)
-    6. UPSERT activity_day
-    7. CALCULATE streak
-    8. CHECK badge conditions
-    9. INSERT new badges
-    10. UPDATE user_progress summary
-    11. COMMIT
+    5. UPSERT activity_day
+    6. CALCULATE streak
+    7. CHECK badge conditions
+    8. INSERT new badges
+    9. UPDATE user_progress summary (unique decks only)
+    10. COMMIT
     """
     today = date.today()
 
@@ -69,7 +68,7 @@ async def complete_flashcard_session(
     score_pct = round(request.cards_correct / request.cards_total * 100)
     xp_earned = round(request.cards_correct / request.cards_total * 50) if is_first else 0
 
-    # 3a. COUNT total unique decks BEFORE insert (for first-deck-ever badge)
+    # 3a. COUNT unique decks BEFORE insert (single query for both badge checks)
     result = await session.execute(
         select(func.count(func.distinct(FlashcardCompletion.deck_id))).where(
             FlashcardCompletion.user_id == user.id
@@ -77,6 +76,7 @@ async def complete_flashcard_session(
     )
     unique_decks_before = result.scalar_one()
     is_first_deck_ever = unique_decks_before == 0 and is_first
+    unique_decks_completed = unique_decks_before + (1 if is_first else 0)
 
     # 4. INSERT flashcard_completion
     completion = FlashcardCompletion(
@@ -92,24 +92,16 @@ async def complete_flashcard_session(
     session.add(completion)
     await session.flush()
 
-    # 5. COUNT unique decks completed (including this one)
-    result = await session.execute(
-        select(func.count(func.distinct(FlashcardCompletion.deck_id))).where(
-            FlashcardCompletion.user_id == user.id
-        )
-    )
-    unique_decks_completed = result.scalar_one()
-
-    # 6. UPSERT activity_day
+    # 5. UPSERT activity_day
     await record_activity_day(session, user.id, today, "flashcard", request.deck_id)
 
-    # 7. CALCULATE streak
+    # 6. CALCULATE streak
     activity_dates = await get_activity_dates(session, user.id)
     if today not in activity_dates:
         activity_dates.append(today)
     current_streak, longest_streak = calculate_streak(activity_dates, today=today)
 
-    # 8. CHECK badge conditions
+    # 7. CHECK badge conditions
     result = await session.execute(select(UserBadge.badge_id).where(UserBadge.user_id == user.id))
     existing_badge_ids = {row[0] for row in result.all()}
 
@@ -121,7 +113,7 @@ async def complete_flashcard_session(
         existing_badge_ids=existing_badge_ids,
     )
 
-    # 9. INSERT new badges
+    # 8. INSERT new badges
     now = datetime.now(UTC)
     new_badges_response: list[BadgeEarned] = []
     for badge_id in new_badge_ids:
@@ -141,19 +133,19 @@ async def complete_flashcard_session(
             )
         )
 
-    # 10. UPDATE user_progress summary
+    # 9. UPDATE user_progress summary (unique decks only)
     progress = await update_user_progress(
         session,
         user.id,
         xp_delta=xp_earned,
-        flashcards_delta=1,
+        flashcards_delta=1 if is_first else 0,
         badge_count_delta=len(new_badge_ids),
         current_streak=current_streak,
         longest_streak=longest_streak,
         last_activity_date=today,
     )
 
-    # 11. COMMIT
+    # 10. COMMIT
     await session.commit()
 
     # Invalidate caches

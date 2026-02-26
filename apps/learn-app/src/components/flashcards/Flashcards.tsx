@@ -12,7 +12,7 @@ import RatingButtons from "./RatingButtons";
 import { useFSRS } from "./useFSRS";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { useAuth } from "@/contexts/AuthContext";
+import { useOptionalAuth } from "@/contexts/AuthContext";
 import { completeFlashcardSession } from "@/lib/progress-api";
 import type { FlashcardCompleteResponse } from "@/lib/progress-types";
 import styles from "./Flashcards.module.css";
@@ -40,13 +40,8 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
     (siteConfig.customFields?.progressApiUrl as string) ||
     "http://localhost:8002";
 
-  let session: { user: { id: string } } | null = null;
-  try {
-    const auth = useAuth();
-    session = auth.session;
-  } catch {
-    // AuthProvider not available — treat as unauthenticated
-  }
+  const auth = useOptionalAuth();
+  const session = auth?.session ?? null;
 
   // Close fullscreen on Escape
   useEffect(() => {
