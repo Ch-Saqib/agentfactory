@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { getOAuthAuthorizationUrl } from "@/lib/auth-client";
 import { getHomeUrl } from "@/lib/url-utils";
@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import {
   User,
   LogOut,
-  Settings,
   RefreshCw,
   Trophy,
   Zap,
@@ -28,7 +27,7 @@ import Link from "@docusaurus/Link";
 import XPCounter from "@/components/progress/XPCounter";
 
 export function NavbarAuth() {
-  const { session, isLoading, signOut, refreshUserData } = useAuth();
+  const { session, isLoading, signOut } = useAuth();
   const { siteConfig } = useDocusaurusContext();
   const credits = useCredits();
   const { progress } = useProgress();
@@ -77,20 +76,8 @@ export function NavbarAuth() {
   };
 
   const handleEditProfile = () => {
-    const currentUrl =
-      typeof window !== "undefined" ? window.location.href : "";
-    const profileUrl = `${authUrl}/account/profile?redirect=${encodeURIComponent(currentUrl)}`;
-    localStorage.setItem("ainative_refresh_on_return", "true");
-    window.location.href = profileUrl;
+    window.location.href = "/profile";
   };
-
-  useEffect(() => {
-    const shouldRefresh = localStorage.getItem("ainative_refresh_on_return");
-    if (shouldRefresh === "true" && session?.user) {
-      localStorage.removeItem("ainative_refresh_on_return");
-      refreshUserData();
-    }
-  }, [session]);
 
   if (isLoading) {
     return <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />;
@@ -239,8 +226,8 @@ export function NavbarAuth() {
               onClick={handleEditProfile}
               className="cursor-pointer"
             >
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Edit Profile</span>
+              <User className="mr-2 h-4 w-4" />
+              <span>Learning Profile</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => signOut()}
