@@ -228,16 +228,7 @@ indent-style = "space"
 
 Ruff does two jobs: **linting** (finding mistakes and bad habits in your code) and **formatting** (making your code look consistent). `line-length = 88` means no line of code should be longer than 88 characters — long lines are hard to read. `target-version = "py312"` tells ruff your project uses Python 3.12.
 
-The `select` list tells ruff which categories of problems to look for. Each letter is a code for a category:
-
-| Code | Name | What It Catches |
-|------|------|-----------------|
-| `"E"` | pycodestyle Errors | Basic style problems — wrong spacing, bad indentation |
-| `"F"` | pyFlakes | Real bugs — unused imports, undefined variables, code that cannot run |
-| `"I"` | isort | Import ordering — keeps your `import` lines organized alphabetically |
-| `"UP"` | pyUpgrade | Old Python syntax — suggests modern replacements available in Python 3.12 |
-| `"B"` | Bugbear | Subtle bugs — common mistakes that Python allows but usually cause problems |
-| `"SIM"` | Simplify | Unnecessary complexity — code that can be written in a simpler way |
+The `select` list tells ruff which categories of problems to look for. Each letter code enables a different category of checks — `"E"` for style errors, `"F"` for real bugs like unused imports, `"I"` for import ordering, and so on. You will see exactly what each prefix catches in Lesson 4, when you run ruff and read its output for the first time.
 
 The `[tool.ruff.format]` section controls how ruff formats your code: double quotes around strings (`"hello"` not `'hello'`) and spaces for indentation (not tabs).
 
@@ -324,6 +315,8 @@ For reference, here is every section in the final `pyproject.toml` and what it c
 | `[tool.pytest.ini_options]` | Test runner configuration: options, test paths | Pytest-specific |
 
 The `[project]` and `[dependency-groups]` sections follow Python standards that all tools agree on. The `[tool.*]` sections follow a convention: each tool gets its own namespace under `[tool]`, so configurations never collide.
+
+**Quick Check**: Look at the `[tool.ruff.lint]` section above. If you wanted ruff to stop checking import order, which code would you remove from the `select` list? (Hint: one of the six letters controls import sorting.)
 
 ## Anti-Patterns
 

@@ -146,7 +146,7 @@ You may know Python as "dynamically typed" -- a language where variables can hol
 | Aspect | Detail |
 |--------|--------|
 | **Creator** | Microsoft |
-| **Version** | 1.1.408 |
+| **Version** | Check with `uv run pyright --version` |
 | **Speed** | Analyzes most projects in under a second |
 | **Modes** | off, basic, standard (default), strict |
 | **Configuration** | `[tool.pyright]` section in `pyproject.toml` |

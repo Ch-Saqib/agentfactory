@@ -163,6 +163,8 @@ tests/test_main.py .                                             [100%]
 
 That single dot is the most important character in this lesson. It means: one test ran, one test passed, your code does what the specification says it should.
 
+**Read and Predict**: If you changed `main()` to return `"Hello from SmartNotes!"` (capital S) instead of `"Hello from smartnotes!"` (lowercase s), would the test pass or fail? What character would pytest display instead of the dot? What would the `E` lines in the failure output show?
+
 ### Step 3: Read Pass/Fail Output
 
 To see what a failure looks like, temporarily change the expected value in the test:
