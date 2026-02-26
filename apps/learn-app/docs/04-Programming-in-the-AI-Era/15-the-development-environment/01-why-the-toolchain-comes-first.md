@@ -242,6 +242,18 @@ of how the tool enforces that axiom in daily development.
 
 ---
 
+## Preview: Check Your Starting Point
+
+Before moving on, open your terminal and type:
+
+```bash
+uv --version
+```
+
+If you see a version number like `uv 0.6.x`, uv is already installed and you are ahead of the curve. If you see "command not found" or "'uv' is not recognized," that is exactly what Lesson 2 will fix. Either way, you have just run your first workbench command -- and that is the bridge from understanding the tools to using them.
+
+---
+
 ## Looking Ahead
 
 You now understand why the toolchain comes first and what each tool in the workbench does. The next step is to install the first and most foundational tool: **uv**, the package manager that replaces pip, pyenv, poetry, and virtualenv with a single command.
