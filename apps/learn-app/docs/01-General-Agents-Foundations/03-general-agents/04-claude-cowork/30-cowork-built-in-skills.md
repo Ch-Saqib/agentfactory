@@ -60,7 +60,7 @@ differentiation:
 # Generation metadata
 generated_by: "content-implementer v2.0.0"
 created: "2025-01-22"
-last_modified: "2025-01-22"
+last_modified: "2026-02-26"
 git_author: "Claude Code"
 workflow: "manual"
 version: "1.0.0"
@@ -116,6 +116,13 @@ Built-in Skills are domain-specific capabilities Anthropic has developed and opt
 | **pdf**  | .pdf       | Extract text and structure from PDFs     |
 
 These Skills are pre-installed—you don't need to create or configure them. They're automatically available when working with these file types in Cowork.
+
+The Skills library continues to grow. Beyond the four document-focused Skills detailed in this lesson, Cowork now includes:
+
+- **canvas-design** — Create and edit visual designs and diagrams directly in Cowork
+- **skill-creator** — Build custom Skills from within Cowork itself (a meta-skill for creating new Skills without leaving the interface)
+
+An open-source community is also building and sharing Skills at [github.com/anthropics/skills](https://github.com/anthropics/skills), which means the Skills ecosystem extends well beyond Anthropic's built-in offerings.
 
 ---
 
@@ -301,6 +308,8 @@ These Skills are pre-installed—you don't need to create or configure them. The
 - You need consistent reasoning patterns
 - Built-in capabilities don't cover your use case
 - You want to encode expertise that applies across document types
+
+**Skills within the broader Plugin architecture:** Skills are now one component within Cowork's Plugin system. A Plugin can bundle multiple Skills together with Connectors and slash commands into a complete workflow package. For example, a "Legal Review" Plugin might combine the built-in docx Skill with a custom contract-analysis Skill and a court-filing Connector. See Lesson 26 for how Plugins, Skills, and Connectors fit together.
 
 **Example combination:**
 

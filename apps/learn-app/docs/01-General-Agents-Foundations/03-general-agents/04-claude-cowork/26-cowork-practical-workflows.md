@@ -56,7 +56,7 @@ differentiation:
 # Generation metadata
 generated_by: "content-implementer v2.0.0"
 created: "2025-01-22"
-last_modified: "2025-01-22"
+last_modified: "2026-02-26"
 git_author: "Claude Code"
 workflow: "manual"
 version: "1.0.0"
@@ -132,7 +132,7 @@ Setup is complete. Now let's see what Claude Cowork can actually _do_. These wor
 **What Claude Does:**
 
 1. **Identifies** all video files in the folder
-2. **Converts** each file to the target format using FFmpeg
+2. **Converts** each file to the target format using FFmpeg (Note: This workflow requires FFmpeg to be installed on your system. Claude uses your local tools for media processing.)
 3. **Compresses** each converted file to the target size reduction
 4. **Tracks** metrics for each operation
 5. **Generates** a CSV report with the conversion log
@@ -248,6 +248,10 @@ To design effective Cowork workflows for your work:
 - Did the workflow produce the expected result?
 - What would you adjust for next time?
 - Can the workflow be generalized for similar tasks?
+
+### Scheduled and Recurring Tasks
+
+Cowork now supports scheduled tasks -- you can set up workflows to run automatically on a schedule. For example: "Run this report every Monday morning" or "Organize my Downloads folder every Friday." This turns one-time workflows into ongoing automation, so the tasks you design above don't just run once -- they become persistent processes that keep working for you.
 
 ---
 

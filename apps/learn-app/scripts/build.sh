@@ -39,15 +39,12 @@ npx docusaurus build --locale en
 echo "==> Building locale: ur"
 npx docusaurus build --locale ur --out-dir build-ur
 
-# Merge: Docusaurus puts non-default locale at <outDir>/ur/ for single-domain
-# deployment. Copy it into the main build directory.
-if [ -d "build-ur/ur" ]; then
-  cp -r build-ur/ur build/ur
-else
-  # Fallback: if ur content is at root of build-ur (no subdirectory)
-  mkdir -p build/ur
-  cp -r build-ur/* build/ur/
-fi
+# Merge: when building a single non-default locale, Docusaurus outputs
+# everything at the ROOT of the output dir (not in a ur/ subdirectory).
+# The en build expects ur content at build/ur/, so move the entire ur
+# output there.
+mkdir -p build/ur
+cp -r build-ur/* build/ur/
 rm -rf build-ur
 
 echo "==> Build complete (en + ur merged into build/)"

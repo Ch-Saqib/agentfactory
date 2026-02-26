@@ -42,7 +42,7 @@ learning_objectives:
 # Cognitive load tracking
 cognitive_load:
   new_concepts: 5
-  assessment: "5 concepts (dedicated workspaces, prompt injection risk, session limitations, Knowledge Bases, unified UI) - within A2 limit of 7 ✓"
+  assessment: "5 concepts (dedicated workspaces, prompt injection risk, general memory vs Knowledge Bases, Plugins ecosystem, unified UI) - within A2 limit of 7"
 
 # Differentiation guidance
 differentiation:
@@ -52,10 +52,10 @@ differentiation:
 # Generation metadata
 generated_by: "content-implementer v2.0.0"
 created: "2025-01-22"
-last_modified: "2025-01-22"
+last_modified: "2026-02-26"
 git_author: "Claude Code"
 workflow: "manual"
-version: "1.0.0"
+version: "1.1.0"
 
 teaching_guide:
   lesson_type: "core"
@@ -64,15 +64,15 @@ teaching_guide:
   key_points:
     - "Dedicated workspaces are the primary security boundary — granting access to the wrong folder is the highest-risk mistake a new user can make"
     - "Prompt injection is content in files that manipulates Claude's behavior — students must understand this is a real attack vector, not theoretical"
-    - "Current limitations (no persistent memory, no projects, macOS-only) are temporary — Knowledge Bases and unified UI are on the roadmap"
+    - "General memory (launched September-October 2025) captures preferences and key facts across sessions, but detailed session replay and structured knowledge repositories are not yet available"
     - "The approval workflow is the safety net: read the plan, review file lists, check for red flags before clicking approve"
   misconceptions:
-    - "Students assume Claude remembers previous Cowork sessions — each session starts completely fresh with no memory"
+    - "Students assume Claude remembers nothing between sessions — general memory (launched September 2025 for Team/Enterprise, October 2025 for Pro/Max) captures preferences and key facts automatically, but detailed session content is not replayed"
     - "Students think prompt injection only applies to hackers — any file from an untrusted source (email attachment, downloaded template) can contain injection attempts"
     - "Students believe current limitations mean Cowork is not production-ready — it is highly capable within its current scope, and limitations are being actively addressed"
   discussion_prompts:
     - "What files on your computer would you never want Claude to access, and how would you organize your workspace to prevent accidental exposure?"
-    - "If Cowork had persistent memory via Knowledge Bases today, how would that change the way you structure your work across sessions?"
+    - "If Cowork had Knowledge Bases today, how would that change the way you structure your work across sessions?"
     - "Have you ever granted an app too many permissions and regretted it — what lesson does that teach about Cowork folder access?"
   teaching_tips:
     - "Use the prompt injection example ('Ignore all previous instructions...') as a live demonstration — show students how content in a file could manipulate behavior"
@@ -171,40 +171,45 @@ Cowork is powerful but has constraints. Understanding them prevents frustration:
 
 ### 1. No Project Support (Currently)
 
-Claude Code has projects—persistent contexts that remember configuration, tools, and working state across sessions. Cowork doesn't yet.
+Claude Code has projects -- persistent contexts that remember configuration, tools, and working state across sessions. Cowork doesn't yet have this structured project support.
 
 **What this means:**
 
-- Each session starts fresh
-- You may need to re-establish context
 - File access permissions reset between sessions
+- You may need to re-establish context for complex tasks
 
-**Workaround:** Create a `project-context.md` file in each workspace with:
+**Partial solution -- general memory:** Claude's general memory (available on Pro, Max, Team, and Enterprise plans since late 2025) automatically captures your preferences, project conventions, and frequently referenced information across sessions. This means Claude will remember things like "this user prefers TypeScript" or "their project uses FastAPI" without being told each time. However, general memory does not provide structured project contexts like Claude Code's `CLAUDE.md` files.
+
+**Workaround for detailed context:** Create a `project-context.md` file in each workspace with:
 
 - Project description
 - Common conventions
 - Frequently used instructions
 
-### 2. No Memory Between Sessions
+This complements general memory by providing the detailed, project-specific context that automatic memory doesn't capture.
 
-Claude doesn't remember previous Cowork sessions. Each conversation is independent.
+### 2. Memory: What Works and What's Coming
 
-**What this means:**
+Claude's memory capabilities have evolved significantly. Here is what exists today and what is still on the horizon:
 
-- You can't reference "what we did yesterday" without context
-- Long-running multi-session workflows require manual handoff
-- Learnings don't automatically transfer
+**General memory (available now):** Launched in September 2025 for Team and Enterprise plans, and expanded to Pro and Max users in October 2025, general memory allows Claude to automatically retain key information across conversations:
 
-**Workaround:** End each session by summarizing what was done in a notes file. Start the next session by having Claude read that file.
+- Your preferences and working style
+- Project patterns and conventions
+- Key facts you've shared (tools you use, languages you prefer)
+- Important context from past conversations
 
-### 3. Platform Availability
+**What general memory does not do:**
 
-**Current:** macOS only
-**Coming:** Windows support (in development)
+- It does not replay full session transcripts -- you cannot ask "what exactly did we discuss on Tuesday"
+- It does not provide structured, searchable knowledge repositories
+- It does not guarantee retention of every detail -- it captures what it determines is most relevant
 
-**Implication:** If you work across platforms, you can only use Cowork on your Mac currently.
+**Knowledge Bases (still coming):** These will be dedicated, topic-specific persistent repositories that you curate and organize. Unlike general memory (which is automatic), Knowledge Bases will let you deliberately index documents and maintain structured reference material for Claude to search.
 
-### 4. File Size Limits
+**Workaround for detailed session continuity:** End each session by summarizing what was done in a notes file. Start the next session by having Claude read that file. This remains useful for detailed project context beyond what general memory captures.
+
+### 3. File Size Limits
 
 Very large files may timeout or fail to process:
 
@@ -214,7 +219,7 @@ Very large files may timeout or fail to process:
 
 **Workaround:** Break large files into smaller chunks or use specialized tools for very large datasets.
 
-### 5. Rate Limits on External Services
+### 4. Rate Limits on External Services
 
 When using Connectors, external APIs have rate limits:
 
@@ -233,48 +238,44 @@ Anthropic is actively developing Cowork. Here's what to expect:
 
 ### Knowledge Bases
 
-**The limitation:** Cowork currently has no persistent memory. Each session starts fresh.
+**The gap:** General memory captures preferences and patterns automatically, but you cannot yet curate structured reference libraries for Claude to search.
 
 **The solution:** Knowledge Bases will let you:
 
 - Index folders and documents for persistent retrieval
 - Query across all your documents without re-reading
-- Build a "second brain" that Claude can reference
-- Maintain context across sessions
+- Build a "second brain" that Claude can reference on demand
+- Maintain topic-specific knowledge repositories separate from general memory
 
-**Impact:** You'll be able to ask "What did I decide about X last month?" and Claude will search your Knowledge Base instead of starting from zero.
+**Impact:** You'll be able to ask "What did I decide about X last month?" and Claude will search your curated Knowledge Base, combining it with what general memory already knows about your preferences.
 
-### Unified UI
+### Unified UI (In Progress)
 
-**Current state:** Separate interfaces for Code (terminal) and Cowork (desktop).
+**Current state:** The Claude Desktop app now includes a Code tab alongside Chat and Cowork, meaning all three interfaces share one application.
 
-**Coming:** Unified experience where you can:
+**Still coming:** Deeper integration where you can:
 
-- Switch between terminal and desktop modes seamlessly
-- Use Skills across both interfaces without configuration
-- Have consistent settings and context
+- Switch between terminal and desktop modes more seamlessly
+- Use Skills across both interfaces without separate configuration
+- Have fully consistent settings and context across all modes
 
-**Impact:** Less context switching, more fluid workflows.
+**Impact:** Less context switching, more fluid workflows. The shared application is the first step; tighter integration is ongoing.
 
-### Expanded Connectors
+### Expanded Connectors and Plugins (Delivered)
 
-**Current:** ~20 major services (Google Workspace, Notion, Slack, etc.)
+**Current:** Over 50 connectors are now available in the Connectors Directory, spanning productivity, communication, design, engineering, finance, and healthcare.
 
-**Coming:** Broader support including:
+**New -- Plugins:** Anthropic introduced a Plugins layer that bundles connectors with skills and workflows. Prebuilt plugin templates cover HR, design, engineering, operations, financial analysis, and more. In February 2026, 13 new enterprise connectors shipped covering Google Workspace (Drive, Calendar, Gmail), DocuSign, Apollo, and others.
 
-- More CRMs and business tools
-- Specialized data sources
-- Industry-specific platforms
-
-**Impact:** Fewer manual exports and imports, more direct access to data where it lives.
+**Impact:** The connector ecosystem is now broad enough for most professional workflows. If your tools aren't covered, MCP connectors let you build custom integrations.
 
 ### Enhanced Multi-Modal Capabilities
 
-**Current:** Strong text and document processing.
+**Current:** Strong text and document processing, with improved image understanding in Cowork.
 
 **Coming:** Better handling of:
 
-- Image analysis and manipulation
+- Advanced image analysis and manipulation
 - Audio transcription and analysis
 - Video content understanding
 
@@ -298,15 +299,15 @@ Understanding what's coming helps you plan:
 
 **Short-term (next 3 months):**
 
-- Focus on current capabilities
+- Take advantage of general memory and the 50+ connectors already available
 - Build foundational Skills that work across Code and Cowork
 - Establish workspace organization practices
 
 **Medium-term (6-12 months):**
 
 - Prepare for Knowledge Bases by organizing documents meaningfully
-- Design workflows that will benefit from persistent memory
-- Identify processes ready for team collaboration features
+- Explore Plugins for team workflows and domain-specific automation
+- Design workflows that will benefit from structured persistent memory
 
 **Long-term:**
 
@@ -320,38 +321,37 @@ Understanding what's coming helps you plan:
 
 **Wait if:**
 
-- You need persistent memory across sessions (Knowledge Bases coming)
-- You're on Windows (Windows support in development)
+- You need structured, searchable knowledge repositories (Knowledge Bases coming)
 - You need team collaboration features (on the roadmap)
+- You're on Linux (no official desktop support yet)
 
 **Proceed if:**
 
-- You work primarily on macOS
+- You work on macOS or Windows
 - You have file organization or document processing needs
 - You want to learn the patterns that will apply to future features
 
-**The key insight:** Learning Cowork patterns isn't wasted time, even if specific features are coming. The mental model—agentic AI, filesystem access, Skills, approval workflows—will remain relevant as capabilities expand.
+**The key insight:** Learning Cowork patterns isn't wasted time, even if specific features are coming. The mental model -- agentic AI, filesystem access, Skills, approval workflows -- will remain relevant as capabilities expand.
 
 ## Try With AI
 
-\*\*🔍 Audit Your Workspace:"
+\*\*Audit Your Workspace:"
 
 > "Review my current file structure. Are there sensitive documents mixed with project files? What should I reorganize before using Claude Cowork more extensively? Help me create a safer workspace layout."
 
-**What you're learning:** Security-minded organization—structuring your work for safe AI collaboration. Good workspace design prevents accidents.
+**What you're learning:** Security-minded organization -- structuring your work for safe AI collaboration. Good workspace design prevents accidents.
 
-\*\*💡 Plan Around Limitations:"
+\*\*Plan Around Current Capabilities:"
 
-> "Based on Cowork's current limitations (no persistent memory, no projects), how should I organize my work? What files or documentation would help maintain context between sessions? Create a template."
+> "Based on Cowork's current capabilities -- general memory for preferences, 50+ connectors, but no Knowledge Bases yet -- how should I organize my work? What files or documentation would help maintain detailed context between sessions? Create a template that complements what general memory already captures."
 
-**What you're learning:** Working within constraints—designing processes that work effectively given current capabilities while preparing for future enhancements.
+**What you're learning:** Working within constraints -- designing processes that leverage what exists today (general memory, connectors, plugins) while preparing for what's next (Knowledge Bases, deeper integration).
 
 \*\*🏗️ Prepare for Upcoming Features:"
 
 > "Knowledge Bases are coming. How should I organize my documents now to prepare? What folder structure, naming conventions, and document organization would make future AI retrieval more effective?"
 
 **What you're learning:** Forward-thinking organization—structuring work not just for today's use but for future AI capabilities. Good document organization serves both human and AI needs.
-
 
 ## Flashcards Study Aid
 

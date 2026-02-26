@@ -56,7 +56,7 @@ differentiation:
 # Generation metadata
 generated_by: "content-implementer v2.0.0"
 created: "2025-01-22"
-last_modified: "2025-01-22"
+last_modified: "2026-02-26"
 git_author: "Claude Code"
 workflow: "manual"
 version: "1.0.0"
@@ -81,6 +81,7 @@ teaching_guide:
     - "Students think Claude can handle multi-factor authentication or CAPTCHAs automatically -- the limitations section lists these as known issues requiring manual intervention"
     - "Students activate the extension on all sites by default -- the security section recommends selective activation and excluding sensitive sites like banking and password managers"
     - "Students confuse browser integration with web scraping tools -- Claude's browser integration requires explicit user initiation and approval, not autonomous background crawling"
+    - "Students think Chrome is required for Claude Desktop to work -- the extension is an optional enhancement that adds browser automation capabilities; Claude Desktop works fully without it"
   discussion_prompts:
     - "The lesson lists email cleanup and data extraction as primary use cases. What web-based tasks in your work involve repetitive clicking and typing that browser automation could handle?"
     - "The security section recommends excluding banking sites. What other categories of sites would you exclude, and what principle guides your decision?"
@@ -103,13 +104,19 @@ Your documents and files are one part of your work. The web is another. Research
 
 ## What Browser Integration Enables
 
-With the Claude Chrome extension, Claude can:
+With the Claude Chrome extension (currently in beta), Claude can:
 
 - **Read the current page** to understand context
 - **Navigate between pages** following links and patterns
 - **Extract structured data** from websites
 - **Fill forms and submit inputs** based on your instructions
 - **Clean up web-based interfaces** like email inboxes
+- **Schedule browser tasks** for recurring automation (e.g., "check this dashboard every Monday")
+- **Record workflow steps** -- record once, Claude repeats the sequence
+- **Multi-tab workflows** -- drag tabs into Claude's tab group for batch processing
+- **Planning mode** -- approve a multi-step plan, then Claude executes uninterrupted
+- **Smart navigation** for popular apps like Slack, Google Calendar, Gmail, and GitHub
+- **Reusable `/slash` command shortcuts** for frequent browser actions
 
 The extension creates a bridge between Claude's reasoning and your browser's rendering engine. Claude can see what you see and take action on your behalf.
 
@@ -124,16 +131,20 @@ The extension creates a bridge between Claude's reasoning and your browser's ren
 3. Click "Add to Chrome" and confirm the installation
 4. Pin the extension to your toolbar for easy access
 
-### Step 2: Connect to Claude Desktop
+### Step 2: Pair with Claude Desktop
 
-The extension needs to communicate with Claude Desktop:
+The extension is an **optional pairing tool** that extends Claude Desktop's capabilities to the browser. Claude Desktop works fully without the extension -- the extension adds browser automation on top.
+
+To pair them:
 
 1. Open Claude Desktop
 2. In the extension popup, click "Connect to Desktop"
 3. Approve the connection request
 4. Verify the connection status shows "Connected"
 
-The extension acts as a remote control—Claude Desktop does the actual reasoning, while the extension executes browser actions.
+The extension acts as a remote control -- Claude Desktop does the actual reasoning, while the extension executes browser actions.
+
+> **Model availability:** Pro users get Haiku 4.5 for browser automation. Max, Team Premium, and Enterprise users can choose their model (Haiku 4.5, Sonnet 4.5, or Opus 4.5) based on task complexity.
 
 ### Step 3: Grant Permissions
 
@@ -278,6 +289,10 @@ Be cautious with:
 
 When you finish a browser automation task, consider deactivating the extension. This prevents accidental interactions.
 
+**5. Enterprise Controls**
+
+Enterprise and Team administrators can set allowlists and blocklists to control which websites the extension can access across their organization. If your organization manages the extension centrally, your admin determines which sites are permitted.
+
 ---
 
 ## Limitations and Known Issues
@@ -318,8 +333,7 @@ When you finish a browser automation task, consider deactivating the extension. 
 
 ## What's Next
 
-Browser integration extends Claude's reach to web-based workflows. But there's another extension point: Connectors, which integrate external data sources and services directly into Cowork. The next lesson explores how Connectors enable Cowork to work with data beyond your local files and the open web.
-
+Browser integration extends Claude's reach to web-based workflows. But there's another extension point: Plugins and Connectors, which integrate external data sources and services directly into Cowork. The next lesson explores how Plugins and Connectors enable Cowork to work with data beyond your local files and the open web.
 
 ## Flashcards Study Aid
 

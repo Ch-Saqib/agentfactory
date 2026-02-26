@@ -1,0 +1,142 @@
+deck:
+  id: "ch03-cowork-practical-workflows"
+  title: "Cowork in Action: Practical Workflows"
+  description: "Flashcards covering Claude Cowork practical workflow patterns, four-step workflow design, efficiency metrics, scheduled tasks, and common pitfalls."
+  tags: [cowork, workflows, automation, file-operations, batch-processing]
+  version: 2
+
+cards:
+  - id: "ch03-cowork-practical-workflows-001"
+    type: recall
+    front: "What are the four workflow patterns that make Claude Cowork effective across all task types?"
+    back: "Explore First\nPropose Then Execute\nHandle Variation\nReport Results"
+    tags: [workflow-patterns]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-practical-workflows-002"
+    type: thinking
+    front: "Why does the Explore First pattern lead to more accurate Cowork execution?"
+    back: "BECAUSE scanning folders, reading file headers, and identifying structure first means Cowork understands actual data before acting, THEREFORE avoiding errors that stem from wrong assumptions about file types or organization."
+    why: "What could break if Cowork skipped the exploration phase and acted on assumptions?"
+    tags: [workflow-patterns, accuracy]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-003"
+    type: thinking
+    front: "Why is the Propose Then Execute pattern critical for deletion operations in particular?"
+    back: "BECAUSE deleted files cannot be easily restored, showing a proposal first lets you catch misinterpretations before they cause data loss, THEREFORE turning a potentially irreversible action into a reversible review step."
+    why: "How does this pattern change your risk exposure when automating file operations?"
+    tags: [workflow-patterns, safety]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-004"
+    type: recall
+    front: "What are the four steps in designing your own Cowork workflow?"
+    back: "Identify repetitive tasks\nClarify desired outcome\nProvide context and constraints\nReview and refine"
+    tags: [workflow-design]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-practical-workflows-005"
+    type: recall
+    front: "In Workflow 1, what result did Cowork achieve on a cluttered Downloads folder?"
+    back: "186 files organized in 45 seconds, with 23 temporary files removed."
+    tags: [efficiency, file-organization]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-practical-workflows-006"
+    type: recall
+    front: "What system tool does Cowork require to be pre-installed for the batch video conversion workflow?"
+    back: "FFmpeg (not built into Cowork)."
+    tags: [batch-processing, tools]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-007"
+    type: recall
+    front: "What four sections does Workflow 3 specify for the weekly finance report Word document?"
+    back: "Executive summary\nTop 10 vendors table\nNotable changes\nSpend distribution charts"
+    tags: [report-generation, workflow-design]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-008"
+    type: thinking
+    front: "Why is consistency a distinct business value of automated report generation, beyond the time saved?"
+    back: "BECAUSE automated reports follow identical format and calculations every time, reviewers can focus on interpreting insights rather than verifying mechanics, THEREFORE reducing errors and enabling reliable comparison across reporting periods."
+    why: "How does format consistency change what a human reviewer actually does during review?"
+    tags: [report-generation, business-value]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-practical-workflows-009"
+    type: thinking
+    front: "How did Lenny Rachitsky use Cowork to produce one of his most-read articles?"
+    back: "He analyzed hundreds of startup growth podcast transcripts, BECAUSE Cowork extracted patterns and counterintuitive insights across the full corpus, THEREFORE producing a research report that would have taken weeks of manual reading and note-taking."
+    why: "Why does synthesizing across 100+ sources produce different insights than reading 10 sources deeply?"
+    tags: [content-analysis, citations]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-practical-workflows-010"
+    type: recall
+    front: "How much faster does Cowork complete research synthesis compared to manual work, according to the efficiency table?"
+    back: "144x faster: 3+ days reduced to 30 minutes."
+    tags: [efficiency, research]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-practical-workflows-011"
+    type: thinking
+    front: "Why does the efficiency table label Downloads organization as '2 hours (never)' rather than just '2 hours'?"
+    back: "BECAUSE tasks that are theoretically doable but realistically never attempted represent zero actual value, automation doesn't just speed them up — it makes them feasible, THEREFORE unlocking work that otherwise never happens."
+    why: "What other categories of work fall into the 'never gets done' bucket in most organizations?"
+    tags: [automation-value, efficiency]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-practical-workflows-012"
+    type: recall
+    front: "What four common pitfalls does the lesson warn about when designing Cowork workflows?"
+    back: "Vague instructions\nMissing approval review\nNo backup strategy\nOverly complex initial requests"
+    tags: [pitfalls, best-practices]
+    difficulty: "basic"
+
+  - id: "ch03-cowork-practical-workflows-013"
+    type: thinking
+    front: "Why does 'clean up this folder' produce worse Cowork results than 'organize by type into subfolders'?"
+    back: "Vague instructions leave Claude guessing at intent, THEREFORE producing unpredictable results. Specific instructions define the exact outcome BECAUSE Claude needs explicit criteria to match expectations — it cannot infer your preferences."
+    why: "What makes specificity especially critical when delegating to an AI agent versus a human assistant?"
+    tags: [pitfalls, prompt-design]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-014"
+    type: thinking
+    front: "Why does the lesson recommend starting with simpler workflows before adding multi-step complexity?"
+    back: "BECAUSE complex workflows compound errors across each step, verifying simple operations in isolation first ensures each component works correctly, THEREFORE building reliable building blocks before combining them."
+    why: "How does incremental complexity reduce debugging effort when something goes wrong?"
+    tags: [pitfalls, workflow-design]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-015"
+    type: recall
+    front: "What feature does Cowork support that turns one-time workflows into persistent, ongoing automation?"
+    back: "Scheduled and recurring tasks (e.g., 'run every Monday morning')."
+    tags: [scheduled-tasks, automation]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-016"
+    type: thinking
+    front: "How does the Handle Variation pattern differ from the behavior of a traditional fixed automation script?"
+    back: "BECAUSE real files have inconsistent formats, naming, and missing metadata, Claude adapts its approach based on what it actually finds rather than assuming uniformity, THEREFORE handling edge cases that would cause rigid scripts to fail."
+    why: "In what scenario would Handle Variation provide the most decisive advantage over a script?"
+    tags: [workflow-patterns, adaptability]
+    difficulty: "advanced"
+
+  - id: "ch03-cowork-practical-workflows-017"
+    type: recall
+    front: "What speed improvement does the lesson report for batch video conversion?"
+    back: "48x faster: 8 hours manual reduced to 10 minutes automated."
+    tags: [efficiency, batch-processing]
+    difficulty: "intermediate"
+
+  - id: "ch03-cowork-practical-workflows-018"
+    type: thinking
+    front: "How does designing a Cowork prompt develop a transferable skill beyond Cowork itself?"
+    back: "BECAUSE decomposing manual work into desired outcomes, required inputs, and constraints is the same skill needed for any automation tool, THEREFORE practicing prompt design with Cowork builds a general capability applicable across platforms."
+    why: "What other automation contexts would benefit from the same decomposition skill?"
+    tags: [workflow-design, transferable-skills]
+    difficulty: "advanced"

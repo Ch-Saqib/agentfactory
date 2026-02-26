@@ -56,7 +56,7 @@ differentiation:
 # Generation metadata
 generated_by: "content-implementer v2.0.0"
 created: "2025-01-22"
-last_modified: "2025-01-22"
+last_modified: "2026-02-26"
 git_author: "Claude Code"
 workflow: "manual"
 version: "1.0.0"
@@ -64,8 +64,8 @@ version: "1.0.0"
 # Legacy compatibility (Docusaurus)
 prerequisites:
   - "Completion of Lesson 22: From Terminal to Desktop"
-  - "macOS computer (Windows support coming soon)"
-  - "Anthropic subscription (Pro or Max required for Cowork)"
+  - "macOS or Windows (x64) computer"
+  - "Anthropic subscription (Pro, Max, Team Premium, or Enterprise required for Cowork)"
 
 teaching_guide:
   lesson_type: "hands-on"
@@ -79,14 +79,14 @@ teaching_guide:
   misconceptions:
     - "Students grant access to their entire home directory for convenience -- the best practices section specifically warns against this and recommends dedicated workspace folders"
     - "Students think Cowork mode is always on -- they need to explicitly switch from Chat mode to Cowork mode, and the folder access panel confirms which mode is active"
-    - "Students expect Cowork to work on Windows -- the requirements table states macOS only with Windows support in development, which may cause frustration for some"
+    - "Students on Windows should ensure they have x64 architecture and admin privileges for initial setup -- Windows support launched February 2026"
   discussion_prompts:
     - "The approval workflow requires confirmation for writes but not reads. Why is this asymmetry the right default? When might you want reads to require approval too?"
     - "Compare the folder access permission model to how you grant app permissions on your phone. What design principles are shared?"
   teaching_tips:
     - "Have students create the test folder with the provided bash commands before class so setup does not consume session time"
     - "Walk through the approval workflow table as a security exercise: for each operation type, ask students what could go wrong without approval"
-    - "If Windows users are in the class, pair them with macOS users for live demonstrations, and use the troubleshooting section to set expectations"
+    - "If Windows users are in the class, ensure they have x64 architecture and admin privileges before class. Use the troubleshooting section for platform-specific setup issues"
     - "Use the 'Common First Tasks' table as a choose-your-own-adventure: let each student pick one task that matches their daily work and try it live"
   assessment_quick_check:
     - "Name the three panels in the Cowork interface and describe what each shows during a file organization task"
@@ -104,12 +104,12 @@ Claude Cowork transforms how you work with documents and files. But before you c
 
 Before you begin, ensure you have:
 
-| Requirement        | Details                                              |
-| ------------------ | ---------------------------------------------------- |
-| **Subscription**   | Claude Pro or Max (free tier doesn't include Cowork) |
-| **Platform**       | macOS (Windows support in development)               |
-| **Claude Desktop** | Latest version from claude.ai/download               |
-| **Work to do**     | Documents, files, or data you want to work with      |
+| Requirement        | Details                                                                                         |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| **Subscription**   | Claude Pro, Max, Team Premium, or Enterprise (free tier and Team Standard don't include Cowork) |
+| **Platform**       | macOS or Windows (x64)                                                                          |
+| **Claude Desktop** | Latest version from claude.ai/download                                                          |
+| **Work to do**     | Documents, files, or data you want to work with                                                 |
 
 **Why the subscription requirement?** Cowork's agentic capabilities—filesystem access, document processing, persistent context—require significant infrastructure. The Pro and Max tiers support this enhanced functionality.
 
@@ -120,20 +120,21 @@ Before you begin, ensure you have:
 ### Step 1: Install Claude Desktop
 
 1. Visit claude.ai/download
-2. Download the Claude Desktop app for macOS
+2. Download the Claude Desktop app for your platform (macOS or Windows)
 3. Install and launch the application
-4. Sign in with your Anthropic account (Pro or Max)
+4. Sign in with your Anthropic account (Pro, Max, Team Premium, or Enterprise)
 
 The Desktop app is your gateway to Cowork. Unlike the web interface, it has direct access to your filesystem with your permission.
 
 ### Step 2: Enable Cowork Mode
 
-In Claude Desktop, you'll see options for different interaction modes:
+Claude Desktop has three tabs across the top of the window:
 
-- **Chat mode**: Standard conversation (web-like behavior)
-- **Cowork mode**: Agentic mode with filesystem access
+- **Chat**: Standard conversation (web-like behavior)
+- **Cowork**: Agentic mode with filesystem access
+- **Code**: Developer-focused terminal interface
 
-Switch to Cowork mode when you want Claude to work with files. You'll know you're in Cowork mode when you see the folder access panel.
+Select the **Cowork** tab when you want Claude to work with files on your computer. You'll know you're in Cowork mode when you see the folder access panel.
 
 ### Step 3: Grant Folder Access
 
@@ -281,15 +282,21 @@ As you start using Cowork, keep these safety principles in mind:
 
 **Issue: Cowork mode doesn't appear**
 
-- Ensure you're on Pro or Max subscription
+- Ensure you're on Pro, Max, Team Premium, or Enterprise subscription
 - Update Claude Desktop to the latest version
 - Sign out and sign back in
 
 **Issue: Folder access denied**
 
-- Check macOS Privacy Settings (System Settings > Privacy & Security > Files and Folders)
-- Grant Claude Desktop permission to access the location
+- **macOS**: Check Privacy Settings (System Settings > Privacy & Security > Files and Folders) and grant Claude Desktop permission
+- **Windows**: Ensure you have admin privileges for the initial setup
 - Try granting access to a more specific folder
+
+**Issue: Claude Desktop won't launch on Windows**
+
+- Verify you are running Windows x64 (ARM is not supported)
+- Windows S Mode is not supported—switch to standard Windows first
+- Run the installer as Administrator if the initial install fails
 
 **Issue: Operations are slow**
 
@@ -324,7 +331,6 @@ As you start using Cowork, keep these safety principles in mind:
 ## What's Next
 
 Now that you're set up, the next lessons explore practical workflows: organizing files, processing documents, integrating with browsers, and using connectors. You'll see Cowork handle real-world tasks that save hours of manual work.
-
 
 ## Flashcards Study Aid
 

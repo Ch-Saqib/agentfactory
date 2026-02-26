@@ -1,0 +1,205 @@
+deck:
+  id: "ch03-safety-limitations"
+  title: "Safety, Limitations, and What's Coming"
+  description: "Flashcards covering Cowork safety practices, current limitations and workarounds, general memory, and upcoming features like Knowledge Bases and Plugins."
+  tags: ["cowork", "safety", "limitations", "roadmap", "prompt-injection", "general-memory"]
+  version: 2
+
+cards:
+  # --- RECALL CARDS (13) ---
+
+  - id: "ch03-safety-limitations-001"
+    type: recall
+    front: "What is the primary security boundary when using Claude Cowork?"
+    back: "Folder access — granting access only to specific project folders."
+    tags: ["safety", "workspace"]
+    difficulty: "basic"
+
+  - id: "ch03-safety-limitations-002"
+    type: recall
+    front: "What is prompt injection in the context of Claude Cowork?"
+    back: "Content in files that attempts to manipulate Claude's behavior."
+    tags: ["safety", "prompt-injection"]
+    difficulty: "basic"
+
+  - id: "ch03-safety-limitations-003"
+    type: recall
+    front: "What are the four red flags to watch for in Cowork's approval workflow?"
+    back: "Deleting unmentioned files\nModifying more files than expected\nOperations on unapproved folders\nNetwork requests to unknown destinations"
+    tags: ["safety", "approval-workflow"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-004"
+    type: recall
+    front: "What three steps should you take before running a bulk file operation in Cowork?"
+    back: "Back up the target folder\nTest on a small sample first\nVerify results before scaling up"
+    tags: ["safety", "backup"]
+    difficulty: "basic"
+
+  - id: "ch03-safety-limitations-005"
+    type: recall
+    front: "What does Claude's general memory automatically capture across Cowork sessions?"
+    back: "Preferences, working style, project patterns, and key facts you've shared."
+    tags: ["limitations", "memory", "general-memory"]
+    difficulty: "basic"
+
+  - id: "ch03-safety-limitations-006"
+    type: recall
+    front: "What should a project-context.md file in a Cowork workspace include?"
+    back: "Project description, common conventions, and frequently used instructions."
+    tags: ["limitations", "workaround"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-007"
+    type: recall
+    front: "Which desktop operating systems does Claude Cowork currently support?"
+    back: "macOS and Windows. Linux has no official desktop support yet."
+    tags: ["limitations", "platform"]
+    difficulty: "basic"
+
+  - id: "ch03-safety-limitations-008"
+    type: recall
+    front: "What will Knowledge Bases allow Cowork users to do that general memory cannot?"
+    back: "Index and curate structured reference libraries for Claude to search on demand."
+    tags: ["roadmap", "knowledge-bases"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-009"
+    type: recall
+    front: "What has the Unified UI delivered so far, and what is still coming?"
+    back: "Delivered: Code tab in Claude Desktop alongside Chat and Cowork.\nStill coming: Seamless mode switching and consistent settings across all interfaces."
+    tags: ["roadmap", "unified-ui"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-010"
+    type: recall
+    front: "What approximate file size may cause processing issues in Cowork?"
+    back: "Documents over 50MB."
+    tags: ["limitations", "file-size"]
+    difficulty: "basic"
+
+  - id: "ch03-safety-limitations-011"
+    type: recall
+    front: "What is the recommended workaround for maintaining detailed context between Cowork sessions?"
+    back: "Summarize work in a notes file at session end; have Claude read it next session."
+    tags: ["limitations", "workaround", "memory"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-023"
+    type: recall
+    front: "When did Claude's general memory launch, and for which plans?"
+    back: "September 2025 for Team and Enterprise; October 2025 for Pro and Max."
+    tags: ["memory", "general-memory", "roadmap"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-024"
+    type: recall
+    front: "What three things does Claude's general memory NOT do?"
+    back: "Replay full session transcripts\nProvide structured searchable knowledge repositories\nGuarantee retention of every detail"
+    tags: ["limitations", "memory", "general-memory"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-025"
+    type: recall
+    front: "What is the Plugins layer in Cowork's connector ecosystem?"
+    back: "Prebuilt bundles that combine connectors with skills and workflows for specific domains."
+    tags: ["roadmap", "plugins", "connectors"]
+    difficulty: "intermediate"
+
+  # --- THINKING CARDS (12) ---
+
+  - id: "ch03-safety-limitations-012"
+    type: thinking
+    front: "Why is granting home directory access to Cowork dangerous?"
+    back: "Home directories contain sensitive personal, financial, and confidential files. A broad operation like 'organize and delete old files' could destroy or expose critical data because the scope of access is far wider than intended."
+    why: "How would you organize a machine so that future AI access errors are contained to non-sensitive areas?"
+    tags: ["safety", "workspace"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-013"
+    type: thinking
+    front: "Why is prompt injection an everyday risk, not just a hacker technique?"
+    back: "Any file from an untrusted source — email attachments, downloaded templates — can contain hidden instructions. Because Cowork acts on file content, injection attempts reach users who never sought an adversarial encounter."
+    why: "What single mitigation practice reduces prompt injection risk most for typical office workers?"
+    tags: ["safety", "prompt-injection"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-014"
+    type: thinking
+    front: "Why should you start with read-only access when processing unknown files?"
+    back: "Unknown files may contain prompt injection attempts. Read-only access limits potential damage to disclosure rather than modification, giving you time to assess content safety before granting write permissions."
+    why: "How does layered access mirror defense-in-depth security principles?"
+    tags: ["safety", "prompt-injection"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-015"
+    type: thinking
+    front: "How does the approval workflow function as a safety net in Cowork?"
+    back: "Every file operation requires explicit user approval, so users can catch unexpected deletions, excessive modifications, or unapproved folder access before damage occurs. The human remains the authorizing decision point."
+    why: "What failure mode does the approval workflow not protect against?"
+    tags: ["safety", "approval-workflow"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-016"
+    type: thinking
+    front: "Why is learning Cowork patterns now valuable despite upcoming features?"
+    back: "The core mental model — agentic AI, filesystem access, Skills, approval workflows — persists across updates. Time invested in current patterns builds transferable expertise rather than throwaway knowledge."
+    why: "Which current Cowork concept is most likely to remain unchanged as new features ship?"
+    tags: ["roadmap", "learning"]
+    difficulty: "advanced"
+
+  - id: "ch03-safety-limitations-017"
+    type: thinking
+    front: "How would Knowledge Bases change multi-session Cowork workflows?"
+    back: "Persistent retrieval would replace manual context re-establishment. Users could ask 'What did I decide about X last month?' instead of maintaining workaround files or re-explaining project history each session."
+    why: "What kind of information would you prioritize curating in a Knowledge Base first?"
+    tags: ["roadmap", "knowledge-bases"]
+    difficulty: "advanced"
+
+  - id: "ch03-safety-limitations-018"
+    type: thinking
+    front: "A colleague says Cowork's lack of session memory is purely a weakness. What's the counterargument?"
+    back: "Session isolation limits blast radius. A compromised or manipulated session cannot carry its effects into future sessions, because each conversation starts completely fresh. The limitation is also a containment property."
+    why: "How does this tradeoff compare to how browsers handle tab isolation?"
+    tags: ["limitations", "safety", "memory"]
+    difficulty: "advanced"
+
+  - id: "ch03-safety-limitations-019"
+    type: thinking
+    front: "How should you organize documents now to prepare for Knowledge Bases?"
+    back: "Meaningful folder structures, consistent naming, and well-organized documents make future AI retrieval more effective. Knowledge Bases will index across folders, so today's organization directly shapes tomorrow's search quality."
+    why: "What organizational mistakes today would be hardest to fix once Knowledge Bases launch?"
+    tags: ["roadmap", "knowledge-bases", "organization"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-020"
+    type: thinking
+    front: "Why does Cowork require more caution than ChatGPT-style conversations?"
+    back: "Cowork has real filesystem access and can permanently modify files. Unlike chat errors you can ignore or regenerate, file operation mistakes can cause irreversible data loss — the stakes of a wrong approval are fundamentally different."
+    why: "What Cowork features exist specifically to reduce the cost of this higher risk?"
+    tags: ["safety", "agentic-ai"]
+    difficulty: "advanced"
+
+  - id: "ch03-safety-limitations-021"
+    type: thinking
+    front: "Why does project-context.md complement general memory rather than duplicate it?"
+    back: "General memory captures preferences and patterns automatically but not detailed project-specific context. A project-context.md file provides the structured, granular information — conventions, descriptions, instructions — that automatic memory doesn't guarantee to retain."
+    why: "What would you put in project-context.md that general memory would never reliably capture?"
+    tags: ["limitations", "workaround", "general-memory"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-022"
+    type: thinking
+    front: "How do rate limits on external APIs affect Cowork connector workflows?"
+    back: "Services like Google, Notion, and Slack impose request limits. Large-scale data operations must therefore be planned in batches to avoid hitting rate caps and causing workflow failures mid-operation."
+    why: "How would you design a Cowork workflow to gracefully handle a rate limit mid-task?"
+    tags: ["limitations", "connectors", "rate-limits"]
+    difficulty: "intermediate"
+
+  - id: "ch03-safety-limitations-026"
+    type: thinking
+    front: "A user says general memory makes Cowork's session notes workaround obsolete. Why is this wrong?"
+    back: "General memory captures preferences and patterns but does not replay session transcripts or guarantee every detail is retained. Detailed project context — exact decisions, recent changes, task state — still requires an explicit notes file."
+    why: "What category of information should always be written down rather than trusted to automatic memory?"
+    tags: ["limitations", "memory", "general-memory", "workaround"]
+    difficulty: "advanced"
