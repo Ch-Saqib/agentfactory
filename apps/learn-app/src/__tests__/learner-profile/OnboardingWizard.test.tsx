@@ -150,6 +150,7 @@ function renderWizard() {
 describe("OnboardingWizard", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    localStorage.clear();
     currentSession = { user: { id: "test-user" } };
     // Default: profile exists (empty)
     mockGetMyProfileOrNull.mockResolvedValue(emptyProfile);

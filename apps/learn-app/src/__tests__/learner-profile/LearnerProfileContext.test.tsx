@@ -103,6 +103,8 @@ const mockProfile: ProfileResponse = {
   updated_at: "2026-01-01T00:00:00Z",
 };
 
+const CACHE_KEY = "learner_profile_cache";
+
 // Test consumer component that displays context state
 function TestConsumer() {
   const { profile, isLoading, needsOnboarding } = useLearnerProfile();
@@ -143,6 +145,7 @@ function MutationConsumer() {
 describe("LearnerProfileContext", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    localStorage.clear();
     currentSession = { user: { id: "test-user" } };
     mockGetMyProfileOrNull.mockResolvedValue(mockProfile);
   });
@@ -341,5 +344,160 @@ describe("LearnerProfileContext", () => {
     await waitFor(() => {
       expect(screen.getByTestId("profile-name")).toHaveTextContent("New User");
     });
+  });
+
+  // ---- localStorage cache tests ----
+
+  it("uses cached profile from localStorage instead of API call", async () => {
+    // Pre-populate cache
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ profile: mockProfile, timestamp: Date.now() }),
+    );
+
+    render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("profile-name")).toHaveTextContent("Test User");
+    });
+
+    // No API call — served from cache
+    expect(mockGetMyProfileOrNull).not.toHaveBeenCalled();
+  });
+
+  it("fetches from API when cache is expired (TTL)", async () => {
+    // Pre-populate cache with old timestamp (31 min ago)
+    const expiredTimestamp = Date.now() - 31 * 60 * 1000;
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ profile: mockProfile, timestamp: expiredTimestamp }),
+    );
+
+    render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    // Should fall through to API since cache expired
+    await waitFor(() => {
+      expect(mockGetMyProfileOrNull).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("writes profile to localStorage after API fetch", async () => {
+    render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("profile-name")).toHaveTextContent("Test User");
+    });
+
+    // Cache should now exist
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY)!);
+    expect(cached.profile.name).toBe("Test User");
+    expect(cached.timestamp).toBeGreaterThan(0);
+  });
+
+  it("updates localStorage cache after mutation", async () => {
+    const updatedProfile = { ...mockProfile, name: "Mutated" };
+    mockUpdateMyProfile.mockResolvedValue(updatedProfile);
+
+    render(
+      <LearnerProfileProvider>
+        <MutationConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("profile-name")).toHaveTextContent("Test User");
+    });
+
+    await act(async () => {
+      screen.getByTestId("update-profile").click();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId("profile-name")).toHaveTextContent("Mutated");
+    });
+
+    // Cache updated with mutation response
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY)!);
+    expect(cached.profile.name).toBe("Mutated");
+  });
+
+  it("clears localStorage cache on sign-out", async () => {
+    const { rerender } = render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("profile-name")).toHaveTextContent("Test User");
+    });
+
+    // Cache should exist
+    expect(localStorage.getItem(CACHE_KEY)).not.toBeNull();
+
+    // Sign out
+    currentSession = null;
+    rerender(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    // Cache should be cleared
+    await waitFor(() => {
+      expect(localStorage.getItem(CACHE_KEY)).toBeNull();
+    });
+  });
+
+  it("does not cache when profile is null (no profile in DB)", async () => {
+    mockGetMyProfileOrNull.mockResolvedValue(null);
+
+    render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("needs-onboarding")).toHaveTextContent("true");
+    });
+
+    // Should NOT cache the absence of a profile
+    expect(localStorage.getItem(CACHE_KEY)).toBeNull();
+  });
+
+  it("handles corrupted cache gracefully (falls back to API)", async () => {
+    localStorage.setItem(CACHE_KEY, "not-valid-json{{{");
+
+    render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    // Should fall through to API
+    await waitFor(() => {
+      expect(mockGetMyProfileOrNull).toHaveBeenCalledTimes(1);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId("profile-name")).toHaveTextContent("Test User");
+    });
+
+    // Corrupted cache should be cleared and replaced
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY)!);
+    expect(cached.profile.name).toBe("Test User");
   });
 });

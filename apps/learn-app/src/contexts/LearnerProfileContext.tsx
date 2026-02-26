@@ -23,6 +23,57 @@ import type {
   OnboardingPhase,
 } from "@/lib/learner-profile-types";
 
+// =============================================================================
+// localStorage Cache
+// =============================================================================
+
+const CACHE_KEY = "learner_profile_cache";
+const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes
+
+interface CachedProfile {
+  profile: ProfileResponse;
+  timestamp: number;
+}
+
+function getCachedProfile(): ProfileResponse | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const cached: CachedProfile = JSON.parse(raw);
+    if (Date.now() - cached.timestamp > CACHE_TTL_MS) {
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+    return cached.profile;
+  } catch {
+    localStorage.removeItem(CACHE_KEY);
+    return null;
+  }
+}
+
+function setCachedProfile(profile: ProfileResponse): void {
+  try {
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ profile, timestamp: Date.now() }),
+    );
+  } catch {
+    // localStorage full or unavailable — ignore
+  }
+}
+
+function clearCachedProfile(): void {
+  try {
+    localStorage.removeItem(CACHE_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+// =============================================================================
+// Context
+// =============================================================================
+
 interface LearnerProfileContextType {
   profile: ProfileResponse | null;
   isLoading: boolean;
@@ -60,15 +111,32 @@ export function LearnerProfileProvider({
   const [hasAttemptedFetch, setHasAttemptedFetch] = useState(false);
   const fetchingRef = useRef(false);
 
+  // Helper: set profile in both React state and localStorage
+  const setProfileWithCache = useCallback((data: ProfileResponse) => {
+    setProfile(data);
+    setCachedProfile(data);
+  }, []);
+
   // Lazy trigger — called when context is consumed via useLearnerProfile
   const ensureProfileLoaded = useCallback(async () => {
     if (hasAttemptedFetch || fetchingRef.current || !session?.user) return;
     fetchingRef.current = true;
+
+    // Check localStorage cache first — avoids API call on hard refresh
+    const cached = getCachedProfile();
+    if (cached) {
+      setProfile(cached);
+      setNeedsOnboarding(false);
+      setHasAttemptedFetch(true);
+      fetchingRef.current = false;
+      return;
+    }
+
     setIsLoading(true);
     try {
       const data = await getMyProfileOrNull(apiUrl);
       if (data) {
-        setProfile(data);
+        setProfileWithCache(data);
         setNeedsOnboarding(false);
       } else {
         setNeedsOnboarding(true);
@@ -80,7 +148,7 @@ export function LearnerProfileProvider({
       setHasAttemptedFetch(true);
       fetchingRef.current = false;
     }
-  }, [hasAttemptedFetch, session?.user, apiUrl]);
+  }, [hasAttemptedFetch, session?.user, apiUrl, setProfileWithCache]);
 
   // Clear state on sign-out
   useEffect(() => {
@@ -89,16 +157,19 @@ export function LearnerProfileProvider({
       setNeedsOnboarding(false);
       setHasAttemptedFetch(false);
       fetchingRef.current = false;
+      clearCachedProfile();
     }
   }, [session?.user]);
 
+  // Force-refresh: clear cache, fetch fresh from API
   const refreshProfile = useCallback(async () => {
     if (!session?.user) return;
+    clearCachedProfile();
     setIsLoading(true);
     try {
       const data = await getMyProfileOrNull(apiUrl);
       if (data) {
-        setProfile(data);
+        setProfileWithCache(data);
         setNeedsOnboarding(false);
       } else {
         setProfile(null);
@@ -109,25 +180,25 @@ export function LearnerProfileProvider({
     } finally {
       setIsLoading(false);
     }
-  }, [session?.user, apiUrl]);
+  }, [session?.user, apiUrl, setProfileWithCache]);
 
   const updateProfile = useCallback(
     async (data: ProfileUpdateRequest): Promise<ProfileResponse> => {
       const updated = await updateMyProfile(apiUrl, data);
-      setProfile(updated);
+      setProfileWithCache(updated);
       setNeedsOnboarding(false);
       return updated;
     },
-    [apiUrl],
+    [apiUrl, setProfileWithCache],
   );
 
   const updateSectionFn = useCallback(
     async (section: string, data: unknown): Promise<ProfileResponse> => {
       const updated = await apiUpdateSection(apiUrl, section, data);
-      setProfile(updated);
+      setProfileWithCache(updated);
       return updated;
     },
-    [apiUrl],
+    [apiUrl, setProfileWithCache],
   );
 
   const completeOnboardingPhaseFn = useCallback(
@@ -136,21 +207,21 @@ export function LearnerProfileProvider({
       data?: unknown,
     ): Promise<ProfileResponse> => {
       const updated = await apiCompleteOnboardingPhase(apiUrl, phase, data);
-      setProfile(updated);
+      setProfileWithCache(updated);
       setNeedsOnboarding(false);
       return updated;
     },
-    [apiUrl],
+    [apiUrl, setProfileWithCache],
   );
 
   const createNewProfile = useCallback(
     async (data?: ProfileCreateRequest): Promise<ProfileResponse> => {
       const created = await createProfile(apiUrl, data || {});
-      setProfile(created);
+      setProfileWithCache(created);
       setNeedsOnboarding(false);
       return created;
     },
-    [apiUrl],
+    [apiUrl, setProfileWithCache],
   );
 
   return (
