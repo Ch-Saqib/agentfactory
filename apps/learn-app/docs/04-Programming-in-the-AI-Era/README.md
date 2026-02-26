@@ -60,9 +60,9 @@ Phase 2 transforms you from someone who reads AI output into someone who directs
 
 **Collections** introduces typed containers: `list[str]` for ordered sequences, `dict[str, int]` for key-value mappings, `tuple[str, int, bool]` for fixed-size groups, and `set[str]` for unique collections. You learn indexing, slicing, mutability, nested collections, and when to use which structure -- all through the lens of type safety.
 
-**Data Models** bridges to object-oriented programming by introducing `@dataclass` and Pydantic `BaseModel`. You model real domains -- Order, Customer, Product -- with typed data structures. Dataclasses handle internal data; Pydantic validates external boundaries. This chapter gives you 80% of OOP's value before you encounter a single `class` statement.
-
 **Functions as Contracts** reframes functions as specifications. A function signature IS a contract: inputs, output, and what it promises. You learn type annotations on parameters and return values, default values, `*args` and `**kwargs`, pure functions, composition, scope, first-class functions, and docstrings as specification. TDG exercises have you writing signatures and tests while AI implements the body.
+
+**Data Models** bridges to object-oriented programming by introducing `@dataclass` and Pydantic `BaseModel`. You model real domains -- Order, Customer, Product -- with typed data structures. Dataclasses handle internal data; Pydantic validates external boundaries. This chapter gives you 80% of OOP's value before you encounter a single `class` statement.
 
 ### Phase 3: Tests as Specification (Verify)
 
