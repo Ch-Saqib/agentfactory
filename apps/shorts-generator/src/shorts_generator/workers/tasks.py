@@ -446,31 +446,130 @@ def batch_generate_shorts_task(
 
 
 @shared_task
+def scheduled_auto_generate_shorts():
+    """Check automation settings and generate shorts if scheduled time has arrived.
+
+    Runs every hour via Celery Beat.
+    Checks if:
+    1. Automation is enabled in database settings
+    2. Current time is past the scheduled run time
+    3. We haven't already run today
+
+    If conditions are met, triggers the actual auto_generate_shorts task.
+
+    Returns:
+        dict with status information
+    """
+    import asyncio
+    from datetime import datetime, timedelta
+
+    async def _check_and_run():
+        async with get_session() as session:
+            from shorts_generator.models import AutomationSettings
+
+            result = await session.execute(
+                select(AutomationSettings).order_by(AutomationSettings.created_at.desc())
+            )
+            settings = await result.scalar_one_or_none()
+
+            if not settings or not settings.enabled:
+                return {"status": "disabled", "reason": "Automation not enabled"}
+
+            now = utcnow()
+
+            # Check if we have a next_run time and if we're past it
+            if settings.next_run and now >= settings.next_run:
+                # Check if we already ran today (to avoid duplicate runs)
+                if settings.last_run:
+                    # Check if last run was within the last hour
+                    if now - settings.last_run < timedelta(hours=1):
+                        return {"status": "already_run", "last_run": settings.last_run.isoformat()}
+
+                # Time to run! Trigger the actual generation
+                logger.info(f"Scheduled auto-generation triggered at {now.isoformat()}")
+
+                # Trigger the actual auto-generation task synchronously
+                result = auto_generate_shorts()
+
+                # Calculate next run time
+                hour, minute = map(int, settings.schedule_time.split(":"))
+                next_run = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
+                if next_run <= now:
+                    next_run += timedelta(days=1)
+
+                # Update next_run in database
+                settings.next_run = next_run
+                await session.commit()
+
+                return {
+                    "status": "triggered",
+                    "scheduled_time": settings.schedule_time,
+                    "next_run": next_run.isoformat(),
+                    "result": result,
+                }
+            else:
+                return {
+                    "status": "not_due",
+                    "next_run": settings.next_run.isoformat() if settings.next_run else None,
+                }
+
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+    return loop.run_until_complete(_check_and_run())
+
+
+@shared_task
 def auto_generate_shorts():
     """Automatically generate shorts from lessons.
 
-    Runs daily at 10 AM UTC via Celery Beat.
+    Runs daily based on schedule configured in automation settings.
     Finds lessons that don't have shorts yet and generates them.
 
-    Configuration via environment variables:
-    - AUTO_GENERATE_ENABLED: Enable/disable auto-generation (default: true)
-    - AUTO_GENERATE_BATCH_SIZE: Number of shorts to generate per run (default: 5)
-    - AUTO_GENERATE_PARTS: Parts to generate from (default: all)
+    Reads configuration from database automation_settings table:
+    - enabled: Whether auto-generation is enabled
+    - batch_limit: Number of shorts to generate per run
+    - selected_parts: Parts to generate from (empty = all)
+    - target_duration: Target video duration
 
     Returns:
         dict with generation summary
     """
-    import os
+    import asyncio
+    from datetime import datetime
+
+    async def _get_settings():
+        async with get_session() as session:
+            from shorts_generator.models import AutomationSettings
+
+            result = await session.execute(
+                select(AutomationSettings).order_by(AutomationSettings.created_at.desc())
+            )
+            settings = await result.scalar_one_or_none()
+            return settings
+
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+    settings = loop.run_until_complete(_get_settings())
 
     # Check if auto-generation is enabled
-    if os.getenv("AUTO_GENERATE_ENABLED", "true").lower() != "true":
+    if not settings or not settings.enabled:
         logger.info("Auto-generation is disabled")
         return {"enabled": False, "reason": "disabled_by_config"}
 
-    batch_size = int(os.getenv("AUTO_GENERATE_BATCH_SIZE", "5"))
+    batch_size = settings.batch_limit
     logger.info(f"Starting auto-generation of shorts (batch_size={batch_size})")
 
     async def _get_lessons_without_shorts():
+        from pathlib import Path
+
         async with get_session() as session:
             # Get existing lesson paths that already have shorts
             result = await session.execute(
@@ -478,19 +577,55 @@ def auto_generate_shorts():
             )
             existing_paths = set(row[0] for row in result.all())
 
-            # For now, return a sample list of lessons
-            # In production, this would query your content API
-            sample_lessons = [
-                "01-General-Agents-Foundations/01-agent-factory-paradigm/README.md",
-                "01-General-Agents-Foundations/02-general-agents/README.md",
-                "01-General-Agents-Foundations/03-seven-principles/README.md",
-                "02-Applied-General-Agent-Workflows/06-build-your-first-personal-ai-employee/README.md",
-                "03-SDD-RI-Fundamentals/11-ai-native-ides/README.md",
-            ]
+            # Scan the docs directory for available lessons
+            docs_path = Path("/home/saqib-squad/agentfactory/apps/learn-app/docs")
+            if not docs_path.exists():
+                docs_path = Path(__file__).parent.parent.parent.parent.parent.parent / "learn-app" / "docs"
+            if not docs_path.exists():
+                docs_path = Path("../../../learn-app/docs").resolve()
 
-            # Filter out lessons that already have shorts
-            new_lessons = [l for l in sample_lessons if l not in existing_paths]
-            return new_lessons[:batch_size]
+            lessons = []
+            selected_part_ids = set(settings.selected_parts.values()) if settings.selected_parts else set()
+
+            if docs_path.exists():
+                for part_dir in sorted(docs_path.iterdir()):
+                    if not part_dir.is_dir() or part_dir.name.startswith("."):
+                        continue
+
+                    # Parse part ID from folder name (NN-Part-Name)
+                    part_name_parts = part_dir.name.split("-", 1)
+                    if len(part_name_parts) != 2:
+                        continue
+
+                    part_id = part_name_parts[0]
+
+                    # Skip if not in selected parts (if filter is set)
+                    if selected_part_ids and part_id not in selected_part_ids:
+                        continue
+
+                    # Find all lesson files in this part
+                    for chapter_dir in sorted(part_dir.iterdir()):
+                        if not chapter_dir.is_dir() or chapter_dir.name.startswith("."):
+                            continue
+
+                        # Look for index.md or README.md files
+                        for lesson_file in chapter_dir.glob("*.md"):
+                            if lesson_file.name.startswith("."):
+                                continue
+
+                            # Create relative lesson path
+                            lesson_path = f"{part_dir.name}/{chapter_dir.name}/{lesson_file.name}"
+
+                            # Skip if already has a short
+                            if lesson_path in existing_paths:
+                                continue
+
+                            lessons.append(lesson_path)
+
+                            if len(lessons) >= batch_size:
+                                return lessons
+
+            return lessons
 
     try:
         loop = asyncio.get_event_loop()
@@ -502,6 +637,22 @@ def auto_generate_shorts():
 
     if not lessons_to_generate:
         logger.info("No new lessons to generate shorts for")
+
+        # Update last_run timestamp
+        async def _update_last_run():
+            async with get_session() as session:
+                from shorts_generator.models import AutomationSettings
+
+                result = await session.execute(
+                    select(AutomationSettings).order_by(AutomationSettings.created_at.desc())
+                )
+                db_settings = await result.scalar_one_or_none()
+                if db_settings:
+                    db_settings.last_run = datetime.utcnow()
+                    await session.commit()
+
+        loop.run_until_complete(_update_last_run())
+
         return {
             "enabled": True,
             "generated": 0,
@@ -526,12 +677,28 @@ def auto_generate_shorts():
         job_id = loop.run_until_complete(_create_job())
         job_ids.append(job_id)
 
-        # Trigger generation task
+        # Trigger generation task with target duration from settings
         from uuid import uuid4
 
-        generate_short_task.delay(job_id, lesson_path, 60, "en-US-AriaNeural")
+        target_duration = settings.target_duration if settings else 60
+        generate_short_task.delay(job_id, lesson_path, target_duration, "en-US-AriaNeural")
 
     logger.info(f"Auto-generated {len(job_ids)} shorts for lessons: {lessons_to_generate}")
+
+    # Update last_run timestamp
+    async def _update_last_run():
+        async with get_session() as session:
+            from shorts_generator.models import AutomationSettings
+
+            result = await session.execute(
+                select(AutomationSettings).order_by(AutomationSettings.created_at.desc())
+            )
+            db_settings = await result.scalar_one_or_none()
+            if db_settings:
+                db_settings.last_run = datetime.utcnow()
+                await session.commit()
+
+    loop.run_until_complete(_update_last_run())
 
     return {
         "enabled": True,

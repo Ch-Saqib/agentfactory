@@ -89,10 +89,10 @@ celery_app.conf.update(
     },
     # Beat scheduler (for periodic tasks)
     beat_schedule={
-        # Auto-generate shorts daily at 10 AM UTC
-        "daily-auto-generate-shorts": {
-            "task": "shorts_generator.workers.tasks.auto_generate_shorts",
-            "schedule": crontab(hour=10, minute=0),  # 10 AM daily
+        # Auto-generate shorts based on database settings (runs every hour to check if due)
+        "scheduled-auto-generate-shorts": {
+            "task": "shorts_generator.workers.tasks.scheduled_auto_generate_shorts",
+            "schedule": crontab(minute=0),  # Every hour
         },
         # Cleanup old jobs at 2 AM daily
         "cleanup-old-jobs": {

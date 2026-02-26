@@ -824,6 +824,85 @@ export class ShortsApiClient {
   }> {
     return this.request("/cost/summary");
   }
+
+  /**
+   * Update automation settings
+   */
+  async updateAutomationSettings(settings: {
+    enabled: boolean;
+    scheduleTime: string;
+    timezone: string;
+    batchLimit: number;
+    targetDuration: number;
+    autoRetry: boolean;
+    retryAttempts: number;
+    notifyOnComplete: boolean;
+    selectedParts: string[];
+  }): Promise<{
+    success: boolean;
+    message: string;
+    settings?: Record<string, unknown>;
+  }> {
+    return this.request("/automation/settings", {
+      method: "POST",
+      body: JSON.stringify({
+        enabled: settings.enabled,
+        schedule_time: settings.scheduleTime,
+        timezone: settings.timezone,
+        batch_limit: settings.batchLimit,
+        target_duration: settings.targetDuration,
+        auto_retry: settings.autoRetry,
+        retry_attempts: settings.retryAttempts,
+        notify_on_complete: settings.notifyOnComplete,
+        selected_parts: settings.selectedParts,
+      }),
+    });
+  }
+
+  /**
+   * Get automation settings
+   */
+  async getAutomationSettings(): Promise<{
+    enabled: boolean;
+    scheduleTime: string;
+    timezone: string;
+    batchLimit: number;
+    targetDuration: number;
+    autoRetry: boolean;
+    retryAttempts: number;
+    notifyOnComplete: boolean;
+    selectedParts: string[];
+    lastRun?: string;
+    nextRun?: string;
+  }> {
+    const data = await this.request("/automation/settings");
+    return {
+      enabled: data.enabled || false,
+      scheduleTime: data.schedule_time || "02:00",
+      timezone: data.timezone || "UTC",
+      batchLimit: data.batch_limit || 10,
+      targetDuration: data.target_duration || 60,
+      autoRetry: data.auto_retry ?? true,
+      retryAttempts: data.retry_attempts || 3,
+      notifyOnComplete: data.notify_on_complete ?? true,
+      selectedParts: data.selected_parts || [],
+      lastRun: data.last_run,
+      nextRun: data.next_run,
+    };
+  }
+
+  /**
+   * Trigger automation run manually
+   */
+  async triggerAutomationRun(): Promise<{
+    success: boolean;
+    message: string;
+    jobId?: string;
+  }> {
+    return this.request("/automation/trigger", {
+      method: "POST",
+    });
+  }
 }
 
 /**

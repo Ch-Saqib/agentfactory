@@ -12,6 +12,7 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { getShortsApiClient } from "../../../lib/shorts-api";
+import { RefreshCw, CheckCircle2, XCircle, Clock, Loader2, FileVideo, HardDrive, DollarSign, TrendingUp } from "lucide-react";
 
 /**
  * Job status from API
@@ -72,10 +73,17 @@ interface GenerationDashboardProps {
  */
 function StatusBadge({ status }: { status: GenerationJob["status"] }) {
   const styles = {
-    queued: "bg-yellow-500/20 text-yellow-400",
-    processing: "bg-blue-500/20 text-blue-400",
-    completed: "bg-green-500/20 text-green-400",
-    failed: "bg-red-500/20 text-red-400",
+    queued: "bg-warning/10 text-warning border-warning/20",
+    processing: "bg-primary/10 text-primary border-primary/20",
+    completed: "bg-success/10 text-success border-success/20",
+    failed: "bg-destructive/10 text-destructive border-destructive/20",
+  };
+
+  const icons = {
+    queued: <Clock className="h-3 w-3" />,
+    processing: <Loader2 className="h-3 w-3 animate-spin" />,
+    completed: <CheckCircle2 className="h-3 w-3" />,
+    failed: <XCircle className="h-3 w-3" />,
   };
 
   const labels = {
@@ -87,8 +95,9 @@ function StatusBadge({ status }: { status: GenerationJob["status"] }) {
 
   return (
     <span
-      className={`rounded-full px-3 py-1 text-xs font-medium ${styles[status]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${styles[status]}`}
     >
+      {icons[status]}
       {labels[status]}
     </span>
   );
@@ -99,14 +108,49 @@ function StatusBadge({ status }: { status: GenerationJob["status"] }) {
  */
 function ProgressBar({ progress }: { progress: number }) {
   return (
-    <div className="relative h-2 w-full overflow-hidden rounded-full bg-gray-800">
+    <div className="relative h-2 w-full overflow-hidden rounded-full bg-muted">
       <div
-        className="absolute h-full bg-blue-500 transition-all duration-300"
+        className="absolute h-full bg-primary transition-all duration-300"
         style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
       />
-      <span className="absolute inset-0 flex items-center justify-center text-xs text-white">
+      <span className="absolute inset-0 flex items-center justify-center text-xs text-foreground">
         {progress}%
       </span>
+    </div>
+  );
+}
+
+/**
+ * Stat card component
+ */
+function StatCard({
+  icon: Icon,
+  label,
+  value,
+  subtext,
+  variant = "default",
+}: {
+  icon: React.ElementType;
+  label: string;
+  value: string | number;
+  subtext?: string;
+  variant?: "default" | "success" | "warning" | "destructive";
+}) {
+  const variantStyles = {
+    default: "text-foreground",
+    success: "text-success",
+    warning: "text-warning",
+    destructive: "text-destructive",
+  };
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      <div className="mb-3 flex items-center gap-2 text-muted-foreground">
+        <Icon className="h-4 w-4" />
+        <span className="text-sm">{label}</span>
+      </div>
+      <div className={`text-3xl font-bold ${variantStyles[variant]}`}>{value}</div>
+      {subtext && <div className="mt-1 text-xs text-muted-foreground">{subtext}</div>}
     </div>
   );
 }
@@ -248,253 +292,232 @@ export function GenerationDashboard({
   if (loading && !stats) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-700 border-t-blue-500" />
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 p-6">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-white">
-            Shorts Generation Dashboard
-          </h1>
-          <p className="text-gray-400">
-            Monitor and manage automated short video generation
-          </p>
+    <div className="space-y-6">
+      {/* Error Alert */}
+      {error && (
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive">
+          {error}
         </div>
+      )}
 
-        {/* Error Alert */}
-        {error && (
-          <div className="mb-6 rounded-lg border border-red-500 bg-red-500/10 p-4 text-red-400">
-            {error}
-          </div>
-        )}
+      {/* Statistics Cards */}
+      {stats && (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            icon={FileVideo}
+            label="Total Jobs"
+            value={stats.totalJobs}
+          />
+          <StatCard
+            icon={Loader2}
+            label="Processing"
+            value={stats.processing}
+          />
+          <StatCard
+            icon={TrendingUp}
+            label="Success Rate"
+            value={`${stats.successRate.toFixed(1)}%`}
+            variant={
+              stats.successRate >= 80
+                ? "success"
+                : stats.successRate >= 60
+                ? "warning"
+                : "destructive"
+            }
+          />
+          <StatCard
+            icon={DollarSign}
+            label="Total Cost"
+            value={`$${stats.totalCostUsd.toFixed(2)}`}
+            subtext={`$${stats.avgCostPerVideo.toFixed(4)}/video`}
+          />
+        </div>
+      )}
 
-        {/* Statistics Cards */}
-        {stats && (
-          <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* Total Jobs */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
-              <div className="mb-2 text-sm text-gray-400">Total Jobs</div>
-              <div className="text-3xl font-bold text-white">{stats.totalJobs}</div>
+      {/* Storage Statistics */}
+      {storageStats && (
+        <div className="rounded-lg border border-border bg-card p-6">
+          <div className="mb-4 flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <HardDrive className="h-5 w-5 text-primary" />
             </div>
-
-            {/* Processing */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
-              <div className="mb-2 text-sm text-gray-400">Processing</div>
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 animate-pulse rounded-full bg-blue-500" />
-                <div className="text-3xl font-bold text-white">
-                  {stats.processing}
-                </div>
-              </div>
-            </div>
-
-            {/* Success Rate */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
-              <div className="mb-2 text-sm text-gray-400">Success Rate</div>
-              <div
-                className={`text-3xl font-bold ${
-                  stats.successRate >= 80
-                    ? "text-green-400"
-                    : stats.successRate >= 60
-                    ? "text-yellow-400"
-                    : "text-red-400"
-                }`}
-              >
-                {stats.successRate.toFixed(1)}%
-              </div>
-            </div>
-
-            {/* Total Cost */}
-            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
-              <div className="mb-2 text-sm text-gray-400">Total Cost</div>
-              <div className="text-3xl font-bold text-white">
-                ${stats.totalCostUsd.toFixed(2)}
-              </div>
-              <div className="text-xs text-gray-500">
-                ${stats.avgCostPerVideo.toFixed(4)}/video
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Storage Statistics */}
-        {storageStats && (
-          <div className="mb-8 rounded-lg border border-gray-800 bg-gray-900 p-6">
-            <h2 className="mb-4 text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               Storage Statistics
             </h2>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <div>
-                <div className="text-sm text-gray-400">Videos</div>
-                <div className="text-lg font-semibold text-white">
-                  {storageStats.videos.count}
-                </div>
-                <div className="text-xs text-gray-500">
-                  {formatBytes(storageStats.videos.total_bytes)}
-                </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="rounded-lg bg-muted p-4">
+              <div className="text-sm text-muted-foreground">Videos</div>
+              <div className="text-lg font-semibold text-foreground">
+                {storageStats.videos.count}
               </div>
-              <div>
-                <div className="text-sm text-gray-400">Thumbnails</div>
-                <div className="text-lg font-semibold text-white">
-                  {storageStats.thumbnails.count}
-                </div>
-                <div className="text-xs text-gray-500">
-                  {formatBytes(storageStats.thumbnails.total_bytes)}
-                </div>
+              <div className="text-xs text-muted-foreground">
+                {formatBytes(storageStats.videos.total_bytes)}
               </div>
-              <div>
-                <div className="text-sm text-gray-400">Captions</div>
-                <div className="text-lg font-semibold text-white">
-                  {storageStats.captions.count}
-                </div>
-                <div className="text-xs text-gray-500">
-                  {formatBytes(storageStats.captions.total_bytes)}
-                </div>
+            </div>
+            <div className="rounded-lg bg-muted p-4">
+              <div className="text-sm text-muted-foreground">Thumbnails</div>
+              <div className="text-lg font-semibold text-foreground">
+                {storageStats.thumbnails.count}
               </div>
-              <div>
-                <div className="text-sm text-gray-400">Total Storage</div>
-                <div className="text-lg font-semibold text-white">
-                  {storageStats.total.total_gb.toFixed(2)} GB
-                </div>
-                <div className="text-xs text-gray-500">
-                  ${storageStats.total.estimated_monthly_cost_usd.toFixed(2)}/mo
-                </div>
+              <div className="text-xs text-muted-foreground">
+                {formatBytes(storageStats.thumbnails.total_bytes)}
+              </div>
+            </div>
+            <div className="rounded-lg bg-muted p-4">
+              <div className="text-sm text-muted-foreground">Captions</div>
+              <div className="text-lg font-semibold text-foreground">
+                {storageStats.captions.count}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {formatBytes(storageStats.captions.total_bytes)}
+              </div>
+            </div>
+            <div className="rounded-lg bg-muted p-4">
+              <div className="text-sm text-muted-foreground">Total Storage</div>
+              <div className="text-lg font-semibold text-foreground">
+                {storageStats.total.total_gb.toFixed(2)} GB
+              </div>
+              <div className="text-xs text-muted-foreground">
+                ${storageStats.total.estimated_monthly_cost_usd.toFixed(2)}/mo
               </div>
             </div>
           </div>
-        )}
-
-        {/* Status Filter Tabs */}
-        <div className="mb-6 flex flex-wrap gap-2 border-b border-gray-800">
-          {(["all", "queued", "processing", "completed", "failed"] as const).map(
-            (status) => (
-              <button
-                key={status}
-                onClick={() => {
-                  setSelectedStatus(status);
-                  setPage(1);
-                }}
-                className={`px-4 py-2 font-medium capitalize transition-colors ${
-                  selectedStatus === status
-                    ? "border-b-2 border-blue-500 text-white"
-                    : "text-gray-400 hover:text-white"
-                }`}
-              >
-                {status === "all" ? "All Jobs" : status}
-                {stats && status !== "all" && (
-                  <span className="ml-2 rounded-full bg-gray-800 px-2 py-0.5 text-xs">
-                    {getStatusCount(status)}
-                  </span>
-                )}
-              </button>
-            )
-          )}
         </div>
+      )}
 
-        {/* Jobs Table */}
-        <div className="overflow-hidden rounded-lg border border-gray-800">
-          <table className="w-full">
-            <thead className="bg-gray-900">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-400">
-                  Job ID
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-400">
-                  Lesson
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-400">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-400">
-                  Progress
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-400">
-                  Created
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-400">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800">
-              {jobs.map((job) => (
-                <tr key={job.job_id} className="bg-gray-950">
-                  <td className="px-6 py-4 text-sm text-gray-300">
-                    <code className="rounded bg-gray-900 px-2 py-1">
-                      {job.job_id.slice(0, 8)}
-                    </code>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-300">
-                    <div className="max-w-xs truncate" title={job.lesson_path}>
-                      {formatLessonPath(job.lesson_path)}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <StatusBadge status={job.status} />
-                  </td>
-                  <td className="px-6 py-4">
-                    {job.status === "processing" ? (
-                      <div className="w-48">
-                        <ProgressBar progress={job.progress} />
-                      </div>
-                    ) : job.status === "completed" ? (
-                      <span className="text-sm text-gray-400">Complete</span>
-                    ) : (
-                      <span className="text-sm text-gray-500">—</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-400">
-                    {new Date(job.created_at).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4">
-                    {job.status === "failed" && (
-                      <button
-                        onClick={() => handleRetryJob(job.job_id)}
-                        className="rounded bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600"
-                      >
-                        Retry
-                      </button>
-                    )}
-                    {job.video_id && (
-                      <a
-                        href={`/shorts?video=${job.video_id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-2 text-sm text-blue-400 hover:text-blue-300"
-                      >
-                        View
-                      </a>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {jobs.length === 0 && !loading && (
-            <div className="py-12 text-center text-gray-500">
-              No jobs found
-            </div>
-          )}
-        </div>
-
-        {/* Pagination */}
-        {jobs.length === pageSize && (
-          <div className="mt-4 flex justify-center">
+      {/* Status Filter Tabs */}
+      <div className="flex flex-wrap gap-2 border-b border-border">
+        {(["all", "queued", "processing", "completed", "failed"] as const).map(
+          (status) => (
             <button
-              onClick={() => setPage((p) => p + 1)}
-              className="rounded-lg border border-gray-800 bg-gray-900 px-6 py-2 text-white hover:bg-gray-800"
+              key={status}
+              onClick={() => {
+                setSelectedStatus(status);
+                setPage(1);
+              }}
+              className={`px-4 py-2 font-medium capitalize transition-all ${
+                selectedStatus === status
+                  ? "border-b-2 border-primary text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              Load More
+              {status === "all" ? "All Jobs" : status}
+              {stats && status !== "all" && (
+                <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs">
+                  {getStatusCount(status)}
+                </span>
+              )}
             </button>
+          )
+        )}
+      </div>
+
+      {/* Jobs Table */}
+      <div className="overflow-hidden rounded-lg border border-border">
+        <table className="w-full">
+          <thead className="bg-muted">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
+                Job ID
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
+                Lesson
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
+                Status
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
+                Progress
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
+                Created
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {jobs.map((job) => (
+              <tr key={job.job_id} className="bg-card hover:bg-muted/50">
+                <td className="px-6 py-4 text-sm text-foreground">
+                  <code className="rounded bg-muted px-2 py-1 text-xs">
+                    {job.job_id.slice(0, 8)}
+                  </code>
+                </td>
+                <td className="px-6 py-4 text-sm text-foreground">
+                  <div className="max-w-xs truncate" title={job.lesson_path}>
+                    {formatLessonPath(job.lesson_path)}
+                  </div>
+                </td>
+                <td className="px-6 py-4">
+                  <StatusBadge status={job.status} />
+                </td>
+                <td className="px-6 py-4">
+                  {job.status === "processing" ? (
+                    <div className="w-48">
+                      <ProgressBar progress={job.progress} />
+                    </div>
+                  ) : job.status === "completed" ? (
+                    <span className="text-sm text-muted-foreground">Complete</span>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">—</span>
+                  )}
+                </td>
+                <td className="px-6 py-4 text-sm text-muted-foreground">
+                  {new Date(job.created_at).toLocaleString()}
+                </td>
+                <td className="px-6 py-4">
+                  {job.status === "failed" && (
+                    <button
+                      onClick={() => handleRetryJob(job.job_id)}
+                      className="flex items-center gap-1.5 rounded bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                    >
+                      <RefreshCw className="h-3 w-3" />
+                      Retry
+                    </button>
+                  )}
+                  {job.video_id && (
+                    <a
+                      href={`/shorts?video=${job.video_id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 text-sm text-primary hover:underline"
+                    >
+                      View
+                    </a>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {jobs.length === 0 && !loading && (
+          <div className="py-12 text-center text-muted-foreground">
+            No jobs found
           </div>
         )}
       </div>
+
+      {/* Pagination */}
+      {jobs.length === pageSize && (
+        <div className="flex justify-center">
+          <button
+            onClick={() => setPage((p) => p + 1)}
+            className="rounded-lg border border-border bg-card px-6 py-2 text-foreground hover:bg-muted"
+          >
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -532,36 +555,36 @@ export function GenerationDashboardMini() {
   }, [apiClient]);
 
   if (!stats) {
-    return <div className="text-sm text-gray-500">Loading...</div>;
+    return <div className="text-sm text-muted-foreground">Loading...</div>;
   }
 
   return (
-    <div className="flex items-center gap-4 rounded-lg border border-gray-800 bg-gray-900 p-4">
+    <div className="flex items-center gap-4 rounded-lg border border-border bg-card p-4">
       <div>
-        <div className="text-xs text-gray-400">Active Jobs</div>
-        <div className="text-lg font-semibold text-white">
+        <div className="text-xs text-muted-foreground">Active Jobs</div>
+        <div className="text-lg font-semibold text-foreground">
           {stats.queued + stats.processing}
         </div>
       </div>
-      <div className="h-8 w-px bg-gray-800" />
+      <div className="h-8 w-px bg-border" />
       <div>
-        <div className="text-xs text-gray-400">Success Rate</div>
+        <div className="text-xs text-muted-foreground">Success Rate</div>
         <div
           className={`text-lg font-semibold ${
             stats.successRate >= 80
-              ? "text-green-400"
+              ? "text-success"
               : stats.successRate >= 60
-              ? "text-yellow-400"
-              : "text-red-400"
+              ? "text-warning"
+              : "text-destructive"
           }`}
         >
           {stats.successRate.toFixed(0)}%
         </div>
       </div>
-      <div className="h-8 w-px bg-gray-800" />
+      <div className="h-8 w-px bg-border" />
       <div>
-        <div className="text-xs text-gray-400">Total Cost</div>
-        <div className="text-lg font-semibold text-white">
+        <div className="text-xs text-muted-foreground">Total Cost</div>
+        <div className="text-lg font-semibold text-foreground">
           ${stats.totalCostUsd.toFixed(2)}
         </div>
       </div>

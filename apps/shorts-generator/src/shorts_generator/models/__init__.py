@@ -298,3 +298,43 @@ class ShortAnalytics(Base):
 
     # Relationship to video
     video: Mapped["ShortVideo"] = relationship("ShortVideo", back_populates="analytics")
+
+
+class AutomationSettings(Base):
+    """Automation settings for scheduled video generation.
+
+    Stores configuration for automated short video generation from lessons.
+    Settings are used by Celery Beat scheduler.
+
+    Attributes:
+        id: Unique settings identifier (UUID)
+        enabled: Whether automation is enabled
+        schedule_time: Daily schedule time in HH:MM format (UTC)
+        timezone: Timezone for schedule (default: UTC)
+        batch_limit: Maximum number of videos to generate per run
+        target_duration: Target video duration in seconds
+        auto_retry: Whether to automatically retry failed generations
+        retry_attempts: Number of retry attempts for failed jobs
+        notify_on_complete: Whether to send notifications on completion
+        selected_parts: List of part IDs to generate from (empty = all)
+        last_run: Timestamp of last automation run
+        next_run: Timestamp of next scheduled run
+        created_at: When settings were created
+        updated_at: Last update timestamp
+    """
+    __tablename__ = "automation_settings"
+
+    id: Mapped[UUID] = mapped_column(default=uuid4, primary_key=True)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    schedule_time: Mapped[str] = mapped_column(String(10), default="02:00")
+    timezone: Mapped[str] = mapped_column(String(50), default="UTC")
+    batch_limit: Mapped[int] = mapped_column(Integer, default=10)
+    target_duration: Mapped[int] = mapped_column(Integer, default=60)
+    auto_retry: Mapped[bool] = mapped_column(Boolean, default=True)
+    retry_attempts: Mapped[int] = mapped_column(Integer, default=3)
+    notify_on_complete: Mapped[bool] = mapped_column(Boolean, default=True)
+    selected_parts: Mapped[dict] = mapped_column(JSON, default=lambda: {})
+    last_run: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True), nullable=True)
+    next_run: Mapped[Optional[datetime]] = mapped_column(TIMESTAMP(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), default=utcnow, onupdate=utcnow)

@@ -1,6 +1,5 @@
 """Async database connection management for Lesson Shorts Generator."""
 
-from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import (
@@ -47,6 +46,8 @@ def _create_engine() -> AsyncEngine:
 async def get_session() -> AsyncGenerator[AsyncSession, None]:
     """Get an async database session with automatic cleanup.
 
+    This is designed for FastAPI dependency injection via Depends(get_session).
+
     Creates a fresh connection for each request and disposes it after.
     This pattern is ideal for:
     - Serverless environments (no persistent connections)
@@ -56,9 +57,11 @@ async def get_session() -> AsyncGenerator[AsyncSession, None]:
     Yields:
         AsyncSession: Database session that commits on success, rolls back on error.
 
-    Example:
-        async with get_session() as session:
-            result = await session.execute(select(GenerationJob))
+    Example with FastAPI:
+        @router.get("/items")
+        async def get_items(session: AsyncSession = Depends(get_session)):
+            result = await session.execute(select(Item))
+            return result.scalars().all()
             # Auto-commits on exit, rolls back on exception
             # Connection is released immediately after
     """

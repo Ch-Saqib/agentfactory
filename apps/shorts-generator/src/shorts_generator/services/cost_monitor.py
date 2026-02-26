@@ -24,6 +24,7 @@ class CostMonitor:
     # Service costs per operation
     SERVICE_COSTS = {
         "gemini_script": 0.002,  # $0.002 per script
+        "flux_image": 0.0,  # FREE via Flux/Pollinations.ai
         "pollinations_image": 0.0,  # FREE via Pollinations.ai
         "edge_tts": 0.0,  # Free
         "ffmpeg": 0.0,  # Free (local)
@@ -70,14 +71,15 @@ class CostMonitor:
         )
         videos = videos_result.scalars().all()
 
-        total_cost = sum(v.generation_cost or 0 for v in videos)
+        # Sum Decimal values and convert to float
+        total_cost = float(sum(v.generation_cost or 0 for v in videos))
 
         return {
             "date": date.strftime("%Y-%m-%d"),
-            "total_cost_usd": round(total_cost, 4),
+            "total_cost_usd": round(float(total_cost), 4),
             "job_count": len(jobs),
             "video_count": len(videos),
-            "avg_cost_per_video": round(total_cost / len(videos), 4) if videos else 0,
+            "avg_cost_per_video": round(float(total_cost) / len(videos), 4) if videos else 0.0,
             "breakdown": {
                 "script_generation": round(len(videos) * self.SERVICE_COSTS["gemini_script"], 4),
                 "visual_generation": round(len(videos) * 3 * self.SERVICE_COSTS["flux_image"], 4),  # ~3 images per video
@@ -128,15 +130,16 @@ class CostMonitor:
         )
         videos = videos_result.scalars().all()
 
-        total_cost = sum(v.generation_cost or 0 for v in videos)
+        # Sum Decimal values and convert to float
+        total_cost = float(sum(v.generation_cost or 0 for v in videos))
 
         return {
             "year": year,
             "month": month,
-            "total_cost_usd": round(total_cost, 4),
+            "total_cost_usd": round(float(total_cost), 4),
             "job_count": len(jobs),
             "video_count": len(videos),
-            "avg_cost_per_video": round(total_cost / len(videos), 4) if videos else 0,
+            "avg_cost_per_video": round(float(total_cost) / len(videos), 4) if videos else 0.0,
             "breakdown": {
                 "script_generation": round(len(videos) * self.SERVICE_COSTS["gemini_script"], 4),
                 "visual_generation": round(len(videos) * 3 * self.SERVICE_COSTS["flux_image"], 4),
@@ -198,13 +201,16 @@ class CostMonitor:
             )
             video = video_result.scalar_one_or_none()
 
+        # Convert Decimal to float
+        generation_cost = float(video.generation_cost) if video and video.generation_cost else 0.0
+
         return {
             "job_id": job_id,
             "lesson_path": job.lesson_path,
             "status": job.status,
             "created_at": job.created_at.isoformat() if job.created_at else None,
             "completed_at": job.completed_at.isoformat() if job.completed_at else None,
-            "total_cost_usd": round(video.generation_cost, 4) if video and video.generation_cost else 0,
+            "total_cost_usd": round(generation_cost, 4),
             "breakdown": {
                 "script_generation": self.SERVICE_COSTS["gemini_script"],
                 "visual_generation": 3 * self.SERVICE_COSTS["flux_image"],  # ~3 images
@@ -297,7 +303,7 @@ class CostMonitor:
                 "severity": "warning",
                 "type": "daily_budget_exceeded",
                 "threshold": self.DAILY_BONUS_THRESHOLD,
-                "actual": daily_cost["total_cost_usd"],
+                "actual": float(daily_cost["total_cost_usd"]),
                 "message": f"Daily cost ${daily_cost['total_cost_usd']:.2f} exceeds threshold ${self.DAILY_BONUS_THRESHOLD:.2f}",
                 "date": daily_cost["date"],
             })
@@ -309,14 +315,14 @@ class CostMonitor:
                 "severity": "critical",
                 "type": "monthly_budget_exceeded",
                 "threshold": self.MONTHLY_BUDGET_THRESHOLD,
-                "actual": monthly_cost["total_cost_usd"],
+                "actual": float(monthly_cost["total_cost_usd"]),
                 "message": f"Monthly cost ${monthly_cost['total_cost_usd']:.2f} exceeds threshold ${self.MONTHLY_BUDGET_THRESHOLD:.2f}",
                 "year": monthly_cost["year"],
                 "month": monthly_cost["month"],
             })
 
         # Check projected monthly
-        projected = monthly_cost.get("projected_monthly", {}).get("projected_usd", 0)
+        projected = float(monthly_cost.get("projected_monthly", {}).get("projected_usd", 0))
         if projected > self.MONTHLY_BUDGET_THRESHOLD:
             alerts.append({
                 "severity": "warning",

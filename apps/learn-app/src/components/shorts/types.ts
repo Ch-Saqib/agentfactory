@@ -26,6 +26,8 @@ export interface ShortVideo {
   commentCount?: number;
   /** Generation cost in USD */
   generationCost?: number;
+  /** Internal note (not displayed on UI) */
+  note?: string;
 }
 
 /**

@@ -11,6 +11,7 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { getShortsApiClient } from "../../../lib/shorts-api";
+import { DollarSign, TrendingUp, AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
 
 /**
  * Cost summary data
@@ -100,48 +101,59 @@ export function CostMonitorWidget({
 
   if (loading && !summary) {
     return (
-      <div className="flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-900 p-4">
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-700 border-t-blue-500" />
-        <div className="text-sm text-gray-400">Loading cost data...</div>
+      <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
+        <div className="text-sm text-muted-foreground">Loading cost data...</div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900">
+    <div className="rounded-lg border border-border bg-card">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gray-800 p-4">
+      <div className="flex items-center justify-between border-b border-border p-4">
         <div className="flex items-center gap-3">
-          <h3 className="font-semibold text-white">💰 Cost Monitor</h3>
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <DollarSign className="h-5 w-5 text-primary" />
+          </div>
+          <h3 className="font-semibold text-foreground">Cost Monitor</h3>
           {alerts.length > 0 && (
-            <span className="rounded-full bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+            <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
               {alerts.length} alert{alerts.length > 1 ? "s" : ""}
             </span>
           )}
         </div>
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="text-sm text-gray-400 hover:text-white"
+          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          {showDetails ? "Hide" : "Show"} Details
+          {showDetails ? (
+            <>
+              <ChevronUp className="h-4 w-4" />
+              Hide Details
+            </>
+          ) : (
+            <>
+              <ChevronDown className="h-4 w-4" />
+              Show Details
+            </>
+          )}
         </button>
       </div>
 
       {/* Alerts */}
       {alerts.length > 0 && (
-        <div className="border-b border-gray-800 p-4">
+        <div className="border-b border-border p-4">
           {alerts.map((alert, index) => (
             <div
               key={index}
-              className={`mb-2 flex items-start gap-3 rounded-md p-3 ${
+              className={`mb-2 flex items-start gap-3 rounded-md p-3 last:mb-0 ${
                 alert.severity === "critical"
-                  ? "bg-red-500/10 text-red-400"
-                  : "bg-yellow-500/10 text-yellow-400"
+                  ? "bg-destructive/10 text-destructive"
+                  : "bg-warning/10 text-warning"
               }`}
             >
-              <span className="text-xl">
-                {alert.severity === "critical" ? "🚨" : "⚠️"}
-              </span>
+              <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <div className="font-medium">{alert.message}</div>
                 <div className="mt-1 text-xs opacity-75">
@@ -160,51 +172,54 @@ export function CostMonitorWidget({
           <div className="grid grid-cols-3 gap-4">
             {/* Today */}
             <div className="text-center">
-              <div className="text-xs text-gray-500">Today</div>
+              <div className="text-xs text-muted-foreground">Today</div>
               <div
                 className={`text-lg font-semibold ${
-                  summary.today.alert_exceeded ? "text-red-400" : "text-white"
+                  summary.today.alert_exceeded ? "text-destructive" : "text-foreground"
                 }`}
               >
                 ${summary.today.cost_usd.toFixed(2)}
               </div>
-              <div className="text-xs text-gray-500">
-                {summary.today.video_count} videos
+              <div className="text-xs text-muted-foreground">
+                {summary.today.video_count} video{summary.today.video_count !== 1 ? "s" : ""}
               </div>
             </div>
 
             {/* This Month */}
             <div className="text-center">
-              <div className="text-xs text-gray-500">This Month</div>
+              <div className="text-xs text-muted-foreground">This Month</div>
               <div
                 className={`text-lg font-semibold ${
-                  summary.this_month.alert_exceeded ? "text-red-400" : "text-white"
+                  summary.this_month.alert_exceeded ? "text-destructive" : "text-foreground"
                 }`}
               >
                 ${summary.this_month.cost_usd.toFixed(2)}
               </div>
-              <div className="text-xs text-gray-500">
-                {summary.this_month.video_count} videos
+              <div className="text-xs text-muted-foreground">
+                {summary.this_month.video_count} video{summary.this_month.video_count !== 1 ? "s" : ""}
               </div>
             </div>
 
             {/* All Time */}
             <div className="text-center">
-              <div className="text-xs text-gray-500">All Time</div>
-              <div className="text-lg font-semibold text-white">
+              <div className="text-xs text-muted-foreground">All Time</div>
+              <div className="text-lg font-semibold text-foreground">
                 ${summary.all_time.total_cost_usd.toFixed(2)}
               </div>
-              <div className="text-xs text-gray-500">
-                {summary.all_time.total_videos} videos
+              <div className="text-xs text-muted-foreground">
+                {summary.all_time.total_videos} video{summary.all_time.total_videos !== 1 ? "s" : ""}
               </div>
             </div>
           </div>
 
           {/* Projected */}
           {showDetails && summary.this_month.projected_usd > 0 && (
-            <div className="mt-4 rounded-md bg-gray-950 p-3">
-              <div className="mb-1 text-xs text-gray-500">Projected Monthly</div>
-              <div className="text-lg font-semibold text-white">
+            <div className="mt-4 rounded-md bg-muted p-3">
+              <div className="mb-1 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                <TrendingUp className="h-3 w-3" />
+                Projected Monthly
+              </div>
+              <div className="text-lg font-semibold text-foreground">
                 ${summary.this_month.projected_usd.toFixed(2)}
               </div>
             </div>
@@ -214,7 +229,7 @@ export function CostMonitorWidget({
 
       {/* Error */}
       {error && (
-        <div className="border-t border-gray-800 p-4 text-center text-sm text-red-400">
+        <div className="border-t border-border p-4 text-center text-sm text-destructive">
           {error}
         </div>
       )}
@@ -249,16 +264,16 @@ export function CostMonitorInline() {
   }, [apiClient]);
 
   if (!summary) {
-    return <div className="text-sm text-gray-500">Loading...</div>;
+    return <div className="text-sm text-muted-foreground">Loading...</div>;
   }
 
   return (
     <div className="flex items-center gap-4">
       <div>
-        <div className="text-xs text-gray-500">Month to Date</div>
+        <div className="text-xs text-muted-foreground">Month to Date</div>
         <div
           className={`text-lg font-semibold ${
-            summary.this_month.alert_exceeded ? "text-red-400" : "text-white"
+            summary.this_month.alert_exceeded ? "text-destructive" : "text-foreground"
           }`}
         >
           ${summary.this_month.cost_usd.toFixed(2)}
@@ -266,8 +281,8 @@ export function CostMonitorInline() {
       </div>
       {hasAlerts && (
         <>
-          <div className="h-8 w-px bg-gray-800" />
-          <div className="rounded-full bg-red-500/20 px-3 py-1 text-xs font-medium text-red-400">
+          <div className="h-8 w-px bg-border" />
+          <div className="rounded-full bg-destructive/10 px-3 py-1 text-xs font-medium text-destructive">
             Budget Alert
           </div>
         </>

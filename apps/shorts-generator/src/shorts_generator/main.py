@@ -70,6 +70,7 @@ app.add_middleware(
 # Import and include routes
 from shorts_generator.routes import (
     analytics,
+    automation,
     batch,
     cost_monitor,
     engagement,
@@ -85,6 +86,7 @@ app.include_router(engagement.router)
 app.include_router(analytics.router)
 app.include_router(recommendations.router)
 app.include_router(cost_monitor.router)
+app.include_router(automation.router)
 
 
 # Root endpoint

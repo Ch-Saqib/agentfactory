@@ -180,23 +180,23 @@ async def get_cost_summary(
     total_videos = result.scalar() or 0
 
     cost_result = await session.execute(select(func.sum(ShortVideo.generation_cost)))
-    total_cost = cost_result.scalar() or 0
+    total_cost = float(cost_result.scalar() or 0)
 
     return {
         "today": {
-            "cost_usd": daily["total_cost_usd"],
+            "cost_usd": float(daily["total_cost_usd"]),
             "video_count": daily["video_count"],
             "alert_exceeded": daily["alert_exceeded"],
         },
         "this_month": {
-            "cost_usd": monthly["total_cost_usd"],
+            "cost_usd": float(monthly["total_cost_usd"]),
             "video_count": monthly["video_count"],
             "alert_exceeded": monthly["alert_exceeded"],
-            "projected_usd": monthly.get("projected_monthly", {}).get("projected_usd", 0),
+            "projected_usd": float(monthly.get("projected_monthly", {}).get("projected_usd", 0)),
         },
         "all_time": {
             "total_videos": total_videos,
             "total_cost_usd": round(total_cost, 2),
-            "avg_cost_per_video": round(total_cost / total_videos, 4) if total_videos > 0 else 0,
+            "avg_cost_per_video": round(total_cost / total_videos, 4) if total_videos > 0 else 0.0,
         },
     }

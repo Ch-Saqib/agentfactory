@@ -181,11 +181,17 @@ export default function ShortsPage() {
     };
   };
 
+  // Clean label prefixes from API responses (e.g., "title: " or "note: ")
+  const cleanLabel = (text: string | undefined): string => {
+    if (!text) return "";
+    return text.replace(/^(title|note|lesson):\s*/i, "").trim();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       {/* Header */}
-      <header className="sticky top-16 z-40 border-b bg-background/80 backdrop-blur-lg">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 relative">
           {/* Top Row: Title & Stats */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -292,7 +298,7 @@ export default function ShortsPage() {
                 </div>
 
                 {/* Horizontal Scroll Cards */}
-                <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+                <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x">
                   {groupShorts.map((short) => {
                     const isLiked = likedIds.has(short.id);
                     const progress = currentProgress[short.id] || 0;
@@ -302,7 +308,7 @@ export default function ShortsPage() {
                     return (
                       <div
                         key={short.id}
-                        className={`relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden border-2 transition-all duration-300 cursor-pointer group ${
+                        className={`relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden border-2 transition-all duration-300 cursor-pointer group snap-start ${
                           isActive
                             ? "border-primary shadow-xl shadow-primary/20 scale-105"
                             : "border-border hover:border-primary/50 hover:shadow-lg"
@@ -314,7 +320,7 @@ export default function ShortsPage() {
                           {/* Thumbnail Image */}
                           <img
                             src={short.thumbnailUrl}
-                            alt={short.title}
+                            alt={cleanLabel(short.title)}
                             className="w-full h-full object-cover"
                           />
 
@@ -358,7 +364,7 @@ export default function ShortsPage() {
                         {/* Info Section */}
                         <div className="p-4 bg-card">
                           <h3 className="font-semibold text-base mb-2 line-clamp-2">
-                            {short.title}
+                            {cleanLabel(short.title)}
                           </h3>
                           <p className="text-xs text-muted-foreground mb-3">
                             {parseLessonPath(short.lessonPath).lesson}
@@ -411,13 +417,13 @@ export default function ShortsPage() {
                   <div className="relative aspect-[9/16] bg-muted">
                     <img
                       src={short.thumbnailUrl}
-                      alt={short.title}
+                      alt={cleanLabel(short.title)}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">
                       <h3 className="font-semibold text-sm line-clamp-2 mb-1">
-                        {short.title}
+                        {cleanLabel(short.title)}
                       </h3>
                       <div className="flex items-center justify-between text-xs">
                         <span className="flex items-center gap-1">
@@ -504,16 +510,16 @@ export default function ShortsPage() {
                   const isLiked = likedIds.has(short.id);
                   return (
                     <div key={short.id}>
-                      <h2 className="text-2xl font-bold mb-2">{short.title}</h2>
+                      <h2 className="text-2xl font-bold mb-2">{cleanLabel(short.title)}</h2>
                       <p className="text-sm text-muted-foreground mb-4">
                         {short.lessonPath}
                       </p>
 
                       {/* Action Buttons */}
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3">
                         <button
                           onClick={() => handleLike(short.id)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                          className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-all ${
                             isLiked
                               ? "bg-red-500 text-white"
                               : "bg-muted hover:bg-red-500 hover:text-white"
@@ -523,19 +529,60 @@ export default function ShortsPage() {
                           <span>{short.likeCount || 0}</span>
                         </button>
                         <button
+                          onClick={() => {
+                            // Toggle comment section visibility
+                            const commentSection = document.getElementById(`comments-${short.id}`);
+                            if (commentSection) {
+                              commentSection.classList.toggle("hidden");
+                              commentSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                            }
+                          }}
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all"
+                        >
+                          <MessageCircle className="w-5 h-5" />
+                          Comment
+                        </button>
+                        <button
                           onClick={() => handleShare(short)}
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all"
                         >
                           <Share2 className="w-5 h-5" />
-                          Share
                         </button>
                         <a
                           href={`/docs/${short.lessonPath.replace(".md", "")}`}
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all"
                         >
                           <BookOpen className="w-5 h-5" />
                           Read Full Lesson
                         </a>
+                      </div>
+
+                      {/* Comment Section */}
+                      <div id={`comments-${short.id}`} className="hidden mt-6 pt-6 border-t">
+                        <h3 className="text-lg font-semibold mb-4">Comments</h3>
+                        <div className="space-y-4">
+                          {/* Add Comment */}
+                          <div className="flex gap-3">
+                            <input
+                              type="text"
+                              placeholder="Add a comment..."
+                              className="flex-1 px-4 py-2 rounded-full border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
+                              onKeyPress={(e) => {
+                                if (e.key === "Enter" && e.currentTarget.value.trim()) {
+                                  // TODO: Submit comment to API
+                                  e.currentTarget.value = "";
+                                }
+                              }}
+                            />
+                            <button className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
+                              Post
+                            </button>
+                          </div>
+                          {/* Placeholder for comments */}
+                          <p className="text-sm text-muted-foreground text-center py-4">
+                            No comments yet. Be the first to comment!
+                          </p>
+                        </div>
                       </div>
 
                       {/* Progress */}
@@ -597,6 +644,22 @@ export default function ShortsPage() {
           </div>
         </div>
       )}
+
+      {/* Mobile Stats Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-card/95 backdrop-blur-sm border-t p-3">
+        <div className="flex items-center justify-around text-xs">
+          <div className="flex flex-col items-center">
+            <Flame className="w-4 h-4 text-orange-500" />
+            <span className="font-semibold">{watchedCount}</span>
+            <span className="text-muted-foreground">Watched</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <span className="font-semibold">{shorts.length}</span>
+            <span className="text-muted-foreground">Available</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
