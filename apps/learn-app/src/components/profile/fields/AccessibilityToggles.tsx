@@ -30,6 +30,7 @@ export function AccessibilityToggles({ value, onChange }: AccessibilityTogglesPr
             type="button"
             role="switch"
             aria-checked={value[toggle.key]}
+            aria-label={toggle.label}
             onClick={() => handleToggle(toggle.key)}
             className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
               value[toggle.key] ? "bg-primary" : "bg-muted"

@@ -91,10 +91,16 @@ function mockFetchResponse(body: unknown, status = 200) {
   });
 }
 
-function mockFetchError(status: number, errorBody?: { error: string; message: string }) {
+function mockFetchError(
+  status: number,
+  errorBody?: { error: string; message: string },
+  headers?: Record<string, string>,
+) {
+  const headerMap = new Map(Object.entries(headers || {}));
   return vi.fn().mockResolvedValue({
     ok: false,
     status,
+    headers: { get: (key: string) => headerMap.get(key) ?? null },
     json: () =>
       errorBody
         ? Promise.resolve(errorBody)
@@ -371,6 +377,21 @@ describe("learner-profile-api", () => {
       } catch (e) {
         expect((e as ApiError).status).toBe(429);
         expect((e as ApiError).code).toBe("rate_limited");
+        expect((e as ApiError).message).toContain("wait a moment");
+      }
+    });
+
+    it("includes Retry-After in 429 error message when header present", async () => {
+      globalThis.fetch = mockFetchError(
+        429,
+        { error: "rate_limited", message: "Too many requests" },
+        { "Retry-After": "30" },
+      );
+      try {
+        await getMyProfile(BASE_URL);
+      } catch (e) {
+        expect((e as ApiError).status).toBe(429);
+        expect((e as ApiError).message).toContain("30 seconds");
       }
     });
 
@@ -378,6 +399,7 @@ describe("learner-profile-api", () => {
       globalThis.fetch = vi.fn().mockResolvedValue({
         ok: false,
         status: 502,
+        headers: { get: () => null },
         json: () => Promise.reject(new Error("not json")),
       });
       try {

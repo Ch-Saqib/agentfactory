@@ -16,11 +16,11 @@ export function ProfessionalStep({ data, onChange }: ProfessionalStepProps) {
         </p>
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="current-role" className="text-sm font-medium">
+        <label htmlFor="onboarding-current-role" className="text-sm font-medium">
           Current Role
         </label>
         <input
-          id="current-role"
+          id="onboarding-current-role"
           type="text"
           value={data.current_role || ""}
           onChange={(e) =>
@@ -32,11 +32,11 @@ export function ProfessionalStep({ data, onChange }: ProfessionalStepProps) {
         />
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="industry" className="text-sm font-medium">
+        <label htmlFor="onboarding-industry" className="text-sm font-medium">
           Industry
         </label>
         <input
-          id="industry"
+          id="onboarding-industry"
           type="text"
           value={data.industry || ""}
           onChange={(e) =>
@@ -48,11 +48,11 @@ export function ProfessionalStep({ data, onChange }: ProfessionalStepProps) {
         />
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="org-type" className="text-sm font-medium">
+        <label htmlFor="onboarding-org-type" className="text-sm font-medium">
           Organization Type (optional)
         </label>
         <select
-          id="org-type"
+          id="onboarding-org-type"
           value={data.organization_type || ""}
           onChange={(e) =>
             onChange({ ...data, organization_type: e.target.value || null })

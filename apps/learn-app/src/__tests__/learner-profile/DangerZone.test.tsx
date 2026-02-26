@@ -13,10 +13,17 @@ vi.mock("@docusaurus/useDocusaurusContext", () => ({
 // Mock API functions
 const mockDeleteMyProfile = vi.fn();
 const mockGdprEraseMyProfile = vi.fn();
+const mockRefreshProfile = vi.fn().mockResolvedValue(undefined);
 
 vi.mock("@/lib/learner-profile-api", () => ({
   deleteMyProfile: (...args: unknown[]) => mockDeleteMyProfile(...args),
   gdprEraseMyProfile: (...args: unknown[]) => mockGdprEraseMyProfile(...args),
+}));
+
+vi.mock("@/contexts/LearnerProfileContext", () => ({
+  useLearnerProfile: () => ({
+    refreshProfile: mockRefreshProfile,
+  }),
 }));
 
 // Mock window.location
@@ -145,7 +152,7 @@ describe("DangerZone", () => {
     });
   });
 
-  it("recovers from delete error without redirecting", async () => {
+  it("recovers from delete error without redirecting and shows error", async () => {
     mockDeleteMyProfile.mockRejectedValueOnce(new Error("Server error"));
     render(<DangerZone />);
 
@@ -158,9 +165,13 @@ describe("DangerZone", () => {
 
     // Should not redirect on error
     expect(mockLocation.href).toBe("");
-    // Delete button should be visible again (isDeleting reset)
+    // Error message should be shown with role="alert"
     await waitFor(() => {
-      expect(screen.getByText("Confirm Delete")).toBeInTheDocument();
+      const alert = screen.getByRole("alert");
+      expect(alert).toBeInTheDocument();
+      expect(alert.textContent).toContain("Server error");
     });
+    // Delete button should be visible again (isDeleting reset)
+    expect(screen.getByText("Confirm Delete")).toBeInTheDocument();
   });
 });

@@ -33,6 +33,8 @@ export function WizardProgress({
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-muted bg-muted text-muted-foreground"
                   }`}
+                  role="img"
+                  aria-label={`Step ${index + 1}: ${step.label} — ${isActive ? "current" : isComplete ? "completed" : "not started"}`}
                   aria-current={isActive ? "step" : undefined}
                   data-testid={`step-indicator-${index}`}
                 >

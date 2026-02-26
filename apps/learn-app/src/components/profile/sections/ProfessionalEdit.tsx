@@ -28,11 +28,11 @@ export function ProfessionalEdit({
   return (
     <div className="space-y-4">
       <div className="space-y-1.5">
-        <label htmlFor="current-role" className="text-sm font-medium">
+        <label htmlFor="settings-current-role" className="text-sm font-medium">
           Current Role
         </label>
         <input
-          id="current-role"
+          id="settings-current-role"
           type="text"
           value={ctx?.current_role || ""}
           onChange={(e) => update("current_role", e.target.value || null)}
@@ -41,11 +41,11 @@ export function ProfessionalEdit({
         />
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="industry" className="text-sm font-medium">
+        <label htmlFor="settings-industry" className="text-sm font-medium">
           Industry
         </label>
         <input
-          id="industry"
+          id="settings-industry"
           type="text"
           value={ctx?.industry || ""}
           onChange={(e) => update("industry", e.target.value || null)}
@@ -54,11 +54,11 @@ export function ProfessionalEdit({
         />
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="org-type" className="text-sm font-medium">
+        <label htmlFor="settings-org-type" className="text-sm font-medium">
           Organization Type
         </label>
         <select
-          id="org-type"
+          id="settings-org-type"
           value={ctx?.organization_type || ""}
           onChange={(e) => update("organization_type", e.target.value || null)}
           className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -71,11 +71,11 @@ export function ProfessionalEdit({
         </select>
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="team-context" className="text-sm font-medium">
+        <label htmlFor="settings-team-context" className="text-sm font-medium">
           Team Context
         </label>
         <input
-          id="team-context"
+          id="settings-team-context"
           type="text"
           value={ctx?.team_context || ""}
           onChange={(e) => update("team_context", e.target.value || null)}

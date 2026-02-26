@@ -9,9 +9,10 @@ const URGENCY_OPTIONS = [
 interface UrgencyRadioProps {
   value: string | null;
   onChange: (value: string) => void;
+  name?: string;
 }
 
-export function UrgencyRadio({ value, onChange }: UrgencyRadioProps) {
+export function UrgencyRadio({ value, onChange, name = "urgency" }: UrgencyRadioProps) {
   return (
     <fieldset className="space-y-2">
       <legend className="text-sm font-medium">Learning Urgency</legend>
@@ -23,7 +24,7 @@ export function UrgencyRadio({ value, onChange }: UrgencyRadioProps) {
           >
             <input
               type="radio"
-              name="urgency"
+              name={name}
               value={option.value}
               checked={value === option.value}
               onChange={() => onChange(option.value)}

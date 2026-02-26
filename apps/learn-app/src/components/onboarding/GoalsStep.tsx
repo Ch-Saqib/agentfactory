@@ -17,11 +17,11 @@ export function GoalsStep({ data, onChange }: GoalsStepProps) {
         </p>
       </div>
       <div className="space-y-1.5">
-        <label htmlFor="primary-goal" className="text-sm font-medium">
+        <label htmlFor="onboarding-primary-goal" className="text-sm font-medium">
           Primary Learning Goal
         </label>
         <input
-          id="primary-goal"
+          id="onboarding-primary-goal"
           type="text"
           value={data.primary_learning_goal || ""}
           onChange={(e) =>
@@ -40,6 +40,7 @@ export function GoalsStep({ data, onChange }: GoalsStepProps) {
         onChange={(value) =>
           onChange({ ...data, urgency: value as GoalsSection["urgency"] })
         }
+        name="onboarding-urgency"
       />
     </div>
   );

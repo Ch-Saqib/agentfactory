@@ -27,7 +27,7 @@ export function AccessibilityEdit({
             >
               <input
                 type="radio"
-                name="cognitive-load"
+                name="settings-cognitive-load"
                 value={option}
                 checked={a11y?.cognitive_load_preference === option}
                 onChange={() =>
@@ -40,11 +40,11 @@ export function AccessibilityEdit({
         </div>
       </fieldset>
       <div className="space-y-1.5">
-        <label htmlFor="a11y-notes" className="text-sm font-medium">
+        <label htmlFor="settings-a11y-notes" className="text-sm font-medium">
           Additional Notes
         </label>
         <textarea
-          id="a11y-notes"
+          id="settings-a11y-notes"
           value={a11y?.notes || ""}
           onChange={(e) =>
             onChange({ ...a11y, notes: e.target.value || null })

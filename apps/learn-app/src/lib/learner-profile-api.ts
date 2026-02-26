@@ -17,8 +17,17 @@ async function handleResponse<T>(response: Response): Promise<T> {
     } catch {
       // Response body may not be JSON
     }
+    let message = errorData?.message || `Request failed: ${response.status}`;
+    if (response.status === 429) {
+      const retryAfter = response.headers.get("Retry-After");
+      if (retryAfter) {
+        message = `Rate limited. Please retry after ${retryAfter} seconds.`;
+      } else {
+        message = "Too many requests. Please wait a moment and try again.";
+      }
+    }
     throw new ApiError(
-      errorData?.message || `Request failed: ${response.status}`,
+      message,
       response.status,
       errorData?.error || "unknown_error",
     );

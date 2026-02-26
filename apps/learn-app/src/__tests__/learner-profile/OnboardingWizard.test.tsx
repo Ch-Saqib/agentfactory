@@ -299,7 +299,7 @@ describe("OnboardingWizard", () => {
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByText("Skip"));
+      fireEvent.click(screen.getByText("Skip for now"));
     });
 
     expect(mockApiCompleteOnboardingPhase).toHaveBeenCalledWith(
@@ -330,7 +330,7 @@ describe("OnboardingWizard", () => {
     await waitFor(() => {
       expect(screen.getByText("Review Your Profile")).toBeInTheDocument();
     });
-    expect(screen.queryByText("Skip")).not.toBeInTheDocument();
+    expect(screen.queryByText("Skip for now")).not.toBeInTheDocument();
   });
 
   // ---- Complete ----

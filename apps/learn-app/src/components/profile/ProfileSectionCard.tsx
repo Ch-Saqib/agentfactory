@@ -65,6 +65,7 @@ export function ProfileSectionCard({
           <button
             onClick={handleEdit}
             className="text-sm text-primary hover:underline"
+            aria-label={`Edit ${config.label}`}
           >
             Edit
           </button>

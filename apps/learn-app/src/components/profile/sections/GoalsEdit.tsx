@@ -19,13 +19,13 @@ export function GoalsEdit({
     <div className="space-y-4">
       <div className="space-y-1.5">
         <label
-          htmlFor="primary-goal"
+          htmlFor="settings-primary-goal"
           className="text-sm font-medium"
         >
           Primary Learning Goal
         </label>
         <input
-          id="primary-goal"
+          id="settings-primary-goal"
           type="text"
           value={goals?.primary_learning_goal || ""}
           onChange={(e) =>
@@ -38,16 +38,17 @@ export function GoalsEdit({
       <UrgencyRadio
         value={goals?.urgency || null}
         onChange={(v) => update("urgency", v)}
+        name="settings-urgency"
       />
       <div className="space-y-1.5">
         <label
-          htmlFor="career-goal"
+          htmlFor="settings-career-goal"
           className="text-sm font-medium"
         >
           Career Goal
         </label>
         <input
-          id="career-goal"
+          id="settings-career-goal"
           type="text"
           value={goals?.career_goal || ""}
           onChange={(e) => update("career_goal", e.target.value || null)}
@@ -57,13 +58,13 @@ export function GoalsEdit({
       </div>
       <div className="space-y-1.5">
         <label
-          htmlFor="immediate-application"
+          htmlFor="settings-immediate-application"
           className="text-sm font-medium"
         >
           Immediate Application
         </label>
         <input
-          id="immediate-application"
+          id="settings-immediate-application"
           type="text"
           value={goals?.immediate_application || ""}
           onChange={(e) =>

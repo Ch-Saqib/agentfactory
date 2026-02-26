@@ -29,7 +29,7 @@ export function AccessibilityStep({ data, onChange }: AccessibilityStepProps) {
             >
               <input
                 type="radio"
-                name="cognitive-load"
+                name="onboarding-cognitive-load"
                 value={option}
                 checked={data.cognitive_load_preference === option}
                 onChange={() =>
@@ -49,11 +49,11 @@ export function AccessibilityStep({ data, onChange }: AccessibilityStepProps) {
         </div>
       </fieldset>
       <div className="space-y-1.5">
-        <label htmlFor="a11y-notes" className="text-sm font-medium">
+        <label htmlFor="onboarding-a11y-notes" className="text-sm font-medium">
           Additional Notes (optional)
         </label>
         <textarea
-          id="a11y-notes"
+          id="onboarding-a11y-notes"
           value={data.notes || ""}
           onChange={(e) =>
             onChange({ ...data, notes: e.target.value || null })

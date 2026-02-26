@@ -17,7 +17,14 @@ export function CompletenessBanner() {
           Complete your profile
         </a>
       </div>
-      <div className="h-2 rounded-full bg-muted overflow-hidden">
+      <div
+        className="h-2 rounded-full bg-muted overflow-hidden"
+        role="progressbar"
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Profile completeness: ${percent}%`}
+      >
         <div
           className="h-full rounded-full bg-primary transition-all"
           style={{ width: `${percent}%` }}

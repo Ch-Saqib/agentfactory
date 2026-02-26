@@ -48,11 +48,11 @@ export function ExpertiseStep({ data, onChange }: ExpertiseStepProps) {
       />
       <div className="space-y-3">
         <div className="space-y-1.5">
-          <label htmlFor="domain-name" className="text-sm font-medium">
+          <label htmlFor="onboarding-domain-name" className="text-sm font-medium">
             Domain Expertise (optional)
           </label>
           <input
-            id="domain-name"
+            id="onboarding-domain-name"
             type="text"
             value={data.domain[0]?.domain_name || ""}
             onChange={(e) => {
