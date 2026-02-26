@@ -128,9 +128,25 @@ Git is the tool on your computer. GitHub is the cloud service that stores copies
 
 ---
 
+## Sarah's Mistake
+
+Sarah is excited. She just learned about GitHub and wants to push her fundraiser project immediately. She runs `git push` — and it works. Everything is on GitHub. She's thrilled.
+
+Then Maya messages her: "Hey, I can see your Stripe API key on GitHub. The one for the donation page."
+
+Sarah's stomach drops. She had a `config.json` with the payment API key for their fundraiser donations page. She committed it in Lesson 1 without thinking. Now it's on the public internet.
+
+She deletes the file and pushes again. Problem solved, right?
+
+**Wrong.** The key is still in her commit history. Anyone who clones the repository gets every version of every file — including the one she "deleted." The key is out there. She has to log into Stripe, revoke the old key, and generate a new one.
+
+This is the most common security mistake in version control. It happens to professionals too. The fix isn't deleting the file — it's making sure the file never gets committed in the first place.
+
+---
+
 ## Step 1: Protect Secrets First
 
-Before pushing anything to the cloud, check for sensitive files. API keys, passwords, personal notes — these should never leave your computer.
+Before pushing anything to the cloud, set up protection. API keys, passwords, personal notes — these should never leave your computer.
 
 **What you tell your agent**: "I have a config file with my API key. Make sure it never gets uploaded to GitHub."
 
@@ -147,7 +163,7 @@ git commit -m "Add gitignore to protect secrets"
 
 :::caution
 
-Create `.gitignore` **before** your first push. Once a secret is in Git history, deleting the file doesn't remove it. The secret lives in your commit history. If that happens, you need to rotate the key immediately.
+Create `.gitignore` **before** your first push. Sarah learned this the hard way — once a secret is in Git history, deleting the file doesn't remove it from past commits. If that happens, you need to revoke the exposed key immediately and generate a new one.
 
 :::
 

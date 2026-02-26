@@ -126,75 +126,9 @@ In 1998, someone at Pixar accidentally ran a delete command on the Toy Story 2 p
 
 Version control exists because of disasters like this.
 
----
-
-## Before You Start
-
-You need three things before following along: a GitHub account, Git installed, and a one-time Git configuration. If you already have all three, skip to Sarah's Problem.
-
-**Git** and **GitHub** are not the same thing. Git is a tool that runs on your computer and tracks changes to your files. GitHub is a website that stores copies of your Git projects in the cloud — if your laptop breaks, your work survives on GitHub. Git works without GitHub. GitHub doesn't work without Git. You'll use Git locally in Lessons 1-2, then connect it to GitHub as your backup and portfolio in Lesson 3.
-
-### 1. Create a GitHub Account
-
-You'll use this in [Lesson 3](./03-cloud-backup-portfolio.md), but create it now — you'll need the email address in step 3 below.
-
-1. Visit **github.com** and click "Sign up"
-2. Choose a username carefully — this becomes your public portfolio URL: `github.com/yourname`
-3. Complete email verification
-
-### 2. Install Git
-
-Open your terminal and run:
-
-```bash
-git --version
-```
-
-If you see something like `git version 2.39.0` — skip to step 3.
-
-<details>
-<summary><strong>Git not installed? Click here for installation instructions</strong></summary>
-
-**macOS** — run one of these:
-
-```bash
-brew install git          # Option 1: Homebrew (recommended)
-xcode-select --install    # Option 2: Xcode Command Line Tools
-```
-
-**Windows:**
-
-1. Download Git from [git-scm.com/download/win](https://git-scm.com/download/win)
-2. Run the installer with default settings (keep clicking "Next")
-3. Restart your terminal after installation
-
-**Linux:**
-
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install git
-
-# Fedora
-sudo dnf install git
-
-# Arch Linux
-sudo pacman -S git
-```
-
-After installing, close and reopen your terminal, then verify with `git --version`.
-
-</details>
-
-### 3. Tell Git Who You Are
-
-Git labels every commit with your name and email. Use the same email you registered on GitHub — this links your commits to your GitHub profile.
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.github.email@example.com"
-```
-
-This isn't creating an account. It's a label that appears in your commit history. You only run this once.
+:::tip[Prerequisites]
+Before following along, complete the **Before You Start** setup in the [chapter introduction](./) — you need Git installed, a GitHub account, and a one-time Git configuration.
+:::
 
 ---
 
@@ -367,6 +301,24 @@ The `-` line shows what was there before. The `+` line shows what's there now. R
 
 ---
 
+## Sarah Panics (Then Recovers)
+
+Sarah sees the diff. She knows the file is broken. She Googles "undo git changes" and finds a StackOverflow answer suggesting `git reset --hard`. She runs it without reading the fine print.
+
+```bash
+git reset --hard
+```
+
+Everything goes back to normal. The broken budget is fixed. She exhales.
+
+Then she checks the volunteer list — the one she spent yesterday afternoon updating. **It's gone too.** `git reset --hard` doesn't undo one file. It resets *everything* to the last commit. Her volunteer updates weren't committed yet. They're gone. Actually gone.
+
+Sarah just learned the most expensive lesson in version control: **the nuclear option doesn't have a confirmation dialog.**
+
+There's a better way. Git has three levels of undo — each one more powerful than the last, each one more dangerous. The key is choosing the smallest tool for the job.
+
+---
+
 ## Three Levels of Undo
 
 Here's the decision tree for what to tell your agent. Every mistake falls into one of three categories.
@@ -421,7 +373,7 @@ The commit disappears from history. Your files stay in the working directory. Yo
 
 :::caution
 
-`git reset --hard HEAD~1` deletes the commit **and** throws away all file changes. This is the nuclear option. Only use it when you're certain you want to erase everything.
+`git reset --hard HEAD~1` deletes the commit **and** throws away all file changes. This is what happened to Sarah's volunteer list — the nuclear option with no confirmation dialog. Only use it when you're certain you want to erase everything.
 
 :::
 
@@ -436,7 +388,7 @@ The commit disappears from history. Your files stay in the working directory. Yo
 
 ---
 
-Your project is safe on your computer. But what if you want to try two completely different approaches at once? What if Sarah wants a formal flyer *and* a casual flyer, and she wants to work on both without losing either?
+Sarah's project is safe — she can undo bad edits, unstage mistakes, and roll back commits. But she learned something the hard way: one wrong command wiped out work she hadn't committed yet. What if she could try risky ideas in a completely separate space, where mistakes can't touch her real project?
 
 That's what branches solve — and that's the next lesson.
 

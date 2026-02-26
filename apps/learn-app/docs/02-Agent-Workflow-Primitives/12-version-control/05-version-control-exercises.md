@@ -1,15 +1,15 @@
 ---
 title: "Version Control Exercises"
 practice_exercise: ch12-version-control
-sidebar_position: 6
+sidebar_position: 5
 chapter: 12
-lesson: 6
+lesson: 5
 duration_minutes: 120
 
 # PEDAGOGICAL LAYER METADATA
 primary_layer: "Layer 1"
 layer_progression: "L1 (Manual Foundation)"
-layer_1_foundation: "Hands-on practice applying Lessons 1-5 Git concepts through 15 guided exercises"
+layer_1_foundation: "Hands-on practice applying Lessons 1-4 Git concepts through 15 guided exercises"
 layer_2_collaboration: "N/A"
 layer_3_intelligence: "N/A"
 layer_4_capstone: "N/A"
@@ -51,7 +51,7 @@ learning_objectives:
 
 cognitive_load:
   new_concepts: 3
-  assessment: "3 concepts (repository management, diagnosis, professional workflows) — within A2 limit. Exercises reinforce existing L01-L05 knowledge."
+  assessment: "3 concepts (repository management, diagnosis, professional workflows) — within A2 limit. Exercises reinforce existing L01-L04 knowledge."
 
 differentiation:
   extension_for_advanced: "Complete all 3 capstone projects; attempt Debug exercises without reading setup.sh first"
@@ -117,7 +117,7 @@ You don't need to complete all 15 in one sitting. Work through one module at a t
 
 ## Key Differences from Chapter Lessons
 
-In Lessons 1-6, you learned each Git workflow in isolation with guided walkthroughs. These exercises are different in three ways:
+In Lessons 1-4, you learned each Git workflow in isolation with guided walkthroughs. These exercises are different in three ways:
 
 - **No step-by-step instructions.** The exercises describe the scenario, the data, and the goal. You decide the approach, write the prompts, and handle unexpected situations yourself.
 - **Build + Debug pairing.** Every module has a Build exercise (create something from scratch) and a Debug exercise (find and fix problems in broken state). Debugging a broken repository develops different skills than building a clean one -- you learn to read Git output critically, compare expected vs. actual state, and trace errors back to their root cause.
@@ -521,7 +521,7 @@ Rewrite each PR to professional standards. For PR 1, write a proper description 
 
 > **Core Skill:** Capturing reusable patterns from experience
 >
-> Lesson 5 taught you how to document Git workflows, create prompt templates, and build reusable patterns. These exercises have you create workflow documentation for a team and audit existing documentation for gaps that caused real incidents.
+> Lesson 4 taught you how to document Git workflows, recognize reusable patterns, and build professional review habits. These exercises have you create workflow documentation for a team and audit existing documentation for gaps that caused real incidents.
 
 <ExerciseCard id="6.1" title="Workflow Builder" />
 
@@ -640,4 +640,4 @@ Investigate the repository using `git log`, `git reflog`, `git blame`, and `git 
 
 ## What's Next
 
-You've practiced the three core skills -- **repository management**, **problem diagnosis**, and **professional workflows** -- across 15 exercises. These skills compound: every exercise makes Git feel more instinctive, so when AI-generated code breaks your project at midnight, you'll reach for the right recovery command without hesitation. Next in the **Chapter Quiz**, you'll test your understanding of Git concepts and scenarios. The version control patterns you've built here become your safety net for Chapter 13, where you'll build your own AI Employee that uses these same Git workflows to work autonomously on your projects.
+You've practiced the three core skills -- **repository management**, **problem diagnosis**, and **professional workflows** -- across 15 exercises. These skills compound: every exercise makes Git feel more instinctive, so when AI-generated code breaks your project at midnight, you'll reach for the right recovery command without hesitation. Next in the **Chapter Quiz**, you'll test your understanding of Git concepts and scenarios. The version control patterns you've built here become your safety net for the next chapter, where you'll build your own AI Employee that uses these same Git workflows to work autonomously on your projects.

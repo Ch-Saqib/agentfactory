@@ -239,6 +239,8 @@ Fast-forward
  1 file changed, 2 insertions(+)
 ```
 
+"Fast-forward" means `main` hadn't changed since you branched off — Git simply moved `main` forward to include the new commits. No merging was needed because there was nothing to merge *with*.
+
 The casual flyer now exists on `main`. Verify:
 
 ```bash
@@ -262,17 +264,15 @@ The branch names are deleted. The commits from `casual-flyer` are preserved in `
 
 ---
 
-## Working with Your Agent on Branches
+## Branch Naming
 
-Ask your agent about branch naming. It might suggest conventions you hadn't thought of:
+Good branch names tell you what's happening at a glance:
 
-**What you tell your agent**: "What's a good way to name my branches?"
+- `feature/formal-flyer` — adding something new
+- `experiment/new-layout` — testing a risky idea
+- `bugfix/broken-budget` — fixing a problem
 
-Your agent might suggest using prefixes: `feature/` for new additions, `experiment/` for risky tests, `bugfix/` for fixes. You didn't ask for a naming system — but the suggestion improves your workflow. That's one way AI acts as a teacher.
-
-But you have context your agent doesn't. For example: "In my last project, I created too many experiment branches and lost track of them. I want to delete branches right after testing." Your agent adapts to your preference and reminds you to clean up after merging. This is how you teach the AI your constraints.
-
-Together you arrive at a workflow: create a branch with a clear name, test it, merge or delete, and always clean up immediately. Neither of you would have built this exact workflow alone.
+Bad names like `branch1` or `test` tell you nothing in a week. Name branches by what they do, not when you made them.
 
 ---
 

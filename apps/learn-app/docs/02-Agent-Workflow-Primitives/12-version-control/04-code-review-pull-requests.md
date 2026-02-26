@@ -2,10 +2,10 @@
 sidebar_position: 4
 chapter: 12
 lesson: 4
-title: "Code Review & Pull Requests"
-description: "Review changes before combining them — even your own. Pull requests add an 'are you sure?' step to your workflow."
-duration_minutes: 45
-keywords: [pull request, code review, diff, merge, github, collaboration]
+title: "Code Review, Pull Requests & Reusable Patterns"
+description: "Review changes before combining them, then master three patterns professionals follow every day"
+duration_minutes: 55
+keywords: [pull request, code review, diff, merge, github, collaboration, git patterns, workflow]
 
 # HIDDEN SKILLS METADATA
 skills:
@@ -37,6 +37,20 @@ skills:
     digcomp_area: "Critical Thinking"
     measurable_at_this_level: "Student includes what AI generated vs what they modified in PR description"
 
+  - name: "Recognize Recurring Git Patterns"
+    proficiency_level: "A2"
+    category: "Conceptual"
+    bloom_level: "Analyze"
+    digcomp_area: "Problem-Solving"
+    measurable_at_this_level: "Student identifies 3 recurring patterns from L01-L03"
+
+  - name: "Apply Patterns to New Scenarios"
+    proficiency_level: "A2"
+    category: "Applied"
+    bloom_level: "Apply"
+    digcomp_area: "Problem-Solving"
+    measurable_at_this_level: "Student applies documented patterns to new scenarios"
+
 learning_objectives:
   - objective: "Create a pull request from a feature branch to main"
     proficiency_level: "A2"
@@ -58,13 +72,19 @@ learning_objectives:
     bloom_level: "Apply"
     assessment_method: "Student merges PR and verifies changes on main"
 
+  - objective: "Identify three recurring Git patterns from lessons 1-3"
+    proficiency_level: "A2"
+    bloom_level: "Analyze"
+    assessment_method: "Student names all three patterns and when to use each"
+
 cognitive_load:
-  new_concepts: 3
+  new_concepts: 4
   concepts_list:
     - "Pull requests (review before merging)"
     - "Diff review (reading what changed)"
     - "Noting AI assistance in PR descriptions"
-  assessment: "3 concepts (within A2 limit) ✓"
+    - "Three reusable patterns (synthesis of L01-L03, zero new commands)"
+  assessment: "4 concepts (within A2 limit) — patterns section introduces no new Git commands, only names for what students already do ✓"
 teaching_guide:
   lesson_type: "core"
   session_group: 2
@@ -99,9 +119,9 @@ version: "2.0.0"
 
 Maya spent the weekend updating the volunteer list while Sarah redesigned the budget. Now they need to combine their work. But Maya renamed some columns, and Sarah moved some rows. If they just copy-paste, they'll lose each other's changes.
 
-Pull requests solve this. They're a "let me see what you changed before we combine" step.
+Sarah already made that mistake once — she merged a branch without looking at the changes and accidentally overwrote Maya's formatting. "I assumed it was fine," she told Maya. "I wrote it, so why would I need to check?"
 
-In 2012, a financial company called Knight Capital deployed code changes to their trading system without review. A single server out of eight received the wrong version. In 45 minutes, the system made millions of unintended trades. They lost $440 million — nearly destroying a company that took 17 years to build. A pause to review before deploying would have caught the error. ([Source](https://www.henricodolfing.ch/en/case-study-4-the-440-million-software-error-at-knight-capital/))
+That instinct — *I wrote it, so it must be fine* — has cost companies millions. In 2012, Knight Capital deployed code changes to their trading system without review. One server out of eight received the wrong version. In 45 minutes, the system made millions of unintended trades. They lost $440 million — nearly destroying a company that took 17 years to build. One pause to review before deploying would have caught the error. ([Source](https://www.henricodolfing.ch/en/case-study-4-the-440-million-software-error-at-knight-capital/))
 
 > **"Never merge what you don't understand — even if you wrote it yesterday."**
 
@@ -246,7 +266,95 @@ Use this checklist every time you review a PR, whether it's yours or someone els
 
 ---
 
-You've learned the pieces. Now let's turn them into patterns you'll use for the rest of your career.
+## Three Patterns for the Rest of Your Career
+
+You've now learned every Git concept in this chapter. Here's the thing — you've been following three patterns without realizing it. Professionals don't memorize Git commands. They follow these three patterns and let their agent handle the syntax.
+
+### Pattern 1: Commit Before Experimenting
+
+Before you let your agent try anything risky, take a snapshot first.
+
+**When to use it:** Before asking AI to make changes. Before trying something you're not sure about. Anytime you think "this might go wrong."
+
+**What you tell your agent**: "Save the current state before we try anything risky."
+
+```bash
+git add .
+git commit -m "Before refactoring: working state"
+```
+
+If the experiment fails, you can get back to this exact state. Without this snapshot, there's nothing to go back to. Sarah learned this in Lesson 1 — she lost her volunteer list because she hadn't committed it.
+
+### Pattern 2: Branch-Test-Merge
+
+When you're testing something that might break your project, do it on a separate branch.
+
+**When to use it:** Testing multiple approaches. Making changes that could break things. Working on something while keeping `main` stable.
+
+```bash
+# 1. Create a branch for your experiment
+git checkout -b experiment/new-approach
+
+# 2. Make changes, test them
+git add .
+git commit -m "Test new approach"
+
+# 3. If it works → merge into main
+git switch main
+git merge experiment/new-approach
+git branch -d experiment/new-approach
+
+# 3. If it fails → delete the branch
+git switch main
+git branch -D experiment/new-approach
+```
+
+Main stays clean. If the experiment is terrible, you delete the branch and nothing happened.
+
+### Pattern 3: Push for Backup
+
+After meaningful work, push to GitHub. Don't wait until end of day.
+
+**When to use it:** After completing a feature. After merging a branch. Before closing your laptop.
+
+```bash
+git push
+```
+
+Your laptop can break, get stolen, or run out of battery at the worst moment. If your code is on GitHub, you lose nothing. Sarah's dead laptop in Lesson 3 would have been a catastrophe without this.
+
+### How They Work Together
+
+A typical work session:
+
+```
+1. Start: git status          (Where did I leave off?)
+2. Before AI: commit          (Pattern 1 — save current state)
+3. Risky change: branch       (Pattern 2 — isolate the experiment)
+4. Test the changes           (Does it work?)
+5. Decision: merge or delete  (Keep the good, discard the bad)
+6. Push to GitHub             (Pattern 3 — backup)
+```
+
+---
+
+## The Bigger Picture
+
+These patterns aren't just Git habits. They're the [Seven Principles of General Agent Problem Solving](/docs/General-Agents-Foundations/seven-principles) applied to version control — you've been practicing them all chapter without labeling them.
+
+| Git Pattern | Principle It Applies | What You Did |
+| --- | --- | --- |
+| **Commit Before Experiment** | Small, Reversible Decomposition | Made atomic save points so any change can be undone |
+| **Branch-Test-Merge** | Constraints and Safety | Isolated risky work so it can't damage main |
+| **Push for Backup** | Persisting State in Files | Saved your project outside your computer so it survives failures |
+| `git status` before every action | Verification as Core Step | Checked the current state before making changes |
+| Clear commit messages and PR descriptions | Observability | Made your history readable so anyone can see what happened and why |
+
+Five of seven principles, embedded in your daily workflow. You didn't memorize them as theory — you practiced them as habits.
+
+---
+
+You started this chapter pressing Ctrl+Z and hoping. You're ending it with a system that professionals use to protect million-dollar projects. The same system your AI agent uses every time you ask it to help. Now you understand what it's doing — and why.
 
 ---
 
@@ -260,10 +368,10 @@ You've learned the pieces. Now let's turn them into patterns you'll use for the 
 
 > "Show me an example code diff and walk me through how to review it step by step. What questions should I ask myself? What red flags should I watch for? Help me build a mental checklist for code review."
 
-**Handle review feedback:**
+**Build your personal workflow reference:**
 
-> "Someone reviewed my PR and left comments asking me to change something. How should I respond? What if I disagree with their suggestion? Give me a framework for productive code review conversations."
+> "Help me create a one-page Git cheat sheet organized around three patterns: Commit-Before-Experiment, Branch-Test-Merge, and Push-for-Backup. For each pattern, include: when to use it, what to tell my AI agent, the commands it will run, and one safety tip. Format it so I can keep it at my desk."
 
-**Create a self-review habit:**
+**Add error recovery to your workflow:**
 
-> "Before I submit PRs for review, I want to catch my own mistakes. Walk me through a self-review checklist: what to check in the code diff, in the PR description, in my commit messages, and in my test coverage."
+> "My workflow covers the happy path. What happens when things go wrong? Help me add an error recovery section for: merge conflicts, accidental commits to the wrong branch, and pushing secrets to GitHub. For each, give me the symptom, the fix, and how to prevent it."

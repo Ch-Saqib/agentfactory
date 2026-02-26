@@ -17,6 +17,78 @@ This chapter teaches you the system your agent already uses. Not to memorize com
 
 Throughout this chapter, you'll follow Sarah. She's organizing a community fundraiser with her friend Maya. They share a project folder with budget spreadsheets, flyer designs, and volunteer lists. Sarah has never used version control. By the end of this chapter, she'll wonder how she ever worked without it.
 
+## Before You Start
+
+You need three things before starting the lessons: a GitHub account, Git installed, and a one-time Git configuration. If you already have all three, skip to Lesson 1.
+
+**Git** and **GitHub** are not the same thing. Git is a tool that runs on your computer and tracks changes to your files. GitHub is a website that stores copies of your Git projects in the cloud — if your laptop breaks, your work survives on GitHub. Git works without GitHub. GitHub doesn't work without Git. You'll use Git locally in Lessons 1-2, then connect it to GitHub in Lesson 3.
+
+<details>
+<summary><strong>1. Create a GitHub Account</strong></summary>
+
+You'll use this in [Lesson 3](./03-cloud-backup-portfolio.md), but create it now — you'll need the email address in step 3 below.
+
+1. Visit **github.com** and click "Sign up"
+2. Choose a username carefully — this becomes your public portfolio URL: `github.com/yourname`
+3. Complete email verification
+
+</details>
+
+<details>
+<summary><strong>2. Install Git</strong></summary>
+
+Open your terminal and run:
+
+```bash
+git --version
+```
+
+If you see something like `git version 2.39.0` — skip to step 3.
+
+**macOS** — run one of these:
+
+```bash
+brew install git          # Option 1: Homebrew (recommended)
+xcode-select --install    # Option 2: Xcode Command Line Tools
+```
+
+**Windows:**
+
+1. Download Git from [git-scm.com/download/win](https://git-scm.com/download/win)
+2. Run the installer with default settings (keep clicking "Next")
+3. Restart your terminal after installation
+
+**Linux:**
+
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install git
+
+# Fedora
+sudo dnf install git
+
+# Arch Linux
+sudo pacman -S git
+```
+
+After installing, close and reopen your terminal, then verify with `git --version`.
+
+</details>
+
+<details>
+<summary><strong>3. Tell Git Who You Are</strong></summary>
+
+Git labels every commit with your name and email. Use the same email you registered on GitHub — this links your commits to your GitHub profile.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.github.email@example.com"
+```
+
+This isn't creating an account. It's a label that appears in your commit history. You only run this once.
+
+</details>
+
 ## Principles Applied
 
 In [The Seven Principles of General Agent Problem Solving](/docs/General-Agents-Foundations/seven-principles), you learned the operational patterns that make AI collaboration reliable. This chapter puts four of them into practice — Git is where those principles become muscle memory.
@@ -46,10 +118,9 @@ By the end of this chapter, you'll be able to:
 | [L01](./01-git-foundations.md) | Git Foundations | Snapshots, staging, undo — the core concepts |
 | [L02](./02-testing-ai-safely-with-branches.md) | Testing AI Safely with Branches | Parallel timelines for safe experimentation |
 | [L03](./03-cloud-backup-portfolio.md) | Cloud Backup & Portfolio | GitHub as your safety net and career showcase |
-| [L04](./04-code-review-pull-requests.md) | Code Review & Pull Requests | Review before you trust — even your own work |
-| [L05](./05-reusable-git-patterns.md) | Reusable Git Patterns | Three patterns you'll use for the rest of your career |
-| [Exercises](./06-version-control-exercises.md) | Exercises | Hands-on practice |
-| [Quiz](./07-chapter-quiz.md) | Chapter Quiz | Test your understanding |
+| [L04](./04-code-review-pull-requests.md) | Code Review, Pull Requests & Reusable Patterns | Review before you trust, then build lasting habits |
+| [Exercises](./05-version-control-exercises.md) | Exercises (Optional) | Hands-on practice |
+| [Quiz](./06-chapter-quiz.md) | Chapter Quiz (Optional) | Test your understanding |
 
 ## Connection to Building Your First AI Employee
 
