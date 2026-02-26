@@ -121,7 +121,7 @@ Maya spent the weekend updating the volunteer list while Sarah redesigned the bu
 
 Sarah already made that mistake once — she merged a branch without looking at the changes and accidentally overwrote Maya's formatting. "I assumed it was fine," she told Maya. "I wrote it, so why would I need to check?"
 
-That instinct — *I wrote it, so it must be fine* — has cost companies millions. In 2012, Knight Capital deployed code changes to their trading system without review. One server out of eight received the wrong version. In 45 minutes, the system made millions of unintended trades. They lost $440 million — nearly destroying a company that took 17 years to build. One pause to review before deploying would have caught the error. ([Source](https://www.henricodolfing.ch/en/case-study-4-the-440-million-software-error-at-knight-capital/))
+That instinct — *I wrote it, so it must be fine* — causes expensive failures. The 2012 Knight Capital incident is a famous example of unreviewed deployment changes causing massive losses. One review pause can prevent this class of mistake. ([Source](https://www.henricodolfing.ch/en/case-study-4-the-440-million-software-error-at-knight-capital/))
 
 > **"Never merge what you don't understand — even if you wrote it yesterday."**
 
@@ -162,12 +162,14 @@ First, create a feature branch with changes and push it to GitHub.
 **What the agent does**:
 
 ```bash
-git checkout -b feature/update-volunteers
+git switch -c feature/update-volunteers
 echo "Volunteers: Sarah, Maya, Jordan, Alex" > volunteers.txt
 git add volunteers.txt
 git commit -m "Add Alex to volunteer list"
 git push -u origin feature/update-volunteers
 ```
+
+`git switch -c` is the modern version of `git checkout -b`: create a branch and switch to it in one command.
 
 Now create the PR on GitHub:
 
@@ -279,7 +281,8 @@ Before you let your agent try anything risky, take a snapshot first.
 **What you tell your agent**: "Save the current state before we try anything risky."
 
 ```bash
-git add .
+git status
+git add <specific-files>
 git commit -m "Before refactoring: working state"
 ```
 
@@ -293,10 +296,11 @@ When you're testing something that might break your project, do it on a separate
 
 ```bash
 # 1. Create a branch for your experiment
-git checkout -b experiment/new-approach
+git switch -c experiment/new-approach
 
 # 2. Make changes, test them
-git add .
+git status
+git add <specific-files>
 git commit -m "Test new approach"
 
 # 3. If it works → merge into main

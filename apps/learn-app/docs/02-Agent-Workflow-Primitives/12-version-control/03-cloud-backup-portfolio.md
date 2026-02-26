@@ -159,7 +159,14 @@ git add .gitignore
 git commit -m "Add gitignore to protect secrets"
 ```
 
-`.gitignore` tells Git which files to skip. Any file listed in `.gitignore` won't be staged, committed, or pushed — no matter what.
+`.gitignore` tells Git which **untracked** files to skip. Files listed there won't be staged, committed, or pushed going forward.
+
+If a file was already committed earlier, `.gitignore` alone won't protect it. You must untrack it first:
+
+```bash
+git rm --cached config.json
+git commit -m "Stop tracking config.json"
+```
 
 :::caution
 
@@ -171,7 +178,7 @@ Create `.gitignore` **before** your first push. Sarah learned this the hard way 
 
 ## Step 2: Create a Repository on GitHub
 
-If you haven't created your GitHub account yet, do that first (see [Lesson 1 prerequisites](./01-git-foundations.md#create-a-github-account)).
+If you haven't created your GitHub account yet, do that first (see [Before You Start](./README.md#1-create-a-github-account)).
 
 Now create an empty repository on GitHub:
 

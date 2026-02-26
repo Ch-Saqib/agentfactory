@@ -117,7 +117,7 @@ In the real world, you'd make two copies of the file. In Git, you create two **b
 
 You've used Track Changes to compare different versions of a document. Branches take that idea further. Instead of tracking changes to one file, a branch creates a parallel version of your *entire project*.
 
-Your `main` branch is the "real" version — the one you trust. When you create a new branch, it's like making a photocopy of the whole project folder. You can edit the copy freely. If the changes work, you merge them back. If they don't, you throw away the copy. The original is untouched.
+Your `main` branch is the "real" version — the one you trust. When you create a new branch, Git creates a new label pointing to the current snapshot. It feels like a copy because you can edit safely without touching `main`. If the changes work, you merge them back. If they don't, you throw away the branch name. The original is untouched.
 
 ![Branch diagram showing main branch (stable) with feature branches diverging for development, then merging back after review](https://pub-80f166e40b854371ac7b05053b435162.r2.dev/books/ai-native-dev/static/images/part-2/chapter-09/branch-workflow-diagram.png)
 
@@ -254,7 +254,7 @@ git branch -d casual-flyer
 git branch -d formal-flyer
 ```
 
-The branch names are deleted. The commits from `casual-flyer` are preserved in `main`'s history. The `formal-flyer` commits are gone — Sarah chose not to keep them.
+The branch names are deleted. The commits from `casual-flyer` are preserved in `main`'s history. The `formal-flyer` commits were never merged, so they are no longer part of Sarah's main workflow.
 
 :::tip
 
