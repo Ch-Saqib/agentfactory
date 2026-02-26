@@ -50,11 +50,11 @@ Phase 1 establishes the foundation that every subsequent phase builds on. You in
 
 **Your First TDG Cycle** closes Phase 1 by giving you the complete Test-Driven Generation loop: Specify, Type, Test, AI Generates, Verify. You write your first test -- five lines that define a requirement -- prompt AI to implement the function that passes it, and run `pytest` to see green. Five lines of your code produce twenty lines of working implementation. This changes everything.
 
-### Phase 2: Types as the Language of Intent (Specify)
+### Phase 2: The Python Language (Specify)
 
 > Your role: **Specifier** -- "I can tell AI precisely what to build"
 
-Phase 2 transforms you from someone who reads AI output into someone who directs it. Types become your specification vocabulary -- the way you tell AI exactly what shape your data has.
+Phase 2 teaches the building blocks of the Python language. You learn the type system, data structures, functions, and control flow -- everything you need to read, write, and direct AI-generated code with precision.
 
 **Primitive Types and Expressions** teaches Python's type system as a specification language. `str`, `int`, `float`, `bool` -- along with string methods, arithmetic operators, f-string formatting, type conversions, and type narrowing -- all framed not as syntax to memorize but as contracts you write so AI knows what to build.
 
@@ -62,15 +62,15 @@ Phase 2 transforms you from someone who reads AI output into someone who directs
 
 **Functions as Contracts** reframes functions as specifications. A function signature IS a contract: inputs, output, and what it promises. You learn type annotations on parameters and return values, default values, `*args` and `**kwargs`, pure functions, composition, scope, first-class functions, and docstrings as specification. TDG exercises have you writing signatures and tests while AI implements the body.
 
-**Data Models** bridges to object-oriented programming by introducing `@dataclass` and Pydantic `BaseModel`. You model real domains -- Order, Customer, Product -- with typed data structures. Dataclasses handle internal data; Pydantic validates external boundaries. This chapter gives you 80% of OOP's value before you encounter a single `class` statement.
+**Control Flow** teaches how code makes decisions and repeats. `if/elif/else` for branching, `match/case` for structural pattern matching, `for` loops for iteration, `while` loops for conditional repetition, `break`, `continue`, and truthiness. You predict which path code takes, trace loop execution, and test that every branch behaves correctly.
 
 ### Phase 3: Tests as Specification (Verify)
 
 > Your role: **Verifier** -- "I can prove code is correct"
 
-Phase 3 gives you the power to define "correct." You write tests that serve as requirement documents, and AI implements against your specifications.
+Phase 3 gives you the power to define "correct." You model your domain with typed data structures, then write tests that serve as requirement documents. AI implements against your specifications.
 
-**Control Flow Through Testing** teaches `if/elif/else`, `match/case`, `for` loops, `while` loops, `break`, `continue`, and truthiness -- all learned through testing rather than memorization. You write tests that specify branch behavior, then prompt AI to implement, then verify all paths are covered.
+**Data Models** introduces `@dataclass` and Pydantic `BaseModel` as specification tools. You model real domains -- Order, Customer, Product -- with typed data structures. Dataclasses handle internal data; Pydantic validates external boundaries. Now that you know types, functions, and control flow, you combine them all into structured domain models that tell AI exactly what your data looks like.
 
 **pytest Deep Dive** turns you into a specification author. Arrange-Act-Assert structure, fixtures for reusable setup, `@pytest.mark.parametrize` for testing many cases from one function, `pytest.raises` for testing exceptions, coverage measurement, and test organization. By the end, you write complete test suites (20-40 lines) that serve as specifications for AI to implement against.
 
@@ -133,8 +133,8 @@ You do not build seven throwaway projects. You build **one real application** --
 | Phase | SmartNotes Version | What You Build |
 |-------|-------------------|----------------|
 | 1 | v0.1: Explore | Read and annotate a pre-built prototype (~200 lines) |
-| 2 | v0.2: Type It | Typed data models that pass `pyright --strict` -- structure, no implementation |
-| 3 | v0.3: Prove It | 30+ passing tests with 90%+ coverage of the core domain |
+| 2 | v0.2: Type It | Typed variables, functions, and control flow -- structure with no implementation |
+| 3 | v0.3: Prove It | Data models + 30 passing tests with 90%+ coverage of the core domain |
 | 4 | v0.4: Architect | Full object model with behavior, inheritance, protocols, decorators |
 | 5 | v0.5: Store It | PostgreSQL persistence, file import/export, proper package structure |
 | 6 | v0.6: Ship It | CLI tool + FastAPI async API + CI pipeline + structured logging |
@@ -147,8 +147,8 @@ Every exercise adds to the same project. Each phase produces a working, shippabl
 By the end of Part 4, you will be able to:
 
 1. **Read and verify** AI-generated typed Python -- tracing expressions, interpreting annotations, reading function signatures, and reviewing modules critically
-2. **Specify with types** -- defining primitive types, typed collections, dataclasses, Pydantic models, class interfaces, and function contracts that tell AI precisely what to build
-3. **Specify with tests** -- writing pytest suites that serve as requirement documents, covering happy paths, edge cases, and error conditions
+2. **Specify with types** -- defining primitive types, typed collections, functions as contracts, and control flow that tells AI precisely what to build
+3. **Model domains and specify with tests** -- dataclasses, Pydantic models, and pytest suites that serve as requirement documents covering happy paths, edge cases, and error conditions
 4. **Drive the TDG cycle** independently -- from problem statement through specification, types, tests, AI generation, verification, and iteration until green
 5. **Design object-oriented systems** -- classes, inheritance, composition, protocols, special methods, decorators, and properties -- modeling real domains that AI implements
 6. **Build production software** -- CLI tools, async APIs with FastAPI, PostgreSQL persistence, data processing pipelines, and modular package architecture
