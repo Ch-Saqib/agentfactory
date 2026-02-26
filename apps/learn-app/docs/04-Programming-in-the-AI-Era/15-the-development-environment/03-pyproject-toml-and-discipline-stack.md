@@ -47,8 +47,8 @@ learning_objectives:
     assessment_method: "Student labels each section: [project], [dependency-groups], [tool.pyright], [tool.ruff], [tool.pytest.ini_options]"
 
 cognitive_load:
-  new_concepts: 6
-  assessment: "6 concepts (pyproject.toml as identity, dependency-groups, uv add --dev, uv.lock lockfile, tool config sections, three-steps-in-one model) within A2 limit of 7"
+  new_concepts: 4
+  assessment: "4 concepts (pyproject.toml as identity, dependency-groups with uv add --dev, uv.lock lockfile, tool config sections as copy-now-learn-later) — comfortably within A2 limit of 7. Detailed tool settings deferred to L4/L5/L6."
 
 differentiation:
   extension_for_advanced: "Research the full pyproject.toml specification (PEP 621, PEP 518) and compare how different tools (Poetry, Hatch, PDM) use the same file differently"
@@ -195,52 +195,11 @@ The lockfile is a cross-platform reproducibility guarantee. When another develop
 
 **Rule**: Commit `uv.lock` to Git. It belongs in version control alongside `pyproject.toml`.
 
-### Adding Tool Configuration Sections
+### Adding Tool Configuration
 
-The discipline stack is installed. Now each tool needs to know how to behave. Instead of creating separate config files for each tool, you add configuration sections directly to `pyproject.toml`.
+The discipline stack is installed. Now each tool needs to know how to behave. Instead of creating separate config files for each tool, you add configuration sections directly to `pyproject.toml`. Open the file and add every section from `[tool.pyright]` onward, as shown in the complete file below. Each `[tool.*]` section tells one tool how to behave -- what to check, how strict to be, where to look.
 
-Add the following sections after the `[dependency-groups]` block:
-
-**Pyright configuration:**
-
-```toml
-[tool.pyright]
-typeCheckingMode = "strict"
-pythonVersion = "3.12"
-```
-
-Python lets you add **type annotations** — labels that say what kind of data a variable holds or what a function expects and returns. For example, `name: str` says "name is text" and `age: int` says "age is a whole number." You will learn how to write these annotations in later chapters. For now, just know that pyright reads them and warns you when something does not match — like passing text where a number is expected. `"strict"` mode means pyright checks everything thoroughly, and `pythonVersion = "3.12"` tells it which version of Python your project uses.
-
-**Ruff configuration:**
-
-```toml
-[tool.ruff]
-line-length = 88
-target-version = "py312"
-
-[tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "SIM"]
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-```
-
-Ruff does two jobs: **linting** (finding mistakes and bad habits in your code) and **formatting** (making your code look consistent). `line-length = 88` means no line of code should be longer than 88 characters — long lines are hard to read. `target-version = "py312"` tells ruff your project uses Python 3.12.
-
-The `select` list tells ruff which categories of problems to look for. Each letter code enables a different category of checks — `"E"` for style errors, `"F"` for real bugs like unused imports, `"I"` for import ordering, and so on. You will see exactly what each prefix catches in Lesson 4, when you run ruff and read its output for the first time.
-
-The `[tool.ruff.format]` section controls how ruff formats your code: double quotes around strings (`"hello"` not `'hello'`) and spaces for indentation (not tabs).
-
-**Pytest configuration:**
-
-```toml
-[tool.pytest.ini_options]
-addopts = "-ra -q"
-testpaths = ["tests"]
-```
-
-Pytest is the tool that runs your tests — small checks you write to prove your code does what it should. `addopts` sets default options that apply every time you run tests: `-ra` means "after all tests finish, show a summary of which ones passed and which failed," and `-q` means "keep the output short instead of printing every detail." `testpaths = ["tests"]` tells pytest where to find your test files — in a folder called `tests/` inside your project.
+You do not need to understand every setting yet. Lesson 4 explains what ruff's rule codes catch. Lesson 5 explains what pyright's strict mode checks. Lesson 6 explains what pytest's options control. For now, copy the sections exactly so the tools are configured and ready.
 
 ### The Complete pyproject.toml
 
@@ -297,8 +256,8 @@ The file list has not changed since Lesson 2. What changed is the *content* of `
 **Read and Predict**: Look at the `pyproject.toml` above and answer these questions:
 
 1. What happens if you try to use Python 3.11 with this project?
-2. Which ruff rules are enabled? What does the `"F"` prefix catch?
-3. Where will pytest look for test files?
+2. If you run `uv add --dev httpx`, which section of `pyproject.toml` will change?
+3. How many `[tool.*]` sections are there, and which tool has the most?
 
 ### Section Map
 
@@ -316,7 +275,7 @@ For reference, here is every section in the final `pyproject.toml` and what it c
 
 The `[project]` and `[dependency-groups]` sections follow Python standards that all tools agree on. The `[tool.*]` sections follow a convention: each tool gets its own namespace under `[tool]`, so configurations never collide.
 
-**Quick Check**: Look at the `[tool.ruff.lint]` section above. If you wanted ruff to stop checking import order, which code would you remove from the `select` list? (Hint: one of the six letters controls import sorting.)
+**Quick Check**: Your teammate clones the SmartNotes project and runs `uv sync`. They get a working `.venv/` with all the right packages. Which two files made this possible, and what role does each one play?
 
 ## Anti-Patterns
 
