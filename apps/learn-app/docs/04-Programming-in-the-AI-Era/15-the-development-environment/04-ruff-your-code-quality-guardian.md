@@ -145,9 +145,7 @@ if __name__ == "__main__":
     print(found)
 ```
 
-:::note You do not need to understand this code yet
-This code uses Python features — functions, loops, lists, and more — that you will learn in later chapters. Right now, the goal is not to read the code. The goal is to see what ruff does with it. Just type the code exactly as shown, run the commands below, and focus on the tool's output.
-:::
+You will learn the Python features in this code in later chapters. For now, type it exactly as shown and focus on what ruff reports.
 
 This code runs without errors. Python will execute it and produce the correct output. But it has problems that ruff will catch.
 

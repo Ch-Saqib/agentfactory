@@ -115,9 +115,7 @@ Your SmartNotes project has a `main.py` file. You need a place for tests. Create
 
 Create the file `tests/test_main.py` with this content:
 
-:::note You do not need to understand this code yet
-This code uses Python features -- `def`, `import`, `assert`, type labels, and more -- that you will learn in later chapters. Right now, the goal is not to read the code. The goal is to see what pytest does with it. Just type the code exactly as shown, run the commands below, and focus on the tool's output.
-:::
+Type this code exactly as shown. The Python features (`def`, `import`, `assert`) are covered in later chapters -- right now, focus on what pytest does with it.
 
 ```python static
 # tests/test_main.py
