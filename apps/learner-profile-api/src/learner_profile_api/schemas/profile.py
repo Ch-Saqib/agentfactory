@@ -23,7 +23,7 @@ class ProgrammingExpertise(BaseModel):
     notes: str | None = Field(None, max_length=300)
 
 
-class AiMlExpertise(BaseModel):
+class AiFluencyExpertise(BaseModel):
     level: ExpertiseLevel = "beginner"
     notes: str | None = Field(None, max_length=300)
 
@@ -63,7 +63,7 @@ class SubjectSpecific(BaseModel):
 class ExpertiseSection(BaseModel):
     domain: list[DomainExpertise] = Field(default_factory=list, max_length=5)
     programming: ProgrammingExpertise = Field(default_factory=ProgrammingExpertise)
-    ai_ml: AiMlExpertise = Field(default_factory=AiMlExpertise)
+    ai_fluency: AiFluencyExpertise = Field(default_factory=AiFluencyExpertise)
     business: BusinessExpertise = Field(default_factory=BusinessExpertise)
     subject_specific: SubjectSpecific = Field(default_factory=SubjectSpecific)
 

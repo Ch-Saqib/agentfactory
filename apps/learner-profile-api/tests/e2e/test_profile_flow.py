@@ -25,7 +25,7 @@ class TestProfileLifecycle:
                 },
                 "expertise": {
                     "programming": {"level": "intermediate", "languages": ["Python"]},
-                    "ai_ml": {"level": "beginner"},
+                    "ai_fluency": {"level": "beginner"},
                 },
             },
         )
@@ -36,7 +36,7 @@ class TestProfileLifecycle:
         assert profile["consent_given"] is True
         assert profile["goals"]["primary_learning_goal"] == "Build AI agents for my business"
         assert profile["expertise"]["programming"]["level"] == "intermediate"
-        assert profile["expertise"]["ai_ml"]["level"] == "beginner"
+        assert profile["expertise"]["ai_fluency"]["level"] == "beginner"
 
         # 2. Read back via GET /me
         get_resp = await client.get(BASE + "/me")
@@ -77,8 +77,8 @@ class TestProfileLifecycle:
         sectioned = section_resp.json()
         assert sectioned["expertise"]["programming"]["level"] == "advanced"
         assert "Rust" in sectioned["expertise"]["programming"]["languages"]
-        # ai_ml preserved
-        assert sectioned["expertise"]["ai_ml"]["level"] == "beginner"
+        # ai_fluency preserved
+        assert sectioned["expertise"]["ai_fluency"]["level"] == "beginner"
 
         # 5. Verify completeness increases with data
         comp_resp = await client.get(BASE + "/me/completeness")
@@ -127,7 +127,7 @@ class TestProfileLifecycle:
             json={
                 "expertise": {
                     "programming": {"level": "advanced"},
-                    "ai_ml": {"level": "advanced"},
+                    "ai_fluency": {"level": "advanced"},
                 },
             },
         )

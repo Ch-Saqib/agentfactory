@@ -4,7 +4,7 @@ import pytest
 from pydantic import ValidationError
 
 from learner_profile_api.schemas.profile import (
-    AiMlExpertise,
+    AiFluencyExpertise,
     CommunicationSection,
     DeliverySection,
     DomainExpertise,
@@ -173,7 +173,7 @@ class TestValidExpertiseSection:
                 ),
             ],
             programming={"level": "intermediate", "languages": ["Python", "Rust"]},
-            ai_ml=AiMlExpertise(level="expert", notes="Published researcher"),
+            ai_fluency=AiFluencyExpertise(level="expert", notes="Published researcher"),
             business={"level": "beginner"},
             subject_specific=SubjectSpecific(
                 topics_already_mastered=[
@@ -189,7 +189,7 @@ class TestValidExpertiseSection:
         )
         assert es.domain[0].domain_name == "Machine Learning"
         assert es.programming.level == "intermediate"
-        assert es.ai_ml.level == "expert"
+        assert es.ai_fluency.level == "expert"
         assert es.business.level == "beginner"
         assert len(es.subject_specific.topics_already_mastered) == 1
 

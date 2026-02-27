@@ -12,7 +12,7 @@ export function ExpertiseEdit({
   const expertise = data as ExpertiseSection;
 
   const updateNested = (
-    path: "programming" | "ai_ml" | "business",
+    path: "programming" | "ai_fluency" | "business",
     value: string,
   ) => {
     onChange({
@@ -29,12 +29,12 @@ export function ExpertiseEdit({
         onChange={(v) => updateNested("programming", v)}
       />
       <ExpertiseLevelSelect
-        label="AI / ML"
-        value={expertise?.ai_ml?.level || "none"}
-        onChange={(v) => updateNested("ai_ml", v)}
+        label="AI Fluency"
+        value={expertise?.ai_fluency?.level || "none"}
+        onChange={(v) => updateNested("ai_fluency", v)}
       />
       <ExpertiseLevelSelect
-        label="Business"
+        label="Business Strategy"
         value={expertise?.business?.level || "none"}
         onChange={(v) => updateNested("business", v)}
       />

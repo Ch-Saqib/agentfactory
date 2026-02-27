@@ -65,7 +65,7 @@ def _get_max_expertise_level(expertise: ExpertiseSection) -> str:
     """Get the maximum expertise level across all areas."""
     levels = [
         expertise.programming.level,
-        expertise.ai_ml.level,
+        expertise.ai_fluency.level,
         expertise.business.level,
     ]
 
@@ -99,7 +99,7 @@ def should_run_inference(field_sources: dict[str, str]) -> bool:
     """
     expertise_fields = [
         "expertise.programming.level",
-        "expertise.ai_ml.level",
+        "expertise.ai_fluency.level",
         "expertise.business.level",
         "expertise.domain",
     ]

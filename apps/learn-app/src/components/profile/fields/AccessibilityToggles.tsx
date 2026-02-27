@@ -1,5 +1,7 @@
 import React from "react";
 import type { AccessibilitySection } from "@/lib/learner-profile-types";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface AccessibilityTogglesProps {
   value: AccessibilitySection;
@@ -18,32 +20,26 @@ export function AccessibilityToggles({ value, onChange }: AccessibilityTogglesPr
   };
 
   return (
-    <fieldset className="space-y-3">
-      <legend className="text-sm font-medium">Accessibility Options</legend>
-      {TOGGLES.map((toggle) => (
-        <label key={toggle.key} className="flex items-center justify-between gap-3 rounded-md border border-input p-3 cursor-pointer hover:bg-accent/50 transition-colors">
-          <div>
-            <div className="text-sm font-medium">{toggle.label}</div>
-            <div className="text-xs text-muted-foreground">{toggle.description}</div>
-          </div>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={value[toggle.key]}
-            aria-label={toggle.label}
-            onClick={() => handleToggle(toggle.key)}
-            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-              value[toggle.key] ? "bg-primary" : "bg-muted"
-            }`}
-          >
-            <span
-              className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-background shadow-lg ring-0 transition-transform ${
-                value[toggle.key] ? "translate-x-5" : "translate-x-0"
-              }`}
+    <fieldset className="space-y-4">
+      <legend className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Accessibility Options</legend>
+      <div className="space-y-3 mt-4">
+        {TOGGLES.map((toggle) => (
+          <div key={toggle.key} className="flex items-center justify-between gap-4 rounded-xl border-2 border-border/50 bg-background/50 p-4 transition-all hover:border-border/80">
+            <div className="space-y-1">
+              <Label className="text-base font-medium leading-none cursor-pointer" htmlFor={toggle.key}>
+                {toggle.label}
+              </Label>
+              <p className="text-sm text-muted-foreground pt-1">{toggle.description}</p>
+            </div>
+            <Switch
+              id={toggle.key}
+              checked={value[toggle.key]}
+              onCheckedChange={() => handleToggle(toggle.key)}
+              className="data-[state=checked]:bg-primary"
             />
-          </button>
-        </label>
-      ))}
+          </div>
+        ))}
+      </div>
     </fieldset>
   );
 }

@@ -5,7 +5,7 @@ Pure unit tests — no DB, no client, no fixtures needed beyond schema construct
 
 
 from learner_profile_api.schemas.profile import (
-    AiMlExpertise,
+    AiFluencyExpertise,
     BusinessExpertise,
     DomainExpertise,
     ExpertiseSection,
@@ -17,7 +17,7 @@ from learner_profile_api.services.inference import run_inference, should_run_inf
 def _make_expertise(
     *,
     programming: str = "beginner",
-    ai_ml: str = "beginner",
+    ai_fluency: str = "beginner",
     business: str = "beginner",
     domain_level: str | None = None,
     domain_primary: bool = True,
@@ -34,7 +34,7 @@ def _make_expertise(
         ]
     return ExpertiseSection(
         programming=ProgrammingExpertise(level=programming),
-        ai_ml=AiMlExpertise(level=ai_ml),
+        ai_fluency=AiFluencyExpertise(level=ai_fluency),
         business=BusinessExpertise(level=business),
         domain=domain,
     )
@@ -50,7 +50,7 @@ class TestShouldRunInference:
         """All sources default -> inference should NOT run."""
         field_sources = {
             "expertise.programming.level": "default",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "default",
         }
@@ -64,7 +64,7 @@ class TestShouldRunInference:
         """At least one expertise field sourced from 'user' -> should run."""
         field_sources = {
             "expertise.programming.level": "user",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "default",
         }
@@ -74,7 +74,7 @@ class TestShouldRunInference:
         """At least one expertise field sourced from 'phm' -> should run."""
         field_sources = {
             "expertise.programming.level": "default",
-            "expertise.ai_ml.level": "phm",
+            "expertise.ai_fluency.level": "phm",
             "expertise.business.level": "default",
             "expertise.domain": "default",
         }
@@ -84,7 +84,7 @@ class TestShouldRunInference:
         """Domain field sourced from 'user' -> should run."""
         field_sources = {
             "expertise.programming.level": "default",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "user",
         }
@@ -94,7 +94,7 @@ class TestShouldRunInference:
         """'inferred' source on expertise fields should NOT trigger inference."""
         field_sources = {
             "expertise.programming.level": "inferred",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "default",
         }
@@ -113,7 +113,7 @@ class TestInferenceLevelMapping:
         """Field sources that trigger inference via programming.level = user."""
         return {
             "expertise.programming.level": "user",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "default",
         }
@@ -121,11 +121,11 @@ class TestInferenceLevelMapping:
     def test_none_inference_no_code_samples(self):
         """Max level 'none' -> include_code_samples = false, no code_verbosity."""
         expertise = _make_expertise(
-            programming="none", ai_ml="none", business="none",
+            programming="none", ai_fluency="none", business="none",
         )
         field_sources = {
             "expertise.programming.level": "user",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "default",
         }
@@ -141,7 +141,7 @@ class TestInferenceLevelMapping:
     def test_beginner_inference(self):
         """Max level 'beginner' -> plain, conversational, detailed, code samples on."""
         expertise = _make_expertise(
-            programming="beginner", ai_ml="none", business="none",
+            programming="beginner", ai_fluency="none", business="none",
         )
         field_sources = self._field_sources_with_user_programming()
         changed_values, _ = run_inference(expertise, field_sources)
@@ -155,7 +155,7 @@ class TestInferenceLevelMapping:
     def test_intermediate_inference(self):
         """Max level 'intermediate' -> professional, professional, moderate."""
         expertise = _make_expertise(
-            programming="intermediate", ai_ml="none", business="none",
+            programming="intermediate", ai_fluency="none", business="none",
         )
         field_sources = self._field_sources_with_user_programming()
         changed_values, _ = run_inference(expertise, field_sources)
@@ -168,7 +168,7 @@ class TestInferenceLevelMapping:
     def test_advanced_inference(self):
         """Max level 'advanced' -> technical, peer-to-peer, concise."""
         expertise = _make_expertise(
-            programming="advanced", ai_ml="none", business="none",
+            programming="advanced", ai_fluency="none", business="none",
         )
         field_sources = self._field_sources_with_user_programming()
         changed_values, _ = run_inference(expertise, field_sources)
@@ -181,7 +181,7 @@ class TestInferenceLevelMapping:
     def test_expert_inference(self):
         """Max level 'expert' -> expert, peer-to-peer, concise."""
         expertise = _make_expertise(
-            programming="expert", ai_ml="none", business="none",
+            programming="expert", ai_fluency="none", business="none",
         )
         field_sources = self._field_sources_with_user_programming()
         changed_values, _ = run_inference(expertise, field_sources)
@@ -203,13 +203,13 @@ class TestInferenceSpecialCases:
         even when domain expertise pushes max level higher."""
         expertise = _make_expertise(
             programming="none",
-            ai_ml="none",
+            ai_fluency="none",
             business="none",
             domain_level="advanced",
         )
         field_sources = {
             "expertise.programming.level": "default",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
             "expertise.business.level": "default",
             "expertise.domain": "user",
         }
@@ -257,7 +257,7 @@ class TestInferenceSpecialCases:
         """Max level should reflect the highest level across all expertise areas."""
         expertise = _make_expertise(
             programming="beginner",
-            ai_ml="intermediate",
+            ai_fluency="intermediate",
             business="none",
             domain_level="expert",
         )
@@ -357,7 +357,7 @@ class TestInferenceChangedSources:
 
     def test_changed_values_and_sources_have_same_keys(self):
         """changed_values and changed_sources must have identical key sets."""
-        expertise = _make_expertise(programming="advanced", ai_ml="beginner")
+        expertise = _make_expertise(programming="advanced", ai_fluency="beginner")
         field_sources = {"expertise.programming.level": "user"}
         changed_values, changed_sources = run_inference(expertise, field_sources)
 
@@ -368,7 +368,7 @@ class TestInferenceChangedSources:
         expertise = _make_expertise(programming="advanced")
         field_sources = {
             "expertise.programming.level": "default",
-            "expertise.ai_ml.level": "default",
+            "expertise.ai_fluency.level": "default",
         }
         changed_values, changed_sources = run_inference(expertise, field_sources)
 
@@ -401,7 +401,7 @@ class TestInferenceLanguageComplexityCapping:
         """programming=beginner, domain=advanced -> professional (not technical)."""
         expertise = _make_expertise(
             programming="beginner",
-            ai_ml="beginner",
+            ai_fluency="beginner",
             business="beginner",
             domain_level="advanced",
         )
@@ -414,7 +414,7 @@ class TestInferenceLanguageComplexityCapping:
         """programming=none, business=expert -> professional (not expert)."""
         expertise = _make_expertise(
             programming="none",
-            ai_ml="none",
+            ai_fluency="none",
             business="expert",
         )
         field_sources = {"expertise.business.level": "user"}
@@ -426,10 +426,10 @@ class TestInferenceLanguageComplexityCapping:
         """programming=intermediate, max=advanced -> normal mapping (technical)."""
         expertise = _make_expertise(
             programming="intermediate",
-            ai_ml="advanced",
+            ai_fluency="advanced",
             business="none",
         )
-        field_sources = {"expertise.ai_ml.level": "user"}
+        field_sources = {"expertise.ai_fluency.level": "user"}
         changed_values, _ = run_inference(expertise, field_sources)
 
         # No capping — programming is intermediate (not none/beginner)
@@ -440,7 +440,7 @@ class TestInferenceLanguageComplexityCapping:
         language_complexity = professional'."""
         expertise = _make_expertise(
             programming="none",
-            ai_ml="none",
+            ai_fluency="none",
             business="advanced",
         )
         field_sources = {"expertise.business.level": "user"}

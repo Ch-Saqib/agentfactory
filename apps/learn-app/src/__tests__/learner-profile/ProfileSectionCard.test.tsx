@@ -32,7 +32,7 @@ const mockProfile: ProfileResponse = {
   expertise: {
     domain: [],
     programming: { level: "beginner", languages: [], notes: null },
-    ai_ml: { level: "none", notes: null },
+    ai_fluency: { level: "none", notes: null },
     business: { level: "none", notes: null },
     subject_specific: {
       topics_already_mastered: [],

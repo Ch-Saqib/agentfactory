@@ -179,7 +179,7 @@ def sample_profile_create_full():
                 }
             ],
             "programming": {"level": "advanced", "languages": ["Python", "JavaScript"]},
-            "ai_ml": {"level": "beginner"},
+            "ai_fluency": {"level": "beginner"},
             "business": {"level": "intermediate"},
         },
         "goals": {

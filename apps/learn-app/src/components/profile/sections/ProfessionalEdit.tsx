@@ -1,5 +1,13 @@
 import React from "react";
 import type { ProfessionalContextSection } from "@/lib/learner-profile-types";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ORG_TYPES = [
   { value: "", label: "Select..." },
@@ -31,56 +39,57 @@ export function ProfessionalEdit({
         <label htmlFor="settings-current-role" className="text-sm font-medium">
           Current Role
         </label>
-        <input
+        <Input
           id="settings-current-role"
           type="text"
           value={ctx?.current_role || ""}
           onChange={(e) => update("current_role", e.target.value || null)}
           placeholder="e.g. Senior Developer"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
       <div className="space-y-1.5">
         <label htmlFor="settings-industry" className="text-sm font-medium">
           Industry
         </label>
-        <input
+        <Input
           id="settings-industry"
           type="text"
           value={ctx?.industry || ""}
           onChange={(e) => update("industry", e.target.value || null)}
           placeholder="e.g. FinTech, Healthcare"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
       <div className="space-y-1.5">
         <label htmlFor="settings-org-type" className="text-sm font-medium">
           Organization Type
         </label>
-        <select
-          id="settings-org-type"
-          value={ctx?.organization_type || ""}
-          onChange={(e) => update("organization_type", e.target.value || null)}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={ctx?.organization_type || "none"}
+          onValueChange={(val) => update("organization_type", val === "none" ? null : val)}
         >
-          {ORG_TYPES.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="settings-org-type" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {ORG_TYPES.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-1.5">
         <label htmlFor="settings-team-context" className="text-sm font-medium">
           Team Context
         </label>
-        <input
+        <Input
           id="settings-team-context"
           type="text"
           value={ctx?.team_context || ""}
           onChange={(e) => update("team_context", e.target.value || null)}
           placeholder="e.g. 5-person engineering team"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
     </div>

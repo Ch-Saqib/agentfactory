@@ -28,9 +28,9 @@ describe("ExpertiseLevelSelect", () => {
 
   it("displays the current value", () => {
     render(
-      <ExpertiseLevelSelect value="advanced" onChange={vi.fn()} label="AI/ML" />
+      <ExpertiseLevelSelect value="advanced" onChange={vi.fn()} label="AI Fluency" />
     );
-    const select = screen.getByLabelText("AI/ML") as HTMLSelectElement;
+    const select = screen.getByLabelText("AI Fluency") as HTMLSelectElement;
     expect(select.value).toBe("advanced");
   });
 

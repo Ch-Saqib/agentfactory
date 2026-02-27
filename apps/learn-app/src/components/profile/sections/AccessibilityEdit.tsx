@@ -1,6 +1,8 @@
 import React from "react";
 import type { AccessibilitySection } from "@/lib/learner-profile-types";
 import { AccessibilityToggles } from "@/components/profile/fields/AccessibilityToggles";
+import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export function AccessibilityEdit({
   data,
@@ -18,32 +20,28 @@ export function AccessibilityEdit({
         onChange={(updated) => onChange(updated)}
       />
       <fieldset className="space-y-2">
-        <legend className="text-sm font-medium">Cognitive Load</legend>
-        <div className="space-y-2">
+        <legend className="text-sm font-medium mb-2">Cognitive Load</legend>
+        <RadioGroup
+          value={a11y?.cognitive_load_preference || "standard"}
+          onValueChange={(val) => onChange({ ...a11y, cognitive_load_preference: val as "standard" | "reduced" })}
+          className="space-y-2"
+        >
           {(["standard", "reduced"] as const).map((option) => (
             <label
               key={option}
-              className="flex items-center gap-3 rounded-md border border-input p-3 cursor-pointer hover:bg-accent/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-accent"
+              className="flex items-center gap-3 rounded-md border border-input p-3 cursor-pointer hover:bg-accent/50 transition-colors [&:has([data-state=checked])]:border-primary [&:has([data-state=checked])]:bg-accent"
             >
-              <input
-                type="radio"
-                name="settings-cognitive-load"
-                value={option}
-                checked={a11y?.cognitive_load_preference === option}
-                onChange={() =>
-                  onChange({ ...a11y, cognitive_load_preference: option })
-                }
-              />
+              <RadioGroupItem value={option} id={`cog-${option}`} />
               <span className="text-sm font-medium capitalize">{option}</span>
             </label>
           ))}
-        </div>
+        </RadioGroup>
       </fieldset>
       <div className="space-y-1.5">
         <label htmlFor="settings-a11y-notes" className="text-sm font-medium">
           Additional Notes
         </label>
-        <textarea
+        <Textarea
           id="settings-a11y-notes"
           value={a11y?.notes || ""}
           onChange={(e) =>
@@ -51,7 +49,6 @@ export function AccessibilityEdit({
           }
           placeholder="Any other accessibility needs..."
           rows={3}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
     </div>

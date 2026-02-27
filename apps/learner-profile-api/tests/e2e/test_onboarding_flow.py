@@ -93,7 +93,7 @@ class TestOnboardingJourney:
         # Complete expertise phase with expertise data
         expertise_data = {
             "programming": {"level": "advanced", "languages": ["Python", "TypeScript"]},
-            "ai_ml": {"level": "intermediate"},
+            "ai_fluency": {"level": "intermediate"},
         }
         resp = await client.patch(
             BASE + "/me/onboarding/expertise",
@@ -108,7 +108,7 @@ class TestOnboardingJourney:
         assert get_resp.status_code == 200
         final = get_resp.json()
         assert final["goals"]["career_goal"] == "ML Engineer"
-        assert final["expertise"]["ai_ml"]["level"] == "intermediate"
+        assert final["expertise"]["ai_fluency"]["level"] == "intermediate"
 
     async def test_completeness_tracks_onboarding(self, client):
         """Completeness endpoint reflects both onboarding and field provenance."""
@@ -143,7 +143,7 @@ class TestOnboardingJourney:
             BASE + "/me/onboarding/expertise",
             json={
                 "programming": {"level": "intermediate"},
-                "ai_ml": {"level": "beginner"},
+                "ai_fluency": {"level": "beginner"},
             },
         )
 

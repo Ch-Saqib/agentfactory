@@ -18,7 +18,7 @@ def _empty_sections():
         {  # expertise
             "domain": [],
             "programming": {"level": "beginner"},
-            "ai_ml": {"level": "beginner"},
+            "ai_fluency": {"level": "beginner"},
             "business": {"level": "beginner"},
             "subject_specific": {
                 "topics_already_mastered": [],
@@ -46,7 +46,7 @@ class TestPhmExpertiseLevels:
         phm_data = {
             "expertise_level": {
                 "programming_experience": "advanced",
-                "ai_ml_familiarity": "intermediate",
+                "ai_fluency_familiarity": "intermediate",
             },
         }
 
@@ -55,9 +55,9 @@ class TestPhmExpertiseLevels:
         )
 
         assert updated_exp["programming"]["level"] == "advanced"
-        assert updated_exp["ai_ml"]["level"] == "intermediate"
+        assert updated_exp["ai_fluency"]["level"] == "intermediate"
         assert updated_src["expertise.programming.level"] == "phm"
-        assert updated_src["expertise.ai_ml.level"] == "phm"
+        assert updated_src["expertise.ai_fluency.level"] == "phm"
 
     def test_phm_only_upgrades_expertise_in_v1(self, monkeypatch):
         """PHM tries to lower level -> no change (phm_allow_downrank=false)."""

@@ -110,6 +110,10 @@ async def create_profile_route(
             detail={"error": "consent_required", "message": "consent_given must be true"},
         )
 
+    # Auto-populate name from JWT if client didn't send the field at all
+    if "name" not in body.model_fields_set and user.name:
+        body.name = user.name
+
     try:
         profile, is_restored = await create_profile(session, user["sub"], body)
         await invalidate_profile_cache(user["sub"])

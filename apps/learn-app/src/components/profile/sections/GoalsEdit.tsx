@@ -1,6 +1,7 @@
 import React from "react";
 import type { GoalsSection } from "@/lib/learner-profile-types";
 import { UrgencyRadio } from "@/components/profile/fields/UrgencyRadio";
+import { Input } from "@/components/ui/input";
 
 export function GoalsEdit({
   data,
@@ -24,7 +25,7 @@ export function GoalsEdit({
         >
           Primary Learning Goal
         </label>
-        <input
+        <Input
           id="settings-primary-goal"
           type="text"
           value={goals?.primary_learning_goal || ""}
@@ -32,7 +33,6 @@ export function GoalsEdit({
             update("primary_learning_goal", e.target.value || null)
           }
           placeholder="What do you most want to learn?"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
       <UrgencyRadio
@@ -47,13 +47,12 @@ export function GoalsEdit({
         >
           Career Goal
         </label>
-        <input
+        <Input
           id="settings-career-goal"
           type="text"
           value={goals?.career_goal || ""}
           onChange={(e) => update("career_goal", e.target.value || null)}
           placeholder="Where do you want your career to go?"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
       <div className="space-y-1.5">
@@ -63,7 +62,7 @@ export function GoalsEdit({
         >
           Immediate Application
         </label>
-        <input
+        <Input
           id="settings-immediate-application"
           type="text"
           value={goals?.immediate_application || ""}
@@ -71,7 +70,6 @@ export function GoalsEdit({
             update("immediate_application", e.target.value || null)
           }
           placeholder="What will you use this knowledge for right away?"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         />
       </div>
     </div>

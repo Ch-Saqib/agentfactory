@@ -116,10 +116,11 @@ class TestNullVsMissingVsEmpty:
         assert resp.json()["name"] is None
 
     async def test_omitted_name(self, client):
-        """Omitting name -> defaults to null."""
+        """Omitting name -> auto-populated from JWT name claim."""
         resp = await client.post(BASE + "/", json={"consent_given": True})
         assert resp.status_code == 201
-        assert resp.json()["name"] is None
+        # Name is auto-populated from JWT token when client doesn't send it
+        assert resp.json()["name"] == "Dev User"
 
     async def test_empty_string_name(self, client):
         """name: "" -> stored as empty string (valid but treated as unknown)."""
@@ -192,12 +193,12 @@ class TestUnicodeRouteLevel:
             json={
                 "consent_given": True,
                 "expertise": {
-                    "ai_ml": {"level": "beginner", "notes": "مصنوعی ذہانت سیکھنا"},
+                    "ai_fluency": {"level": "beginner", "notes": "مصنوعی ذہانت سیکھنا"},
                 },
             },
         )
         assert resp.status_code == 201
-        assert resp.json()["expertise"]["ai_ml"]["notes"] == "مصنوعی ذہانت سیکھنا"
+        assert resp.json()["expertise"]["ai_fluency"]["notes"] == "مصنوعی ذہانت سیکھنا"
 
     async def test_emoji_in_goal(self, client):
         """Emoji in primary_learning_goal -> stored correctly."""
@@ -245,17 +246,17 @@ class TestConcurrentMergeCorrectness:
         )
         assert resp1.status_code == 200
 
-        # Second update: set ai_ml level (different field in same section)
+        # Second update: set ai_fluency level (different field in same section)
         resp2 = await client.patch(
             BASE + "/me",
-            json={"expertise": {"ai_ml": {"level": "intermediate"}}},
+            json={"expertise": {"ai_fluency": {"level": "intermediate"}}},
         )
         assert resp2.status_code == 200
         data = resp2.json()
 
         # Both fields should be set — programming should NOT be reset
         assert data["expertise"]["programming"]["level"] == "advanced"
-        assert data["expertise"]["ai_ml"]["level"] == "intermediate"
+        assert data["expertise"]["ai_fluency"]["level"] == "intermediate"
 
     async def test_same_field_last_write_wins(self, client):
         """Two sequential PATCHes to same field -> last write wins."""

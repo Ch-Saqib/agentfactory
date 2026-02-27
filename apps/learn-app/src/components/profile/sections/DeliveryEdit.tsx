@@ -1,5 +1,12 @@
 import React from "react";
 import type { DeliverySection } from "@/lib/learner-profile-types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const OUTPUT_FORMAT_OPTIONS = [
   { value: "", label: "Select..." },
@@ -42,52 +49,64 @@ export function DeliveryEdit({
         <label htmlFor="output-format" className="text-sm font-medium">
           Output Format
         </label>
-        <select
-          id="output-format"
-          value={delivery?.output_format || ""}
-          onChange={(e) => update("output_format", e.target.value || null)}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={delivery?.output_format || "none"}
+          onValueChange={(val) => update("output_format", val === "none" ? null : val)}
         >
-          {OUTPUT_FORMAT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="output-format" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {OUTPUT_FORMAT_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-1.5">
         <label htmlFor="target-length" className="text-sm font-medium">
           Target Length
         </label>
-        <select
-          id="target-length"
-          value={delivery?.target_length || ""}
-          onChange={(e) => update("target_length", e.target.value || null)}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={delivery?.target_length || "none"}
+          onValueChange={(val) => update("target_length", val === "none" ? null : val)}
         >
-          {TARGET_LENGTH_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="target-length" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {TARGET_LENGTH_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-1.5">
         <label htmlFor="code-verbosity" className="text-sm font-medium">
           Code Verbosity
         </label>
-        <select
-          id="code-verbosity"
-          value={delivery?.code_verbosity || ""}
-          onChange={(e) => update("code_verbosity", e.target.value || null)}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={delivery?.code_verbosity || "none"}
+          onValueChange={(val) => update("code_verbosity", val === "none" ? null : val)}
         >
-          {CODE_VERBOSITY_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="code-verbosity" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {CODE_VERBOSITY_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

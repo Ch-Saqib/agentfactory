@@ -63,7 +63,7 @@ const emptyProfile: ProfileResponse = {
   expertise: {
     domain: [],
     programming: { level: "none", languages: [], notes: null },
-    ai_ml: { level: "none", notes: null },
+    ai_fluency: { level: "none", notes: null },
     business: { level: "none", notes: null },
     subject_specific: {
       topics_already_mastered: [],
@@ -497,9 +497,9 @@ describe("OnboardingWizard", () => {
     });
 
     expect(screen.getByLabelText("Programming")).toBeInTheDocument();
-    expect(screen.getByLabelText("AI & Machine Learning")).toBeInTheDocument();
-    expect(screen.getByLabelText("Business")).toBeInTheDocument();
-    expect(screen.getByLabelText("Domain Expertise (optional)")).toBeInTheDocument();
+    expect(screen.getByLabelText("AI Fluency")).toBeInTheDocument();
+    expect(screen.getByLabelText("Business Strategy")).toBeInTheDocument();
+    expect(screen.getByLabelText("Specialized Domain (Optional)")).toBeInTheDocument();
   });
 
   it("ProfessionalStep shows role, industry, and org type fields", async () => {

@@ -31,7 +31,7 @@ SECTION_FIELDS: dict[str, list[str]] = {
         "expertise.domain",
         "expertise.programming.level",
         "expertise.programming.languages",
-        "expertise.ai_ml.level",
+        "expertise.ai_fluency.level",
         "expertise.business.level",
         "expertise.subject_specific.topics_already_mastered",
         "expertise.subject_specific.topics_partially_known",
@@ -86,7 +86,7 @@ SECTION_FIELDS: dict[str, list[str]] = {
 IMPACT_PRIORITY: list[str] = [
     "goals.primary_learning_goal",
     "expertise.programming.level",
-    "expertise.ai_ml.level",
+    "expertise.ai_fluency.level",
     "expertise.domain",
     "professional_context.current_role",
     "professional_context.industry",

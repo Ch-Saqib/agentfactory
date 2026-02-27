@@ -16,6 +16,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { LearnerProfileProvider } from '@/contexts/LearnerProfileContext';
 import { RequireProfile } from '@/components/RequireProfile';
+import { ProfileNudgeBanner } from '@/components/profile/ProfileNudgeBanner';
+import { Toaster } from '@/components/ui/sonner';
 import { PyodideProvider } from '@/contexts/PyodideContext';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 import { StudyModeProvider } from '@/contexts/StudyModeContext';
@@ -36,7 +38,9 @@ export default function Root({ children }: { children: React.ReactNode }) {
               <StudyModeProvider>
                 <VoiceReadingProvider>
                   <AnalyticsTracker>
+                    <ProfileNudgeBanner />
                     {children}
+                    <Toaster />
                   </AnalyticsTracker>
                 </VoiceReadingProvider>
               </StudyModeProvider>

@@ -147,16 +147,16 @@ def apply_phm_data(
                 updated_sources[field_path] = "phm"
 
     # AI/ML level
-    if "ai_ml_familiarity" in expertise_level:
-        field_path = "expertise.ai_ml.level"
+    if "ai_fluency_familiarity" in expertise_level:
+        field_path = "expertise.ai_fluency.level"
         if _can_override(updated_sources.get(field_path, "default")):
-            phm_level = expertise_level["ai_ml_familiarity"]
-            ai_ml = expertise.get("ai_ml", {})
-            current_idx = _expertise_level_idx(ai_ml.get("level", "beginner"))
+            phm_level = expertise_level["ai_fluency_familiarity"]
+            ai_fluency = expertise.get("ai_fluency", {})
+            current_idx = _expertise_level_idx(ai_fluency.get("level", "beginner"))
             new_idx = _expertise_level_idx(phm_level)
             if new_idx > current_idx or settings.phm_allow_downrank:
-                ai_ml["level"] = phm_level
-                expertise["ai_ml"] = ai_ml
+                ai_fluency["level"] = phm_level
+                expertise["ai_fluency"] = ai_fluency
                 updated_sources[field_path] = "phm"
 
     # Business level

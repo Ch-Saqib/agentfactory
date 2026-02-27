@@ -1,5 +1,12 @@
 import React from "react";
 import type { CommunicationSection } from "@/lib/learner-profile-types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const LANGUAGE_COMPLEXITY_OPTIONS = [
   { value: "", label: "Select..." },
@@ -52,73 +59,85 @@ export function CommunicationEdit({
         <label htmlFor="language-complexity" className="text-sm font-medium">
           Language Complexity
         </label>
-        <select
-          id="language-complexity"
-          value={comm?.language_complexity || ""}
-          onChange={(e) =>
-            update("language_complexity", e.target.value || null)
-          }
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={comm?.language_complexity || "none"}
+          onValueChange={(val) => update("language_complexity", val === "none" ? null : val)}
         >
-          {LANGUAGE_COMPLEXITY_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="language-complexity" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {LANGUAGE_COMPLEXITY_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-1.5">
         <label htmlFor="preferred-structure" className="text-sm font-medium">
           Preferred Structure
         </label>
-        <select
-          id="preferred-structure"
-          value={comm?.preferred_structure || ""}
-          onChange={(e) =>
-            update("preferred_structure", e.target.value || null)
-          }
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={comm?.preferred_structure || "none"}
+          onValueChange={(val) => update("preferred_structure", val === "none" ? null : val)}
         >
-          {STRUCTURE_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="preferred-structure" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {STRUCTURE_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-1.5">
         <label htmlFor="verbosity" className="text-sm font-medium">
           Verbosity
         </label>
-        <select
-          id="verbosity"
-          value={comm?.verbosity || ""}
-          onChange={(e) => update("verbosity", e.target.value || null)}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={comm?.verbosity || "none"}
+          onValueChange={(val) => update("verbosity", val === "none" ? null : val)}
         >
-          {VERBOSITY_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="verbosity" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {VERBOSITY_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-1.5">
         <label htmlFor="tone" className="text-sm font-medium">
           Tone
         </label>
-        <select
-          id="tone"
-          value={comm?.tone || ""}
-          onChange={(e) => update("tone", e.target.value || null)}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        <Select
+          value={comm?.tone || "none"}
+          onValueChange={(val) => update("tone", val === "none" ? null : val)}
         >
-          {TONE_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="tone" className="w-full">
+            <SelectValue placeholder="Select..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none" className="italic text-muted-foreground">Select...</SelectItem>
+            {TONE_OPTIONS.filter(opt => opt.value !== "").map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

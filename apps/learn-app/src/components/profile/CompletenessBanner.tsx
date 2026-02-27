@@ -3,9 +3,9 @@ import { useLearnerProfile } from "@/contexts/LearnerProfileContext";
 
 export function CompletenessBanner() {
   const { profile } = useLearnerProfile();
-  if (!profile || profile.profile_completeness >= 50) return null;
+  if (!profile || profile.profile_completeness >= 1.0) return null;
 
-  const percent = Math.round(profile.profile_completeness);
+  const percent = Math.round(profile.profile_completeness * 100);
 
   return (
     <div className="rounded-lg border border-border bg-card p-4 mb-4">
@@ -13,7 +13,7 @@ export function CompletenessBanner() {
         <span className="text-sm font-medium">
           Profile {percent}% complete
         </span>
-        <a href="/profile" className="text-sm text-primary hover:underline">
+        <a href="/onboarding" className="text-sm text-primary hover:underline">
           Complete your profile
         </a>
       </div>

@@ -48,7 +48,7 @@ class TestCreateProfile:
 
         # Verify default expertise
         assert profile.expertise.get("programming", {}).get("level") == "beginner"
-        assert profile.expertise.get("ai_ml", {}).get("level") == "beginner"
+        assert profile.expertise.get("ai_fluency", {}).get("level") == "beginner"
         assert profile.expertise.get("business", {}).get("level") == "beginner"
         assert profile.expertise.get("domain") == []
 
@@ -114,7 +114,7 @@ class TestUpdateProfile:
             consent_given=True,
             expertise=ExpertiseSection(
                 programming={"level": "beginner"},
-                ai_ml={"level": "intermediate"},
+                ai_fluency={"level": "intermediate"},
             ),
         )
         await create_profile(db_session, "user-merge", create_data)
@@ -127,8 +127,8 @@ class TestUpdateProfile:
 
         # programming should be updated
         assert profile.expertise["programming"]["level"] == "advanced"
-        # ai_ml should be preserved (not wiped to default)
-        assert profile.expertise["ai_ml"]["level"] == "intermediate"
+        # ai_fluency should be preserved (not wiped to default)
+        assert profile.expertise["ai_fluency"]["level"] == "intermediate"
 
     async def test_field_sources_marked_user(self, db_session):
         data = ProfileCreate(consent_given=True)

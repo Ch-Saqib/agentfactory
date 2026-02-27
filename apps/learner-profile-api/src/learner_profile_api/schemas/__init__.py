@@ -2,7 +2,7 @@
 
 from .profile import (
     AccessibilitySection,
-    AiMlExpertise,
+    AiFluencyExpertise,
     BusinessExpertise,
     CommunicationSection,
     CompletenessResponse,
@@ -23,7 +23,7 @@ from .profile import (
 
 __all__ = [
     "AccessibilitySection",
-    "AiMlExpertise",
+    "AiFluencyExpertise",
     "BusinessExpertise",
     "CommunicationSection",
     "CompletenessResponse",

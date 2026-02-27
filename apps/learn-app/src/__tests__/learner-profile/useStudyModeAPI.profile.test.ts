@@ -27,7 +27,7 @@ const mockProfile = {
   expertise: {
     domain: [],
     programming: { level: "intermediate", languages: ["python"], notes: null },
-    ai_ml: { level: "beginner", notes: null },
+    ai_fluency: { level: "beginner", notes: null },
     business: { level: "none", notes: null },
     subject_specific: {
       topics_already_mastered: [],

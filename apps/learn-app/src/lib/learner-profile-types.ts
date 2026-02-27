@@ -40,7 +40,7 @@ export interface ProgrammingExpertise {
   notes: string | null;
 }
 
-export interface AiMlExpertise {
+export interface AiFluencyExpertise {
   level: ExpertiseLevel;
   notes: string | null;
 }
@@ -74,7 +74,7 @@ export interface SubjectSpecific {
 export interface ExpertiseSection {
   domain: DomainExpertise[];
   programming: ProgrammingExpertise;
-  ai_ml: AiMlExpertise;
+  ai_fluency: AiFluencyExpertise;
   business: BusinessExpertise;
   subject_specific: SubjectSpecific;
 }
