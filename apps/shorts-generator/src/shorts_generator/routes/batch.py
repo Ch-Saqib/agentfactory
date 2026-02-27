@@ -1,16 +1,16 @@
 """Batch short video generation endpoint."""
 
+import asyncio
 import logging
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from shorts_generator.core.config import settings
 from shorts_generator.database.connection import get_session
 from shorts_generator.models import GenerationJob
-from shorts_generator.workers.tasks import generate_short_task
 
 logger = logging.getLogger(__name__)
 
@@ -46,18 +46,36 @@ class BatchJobSummary(BaseModel):
     queued_jobs: int
 
 
+async def _run_generation_task(
+    job_id: str,
+    lesson_path: str,
+    target_duration: int,
+    voice: str,
+):
+    """Background task for video generation."""
+    from shorts_generator.services.automation_service import generate_single_short
+    await generate_single_short(
+        job_id=job_id,
+        lesson_path=lesson_path,
+        target_duration=target_duration,
+        voice=voice,
+    )
+
+
 @router.post("", response_model=BatchGenerateResponse, status_code=status.HTTP_202_ACCEPTED)
 async def batch_generate_shorts(
     request: BatchGenerateRequest,
+    background_tasks: BackgroundTasks,
     session: AsyncSession = Depends(get_session),
 ) -> BatchGenerateResponse:
     """Generate multiple short videos in batch.
 
     This endpoint creates generation jobs for multiple lessons.
-    Jobs are processed asynchronously by the Celery worker.
+    Jobs are processed asynchronously in the background.
 
     Args:
         request: Batch generation request with lesson_paths
+        background_tasks: FastAPI BackgroundTasks for async execution
         session: Database session
 
     Returns:
@@ -111,22 +129,16 @@ async def batch_generate_shorts(
 
     logger.info(f"Created batch {batch_id} with {len(jobs)} generation jobs")
 
-    # Trigger Celery tasks for each job with priority queue
-    priority_map = {"high": 5, "normal": 3, "low": 1}
-    priority = priority_map.get(request.priority, 3)
-
+    # Trigger background tasks for each job
     for job in jobs:
-        task = generate_short_task.apply_async(
-            args=[
-                job.id,
-                job.lesson_path,
-                request.target_duration,
-                request.voice,
-            ],
-            queue=request.priority,  # Route to priority queue
-            priority=priority,  # Set task priority within queue
+        background_tasks.add_task(
+            _run_generation_task,
+            job_id=str(job.id),
+            lesson_path=job.lesson_path,
+            target_duration=request.target_duration,
+            voice=request.voice,
         )
-        logger.info(f"Dispatched task {task.id} for job {job.id} with priority {request.priority}")
+        logger.info(f"Dispatched background task for job {job.id}")
 
     return BatchGenerateResponse(
         batch_id=batch_id,

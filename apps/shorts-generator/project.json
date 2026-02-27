@@ -51,7 +51,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/shorts-generator/src",
-        "command": "uv run python -m uvicorn shorts_generator.main:app --reload --host 127.0.0.1 --port 8001 --log-level info"
+        "command": "uv run python -m uvicorn shorts_generator.main:app --reload --host 0.0.0.0 --port 8001 --log-level info"
       }
     },
     "build": {
@@ -67,7 +67,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "apps/shorts-generator/src",
-        "command": "uv run celery -A shorts_generator.workers.celery_worker worker --loglevel=info --concurrency=2"
+        "command": "uv run celery -A shorts_generator.workers.celery_worker worker --loglevel=info --pool=solo"
       }
     },
     "beat": {

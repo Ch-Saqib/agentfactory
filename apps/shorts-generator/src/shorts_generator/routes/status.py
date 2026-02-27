@@ -3,15 +3,15 @@
 import logging
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from shorts_generator.database.connection import get_session
+from shorts_generator.core.config import settings
+from shorts_generator.database.connection import _create_engine, get_session
 from shorts_generator.models import GenerationJob, ShortVideo
 from shorts_generator.services.storage import storage_service
-from shorts_generator.workers.tasks import generate_short_task
 
 logger = logging.getLogger(__name__)
 
@@ -269,23 +269,8 @@ async def health_check() -> HealthResponse:
     Returns:
         HealthResponse with service status and dependency health
     """
-    import redis.asyncio as redis
-    from sqlalchemy import text
-    from shorts_generator.core.config import settings
-    from shorts_generator.database.connection import _create_engine
-
     health_status = "healthy"
     dependencies: dict[str, str] = {}
-
-    # Check Redis connection
-    try:
-        redis_client = redis.from_url(settings.redis_url, decode_responses=True)
-        await redis_client.ping()
-        dependencies["redis"] = "connected"
-        await redis_client.close()
-    except Exception as e:
-        health_status = "degraded"
-        dependencies["redis"] = f"error: {str(e)}"
 
     # Check database connection
     try:
@@ -298,24 +283,24 @@ async def health_check() -> HealthResponse:
         health_status = "degraded"
         dependencies["database"] = f"error: {str(e)}"
 
-    # Check Celery worker (ping)
+    # Check scheduler
     try:
-        from shorts_generator.workers.celery_worker import celery_app
+        from shorts_generator.services.automation_service import get_scheduler
 
-        inspector = celery_app.control.inspect()
-        active_workers = inspector.active()
-        if active_workers:
-            dependencies["celery_workers"] = f"{len(active_workers)} active"
+        sched = get_scheduler()
+        if sched.running:
+            dependencies["automation_scheduler"] = "running"
         else:
-            dependencies["celery_workers"] = "no active workers"
+            dependencies["automation_scheduler"] = "stopped"
     except Exception as e:
-        dependencies["celery_workers"] = f"error: {str(e)}"
+        dependencies["automation_scheduler"] = f"error: {str(e)}"
 
     # External APIs (assumed available unless pinged)
     dependencies.update({
         "gemini_api": "configured",
         "replicate_api": "configured",
         "edge_tts": "available",
+        "pollinations_ai": "available (free)",
         "r2_storage": "configured",
     })
 
@@ -327,15 +312,33 @@ async def health_check() -> HealthResponse:
     )
 
 
+async def _run_generation_task(
+    job_id: str,
+    lesson_path: str,
+    target_duration: int,
+    voice: str,
+):
+    """Background task for video generation."""
+    from shorts_generator.services.automation_service import generate_single_short
+    await generate_single_short(
+        job_id=job_id,
+        lesson_path=lesson_path,
+        target_duration=target_duration,
+        voice=voice,
+    )
+
+
 @router.post("/jobs/{job_id}/retry", response_model=JobStatusResponse)
 async def retry_job(
     job_id: str,
+    background_tasks: BackgroundTasks,
     session: AsyncSession = Depends(get_session),
 ) -> JobStatusResponse:
     """Retry a failed generation job.
 
     Args:
         job_id: Job ID to retry
+        background_tasks: FastAPI BackgroundTasks
         session: Database session
 
     Returns:
@@ -367,10 +370,13 @@ async def retry_job(
 
     await session.commit()
 
-    # Trigger Celery task for retry
-    generate_short_task.delay(
-        job_id=job.id,
+    # Trigger background task for retry
+    background_tasks.add_task(
+        _run_generation_task,
+        job_id=str(job.id),
         lesson_path=job.lesson_path,
+        target_duration=60,
+        voice="en-US-AriaNeural",
     )
 
     logger.info(f"Retrying job: {job_id} (attempt {job.retry_count})")

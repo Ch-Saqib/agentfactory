@@ -1,5 +1,7 @@
 """Configuration settings for Lesson Shorts Generator."""
 
+import os
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -16,42 +18,37 @@ class Settings(BaseSettings):
     # Server
     port: int = 8001
 
-    # Gemini API
-    gemini_api_key: str
+    # Gemini API (get from: https://aistudio.google.com/app/apikey)
+    gemini_api_key: str = "dev-key"
     gemini_model: str = "gemini-2.0-flash-exp"
 
     # Pollinations.ai - FREE image generation (no API key needed)
-    # Optional: Replicate API if you prefer paid service
-    replicate_api_key: str = ""  # Optional, not required with Pollinations
-    flux_model: str = "black-forest-labs/flux-schnell"  # Only used if replicate_api_key is set
+    replicate_api_key: str = ""
+    flux_model: str = "black-forest-labs/flux-schnell"
 
     # Edge-TTS
     edge_tts_voice: str = "en-US-AriaNeural"
 
-    # Redis
-    redis_url: str
-    redis_password: str
+    # PostgreSQL (format: postgresql://user:password@host/database)
+    shorts_database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/shorts"
 
-    # PostgreSQL
-    shorts_database_url: str
-
-    # Cloudflare R2
-    r2_account_id: str
-    r2_access_key_id: str
-    r2_secret_access_key: str
+    # Cloudflare R2 (for production, use real values)
+    r2_account_id: str = "dev-account"
+    r2_access_key_id: str = "dev-key"
+    r2_secret_access_key: str = "dev-secret"
     r2_bucket_name: str = "agentfactory-shorts"
-    r2_public_url: str
-    r2_custom_domain: str = ""  # Optional: Custom domain for CDN (e.g., cdn.example.com)
+    r2_public_url: str = "https://dev.r2.dev"
+    r2_custom_domain: str = ""
 
     # Content API
     content_api_url: str = "http://localhost:8000"
 
     # Security
-    allowed_origins: str = "http://localhost:3000,https://agentfactory.panaversity.org"
-    admin_secret: str
+    allowed_origins: str = "http://localhost:3000,http://localhost:8001"
+    admin_secret: str = "dev-secret-change-in-production"
 
     # Development
-    dev_mode: bool = False
+    dev_mode: bool = True
     dev_user_id: str = "dev-user-123"
     dev_user_email: str = "dev@example.com"
     dev_user_name: str = "Developer"
@@ -65,10 +62,6 @@ class Settings(BaseSettings):
     target_duration: int = 60
     max_duration: int = 90
     num_scenes: int = 3
-
-    # Celery
-    celery_broker_url: str
-    celery_result_backend: str
 
     @property
     def allowed_origins_list(self) -> list[str]:

@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 from uuid import UUID, uuid4
+from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
@@ -89,20 +90,38 @@ def calculate_next_run(schedule_time: str, timezone_str: str = "UTC") -> Optiona
     """Calculate the next run time based on schedule.
 
     Args:
-        schedule_time: Time in HH:MM format
+        schedule_time: Time in HH:MM format (in the user's timezone)
         timezone_str: Timezone string (default: UTC)
 
     Returns:
-        Next run datetime or None if invalid schedule
+        Next run datetime in UTC or None if invalid schedule
     """
     try:
         hour, minute = map(int, schedule_time.split(":"))
-        now = utcnow()
-        next_run = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
-        if next_run <= now:
-            next_run += timedelta(days=1)
-        return next_run
-    except Exception:
+
+        # Get current time in the user's timezone
+        try:
+            user_tz = ZoneInfo(timezone_str)
+        except Exception:
+            logger.warning(f"Invalid timezone '{timezone_str}', falling back to UTC")
+            user_tz = ZoneInfo("UTC")
+
+        now_utc = utcnow()
+        now_user_tz = now_utc.astimezone(user_tz)
+
+        # Create next run time in user's timezone
+        next_run_user_tz = now_user_tz.replace(hour=hour, minute=minute, second=0, microsecond=0)
+
+        # If the time has passed today, schedule for tomorrow
+        if next_run_user_tz <= now_user_tz:
+            next_run_user_tz += timedelta(days=1)
+
+        # Convert back to UTC for storage
+        next_run_utc = next_run_user_tz.astimezone(ZoneInfo("UTC"))
+
+        return next_run_utc
+    except Exception as e:
+        logger.error(f"Error calculating next run: {e}")
         return None
 
 
@@ -144,11 +163,15 @@ async def update_automation_settings(
     session: AsyncSession = Depends(get_session),
 ) -> dict:
     """Update automation settings."""
+    logger.info(f"Received automation settings update: enabled={settings.enabled}, schedule_time={settings.schedule_time}, timezone={settings.timezone}")
+
     # Get existing settings or create new
     result = await session.execute(
         select(AutomationSettingsModel).order_by(AutomationSettingsModel.created_at.desc())
     )
     db_settings = result.scalar_one_or_none()
+
+    logger.info(f"Existing settings in DB: {db_settings.id if db_settings else None}")
 
     if db_settings:
         # Update existing
@@ -191,7 +214,7 @@ async def update_automation_settings(
     await session.commit()
     await session.refresh(db_settings)
 
-    logger.info(f"Automation settings updated: enabled={settings.enabled}")
+    logger.info(f"Automation settings saved to DB: id={db_settings.id}, enabled={db_settings.enabled}, schedule_time={db_settings.schedule_time}, timezone={db_settings.timezone}, next_run={db_settings.next_run}")
 
     return {
         "success": True,
@@ -227,18 +250,18 @@ async def trigger_automation_run(
             detail="Automation is disabled. Enable it first.",
         )
 
-    # Import the Celery task for auto-generation
-    from shorts_generator.workers.tasks import auto_generate_shorts
+    # Import the automation service
+    from shorts_generator.services.automation_service import run_automation
 
-    # Trigger the auto-generation task
-    result = auto_generate_shorts.delay()
+    # Trigger the automation run in background
+    import asyncio
+    asyncio.create_task(run_automation())
 
-    logger.info(f"Manual automation trigger requested, Celery task ID: {result.id}")
+    logger.info("Manual automation trigger requested")
 
     return {
         "success": True,
         "message": "Automation run triggered successfully",
-        "task_id": result.id,
     }
 
 

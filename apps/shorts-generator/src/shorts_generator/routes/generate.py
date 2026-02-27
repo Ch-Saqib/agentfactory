@@ -1,9 +1,10 @@
 """Single short video generation endpoint."""
 
+import asyncio
 import logging
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,7 +16,6 @@ from shorts_generator.services.content_extractor import ContentExtractor
 from shorts_generator.services.script_generator import ScriptGenerator
 from shorts_generator.services.video_assembler import VideoAssembler
 from shorts_generator.services.visual_generator import VisualGenerator
-from shorts_generator.workers.tasks import generate_short_task
 
 logger = logging.getLogger(__name__)
 
@@ -44,9 +44,26 @@ class GenerateResponse(BaseModel):
     message: str
 
 
+async def _run_generation_task(
+    job_id: str,
+    lesson_path: str,
+    target_duration: int,
+    voice: str,
+):
+    """Background task for video generation."""
+    from shorts_generator.services.automation_service import generate_single_short
+    await generate_single_short(
+        job_id=job_id,
+        lesson_path=lesson_path,
+        target_duration=target_duration,
+        voice=voice,
+    )
+
+
 @router.post("", response_model=GenerateResponse, status_code=status.HTTP_202_ACCEPTED)
 async def generate_short(
     request: GenerateRequest,
+    background_tasks: BackgroundTasks,
     session: AsyncSession = Depends(get_session),
 ) -> GenerateResponse:
     """Generate a single short video from a lesson.
@@ -61,6 +78,7 @@ async def generate_short(
 
     Args:
         request: Generation request with lesson_path and options
+        background_tasks: FastAPI BackgroundTasks for async execution
         session: Database session
 
     Returns:
@@ -101,15 +119,16 @@ async def generate_short(
 
     logger.info(f"Created generation job: {job_id}")
 
-    # Trigger Celery task for async generation
-    generate_short_task.delay(
+    # Trigger background task for async generation
+    background_tasks.add_task(
+        _run_generation_task,
         job_id=job_id,
         lesson_path=request.lesson_path,
         target_duration=request.target_duration,
         voice=request.voice,
     )
 
-    logger.info(f"Dispatched Celery task for job: {job_id}")
+    logger.info(f"Dispatched background task for job: {job_id}")
 
     return GenerateResponse(
         job_id=job_id,

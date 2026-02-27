@@ -80,23 +80,52 @@ export default function AdminShortsPage() {
     if (auth === "true") {
       setIsAuthenticated(true);
     }
-    // Load settings from localStorage
-    const savedSettings = localStorage.getItem("shorts_automation_settings");
-    if (savedSettings) {
-      try {
-        setSettings(JSON.parse(savedSettings));
-      } catch (e) {
-        console.error("Failed to load settings", e);
-      }
-    }
+    // Load settings from API
+    loadAutomationSettings();
     // Load book parts
     loadBookParts();
   }, []);
 
+  const loadAutomationSettings = async () => {
+    try {
+      const apiBaseUrl = window.location.hostname === "localhost"
+        ? process.env.NEXT_PUBLIC_SHORTS_API_URL
+        : "https://shorts-api.panaversity.org";
+
+      const response = await fetch(`${apiBaseUrl}/api/v1/automation/settings`);
+      if (response.ok) {
+        const data = await response.json();
+        // Convert snake_case from API to camelCase for state
+        setSettings({
+          enabled: data.enabled ?? false,
+          scheduleTime: data.schedule_time ?? "02:00",
+          timezone: data.timezone ?? "UTC",
+          batchLimit: data.batch_limit ?? 10,
+          targetDuration: data.target_duration ?? 60,
+          autoRetry: data.auto_retry ?? true,
+          retryAttempts: data.retry_attempts ?? 3,
+          notifyOnComplete: data.notify_on_complete ?? true,
+          selectedParts: data.selected_parts ?? [],
+        });
+      }
+    } catch (e) {
+      console.error("Failed to load settings from API", e);
+      // Fallback to localStorage
+      const savedSettings = localStorage.getItem("shorts_automation_settings");
+      if (savedSettings) {
+        try {
+          setSettings(JSON.parse(savedSettings));
+        } catch (err) {
+          console.error("Failed to load settings from localStorage", err);
+        }
+      }
+    }
+  };
+
   const loadBookParts = async () => {
     try {
       const apiBaseUrl = window.location.hostname === "localhost"
-        ? "http://localhost:8001"
+        ? "http://localhost:8002"
         : "https://shorts-api.panaversity.org";
 
       const response = await fetch(`${apiBaseUrl}/api/v1/automation/available-parts`);
@@ -136,18 +165,34 @@ export default function AdminShortsPage() {
 
       // Call the API to update settings
       const apiBaseUrl = window.location.hostname === "localhost"
-        ? "http://localhost:8001"
+        ? "http://localhost:8002"
         : "https://shorts-api.panaversity.org";
+
+      // Convert camelCase to snake_case for backend
+      const apiSettings = {
+        enabled: settings.enabled,
+        schedule_time: settings.scheduleTime,
+        timezone: settings.timezone,
+        batch_limit: settings.batchLimit,
+        target_duration: settings.targetDuration,
+        auto_retry: settings.autoRetry,
+        retry_attempts: settings.retryAttempts,
+        notify_on_complete: settings.notifyOnComplete,
+        selected_parts: settings.selectedParts,
+      };
 
       const response = await fetch(`${apiBaseUrl}/api/v1/automation/settings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(settings),
+        body: JSON.stringify(apiSettings),
       });
 
       if (!response.ok) {
         throw new Error("Failed to save settings to server");
       }
+
+      // Reload settings from API to confirm
+      await loadAutomationSettings();
 
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 2000);
@@ -476,6 +521,7 @@ export default function AdminShortsPage() {
                       <option value="Europe/London">London (GMT/BST)</option>
                       <option value="Europe/Paris">Central European (CET)</option>
                       <option value="Asia/Kolkata">India (IST)</option>
+                      <option value="Asia/Karachi">Pakistan (PKT)</option>
                       <option value="Asia/Tokyo">Japan (JST)</option>
                       <option value="Asia/Shanghai">China (CST)</option>
                     </select>

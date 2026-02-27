@@ -3,7 +3,7 @@
 This service generates visuals for short video scenes:
 - Scene images via Pollinations.ai - FREE (no API key needed)
 - Code screenshots via carbon.now.sh - Free
-- Caching by visual description hash (30-day TTL)
+- Simple in-memory caching (30-minute TTL)
 
 Target Cost: $0.00 per image (completely free)
 """
@@ -11,12 +11,12 @@ Target Cost: $0.00 per image (completely free)
 import hashlib
 import json
 import logging
+import time
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import quote
 
 import httpx
-from redis.asyncio import Redis
 
 from shorts_generator.core.config import settings
 
@@ -60,26 +60,18 @@ class VisualGenerator:
     IMAGE_WIDTH = 1080
     IMAGE_HEIGHT = 1920
 
+    # Simple in-memory cache
+    _cache: dict[str, tuple[dict, float]] = {}  # {hash: (data, expiry_time)}
+
     def __init__(self):
         """Initialize the visual generator."""
         self._http_client: httpx.AsyncClient | None = None
-        self._redis: Redis | None = None
 
     async def _get_http_client(self) -> httpx.AsyncClient:
         """Get or create HTTP client."""
         if self._http_client is None:
             self._http_client = httpx.AsyncClient(timeout=60.0)
         return self._http_client
-
-    async def _get_redis(self) -> Redis:
-        """Get or create Redis client."""
-        if self._redis is None:
-            self._redis = Redis.from_url(
-                settings.redis_url,
-                password=settings.redis_password,
-                decode_responses=True,
-            )
-        return self._redis
 
     def _hash_visual_description(self, description: str) -> str:
         """Generate a hash for the visual description.
@@ -99,26 +91,25 @@ class VisualGenerator:
             visual_hash: Hash of the visual description
 
         Returns:
-            Cached GeneratedImage if found, None otherwise
+            Cached GeneratedImage if found and not expired, None otherwise
         """
         try:
-            redis = await self._get_redis()
-            cache_key = f"visuals:v1:{visual_hash}"
+            cached_data, expiry_time = self._cache.get(visual_hash, (None, 0))
 
-            cached = await redis.get(cache_key)
-            if cached:
-                import json
-
-                data = json.loads(cached)
+            if cached_data and time.time() < expiry_time:
                 logger.info(f"Cache hit for visual: {visual_hash[:8]}...")
                 return GeneratedImage(
-                    url=data["url"],
+                    url=cached_data["url"],
                     visual_hash=visual_hash,
-                    width=data["width"],
-                    height=data["height"],
+                    width=cached_data["width"],
+                    height=cached_data["height"],
                     generation_method="cached",
                     cost_usd=0.0,  # No cost for cached images
                 )
+            elif cached_data:
+                # Cache expired, clean it up
+                del self._cache[visual_hash]
+
         except Exception as e:
             logger.warning(f"Cache lookup failed: {e}")
 
@@ -132,19 +123,28 @@ class VisualGenerator:
             image: GeneratedImage to cache
         """
         try:
-            redis = await self._get_redis()
-            cache_key = f"visuals:v1:{visual_hash}"
+            # Cache for 30 minutes (1800 seconds)
+            expiry_time = time.time() + 1800
 
-            # Cache for 30 days (2592000 seconds)
-            await redis.setex(
-                cache_key,
-                2592000,
-                json.dumps({
+            self._cache[visual_hash] = (
+                {
                     "url": image.url,
                     "width": image.width,
                     "height": image.height,
-                }),
+                },
+                expiry_time,
             )
+
+            # Clean up old entries periodically
+            if len(self._cache) > 1000:
+                current_time = time.time()
+                expired_keys = [
+                    k for k, (_, exp) in self._cache.items()
+                    if exp < current_time
+                ]
+                for k in expired_keys:
+                    del self._cache[k]
+
             logger.info(f"Cached visual: {visual_hash[:8]}...")
         except Exception as e:
             logger.warning(f"Failed to cache image: {e}")

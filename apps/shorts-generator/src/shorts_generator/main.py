@@ -4,14 +4,12 @@ import asyncio
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
-import redis.asyncio as redis
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import text
 
 from shorts_generator.core.config import settings
 from shorts_generator.database.connection import _create_engine
-from shorts_generator.models import init_db
+from shorts_generator.models import Base
 
 
 @asynccontextmanager
@@ -29,7 +27,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # Create database tables automatically using async engine
     print("📊 Creating database tables...")
     try:
-        from shorts_generator.models import Base
         # Use the existing async engine for table creation
         async_engine = _create_engine()
         async with async_engine.begin() as conn:
@@ -42,10 +39,26 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         print("   Tables may already exist or database needs configuration")
         traceback.print_exc()
 
+    # Start the automation scheduler
+    print("⏰ Starting automation scheduler...")
+    try:
+        from shorts_generator.services.automation_service import start_scheduler
+        await start_scheduler()
+        print("✅ Automation scheduler ready")
+    except Exception as e:
+        import traceback
+        print(f"⚠️  Warning: Could not start scheduler: {e}")
+        traceback.print_exc()
+
     yield
 
     # Shutdown
     print("🛑 Shutting down Lesson Shorts Generator")
+    try:
+        from shorts_generator.services.automation_service import stop_scheduler
+        await stop_scheduler()
+    except Exception:
+        pass
 
 
 # Create FastAPI app

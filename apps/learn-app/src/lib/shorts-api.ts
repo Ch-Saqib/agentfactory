@@ -20,10 +20,10 @@ const getApiBaseUrl = () => {
   // Client-side detection
   if (typeof window !== "undefined") {
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    return (isLocalhost ? "http://localhost:8001" : "https://shorts-api.panaversity.org") + "/api/v1";
+    return (isLocalhost ? "http://localhost:8002" : "https://shorts-api.panaversity.org") + "/api/v1";
   }
   // Default fallback
-  return "http://localhost:8001/api/v1";
+  return "http://localhost:8002/api/v1";
 };
 
 const API_BASE_URL = getApiBaseUrl();
