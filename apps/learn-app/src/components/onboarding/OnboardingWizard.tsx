@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useLearnerProfileApiUrl } from "@/lib/api-utils";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useHistory } from "@docusaurus/router";
 import { useAuth } from "@/contexts/AuthContext";
@@ -108,10 +108,7 @@ const DEFAULT_ACCESSIBILITY: AccessibilitySection = {
 
 export default function OnboardingWizard() {
   const history = useHistory();
-  const { siteConfig } = useDocusaurusContext();
-  const apiUrl =
-    (siteConfig.customFields?.learnerProfileApiUrl as string) ||
-    "http://localhost:8004";
+  const apiUrl = useLearnerProfileApiUrl();
 
   const homeHref = useBaseUrl("/");
 
@@ -170,7 +167,9 @@ export default function OnboardingWizard() {
         return JSON.stringify(goalsData) !== JSON.stringify(profile.goals);
       }
       if (stepKey === "expertise") {
-        return JSON.stringify(expertiseData) !== JSON.stringify(profile.expertise);
+        return (
+          JSON.stringify(expertiseData) !== JSON.stringify(profile.expertise)
+        );
       }
       if (stepKey === "professional") {
         return (
@@ -186,8 +185,14 @@ export default function OnboardingWizard() {
       }
       if (stepKey === "preferences") {
         return (
-          JSON.stringify({ communication: communicationData, delivery: deliveryData }) !==
-          JSON.stringify({ communication: profile.communication, delivery: profile.delivery })
+          JSON.stringify({
+            communication: communicationData,
+            delivery: deliveryData,
+          }) !==
+          JSON.stringify({
+            communication: profile.communication,
+            delivery: profile.delivery,
+          })
         );
       }
       if (stepKey === "project") {
@@ -284,7 +289,8 @@ export default function OnboardingWizard() {
           console.error("[OnboardingWizard] Failed to get progress:", err);
           // Fallback: derive from onboarding_progress (server computed)
           const completedCount = Math.round(
-            Math.max(0, Math.min(1, profile.onboarding_progress)) * STEPS.length,
+            Math.max(0, Math.min(1, profile.onboarding_progress)) *
+              STEPS.length,
           );
           const resumeStep = Math.max(
             0,
@@ -303,7 +309,16 @@ export default function OnboardingWizard() {
       setCurrentStep(-1);
       setIsInitializing(false);
     }
-  }, [authLoading, contextLoading, session, profile, needsOnboarding, history, homeHref, syncFromProfile]);
+  }, [
+    authLoading,
+    contextLoading,
+    session,
+    profile,
+    needsOnboarding,
+    history,
+    homeHref,
+    syncFromProfile,
+  ]);
 
   const handleAgree = useCallback(async () => {
     if (savingRef.current) return;
@@ -495,7 +510,9 @@ export default function OnboardingWizard() {
             className="flex flex-col items-center gap-4 text-muted-foreground"
           >
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            <p className="text-sm tracking-wide">Initializing your profile...</p>
+            <p className="text-sm tracking-wide">
+              Initializing your profile...
+            </p>
           </motion.div>
         </div>
       </MotionConfig>
@@ -636,9 +653,7 @@ export default function OnboardingWizard() {
             ref={scrollContainerRef}
             className="flex-1 overflow-y-auto overflow-x-hidden relative"
           >
-            <div
-              className={`px-4 sm:px-6`}
-            >
+            <div className={`px-4 sm:px-6`}>
               <div
                 className={`mx-auto w-full relative min-h-[100dvh] flex flex-col justify-start py-12 pb-32 ${maxWidth}`}
               >

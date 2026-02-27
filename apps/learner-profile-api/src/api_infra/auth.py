@@ -25,6 +25,7 @@ _jwks_cache: dict[str, Any] | None = None
 _jwks_cache_time: float = 0
 _jwks_lock = asyncio.Lock()
 JWKS_CACHE_TTL = 3600  # 1 hour
+_jwks_stale_since: float | None = None
 
 
 async def get_jwks() -> dict[str, Any]:
@@ -34,7 +35,7 @@ async def get_jwks() -> dict[str, Any]:
     Keys are used to verify JWT signatures locally.
     Uses asyncio.Lock to prevent thundering herd on cache expiry.
     """
-    global _jwks_cache, _jwks_cache_time
+    global _jwks_cache, _jwks_cache_time, _jwks_stale_since
 
     settings = get_settings()
     now = time.time()
@@ -63,6 +64,7 @@ async def get_jwks() -> dict[str, Any]:
                 response.raise_for_status()
                 _jwks_cache = response.json()
                 _jwks_cache_time = now
+                _jwks_stale_since = None  # Reset stale tracking on success
                 key_count = len(_jwks_cache.get("keys", []))
                 logger.info("[AUTH] JWKS fetched successfully: %d keys", key_count)
                 return _jwks_cache
@@ -70,7 +72,20 @@ async def get_jwks() -> dict[str, Any]:
             logger.error("[AUTH] JWKS fetch failed: %s", e)
             # If we have cached keys, use them even if expired
             if _jwks_cache:
-                logger.warning("[AUTH] Using expired JWKS cache as fallback")
+                if _jwks_stale_since is None:
+                    _jwks_stale_since = time.monotonic()
+
+                stale_duration = time.monotonic() - _jwks_stale_since
+                if stale_duration > 3600:  # 1 hour
+                    logger.error(
+                        "[AUTH] JWKS cache stale for %.0f seconds — SSO may be unreachable",
+                        stale_duration,
+                    )
+                else:
+                    logger.warning(
+                        "[AUTH] Using expired JWKS cache as fallback (stale %.0fs)",
+                        stale_duration,
+                    )
                 return _jwks_cache
             logger.error("[AUTH] No cached JWKS available, auth will fail")
             raise HTTPException(

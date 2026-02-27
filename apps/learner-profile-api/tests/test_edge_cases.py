@@ -5,6 +5,7 @@ null/missing/empty, profile_version protection, concurrency, rate limit,
 route-level unicode, visual descriptions conditional default.
 """
 
+import inspect
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -299,47 +300,124 @@ class TestConcurrentMergeCorrectness:
 
 
 # ---------------------------------------------------------------------------
-# P2: Rate limit returns 429 (tests rate limit decorator exists)
+# I9: Concurrent PATCH row locking verification (structural)
 # ---------------------------------------------------------------------------
 
 
-class TestRateLimitExists:
-    """P2: Rate limiting is configured on endpoints.
+class TestForUpdateLocking:
+    """I9: Verify service-layer functions use SELECT FOR UPDATE for concurrency safety."""
 
-    Full 429 testing requires Redis; here we verify the rate limit
-    decorator is applied (it won't trigger with mock Redis).
-    """
+    async def test_update_profile_uses_for_update(self):
+        """Verify update_profile uses .with_for_update() to prevent lost updates."""
+        from learner_profile_api.services.profile_service import update_profile
 
-    async def test_rate_limit_decorator_applied(self):
-        """Verify rate limit decorators exist on route functions."""
-        from learner_profile_api.routes.profile import (
-            create_profile_route,
-            delete_my_profile,
-            gdpr_erase_my_profile,
-            get_completeness,
-            get_my_profile,
-            get_onboarding_status,
-            get_profile_by_learner,
-            sync_from_phm_route,
-            update_my_profile,
-            update_onboarding,
-            update_profile_section,
+        source = inspect.getsource(update_profile)
+        assert "with_for_update" in source, (
+            "update_profile must use .with_for_update() for concurrency safety"
         )
 
-        # All route functions should have rate_limit metadata
-        # The @rate_limit decorator wraps the function, so we can check
-        # that the routes are registered (they are, since imports work)
-        assert callable(create_profile_route)
-        assert callable(get_my_profile)
-        assert callable(update_my_profile)
-        assert callable(delete_my_profile)
-        assert callable(gdpr_erase_my_profile)
-        assert callable(get_onboarding_status)
-        assert callable(update_onboarding)
-        assert callable(sync_from_phm_route)
-        assert callable(get_completeness)
-        assert callable(get_profile_by_learner)
-        assert callable(update_profile_section)
+    async def test_update_section_uses_for_update(self):
+        """Verify update_section uses .with_for_update() to prevent lost updates."""
+        from learner_profile_api.services.profile_service import update_section
+
+        source = inspect.getsource(update_section)
+        assert "with_for_update" in source, (
+            "update_section must use .with_for_update() for concurrency safety"
+        )
+
+    async def test_sync_from_phm_uses_for_update(self):
+        """Verify sync_from_phm uses .with_for_update() to prevent lost updates."""
+        from learner_profile_api.services.profile_service import sync_from_phm
+
+        source = inspect.getsource(sync_from_phm)
+        assert "with_for_update" in source, (
+            "sync_from_phm must use .with_for_update() for concurrency safety"
+        )
+
+    async def test_update_onboarding_section_uses_for_update(self):
+        """Verify update_onboarding_section uses .with_for_update()."""
+        from learner_profile_api.services.profile_service import update_onboarding_section
+
+        source = inspect.getsource(update_onboarding_section)
+        assert "with_for_update" in source, (
+            "update_onboarding_section must use .with_for_update() for concurrency safety"
+        )
+
+
+# ---------------------------------------------------------------------------
+# I10: Rate limit returns 429 (functional test)
+# ---------------------------------------------------------------------------
+
+
+class TestRateLimitFunctional:
+    """I10: Rate limiter returns 429 when limit exceeded.
+
+    Uses mock Redis that returns a "rate limited" response from the Lua script.
+    The Lua script returns [current, window, ttl] where current > limit triggers 429.
+    """
+
+    async def test_rate_limiter_raises_429_when_exceeded(self, mock_redis):
+        """RateLimiter._check_rate_limit triggers callback when over limit."""
+        from api_infra.core.rate_limit import RateLimitConfig, RateLimiter
+
+        # Lua script returns [current=21, window=60000, ttl=55000] -> over limit of 20
+        mock_redis.evalsha = AsyncMock(return_value=[21, 60000, 55000])
+        mock_redis.script_load = AsyncMock(return_value="mock_sha")
+
+        config = RateLimitConfig(times=20, minutes=1)
+        limiter = RateLimiter("test", config)
+
+        mock_request = AsyncMock()
+        mock_request.client.host = "127.0.0.1"
+        mock_request.headers = {}
+        mock_request.state = AsyncMock(spec=[])  # no rate_limit_user_id attr
+
+        with patch("api_infra.core.rate_limit.get_redis", return_value=mock_redis):
+            result = await limiter._check_rate_limit(mock_request)
+
+        assert result["remaining"] == -1, "remaining should be -1 when over limit"
+        assert result["current"] == 21
+        assert result["limit"] == 20
+
+    async def test_rate_limiter_allows_under_limit(self, mock_redis):
+        """RateLimiter._check_rate_limit allows requests under limit."""
+        from api_infra.core.rate_limit import RateLimitConfig, RateLimiter
+
+        # Lua script returns [current=1, window=60000, ttl=0] -> under limit
+        mock_redis.evalsha = AsyncMock(return_value=[1, 60000, 0])
+        mock_redis.script_load = AsyncMock(return_value="mock_sha")
+
+        config = RateLimitConfig(times=20, minutes=1)
+        limiter = RateLimiter("test", config)
+
+        mock_request = AsyncMock()
+        mock_request.client.host = "127.0.0.1"
+        mock_request.headers = {}
+        mock_request.state = AsyncMock(spec=[])
+
+        with patch("api_infra.core.rate_limit.get_redis", return_value=mock_redis):
+            result = await limiter._check_rate_limit(mock_request)
+
+        assert result["remaining"] == 19
+        assert result["current"] == 1
+        assert result["limit"] == 20
+
+    async def test_rate_limit_callback_raises_429(self):
+        """Default callback raises HTTPException with 429 status."""
+        from fastapi import HTTPException
+
+        from api_infra.core.rate_limit import RateLimiter
+
+        mock_request = AsyncMock()
+        mock_request.client.host = "127.0.0.1"
+        mock_response = AsyncMock()
+
+        with pytest.raises(HTTPException) as exc_info:
+            await RateLimiter._default_callback(mock_request, mock_response, 55000)
+
+        assert exc_info.value.status_code == 429
+        assert exc_info.value.detail["error"] == "Rate limit exceeded"
+        assert exc_info.value.detail["retry_after_ms"] == 55000
 
 
 # ---------------------------------------------------------------------------

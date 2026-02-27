@@ -401,16 +401,7 @@ Structured form for fields with clear answer spaces (dropdowns, selects) + optio
 15. Optional: `professional_context.tools_in_use[]` — chip multi-select
 16. Optional: `professional_context.constraints` — short text (limits/requirements)
 
-**Phase 3.5: Accessibility (10-30 seconds) `[ACCESSIBILITY FIX]`**
-
-17. `accessibility.screen_reader` — toggle (default off)
-18. `accessibility.cognitive_load_preference` — 2-option: Standard / Reduced
-19. `accessibility.dyslexia_friendly` — toggle (default off)
-20. Optional: `accessibility.notes` — text (max 300 chars)
-
-Note: `color_blind_safe` is not asked directly — it's handled by the frontend theme, not content personalization. Kept in schema for future use.
-
-**Phase 3.75: Quick Preferences (10-25 seconds)**
+**Phase 3.5: Quick Preferences (10-25 seconds)**
 
 21. `communication.preferred_structure` — radio group
 22. `communication.verbosity` — radio group
@@ -571,8 +562,6 @@ Every non-identity field has a source tracked in `field_sources: dict[str, str]`
 | Phase 1: Goals                | `goals`                                                                                                              | `goals`                |
 | Phase 2: Background           | `expertise`                                                                                                          | `expertise`            |
 | Phase 3: Professional Context | `professional_context`                                                                                               | `professional_context` |
-| Phase 3.5: Accessibility      | `accessibility`                                                                                                      | `accessibility`        |
-| Phase 3.75: Quick Preferences | `communication`, `delivery`                                                                                          | `communication_preferences` |
 | Phase 4: AI Enrichment        | `goals` (career_goal, immediate_application), `professional_context` (real_projects), `expertise` (subject_specific) | `ai_enrichment`        |
 
 The onboarding phase keys are the 6 **onboarding phases**, not the 7 schema sections. DB column `onboarding_sections_completed` maps to API response field `sections_completed` `[P1-4 FIX]`:
@@ -1151,7 +1140,7 @@ For the full “ship to 50k users” verification protocol (frontend + backend +
 | D-1  | Onboarding approach       | **Hybrid (Option C)**                                | Form for structured + AI for enrichment. Demos AI capability.                                                                                         |
 | D-2  | Default expertise level   | **`beginner`**                                       | Under-estimating is less harmful than over-estimating                                                                                                 |
 | D-3  | `ai_fluency.level` enum   | **Standardize to `beginner`**                        | Cross-field consistency. Notes captures nuance.                                                                                                       |
-| D-4  | Accessibility section     | **Include in v1**                                    | Schemas don't change daily. Foundational.                                                                                                             |
+| D-4  | Accessibility section     | **Profile Settings Only**                            | Removed from onboarding to save time. Available in settings.                                                                                          | **Include in v1**                                    | Schemas don't change daily. Foundational.                                                                                                             |
 | D-5  | GDPR compliance           | **Hard delete + consent flag**                       | Right to erasure. Audit log anonymized.                                                                                                               |
 | D-6  | Prompt injection          | **Sandwich + length limits**                         | Length limits at API. Sandwich at consumer.                                                                                                           |
 | D-7  | Personalization engine    | **Out of scope**                                     | Separate build. Profile system serves data.                                                                                                           |
@@ -1164,7 +1153,7 @@ For the full “ship to 50k users” verification protocol (frontend + backend +
 | D-14 | Completeness metrics      | **Two separate metrics**                             | `onboarding_progress` (user actions) + `profile_completeness` (personalization readiness). XP potential. `[P0-4]`                                     |
 | D-15 | Field provenance          | **`field_sources` map**                              | `user > phm > inferred > default` priority. Enables PHM respect + future downranking. `[P0-5]`                                                        |
 | D-16 | PHM downranking           | **Disabled in v1, config flag for future**           | `PHM_ALLOW_DOWNRANK=false`. When enabled, PHM can lower `inferred`-sourced values.                                                                    |
-| D-17 | Accessibility onboarding  | **Include in Phase 3.5**                             | User confirmed: must collect accessibility needs during first-session experience.                                                                     |
+| D-17 | Accessibility onboarding  | **Removed from Onboarding**                          | User decided to keep onboarding lean (90s max). Moved strictly to profile settings.                                                                   | **Include in Phase 3.5**                             | User confirmed: must collect accessibility needs during first-session experience.                                                                     |
 | D-18 | Consent HTTP status       | **400 via handler, not 422 via Pydantic**            | `consent_given` defaults to `False` in model so missing field reaches handler, not FastAPI validation. `[P0-R2-1]`                                    |
 | D-19 | PATCH provenance tracking | **Use `model_fields_set` for explicit-only marking** | Prevents Pydantic defaults from being marked `user`-sourced. `[P0-R2-3]`                                                                              |
 | D-20 | Completeness scoring      | **Weight by `field_sources` provenance**             | `user=1.0, phm=0.8, inferred=0.4, default=0.0`. Prevents always-1.0 trap. `[P0-R2-4]`                                                                 |
@@ -1383,9 +1372,8 @@ The onboarding wizard now implements the v1.2 additions (Goals context, programm
 | **Step 0: Goals**         | `primary_learning_goal`, `urgency`, optional `urgency_note`, optional `immediate_application`, optional `secondary_goals[]` | — | Strong first-session personalization anchor with explicit urgency context.                                                                                                                       |
 | **Step 1: Expertise**     | `programming.level`, `programming.languages[]`, `ai_fluency.level`, `business.level`, `domain[0].level` + optional `domain_name` | per-field `notes`, additional `domain[1-4]`                                                                                                                      | Correct code language + depth; deeper per-field nuance deferred.                                                                                                                                |
 | **Step 2: Professional**  | `current_role`, `industry`, `organization_type`, `team_context`, `tools_in_use[]`, optional `constraints` | additional `real_projects[]` (captured in Step 5 for 1 project)                                                                                                   | Stronger real-world examples and fewer “this won’t work in my environment” mismatches.                                                                                                           |
-| **Step 3: Accessibility** | `screen_reader`, `cognitive_load_preference`, `dyslexia_friendly`, `notes`                            | `color_blind_safe` (settings only)                                                                                                                                | Content density + accessibility addressed; color-blind safe kept for future theme/UI work.                                                                                                      |
-| **Step 4: Quick Preferences** | `communication.preferred_structure`, `communication.verbosity`, `communication.tone`, optional `communication.wants_summaries`, optional `communication.wants_check_in_questions`, `delivery.language` (locale-gated) + optional `delivery.language_proficiency` | `communication.language_complexity`, `communication.analogy_domain`, `communication.format_notes`, most of `delivery.*`                                           | AI “voice” is now user-steered early; fine-grained formatting and delivery remain configurable in settings and/or inferred.                                                                    |
-| **Step 5: AI Enrichment (Project)** | 1 `real_project` (name + desc), `career_goal`, optional `expertise.subject_specific.*` (skip/partial/misconceptions) | Up to 4 more `real_projects`                                                                                                                                       | Captures one real project for grounding + high-signal “skip what I already know” guidance; additional projects deferred.                                                                        |
+| **Step 3: Quick Preferences** | `communication.preferred_structure`, `communication.verbosity`, `communication.tone`, optional `communication.wants_summaries`, optional `communication.wants_check_in_questions`, `delivery.language` (locale-gated) + optional `delivery.language_proficiency` | `communication.language_complexity`, `communication.analogy_domain`, `communication.format_notes`, most of `delivery.*`                                           | AI “voice” is now user-steered early; fine-grained formatting and delivery remain configurable in settings and/or inferred.                                                                    |
+| **Step 4: AI Enrichment (Project)** | 1 `real_project` (name + desc), `career_goal`, optional `expertise.subject_specific.*` (skip/partial/misconceptions) | Up to 4 more `real_projects`                                                                                                                                       | Captures one real project for grounding + high-signal “skip what I already know” guidance; additional projects deferred.                                                                        |
 
 **Summary:** ~29+ fields collected / ~45+ supported = **~64% schema utilization at onboarding.**
 
@@ -1578,14 +1566,7 @@ interface LearnerProfileSummary {
 - `professional_context.team_context` — single-select `[NEW v1.2]`
 - `professional_context.tools_in_use[]` — multi-select chips `[NEW v1.2]`
 
-**Phase 3.5: Accessibility (10-20 seconds)** — unchanged
-
-- `accessibility.screen_reader` — toggle
-- `accessibility.cognitive_load_preference` — 2-option: Standard / Reduced
-- `accessibility.dyslexia_friendly` — toggle
-- Optional: `accessibility.notes` — free text (max 300 chars)
-
-**Phase 3.75: Quick Preferences (10-15 seconds)** `[NEW v1.2]`
+**Phase 3.5: Quick Preferences (10-15 seconds)** `[NEW v1.2]`
 
 - `communication.preferred_structure` — 3-option
 - `communication.verbosity` — 3-option
@@ -1607,7 +1588,6 @@ interface LearnerProfileSummary {
 | `goals`                     | `goals`                                      |
 | `expertise`                 | `expertise`                                  |
 | `professional_context`      | `professional_context`                       |
-| `accessibility`             | `accessibility`                              |
 | `communication_preferences` | `communication`, `delivery` `[NEW v1.2]`     |
 | `ai_enrichment`             | `goals`, `professional_context`, `expertise` |
 
@@ -1615,7 +1595,30 @@ interface LearnerProfileSummary {
 
 ---
 
-### 9.7 Implementation Priority
+### 9.7 2026 Micro-UX Optimizations (The 90-Second Form)
+
+**Context:** The 6-phase wizard is highly efficient (90–180 seconds to complete). To align with 2026 UX expectations of zero-friction setup, we apply a layer of "Micro-UX Polish" to the existing flow rather than reinventing the wheel.
+
+**Enhancement 1: 1-Click Auto-Advance**
+- **Trigger:** Any screen with only a single-select requirement (e.g., Tone, Verbosity, Cognitive Load).
+- **UX:** Clicking the radio button/card instantly selects it and auto-advances to the next phase after a 400ms delay. The "Next" button click is eliminated.
+- **Impact:** Shaves ~15 seconds off total completion time.
+
+**Enhancement 2: Context Pre-fill (OAuth Sync)**
+- **Trigger:** Login via GitHub, LinkedIn, or Enterprise SSO.
+- **UX:** The server uses the auth context to pre-fill `professional_context.industry`, `current_role`, and `tools_in_use`. The wizard screens for these fields flash past or are simply presented as "Confirm & Next" with the boxes already checked.
+
+**Enhancement 3: Gamified Progress Indicator**
+- **Trigger:** User makes any selection in the wizard.
+- **UX:** Replace "Step 1 of 6" with a dynamic `"Context Density: XX%"` bar. As the user clicks, the bar fills up, directly correlating form completion with AI performance.
+
+**Enhancement 4: Frictionless "Skip"**
+- **Trigger:** A screen requires a text input (e.g., `primary_learning_goal`).
+- **UX:** If the text box is empty, the primary green button reads "Skip for now". If the user types a single character, it morphs into "Next". Eliminates the cognitive block of staring at a blank text field.
+
+---
+
+### 9.8 Implementation Priority
 
 **v1.3 ROI items are implemented.** Next priorities focus on remaining high-signal data gaps and downstream consumption.
 

@@ -3,6 +3,7 @@
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from pydantic import ValidationError
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from api_infra.auth import get_current_user
@@ -21,6 +22,7 @@ from ..schemas.profile import (
     ProfileUpdate,
 )
 from ..services.cache import (
+    gdpr_invalidate_profile_cache,
     get_cached_onboarding,
     get_cached_profile,
     invalidate_profile_cache,
@@ -49,6 +51,14 @@ logger = logging.getLogger(__name__)
 profile_router = APIRouter(prefix="/api/v1/profiles", tags=["profiles"])
 
 
+def _backfill_sections_completed(profile) -> dict:
+    """Ensure communication_preferences key exists for backward compatibility."""
+    sections = dict(profile.onboarding_sections_completed or {})
+    if profile.onboarding_completed and "communication_preferences" not in sections:
+        sections["communication_preferences"] = True
+    return sections
+
+
 def _profile_to_response(profile) -> ProfileResponse:
     """Convert a LearnerProfile model to a ProfileResponse."""
     from ..schemas.profile import (
@@ -61,15 +71,33 @@ def _profile_to_response(profile) -> ProfileResponse:
     )
 
     field_sources = profile.field_sources or {}
-
-    # Backward-compat backfill: pre-v1.2 profiles that completed onboarding
-    # won't have communication_preferences in sections_completed
-    sections_completed = dict(profile.onboarding_sections_completed or {})
-    if profile.onboarding_completed and "communication_preferences" not in sections_completed:
-        sections_completed["communication_preferences"] = True
+    sections_completed = _backfill_sections_completed(profile)
 
     onboarding_progress = compute_onboarding_progress(sections_completed)
     completeness, _ = compute_profile_completeness(field_sources)
+
+    try:
+        expertise = ExpertiseSection.model_validate(profile.expertise or {})
+        professional_context = ProfessionalContextSection.model_validate(
+            profile.professional_context or {}
+        )
+        goals = GoalsSection.model_validate(profile.goals or {})
+        communication = CommunicationSection.model_validate(profile.communication or {})
+        delivery = DeliverySection.model_validate(profile.delivery or {})
+        accessibility = AccessibilitySection.model_validate(profile.accessibility or {})
+    except ValidationError as e:
+        logger.error(
+            "[Profile] Corrupted profile data for learner %s: %s",
+            profile.learner_id,
+            e,
+        )
+        # Return defaults for corrupted sections rather than crashing
+        expertise = ExpertiseSection()
+        professional_context = ProfessionalContextSection()
+        goals = GoalsSection()
+        communication = CommunicationSection()
+        delivery = DeliverySection()
+        accessibility = AccessibilitySection()
 
     return ProfileResponse(
         learner_id=profile.learner_id,
@@ -77,14 +105,12 @@ def _profile_to_response(profile) -> ProfileResponse:
         profile_version=profile.profile_version,
         consent_given=profile.consent_given,
         consent_date=profile.consent_date,
-        expertise=ExpertiseSection.model_validate(profile.expertise or {}),
-        professional_context=ProfessionalContextSection.model_validate(
-            profile.professional_context or {}
-        ),
-        goals=GoalsSection.model_validate(profile.goals or {}),
-        communication=CommunicationSection.model_validate(profile.communication or {}),
-        delivery=DeliverySection.model_validate(profile.delivery or {}),
-        accessibility=AccessibilitySection.model_validate(profile.accessibility or {}),
+        expertise=expertise,
+        professional_context=professional_context,
+        goals=goals,
+        communication=communication,
+        delivery=delivery,
+        accessibility=accessibility,
         field_sources=field_sources,
         onboarding_completed=profile.onboarding_completed,
         onboarding_progress=round(onboarding_progress, 2),
@@ -185,8 +211,9 @@ async def get_profile_by_learner(
     """Get profile by learner ID (admin/service only)."""
     from ..config import settings
 
-    # Admin role check: dev_mode grants admin access;
-    # in production, require "admin" role in JWT claims
+    # NOTE: Admin access requires the JWT to contain a "role": "admin" claim.
+    # If the SSO does not emit role claims, admin access is only available in dev_mode.
+    # TODO: Consider config-based admin_user_ids allowlist as fallback for production.
     is_admin = settings.dev_mode or user.role == "admin"
     if not is_admin:
         raise HTTPException(
@@ -300,14 +327,31 @@ async def gdpr_erase_my_profile(
     session: AsyncSession = Depends(get_session),
 ):
     """GDPR hard delete — true erasure. Irreversible."""
+    learner_id = user["sub"]
+
+    # Pre-erase: ensure cache will be cleared (fail-fast if Redis unavailable)
     try:
-        await gdpr_erase_profile(session, user["sub"])
-        await invalidate_profile_cache(user["sub"])
+        await gdpr_invalidate_profile_cache(learner_id)
+    except Exception as e:
+        logger.error("[GDPR] Cache invalidation failed pre-erase: %s", e)
+        raise HTTPException(
+            status_code=503,
+            detail="GDPR erase temporarily unavailable — cache service unreachable. Please retry.",
+        )
+
+    try:
+        await gdpr_erase_profile(session, learner_id)
     except ProfileNotFound:
         raise HTTPException(
             status_code=404,
             detail={"error": "not_found", "message": "No profile found"},
         )
+
+    # Post-erase: second invalidation (belt and suspenders)
+    try:
+        await gdpr_invalidate_profile_cache(learner_id)
+    except Exception:
+        logger.warning("[GDPR] Post-erase cache invalidation failed — pre-erase already cleared")
 
 
 @profile_router.get(
@@ -339,11 +383,7 @@ async def get_onboarding_status(
         )
 
     field_sources = profile.field_sources or {}
-
-    # Backward-compat backfill: pre-v1.2 profiles that completed onboarding
-    sections_completed = dict(profile.onboarding_sections_completed or {})
-    if profile.onboarding_completed and "communication_preferences" not in sections_completed:
-        sections_completed["communication_preferences"] = True
+    sections_completed = _backfill_sections_completed(profile)
 
     # Build sections_completed with all phases
     all_sections = {phase: sections_completed.get(phase, False) for phase in ONBOARDING_PHASES}
@@ -395,10 +435,14 @@ async def update_onboarding(
 
     # Parse optional body
     body = None
-    try:
-        body = await request.json()
-    except Exception:
-        pass  # No body is fine — just marks phase as completed
+    if await request.body():  # Check if request actually has a body
+        try:
+            body = await request.json()
+        except ValueError:
+            raise HTTPException(
+                status_code=422,
+                detail="Request body contains invalid JSON",
+            )
 
     try:
         profile = await update_onboarding_section(session, user["sub"], section, body)

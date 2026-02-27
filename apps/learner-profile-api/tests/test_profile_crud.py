@@ -210,6 +210,17 @@ class TestGDPRErase:
             assert log.previous_values == {}
             assert log.changed_sections == []
 
+    async def test_gdpr_erase_soft_deleted_profile(self, db_session):
+        """GDPR erase must work on soft-deleted profiles (spec §5)."""
+        data = ProfileCreate(consent_given=True)
+        profile, _ = await create_profile(db_session, "user-gdpr-soft", data)
+        await soft_delete_profile(db_session, "user-gdpr-soft")
+        # Must NOT raise ProfileNotFound
+        await gdpr_erase_profile(db_session, "user-gdpr-soft")
+        # Verify truly gone
+        with pytest.raises(ProfileNotFound):
+            await get_profile(db_session, "user-gdpr-soft")
+
     async def test_gdpr_erase_nonexistent_raises(self, db_session):
         with pytest.raises(ProfileNotFound):
             await gdpr_erase_profile(db_session, "nonexistent-gdpr")

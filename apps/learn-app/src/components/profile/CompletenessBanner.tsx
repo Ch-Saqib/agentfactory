@@ -19,13 +19,17 @@ export function CompletenessBanner({
   const { isProfileNudgeVisible } = useProfileNudgeVisibility();
   const ctaHref = profile?.onboarding_completed ? "/profile" : "/onboarding";
   const ctaTo = useBaseUrl(ctaHref);
-  if (!profile || profile.profile_completeness >= 1.0) return null;
+  if (!profile || profile.profile_completeness >= 0.5) return null;
 
   // Avoid double-CTAs: when the full-width ProfileNudgeBanner is currently visible,
   // suppress this smaller in-content card. If the nudge isn't visible (dismissed,
   // excluded route, or swizzle missing), fall back to showing this card so there is
   // still a path back to onboarding.
-  if (hideDuringOnboarding && !profile.onboarding_completed && isProfileNudgeVisible) {
+  if (
+    hideDuringOnboarding &&
+    !profile.onboarding_completed &&
+    isProfileNudgeVisible
+  ) {
     return null;
   }
 
@@ -37,9 +41,7 @@ export function CompletenessBanner({
   return (
     <div className="rounded-lg border border-border bg-card p-4 mb-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium">
-          Profile {percent}% complete
-        </span>
+        <span className="text-sm font-medium">Profile {percent}% complete</span>
         <Link to={ctaTo} className="text-sm text-primary hover:underline">
           {ctaLabel}
         </Link>

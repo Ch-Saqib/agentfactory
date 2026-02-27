@@ -478,6 +478,22 @@ describe("LearnerProfileContext", () => {
     expect(localStorage.getItem(CACHE_KEY)).toBeNull();
   });
 
+  it("handles API fetch error gracefully without crashing", async () => {
+    mockGetMyProfileOrNull.mockRejectedValue(new Error("Network error"));
+
+    render(
+      <LearnerProfileProvider>
+        <TestConsumer />
+      </LearnerProfileProvider>,
+    );
+
+    // Loading should resolve to false, profile should be null, no crash
+    await waitFor(() => {
+      expect(screen.getByTestId("loading")).toHaveTextContent("false");
+    });
+    expect(screen.getByTestId("profile-name")).toHaveTextContent("none");
+  });
+
   it("handles corrupted cache gracefully (falls back to API)", async () => {
     localStorage.setItem(CACHE_KEY, "not-valid-json{{{");
 

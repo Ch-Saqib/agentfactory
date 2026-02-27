@@ -4,7 +4,10 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
 import { LearnerProfileProvider } from "@/contexts/LearnerProfileContext";
-import type { OnboardingStatus, ProfileResponse } from "@/lib/learner-profile-types";
+import type {
+  OnboardingStatus,
+  ProfileResponse,
+} from "@/lib/learner-profile-types";
 
 const mockSession = { user: { id: "test-user" } };
 let currentSession: typeof mockSession | null = mockSession;
@@ -47,7 +50,9 @@ vi.mock("@/lib/learner-profile-api", () => ({
   getCompleteness: (...args: unknown[]) => mockGetCompleteness(...args),
 }));
 
-function makeProfile(overrides: Partial<ProfileResponse> = {}): ProfileResponse {
+function makeProfile(
+  overrides: Partial<ProfileResponse> = {},
+): ProfileResponse {
   return {
     learner_id: "test-user",
     name: null,
@@ -117,7 +122,9 @@ function makeProfile(overrides: Partial<ProfileResponse> = {}): ProfileResponse 
   };
 }
 
-function makeStatus(overrides: Partial<OnboardingStatus> = {}): OnboardingStatus {
+function makeStatus(
+  overrides: Partial<OnboardingStatus> = {},
+): OnboardingStatus {
   return {
     learner_id: "test-user",
     sections_completed: {
@@ -172,9 +179,7 @@ describe("OnboardingWizard", () => {
     const agreeBtn = screen.getByRole("button", { name: /Agree & continue/i });
     expect(agreeBtn).toBeDisabled();
 
-    await user.click(
-      screen.getByLabelText(/I agree to store my profile/i),
-    );
+    await user.click(screen.getByLabelText(/I agree to store my profile/i));
 
     expect(agreeBtn).toBeEnabled();
   });
@@ -189,12 +194,8 @@ describe("OnboardingWizard", () => {
 
     await screen.findByText("Set up your Learner Profile");
 
-    await user.click(
-      screen.getByLabelText(/I agree to store my profile/i),
-    );
-    await user.click(
-      screen.getByRole("button", { name: /Agree & continue/i }),
-    );
+    await user.click(screen.getByLabelText(/I agree to store my profile/i));
+    await user.click(screen.getByRole("button", { name: /Agree & continue/i }));
 
     await waitFor(() => {
       expect(mockCreateProfile).toHaveBeenCalledWith("http://localhost:8004", {
@@ -211,7 +212,9 @@ describe("OnboardingWizard", () => {
     const user = userEvent.setup();
     const existing = makeProfile();
     mockGetMyProfileOrNull.mockResolvedValue(existing);
-    mockGetOnboardingStatus.mockResolvedValue(makeStatus({ next_section: "goals" }));
+    mockGetOnboardingStatus.mockResolvedValue(
+      makeStatus({ next_section: "goals" }),
+    );
     mockCompleteOnboardingPhase.mockResolvedValue(existing);
 
     renderWizard();
@@ -222,9 +225,7 @@ describe("OnboardingWizard", () => {
       target: { value: "Build a customer support AI agent" },
     });
 
-    await user.click(
-      screen.getByRole("button", { name: /save & continue/i }),
-    );
+    await user.click(screen.getByRole("button", { name: /save & continue/i }));
 
     await waitFor(() => {
       expect(mockCompleteOnboardingPhase).toHaveBeenCalledWith(
@@ -239,11 +240,40 @@ describe("OnboardingWizard", () => {
     ).toBeInTheDocument();
   });
 
+  it("resumes at correct step when profile has partial onboarding", async () => {
+    const existing = makeProfile();
+    mockGetMyProfileOrNull.mockResolvedValue(existing);
+    // Goals and expertise completed, next is professional_context
+    mockGetOnboardingStatus.mockResolvedValue(
+      makeStatus({
+        sections_completed: {
+          goals: true,
+          expertise: true,
+          professional_context: false,
+          accessibility: false,
+          communication_preferences: false,
+          ai_enrichment: false,
+        },
+        next_section: "professional_context",
+        onboarding_progress: 0.33,
+      }),
+    );
+
+    renderWizard();
+
+    // Should show the Professional Context step (not Goals or Welcome)
+    expect(
+      await screen.findByText("Ground it in your world"),
+    ).toBeInTheDocument();
+  });
+
   it("Skip for now marks the phase complete without sending data", async () => {
     const user = userEvent.setup();
     const existing = makeProfile();
     mockGetMyProfileOrNull.mockResolvedValue(existing);
-    mockGetOnboardingStatus.mockResolvedValue(makeStatus({ next_section: "goals" }));
+    mockGetOnboardingStatus.mockResolvedValue(
+      makeStatus({ next_section: "goals" }),
+    );
     mockCompleteOnboardingPhase.mockResolvedValue(existing);
 
     renderWizard();

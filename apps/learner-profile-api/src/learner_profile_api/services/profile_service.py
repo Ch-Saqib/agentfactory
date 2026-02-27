@@ -9,8 +9,9 @@ import logging
 from datetime import UTC, datetime
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from sqlalchemy import update
+from sqlalchemy.exc import IntegrityError
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -264,7 +265,11 @@ async def create_profile(
     )
     session.add(profile)
     session.add(audit)
-    await session.commit()
+    try:
+        await session.commit()
+    except IntegrityError:
+        await session.rollback()
+        raise ProfileExists(learner_id)
     await session.refresh(profile)
     return profile, False
 
@@ -341,6 +346,15 @@ async def update_profile(
         if section_name == "expertise":
             merged = _ensure_domain_auto_primary(merged)
             merged = _deduplicate_mastered_topics(merged)
+
+        # Re-validate merged data before writing to DB
+        if section_name in SECTION_MODELS:
+            try:
+                SECTION_MODELS[section_name].model_validate(merged)
+            except ValidationError as e:
+                raise ValueError(
+                    f"Merged data for section '{section_name}' is invalid: {e}"
+                )
 
         setattr(profile, section_name, merged)
 
@@ -664,7 +678,15 @@ async def sync_from_phm(
     """Pull PHM data and apply to profile."""
     from .phm_client import apply_phm_data, fetch_phm_data
 
-    profile = await get_profile(session, learner_id)
+    # Lock the row to prevent concurrent sync conflicts
+    stmt = select(LearnerProfile).where(
+        LearnerProfile.learner_id == learner_id,
+        LearnerProfile.deleted_at.is_(None),
+    ).with_for_update()
+    result = await session.execute(stmt)
+    profile = result.scalar_one_or_none()
+    if not profile:
+        raise ProfileNotFound(f"No active profile found for learner {learner_id}")
 
     phm_data = await fetch_phm_data(learner_id, token)
     if phm_data is None:

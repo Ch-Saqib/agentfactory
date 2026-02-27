@@ -2,25 +2,17 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import {
-  CheckCircle2,
-  ChevronRight,
-  Loader2,
-  Zap,
-} from "lucide-react";
+import { CheckCircle2, ChevronRight, Loader2, Zap } from "lucide-react";
 import { getCompleteness } from "@/lib/learner-profile-api";
 import type { CompletenessResponse } from "@/lib/learner-profile-types";
 import { ONBOARDING_PHASES } from "@/lib/learner-profile-types";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useLearnerProfileApiUrl } from "@/lib/api-utils";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useHistory } from "@docusaurus/router";
 
 export function FinishStep() {
   const history = useHistory();
-  const { siteConfig } = useDocusaurusContext();
-  const apiUrl =
-    (siteConfig.customFields?.learnerProfileApiUrl as string) ||
-    "http://localhost:8004";
+  const apiUrl = useLearnerProfileApiUrl();
   const profileHref = useBaseUrl("/profile");
   const homeHref = useBaseUrl("/");
   const logoSrc = useBaseUrl("/img/logo.svg");

@@ -7,8 +7,8 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useAuth } from "./AuthContext";
+import { useLearnerProfileApiUrl } from "@/lib/api-utils";
 import {
   getMyProfileOrNull,
   createProfile,
@@ -115,16 +115,9 @@ const LearnerProfileContext = createContext<
   LearnerProfileContextType | undefined
 >(undefined);
 
-export function LearnerProfileProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export function LearnerProfileProvider({ children }: { children: ReactNode }) {
   const { session } = useAuth();
-  const { siteConfig } = useDocusaurusContext();
-  const apiUrl =
-    (siteConfig.customFields?.learnerProfileApiUrl as string) ||
-    "http://localhost:8004";
+  const apiUrl = useLearnerProfileApiUrl();
 
   const [profile, setProfile] = useState<ProfileResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -134,11 +127,14 @@ export function LearnerProfileProvider({
   const lastUserIdRef = useRef<string | null>(null);
 
   // Helper: set profile in both React state and localStorage
-  const setProfileWithCache = useCallback((data: ProfileResponse) => {
-    setProfile(data);
-    const userId = session?.user?.id;
-    if (userId) setCachedProfile(userId, data);
-  }, [session?.user?.id]);
+  const setProfileWithCache = useCallback(
+    (data: ProfileResponse) => {
+      setProfile(data);
+      const userId = session?.user?.id;
+      if (userId) setCachedProfile(userId, data);
+    },
+    [session?.user?.id],
+  );
 
   // Lazy trigger — called when context is consumed via useLearnerProfile
   const ensureProfileLoaded = useCallback(async () => {
@@ -151,7 +147,7 @@ export function LearnerProfileProvider({
     const cached = getCachedProfile(userId);
     if (cached) {
       setProfile(cached);
-      setNeedsOnboarding(false);
+      setNeedsOnboarding(!cached.onboarding_completed);
       setHasAttemptedFetch(true);
       fetchingRef.current = false;
       return;
@@ -166,11 +162,12 @@ export function LearnerProfileProvider({
       } else {
         setNeedsOnboarding(true);
       }
+      setHasAttemptedFetch(true);
     } catch (err) {
       console.error("[LearnerProfileContext] Failed to load profile:", err);
+      // Do NOT set hasAttemptedFetch on failure — allow retry on next mount
     } finally {
       setIsLoading(false);
-      setHasAttemptedFetch(true);
       fetchingRef.current = false;
     }
   }, [hasAttemptedFetch, session?.user, apiUrl, setProfileWithCache]);
@@ -319,9 +316,9 @@ export function LearnerProfileProvider({
           phase === "professional_context" ||
           phase === "accessibility"
         ) {
-          const sectionBaseline = (profile as unknown as Record<string, unknown>)[
-            phase
-          ];
+          const sectionBaseline = (
+            profile as unknown as Record<string, unknown>
+          )[phase];
           const patch = buildSparsePatch(sectionBaseline, data);
           payload = patch !== undefined ? patch : {};
         }

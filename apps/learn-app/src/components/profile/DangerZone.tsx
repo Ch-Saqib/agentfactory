@@ -1,23 +1,17 @@
 import React, { useState } from "react";
-import {
-  deleteMyProfile,
-  gdprEraseMyProfile,
-} from "@/lib/learner-profile-api";
+import { deleteMyProfile, gdprEraseMyProfile } from "@/lib/learner-profile-api";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLearnerProfile } from "@/contexts/LearnerProfileContext";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useLearnerProfileApiUrl } from "@/lib/api-utils";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { useHistory } from "@docusaurus/router";
 
 export function DangerZone() {
   const history = useHistory();
   const homeHref = useBaseUrl("/");
-  const { siteConfig } = useDocusaurusContext();
   const { session } = useAuth();
   const { refreshProfile } = useLearnerProfile();
-  const apiUrl =
-    (siteConfig.customFields?.learnerProfileApiUrl as string) ||
-    "http://localhost:8004";
+  const apiUrl = useLearnerProfileApiUrl();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showGdprConfirm, setShowGdprConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -27,7 +21,9 @@ export function DangerZone() {
     const userId = session?.user?.id;
     if (!userId || typeof window === "undefined") return;
     try {
-      localStorage.removeItem(`learner_profile_onboarding_redirected:${userId}`);
+      localStorage.removeItem(
+        `learner_profile_onboarding_redirected:${userId}`,
+      );
     } catch {
       // ignore
     }

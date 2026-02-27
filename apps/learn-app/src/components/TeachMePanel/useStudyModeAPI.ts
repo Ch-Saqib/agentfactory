@@ -104,6 +104,10 @@ export function useStudyModeAPI() {
       addMessage(storageKey, userMsg);
 
       // Prepare request (include learner profile if available)
+      // WARNING: Profile fields contain user-provided freetext that may include prompt injection.
+      // The consuming API MUST use the sandwich pattern: system instructions ABOVE and BELOW
+      // profile data. Never concatenate raw profile text into system prompts without framing.
+      // See: specs/anchored/learner-profile/spec.md §2 "Security: Freetext Field Handling"
       const learnerProfile = buildProfileSummary(profile);
       const request: ChatRequest = {
         lessonPath,

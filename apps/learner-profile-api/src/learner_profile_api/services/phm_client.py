@@ -12,6 +12,14 @@ from ..config import settings
 
 logger = logging.getLogger(__name__)
 
+
+class PHMSyncError(Exception):
+    """Study Mode API returned a non-404 error during PHM sync."""
+
+    def __init__(self, status_code: int, detail: str = ""):
+        self.status_code = status_code
+        super().__init__(f"PHM sync failed with status {status_code}: {detail}")
+
 _client: httpx.AsyncClient | None = None
 
 # Source priority for provenance checks
@@ -66,7 +74,9 @@ async def fetch_phm_data(learner_id: str, token: str) -> dict | None:
             logger.warning(
                 "[PHM] Unexpected status %d from Study Mode API", response.status_code
             )
-            return None
+            raise PHMSyncError(
+                response.status_code, "Unexpected status from Study Mode API"
+            )
     except httpx.HTTPError as e:
         logger.error("[PHM] Failed to fetch PHM data: %s", e)
         raise

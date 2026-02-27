@@ -175,7 +175,7 @@ export interface ProfileResponse {
   communication: CommunicationSection;
   delivery: DeliverySection;
   accessibility: AccessibilitySection;
-  field_sources?: Record<string, string>;
+  field_sources?: Record<string, "user" | "phm" | "inferred" | "default">;
   onboarding_completed: boolean;
   onboarding_progress: number;
   profile_completeness: number;

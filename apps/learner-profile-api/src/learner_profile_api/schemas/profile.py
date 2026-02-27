@@ -8,6 +8,11 @@ from pydantic import BaseModel, Field
 # === Typed section schemas (shared by request and response) ===
 
 ExpertiseLevel = Literal["none", "beginner", "intermediate", "advanced", "expert"]
+FieldSource = Literal["user", "phm", "inferred", "default"]
+OnboardingPhase = Literal[
+    "goals", "expertise", "professional_context",
+    "accessibility", "communication_preferences", "ai_enrichment"
+]
 
 
 class DomainExpertise(BaseModel):
@@ -17,9 +22,12 @@ class DomainExpertise(BaseModel):
     notes: str | None = Field(None, max_length=300)
 
 
+LanguageName = Annotated[str, Field(max_length=50)]
+
+
 class ProgrammingExpertise(BaseModel):
     level: ExpertiseLevel = "beginner"
-    languages: list[str] = Field(default_factory=list, max_length=10)
+    languages: list[LanguageName] = Field(default_factory=list, max_length=10)
     notes: str | None = Field(None, max_length=300)
 
 
@@ -169,7 +177,7 @@ SECTION_MODELS: dict[str, type[BaseModel]] = {
 }
 
 # Onboarding phase names
-ONBOARDING_PHASES = [
+ONBOARDING_PHASES: list[OnboardingPhase] = [
     "goals",
     "expertise",
     "professional_context",
@@ -194,10 +202,12 @@ class ProfileResponse(BaseModel):
     communication: CommunicationSection
     delivery: DeliverySection
     accessibility: AccessibilitySection
-    field_sources: dict[str, str] = Field(default_factory=dict)
+    # Intentionally exposed per spec §4 for UX transparency (e.g., "auto-set" badges).
+    # The DB schema comment saying "internal only" is superseded by the API spec decision.
+    field_sources: dict[str, FieldSource] = Field(default_factory=dict)
     onboarding_completed: bool
-    onboarding_progress: float
-    profile_completeness: float
+    onboarding_progress: Annotated[float, Field(ge=0, le=1)] = 0.0
+    profile_completeness: Annotated[float, Field(ge=0, le=1)] = 0.0
     created_at: datetime
     updated_at: datetime
 
@@ -207,8 +217,8 @@ class OnboardingStatus(BaseModel):
     sections_completed: dict[str, bool]
     overall_completed: bool
     next_section: str | None
-    onboarding_progress: float
-    profile_completeness: float
+    onboarding_progress: Annotated[float, Field(ge=0, le=1)] = 0.0
+    profile_completeness: Annotated[float, Field(ge=0, le=1)] = 0.0
 
 
 class CompletenessResponse(BaseModel):

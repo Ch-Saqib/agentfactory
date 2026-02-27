@@ -122,8 +122,10 @@ def mock_redis():
 
 
 @pytest.fixture
-async def client(db_engine):
-    """Create an async test client with database session override."""
+async def client(db_engine, mock_redis):
+    """Create an async test client with database session and Redis overrides."""
+    from unittest.mock import patch
+
     from learner_profile_api.core.database import get_session
     from learner_profile_api.main import app
 
@@ -140,9 +142,15 @@ async def client(db_engine):
 
     app.dependency_overrides[get_session] = _override_get_session
 
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        yield ac
+    # Provide mock Redis so cache operations (including GDPR invalidation) work.
+    # Patch at both the source and the import site to cover all call paths.
+    with (
+        patch("api_infra.core.redis_cache.get_redis", return_value=mock_redis),
+        patch("learner_profile_api.services.cache.get_redis", return_value=mock_redis),
+    ):
+        transport = ASGITransport(app=app)
+        async with AsyncClient(transport=transport, base_url="http://test") as ac:
+            yield ac
 
     app.dependency_overrides.clear()
 
