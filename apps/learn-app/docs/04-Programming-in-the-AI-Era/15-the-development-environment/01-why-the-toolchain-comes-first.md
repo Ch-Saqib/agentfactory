@@ -100,7 +100,7 @@ The five tools form a system. Removing any one of them leaves a gap that willpow
 These tools are not optional recommendations. They are the infrastructure that makes professional Python development possible. A carpenter does not decide whether to use a workbench -- the workbench is where the work happens. The discipline stack is where Python development happens. Every chapter from here forward assumes all five tools are installed and working.
 
 :::note If you've coded before
-You may have used pip, venv, and pyenv as separate tools -- or poetry, conda, or pipenv as alternatives. This chapter replaces all of them with one unified stack. The workflow is fundamentally different, not just faster. Even if you have a working Python setup, follow along from scratch to see how the pieces connect.
+You may have used pip, venv, and pyenv as separate tools -- or poetry, conda, or pipenv as alternatives. Other excellent tools exist in the Python ecosystem -- mypy for type checking, Black for formatting, Poetry for dependency management. This chapter uses uv, ruff, and pyright because they are unified (uv and ruff are from the same team), fast (Rust-based), and require the fewest configuration files. The principles transfer -- the axioms matter more than the specific tools. Even if you have a working Python setup, follow along from scratch to see how the pieces connect.
 :::
 
 ---
