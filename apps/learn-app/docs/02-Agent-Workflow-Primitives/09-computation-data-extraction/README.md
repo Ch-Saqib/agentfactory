@@ -20,7 +20,7 @@ This chapter breaks through that wall. You'll build Python scripts that slot int
 
 ## 📚 Teaching Aid
 
-## What You'll Build
+## What You'll Learn
 
 A personal library of Unix-styled Python commands in `~/tools`:
 
