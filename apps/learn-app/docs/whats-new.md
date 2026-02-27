@@ -17,6 +17,10 @@ Track meaningful updates to the book. This page is automatically updated when do
 
 <!-- CHANGELOG_START - Do not remove this marker -->
 
+### 2026-02-27
+
+- feat: Add flashcards for ch12 ([#779](https://github.com/panaversity/agentfactory/pull/779))
+
 ### 2026-02-26
 - Ch12 review ([#777](https://github.com/panaversity/agentfactory/pull/777))
 
