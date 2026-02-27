@@ -80,7 +80,7 @@ teaching_guide:
     - "The assessment rubric works as a self-evaluation tool — have students rate themselves before and after completing exercises to track growth across all five criteria"
     - "Capstone C requires real bank data with real privacy implications — remind students to redact account numbers and sensitive details before processing"
   assessment_quick_check:
-    - "Ask students to recite the seven-step Data Processing Framework from memory — it is the chapter's core deliverable alongside the File Processing Framework from the File Processing chapter"
+    - "Ask students to recite the seven-step Data Processing Framework — it synthesizes individual lesson skills into a reusable process and is the chapter's core deliverable"
     - "Present a broken pipeline scenario and ask students where they would look first: inside the scripts or at the interfaces between them"
     - "Ask: 'What is the difference between a Build exercise and a Debug exercise? Which develops a more transferable skill, and why?'"
 ---
@@ -140,7 +140,7 @@ By Module 5, you should be able to face a new data processing problem and instin
 
 ## The Data Processing Framework
 
-Use this for every exercise:
+Lessons 1-6 taught these steps individually -- building tools, testing with known answers, handling edge cases, composing pipelines, making scripts permanent. This framework assembles those skills into a single reusable process. Use it for every exercise:
 
 1. **Understand the Data** — What format? What columns? What edge cases exist? What does "correct" output look like?
 2. **Build the Tool** — Write a Python script that reads stdin and produces stdout
