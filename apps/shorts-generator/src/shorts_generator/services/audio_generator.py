@@ -8,6 +8,7 @@ This service generates audio for short video narration:
 Cost: FREE
 """
 
+import asyncio
 import logging
 import math
 import os
@@ -18,13 +19,11 @@ from pathlib import Path
 from typing import Any
 
 import httpx
+import edge_tts
 
 from shorts_generator.core.config import settings
 
 logger = logging.getLogger(__name__)
-
-# Edge-TTS API endpoint (uses undocumented API)
-EDGE_TTS_API = "https://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1"
 
 
 @dataclass
@@ -96,39 +95,23 @@ class AudioGenerator:
         logger.info(f"Generating narration with voice: {voice}")
 
         try:
-            client = await self._get_http_client()
-
-            # Build request payload for Edge-TTS
-            payload = {
-                "text": script_text,
-                "voice": voice,
-                "outputFormat": "audio-24khz-128kbitrate-mono-mp3",
-                "rate": "+0%",  # Normal speed
-                "pitch": "+0Hz",  # Normal pitch
-                "volume": "+0%",
-            }
-
-            # Call Edge-TTS API
-            response = await client.post(
-                EDGE_TTS_API,
-                json=payload,
-                headers={
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                },
+            # Use edge-tts library to generate audio
+            # The library is synchronous, so run in thread pool
+            communicate = edge_tts.Communicate(
+                text=script_text,
+                voice=voice,
+                rate='+0%',  # Normal speed
+                volume='+0%',  # Normal volume
+                pitch='+0Hz',  # Normal pitch
             )
-
-            if response.status_code != 200:
-                error_text = response.text
-                logger.error(f"Edge-TTS API error: {error_text}")
-                raise Exception(f"Edge-TTS generation failed: {error_text}")
-
-            # Get audio content
-            audio_content = response.content
 
             # Save to temporary file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
-                tmp_file.write(audio_content)
-                tmp_file.flush()
+                # edge-tts communicate.save_mp3() is blocking, run in thread
+                await asyncio.to_thread(communicate.save, tmp_file.name)
+
+                # Get file size for logging
+                file_size = os.path.getsize(tmp_file.name)
 
                 # Calculate approximate duration
                 duration = self._estimate_duration(script_text)
@@ -141,7 +124,7 @@ class AudioGenerator:
                     voice_used=voice,
                 )
 
-                logger.info(f"Narration generated: {duration:.2f}s, {len(audio_content)} bytes")
+                logger.info(f"Narration generated: {duration:.2f}s, {file_size} bytes")
 
                 return audio
 
@@ -243,8 +226,8 @@ class AudioGenerator:
         """
         hours = int(seconds // 3600)
         minutes = int((seconds % 3600) // 60)
-        secs = seconds % 60
-        millis = int((secs % 1) * 1000)
+        secs = int(seconds % 60)  # Convert to int
+        millis = int((seconds - int(seconds)) * 1000)
 
         return f"{hours:02d}:{minutes:02d}:{secs:02d},{millis:03d}"
 

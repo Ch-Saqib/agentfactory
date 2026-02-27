@@ -8,6 +8,7 @@ This service generates visuals for short video scenes:
 Target Cost: $0.00 per image (completely free)
 """
 
+import asyncio
 import hashlib
 import json
 import logging
@@ -196,12 +197,33 @@ class VisualGenerator:
 
             logger.info(f"Pollinations.ai URL: {image_url[:100]}...")
 
-            # Verify the image is accessible
+            # Verify the image is accessible with retry logic for 5xx errors
             client = await self._get_http_client()
-            verify_response = await client.head(image_url, timeout=30.0)
+            max_retries = 3
+            verify_response = None
 
-            if verify_response.status_code != 200:
-                logger.warning(f"Image verification returned {verify_response.status_code}, continuing anyway")
+            for attempt in range(max_retries):
+                try:
+                    verify_response = await client.head(image_url, timeout=30.0)
+                    if verify_response.status_code == 200:
+                        break
+                    # Retry on 5xx errors (service temporarily unavailable)
+                    if 500 <= verify_response.status_code < 600:
+                        if attempt < max_retries - 1:
+                            wait_time = 2 ** attempt  # Exponential backoff: 1s, 2s, 4s
+                            logger.warning(f"Pollinations returned {verify_response.status_code}, retrying in {wait_time}s...")
+                            await asyncio.sleep(wait_time)
+                            continue
+                except Exception as e:
+                    if attempt < max_retries - 1:
+                        logger.warning(f"Image verification failed: {e}, retrying...")
+                        await asyncio.sleep(2 ** attempt)
+                        continue
+
+            # If all retries failed, still return the URL - Pollinations generates on-demand
+            # The actual image will be fetched during video assembly
+            if verify_response and verify_response.status_code != 200:
+                logger.warning(f"Image verification returned {verify_response.status_code}, continuing anyway (will retry during assembly)")
 
             image = GeneratedImage(
                 url=image_url,
@@ -251,26 +273,36 @@ class VisualGenerator:
             client = await self._get_http_client()
 
             # Call carbon.now.sh API
-            response = await client.post(
-                self.CARBON_API,
-                json={
-                    "code": code,
-                    "language": language,
-                    "theme": "monokai",
-                    "backgroundColor": "#1e1e1e",
-                    "windowControls": True,
-                    "lineNumbers": True,
-                    "width": self.IMAGE_WIDTH,
-                    "exportSize": "2x",
-                },
-                headers={"Content-Type": "application/json"},
-                timeout=30.0,
-            )
+            try:
+                response = await client.post(
+                    self.CARBON_API,
+                    json={
+                        "code": code,
+                        "language": language,
+                        "theme": "monokai",
+                        "backgroundColor": "#1e1e1e",
+                        "windowControls": True,
+                        "lineNumbers": True,
+                        "width": self.IMAGE_WIDTH,
+                        "exportSize": "2x",
+                    },
+                    headers={"Content-Type": "application/json"},
+                    timeout=30.0,
+                )
 
-            if response.status_code != 200:
-                error_text = response.text
-                logger.error(f"Carbon API error: {error_text}")
-                raise Exception(f"Carbon generation failed: {error_text}")
+                if response.status_code != 200:
+                    error_text = response.text
+                    logger.error(f"Carbon API error: {error_text}")
+                    # Fall back to generating a regular scene image with code description
+                    logger.warning("Falling back to scene image generation for code")
+                    return await self.generate_scene_image(
+                        f"Code snippet in {language}: {code[:100]}... Syntax highlighted code with dark theme and monokai colors"
+                    )
+            except Exception as api_error:
+                logger.warning(f"Carbon API call failed: {api_error}, falling back to scene image")
+                return await self.generate_scene_image(
+                    f"Code snippet in {language}: {code[:100]}... Syntax highlighted code with dark theme and monokai colors"
+                )
 
             # Carbon returns the SVG directly
             svg_content = response.text

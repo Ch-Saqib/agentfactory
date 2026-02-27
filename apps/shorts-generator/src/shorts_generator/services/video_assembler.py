@@ -13,6 +13,7 @@ Video Spec:
 - Max file size: 50MB
 """
 
+import asyncio
 import logging
 import os
 import tempfile
@@ -20,6 +21,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
+
+import httpx
 
 from shorts_generator.services.audio_generator import GeneratedAudio
 from shorts_generator.services.script_generator import GeneratedScript
@@ -66,7 +69,61 @@ class VideoAssembler:
 
     def __init__(self):
         """Initialize the video assembler."""
-        pass
+        self._http_client: httpx.AsyncClient | None = None
+
+    async def _get_http_client(self) -> httpx.AsyncClient:
+        """Get or create HTTP client."""
+        if self._http_client is None:
+            self._http_client = httpx.AsyncClient(timeout=60.0)
+        return self._http_client
+
+    async def _download_image_with_retry(self, image_url: str, max_retries: int = 3) -> str:
+        """Download an image to a temp file with retry logic.
+
+        Args:
+            image_url: URL of the image to download
+            max_retries: Maximum number of retry attempts
+
+        Returns:
+            Local file path to the downloaded image
+
+        Raises:
+            Exception: If download fails after all retries
+        """
+        client = await self._get_http_client()
+
+        for attempt in range(max_retries):
+            try:
+                response = await client.get(image_url, timeout=60.0)
+                response.raise_for_status()
+
+                # Save to temp file
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
+                    tmp_file.write(response.content)
+                    tmp_file.flush()
+                    return tmp_file.name
+
+            except httpx.HTTPStatusError as e:
+                if 500 <= e.response.status_code < 600:
+                    # Retry on server errors with exponential backoff
+                    if attempt < max_retries - 1:
+                        wait_time = 2 ** attempt  # 1s, 2s, 4s
+                        logger.warning(
+                            f"Image download failed with {e.response.status_code}, "
+                            f"retrying in {wait_time}s... (attempt {attempt + 1}/{max_retries})"
+                        )
+                        await asyncio.sleep(wait_time)
+                        continue
+                raise
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    wait_time = 2 ** attempt
+                    logger.warning(f"Image download failed: {e}, retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                raise
+
+        raise Exception(f"Failed to download image after {max_retries} attempts")
 
     def _estimate_bitrate(self, duration_seconds: float, max_size_mb: int = MAX_FILE_SIZE_MB) -> str:
         """Estimate video bitrate to fit within file size limit.
@@ -116,8 +173,6 @@ class VideoAssembler:
         logger.info(f"Assembling video from {len(scene_images)} scenes")
 
         try:
-            import ffmpeg
-
             # Create output file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as tmp_file:
                 output_path = tmp_file.name
@@ -128,62 +183,77 @@ class VideoAssembler:
                 # Calculate appropriate bitrate
                 bitrate = self._estimate_bitrate(total_duration)
 
-                # Build FFmpeg complex filter
-                # This combines: images + audio + captions + transitions
-                inputs = []
+                # Prepare input files
+                audio_path = audio.file_path
+                if audio_path.startswith("file://"):
+                    audio_path = audio_path.replace("file://", "")
 
-                # Add images as video streams
-                for i, image_url in enumerate(scene_images):
-                    if image_url.startswith("file://"):
-                        image_path = image_url.replace("file://", "")
+                # Build filter complex for combining images
+                # For simplicity, we'll use the first image for the entire video duration
+                # In production, you'd want to overlay different images at different times
+
+                # Clean up image URLs
+                clean_images = []
+                for img_url in scene_images[:1]:  # Use first image for now
+                    if img_url.startswith("file://"):
+                        clean_images.append(img_url.replace("file://", ""))
+                    elif img_url.startswith("data:"):
+                        # Save data URL to temp file
+                        import base64
+                        header, data = img_url.split(",", 1)
+                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as img_tmp:
+                            img_tmp.write(base64.b64decode(data))
+                            img_tmp.flush()
+                            clean_images.append(img_tmp.name)
+                    elif img_url.startswith("http://") or img_url.startswith("https://"):
+                        # Download remote image with retry logic
+                        logger.info(f"Downloading remote image: {img_url[:80]}...")
+                        local_path = await self._download_image_with_retry(img_url)
+                        clean_images.append(local_path)
                     else:
-                        # TODO: Download to temp file
-                        image_path = image_url
+                        clean_images.append(img_url)
 
-                    # Get duration for this scene
-                    if i < len(script.concepts):
-                        scene = script.concepts[i]
-                        scene_duration = scene.duration_seconds
-                    elif i == len(scene_images) - 1:
-                        scene_duration = script.total_duration
-                    else:
-                        scene_duration = 5
+                if not clean_images:
+                    raise Exception("No valid images found for video generation")
 
-                    # Create video stream from image
-                    (
-                        ffmpeg
-                        .input(image_path, loop=1, framerate=1)
-                        .output(
-                            f"-vf scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}",
-                            "-r", str(VIDEO_FPS),
-                        )
-                    )
+                # Use subprocess to run ffmpeg directly (more reliable than ffmpeg-python)
+                import subprocess
 
-                # Add audio
-                if audio.file_path.startswith("file://"):
-                    audio_path = audio.file_path.replace("file://", "")
-                else:
-                    # TODO: Download to temp file
-                    audio_path = audio.file_path
+                # Build ffmpeg command
+                # Create slideshow from images with audio
+                cmd = [
+                    "ffmpeg",
+                    "-y",  # Overwrite output file
+                    "-loop", "1",  # Loop images
+                    "-i", clean_images[0],  # Input image
+                    "-i", audio_path,  # Input audio
+                    "-c:v", "libx264",  # Video codec
+                    "-tune", "stillimage",  # Optimize for still images
+                    "-pix_fmt", "yuv420p",  # Better compatibility
+                    "-vf", f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}",  # Scale resolution
+                    "-t", str(total_duration),  # Duration
+                    "-c:a", "aac",  # Audio codec
+                    "-b:a", "128k",  # Audio bitrate
+                    "-shortest",  # End when shortest input ends
+                    "-movflags", "+faststart",  # Enable web playback
+                    output_path,
+                ]
 
-                # Main FFmpeg command
-                # This is a simplified version - in production, you'd use complex filter graphs
-                (
-                    ffmpeg
-                    .input(audio_path)
-                    .output(
-                        output_path,
-                        vcodec=VIDEO_CODEC,
-                        video_bitrate=bitrate,
-                        acodec=AUDIO_CODEC,
-                        audio_bitrate=AUDIO_BITRATE,
-                        movflags="+faststart",  # Enable web playback
-                        pix_fmt="yuv420p",  # Better compatibility
-                        shortswithen=None,  # Don't cut duration
-                    )
-                    .overwrite_output()
-                    .run(capture_stdout=True, capture_stderr=True)
+                logger.info(f"Running ffmpeg: {' '.join(cmd[:5])}...")
+
+                # Run ffmpeg
+                result = await asyncio.to_thread(
+                    subprocess.run,
+                    cmd,
+                    capture_output=True,
+                    text=True,
                 )
+
+                if result.returncode != 0:
+                    logger.error(f"FFmpeg error: {result.stderr}")
+                    raise Exception(f"Video assembly failed: {result.stderr}")
+
+                logger.info(f"Video assembled: {output_path}")
 
                 # Get file size
                 file_size_bytes = os.path.getsize(output_path)

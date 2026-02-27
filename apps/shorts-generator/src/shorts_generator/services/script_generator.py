@@ -14,6 +14,7 @@ Target Cost: ~$0.002 per script
 
 import logging
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
@@ -27,6 +28,126 @@ logger = logging.getLogger(__name__)
 
 # Average speaking rate: 150 words per minute = 2.5 words per second
 WORDS_PER_SECOND = 2.5
+
+
+def is_incomplete_json(json_str: str) -> bool:
+    """Check if JSON appears to be incomplete/truncated.
+
+    Signs of incomplete JSON:
+    - Unclosed brackets/braces
+    - Unterminated strings
+    - Trailing comma without value after it
+
+    Args:
+        json_str: JSON string to check
+
+    Returns:
+        True if JSON appears incomplete
+    """
+    if not json_str:
+        return True
+
+    json_str = json_str.strip()
+
+    # Check bracket/brace balance
+    open_braces = json_str.count('{')
+    close_braces = json_str.count('}')
+    open_brackets = json_str.count('[')
+    close_brackets = json_str.count(']')
+
+    if open_braces != close_braces or open_brackets != close_brackets:
+        return True
+
+    # Check for unterminated strings (count odd number of unescaped quotes in value position)
+    # This is a simple heuristic - not perfect but catches most cases
+    lines = json_str.split('\n')
+    for line in lines:
+        # Skip lines that are just structure (braces, brackets, commas)
+        stripped = line.strip()
+        if stripped in ['{', '}', '[', ']', '', ',', '},', '],', '{,', '[,']:
+            continue
+        # If line has a quote but no closing quote, likely unterminated
+        if stripped.count('"') % 2 != 0:
+            return True
+
+    # Check for trailing comma at the very end (common truncation point)
+    if json_str.rstrip().endswith(','):
+        return True
+
+    return False
+
+
+def repair_json(json_str: str) -> str:
+    """Repair common JSON issues from LLM responses.
+
+    Fixes:
+    - Trailing commas in objects/arrays
+    - Single quotes instead of double quotes
+    - Unquoted keys
+    - Comments (both // and /* */ style)
+    - Missing commas between objects
+    - Control characters
+
+    Args:
+        json_str: Potentially malformed JSON string
+
+    Returns:
+        Repaired JSON string
+    """
+    if not json_str:
+        return "{}"
+
+    text = json_str
+
+    # Remove control characters that can break JSON parsing
+    text = re.sub(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f-\x9f]', '', text)
+
+    # Remove // single-line comments
+    text = re.sub(r'//.*?$', '', text, flags=re.MULTILINE)
+
+    # Remove /* */ multi-line comments
+    text = re.sub(r'/\*.*?\*/', '', text, flags=re.DOTALL)
+
+    # Fix trailing commas in objects {a: 1,} -> {a: 1}
+    text = re.sub(r',\s*}', '}', text)
+
+    # Fix trailing commas in arrays [1,] -> [1]
+    text = re.sub(r',\s*]', ']', text)
+
+    # Fix single quotes to double quotes for keys 'key': -> "key":
+    text = re.sub(r"'([^']+)'(\s*:)", r'"\1"\2', text)
+
+    # Fix single quotes to double quotes for values : 'value' -> : "value"
+    # This is more complex - we need to be careful about nested quotes
+    # Only replace single quotes that are NOT preceded by a backslash
+    # and are within JSON value positions
+    def replace_single_quotes_in_values(match):
+        """Replace single quotes in string values with double quotes."""
+        content = match.group(1)
+        # Escape existing double quotes
+        content = content.replace('"', '\\"')
+        return f'"{content}"'
+
+    # Pattern for : '...' or :  '...'  values
+    text = re.sub(r':\s*\'([^\']+)\'', replace_single_quotes_in_values, text)
+
+    # Fix unquoted keys like key: "value" -> "key": "value"
+    # Match identifiers followed by colon, but not if already quoted
+    text = re.sub(r'([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)(\s*:)', r'\1"\2"\3', text)
+
+    # Fix missing commas between key-value pairs in objects
+    # This pattern looks for } followed by "key" without comma
+    text = re.sub(r'}\s*"', '}, "', text)
+
+    # Fix missing commas between array elements
+    # This pattern looks for } followed by { without comma
+    text = re.sub(r'}\s*{', '}, {', text)
+
+    # Fix missing commas between string elements in arrays
+    # This pattern looks for "item1" followed by "item2" without comma
+    text = re.sub(r'"([^"]+)"\s+"([^"]+)"', r'"\1", "\2"', text)
+
+    return text
 
 
 @dataclass
@@ -184,6 +305,39 @@ Respond with ONLY the JSON object, nothing else:"""
 
         return prompt
 
+    def _build_simple_prompt(
+        self,
+        lesson: LessonContent,
+        target_duration: int = 60,
+    ) -> str:
+        """Build a simplified prompt for script generation (to avoid truncation).
+
+        Uses single concept scenes and shorter descriptions.
+
+        Args:
+            lesson: Parsed lesson content
+            target_duration: Target duration in seconds
+
+        Returns:
+            Prompt string for Gemini
+        """
+        # Use simpler structure with single concept
+        prompt = f"""Generate a short video script for: {lesson.title}
+
+Create JSON with this exact structure:
+{{
+  "hook": {{"text": "Attention-grabbing question", "visual": "AI tech visual", "duration": 5}},
+  "concepts": [
+    {{"text": "Main explanation", "visual": "Tech visual", "duration": 30}}
+  ],
+  "example": {{"text": "Concrete example", "visual": "Diagram visual", "duration": 15}},
+  "cta": {{"text": "Read full lesson for more", "visual": "Cover visual", "duration": 10}}
+}}
+
+Keep all descriptions brief. Respond with ONLY raw JSON."""
+
+        return prompt
+
     async def generate_script(
         self,
         lesson: LessonContent,
@@ -217,7 +371,7 @@ Respond with ONLY the JSON object, nothing else:"""
                 contents=prompt,
                 config={
                     "temperature": 0.7,
-                    "max_output_tokens": 2000,  # Increased from 500 to avoid truncation
+                    "max_output_tokens": 8192,  # Max for Gemini 2.5 Flash - full script requires more tokens
                     "response_mime_type": "application/json",
                 },
             )
@@ -249,8 +403,66 @@ Respond with ONLY the JSON object, nothing else:"""
 
             logger.debug(f"Extracted JSON preview: {json_text[:200]}...")
 
-            # Parse response
-            script_data = json.loads(json_text)
+            # Check for incomplete JSON (truncated response)
+            if is_incomplete_json(json_text):
+                logger.warning("Response appears to be truncated. Retrying with simplified request...")
+                # Retry with a shorter, more focused prompt
+                prompt = self._build_simple_prompt(lesson, target_duration)
+
+                response = await asyncio.to_thread(
+                    self.client.models.generate_content,
+                    model=self.model,
+                    contents=prompt,
+                    config={
+                        "temperature": 0.7,
+                        "max_output_tokens": 8192,
+                        "response_mime_type": "application/json",
+                    },
+                )
+
+                response_text = response.text
+                logger.info(f"Retry response length: {len(response_text)}")
+
+                # Extract JSON from retry response
+                json_text = response_text.strip()
+                if json_text.startswith("```"):
+                    lines = json_text.split("\n")
+                    if lines[0].startswith("```json"):
+                        lines = lines[1:]
+                    elif lines[0].startswith("```"):
+                        lines = lines[1:]
+                    for i, line in enumerate(lines):
+                        if line.strip() == "```":
+                            lines = lines[:i]
+                            break
+                    json_text = "\n".join(lines).strip()
+
+            # Parse response with JSON repair for LLM issues
+            script_data = None
+            parse_errors = []
+
+            # Try 1: Direct parsing
+            try:
+                script_data = json.loads(json_text)
+            except json.JSONDecodeError as e1:
+                parse_errors.append(f"Direct parse failed: {e1}")
+                logger.warning(f"Direct JSON parse failed, attempting repair: {e1}")
+
+                # Try 2: Repair and parse
+                try:
+                    repaired = repair_json(json_text)
+                    script_data = json.loads(repaired)
+                    logger.info("Successfully parsed with JSON repair")
+                except json.JSONDecodeError as e2:
+                    parse_errors.append(f"Repair parse failed: {e2}")
+                    logger.error(f"JSON repair also failed. Errors: {parse_errors}")
+
+                    # Log the actual content for debugging
+                    logger.error(f"Failed JSON content (first 500 chars): {json_text[:500]}")
+                    raise ValueError(
+                        f"Failed to parse Gemini JSON response after repair attempts. "
+                        f"Errors: {'; '.join(parse_errors)}"
+                    ) from e1
 
             # Validate structure
             if not all(key in script_data for key in ["hook", "concepts", "example", "cta"]):
