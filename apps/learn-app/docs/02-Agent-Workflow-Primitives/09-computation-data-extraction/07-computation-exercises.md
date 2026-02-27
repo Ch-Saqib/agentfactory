@@ -437,9 +437,9 @@ Find and fix all 8 false positives in the categorizer's regex patterns. For each
 
 ## Module 5: Pipeline Orchestration
 
-> **Core Skill:** Connecting verified tools into multi-step data pipelines (Lesson 6)
+> **Core Skill:** Connecting verified tools into multi-step data pipelines (Lesson 4)
 >
-> Lesson 6 showed how individual scripts compose into pipelines through stdin/stdout. These exercises reveal the hardest part of pipeline design: making sure each step's output format exactly matches the next step's expected input. Most pipeline bugs live at these interfaces, not inside the steps themselves.
+> Lesson 4 showed how individual scripts compose into pipelines through stdin/stdout. These exercises reveal the hardest part of pipeline design: making sure each step's output format exactly matches the next step's expected input. Most pipeline bugs live at these interfaces, not inside the steps themselves.
 
 <ExerciseCard id="5.1" title="The Quarterly Report" />
 
