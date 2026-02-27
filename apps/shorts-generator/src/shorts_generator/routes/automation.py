@@ -253,11 +253,16 @@ async def trigger_automation_run(
     # Import the automation service
     from shorts_generator.services.automation_service import run_automation
 
-    # Trigger the automation run in background
-    import asyncio
-    asyncio.create_task(run_automation())
-
-    logger.info("Manual automation trigger requested")
+    # Run automation synchronously (for debugging)
+    logger.info("Manual automation trigger requested (force=True)")
+    try:
+        await run_automation(force=True)
+    except Exception as e:
+        logger.error(f"Automation failed: {e}", exc_info=True)
+        return {
+            "success": False,
+            "message": f"Automation failed: {e}",
+        }
 
     return {
         "success": True,

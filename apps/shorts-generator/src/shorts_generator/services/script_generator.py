@@ -160,7 +160,9 @@ Generate an engaging script for a short video from this lesson:
 
 **Tone**: Energetic, educational, accessible - not jargon-heavy
 
-**Output Format** (respond ONLY with valid JSON):
+**IMPORTANT**: Respond with ONLY the raw JSON object. No markdown formatting, no code blocks, no explanations. Just the JSON.
+
+**Output Format**:
 {{
   "hook": {{"text": "Hook text", "visual": "Visual description for AI image generator", "duration": 5}},
   "concepts": [
@@ -176,10 +178,9 @@ Generate an engaging script for a short video from this lesson:
 - Each section's duration must sum correctly
 - Hook MUST be provocative (e.g., "Did you know...", "Here's why...", "The truth about...")
 - CTA must include: "Read the full lesson at [link]"
-- Avoid markdown formatting in text fields - plain text only
 - Visual descriptions should be specific enough for AI image generation (e.g., "Futuristic AI brain network with glowing purple and blue neural connections on dark background")
 
-Generate the script now:"""
+Respond with ONLY the JSON object, nothing else:"""
 
         return prompt
 
@@ -216,13 +217,40 @@ Generate the script now:"""
                 contents=prompt,
                 config={
                     "temperature": 0.7,
-                    "max_output_tokens": 500,
+                    "max_output_tokens": 2000,  # Increased from 500 to avoid truncation
                     "response_mime_type": "application/json",
                 },
             )
 
-            # Parse response - new SDK returns response with .text attribute
-            script_data = json.loads(response.text)
+            # Get response text
+            response_text = response.text
+            logger.info(f"Gemini response length: {len(response_text)}")
+            logger.debug(f"Gemini response preview: {response_text[:200]}...")
+
+            # Extract JSON from response (handle markdown code blocks)
+            json_text = response_text.strip()
+
+            # Remove markdown code blocks if present
+            if json_text.startswith("```"):
+                # Extract content between ```json and ``` or just ``` and ```
+                lines = json_text.split("\n")
+                if lines[0].startswith("```json"):
+                    lines = lines[1:]  # Remove opening ```json
+                elif lines[0].startswith("```"):
+                    lines = lines[1:]  # Remove opening ```
+
+                # Find closing ```
+                for i, line in enumerate(lines):
+                    if line.strip() == "```":
+                        lines = lines[:i]
+                        break
+
+                json_text = "\n".join(lines).strip()
+
+            logger.debug(f"Extracted JSON preview: {json_text[:200]}...")
+
+            # Parse response
+            script_data = json.loads(json_text)
 
             # Validate structure
             if not all(key in script_data for key in ["hook", "concepts", "example", "cta"]):

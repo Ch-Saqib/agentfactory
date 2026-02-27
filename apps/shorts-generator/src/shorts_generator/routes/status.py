@@ -159,7 +159,7 @@ async def list_jobs(
         total_count=total_count,
         jobs=[
             JobStatusResponse(
-                job_id=job.id,
+                job_id=str(job.id),
                 lesson_path=job.lesson_path,
                 status=job.status,
                 progress=job.progress,

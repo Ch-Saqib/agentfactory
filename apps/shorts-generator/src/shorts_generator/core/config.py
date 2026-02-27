@@ -5,11 +5,27 @@ from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+def find_env_file() -> Path:
+    """Find .env file by checking current directory and parent directories."""
+    current_dir = Path(__file__).parent.parent
+    env_paths = [
+        current_dir / ".env",
+        current_dir / "src" / ".env",
+        Path.cwd() / ".env",
+        Path.home() / ".env",
+    ]
+    for path in env_paths:
+        if path.exists():
+            return path
+    # Return default even if it doesn't exist (pydantic will handle missing file)
+    return current_dir / ".env"
+
+
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(find_env_file()),
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",
@@ -20,7 +36,7 @@ class Settings(BaseSettings):
 
     # Gemini API (get from: https://aistudio.google.com/app/apikey)
     gemini_api_key: str = "dev-key"
-    gemini_model: str = "gemini-2.0-flash-exp"
+    gemini_model: str = "gemini-2.5-flash"
 
     # Pollinations.ai - FREE image generation (no API key needed)
     replicate_api_key: str = ""
