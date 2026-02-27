@@ -10,6 +10,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from pydantic import BaseModel
+from sqlalchemy import update
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -510,24 +511,22 @@ async def gdpr_erase_profile(
     # Delete the profile row
     await session.delete(profile)
 
-    # Anonymize audit trail
+    # Anonymize audit trail — bulk UPDATE (no N+1)
     hashed_id = hashlib.sha256(
         f"{learner_id}{settings.gdpr_hash_salt}".encode()
     ).hexdigest()
 
-    audit_stmt = select(ProfileAuditLog).where(
-        ProfileAuditLog.learner_id == learner_id
+    await session.execute(
+        update(ProfileAuditLog)
+        .where(ProfileAuditLog.learner_id == learner_id)
+        .values(
+            learner_id=hashed_id,
+            action="gdpr_erased",
+            changed_sections=[],
+            previous_values={},
+            source="gdpr_erase",
+        )
     )
-    audit_result = await session.execute(audit_stmt)
-    audit_logs = audit_result.scalars().all()
-
-    for log in audit_logs:
-        log.learner_id = hashed_id
-        log.action = "gdpr_erased"
-        log.changed_sections = []
-        log.previous_values = {}
-        log.source = "gdpr_erase"
-        session.add(log)
 
     await session.commit()
 

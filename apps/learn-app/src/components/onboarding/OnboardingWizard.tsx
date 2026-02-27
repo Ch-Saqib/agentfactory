@@ -603,6 +603,7 @@ export default function OnboardingWizard() {
                   return (
                     <div
                       key={idx}
+                      aria-current={isActive ? "step" : undefined}
                       className={`flex items-start gap-4 ${isActive ? "text-primary" : isPast ? "text-primary/70" : "text-muted-foreground/60"}`}
                     >
                       <div

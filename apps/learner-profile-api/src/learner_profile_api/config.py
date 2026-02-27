@@ -65,6 +65,32 @@ class Settings(BaseSettings):
     # GDPR
     gdpr_hash_salt: str = "dev-salt-change-in-production-must-be-32-chars"
 
+    def validate_production_safety(self) -> None:
+        """Refuse to start if production-unsafe configuration detected.
+
+        Called during lifespan startup. Guards against accidental
+        deployment with dev defaults that would compromise GDPR
+        compliance or bypass authentication.
+        """
+        is_local_db = any(
+            marker in self.database_url
+            for marker in ("localhost", "127.0.0.1", "sqlite", "test.db")
+        )
+
+        if not self.dev_mode and not is_local_db:
+            # Production-like environment checks
+            if self.gdpr_hash_salt == "dev-salt-change-in-production-must-be-32-chars":
+                raise RuntimeError(
+                    "GDPR_HASH_SALT must be set to a unique secret in production. "
+                    "Set the GDPR_HASH_SALT environment variable (minimum 32 chars)."
+                )
+
+        if self.dev_mode and not is_local_db:
+            raise RuntimeError(
+                "DEV_MODE=true is not allowed with a non-local DATABASE_URL. "
+                "This looks like a production database — disable DEV_MODE or use a local DB."
+            )
+
     @property
     def allowed_origins_list(self) -> list[str]:
         """Parse comma-separated origins into list."""

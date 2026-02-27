@@ -21,8 +21,10 @@ from ..schemas.profile import (
     ProfileUpdate,
 )
 from ..services.cache import (
+    get_cached_onboarding,
     get_cached_profile,
     invalidate_profile_cache,
+    set_cached_onboarding,
     set_cached_profile,
 )
 from ..services.completeness import (
@@ -321,8 +323,15 @@ async def get_onboarding_status(
     session: AsyncSession = Depends(get_session),
 ):
     """Get onboarding completion state."""
+    learner_id = user["sub"]
+
+    # Check cache first
+    cached = await get_cached_onboarding(learner_id)
+    if cached:
+        return OnboardingStatus(**cached)
+
     try:
-        profile = await get_profile(session, user["sub"])
+        profile = await get_profile(session, learner_id)
     except ProfileNotFound:
         raise HTTPException(
             status_code=404,
@@ -349,7 +358,7 @@ async def get_onboarding_status(
     onboarding_progress = compute_onboarding_progress(sections_completed)
     completeness, _ = compute_profile_completeness(field_sources)
 
-    return OnboardingStatus(
+    status = OnboardingStatus(
         learner_id=profile.learner_id,
         sections_completed=all_sections,
         overall_completed=profile.onboarding_completed,
@@ -357,6 +366,11 @@ async def get_onboarding_status(
         onboarding_progress=round(onboarding_progress, 2),
         profile_completeness=round(completeness, 2),
     )
+
+    # Cache for 10 minutes
+    await set_cached_onboarding(learner_id, status.model_dump())
+
+    return status
 
 
 @profile_router.patch(

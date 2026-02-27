@@ -25,6 +25,9 @@ async def lifespan(app: FastAPI):
         # Configure shared api-infra library
         from ..config import settings
 
+        # Production safety checks (blocks startup if misconfigured)
+        settings.validate_production_safety()
+
         api_infra.configure(settings)
 
         # Initialize Redis (non-blocking)

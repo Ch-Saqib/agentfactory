@@ -118,7 +118,7 @@ class DeliverySection(BaseModel):
     include_code_samples: bool | None = None
     code_verbosity: Literal["minimal", "annotated", "fully-explained"] | None = None
     include_visual_descriptions: bool | None = None
-    language: str = "English"
+    language: str = Field("English", max_length=50)
     language_proficiency: Literal["native", "fluent", "intermediate", "basic"] | None = None
 
 
@@ -149,7 +149,7 @@ class ProfileCreate(BaseModel):
 class ProfileUpdate(BaseModel):
     """All fields optional. Only provided fields are updated."""
 
-    name: str | None = None
+    name: str | None = Field(None, max_length=255)
     expertise: ExpertiseSection | None = None
     professional_context: ProfessionalContextSection | None = None
     goals: GoalsSection | None = None
