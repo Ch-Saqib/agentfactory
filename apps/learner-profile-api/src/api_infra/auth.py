@@ -90,7 +90,7 @@ async def get_jwks() -> dict[str, Any]:
             logger.error("[AUTH] No cached JWKS available, auth will fail")
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail=f"Authentication service unavailable: {e}",
+                detail="Authentication service temporarily unavailable",
             ) from e
 
 
@@ -153,7 +153,7 @@ async def verify_jwt(token: str) -> dict[str, Any]:
         logger.error("[AUTH] JWT verification failed: %s", e)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Invalid JWT: {e}",
+            detail="Invalid or expired token",
             headers={"WWW-Authenticate": "Bearer"},
         ) from e
 

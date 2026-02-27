@@ -1,5 +1,6 @@
 """Profile CRUD + onboarding + completeness routes."""
 
+import json as _json
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
@@ -276,7 +277,15 @@ async def update_profile_section(
             detail={"error": "not_found", "message": f"Unknown section: {section}"},
         )
 
-    body = await request.json()
+    # Limit body size to prevent memory exhaustion (dynamic model, can't use Body())
+    content_length = request.headers.get("content-length")
+    if content_length and int(content_length) > 65_536:  # 64 KB
+        raise HTTPException(status_code=413, detail="Request body too large")
+    raw = await request.body()
+    if len(raw) > 65_536:
+        raise HTTPException(status_code=413, detail="Request body too large")
+
+    body = _json.loads(raw)
     model_class = SECTION_MODELS[section]
     section_data = model_class.model_validate(body)
 
@@ -433,12 +442,15 @@ async def update_onboarding(
             detail={"error": "not_found", "message": f"Unknown onboarding phase: {section}"},
         )
 
-    # Parse optional body
+    # Parse optional body with size limit
     body = None
-    if await request.body():  # Check if request actually has a body
+    raw = await request.body()
+    if raw:
+        if len(raw) > 65_536:  # 64 KB
+            raise HTTPException(status_code=413, detail="Request body too large")
         try:
-            body = await request.json()
-        except ValueError:
+            body = _json.loads(raw)
+        except (ValueError, _json.JSONDecodeError):
             raise HTTPException(
                 status_code=422,
                 detail="Request body contains invalid JSON",

@@ -1,6 +1,7 @@
 """Production-grade rate limiting with Redis Lua script."""
 
 import logging
+import time
 from collections.abc import Callable
 from functools import wraps
 from typing import Annotated
@@ -11,6 +12,12 @@ from pydantic import BaseModel, Field
 from .redis_cache import get_redis
 
 logger = logging.getLogger(__name__)
+
+# In-memory sliding-window fallback when Redis is unavailable.
+# Key: identifier string, Value: list of request timestamps.
+# Not distributed — per-process only. Intentionally simple.
+_memory_store: dict[str, list[float]] = {}
+_memory_fallback_warned: bool = False
 
 # Production-grade atomic rate limiting with Lua
 RATE_LIMIT_SCRIPT = """
@@ -77,6 +84,10 @@ class RateLimiter:
         Prefers the authenticated user attached by the rate_limit wrapper
         (from FastAPI's dependency-injected CurrentUser). Falls back to IP.
         Never trusts client-supplied headers like X-User-ID for identification.
+
+        X-Forwarded-For is only trusted when trusted_proxy_count > 0 in settings.
+        When trusted, the correct client IP is extracted counting from the right
+        (rightmost entry is from the closest proxy).
         """
         # Prefer authenticated user from FastAPI dependency injection
         auth_user_id = getattr(request.state, "rate_limit_user_id", None)
@@ -84,9 +95,18 @@ class RateLimiter:
             return f"user:{auth_user_id}"
 
         # Fall back to IP address (for unauthenticated endpoints like /health)
-        forwarded = request.headers.get("X-Forwarded-For")
-        if forwarded:
-            return f"ip:{forwarded.split(',')[0].strip()}"
+        from learner_profile_api.config import settings
+
+        trusted_proxies = settings.trusted_proxy_count
+        if trusted_proxies > 0:
+            forwarded = request.headers.get("X-Forwarded-For")
+            if forwarded:
+                parts = [p.strip() for p in forwarded.split(",")]
+                # Client IP is at position -(trusted_proxies + 1) from right,
+                # but we clamp to the leftmost entry if chain is shorter.
+                idx = max(0, len(parts) - trusted_proxies)
+                return f"ip:{parts[idx]}"
+
         return f"ip:{request.client.host if request.client else 'unknown'}"
 
     @staticmethod
@@ -106,32 +126,60 @@ class RateLimiter:
             },
         )
 
+    def _check_memory_rate_limit(self, request: Request) -> dict[str, int | str]:
+        """In-memory sliding-window rate limit (per-process fallback)."""
+        global _memory_fallback_warned
+        if not _memory_fallback_warned:
+            logger.warning(
+                "[RateLimit] Using in-memory fallback — rate limiting is per-process only"
+            )
+            _memory_fallback_warned = True
+
+        identifier = self.identifier(request)
+        key = f"rate_limit:{self.redis_key}:{identifier}"
+        now = time.monotonic()
+        window_s = self.config.get_window() / 1000.0  # convert ms to seconds
+
+        # Get or create entry, prune expired timestamps
+        timestamps = _memory_store.get(key, [])
+        cutoff = now - window_s
+        timestamps = [t for t in timestamps if t > cutoff]
+
+        timestamps.append(now)
+        _memory_store[key] = timestamps
+
+        current = len(timestamps)
+        remaining = max(0, self.config.times - current)
+        if current > self.config.times:
+            remaining = -1
+
+        # Periodic cleanup: prune keys with no recent entries (every ~100 checks)
+        if current == 1 and len(_memory_store) > 100:
+            stale_keys = [k for k, v in _memory_store.items() if not v or v[-1] < cutoff]
+            for k in stale_keys:
+                del _memory_store[k]
+
+        return {
+            "current": current,
+            "limit": self.config.times,
+            "remaining": remaining,
+            "reset_after": self.config.get_window(),
+        }
+
     async def _check_rate_limit(self, request: Request) -> dict[str, int | str]:
-        """Check rate limit using Redis Lua script."""
+        """Check rate limit using Redis Lua script, with in-memory fallback."""
         redis_client = get_redis()
 
-        # Fail open if Redis unavailable
+        # Fall back to in-memory if Redis unavailable
         if not redis_client:
-            logger.warning("[RateLimit] Redis not available, allowing request (fail-open)")
-            return {
-                "current": 1,
-                "limit": self.config.times,
-                "remaining": self.config.times - 1,
-                "reset_after": self.config.get_window(),
-            }
+            return self._check_memory_rate_limit(request)
 
         try:
             result = await self._execute_lua(redis_client, request)
             return result
         except Exception as e:
-            # Fail open but log the error
-            logger.error("Rate limit check failed: %s", e)
-            return {
-                "current": 1,
-                "limit": self.config.times,
-                "remaining": self.config.times - 1,
-                "reset_after": self.config.get_window(),
-            }
+            logger.error("Rate limit Redis check failed, using memory fallback: %s", e)
+            return self._check_memory_rate_limit(request)
 
     async def _execute_lua(
         self, redis_client, request: Request, *, _retried: bool = False

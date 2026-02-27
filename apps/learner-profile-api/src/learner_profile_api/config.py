@@ -1,5 +1,7 @@
 """Learner Profile API configuration from environment variables."""
 
+from urllib.parse import urlparse
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -58,6 +60,7 @@ class Settings(BaseSettings):
 
     # Rate limiting
     rate_limit_enabled: bool = True
+    trusted_proxy_count: int = 0  # 0 = ignore X-Forwarded-For entirely
 
     # PHM settings
     phm_allow_downrank: bool = False
@@ -72,9 +75,10 @@ class Settings(BaseSettings):
         deployment with dev defaults that would compromise GDPR
         compliance or bypass authentication.
         """
-        is_local_db = any(
-            marker in self.database_url
-            for marker in ("localhost", "127.0.0.1", "sqlite", "test.db")
+        parsed = urlparse(self.database_url)
+        is_local_db = (
+            parsed.scheme.startswith("sqlite")
+            or parsed.hostname in ("localhost", "127.0.0.1")
         )
 
         if not self.dev_mode and not is_local_db:

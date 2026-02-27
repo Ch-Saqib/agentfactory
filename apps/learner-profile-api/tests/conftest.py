@@ -87,6 +87,9 @@ def _configure_api_infra():
     """Configure api_infra with mock settings for every test."""
     import api_infra
     from api_infra.core import redis_cache
+    from api_infra.core.rate_limit import (
+        _memory_store as rl_memory_store,
+    )
 
     mock_settings = MagicMock()
     mock_settings.sso_url = "https://sso.example.com"
@@ -104,6 +107,8 @@ def _configure_api_infra():
     yield
 
     redis_cache._aredis = None
+    # Clear in-memory rate limit state between tests
+    rl_memory_store.clear()
 
 
 @pytest.fixture
