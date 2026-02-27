@@ -143,7 +143,13 @@ The `git add .` command stages every file in the directory. In SmartNotes, this 
  create mode 100644 uv.lock
 ```
 
-Every file in the project is now recorded. If James deletes `main.py` tomorrow, he can recover it from this commit. If he rewrites `format_title` and regrets it, he can compare the current version to this snapshot and restore what he had.
+Every file in the project is now recorded. If James deletes `main.py` tomorrow, he can recover it from this commit with a single command:
+
+```bash
+git checkout HEAD -- main.py
+```
+
+That command tells Git: "restore `main.py` from the most recent commit." The file reappears exactly as it was when James committed it. If he rewrites `format_title` and regrets it, he can compare the current version to this snapshot with `git diff` and restore what he had. The twenty minutes James lost at the start of this lesson? With Git, recovery takes seconds.
 
 Verify the commit exists:
 
@@ -197,6 +203,8 @@ Ruff produced no output -- silence means zero issues. Pyright reported zero erro
 You might notice that `ruff format` is not in the pipeline. The pipeline checks for problems -- `ruff check` finds bugs, pyright finds type errors, pytest finds wrong behavior. Formatting is a pre-step: run `uv run ruff format .` before the pipeline to make your code consistent, then run the pipeline to verify it is correct.
 
 This is Axiom IX in its purest form: verification as a pipeline, not a checklist you remember to run. The command runs the same way every time, regardless of whether you are tired, distracted, or in a rush.
+
+This is also the same pipeline that runs automatically on every pull request in production Python projects. In Part 6, when you deploy SmartNotes as a Digital FTE, a CI server will execute this exact command chain on every code change. The difference between your laptop and production is not the tools -- it is where they run. You are already practicing production habits.
 
 **Read and Predict**: Imagine James introduces a type error in `main.py` -- he changes the return type label from `str` to `int` but keeps the function returning text. He runs the full pipeline command. Which tool stops the pipeline? Does pytest ever run? What would James see in the terminal?
 
