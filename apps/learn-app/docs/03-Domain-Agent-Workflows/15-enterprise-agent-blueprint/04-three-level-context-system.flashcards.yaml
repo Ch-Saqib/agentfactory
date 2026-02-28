@@ -51,7 +51,7 @@ cards:
 
   - id: "ch15-04-additive-008"
     front: "Can a SKILL.md add more restrictive constraints than the organisation context requires?"
-    back: "Yes — the SKILL.md can always add more restrictive constraints (escalate at a lower threshold, query a subset of approved sources, apply more conservative uncertainty thresholds). What the SKILL.md cannot do is remove or override restrictions established at higher levels. The plugin level can only narrow, never expand, the agent's behaviour."
+    back: "The SKILL.md can always add more restrictive constraints (escalate at a lower threshold, query a subset of approved sources, apply more conservative uncertainty thresholds). What the SKILL.md cannot do is remove or override restrictions established at higher levels. The plugin level can only narrow, never expand, the agent's behaviour."
     tags: ["plugin-context", "SKILL.md", "additive"]
     difficulty: "intermediate"
 

@@ -63,7 +63,7 @@ cards:
 
   - id: "ch15-05-domain-apply-010"
     front: "Apply the source integrity principle to a clinical pharmacology agent. What equivalent principle would it require?"
-    back: "BECAUSE the dangerous failure mode for a clinical agent is the same structure — confident-sounding output from training memory rather than grounded data: 'For any drug interaction flag, reference only the approved formulary. Do not draw on general pharmacological training knowledge. If an interaction cannot be found in the configured formulary, state that explicitly rather than providing an assessment from memory.' THEREFORE the principle structure is identical; only the domain-specific data source changes."
+    back: "The dangerous failure mode is the same structure — confident output from training memory rather than grounded data. The equivalent principle: 'For any drug interaction flag, reference only the approved formulary. If an interaction cannot be found, state that explicitly rather than providing an assessment from memory.' The principle structure is identical; only the domain-specific data source changes."
     tags: ["source-integrity", "applied", "clinical"]
     difficulty: "advanced"
     why: "Tests ability to transfer the source integrity concept to a different professional domain"

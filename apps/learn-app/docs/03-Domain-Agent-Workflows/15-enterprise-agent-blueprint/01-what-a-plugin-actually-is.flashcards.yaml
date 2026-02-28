@@ -57,7 +57,7 @@ cards:
 
   - id: "ch15-01-noprototype-009"
     front: "An agent has all three SKILL.md components configured but no governance framework. Is it a plugin? Why or why not?"
-    back: "No — it is a prototype. The five structural properties are not optional features configured later; they are the structural requirements for anything that qualifies as a plugin. An agent without a governance framework has not met the minimum definition."
+    back: "It is a prototype, not a plugin. The five structural properties are not optional features configured later; they are the structural requirements for anything that qualifies as a plugin. An agent without a governance framework has not met the minimum definition."
     tags: ["five-properties", "definition", "applied"]
     difficulty: "advanced"
     why: "Tests understanding that the five structural properties are threshold requirements, not optional enhancements"

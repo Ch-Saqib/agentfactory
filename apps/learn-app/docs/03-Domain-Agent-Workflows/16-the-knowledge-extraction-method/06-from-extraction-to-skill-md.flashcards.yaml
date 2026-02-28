@@ -40,7 +40,7 @@ cards:
 
   - id: "ch16-06-untestable-example-006"
     front: "Why does 'Prioritise patient safety in all assessments' fail the testability criterion?"
-    back: "No reviewer can determine from a single output whether the agent 'prioritised patient safety' because the instruction does not specify what that means operationally, what behaviour it produces, or what it prevents. A testable version: 'When triage indicates a potentially serious condition, flag for immediate clinician review and include the specific indicators that triggered the flag.'"
+    back: "A reviewer cannot determine from a single output whether the agent 'prioritised patient safety' because the instruction does not specify what that means operationally, what behaviour it produces, or what it prevents. A testable version: 'When triage indicates a potentially serious condition, flag for immediate clinician review and include the specific indicators that triggered the flag.'"
     tags: ["testability-criterion", "failure-example"]
     difficulty: "intermediate"
 

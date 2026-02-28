@@ -20,13 +20,13 @@ cards:
 
   - id: "ch15-10-authorial-role-003"
     front: "Why is the knowledge worker's role described as authorial rather than technical?"
-    back: "Writing the SKILL.md requires domain expertise, not programming ability. Reading the config.yaml requires infrastructure literacy, not systems engineering. Designing the shadow mode rubric requires knowing what accuracy means in the domain, not statistical training. Identifying HITL gates requires understanding professional accountability, not governance theory. The architecture was designed so that the person holding domain expertise can deploy without technical intermediaries for the core intelligence layer."
+    back: "Writing the SKILL.md requires domain expertise, not programming ability. Reading config.yaml requires infrastructure literacy, not systems engineering. Designing the shadow mode rubric requires knowing what accuracy means in the domain, not statistical training. The architecture ensures the domain expert can deploy without technical intermediaries for the core intelligence layer."
     tags: ["knowledge-worker", "authorial-role", "domain-expertise"]
     difficulty: "intermediate"
 
   - id: "ch15-10-governance-trust-004"
     front: "Why is governance described as the beginning of the trust story rather than the end of the deployment story?"
-    back: "BECAUSE shadow mode, audit trails, and HITL gates produce the evidence that converts a promising demonstration into a deployable system — 30 days of reviewed outputs justify autonomous operation, an immutable audit trail turns potential incidents into defensible processes, and HITL gates ensure human accountability where it genuinely matters. THEREFORE governance is not what limits an agent; it is what convinces a sceptical compliance function or regulated industry oversight body to permit the agent to do more."
+    back: "Shadow mode, audit trails, and HITL gates produce evidence that converts a demonstration into a deployable system — 30 days of reviewed outputs justify autonomous operation, an audit trail turns incidents into defensible processes. Governance is not what limits an agent; it is what convinces a sceptical compliance function to permit the agent to do more."
     tags: ["governance", "trust", "regulated-industries"]
     difficulty: "intermediate"
     why: "Tests the reframe that governance enables deployment rather than constraining it"
