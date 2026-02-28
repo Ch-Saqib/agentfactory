@@ -17,6 +17,10 @@ Track meaningful updates to the book. This page is automatically updated when do
 
 <!-- CHANGELOG_START - Do not remove this marker -->
 
+### 2026-02-28
+
+- Fix Chapter 11 Quiz on Linux Operations for Agent Deployment ([#784](https://github.com/panaversity/agentfactory/pull/784))
+
 ### 2026-02-27
 - Chapter 10 and 11 minor changes ([#778](https://github.com/panaversity/agentfactory/pull/778))
 
