@@ -129,15 +129,14 @@ By Module 6, you should be able to face a new Git problem and instinctively reac
 
 ## Tool Guide
 
-- **Claude Code** -- Terminal-based, best for running Git commands and diagnosing problems. Required for all exercises that involve running commands.
-- **Cowork** -- Desktop app, best for understanding concepts and planning your approach. Use it when you need to think through a strategy before executing.
-- Most exercises require the terminal. Use Cowork for planning and understanding, Claude Code for execution.
+- **Claude Code** -- Required for all exercises. Every exercise involves running Git commands in the terminal. You'll initialize repos, create commits, manage branches, and diagnose problems.
+- **A text editor** is helpful for examining files before committing, but not required -- Claude Code can read and display file contents directly.
 
 ---
 
 ## The Git Safety Framework
 
-Use this framework for every exercise:
+Lessons 1-4 taught individual Git skills -- committing, branching, pushing, reviewing. This framework assembles those skills into a single disciplined process. Use it for every exercise:
 
 1. **Assess** -- What's the current state? (`git status`, `git log`, `git branch`)
 2. **Plan** -- What needs to happen? What's the safest path?
@@ -168,7 +167,7 @@ For each exercise, evaluate yourself on:
 
 > **Core Skill:** Building clean, well-structured repositories from the start
 >
-> Lessons 1-2 taught you how to initialize repos, stage files selectively, create meaningful commits, and protect secrets with .gitignore. These exercises push those skills into realistic scenarios where the project structure is messier and the decisions about what to track are less obvious than the lesson examples.
+> Lessons 1 and 3 taught you how to initialize repos, stage files selectively, create meaningful commits, and protect secrets with .gitignore. These exercises push those skills into realistic scenarios where the project structure is messier and the decisions about what to track are less obvious than the lesson examples.
 
 <ExerciseCard id="1.1" title="Project Kickoff" />
 
@@ -250,7 +249,7 @@ After running `git log --oneline` and `git status`: "This repo has three problem
 
 > **Core Skill:** Fearlessly experimenting because you can always recover
 >
-> Lessons 2-3 taught you how to view changes with `git diff`, undo mistakes with `git restore`, and use branches for safe experimentation. These exercises put you in scenarios where AI-generated changes need careful review, selective staging, and confident recovery.
+> Lessons 1-2 taught you how to view changes with `git diff`, undo mistakes with `git restore`, and use branches for safe experimentation. These exercises put you in scenarios where AI-generated changes need careful review, selective staging, and confident recovery.
 
 <ExerciseCard id="2.1" title="AI Code Review Workflow" />
 
@@ -294,11 +293,20 @@ Open the `module-2-change-tracking/exercise-2.2-recovery-room/` folder. You'll f
 **Your Task:**
 Fix each scenario using the appropriate recovery tool. Scenario A requires `git restore` on specific files (keep the good changes, discard the bad). Scenario B requires `git restore --staged` to unstage files without discarding changes. Scenario C requires `git revert` to undo the bad commit while preserving history.
 
+:::note New Command: git revert
+Lesson 1 taught `git reset HEAD~1` to undo a commit on your own machine. `git revert` is the safer alternative when history has been shared (pushed to GitHub) -- instead of erasing the commit, it creates a new commit that reverses the changes. Both undo committed mistakes, but `git revert` preserves the full history so collaborators don't lose work.
+
+**When to use which:**
+- `git reset HEAD~1` -- You haven't pushed yet. Erases the commit locally.
+- `git revert` -- You've already pushed, or you're working with others. Creates an "undo commit."
+:::
+
 **The Recovery Decision Tree:**
 
 ```
 Is the change committed?
-├── Yes → git revert (creates an undo commit)
+├── Yes, and pushed → git revert (creates an undo commit, preserves history)
+├── Yes, not pushed → git reset HEAD~1 (erases commit, keeps files)
 └── No → Is the change staged?
     ├── Yes → git restore --staged (unstages, keeps changes in working dir)
     └── No → git restore (discards changes from working directory)
@@ -306,7 +314,7 @@ Is the change committed?
 
 **What You'll Learn:**
 
-- When to use `git restore` (unstaged changes you want to discard) vs. `git restore --staged` (staged changes you want to unstage) vs. `git revert` (committed changes you want to undo)
+- When to use `git restore` (unstaged changes you want to discard) vs. `git restore --staged` (staged changes you want to unstage) vs. `git reset HEAD~1` (unpushed commits) vs. `git revert` (pushed commits you want to undo)
 - Why understanding the three stages (working directory, staging area, committed history) makes recovery instinctive rather than frightening
 - That Git's recovery tools are designed for exactly these situations -- making mistakes is expected, and every stage has a matching undo command
 
@@ -369,6 +377,14 @@ Open the `module-3-branch-strategies/exercise-3.2-branch-tangle/` folder and run
 **Your Task:**
 Untangle the repo. Move the accidental commit off `main` onto its own feature branch. Cherry-pick the needed commits from `old-feature` into `main`. Resolve the merge conflict between `feature-a` and `feature-b` by merging one into the other. The final state should match `expected-state.md`.
 
+:::note New Commands for This Exercise
+This exercise introduces two Git operations not covered in the chapter lessons:
+
+**`git cherry-pick <commit-hash>`** -- Copies a specific commit from any branch onto your current branch. Use it when you need individual commits without merging an entire branch. Find commit hashes with `git log --oneline`.
+
+**Merge conflict resolution** -- When two branches modify the same lines, Git marks the conflict in the file with `<<<<<<<`, `=======`, and `>>>>>>>` markers. To resolve: (1) open the conflicted file, (2) choose the correct code and delete the markers, (3) `git add` the resolved file, (4) `git commit` to complete the merge.
+:::
+
 **Start with the Graph:** Before touching anything, run `git log --all --graph --oneline --decorate` and draw a diagram of what you see. Understanding the current state is 80% of the solution. Compare your diagram against `expected-state.md` to identify exactly what needs to move where.
 
 **What You'll Learn:**
@@ -430,7 +446,7 @@ Initialize the repo, create a `.gitignore` that protects `secrets.json`, commit 
 Open the `module-4-github-remote/exercise-4.2-remote-troubles/` folder. You'll find three sub-scenarios, each with its own `setup.sh`. Run each setup to create a different remote problem: (A) the local branch is called `master` but GitHub expects `main` -- push is rejected, (B) the remote URL points to a repository that doesn't exist -- all remote operations fail, (C) a push is rejected because the remote has commits that your local branch doesn't have.
 
 **Your Task:**
-Diagnose and fix each scenario. Scenario A requires renaming the local branch with `git branch -m`. Scenario B requires updating the remote URL with `git remote set-url`. Scenario C requires pulling remote changes before pushing. For each scenario, use diagnostic commands before attempting a fix.
+Diagnose and fix each scenario. Scenario A requires renaming the local branch with `git branch -m`. Scenario B requires updating the remote URL with `git remote set-url` (a new command -- it changes where your repo points without removing and re-adding the remote). Scenario C requires pulling remote changes before pushing. For each scenario, use diagnostic commands before attempting a fix.
 
 **Diagnostic Commands for Remote Issues:**
 
@@ -521,7 +537,7 @@ Rewrite each PR to professional standards. For PR 1, write a proper description 
 
 > **Core Skill:** Capturing reusable patterns from experience
 >
-> Lesson 4 taught you how to document Git workflows, recognize reusable patterns, and build professional review habits. These exercises have you create workflow documentation for a team and audit existing documentation for gaps that caused real incidents.
+> Lesson 4 taught you three reusable patterns (Commit Before Experimenting, Branch-Test-Merge, Push for Backup) and professional review habits. These exercises extend those patterns into team workflow documentation -- creating shared conventions for a team and auditing existing documentation for gaps that caused real incidents.
 
 <ExerciseCard id="6.1" title="Workflow Builder" />
 
