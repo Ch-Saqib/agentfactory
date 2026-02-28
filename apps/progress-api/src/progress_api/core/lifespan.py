@@ -53,17 +53,6 @@ async def lifespan(app: FastAPI):
         except Exception as e:
             logger.warning(f"[INIT] Materialized view creation failed (may already exist): {e}")
 
-        # Refresh materialized view on startup so it reflects current data
-        try:
-            from ..services.leaderboard import refresh_leaderboard
-            from .database import async_session
-
-            async with async_session() as session:
-                await refresh_leaderboard(session)
-            logger.info("[INIT] Leaderboard view refreshed")
-        except Exception as e:
-            logger.warning(f"[INIT] Leaderboard refresh on startup failed: {e}")
-
         logger.info("=" * 60)
         logger.info("STARTUP COMPLETE")
         logger.info("=" * 60)

@@ -15,6 +15,8 @@ from sqlalchemy.pool import StaticPool
 
 # Set environment variable BEFORE importing app modules to ensure rate limiting uses memory storage
 os.environ["PYTEST_CURRENT_TEST"] = "1"
+# Enable schema auto-creation for tests (production disables this to avoid introspection queries)
+os.environ["AUTO_CREATE_SCHEMA"] = "true"
 
 from token_metering_api.config import settings
 from token_metering_api.main import app

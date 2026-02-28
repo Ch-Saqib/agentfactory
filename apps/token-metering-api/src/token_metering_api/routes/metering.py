@@ -112,6 +112,7 @@ async def check_balance(
 
 
 @router.post("/deduct", response_model=DeductResponse)
+@limiter.limit("100/minute")
 async def deduct_tokens(
     request: Request,
     deduct_request: DeductRequest,
@@ -178,6 +179,7 @@ async def deduct_tokens(
 
 
 @router.post("/release", response_model=ReleaseResponse)
+@limiter.limit("100/minute")
 async def release_reservation(
     request: Request,
     release_request: ReleaseRequest,

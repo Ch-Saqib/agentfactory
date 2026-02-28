@@ -44,7 +44,7 @@ class Settings(BaseSettings):
 
     # Cache TTLs (seconds)
     cache_ttl_progress: int = 300
-    cache_ttl_leaderboard: int = 300
+    cache_ttl_leaderboard: int = 600
 
     @property
     def allowed_origins_list(self) -> list[str]:
