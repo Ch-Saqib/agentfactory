@@ -998,18 +998,33 @@ Tracks how ready the profile is for downstream personalization. Includes inferre
 
 Each field within a section contributes to completeness based on its `field_sources` entry:
 
-| Source     | Contribution Weight | Rationale                                    |
-| ---------- | ------------------- | -------------------------------------------- |
-| `user`     | 1.0                 | Explicitly provided — highest signal         |
-| `phm`      | 0.8                 | Evidence-based from tutoring — strong signal |
-| `inferred` | 0.4                 | Derived from other fields — moderate signal  |
-| `default`  | 0.0                 | System default — no signal, no contribution  |
+| Source     | Contribution Weight | Rationale                                                  |
+| ---------- | ------------------- | ---------------------------------------------------------- |
+| `user`     | 1.0                 | Explicitly provided — highest signal                       |
+| `phm`      | 0.8                 | Evidence-based from tutoring — strong signal               |
+| `inferred` | 0.5                 | Derived from real user data — genuinely improves output    |
+| `default`  | 0.0                 | System default — no signal, no contribution                |
 
-**Section completeness** = (sum of field contribution weights in section) / (count of fields in section). Then weighted by section weight from table above.
+> **ADR 2026-02-28: `inferred` weight bumped from 0.4 to 0.5.** Inferred values are derived from real user-set expertise levels (not guesses), so they genuinely improve personalization quality. 0.4 was too punitive and contributed to deflated completeness scores post-onboarding.
 
-**Result:** A brand new profile with all defaults has `profile_completeness = 0.0`. As the user fills in fields or PHM updates fire, completeness rises meaningfully. A profile where half the fields are inferred from expertise maxes out around ~0.45, not 1.0.
+**High-signal fields only:** The completeness metric counts only the **20 fields** that directly change content personalization output (see `learner_profile_schema.md` "How this drives personalization" for evidence). Low-signal optional fields (e.g., `subject_specific.known_misconceptions`, `format_notes`, `color_blind_safe`) still exist in the schema and can be filled via profile settings, but don't count toward completeness.
 
-**`highest_impact_missing`:** Returns up to 5 dotted field paths that are still `default`-sourced (i.e., missing from `field_sources`), ordered by impact. Priority order: `goals.primary_learning_goal` > `expertise.programming.level` > `expertise.ai_fluency.level` > `expertise.domain` > `professional_context.current_role` > `professional_context.industry` > remaining by section weight.
+| Section                | High-Signal Fields (counted)                                                                       | Excluded (still in schema)                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `expertise` (4)        | programming.level, programming.languages, ai_fluency.level, business.level                        | domain, subject_specific.* (3 fields)                                                          |
+| `goals` (3)            | primary_learning_goal, urgency, career_goal                                                        | secondary_goals, urgency_note, immediate_application                                           |
+| `professional_context` (3) | current_role, industry, tools_in_use                                                           | organization_type, team_context, real_projects, constraints                                    |
+| `communication` (5)    | language_complexity, preferred_structure, verbosity, tone, wants_summaries                         | analogy_domain, wants_check_in_questions, format_notes                                         |
+| `delivery` (3)         | output_format, code_verbosity, language                                                            | target_length, include_code_samples, include_visual_descriptions, language_proficiency          |
+| `accessibility` (2)    | cognitive_load_preference, screen_reader                                                           | color_blind_safe, dyslexia_friendly, notes                                                     |
+
+> **ADR 2026-02-28: Trimmed from 41 to 20 high-signal fields.** With 41 fields, completing all 6 onboarding phases yielded only ~26% completeness — misleading and deflating for users who did real work. The excluded fields are either (a) too granular for most users (known_misconceptions), (b) redundant with other fields (include_code_samples vs code_verbosity), or (c) CSS-level settings that don't affect content (color_blind_safe, dyslexia_friendly). Post-onboarding completeness now lands in the **50-60% range**, which honestly reflects the personalization quality.
+
+**Section completeness** = (sum of field contribution weights in section) / (count of high-signal fields in section). Then weighted by section weight from table above.
+
+**Result:** A brand new profile with all defaults has `profile_completeness = 0.0`. After completing onboarding, completeness rises to ~50-60% (user-set fields + inferred fields). Filling remaining fields via profile settings pushes toward 100%.
+
+**`highest_impact_missing`:** Returns up to 5 dotted field paths that are still `default`-sourced (i.e., missing from `field_sources`), ordered by impact. Priority order: `goals.primary_learning_goal` > `expertise.programming.level` > `expertise.ai_fluency.level` > `professional_context.current_role` > `professional_context.industry` > remaining by section weight.
 
 ### Cache Strategy
 
@@ -1156,7 +1171,7 @@ For the full “ship to 50k users” verification protocol (frontend + backend +
 | D-17 | Accessibility onboarding  | **Removed from Onboarding**                          | User decided to keep onboarding lean (90s max). Moved strictly to profile settings.                                                                   | **Include in Phase 3.5**                             | User confirmed: must collect accessibility needs during first-session experience.                                                                     |
 | D-18 | Consent HTTP status       | **400 via handler, not 422 via Pydantic**            | `consent_given` defaults to `False` in model so missing field reaches handler, not FastAPI validation. `[P0-R2-1]`                                    |
 | D-19 | PATCH provenance tracking | **Use `model_fields_set` for explicit-only marking** | Prevents Pydantic defaults from being marked `user`-sourced. `[P0-R2-3]`                                                                              |
-| D-20 | Completeness scoring      | **Weight by `field_sources` provenance**             | `user=1.0, phm=0.8, inferred=0.4, default=0.0`. Prevents always-1.0 trap. `[P0-R2-4]`                                                                 |
+| D-20 | Completeness scoring      | **Weight by `field_sources` provenance, high-signal fields only** | `user=1.0, phm=0.8, inferred=0.5, default=0.0`. 20 high-signal fields (not 41). Post-onboarding ~50-60%. `[P0-R2-4]`                                  |
 | D-21 | Restore preserves state   | **No onboarding reset on restore**                   | Old progress is valid. GDPR-erase + recreate for true fresh start. `[D-13 nuance]`                                                                    |
 | D-22 | Onboarding skip semantics | **Skip counts as phase complete**                    | Distinction tracked via `field_sources` (skipped = `default`). `[P1-R2-2]`                                                                            |
 | D-23 | PATCH semantics           | **Merge (not replace)**                              | Use `model_fields_set` recursively. Only explicitly-sent fields are written; omitted fields preserve existing values. Prevents data loss. `[P0-R3-1]` |

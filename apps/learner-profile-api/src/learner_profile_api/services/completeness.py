@@ -3,6 +3,15 @@
 Two separate metrics:
 1. onboarding_progress — user actions only (completed phases / total phases)
 2. profile_completeness — personalization readiness (weighted by provenance)
+
+SECTION_FIELDS contains only high-signal fields that directly change content
+personalization output. Low-signal fields (subject_specific.*, format_notes,
+color_blind_safe, etc.) still exist in the schema and can be filled via the
+profile settings page, but they don't count toward the completeness metric.
+
+Rationale: Users who complete onboarding should see ~50-60% completeness
+(they did real work), not 26% (diluted by 20+ niche optional fields).
+See ADR in specs/anchored/learner-profile/adrs/ for the full decision record.
 """
 
 from ..schemas.profile import ONBOARDING_PHASES
@@ -21,87 +30,71 @@ SECTION_WEIGHTS: dict[str, float] = {
 SOURCE_WEIGHTS: dict[str, float] = {
     "user": 1.0,
     "phm": 0.8,
-    "inferred": 0.4,
+    "inferred": 0.5,
     "default": 0.0,
 }
 
-# Fields per section for completeness scoring
+# High-signal fields per section for completeness scoring.
+# Only fields that directly change content personalization output.
+# See learner_profile_schema.md "How this drives personalization" for evidence.
 SECTION_FIELDS: dict[str, list[str]] = {
     "expertise": [
-        "expertise.domain",
+        # Controls code depth, vocabulary calibration, concept definitions
         "expertise.programming.level",
         "expertise.programming.languages",
         "expertise.ai_fluency.level",
         "expertise.business.level",
-        "expertise.subject_specific.topics_already_mastered",
-        "expertise.subject_specific.topics_partially_known",
-        "expertise.subject_specific.known_misconceptions",
     ],
     "goals": [
+        # Controls anchoring, pacing, section emphasis
         "goals.primary_learning_goal",
-        "goals.secondary_goals",
         "goals.urgency",
-        "goals.urgency_note",
         "goals.career_goal",
-        "goals.immediate_application",
     ],
     "professional_context": [
+        # Controls example grounding, analogy source, integration examples
         "professional_context.current_role",
         "professional_context.industry",
-        "professional_context.organization_type",
-        "professional_context.team_context",
-        "professional_context.real_projects",
         "professional_context.tools_in_use",
-        "professional_context.constraints",
     ],
     "communication": [
+        # Controls vocabulary register, structure, detail level, tone
         "communication.language_complexity",
         "communication.preferred_structure",
         "communication.verbosity",
-        "communication.analogy_domain",
         "communication.tone",
         "communication.wants_summaries",
-        "communication.wants_check_in_questions",
-        "communication.format_notes",
     ],
     "delivery": [
+        # Controls output format, code annotation depth, language
         "delivery.output_format",
-        "delivery.target_length",
-        "delivery.include_code_samples",
         "delivery.code_verbosity",
-        "delivery.include_visual_descriptions",
         "delivery.language",
-        "delivery.language_proficiency",
     ],
     "accessibility": [
-        "accessibility.screen_reader",
+        # Controls content density and alt-text inclusion
         "accessibility.cognitive_load_preference",
-        "accessibility.color_blind_safe",
-        "accessibility.dyslexia_friendly",
-        "accessibility.notes",
+        "accessibility.screen_reader",
     ],
 }
 
-# Highest-impact fields ordered by priority
+# Highest-impact fields ordered by priority (must be subset of SECTION_FIELDS)
 IMPACT_PRIORITY: list[str] = [
     "goals.primary_learning_goal",
     "expertise.programming.level",
     "expertise.ai_fluency.level",
-    "expertise.domain",
     "professional_context.current_role",
     "professional_context.industry",
-    # Remaining by section weight order
     "expertise.business.level",
     "goals.urgency",
     "goals.career_goal",
-    "professional_context.organization_type",
     "communication.language_complexity",
     "communication.verbosity",
     "communication.tone",
-    "delivery.include_code_samples",
     "delivery.code_verbosity",
-    "accessibility.screen_reader",
+    "professional_context.tools_in_use",
     "accessibility.cognitive_load_preference",
+    "accessibility.screen_reader",
 ]
 
 

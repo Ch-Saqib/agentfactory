@@ -77,11 +77,11 @@ class TestProfileCompleteness:
         assert overall_phm < overall_user
 
     def test_completeness_inferred_contributes_partial(self):
-        """'inferred' contributes 0.4 weight per field."""
+        """'inferred' contributes 0.5 weight per field."""
         field_sources = {"goals.primary_learning_goal": "inferred"}
         _, per_section = compute_profile_completeness(field_sources)
 
-        # goals section has 6 fields; 1 inferred at 0.4 weight
+        # goals section has 3 high-signal fields; 1 inferred at 0.5 weight
         goals_fields = SECTION_FIELDS["goals"]
         expected = SOURCE_WEIGHTS["inferred"] / len(goals_fields)
         assert per_section["goals"] == pytest.approx(expected)
@@ -91,6 +91,39 @@ class TestProfileCompleteness:
         _, per_section = compute_profile_completeness({})
         assert set(per_section.keys()) == set(SECTION_WEIGHTS.keys())
         assert len(per_section) == 6
+
+    def test_post_onboarding_completeness_reasonable(self):
+        """After completing onboarding, completeness should be 45-65%.
+
+        A user who completes all 6 onboarding phases typically sets:
+        - ~8 fields as 'user' (goal, expertise levels, role, tools)
+        - ~5 fields as 'inferred' (communication/delivery fields)
+        - remaining fields stay 'default'
+
+        The old 41-field metric gave 26% which felt deflating.
+        With 20 high-signal fields, this should land in the 45-65% range.
+        """
+        # Simulate typical post-onboarding field_sources
+        field_sources = {
+            # User-set during onboarding
+            "goals.primary_learning_goal": "user",
+            "goals.urgency": "user",
+            "expertise.programming.level": "user",
+            "expertise.programming.languages": "user",
+            "expertise.ai_fluency.level": "user",
+            "expertise.business.level": "user",
+            "professional_context.current_role": "user",
+            "professional_context.tools_in_use": "user",
+            # Inferred by engine from expertise levels
+            "communication.language_complexity": "inferred",
+            "communication.verbosity": "inferred",
+            "communication.tone": "inferred",
+            "delivery.code_verbosity": "inferred",
+        }
+        overall, _ = compute_profile_completeness(field_sources)
+        assert 0.45 <= overall <= 0.65, (
+            f"Post-onboarding completeness {overall:.2f} outside expected 45-65% range"
+        )
 
 
 # ---------------------------------------------------------------------------
