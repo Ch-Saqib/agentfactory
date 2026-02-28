@@ -6,6 +6,10 @@ chapter_number: 16
 part_number: 3
 version: 1.0
 status: draft
+slides:
+  source: "https://pub-80f166e40b854371ac7b05053b435162.r2.dev/books/ai-native-dev/static/slides/part-3/chapter-16/knowledge-extraction-method.pdf"
+  title: "The Knowledge Extraction Method"
+  height: 700
 ---
 
 # Chapter 16: The Knowledge Extraction Method
@@ -17,6 +21,8 @@ Chapter 15 established the complete architecture of a Cowork plugin — the thre
 The answer has two modes. Method A extracts knowledge from expert heads through a five-question interview framework designed to surface the tacit professional knowledge that makes the difference between a generic agent and a genuinely useful one. Method B extracts knowledge from institutional documents through a three-pass framework — explicit rule extraction, contradiction mapping, and gap identification — that converts policy manuals, handbooks, and standard operating procedures into SKILL.md instructions while surfacing the problems that naive extraction misses. Most professional domains require both methods, and the reconciliation principle determines which takes precedence when expert judgement and documented standards conflict.
 
 But extraction alone is not enough. A SKILL.md that encodes the expert's knowledge but has never been tested against the range of real-world queries has unknown coverage gaps. The validation stage — building scenario sets, scoring outputs on accuracy, calibration, and boundary compliance, interpreting failure patterns, and running the shadow mode protocol — is what converts a plausible first draft into a production-ready file. This chapter teaches both halves: how to get the knowledge out, and how to confirm it works.
+
+## 📚 Teaching Aid
 
 ## What You'll Learn
 
