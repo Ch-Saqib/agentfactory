@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 title: "The Three-Level Context System"
-description: "Understand Cowork's three-level context hierarchy — platform, organisation, and plugin — and apply the diagnostic sequence to identify why a SKILL.md instruction may not be honoured"
+description: "Understand how enterprise platforms enforce context hierarchies through platform, organisation, and plugin levels — and apply the diagnostic sequence to identify why a SKILL.md instruction may not be honoured"
 keywords:
   [
     "three-level context",
@@ -26,7 +26,7 @@ skills:
     category: "Conceptual"
     bloom_level: "Understand"
     digcomp_area: "Information Literacy"
-    measurable_at_this_level: "Student can describe the three levels — platform, organisation, and plugin — name who sets each level, and explain the override direction (higher levels silently override lower levels)"
+    measurable_at_this_level: "Student can describe the three levels of the three-level context hierarchy — platform, organisation, and plugin — name who sets each level, and explain the override direction (higher levels silently override lower levels)"
 
   - name: "Diagnose SKILL.md Override Behaviour"
     proficiency_level: "B1"
@@ -64,7 +64,7 @@ cognitive_load:
     - "Platform context (Anthropic-set, immutable)"
     - "Organisation context (admin-set, governs all plugins)"
     - "Plugin context as SKILL.md (knowledge worker-set, operates within higher constraints)"
-  assessment: "3 concepts at A2-B1 level — well within the 5-7 cognitive limit for this tier. Students have completed L01-L03 and understand the plugin package structure (SKILL.md, connectors, commands, sub-agents, manifest). This lesson adds the governance hierarchy that sits above those components, building on established vocabulary without requiring new vocabulary from scratch."
+  assessment: "3 concepts at A2-B1 level — well within the 5-7 cognitive limit for this tier. Students have completed L01-L03 and understand the plugin package structure (SKILL.md, connectors, commands, agents, manifest). This lesson adds the governance hierarchy that sits above those components, building on established vocabulary without requiring new vocabulary from scratch."
 
 differentiation:
   extension_for_advanced: "Consider a regulated industry where you work or know well. Map out what you would expect to find at each of the three context levels: what would Anthropic likely constrain at platform level, what would your organisation's administrator configure at organisation level, and what would a domain expert author at plugin level? Identify one scenario where an organisation-level policy might conflict with what a knowledge worker wants to achieve, and describe how you would work through that conflict."
@@ -109,6 +109,8 @@ teaching_guide:
 In Lesson 3, you established what the plugin infrastructure looks like — the manifest (plugin.json), the connector declarations (.mcp.json), and the settings that configure the deployment environment. You also saw that permission boundaries are enforced by the Cowork runtime: if the SKILL.md were to instruct the agent to access data outside its configured scope, the attempt would fail silently.
 
 That single observation — that a SKILL.md instruction can be overridden without announcement — points to something larger than any single component. There is a hierarchy of contexts in which every Cowork plugin operates, and understanding that hierarchy is what allows you to diagnose why an agent behaves differently from what the SKILL.md describes. Without this understanding, the diagnostic for unexpected agent behaviour almost always starts in the wrong place.
+
+Anthropic's enterprise admin controls establish organisation-wide policies that govern all plugins — including skill provisioning, audit requirements, and access controls. This creates the hierarchical policy system that this lesson examines.
 
 This lesson explains the three-level context system, what each level controls, and how to run the diagnostic correctly when an agent does not do what you expect.
 
@@ -162,7 +164,7 @@ The most counterintuitive property of the three-level system is that overrides a
 
 When a SKILL.md instruction conflicts with an organisation-level policy, the agent does not announce it. It does not say "I cannot follow this instruction because your organisation has configured a policy that prevents it." It simply behaves in accordance with the higher-level constraint and produces its output accordingly. From the knowledge worker's perspective, the agent appears to be ignoring a clearly written instruction — with no explanation and no error message.
 
-This behaviour is architectural, not a design oversight. The organisation context is not visible to the knowledge worker at the plugin level by design. Surfacing internal governance policies through agent responses would create its own complications — disclosing the structure of compliance constraints, audit requirements, or permission models to every user who asked the agent a question that happened to touch on a restricted behaviour.
+This is consistent with how hierarchical policy systems work in enterprise environments. The organisation context is not visible to the knowledge worker at the plugin level by design. Surfacing internal governance policies through agent responses would create its own complications — disclosing the structure of compliance constraints, audit requirements, or permission models to every user who asked the agent a question that happened to touch on a restricted behaviour.
 
 The practical implication is that the knowledge worker must understand the three-level system before encountering a silent override in production. An analyst who does not know that organisation context exists will spend significant time revising a SKILL.md that is not the source of the problem.
 

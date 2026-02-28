@@ -87,7 +87,7 @@ teaching_guide:
     - "Students may think they need to understand how MCP connectors work technically — they need to understand what connectors enable and what to watch for, not how to build or debug them"
     - "Students may think that if a connector fails, the agent will always show an error message — in poorly configured systems, the agent may silently fabricate data instead"
   discussion_prompts:
-    - "Look at the .mcp.json example. If the Salesforce MCP server went down, what would you expect a well-configured agent to do? What would a poorly configured agent do?"
+    - "Look at the .mcp.json example. If the HubSpot MCP server went down, what would you expect a well-configured agent to do? What would a poorly configured agent do?"
     - "If you were a senior analyst and your research agent gave you market data that seemed oddly specific and coherent, but you had not verified that the data connector was working — what would you do?"
   teaching_tips:
     - "Walk through the plugin directory structure first so students have a spatial map of where each file lives. The directory listing is the anchor for the entire lesson."
@@ -121,13 +121,13 @@ financial-research/
 ├── .mcp.json              # MCP server declarations
 ├── commands/              # Slash commands
 ├── skills/                # SKILL.md files (your contribution)
-├── agents/                # Sub-agents
+├── agents/                # Agents
 ├── hooks/                 # Event handlers
 ├── settings.json          # Default settings
 └── .lsp.json              # LSP server configs
 ```
 
-Notice the division of labour built into this structure. The `skills/` directory is where your SKILL.md files live — the intelligence layer you author. Everything else is infrastructure that developers and IT maintain. This lesson covers the three infrastructure files that matter most for your understanding: plugin.json, .mcp.json, and settings.json.
+Notice the division of labour built into this structure. The `skills/` directory is where your SKILL.md files live — the intelligence layer you author. Everything else is infrastructure that developers and IT maintain. Anthropic designed these as plain Markdown and JSON files so that anyone can contribute — but in enterprise environments, clear ownership of each component prevents governance gaps. This lesson covers the three infrastructure files that matter most for your understanding: plugin.json, .mcp.json, and settings.json.
 
 ## Component One: The Plugin Manifest (plugin.json)
 
@@ -156,9 +156,9 @@ What plugin.json does _not_ contain is equally important. It does not contain th
 
 The .mcp.json file is where the plugin's data connections are declared. It specifies which MCP (Model Context Protocol) servers the plugin connects to — and through those servers, which external systems the agent can access.
 
-An MCP server is a small service that acts as a bridge between the agent and an external system. When the Financial Research Agent needs current market data, it does not connect to Bloomberg directly. It communicates with a Bloomberg MCP server, which handles authentication, executes queries, translates data formats, and returns structured results. Each external system the agent connects to has its own MCP server.
+An MCP server is a small service that acts as a bridge between the agent and an external system. When the Financial Research Agent needs current market data, it does not connect to a financial data provider directly. It communicates with that provider's MCP server, which handles authentication, executes queries, translates data formats, and returns structured results. Each external system the agent connects to has its own MCP server.
 
-The .mcp.json file declares which of these servers the plugin uses. For the Financial Research Agent, it might declare connections to a Bloomberg data server, a Snowflake analytics server, and a SharePoint document server. Each entry names the server and provides its connection configuration — the address, the protocol, and any parameters needed to establish the connection.
+The .mcp.json file declares which of these servers the plugin uses. For the Financial Research Agent, it might declare connections to a financial data server, a Snowflake analytics server, and a SharePoint document server. Each entry names the server and provides its connection configuration — the address, the protocol, and any parameters needed to establish the connection.
 
 This design has several advantages. The agent does not need to know how to authenticate with each external system — that complexity lives in the MCP server. The agent does not need to handle different data formats from different sources — the server normalises them. And when external systems change their APIs or authentication protocols, only the MCP server needs to be updated, not the agent itself.
 
@@ -170,11 +170,11 @@ The practical literacy question is not how MCP servers work internally — that 
 
 **Working.** The MCP server is running, the authentication is valid, and queries return live data from the external system. When a connector is working, the agent has access to current information. Research reflects today's data, not last week's cached snapshot.
 
-**Explicitly unavailable.** The MCP server is not running or cannot authenticate. In a well-configured system, the agent detects this state and tells the user it cannot access that data source. "I was unable to retrieve current Bloomberg data for this analysis. Please verify the connector status with your IT team." This is the correct failure mode — it is transparent about the limitation.
+**Explicitly unavailable.** The MCP server is not running or cannot authenticate. In a well-configured system, the agent detects this state and tells the user it cannot access that data source. "I was unable to retrieve current market data for this analysis. Please verify the connector status with your IT team." This is the correct failure mode — it is transparent about the limitation.
 
 **Fabricating data.** This is the dangerous failure mode, and it must be named explicitly. In a poorly designed or misconfigured system, when a connector is unavailable, the agent may draw on its training data or internal knowledge to produce responses that appear to be live data but are not. The output looks like a real market data response. The numbers are plausible. The format is correct. But the information is invented.
 
-The reason this is categorically different from the second state is that it is undetectable without external verification. An agent that says "I cannot access Bloomberg" gives you accurate information about its limitations. An agent that generates a plausible-looking market data table without access to Bloomberg has produced a hallucination presented as fact — and in a financial context, acting on fabricated data can have serious consequences.
+The reason this is categorically different from the second state is that it is undetectable without external verification. An agent that says "I cannot access the financial data connector" gives you accurate information about its limitations. An agent that generates a plausible-looking market data table without access to that connector has produced a hallucination presented as fact — and in a financial context, acting on fabricated data can have serious consequences.
 
 Cowork's architecture is designed to make the third state unlikely. The platform and connector design enforce explicit failure reporting rather than silent substitution. But no architecture eliminates the risk entirely, which is why infrastructure literacy includes knowing this risk exists and building the habit of verifying data provenance when stakes are high.
 
@@ -190,7 +190,9 @@ This separation is a security design: the people who build plugins cannot weaken
 
 ## A Note on Governance
 
-If you are wondering where audit logging, permission scopes, shadow mode, and escalation routing are configured — the answer is: not inside the plugin. These governance settings live in Cowork's organisation admin panel, managed by administrators who set policies that apply across all plugins in the organisation.
+If you are wondering where audit logging, permission scopes, shadow mode, and escalation routing are configured — the answer is: not inside the plugin. These governance settings live above the plugin layer entirely, managed by administrators who set policies that apply across all plugins in the organisation.
+
+Anthropic ships enterprise admin controls that include organisation-wide skill provisioning, audit capabilities, and policy management. These controls sit above individual plugins, applying organisation-wide policies that no individual plugin can override.
 
 This means governance is not something a plugin author decides. It is something the organisation enforces. A plugin author cannot disable audit logging for their plugin, and a knowledge worker cannot bypass review requirements. The governance layer wraps around the plugin from the outside, which is precisely how enterprise security should work.
 
@@ -208,7 +210,7 @@ With all three infrastructure files in view, the division of labour becomes clea
 | **SKILL.md**            | Defines the agent's expertise and behaviour                           | Knowledge worker   |
 | **Governance settings** | Enforces organisational policies (audit, review, shadow mode)         | Org administrators |
 
-Your contribution — the SKILL.md — sits at the centre. It is the intelligence that makes the agent useful. But it operates within the environment that the infrastructure files create. A SKILL.md that instructs the agent to analyse Bloomberg data only works if the .mcp.json declares a Bloomberg MCP server and IT has configured that server to be available. A SKILL.md that describes careful, audited research behaviour only matters if the organisation's governance settings actually enforce audit logging.
+Your contribution — the SKILL.md — sits at the centre. It is the intelligence that makes the agent useful. But it operates within the environment that the infrastructure files create. A SKILL.md that instructs the agent to analyse financial market data only works if the .mcp.json declares the appropriate MCP server and IT has configured that server to be available. A SKILL.md that describes careful, audited research behaviour only matters if the organisation's governance settings actually enforce audit logging.
 
 Understanding this relationship is what makes you an effective collaborator rather than someone who writes instructions in isolation and hopes the infrastructure team gets the rest right.
 
@@ -220,7 +222,7 @@ You do not need to build MCP servers, write plugin.json files, or manage setting
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Verify connector alignment**  | Confirm that the MCP servers declared in .mcp.json match the data sources your workflow actually requires                                                                                       |
 | **Detect data quality issues**  | Recognise when an agent's output may be based on unavailable or stale data                                                                                                                      |
-| **Report problems accurately**  | Describe an infrastructure problem in terms IT can act on — "the Bloomberg connector appears to be returning stale data, last updated three days ago" is more useful than "the agent seems off" |
+| **Report problems accurately**  | Describe an infrastructure problem in terms IT can act on — "the Snowflake connector appears to be returning stale data, last updated three days ago" is more useful than "the agent seems off" |
 | **Understand the architecture** | Know which file controls what, so you can direct questions to the right people                                                                                                                  |
 
 This is infrastructure literacy: not operational depth, but sufficient awareness to be a capable professional user and an effective collaborator with the people who maintain the infrastructure you depend on.
@@ -241,7 +243,7 @@ Then tell me: where do the governance settings like audit logging and
 shadow mode live? Why don't they live inside the plugin?
 
 The plugin is called "legal-contract-reviewer" and it connects to
-a LexisNexis database, a SharePoint document library, and a DocuSign
+a Box document repository, a SharePoint document library, and a DocuSign
 signing service.
 ```
 
@@ -250,11 +252,11 @@ signing service.
 ### Prompt 2: Connector Failure Diagnosis
 
 ```
-I'm using a Financial Research Agent that connects to Bloomberg,
-Snowflake, and SharePoint through MCP servers declared in its
+I'm using a Financial Research Agent that connects to a financial data
+provider, Snowflake, and SharePoint through MCP servers declared in its
 .mcp.json file. The agent has produced a report with detailed market
 data and company financials for three competitors. I haven't verified
-whether the Bloomberg MCP server was running when the report was
+whether the financial data connector was running when the report was
 generated.
 
 Help me think through: (1) what questions I should ask before trusting
@@ -274,10 +276,10 @@ plugin for our research team. I need to explain what MCP server
 connections the plugin requires so that IT can write the .mcp.json file
 and configure the servers.
 
-Our workflow requires: live market data from Bloomberg, access to our
-internal analytics database in Snowflake (specifically the models and
-deal history tables, not HR data), and read access to approved research
-templates in SharePoint.
+Our workflow requires: live market data from a financial data connector,
+access to our internal analytics database in Snowflake (specifically
+the models and deal history tables, not HR data), and read access to
+approved research templates in SharePoint.
 
 Help me draft a clear, specific request to IT that describes what
 connections I need, what data each connection should provide access to,

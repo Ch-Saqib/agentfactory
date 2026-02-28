@@ -45,7 +45,7 @@ skills:
     measurable_at_this_level: "Student can produce a maintenance schedule for a plugin in their domain that assigns specific review responsibilities to each of the three owners and specifies trigger conditions for unscheduled updates"
 
 learning_objectives:
-  - objective: "Map each component of a Cowork plugin — SKILL.md sections, connectors (.mcp.json), commands, sub-agents, and governance configuration — to its correct owner using the ownership model"
+  - objective: "Map each component of a Cowork plugin — SKILL.md sections, connectors (.mcp.json), commands, agents, and governance configuration — to its correct owner using the ownership model"
     proficiency_level: "B1"
     bloom_level: "Apply"
     assessment_method: "Given a list of plugin components and tasks, student can assign each to knowledge worker, IT, or administrator without error, and articulate the reasoning for ambiguous cases"
@@ -109,7 +109,7 @@ The trouble with ambiguous ownership is that it rarely announces itself. A deplo
 
 This is the central failure mode that clean ownership prevents. Not spectacular breakdowns, but slow degradation — the kind that is hardest to detect precisely because the system continues to function, just not correctly. The seven lessons that preceded this one have built the complete architecture of a Cowork plugin: the plugin package structure, the context hierarchy, the connector ecosystem, and the governance layer. This lesson establishes who is responsible for maintaining each part of that architecture, what their responsibilities are, and why the boundaries between responsibilities are drawn where they are.
 
-The ownership model is not bureaucratic convention. It is the mechanism that makes a deployed agent diagnosable — and diagnosability is what separates a managed system from a technical liability.
+In enterprise deployments, a natural division of responsibility emerges. Anthropic designed plugins as plain Markdown and JSON so anyone can contribute. But in regulated environments, clear ownership of each component prevents governance gaps and makes degradation diagnosable.
 
 ## Three Roles, Three Layers
 
@@ -117,7 +117,7 @@ A Cowork plugin has three owners. Each owner operates in a distinct layer. Each 
 
 **The knowledge worker** owns the intelligence layer. This means the SKILL.md in its entirety: the Persona that defines the agent's identity and professional positioning, the Questions section that defines scope and out-of-scope handling, and the Principles that encode the operating logic, domain constraints, escalation thresholds, and quality standards. The knowledge worker authored the SKILL.md, tested it against domain scenarios during shadow mode, and takes professional responsibility for what the agent does. If the SKILL.md applies a wrong jurisdictional standard, that is the knowledge worker's error. If the SKILL.md fails to cover a recurring case, it is the knowledge worker's responsibility to update it.
 
-**IT and plugin developers** own the integration layer. This means the connectors declared in `.mcp.json` that wire the agent to enterprise systems, the commands that provide explicit workflows, the sub-agents that handle complex multi-step processes, and the manifest (`plugin.json`) that identifies the plugin. When a connector begins returning stale data because an upstream API changed, that is an IT problem. When the plugin needs access to a new enterprise system, IT configures the connector. The knowledge worker specifies what data access is needed; IT implements and maintains it.
+**IT and plugin developers** own the integration layer. This means the connectors declared in `.mcp.json` that wire the agent to enterprise systems, the commands that provide explicit workflows, the agents that handle complex multi-step processes, and the manifest (`plugin.json`) that identifies the plugin. When a connector begins returning stale data because an upstream API changed, that is an IT problem. When the plugin needs access to a new enterprise system, IT configures the connector. The knowledge worker specifies what data access is needed; IT implements and maintains it.
 
 **The administrator** owns the governance layer. This means the organisation-level policies that determine who can access the plugin and at what permission level, the audit trail configuration, the shadow mode settings, and the human-in-the-loop gate enforcement. The knowledge worker does not modify governance configuration without going through the administrator. The administrator does not modify SKILL.md without going through the knowledge worker.
 
@@ -131,13 +131,15 @@ The complete ownership assignment across every plugin component:
 | SKILL.md (Questions)           | Knowledge worker      | Defines scope, capabilities, and out-of-scope handling                 |
 | SKILL.md (Principles)          | Knowledge worker      | Defines operating logic, constraints, and escalation                   |
 | Connectors (.mcp.json)         | IT / Plugin developer | Configures and maintains MCP server connections to enterprise systems  |
-| Commands and sub-agents        | Plugin developer      | Builds workflow commands and specialised assistants                    |
+| Commands and agents            | Plugin developer      | Builds workflow commands and specialised assistants                    |
 | Manifest (plugin.json)         | Plugin developer      | Declares plugin identity: name, version, author                        |
 | Organisation governance policy | Cowork administrator  | Sets access control, audit requirements, shadow mode                   |
 | Validation and testing         | Knowledge worker      | Tests outputs against domain scenarios, manages shadow mode transition |
 | Performance monitoring         | Knowledge worker + IT | Reviews audit logs, identifies degradation, schedules updates          |
 
 The final two rows — validation and monitoring — are the only places where responsibilities overlap. Validation belongs primarily to the knowledge worker because assessing whether outputs are correct against domain standards requires domain expertise. Performance monitoring is shared because the knowledge worker reads the quality dimension of the audit log while IT monitors the technical dimension: connector health, latency, error rates. The overlap is explicit and bounded.
+
+This is the typical enterprise assignment. The division reflects where the expertise actually sits — not a bureaucratic imposition, but the natural result of who understands each layer.
 
 ## The Layer Independence Principle
 
@@ -202,7 +204,7 @@ Components to map:
 - SKILL.md (Questions section)
 - SKILL.md (Principles section)
 - Connectors (.mcp.json)
-- Commands and sub-agents
+- Commands and agents
 - Organisation governance policy
 - Validation and testing
 - Performance monitoring

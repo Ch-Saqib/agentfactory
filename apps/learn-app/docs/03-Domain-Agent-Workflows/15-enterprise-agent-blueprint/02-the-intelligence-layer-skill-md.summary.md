@@ -25,4 +25,4 @@ The SKILL.md is a plain-English document written by a domain expert that constit
 ### Connections
 
 - **Builds on**: Lesson 1 established the plugin package structure; this lesson goes deep on the knowledge worker's component
-- **Leads to**: Lesson 5 will show a complete, annotated SKILL.md example; Lesson 3 covers the plugin infrastructure (manifest, connectors, commands, sub-agents)
+- **Leads to**: Lesson 5 will show a complete, annotated SKILL.md example; Lesson 3 covers the plugin infrastructure (manifest, connectors, commands, agents)

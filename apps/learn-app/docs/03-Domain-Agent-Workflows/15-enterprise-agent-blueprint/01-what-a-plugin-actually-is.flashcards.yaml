@@ -1,7 +1,7 @@
 deck:
   id: "ch15-01-what-a-plugin-actually-is"
   title: "What a Plugin Actually Is"
-  description: "Cowork plugin definition, the five structural properties, the plugin package structure, and transparency as an architectural property."
+  description: "Cowork plugin definition, the enterprise readiness properties, the plugin package components, and transparency as an architectural property."
   tags: ["cowork-plugin", "plugin-architecture", "plugin-package", "transparency", "enterprise-ai"]
   version: 1
 
@@ -13,14 +13,14 @@ cards:
     difficulty: "basic"
 
   - id: "ch15-01-properties-002"
-    front: "Name the five structural properties every Cowork plugin must have."
-    back: "1. Identity — a defined name, persona, and declared capabilities\n2. Instructions — explicit guidance governing the agent's behaviour\n3. Connections — links to external systems via MCP\n4. Governance — rules defining who can use it and what it can do\n5. Performance record — an automatic log of every interaction and output"
-    tags: ["five-properties", "definition"]
+    front: "Name the five enterprise readiness properties used to evaluate a Cowork plugin."
+    back: "Panaversity's enterprise readiness framework evaluates plugins against five properties:\n1. Identity — a defined name, persona, and declared capabilities\n2. Instructions — explicit guidance governing the agent's behaviour\n3. Connections — links to external systems via MCP\n4. Governance — rules defining who can use it and what it can do\n5. Performance record — an automatic log of every interaction and output"
+    tags: ["enterprise-readiness-properties", "definition"]
     difficulty: "basic"
 
   - id: "ch15-01-components-003"
     front: "Name the plugin package components of a Cowork plugin and who owns each."
-    back: "1. SKILL.md files (intelligence layer) — owned by the knowledge worker\n2. Connectors (.mcp.json) (integration layer) — owned by IT / Developer\n3. Commands, sub-agents, and manifest (plugin.json) (orchestration and deployment) — owned by IT / plugin developer"
+    back: "1. SKILL.md files (intelligence layer) — owned by the knowledge worker\n2. Connectors (.mcp.json) (integration layer) — owned by IT / Developer\n3. Commands, hooks, agents, and manifest (plugin.json) (orchestration and deployment) — owned by IT / plugin developer"
     tags: ["plugin-package", "ownership"]
     difficulty: "basic"
 
@@ -57,10 +57,10 @@ cards:
 
   - id: "ch15-01-noprototype-009"
     front: "An agent has all three SKILL.md components configured but no governance framework. Is it a plugin? Why or why not?"
-    back: "It is a prototype, not a plugin. The five structural properties are not optional features configured later; they are the structural requirements for anything that qualifies as a plugin. An agent without a governance framework has not met the minimum definition."
-    tags: ["five-properties", "definition", "applied"]
+    back: "It is a prototype, not a plugin. The enterprise readiness properties are not optional features configured later; they are the structural requirements for anything that qualifies as a plugin. An agent without a governance framework has not met the minimum definition."
+    tags: ["enterprise-readiness-properties", "definition", "applied"]
     difficulty: "advanced"
-    why: "Tests understanding that the five structural properties are threshold requirements, not optional enhancements"
+    why: "Tests understanding that the enterprise readiness properties are threshold requirements, not optional enhancements"
 
   - id: "ch15-01-separation-010"
     front: "Why does the plugin architecture assign each component to a single owner?"

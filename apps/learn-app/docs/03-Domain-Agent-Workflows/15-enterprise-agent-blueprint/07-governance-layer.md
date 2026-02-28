@@ -1,7 +1,7 @@
 ---
 sidebar_position: 7
 title: "The Governance Layer"
-description: "Understand how governance works in a Cowork plugin through four mechanisms: IAM-integrated permissions, immutable audit trails, shadow mode with this book's recommended 30-day/95% accuracy protocol, and human-in-the-loop gates where human judgment is non-negotiable"
+description: "Understand how governance works in a Cowork plugin through four mechanisms: IAM-integrated permissions, audit logging and compliance capabilities, shadow mode with this book's recommended deployment protocol, and human-in-the-loop gates where human judgment is non-negotiable"
 keywords:
   [
     "enterprise governance",
@@ -35,7 +35,7 @@ skills:
     category: "Conceptual"
     bloom_level: "Understand"
     digcomp_area: "Safety"
-    measurable_at_this_level: "Student can explain why immutable audit trails are an asset in regulated industries rather than a burden, and describe what the audit record contains for any given interaction"
+    measurable_at_this_level: "Student can explain why audit logging is an asset in regulated industries rather than a burden, and describe what the audit record contains for any given interaction"
 
   - name: "Apply Shadow Mode Protocol to a Plugin Transition"
     proficiency_level: "B1"
@@ -57,7 +57,7 @@ learning_objectives:
     bloom_level: "Understand"
     assessment_method: "Student can describe, using their own domain as context, what the permission configuration for their plugin would look like and which roles would receive which access levels"
 
-  - objective: "Explain why immutable audit trails function as a compliance asset in regulated industries rather than a constraint on agent behaviour"
+  - objective: "Explain why audit logging functions as a compliance asset in regulated industries rather than a constraint on agent behaviour"
     proficiency_level: "A2"
     bloom_level: "Understand"
     assessment_method: "Student can articulate the difference between a compliance incident and a documented, defensible process, and identify what information the audit log captures for each interaction"
@@ -71,7 +71,7 @@ cognitive_load:
   new_concepts: 4
   concepts_list:
     - "IAM-integrated permissions and role-based scoping"
-    - "Immutable audit trails as a compliance feature"
+    - "Audit logging as a compliance feature"
     - "Shadow mode with 30-day / 95% accuracy threshold"
     - "Human-in-the-loop gates as non-negotiable checkpoints"
   assessment: "4 concepts at A2-B1 level — within the 5-7 cognitive limit for the target proficiency band. Concepts build sequentially: permissions govern access, audit trails record what happens, shadow mode builds trust in what was recorded, and HITL gates define the boundaries of autonomy."
@@ -107,9 +107,9 @@ teaching_guide:
     - "HITL gates resonate when grounded in domain-specific examples students recognise — ask them to name the decisions in their own work where they would never want to be removed from the loop, then connect those intuitions to the principle"
   assessment_checks:
     - question: "How does Cowork know which users can access a plugin?"
-      expected_response: "Permissions are inherited from the organisation's IAM system (Azure AD, Okta, or equivalent). Users who have access in the IAM system see the plugin; those without access cannot. Role-based scoping can further restrict which capabilities different users can access within the plugin."
+      expected_response: "Permissions are inherited from the organisation's existing identity management system. Users who have access in the IAM system see the plugin; those without access cannot. Role-based scoping can further restrict which capabilities different users can access within the plugin."
     - question: "What does the audit trail record for each agent interaction?"
-      expected_response: "The audit trail logs the user's query, the data sources the agent accessed, the output generated, a timestamp, and the user's identity. The log is immutable — it cannot be modified or deleted by the knowledge worker or plugin operator."
+      expected_response: "The audit trail logs the user's query, the data sources the agent accessed, the output generated, a timestamp, and the user's identity. The log is maintained through Anthropic's enterprise admin controls and is available for compliance review."
     - question: "What are the two criteria for transitioning out of shadow mode?"
       expected_response: "The agent must operate in shadow mode for at least 30 days, and must achieve 95% accuracy across a representative sample with no critical errors in the preceding 10 days."
     - question: "What is the governing principle for HITL gates?"
@@ -118,15 +118,15 @@ teaching_guide:
 
 # The Governance Layer
 
-In Lesson 6, you surveyed the connector ecosystem that gives a Cowork plugin access to enterprise data — CRM records, document repositories, financial data, clinical systems, and more. A plugin with that reach is genuinely powerful. And powerful systems require clear answers to a set of questions that every enterprise, and every regulator, will ask: who can use this agent, what can it do, what happens to its outputs, and how do you know when something has gone wrong?
+In Lesson 6, you surveyed the connector ecosystem that gives a Cowork plugin access to enterprise data — CRM records, document repositories, financial data, clinical systems, and more. Anthropic ships enterprise admin controls for Cowork that include organisation-wide skill provisioning, audit capabilities, and policy management. Enterprise customers are already using skills in production across legal, finance, accounting, and data science domains. A plugin with that reach is genuinely powerful. And powerful systems require clear answers to a set of questions that every enterprise, and every regulator, will ask: who can use this agent, what can it do, what happens to its outputs, and how do you know when something has gone wrong?
 
 These questions constitute governance. The word has a tendency to make knowledge workers reach for their coffee and change the subject. It calls to mind lengthy compliance frameworks, cautious legal reviews, and the general feeling that governance is what happens to ambitious projects on their way to becoming smaller, slower versions of themselves. That framing is wrong, and it is worth spending a moment to understand why — because in the context of a deployed autonomous agent, governance is not what limits deployment. Governance is what makes deployment possible.
 
-Without a clear permission structure, an agent cannot be deployed to a team. Without an immutable audit trail, an agent cannot be used in any regulated workflow. Without a shadow mode transition process, there is no credible path from "this agent is promising" to "this agent is trusted." And without human-in-the-loop gates, the agent will eventually be asked to do something it should not do autonomously, with no mechanism to ensure a human is in the loop when it matters. Governance, in the Cowork model, is the architecture of trust. It has four components.
+Without a clear permission structure, an agent cannot be deployed to a team. Without an audit log, an agent cannot be used in any regulated workflow. Without a shadow mode transition process, there is no credible path from "this agent is promising" to "this agent is trusted." And without human-in-the-loop gates, the agent will eventually be asked to do something it should not do autonomously, with no mechanism to ensure a human is in the loop when it matters. Governance, in the Cowork model, is the architecture of trust. It has four components.
 
 ## Permissions and Access Control
 
-Who can see and use a plugin is determined by the organisation's identity and access management system — Azure AD, Okta, or whichever IAM the organisation operates. Cowork inherits permissions from that system rather than maintaining a separate access layer. Users who have access see the plugin in their environment; users who do not have access cannot see it at all. The plugin does not appear to them. There is no "restricted access" message to click past. It simply is not there.
+Who can see and use a plugin is determined by the organisation's existing identity management system. Cowork inherits permissions from that system rather than maintaining a separate access layer. Users who have access see the plugin in their environment; users who do not have access cannot see it at all. The plugin does not appear to them. There is no "restricted access" message to click past. It simply is not there.
 
 Within the population of authorised users, role-based scoping allows more granular control. A financial research plugin might be available to the entire finance team for standard market summaries and portfolio analysis, but restrict escalation routing — the capability that routes an output to a senior decision-maker for action — to the FP&A lead. A contract triage plugin might give paralegals access to standard processing workflows while reserving the clause analysis module, which surfaces potential material liability, for users with senior lawyer credentials.
 
@@ -136,7 +136,7 @@ The practical implication for a knowledge worker designing a plugin is to think 
 
 ## Audit Trails
 
-Every interaction a Cowork plugin has is logged. The log records what the user queried, which data sources the agent accessed, what output was generated, the timestamp, and the user's identity. The log is immutable — it cannot be modified by the knowledge worker who authored the plugin, by the plugin operator, or by the user who invoked the agent. It is retained according to the organisation's data retention policy and is available to compliance and legal teams on request.
+Every interaction a Cowork plugin has is logged. Anthropic's enterprise admin controls include logging and compliance capabilities. The interaction log captures what the user queried, which data sources the agent accessed, what output was generated, the timestamp, and the user's identity. It is retained according to the organisation's data retention policy and is available to compliance and legal teams on request.
 
 For knowledge workers in unregulated industries, this description may read as reasonable but unremarkable. For knowledge workers in financial services, healthcare, legal, or any regulated domain, this description should read as a fundamental enabler. The audit trail is not a surveillance mechanism. It is a defensibility asset.
 
@@ -152,7 +152,7 @@ Shadow mode serves two purposes. The first is quality validation. A body of revi
 
 The second purpose is organisational confidence-building. Legal, compliance, and operations stakeholders who have legitimate concerns about autonomous agent deployment need evidence, not reassurance. Shadow mode produces that evidence in a form they can review: a corpus of agent outputs with human assessments attached. The conversation with a sceptical general counsel changes materially when the answer to "how do we know it's reliable?" is "here are 340 reviewed outputs from the past six weeks, with this accuracy profile."
 
-This book recommends a specific shadow mode protocol as a professional standard for enterprise deployments: a minimum of 30 days, with a 95% accuracy threshold across a representative sample. The agent should operate in shadow mode for at least 30 days. The outputs should be reviewed against a domain-specific scoring rubric. When 95% or more of outputs across a representative sample meet the rubric's criteria — and when there have been no critical errors in the preceding 10 days — the plugin is eligible for transition to autonomous operation.
+This book's recommended shadow mode protocol provides a professional standard for enterprise deployments: a minimum of 30 days, with a 95% accuracy threshold across a representative sample. The agent should operate in shadow mode for at least 30 days. The outputs should be reviewed against a domain-specific scoring rubric. When 95% or more of outputs across a representative sample meet the rubric's criteria — and when there have been no critical errors in the preceding 10 days — the plugin is eligible for transition to autonomous operation.
 
 The 30-day minimum exists because a representative sample of outputs requires sufficient variety in the inputs — different users, different query types, different data conditions — to surface the failure modes that only appear in edge cases. A week of shadow mode in a quiet period does not produce the same evidence as a month across normal operating conditions.
 
@@ -187,7 +187,7 @@ HITL gates, once defined, are encoded in the SKILL.md's Principles section and e
 
 Governance in Cowork is not a checklist applied to an agent after it is built. It is an architectural property that shapes how the agent is deployed, how trust in it accumulates, and where its autonomy ends. Understanding it before building a plugin is not a compliance exercise — it is the prerequisite for building a plugin that can actually be deployed.
 
-For the knowledge worker designing a plugin, governance translates into four concrete design questions. Who should be able to see and use this? What should be recorded about every interaction? How will I demonstrate, following this book's recommended 30-day / 95% protocol, that the agent meets the accuracy standard my domain requires? And which specific steps in my workflow require a human in the loop, not because the agent cannot do them, but because the accountability for those decisions must remain with a person?
+For the knowledge worker designing a plugin, governance translates into four concrete design questions. Who should be able to see and use this? What should be recorded about every interaction? How will I demonstrate, using this book's recommended shadow mode protocol, that the agent meets the accuracy standard my domain requires? And which specific steps in my workflow require a human in the loop, not because the agent cannot do them, but because the accountability for those decisions must remain with a person?
 
 The answers to those questions, communicated to the administrator who configures the governance layer, are the governance contribution of the knowledge worker. The configuration itself belongs to the admin. The intelligence that informs the configuration belongs to the domain expert who understands what the workflow actually requires.
 

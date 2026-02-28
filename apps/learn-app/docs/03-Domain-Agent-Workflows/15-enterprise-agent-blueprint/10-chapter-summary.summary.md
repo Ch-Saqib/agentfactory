@@ -1,6 +1,6 @@
 ### Core Concept
 
-Chapter 15 provides the complete architecture for a Cowork plugin: the plugin package structure (SKILL.md, connectors, commands, sub-agents, manifest), three owners (knowledge worker, IT, administrator), three context levels (platform, organisation, plugin), four governance mechanisms (permissions, audit trails, shadow mode, HITL gates), and a marketplace distribution model. The nine lessons form a chain — each lesson answered a question the previous one raised. The SKILL.md is the component that everything else serves, and writing a production-quality one requires Chapter 16's Knowledge Extraction Method.
+Chapter 15 provides the complete architecture for a Cowork plugin: the plugin package structure (SKILL.md, connectors, commands, agents, manifest), three owners (knowledge worker, IT, administrator), three context levels (platform, organisation, plugin), four governance mechanisms (permissions, audit trails, shadow mode, HITL gates), and a marketplace distribution model. The nine lessons form a chain — each lesson answered a question the previous one raised. The SKILL.md is the component that everything else serves, and writing a production-quality one requires Chapter 16's Knowledge Extraction Method.
 
 ### Key Mental Models
 

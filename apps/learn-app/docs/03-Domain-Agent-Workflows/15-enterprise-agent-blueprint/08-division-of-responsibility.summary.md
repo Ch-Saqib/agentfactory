@@ -1,10 +1,10 @@
 ### Core Concept
 
-A Cowork plugin has three owners with complete layer independence: the knowledge worker owns the SKILL.md (intelligence layer), IT owns the connectors (.mcp.json), commands, sub-agents, and manifest (plugin.json) (integration and infrastructure layer), and the administrator owns governance configuration. This three-way ownership model is not organisational tidiness — it is the mechanism that makes a deployed agent diagnosable. Without clear ownership, degradation is invisible; with clear ownership, the right person acts immediately when something goes wrong.
+A Cowork plugin has three owners with complete layer independence: the knowledge worker owns the SKILL.md (intelligence layer), IT owns the connectors (.mcp.json), commands, agents, and manifest (plugin.json) (integration and infrastructure layer), and the administrator owns governance configuration. This three-way ownership model is not organisational tidiness — it is the mechanism that makes a deployed agent diagnosable. Without clear ownership, degradation is invisible; with clear ownership, the right person acts immediately when something goes wrong.
 
 ### Key Mental Models
 
-- **Three-Way Ownership**: Knowledge worker → SKILL.md (all three sections), IT → connectors (.mcp.json) + commands + sub-agents + manifest (plugin.json), Administrator → access control + audit configuration + shadow mode settings + HITL gate enforcement
+- **Three-Way Ownership**: Knowledge worker → SKILL.md (all three sections), IT → connectors (.mcp.json) + commands + agents + manifest (plugin.json), Administrator → access control + audit configuration + shadow mode settings + HITL gate enforcement
 - **Layer Independence Principle**: Each role operates within its own layer and has no incentive to intrude on others, because each layer contains only what that role understands and controls. IT cannot correctly edit SKILL.md Principles; the knowledge worker cannot correctly configure MCP connectors.
 - **Ownership Table**: Eight components mapped to owners — with validation/testing (primarily knowledge worker) and performance monitoring (shared knowledge worker + IT) as the only overlapping responsibilities
 - **SKILL.md Maintenance as Ongoing Discipline**: Domain expertise evolves, regulatory standards change, organisational priorities shift, new edge cases surface — the SKILL.md requires the same maintenance discipline as a professional standard, not write-once authorship

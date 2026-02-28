@@ -19,7 +19,7 @@ options: [
 "A Cowork plugin processes documents, whereas a chatbot add-on only handles text queries"
 ],
 correctOption: 0,
-explanation: "The colleague is pointing to the five structural properties that define a Cowork plugin: identity, instructions, connections, governance, and performance record. A chatbot add-on that only responds when asked is a wrapper, not an agent, and lacks the governance and performance infrastructure that makes a plugin deployable in an audited environment. Option B is wrong because the model version is a plugin manifest setting, not the defining distinction. Option C is incorrect because knowledge workers — not developers — own the SKILL.md, which is the intelligence layer. Option D is too narrow; the distinction is architectural, not limited to input type.",
+explanation: "The colleague is pointing to the plugin package components that define a Cowork plugin: skills, agents, connectors, hooks, commands, and a manifest. A chatbot add-on that only responds when asked is a wrapper, not an agent, and lacks the governance and performance infrastructure that makes a plugin deployable in an audited environment. Option B is wrong because the model version is a plugin manifest setting, not the defining distinction. Option C is incorrect because knowledge workers — not developers — own the SKILL.md, which is the intelligence layer. Option D is too narrow; the distinction is architectural, not limited to input type.",
 source: "Lesson 1: What a Plugin Actually Is"
 },
 {
@@ -27,7 +27,7 @@ question: "A compliance team lead reviews the deployment records for an AI syste
 options: [
 "The performance record only — she is reviewing audit logs",
 "The instructions property only — she is reading the SKILL.md",
-"Transparency as an architectural property — all five structural properties are inspectable by the right role",
+"Transparency as an architectural property — all plugin components are inspectable by the right role",
 "Governance configuration — she is verifying that the administrator set the correct policies"
 ],
 correctOption: 2,
@@ -119,7 +119,7 @@ explanation: "Lesson 2 explains that identity governs ambiguous situations more 
 source: "Lesson 2: The Intelligence Layer — SKILL.md"
 },
 {
-question: "A financial research team deploys a Cowork plugin. The IT administrator configures the .mcp.json with three MCP connectors: bloomberg_mcp (read, scope: market_data, news_feed), snowflake_mcp (read, scope: internal_models), and sharepoint_mcp (read, scope: research_templates). One analyst asks whether the agent can access the Snowflake instance's HR payroll data to check a restructuring rumour. What is the correct answer?",
+question: "A financial research team deploys a Cowork plugin. The IT administrator configures the .mcp.json with three MCP connectors: factset_mcp (read, scope: market_data, news_feed), snowflake_mcp (read, scope: internal_models), and sharepoint_mcp (read, scope: research_templates). One analyst asks whether the agent can access the Snowflake instance's HR payroll data to check a restructuring rumour. What is the correct answer?",
 options: [
 "Yes — if the SKILL.md instructs the agent to query Snowflake, it can access all data within Snowflake",
 "No — permission boundaries are enforced by the Cowork runtime, and payroll data is outside the configured scope of snowflake_mcp",
@@ -131,10 +131,10 @@ explanation: "Lesson 3 states explicitly: 'Permission boundaries are enforced by
 source: "Lesson 3: The Configuration and Integration Layers"
 },
 {
-question: "An operations analyst notices that her Cowork plugin's research reports contain financial figures that seem unusually specific and coherent, but she cannot verify that the bloomberg_mcp connector was running when the reports were generated. Which connector state is she most concerned about?",
+question: "An operations analyst notices that her Cowork plugin's research reports contain financial figures that seem unusually specific and coherent, but she cannot verify that the factset_mcp connector was running when the reports were generated. Which connector state is she most concerned about?",
 options: [
 "The working state — live data returns figures that are specific by definition",
-"The explicitly unavailable state — the connector reported it could not access Bloomberg",
+"The explicitly unavailable state — the connector reported it could not access the financial data service",
 "The fabricating state — the connector was down but the agent generated plausible-looking figures from its training memory rather than live data",
 "The cached state — the connector returned figures from a previous session's data cache"
 ],
@@ -172,7 +172,7 @@ options: [
 "The SKILL.md instruction contains a syntax error that prevents the Principles section from being processed",
 "The agent has learned from user feedback to prefer internal review over direct external transmission",
 "An organisation-level policy has been configured by the administrator to route all compliance-related outputs through an internal review queue before external transmission — a SKILL.md instruction cannot override this",
-"The bloomberg_mcp connector is blocking direct external data transmission as a security feature"
+"The factset_mcp connector is blocking direct external data transmission as a security feature"
 ],
 correctOption: 2,
 explanation: "This is precisely the scenario used in Lesson 4 to introduce the three-level context hierarchy. Organisation-level context, set by the administrator, governs all plugins within the organisation. A financial services firm's administrator will likely have configured a policy requiring compliance outputs to pass through an internal review queue — reflecting regulatory obligations. No SKILL.md instruction can override an organisation-level policy; higher levels silently override lower levels. Option A is wrong; SKILL.md is plain English, not a programming language with syntax errors. Option B is incorrect; agents do not learn from user feedback in the way described. Option D misidentifies the source of the restriction.",
@@ -263,15 +263,15 @@ explanation: "Lesson 5 explains: 'Positive redirection is more useful than refus
 source: "Lesson 5: The PQP Framework in Practice"
 },
 {
-question: "A legal practice wants to connect its contract review agent to LexisNexis and Westlaw. The IT manager says the connectors cannot be activated yet. The knowledge worker asks why — both connectors appear in the Cowork marketplace connector list. What is the most likely reason?",
+question: "A financial research team wants to connect its market analysis agent to S&P Global and FactSet. The IT manager says the connectors cannot be activated yet. The knowledge worker asks why — both connectors appear in the Cowork marketplace connector list. What is the most likely reason?",
 options: [
-"LexisNexis and Westlaw require HIPAA-compliant configuration before activation in any legal setting",
-"Both LexisNexis and Westlaw are licensed data services — the marketplace connector provides the integration layer, but the organisation must hold a valid subscription to each service before activation",
+"S&P Global and FactSet require HIPAA-compliant configuration before activation in any financial setting",
+"Both S&P Global and FactSet are licensed subscription services — the marketplace connector provides the integration layer, but the organisation must hold a valid subscription to each service before activation",
 "The connectors are in beta and require special approval from the Cowork integration team",
-"Legal connectors require a minimum of 4-8 weeks of custom development even when listed in the marketplace"
+"Financial data connectors require a minimum of 4-8 weeks of custom development even when listed in the marketplace"
 ],
 correctOption: 1,
-explanation: "Lesson 6 states clearly for LexisNexis and Westlaw: 'Both are licensed services, and the same dependency applies as with financial data connectors: the connector cannot be activated without a valid subscription.' The connector provides the technical integration but does not grant access to data the organisation has not licensed. Option A incorrectly applies HIPAA compliance, which is the requirement for clinical connectors (Epic and Cerner), not legal research connectors. Option B is the correct answer as described. Wait — reviewing: Option B is the correct answer. Option C is incorrect; no beta or approval process is described. Option D confuses custom connector timelines with marketplace connector licensing requirements.",
+explanation: "Lesson 6 makes clear that licensed data services like S&P Global and FactSet require valid subscriptions: the connector provides the technical integration but does not grant access to data the organisation has not licensed. The same dependency applies as with other financial data connectors: the connector cannot be activated without a valid subscription. Option A incorrectly applies HIPAA compliance, which is a clinical systems requirement, not a financial data connector requirement. Option B is the correct answer as described. Option C is incorrect; no beta or approval process is described. Option D confuses custom connector timelines with marketplace connector licensing requirements.",
 source: "Lesson 6: The MCP Connector Ecosystem"
 },
 {
@@ -299,7 +299,7 @@ explanation: "Lesson 6 provides the timeline table: 'Complex or legacy system (o
 source: "Lesson 6: The MCP Connector Ecosystem"
 },
 {
-question: "A sales operations team wants to deploy a Cowork plugin that helps account executives by pulling deal history from Salesforce and enriching prospect data using Clay. They also want the agent to send follow-up emails via Gmail on the account executive's behalf. What permission type does the Gmail connector require, and what additional scrutiny does this imply?",
+question: "A sales operations team wants to deploy a Cowork plugin that helps account executives by pulling deal history from HubSpot and enriching prospect data using Clay. They also want the agent to send follow-up emails via Gmail on the account executive's behalf. What permission type does the Gmail connector require, and what additional scrutiny does this imply?",
 options: [
 "Read-only permission — the agent can only draft emails but cannot send them without manual approval",
 "Read + Write permission — and because write permission allows the agent to act in ways that affect external parties, write permissions require considerably more scrutiny during configuration than read permissions",
@@ -339,11 +339,11 @@ question: "A compliance officer at a financial services firm is reviewing a pote
 options: [
 "The shadow mode report — a summary of all outputs reviewed during the shadow mode period",
 "The SKILL.md Principles section — which records the operating logic applied to each interaction",
-"The immutable audit trail — which logs the user's query, data sources accessed, output generated, timestamp, and user identity for every interaction",
+"The audit log — which logs the user's query, data sources accessed, output generated, timestamp, and user identity for every interaction",
 "The plugin manifest version history — which tracks every change to the plugin configuration"
 ],
 correctOption: 2,
-explanation: "Lesson 7 states: 'The audit trail is not a surveillance mechanism. It is a defensibility asset.' The immutable audit log records exactly what the compliance officer needs: query, data sources, output, timestamp, user identity. The lesson makes the point explicit: 'With an audit trail, the compliance department can produce an exact account of what happened: which version of the contract the agent reviewed, which legal research databases it queried, what output it generated, when, and for whom.' Option A is wrong; shadow mode reports cover the transition period, not ongoing production interactions. Option B is incorrect; the SKILL.md records the rules, not each interaction's execution. Option D is wrong; version history tracks configuration changes, not interaction logs.",
+explanation: "Lesson 7 states: 'The audit trail is not a surveillance mechanism. It is a defensibility asset.' The audit log records exactly what the compliance officer needs: query, data sources, output, timestamp, user identity. The lesson makes the point explicit: 'With an audit trail, the compliance department can produce an exact account of what happened: which version of the contract the agent reviewed, which legal research databases it queried, what output it generated, when, and for whom.' Option A is wrong; shadow mode reports cover the transition period, not ongoing production interactions. Option B is incorrect; the SKILL.md records the rules, not each interaction's execution. Option D is wrong; version history tracks configuration changes, not interaction logs.",
 source: "Lesson 7: The Governance Layer"
 },
 {
@@ -455,10 +455,10 @@ explanation: "Lesson 9 defines the publishability test as the transferability te
 source: "Lesson 9: The Cowork Plugin Marketplace"
 },
 {
-question: "A financial services firm subscribes to a connector package for financial research from the Cowork marketplace. The package includes a SKILL.md template and pre-built connectors for Bloomberg, Snowflake, and Salesforce. What must the firm still do before deploying the plugin?",
+question: "A financial services firm subscribes to a connector package for financial research from the Cowork marketplace. The package includes a SKILL.md template and pre-built connectors for FactSet, Snowflake, and HubSpot. What must the firm still do before deploying the plugin?",
 options: [
 "Nothing — connector packages are ready to deploy immediately upon subscription",
-"Commission custom connectors for their specific Bloomberg and Snowflake configurations",
+"Commission custom connectors for their specific FactSet and Snowflake configurations",
 "Configure their own API credentials and permission scopes for each connector, and customise the SKILL.md with their institutional knowledge — jurisdiction-specific standards, escalation routing, and internal conventions",
 "Submit the SKILL.md to a Cowork marketplace review team for approval before customising it"
 ],
@@ -479,7 +479,7 @@ explanation: "Lesson 9's transferability test asks: is this knowledge 'general e
 source: "Lesson 9: The Cowork Plugin Marketplace"
 },
 {
-question: "A knowledge worker compares two marketplace offerings for a sales enablement domain agent. Option A is a vertical skill pack: a SKILL.md template only. Option B is a connector package: the same SKILL.md template plus pre-built Salesforce, HubSpot, and Clay connectors. Her IT team has limited capacity this quarter. Which option is more appropriate, and why?",
+question: "A knowledge worker compares two marketplace offerings for a sales enablement domain agent. Option A is a vertical skill pack: a SKILL.md template only. Option B is a connector package: the same SKILL.md template plus pre-built HubSpot, Close, and Clay connectors. Her IT team has limited capacity this quarter. Which option is more appropriate, and why?",
 options: [
 "Option A — vertical skill packs are higher quality because they require more customisation effort from the subscriber",
 "Option B — the connector package reduces the IT work required because the connector infrastructure is pre-built, requiring only credential configuration rather than connector commissioning",
@@ -551,7 +551,7 @@ explanation: "Lesson 9's transferability test governs this decision: general bes
 source: "Lesson 9: The Cowork Plugin Marketplace"
 },
 {
-question: "A knowledge worker designs a Cowork plugin for financial research. She wants to ensure the agent can access market data from Bloomberg and internal deal records from Snowflake, but not HR compensation records that also reside in Snowflake. Which two architectural mechanisms ensure this protection?",
+question: "A knowledge worker designs a Cowork plugin for financial research. She wants to ensure the agent can access market data from a financial data provider and internal deal records from Snowflake, but not HR compensation records that also reside in Snowflake. Which two architectural mechanisms ensure this protection?",
 options: [
 "The SKILL.md Principles section explicitly prohibiting HR data access, and the shadow mode rubric excluding HR-related queries",
 "The connector scope in the .mcp.json, which limits Snowflake access to specific data categories, and the Cowork runtime enforcement that enforces scope boundaries regardless of what the SKILL.md instructs",

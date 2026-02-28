@@ -1,14 +1,14 @@
 deck:
   id: "ch15-08-division-of-responsibility"
   title: "The Division of Responsibility"
-  description: "The three-way ownership model (knowledge worker, IT, administrator), layer independence principle, SKILL.md maintenance as ongoing discipline, and diagnosing failures by layer. Uses the plugin architecture with SKILL.md files, connectors (.mcp.json), commands, sub-agents, and manifest (plugin.json)."
+  description: "The three-way ownership model (knowledge worker, IT, administrator), layer independence principle, SKILL.md maintenance as ongoing discipline, and diagnosing failures by layer. Uses the plugin architecture with SKILL.md files, connectors (.mcp.json), commands, agents, and manifest (plugin.json)."
   tags: ["ownership-model", "division-of-responsibility", "layer-independence", "SKILL.md-maintenance", "plugin-accountability"]
   version: 1
 
 cards:
   - id: "ch15-08-three-owners-001"
     front: "Name the three owners of a Cowork plugin and what each owns."
-    back: "1. Knowledge worker — owns the SKILL.md (intelligence layer): Persona, Questions, Principles, and validation against domain scenarios\n2. IT — owns the integration and infrastructure layer: connectors (.mcp.json), commands, sub-agents, and manifest (plugin.json)\n3. Administrator — owns the governance layer: access control, audit configuration, shadow mode settings, and HITL gate enforcement"
+    back: "1. Knowledge worker — owns the SKILL.md (intelligence layer): Persona, Questions, Principles, and validation against domain scenarios\n2. IT — owns the integration and infrastructure layer: connectors (.mcp.json), commands, agents, and manifest (plugin.json)\n3. Administrator — owns the governance layer: access control, audit configuration, shadow mode settings, and HITL gate enforcement"
     tags: ["three-owners", "ownership-model"]
     difficulty: "basic"
 

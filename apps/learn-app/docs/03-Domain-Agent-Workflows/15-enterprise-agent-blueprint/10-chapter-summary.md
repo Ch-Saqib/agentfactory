@@ -51,7 +51,7 @@ cognitive_load:
 
 differentiation:
   extension_for_advanced: "Draft a complete deployment plan for a plugin in your domain: identify the SKILL.md sections you would need to write, the connectors required, the governance configuration, the shadow mode rubric, and the HITL gates. Use every element from this chapter's architecture in the plan."
-  remedial_for_struggling: "Focus on the ownership table from Lesson 8. For each component — SKILL.md, connectors (.mcp.json), commands and sub-agents, governance — write one sentence: who owns it and what they do. If you can write those four sentences accurately, you have the operational core of the chapter."
+  remedial_for_struggling: "Focus on the ownership table from Lesson 8. For each component — SKILL.md, connectors (.mcp.json), commands and agents, governance — write one sentence: who owns it and what they do. If you can write those four sentences accurately, you have the operational core of the chapter."
 
 teaching_guide:
   lesson_type: "core"
@@ -74,7 +74,7 @@ teaching_guide:
     - "The bridge to Chapter 16 should be presented as the answer to an obvious question: 'I now understand the architecture — but how do I actually write a good SKILL.md?' Frame Chapter 16 as the methodology that answers that question"
   assessment_checks:
     - question: "Name the main components of a Cowork plugin package and their owners."
-      expected_response: "Skills/SKILL.md (knowledge worker), connectors/.mcp.json (IT/developer), commands and sub-agents (developer), manifest/plugin.json (developer). The knowledge worker also owns validation during shadow mode; the administrator owns governance configuration."
+      expected_response: "Skills/SKILL.md (knowledge worker), connectors/.mcp.json (IT/developer), commands and agents (developer), manifest/plugin.json (developer). The knowledge worker also owns validation during shadow mode; the administrator owns governance configuration."
     - question: "Why does a SKILL.md instruction sometimes fail to produce the expected behaviour?"
       expected_response: "Because the three-level context system means higher-priority levels silently override lower levels. Platform context (Anthropic) overrides organisation context (administrator) overrides plugin context (SKILL.md). When a SKILL.md instruction conflicts with an organisation-level policy, the agent behaves as the higher level requires, with no announcement."
     - question: "What are the two criteria for transitioning a plugin out of shadow mode?"
@@ -83,7 +83,7 @@ teaching_guide:
 
 # Chapter Summary
 
-This chapter began with a definition: a Cowork plugin is a domain-specific agent packaged as a structured directory with multiple components, clear ownership boundaries, and five structural properties. It ends with a complete deployment architecture. The nine lessons between those two points did not add complexity for its own sake — each one answered a question that the previous lesson raised. The definition raised the question of what the intelligence layer actually looks like. The intelligence layer raised the question of how the plugin infrastructure is configured. The infrastructure raised the question of what happens when the SKILL.md and higher-level policies conflict. That question required the context hierarchy. The context hierarchy pointed to the governance layer. The governance layer required the ownership model to be useful in practice. And the ownership model opened the question of what happens when the expertise encoded in a SKILL.md is generalisable beyond a single organisation.
+This chapter began with a definition: a Cowork plugin is a domain-specific agent packaged as a structured directory with multiple components, clear ownership boundaries, and plugin package components and an enterprise readiness evaluation model. It ends with a complete deployment architecture. The nine lessons between those two points did not add complexity for its own sake — each one answered a question that the previous lesson raised. The definition raised the question of what the intelligence layer actually looks like. The intelligence layer raised the question of how the plugin infrastructure is configured. The infrastructure raised the question of what happens when the SKILL.md and higher-level policies conflict. That question required the context hierarchy. The context hierarchy pointed to the governance layer. The governance layer required the ownership model to be useful in practice. And the ownership model opened the question of what happens when the expertise encoded in a SKILL.md is generalisable beyond a single organisation.
 
 That chain is the chapter. Understanding it as a chain — not as nine separate lessons — is the synthesis this summary is for.
 
@@ -93,13 +93,13 @@ Each lesson answered a specific question. Each answer led directly to the next q
 
 | Lesson                              | Question Answered                                      | Key Output                                                                                |
 | ----------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| L01: What a Plugin Actually Is      | What precisely is a Cowork plugin?                     | Five structural properties; plugin package structure                                      |
+| L01: What a Plugin Actually Is      | What precisely is a Cowork plugin?                     | Plugin package components; enterprise readiness evaluation model                          |
 | L02: The Intelligence Layer         | What is the knowledge worker actually responsible for? | PQP Framework: Persona, Questions, Principles                                             |
-| L03: The Plugin Infrastructure      | What does the rest of the plugin package contain?      | plugin.json (manifest); .mcp.json (connectors); commands; sub-agents; settings            |
+| L03: The Plugin Infrastructure      | What does the rest of the plugin package contain?      | plugin.json (manifest); .mcp.json (connectors); commands; agents; settings                |
 | L04: The Three-Level Context System | Why do SKILL.md instructions sometimes fail?           | Platform → organisation → plugin hierarchy; silent override; diagnostic sequence          |
 | L05: The PQP Framework in Practice  | What does a production-quality SKILL.md look like?     | Annotated financial research SKILL.md; source integrity; uncertainty calibration          |
 | L06: The MCP Connector Ecosystem    | What enterprise systems can the agent actually access? | Marketplace connectors; custom commissioning process; timeline expectations               |
-| L07: The Governance Layer           | How does trust in a deployed agent accumulate?         | Permissions; audit trails; shadow mode (30d/95%); HITL gates                              |
+| L07: The Governance Layer           | How does trust in a deployed agent accumulate?         | Permissions; audit logging; shadow mode (30d/95%); HITL gates                             |
 | L08: The Division of Responsibility | Who is responsible when something goes wrong?          | Three-way ownership model; layer independence; SKILL.md maintenance as ongoing discipline |
 | L09: The Cowork Plugin Marketplace  | What happens when the expertise is generalisable?      | Vertical skill packs; connector packages; transferability test                            |
 
@@ -111,7 +111,7 @@ The first is that the SKILL.md is not one component among many — it is the com
 
 The second insight is that the knowledge worker's role is authorial, not technical. Writing the SKILL.md requires domain expertise, not programming ability. Reviewing the .mcp.json to verify connector scope requires infrastructure literacy, not systems engineering. Designing the shadow mode rubric requires knowing what accuracy means in the domain, not statistical training. Identifying the HITL gates requires understanding which decisions carry professional accountability, not governance theory. The chapter's architecture was designed with a deliberate non-negotiable: the person who holds the domain expertise should be able to deploy without depending on technical intermediaries for the core intelligence layer.
 
-The third insight is that governance is not the end of the deployment story — it is the beginning of the trust story. Shadow mode, audit trails, and HITL gates do not exist to limit what an agent can do. They exist to produce the evidence that allows a sceptical compliance function, a cautious general counsel, or a regulated industry's oversight body to permit the agent to do more. The 30-day shadow mode period produces the corpus that justifies autonomous operation. The immutable audit trail turns a potential compliance incident into a documented, defensible process. Governance is what converts a promising demonstration into a deployable system.
+The third insight is that governance is not the end of the deployment story — it is the beginning of the trust story. Shadow mode, audit trails, and HITL gates do not exist to limit what an agent can do. They exist to produce the evidence that allows a sceptical compliance function, a cautious general counsel, or a regulated industry's oversight body to permit the agent to do more. The 30-day shadow mode period produces the corpus that justifies autonomous operation. The audit log turns a potential compliance incident into a documented, defensible process. Governance is what converts a promising demonstration into a deployable system.
 
 ## The Component That Determines Everything
 

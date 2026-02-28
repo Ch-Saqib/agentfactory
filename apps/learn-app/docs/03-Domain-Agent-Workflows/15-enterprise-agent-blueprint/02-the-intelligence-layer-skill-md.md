@@ -14,6 +14,7 @@ keywords:
     "domain agent",
     "enterprise AI",
     "knowledge worker",
+    "agentskills.io",
   ]
 chapter: 15
 lesson: 2
@@ -116,9 +117,9 @@ teaching_guide:
 
 # The Intelligence Layer — SKILL.md
 
-In Lesson 1, you established what a Cowork plugin is: a domain-specific agent deployed as a bundled package containing skills (SKILL.md files), connectors (.mcp.json), commands, sub-agents, and a manifest (plugin.json). You learned that plugins arrive from the marketplace as ready-made packages, and your contribution is the part no one else can write: the SKILL.md that encodes how your organisation actually works. Now it is time to understand what you are actually responsible for. The SKILL.md is the intelligence layer of the plugin. Everything the agent knows about who it is, what it does, and how it decides — that is yours to write.
+In Lesson 1, you established what a Cowork plugin is: a domain-specific agent deployed as a bundled package containing skills (SKILL.md files), connectors (.mcp.json), commands, agents, hooks, and a manifest (plugin.json). You learned that plugins arrive from the marketplace as ready-made packages, and your contribution is the part no one else can write: the SKILL.md that encodes how your organisation actually works. Now it is time to understand what you are actually responsible for. The SKILL.md is the intelligence layer of the plugin. Everything the agent knows about who it is, what it does, and how it decides — that is yours to write.
 
-The description "intelligence layer" is deliberate. The manifest identifies the plugin. The connectors wire it to enterprise systems. The commands and sub-agents provide workflow infrastructure. None of these makes the agent intelligent in any domain-specific sense. Intelligence — the ability to apply domain expertise to real professional situations — comes from the SKILL.md. A compliance agent and a financial research agent might run on identical connector infrastructure, behind identical governance settings, with identical commands. What makes them different, and what makes each of them useful, is the SKILL.md.
+The description "intelligence layer" is deliberate. The manifest identifies the plugin. The connectors wire it to enterprise systems. The commands and agents provide workflow infrastructure. None of these makes the agent intelligent in any domain-specific sense. Intelligence — the ability to apply domain expertise to real professional situations — comes from the SKILL.md. A compliance agent and a financial research agent might run on identical connector infrastructure, behind identical governance settings, with identical commands. What makes them different, and what makes each of them useful, is the SKILL.md.
 
 This lesson explains the structure of that document. There are three sections, each with a distinct function: Persona, Questions, and Principles. Understanding what each section does — and why the specifics matter — is the prerequisite for everything in this chapter. Lesson 5 will show you a complete, annotated example. This lesson shows you the architecture and the reasoning behind it.
 
@@ -128,7 +129,7 @@ Before covering the three sections, it is worth stating clearly what a SKILL.md 
 
 A SKILL.md is a structured Markdown file with YAML frontmatter followed by body content written in English. The frontmatter is a short header block that declares metadata the platform uses to discover and manage the skill. The body of the document tells the agent who it is, what it knows, how to behave in the situations it will encounter, and what it must never do. Writing a SKILL.md requires no programming ability. It requires domain expertise.
 
-The YAML frontmatter follows the [Agent Skills specification](https://agentskills.io/specification) — an open standard originally developed by Anthropic and now adopted across the industry. The required fields are minimal:
+The YAML frontmatter follows the [Agent Skills specification](https://agentskills.io/specification) — an open standard originated by Anthropic and now adopted by Microsoft, OpenAI, Cursor, GitHub, VS Code, Gemini CLI, and over 25 tools across the industry. The required fields are minimal:
 
 | Field           | Required | What It Does                                                                                                     |
 | --------------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -152,9 +153,9 @@ This distinction matters because it determines who can build useful agents. A se
 
 ## The Persona–Questions–Principles Framework
 
-The [Agent Skills specification](https://agentskills.io/specification) — the open standard that defines the SKILL.md format — imposes no restrictions on how you structure the body content. It says: "Write whatever helps agents perform the task effectively." That flexibility is deliberate. Skills range from simple checklists to complex domain workflows, and the standard accommodates all of them.
+The [Agent Skills specification](https://agentskills.io/specification) — the open standard adopted by Cursor, VS Code, GitHub, OpenAI Codex, Gemini CLI, and 25+ tools — defines the SKILL.md format but imposes no restrictions on how you structure the body content. It says: "Write whatever helps agents perform the task effectively." That flexibility is deliberate. Skills range from simple checklists to complex domain workflows, and the standard accommodates all of them.
 
-For enterprise domain agents, however, that open canvas benefits from structure. This book recommends a framework we call the **Persona–Questions–Principles Framework** (PQP Framework for short). It has three sections: Persona, Questions, and Principles. Each section performs a specific function, and each section requires a specific kind of thinking to write well. This is not the only way to structure a SKILL.md — but for the enterprise use cases this chapter addresses, it is the approach that produces the most reliable, auditable agents.
+For enterprise domain agents, however, that open canvas benefits from structure. The agentskills.io standard defines the format. PQP is our methodology for structuring the body content for enterprise domain agents. We call it the **Persona–Questions–Principles Framework** (PQP Framework for short). It has three sections: Persona, Questions, and Principles. Each section performs a specific function, and each section requires a specific kind of thinking to write well. This is not the only way to structure a SKILL.md — but for the enterprise use cases this chapter addresses, it is the approach that produces the most reliable, auditable agents.
 
 | Section        | What It Defines                                                        | Who Benefits                                                   |
 | -------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------- |

@@ -33,7 +33,7 @@ cards:
 
   - id: "ch15-10-plugin-package-owners-005"
     front: "Name the plugin package components of a Cowork plugin and their owners."
-    back: "1. SKILL.md files — knowledge worker (also owns validation during shadow mode)\n2. Connectors (.mcp.json) — IT / Developer\n3. Commands, sub-agents, and manifest (plugin.json) — IT / plugin developer (with knowledge worker specification of requirements)\nThe administrator owns governance configuration, which sits above these components."
+    back: "1. SKILL.md files — knowledge worker (also owns validation during shadow mode)\n2. Connectors (.mcp.json) — IT / Developer\n3. Commands, agents, and manifest (plugin.json) — IT / plugin developer (with knowledge worker specification of requirements)\nThe administrator owns governance configuration, which sits above these components."
     tags: ["plugin-package", "owners", "review"]
     difficulty: "basic"
 

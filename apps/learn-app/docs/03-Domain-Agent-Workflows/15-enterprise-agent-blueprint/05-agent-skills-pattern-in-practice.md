@@ -16,6 +16,7 @@ keywords:
     "identity constraints",
     "Cowork plugin",
     "enterprise agent",
+    "agentskills.io",
   ]
 chapter: 15
 lesson: 5
@@ -108,7 +109,7 @@ teaching_guide:
 
 # The PQP Framework in Practice
 
-In Lesson 2, you learned the architecture: the SKILL.md file has three sections — Persona, Questions, and Principles — and each section performs a distinct function. Persona defines who the agent is. Questions defines what it handles. Principles defines how it decides. You learned why specificity matters, why identity governs ambiguous situations more reliably than rules, and why the out-of-scope boundary is as important as the in-scope list. What you did not see was all three sections working together in a single, coherent document.
+In Lesson 2, you learned the architecture: the SKILL.md file has three sections — Persona, Questions, and Principles — and each section performs a distinct function. Persona defines who the agent is. Questions defines what it handles. Principles defines how it decides. The Agent Skills standard (agentskills.io) defines the SKILL.md format. PQP is our methodology for what goes inside to produce enterprise-grade domain agents. You learned why specificity matters, why identity governs ambiguous situations more reliably than rules, and why the out-of-scope boundary is as important as the in-scope list. What you did not see was all three sections working together in a single, coherent document.
 
 This lesson shows you that. The PQP Framework in Practice means reading a production-ready SKILL.md as a whole — tracing how the sections interact, identifying what makes it trustworthy, and understanding what each design choice prevents. The example is a financial research agent. Financial services is a useful domain for this illustration because the failure modes are concrete (fabricated numbers, misplaced confidence, regulatory exposure), the professional standards are legible, and the range of in-scope and out-of-scope territory is clearly bounded. What you learn here applies equally to legal, clinical, architectural, and operational domains.
 
@@ -117,6 +118,8 @@ The example below is simplified relative to what a production organisation would
 ## A Complete SKILL.md: Financial Research Agent
 
 The following is the full SKILL.md for a financial research agent, presented in sections with annotations after each one.
+
+Note: A production SKILL.md includes YAML frontmatter (at minimum `name` and `description` fields, as defined by the agentskills.io specification) before the body content below. The frontmatter is how the platform discovers and activates the skill. This example shows only the body content — the PQP sections that encode domain expertise.
 
 ---
 

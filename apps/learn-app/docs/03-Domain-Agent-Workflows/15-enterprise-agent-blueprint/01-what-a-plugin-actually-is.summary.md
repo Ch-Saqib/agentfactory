@@ -1,11 +1,11 @@
 ### Core Concept
 
-A Cowork plugin is a domain-specific agent deployed inside the Cowork environment with five structural properties: identity, instructions, connections, governance, and a performance record. These properties are not optional features — they are the structural requirements that distinguish a plugin from a prototype. The plugin package structure (SKILL.md files, connectors (.mcp.json), commands, sub-agents, and manifest (plugin.json)) delivers these properties through distinct owners with clear scopes.
+A Cowork plugin is a domain-specific agent deployed inside the Cowork environment with five enterprise readiness properties: identity, instructions, connections, governance, and a performance record. These properties are not optional features — they are the structural requirements that distinguish a plugin from a prototype. The plugin package components (SKILL.md files, connectors (.mcp.json), commands, hooks, agents, and manifest (plugin.json)) deliver these properties through distinct owners with clear scopes.
 
 ### Key Mental Models
 
-- **Five Structural Properties**: Identity (name, persona, declared capabilities), Instructions (explicit behaviour governance), Connections (MCP links to external systems), Governance (rules for use and outputs), Performance record (immutable log of all interactions)
-- **Plugin Package Structure**: SKILL.md files (intelligence, owned by knowledge worker), connectors (.mcp.json) (integration, owned by IT/developer), commands, sub-agents, and manifest (plugin.json) (orchestration and deployment, owned by IT/plugin developer)
+- **Enterprise Readiness Properties**: Identity (name, persona, declared capabilities), Instructions (explicit behaviour governance), Connections (MCP links to external systems), Governance (rules for use and outputs), Performance record (immutable log of all interactions)
+- **Plugin Package Components**: SKILL.md files (intelligence, owned by knowledge worker), connectors (.mcp.json) (integration, owned by IT/developer), commands, hooks, agents, and manifest (plugin.json) (orchestration and deployment, owned by IT/plugin developer)
 - **Transparency as Architectural Property**: Every aspect of a plugin is inspectable by the right role — not incidentally, but by design. This verifiability is what makes plugins deployable in regulated industries.
 
 ### Critical Patterns

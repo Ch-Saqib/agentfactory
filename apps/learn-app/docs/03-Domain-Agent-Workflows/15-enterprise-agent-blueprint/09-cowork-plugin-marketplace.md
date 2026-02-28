@@ -14,6 +14,7 @@ keywords:
     "knowledge worker",
     "enterprise AI",
     "transferable knowledge",
+    "knowledge-work-plugins",
   ]
 chapter: 15
 lesson: 9
@@ -102,6 +103,8 @@ teaching_guide:
 
 # The Cowork Plugin Marketplace
 
+Anthropic launched the Cowork plugin marketplace at [claude.com/plugins](https://claude.com/plugins), with the official plugin repository at [github.com/anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins). The marketplace launched with 11 official plugins in January 2026 and expanded to 24 by February 2026, spanning productivity, sales, customer support, product management, marketing, legal, finance, data analytics, enterprise search, and bio-research. Enterprises can also deploy private marketplace instances for internal plugin distribution.
+
 In Lesson 8, you established how the ownership model distributes responsibility: you write the SKILL.md, IT and plugin developers maintain the connectors and infrastructure, the administrator governs the deployment. The result is a plugin that serves one organisation's domain workflows. But the question this lesson asks is a different one: what happens when the SKILL.md you have built encodes expertise that could benefit not just your organisation, but dozens of others doing similar work?
 
 The answer is the Cowork Plugin Marketplace — a distribution mechanism designed for exactly that situation. When domain expertise is genuinely generalisable, the marketplace provides the infrastructure to publish it, the discovery layer for other organisations to find it, and the deployment pathway that allows a subscribing organisation to use a plugin built by someone they have never met. A published plugin can be subscribed to, configured with the subscriber's own connector settings, and deployed without involvement from the original author.
@@ -117,6 +120,8 @@ Subscribing organisations discover plugins through the marketplace's domain filt
 This distinction matters because it separates what the marketplace distributes — architectural knowledge, domain structure, general best practice — from what only the subscribing organisation can provide: their specific jurisdiction settings, their clause standards, their escalation routing, their API credentials. The marketplace handles the first category. The knowledge worker inside the subscribing organisation handles the second.
 
 ## Vertical Skill Packs
+
+Anthropic's official plugins demonstrate one distribution pattern — Anthropic-authored plugins available to all enterprise customers. This book uses the terms 'vertical skill packs' and 'connector packages' as our categorisation framework for understanding marketplace offerings.
 
 A vertical skill pack is a domain-specific SKILL.md template that encodes best practice for a professional function without encoding any single organisation's proprietary context. Think of it as the architecture of a domain agent: the Persona section establishes the appropriate professional identity, the Questions section defines the scope of the function and its boundaries, and the Principles section captures the operating logic that any competent practitioner in that domain would recognise as sound.
 
@@ -138,7 +143,7 @@ Domains with well-developed vertical skill packs in the marketplace include cont
 
 A connector package takes the vertical skill pack concept and extends it: rather than providing the SKILL.md template alone, a connector package bundles MCP connectors alongside the template to enable more complete deployment from a single subscription.
 
-The rationale is practical. Many domain workflows depend on a predictable set of external integrations. A financial research agent reliably needs access to market data, financial databases, and internal data warehouses. Rather than requiring each subscribing organisation to commission these connectors separately — a process that, as Lesson 6 explained, takes two to eight weeks depending on the system — a connector package provides pre-built connectors configured for standard API patterns. The subscriber still needs to provide their own API credentials and configure permission scopes appropriate to their deployment. But the connector infrastructure itself — the MCP server declarations that handle authentication and translate data formats — arrives pre-built rather than requiring commissioning.
+The rationale is practical. Many domain workflows depend on a predictable set of external integrations. A financial research agent reliably needs access to market data, financial databases, and internal data warehouses. Rather than requiring each subscribing organisation to commission these connectors separately — a process that, as Lesson 6 explained, depends on the underlying system's API maturity — a connector package provides pre-built connectors configured for standard API patterns. The subscriber still needs to provide their own API credentials and configure permission scopes appropriate to their deployment. But the connector infrastructure itself — the MCP server declarations that handle authentication and translate data formats — arrives pre-built rather than requiring commissioning.
 
 | Property                     | Connector Package                                                                                     |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -148,7 +153,7 @@ The rationale is practical. Many domain workflows depend on a predictable set of
 | **Deployment effort**        | Lower than a skill pack alone — connector infrastructure is pre-built, reducing time-to-deployment    |
 | **Best for**                 | Organisations that need the complete deployment package and have IT capacity to configure credentials |
 
-A financial research connector package, for example, bundles connectors for Bloomberg, Snowflake, and common CRM platforms alongside a financial research SKILL.md template. The subscribing organisation connects their Bloomberg terminal credentials, scopes the Snowflake access to their data warehouse, and assigns appropriate CRM read permissions — tasks that are specific to their environment. What they do not have to do is specify and commission the connector infrastructure from scratch.
+A financial research connector package, for example, bundles connectors for financial data providers (such as FactSet or LSEG), Snowflake, and common CRM platforms alongside a financial research SKILL.md template. The subscribing organisation connects their financial data credentials, scopes the Snowflake access to their data warehouse, and assigns appropriate CRM read permissions — tasks that are specific to their environment. What they do not have to do is specify and commission the connector infrastructure from scratch.
 
 ## The Publishability Test
 

@@ -1,6 +1,6 @@
 ### Core Concept
 
-The connectors (.mcp.json) and plugin infrastructure (manifest, commands, sub-agents) are the IT-owned components of a Cowork plugin. The plugin manifest (plugin.json) configures the deployment environment (model, interface, permission scope, governance settings). MCP connectors are declared in .mcp.json and provide authenticated, continuously running connections that handle authentication and data translation from enterprise systems. The knowledge worker's role is not to author these components but to understand them well enough to verify and detect problems — a professional skill called infrastructure literacy.
+The connectors (.mcp.json) and plugin infrastructure (manifest, commands, agents) are the IT-owned components of a Cowork plugin. The plugin manifest (plugin.json) configures the deployment environment (model, interface, permission scope, governance settings). MCP connectors are declared in .mcp.json and provide authenticated, continuously running connections that handle authentication and data translation from enterprise systems. The knowledge worker's role is not to author these components but to understand them well enough to verify and detect problems — a professional skill called infrastructure literacy.
 
 ### Key Mental Models
 

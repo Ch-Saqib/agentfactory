@@ -1,7 +1,7 @@
 deck:
   id: "ch15-03-plugin-infrastructure"
   title: "The Plugin Infrastructure"
-  description: "The plugin.json manifest, .mcp.json connector declarations, settings.json, commands, sub-agents, MCP connector lifecycle, connector failure modes, and the infrastructure literacy requirement for knowledge workers."
+  description: "The plugin.json manifest, .mcp.json connector declarations, settings.json, commands, agents, MCP connector lifecycle, connector failure modes, and the infrastructure literacy requirement for knowledge workers."
   tags: ["plugin.json", "mcp.json", "settings.json", "MCP-connectors", "permission-scope", "connector-failure", "infrastructure-literacy"]
   version: 2
 
@@ -14,7 +14,7 @@ cards:
 
   - id: "ch15-03-infrastructure-components-002"
     front: "What are the main infrastructure components of a Cowork plugin, and what does each configure?"
-    back: "1. plugin.json (manifest) — name, version, description, model setting (the plugin's identity card)\n2. .mcp.json (connectors) — which external systems the agent can access and with what permission scope\n3. settings.json — deployment settings, output format, environment-specific configuration\n4. Commands — user-facing actions the plugin exposes\n5. Sub-agents — specialised agents the plugin can delegate to"
+    back: "1. plugin.json (manifest) — name, version, description, model setting (the plugin's identity card)\n2. .mcp.json (connectors) — which external systems the agent can access and with what permission scope\n3. settings.json — deployment settings, output format, environment-specific configuration\n4. Commands — user-facing actions the plugin exposes\n5. Agents — specialised agents the plugin can delegate to"
     tags: ["plugin-infrastructure", "components"]
     difficulty: "basic"
 
@@ -26,7 +26,7 @@ cards:
 
   - id: "ch15-03-scope-004"
     front: "What does the scope field in a connector entry in .mcp.json do, and why is it important?"
-    back: "Scope narrows what the agent can see within a connector — for example, allowing access to 'market_data' and 'company_financials' within Bloomberg but not other data categories. This enforces the principle of least privilege: the agent only accesses the data its workflow actually requires."
+    back: "Scope narrows what the agent can see within a connector — for example, allowing access to 'market_data' and 'company_financials' within Snowflake but not other data categories. This enforces the principle of least privilege: the agent only accesses the data its workflow actually requires."
     tags: ["permission-scope", "connector", "security"]
     difficulty: "basic"
 
