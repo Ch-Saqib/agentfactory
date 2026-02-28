@@ -1,7 +1,6 @@
 ---
 sidebar_position: 2
 title: "Teaching Your Employee to Write"
-sidebar_label: "L02: Teaching to Write"
 description: "Create your first skill - the email-drafter - with consistent tone guidelines for professional communication. Your employee learns to write in your voice."
 series: "email"
 series_position: 1

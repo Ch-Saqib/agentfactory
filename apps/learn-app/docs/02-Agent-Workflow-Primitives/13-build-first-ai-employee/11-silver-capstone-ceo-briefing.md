@@ -1,7 +1,6 @@
 ---
 sidebar_position: 11
 title: "Silver Capstone: The CEO Briefing"
-sidebar_label: "L11: Silver Capstone"
 description: "Build the autonomous Weekly Business Audit that analyzes your goals, completed tasks, and financials to generate a Monday Morning CEO Briefing — the feature that transforms your AI from assistant to business partner."
 keywords:
   - CEO Briefing

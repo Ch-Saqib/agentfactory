@@ -1,7 +1,6 @@
 ---
 sidebar_position: 8
 title: "Your Employee's Senses"
-sidebar_label: "L08: Employee's Senses"
 description: "Build a Python filesystem watcher that monitors a drop folder and creates action files, adding a perception layer that makes your employee proactive instead of reactive."
 keywords:
   - Python Watchers

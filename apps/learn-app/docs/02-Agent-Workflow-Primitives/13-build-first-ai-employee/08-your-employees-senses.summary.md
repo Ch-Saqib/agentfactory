@@ -1,6 +1,5 @@
 ---
 title: "Summary: Your Employee's Senses"
-sidebar_label: "Summary"
 sidebar_position: 8.5
 ---
 

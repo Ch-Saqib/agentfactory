@@ -1,7 +1,6 @@
 ---
 sidebar_position: 4
 title: "Teaching Email Intelligence"
-sidebar_label: "L04: Email Intelligence"
 description: "Build an email-summarizer skill that parses email threads, extracts decisions, action items, and open questions. Your employee learns to understand what matters."
 series: "email"
 series_position: 3

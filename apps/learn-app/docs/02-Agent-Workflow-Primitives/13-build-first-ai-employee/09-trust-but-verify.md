@@ -1,7 +1,6 @@
 ---
 sidebar_position: 9
 title: "Trust But Verify"
-sidebar_label: "L09: Trust But Verify"
 description: "Implement Human-in-the-Loop approval workflows so your AI employee pauses before sensitive actions. Build folder-based approval gates, permission boundaries, and a Python watcher that processes approved requests."
 keywords:
   - Human-in-the-Loop

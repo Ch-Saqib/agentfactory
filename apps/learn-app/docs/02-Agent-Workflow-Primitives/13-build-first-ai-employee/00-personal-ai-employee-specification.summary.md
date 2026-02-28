@@ -1,6 +1,5 @@
 ---
 title: "Summary: Personal AI Employee Specification"
-sidebar_label: "Summary"
 sidebar_position: 0.5
 ---
 

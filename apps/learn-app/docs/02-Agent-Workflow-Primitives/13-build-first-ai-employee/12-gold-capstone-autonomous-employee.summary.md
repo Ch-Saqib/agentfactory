@@ -1,6 +1,5 @@
 ---
 title: "Summary: Gold Capstone - Full Autonomous Employee"
-sidebar_label: "Summary"
 sidebar_position: 12.5
 ---
 

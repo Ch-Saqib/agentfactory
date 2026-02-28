@@ -1,6 +1,5 @@
 ---
 title: "Summary: Trust But Verify"
-sidebar_label: "Summary"
 sidebar_position: 9.5
 ---
 

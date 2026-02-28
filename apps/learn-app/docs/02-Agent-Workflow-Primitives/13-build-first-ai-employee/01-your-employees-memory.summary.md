@@ -1,6 +1,5 @@
 ---
 title: "Summary: Your Employee's Memory"
-sidebar_label: "Summary"
 sidebar_position: 1.5
 ---
 

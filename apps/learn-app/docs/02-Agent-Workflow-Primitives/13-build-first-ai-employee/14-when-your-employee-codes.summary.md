@@ -1,6 +1,5 @@
 ---
 title: "Summary: When Your Employee Codes"
-sidebar_label: "Summary"
 sidebar_position: 14.5
 ---
 

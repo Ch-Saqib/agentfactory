@@ -1,6 +1,5 @@
 ---
 title: "Summary: Always On Duty"
-sidebar_label: "Summary"
 sidebar_position: 10.5
 ---
 

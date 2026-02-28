@@ -1,6 +1,5 @@
 ---
 title: "Summary: Chapter Assessment"
-sidebar_label: "Summary"
 sidebar_position: 13.5
 ---
 

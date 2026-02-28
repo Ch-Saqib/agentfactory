@@ -1,7 +1,6 @@
 ---
 sidebar_position: 12
 title: "Gold Capstone: Full Autonomous Employee"
-sidebar_label: "L12: Gold Capstone"
 description: "Wire every component end-to-end into a production-ready Personal AI Employee with cross-domain integration, error recovery, audit logging, and architecture documentation."
 keywords:
   - Gold Tier

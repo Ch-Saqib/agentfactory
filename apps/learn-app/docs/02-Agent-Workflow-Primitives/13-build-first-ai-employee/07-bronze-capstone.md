@@ -1,7 +1,6 @@
 ---
 sidebar_position: 7
 title: "Bronze Capstone: Your First Working Employee"
-sidebar_label: "L07: Bronze Capstone"
 description: "Build the email-assistant master skill that orchestrates skills, subagents, and MCP into a complete Triage-to-Send workflow. Your employee is ready for work."
 series: "email"
 series_position: 6

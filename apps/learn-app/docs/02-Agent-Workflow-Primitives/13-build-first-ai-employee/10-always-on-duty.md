@@ -1,7 +1,6 @@
 ---
 sidebar_position: 10
 title: "Always On Duty"
-sidebar_label: "L10: Always On Duty"
 description: "Configure your AI employee to run 24/7 using PM2 for crash recovery, cron for scheduled tasks, and Claude Code Stop hooks for persistent multi-step work."
 keywords:
   - PM2

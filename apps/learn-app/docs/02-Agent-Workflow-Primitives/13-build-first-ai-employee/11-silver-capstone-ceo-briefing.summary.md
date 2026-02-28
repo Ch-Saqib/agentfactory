@@ -1,6 +1,5 @@
 ---
 title: "Summary: Silver Capstone - CEO Briefing"
-sidebar_label: "Summary"
 sidebar_position: 11.5
 ---
 

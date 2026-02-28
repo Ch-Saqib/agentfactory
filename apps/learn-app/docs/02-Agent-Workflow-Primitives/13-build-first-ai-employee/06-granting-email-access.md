@@ -1,7 +1,6 @@
 ---
 sidebar_position: 6
 title: "Granting Email Access"
-sidebar_label: "L06: Granting Email Access"
 description: "Connect Claude Code to your Gmail inbox using the Gmail MCP server. Configure SMTP App Password (2 min) or OAuth (10 min) and apply essential safety protocols."
 series: "email"
 series_position: 6
