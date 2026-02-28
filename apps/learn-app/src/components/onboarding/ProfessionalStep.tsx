@@ -1,5 +1,10 @@
 import React from "react";
 import type { ProfessionalContextSection } from "@/lib/learner-profile-types";
+import {
+  TOOLS_OPTIONS,
+  TEAM_CONTEXT_OPTIONS,
+  ORGANIZATION_TYPE_OPTIONS,
+} from "@/lib/profile-field-definitions";
 import { ChipSelect } from "@/components/profile/fields";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
@@ -13,21 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { itemVariants, staggerContainerVariants } from "./variants";
-
-const TOOLS_OPTIONS = [
-  { value: "Claude", label: "Claude" },
-  { value: "ChatGPT", label: "ChatGPT" },
-  { value: "Claude Code", label: "Claude Code" },
-  { value: "VS Code", label: "VS Code" },
-  { value: "Cursor", label: "Cursor" },
-  { value: "Docker", label: "Docker" },
-  { value: "AWS", label: "AWS" },
-  { value: "Jira", label: "Jira" },
-  { value: "Slack", label: "Slack" },
-  { value: "Notion", label: "Notion" },
-  { value: "Linear", label: "Linear" },
-  { value: "Figma", label: "Figma" },
-];
 
 interface ProfessionalStepProps {
   data: ProfessionalContextSection;
@@ -128,10 +118,11 @@ export function ProfessionalStep({ data, onChange }: ProfessionalStepProps) {
               <SelectItem value="none" className="text-muted-foreground italic">
                 Skip
               </SelectItem>
-              <SelectItem value="solo">Solo / side project</SelectItem>
-              <SelectItem value="small_team">Small team (2-10)</SelectItem>
-              <SelectItem value="larger_team">Larger team (10+)</SelectItem>
-              <SelectItem value="leading">Leading a team</SelectItem>
+              {TEAM_CONTEXT_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <p className="text-xs text-muted-foreground/70 pl-1">
@@ -166,17 +157,11 @@ export function ProfessionalStep({ data, onChange }: ProfessionalStepProps) {
               <SelectItem value="none" className="text-muted-foreground italic">
                 Skip
               </SelectItem>
-              <SelectItem value="freelance">Freelance / Solo</SelectItem>
-              <SelectItem value="startup">Startup &lt; 50</SelectItem>
-              <SelectItem value="small_business">
-                Small Business &lt; 500
-              </SelectItem>
-              <SelectItem value="enterprise">Enterprise 500+</SelectItem>
-              <SelectItem value="non_profit">Non-Profit / NGO</SelectItem>
-              <SelectItem value="education">Education / Academic</SelectItem>
-              <SelectItem value="government">
-                Government / Public Sector
-              </SelectItem>
+              {ORGANIZATION_TYPE_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <p className="text-xs text-muted-foreground/70 pl-1">

@@ -3,6 +3,12 @@ import type {
   CommunicationSection,
   DeliverySection,
 } from "@/lib/learner-profile-types";
+import {
+  PREFERRED_STRUCTURE_OPTIONS,
+  VERBOSITY_OPTIONS,
+  TONE_OPTIONS,
+  LANGUAGE_PROFICIENCY_OPTIONS,
+} from "@/lib/profile-field-definitions";
 import { motion } from "framer-motion";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -17,97 +23,40 @@ interface QuickPreferencesStepProps {
   onChangeDelivery: (data: Partial<DeliverySection>) => void;
 }
 
+/** Onboarding shows a curated subset of the full option sets. */
+const ONBOARDING_STRUCTURES = new Set([
+  "examples-first",
+  "theory-first",
+  "problem-first",
+]);
+const ONBOARDING_TONES = new Set([
+  "conversational",
+  "professional",
+  "peer-to-peer",
+]);
+
 const RADIO_GROUPS = [
   {
     id: "learning-style",
     label: "Learning Style",
     field: "preferred_structure" as const,
-    options: [
-      {
-        value: "examples-first",
-        title: "Examples first",
-        desc: "Start with concrete code and real-world examples, then explain the concepts behind them.",
-      },
-      {
-        value: "theory-first",
-        title: "Theory first",
-        desc: "Begin with the concept and mental model, then move to examples and practice.",
-      },
-      {
-        value: "problem-first",
-        title: "Start with the problem",
-        desc: "Present a challenge or question upfront, then teach whatever is needed to solve it.",
-      },
-    ],
+    options: PREFERRED_STRUCTURE_OPTIONS.filter((o) =>
+      ONBOARDING_STRUCTURES.has(o.value),
+    ),
   },
   {
     id: "detail-level",
     label: "Detail Level",
     field: "verbosity" as const,
-    options: [
-      {
-        value: "concise",
-        title: "Keep it brief",
-        desc: "Short, focused explanations. Just the essentials with minimal tangents.",
-      },
-      {
-        value: "moderate",
-        title: "Balanced",
-        desc: "A mix of depth and brevity. Enough context without overwhelming.",
-      },
-      {
-        value: "detailed",
-        title: "All the details",
-        desc: "Thorough explanations with deep dives, multiple examples, and full context.",
-      },
-    ],
+    options: VERBOSITY_OPTIONS,
   },
   {
     id: "tone",
     label: "Tone",
     field: "tone" as const,
-    options: [
-      {
-        value: "conversational",
-        title: "Casual & friendly",
-        desc: "Relaxed and approachable, like chatting with a knowledgeable friend.",
-      },
-      {
-        value: "professional",
-        title: "Professional",
-        desc: "Clear and polished. Structured language suited for a work setting.",
-      },
-      {
-        value: "peer-to-peer",
-        title: "Peer-to-peer",
-        desc: "Direct and collaborative, like talking to a fellow engineer.",
-      },
-    ],
+    options: TONE_OPTIONS.filter((o) => ONBOARDING_TONES.has(o.value)),
   },
-] as const;
-
-const PROFICIENCY_OPTIONS = [
-  {
-    value: "native",
-    title: "Native",
-    desc: "It's your first language.",
-  },
-  {
-    value: "fluent",
-    title: "Fluent",
-    desc: "Comfortable with complex topics in this language.",
-  },
-  {
-    value: "intermediate",
-    title: "Intermediate",
-    desc: "Can follow most content but may miss nuance.",
-  },
-  {
-    value: "basic",
-    title: "Basic",
-    desc: "Prefer simpler vocabulary and shorter sentences.",
-  },
-] as const;
+];
 
 export function QuickPreferencesStep({
   communication,
@@ -174,7 +123,7 @@ export function QuickPreferencesStep({
                 >
                   <div className="flex items-center justify-between">
                     <div className="text-lg font-semibold text-foreground">
-                      {option.title}
+                      {option.label}
                     </div>
                     <div
                       className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
@@ -189,7 +138,7 @@ export function QuickPreferencesStep({
                     </div>
                   </div>
                   <div className="text-sm font-normal text-muted-foreground leading-relaxed">
-                    {option.desc}
+                    {option.hint}
                   </div>
                 </Label>
               </div>
@@ -311,7 +260,7 @@ export function QuickPreferencesStep({
                 }
                 className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               >
-                {PROFICIENCY_OPTIONS.map((option) => (
+                {LANGUAGE_PROFICIENCY_OPTIONS.map((option) => (
                   <div key={option.value}>
                     <RadioGroupItem
                       value={option.value}
@@ -324,7 +273,7 @@ export function QuickPreferencesStep({
                     >
                       <div className="flex items-center justify-between">
                         <div className="text-base font-semibold text-foreground">
-                          {option.title}
+                          {option.label}
                         </div>
                         <div
                           className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
@@ -339,7 +288,7 @@ export function QuickPreferencesStep({
                         </div>
                       </div>
                       <div className="text-sm font-normal text-muted-foreground leading-relaxed">
-                        {option.desc}
+                        {option.hint}
                       </div>
                     </Label>
                   </div>

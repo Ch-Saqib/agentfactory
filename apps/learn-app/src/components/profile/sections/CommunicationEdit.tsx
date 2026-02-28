@@ -1,6 +1,12 @@
 import React from "react";
 import type { CommunicationSection } from "@/lib/learner-profile-types";
 import { NULL_SELECT_VALUE } from "@/lib/learner-profile-types";
+import {
+  LANGUAGE_COMPLEXITY_OPTIONS,
+  PREFERRED_STRUCTURE_OPTIONS,
+  VERBOSITY_OPTIONS,
+  TONE_OPTIONS,
+} from "@/lib/profile-field-definitions";
 import { InferredBadge } from "@/components/profile/fields";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,38 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const LANGUAGE_COMPLEXITY_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "plain", label: "Plain" },
-  { value: "professional", label: "Professional" },
-  { value: "technical", label: "Technical" },
-  { value: "expert", label: "Expert" },
-];
-
-const STRUCTURE_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "examples-first", label: "Examples First" },
-  { value: "theory-first", label: "Theory First" },
-  { value: "story-narrative", label: "Story / Narrative" },
-  { value: "reference-lookup", label: "Reference / Lookup" },
-  { value: "problem-first", label: "Problem First" },
-];
-
-const VERBOSITY_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "concise", label: "Concise" },
-  { value: "moderate", label: "Moderate" },
-  { value: "detailed", label: "Detailed" },
-];
-
-const TONE_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "formal", label: "Formal" },
-  { value: "professional", label: "Professional" },
-  { value: "conversational", label: "Conversational" },
-  { value: "peer-to-peer", label: "Peer to Peer" },
-];
 
 export function CommunicationEdit({
   data,
@@ -92,13 +66,11 @@ export function CommunicationEdit({
             >
               Select…
             </SelectItem>
-            {LANGUAGE_COMPLEXITY_OPTIONS.filter((opt) => opt.value !== "").map(
-              (opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ),
-            )}
+            {LANGUAGE_COMPLEXITY_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -131,7 +103,7 @@ export function CommunicationEdit({
             >
               Select…
             </SelectItem>
-            {STRUCTURE_OPTIONS.filter((opt) => opt.value !== "").map((opt) => (
+            {PREFERRED_STRUCTURE_OPTIONS.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
               </SelectItem>
@@ -165,7 +137,7 @@ export function CommunicationEdit({
             >
               Select…
             </SelectItem>
-            {VERBOSITY_OPTIONS.filter((opt) => opt.value !== "").map((opt) => (
+            {VERBOSITY_OPTIONS.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
               </SelectItem>
@@ -199,7 +171,7 @@ export function CommunicationEdit({
             >
               Select…
             </SelectItem>
-            {TONE_OPTIONS.filter((opt) => opt.value !== "").map((opt) => (
+            {TONE_OPTIONS.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
               </SelectItem>

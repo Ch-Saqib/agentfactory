@@ -1,6 +1,7 @@
 import React from "react";
 import { AccessibilityToggles } from "@/components/profile/fields";
 import type { AccessibilitySection } from "@/lib/learner-profile-types";
+import { COGNITIVE_LOAD_OPTIONS } from "@/lib/profile-field-definitions";
 import { motion } from "framer-motion";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -51,20 +52,7 @@ export function AccessibilityStep({ data, onChange }: AccessibilityStepProps) {
             }
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            {(
-              [
-                {
-                  value: "standard",
-                  title: "Standard",
-                  desc: "Full depth — deep dives, multiple examples, and thorough explanations.",
-                },
-                {
-                  value: "reduced",
-                  title: "Reduced",
-                  desc: "Essential concepts only — shorter sections, fewer tangents, high signal.",
-                },
-              ] as const
-            ).map((option) => (
+            {COGNITIVE_LOAD_OPTIONS.map((option) => (
               <div key={option.value}>
                 <RadioGroupItem
                   value={option.value}
@@ -77,7 +65,7 @@ export function AccessibilityStep({ data, onChange }: AccessibilityStepProps) {
                 >
                   <div className="flex items-center justify-between">
                     <div className="text-lg font-semibold text-foreground">
-                      {option.title}
+                      {option.label}
                     </div>
                     <div
                       className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${data.cognitive_load_preference === option.value ? "border-primary bg-primary" : "border-muted-foreground/30"}`}
@@ -88,7 +76,7 @@ export function AccessibilityStep({ data, onChange }: AccessibilityStepProps) {
                     </div>
                   </div>
                   <div className="text-sm font-normal text-muted-foreground leading-relaxed">
-                    {option.desc}
+                    {option.hint}
                   </div>
                 </Label>
               </div>

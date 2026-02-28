@@ -4,6 +4,11 @@ import type {
   RealProject,
 } from "@/lib/learner-profile-types";
 import { NULL_SELECT_VALUE } from "@/lib/learner-profile-types";
+import {
+  TOOLS_OPTIONS,
+  ORGANIZATION_TYPE_OPTIONS,
+  TEAM_CONTEXT_OPTIONS,
+} from "@/lib/profile-field-definitions";
 import { ChipSelect } from "@/components/profile/fields";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,32 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const TOOLS_OPTIONS = [
-  { value: "VS Code", label: "VS Code" },
-  { value: "Cursor", label: "Cursor" },
-  { value: "GitHub Copilot", label: "GitHub Copilot" },
-  { value: "Claude", label: "Claude" },
-  { value: "ChatGPT", label: "ChatGPT" },
-  { value: "Docker", label: "Docker" },
-  { value: "AWS", label: "AWS" },
-  { value: "Jira", label: "Jira" },
-  { value: "Slack", label: "Slack" },
-  { value: "Notion", label: "Notion" },
-  { value: "Linear", label: "Linear" },
-  { value: "Figma", label: "Figma" },
-];
-
-const ORG_TYPES = [
-  { value: "", label: "Select…" },
-  { value: "startup", label: "Startup" },
-  { value: "enterprise", label: "Enterprise" },
-  { value: "agency", label: "Agency" },
-  { value: "freelance", label: "Freelance" },
-  { value: "academic", label: "Academic" },
-  { value: "nonprofit", label: "Nonprofit" },
-  { value: "government", label: "Government" },
-];
 
 export function ProfessionalEdit({
   data,
@@ -109,7 +88,7 @@ export function ProfessionalEdit({
             >
               Select…
             </SelectItem>
-            {ORG_TYPES.filter((opt) => opt.value !== "").map((opt) => (
+            {ORGANIZATION_TYPE_OPTIONS.map((opt) => (
               <SelectItem key={opt.value} value={opt.value}>
                 {opt.label}
               </SelectItem>
@@ -137,10 +116,11 @@ export function ProfessionalEdit({
             >
               Select…
             </SelectItem>
-            <SelectItem value="solo">Solo / side project</SelectItem>
-            <SelectItem value="small_team">Small team (2-10)</SelectItem>
-            <SelectItem value="larger_team">Larger team (10+)</SelectItem>
-            <SelectItem value="leading">Leading a team</SelectItem>
+            {TEAM_CONTEXT_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

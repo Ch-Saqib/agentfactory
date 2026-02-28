@@ -1,6 +1,12 @@
 import React from "react";
 import type { DeliverySection } from "@/lib/learner-profile-types";
 import { NULL_SELECT_VALUE } from "@/lib/learner-profile-types";
+import {
+  OUTPUT_FORMAT_OPTIONS,
+  TARGET_LENGTH_OPTIONS,
+  CODE_VERBOSITY_OPTIONS,
+  LANGUAGE_PROFICIENCY_OPTIONS,
+} from "@/lib/profile-field-definitions";
 import { InferredBadge } from "@/components/profile/fields";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -11,36 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const OUTPUT_FORMAT_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "prose", label: "Prose" },
-  { value: "structured-with-headers", label: "Structured with Headers" },
-  { value: "mixed", label: "Mixed" },
-];
-
-const TARGET_LENGTH_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "short", label: "Short" },
-  { value: "medium", label: "Medium" },
-  { value: "long", label: "Long" },
-  { value: "match-source", label: "Match Source" },
-];
-
-const CODE_VERBOSITY_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "minimal", label: "Minimal" },
-  { value: "annotated", label: "Annotated" },
-  { value: "fully-explained", label: "Fully Explained" },
-];
-
-const LANGUAGE_PROFICIENCY_OPTIONS = [
-  { value: "", label: "Select…" },
-  { value: "native", label: "Native" },
-  { value: "fluent", label: "Fluent" },
-  { value: "intermediate", label: "Intermediate" },
-  { value: "basic", label: "Basic" },
-];
 
 export function DeliveryEdit({
   data,
@@ -98,13 +74,11 @@ export function DeliveryEdit({
             >
               Select…
             </SelectItem>
-            {OUTPUT_FORMAT_OPTIONS.filter((opt) => opt.value !== "").map(
-              (opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ),
-            )}
+            {OUTPUT_FORMAT_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -128,13 +102,11 @@ export function DeliveryEdit({
             >
               Select…
             </SelectItem>
-            {TARGET_LENGTH_OPTIONS.filter((opt) => opt.value !== "").map(
-              (opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ),
-            )}
+            {TARGET_LENGTH_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -205,13 +177,11 @@ export function DeliveryEdit({
             >
               Select…
             </SelectItem>
-            {CODE_VERBOSITY_OPTIONS.filter((opt) => opt.value !== "").map(
-              (opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ),
-            )}
+            {CODE_VERBOSITY_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         {!includeCode && (
@@ -267,9 +237,7 @@ export function DeliveryEdit({
               >
                 Select…
               </SelectItem>
-              {LANGUAGE_PROFICIENCY_OPTIONS.filter(
-                (opt) => opt.value !== "",
-              ).map((opt) => (
+              {LANGUAGE_PROFICIENCY_OPTIONS.map((opt) => (
                 <SelectItem key={opt.value} value={opt.value}>
                   {opt.label}
                 </SelectItem>

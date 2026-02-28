@@ -8,100 +8,10 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import type { ExpertiseLevel } from "@/lib/learner-profile-types";
-
-interface LevelOption {
-  value: ExpertiseLevel;
-  label: string;
-  hint: string;
-}
-
-const LEVEL_HINTS: Record<string, LevelOption[]> = {
-  Programming: [
-    { value: "none", label: "None", hint: "Never written code" },
-    {
-      value: "beginner",
-      label: "Beginner",
-      hint: "Written scripts or simple programs",
-    },
-    {
-      value: "intermediate",
-      label: "Intermediate",
-      hint: "Build apps, use APIs, debug independently",
-    },
-    {
-      value: "advanced",
-      label: "Advanced",
-      hint: "Design systems, write production code",
-    },
-    {
-      value: "expert",
-      label: "Expert",
-      hint: "Architect large codebases, mentor others",
-    },
-  ],
-  "AI Fluency": [
-    {
-      value: "none",
-      label: "None",
-      hint: "New to AI — haven't used ChatGPT or similar",
-    },
-    {
-      value: "beginner",
-      label: "Beginner",
-      hint: "Used ChatGPT / Copilot, understand prompting basics",
-    },
-    {
-      value: "intermediate",
-      label: "Intermediate",
-      hint: "Built apps with AI APIs, understand RAG / tool use",
-    },
-    {
-      value: "advanced",
-      label: "Advanced",
-      hint: "Designed agent architectures, evaluated LLM outputs",
-    },
-    {
-      value: "expert",
-      label: "Expert",
-      hint: "Ship production AI systems, deep prompt engineering",
-    },
-  ],
-  "Business Strategy": [
-    { value: "none", label: "None", hint: "No business background" },
-    {
-      value: "beginner",
-      label: "Beginner",
-      hint: "Understand basic business concepts",
-    },
-    {
-      value: "intermediate",
-      label: "Intermediate",
-      hint: "Make business cases, manage projects",
-    },
-    {
-      value: "advanced",
-      label: "Advanced",
-      hint: "Drive strategy, model ROI, lead initiatives",
-    },
-    {
-      value: "expert",
-      label: "Expert",
-      hint: "C-level / founder experience, deep domain expertise",
-    },
-  ],
-};
-
-const DEFAULT_LEVELS: LevelOption[] = [
-  { value: "none", label: "None", hint: "No experience" },
-  { value: "beginner", label: "Beginner", hint: "Just starting" },
-  {
-    value: "intermediate",
-    label: "Intermediate",
-    hint: "Can work independently",
-  },
-  { value: "advanced", label: "Advanced", hint: "Deep experience" },
-  { value: "expert", label: "Expert", hint: "Can teach others" },
-];
+import {
+  EXPERTISE_LEVELS,
+  DEFAULT_EXPERTISE_LEVELS,
+} from "@/lib/profile-field-definitions";
 
 interface ExpertiseLevelSelectProps {
   value: ExpertiseLevel | "";
@@ -118,7 +28,7 @@ export function ExpertiseLevelSelect({
 }: ExpertiseLevelSelectProps) {
   const selectId =
     id || `expertise-${label.toLowerCase().replace(/\s+/g, "-")}`;
-  const levels = LEVEL_HINTS[label] || DEFAULT_LEVELS;
+  const levels = EXPERTISE_LEVELS[label] || DEFAULT_EXPERTISE_LEVELS;
 
   return (
     <div className="space-y-2">
