@@ -1,7 +1,7 @@
 # Learner Profile System — Specification v1.3
 
-**Status:** Phase 4 — Implementation Review (v1.3 onboarding polish implemented; remaining gaps tracked in §9)
-**Date:** 2026-02-27
+**Status:** Phase 4 — Implementation Review (v1.3 onboarding polish + field definitions canonical file; remaining gaps tracked in §9)
+**Date:** 2026-02-28
 **Scope:** Profile CRUD, onboarding, storage, PHM sync, progressive profiling
 **Out of Scope:** Personalization engine (LLM calls, content transformation) — separate build
 
@@ -492,22 +492,22 @@ Every non-identity field has a source tracked in `field_sources: dict[str, str]`
 
 **Communication inference rules (summary):**
 
-| Technical | Professional | Inferred `language_complexity` | Inferred `tone` | Inferred `verbosity` |
-| --------- | ------------ | ------------------------------ | --------------- | -------------------- |
-| advanced+ | intermediate+ | `technical`                    | `peer-to-peer`  | `concise`            |
-| advanced+ | low          | `technical`                    | `conversational`| `moderate`           |
-| intermediate | any       | `professional`                 | `professional`  | `moderate`           |
-| low       | intermediate+ | `professional`                 | `professional`  | `detailed`           |
-| low       | low          | `plain`                        | `conversational`| `detailed`           |
+| Technical    | Professional  | Inferred `language_complexity` | Inferred `tone`  | Inferred `verbosity` |
+| ------------ | ------------- | ------------------------------ | ---------------- | -------------------- |
+| advanced+    | intermediate+ | `technical`                    | `peer-to-peer`   | `concise`            |
+| advanced+    | low           | `technical`                    | `conversational` | `moderate`           |
+| intermediate | any           | `professional`                 | `professional`   | `moderate`           |
+| low          | intermediate+ | `professional`                 | `professional`   | `detailed`           |
+| low          | low           | `plain`                        | `conversational` | `detailed`           |
 
 **Delivery inference rules (summary):**
 
-| `programming.level` | Inferred `include_code_samples` | Inferred `code_verbosity` |
-| ------------------- | ------------------------------- | ------------------------- |
-| `none`              | `false`                         | N/A                       |
-| `beginner`          | `true`                          | `fully-explained`         |
-| `intermediate`      | `true`                          | `annotated`               |
-| `advanced` / `expert` | `true`                        | `minimal`                 |
+| `programming.level`   | Inferred `include_code_samples` | Inferred `code_verbosity` |
+| --------------------- | ------------------------------- | ------------------------- |
+| `none`                | `false`                         | N/A                       |
+| `beginner`            | `true`                          | `fully-explained`         |
+| `intermediate`        | `true`                          | `annotated`               |
+| `advanced` / `expert` | `true`                          | `minimal`                 |
 
 **Special cases:**
 
@@ -998,25 +998,25 @@ Tracks how ready the profile is for downstream personalization. Includes inferre
 
 Each field within a section contributes to completeness based on its `field_sources` entry:
 
-| Source     | Contribution Weight | Rationale                                                  |
-| ---------- | ------------------- | ---------------------------------------------------------- |
-| `user`     | 1.0                 | Explicitly provided — highest signal                       |
-| `phm`      | 0.8                 | Evidence-based from tutoring — strong signal               |
-| `inferred` | 0.5                 | Derived from real user data — genuinely improves output    |
-| `default`  | 0.0                 | System default — no signal, no contribution                |
+| Source     | Contribution Weight | Rationale                                               |
+| ---------- | ------------------- | ------------------------------------------------------- |
+| `user`     | 1.0                 | Explicitly provided — highest signal                    |
+| `phm`      | 0.8                 | Evidence-based from tutoring — strong signal            |
+| `inferred` | 0.5                 | Derived from real user data — genuinely improves output |
+| `default`  | 0.0                 | System default — no signal, no contribution             |
 
 > **ADR 2026-02-28: `inferred` weight bumped from 0.4 to 0.5.** Inferred values are derived from real user-set expertise levels (not guesses), so they genuinely improve personalization quality. 0.4 was too punitive and contributed to deflated completeness scores post-onboarding.
 
 **High-signal fields only:** The completeness metric counts only the **20 fields** that directly change content personalization output (see `learner_profile_schema.md` "How this drives personalization" for evidence). Low-signal optional fields (e.g., `subject_specific.known_misconceptions`, `format_notes`, `color_blind_safe`) still exist in the schema and can be filled via profile settings, but don't count toward completeness.
 
-| Section                | High-Signal Fields (counted)                                                                       | Excluded (still in schema)                                                                     |
-| ---------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `expertise` (4)        | programming.level, programming.languages, ai_fluency.level, business.level                        | domain, subject_specific.* (3 fields)                                                          |
-| `goals` (3)            | primary_learning_goal, urgency, career_goal                                                        | secondary_goals, urgency_note, immediate_application                                           |
-| `professional_context` (3) | current_role, industry, tools_in_use                                                           | organization_type, team_context, real_projects, constraints                                    |
-| `communication` (5)    | language_complexity, preferred_structure, verbosity, tone, wants_summaries                         | analogy_domain, wants_check_in_questions, format_notes                                         |
-| `delivery` (3)         | output_format, code_verbosity, language                                                            | target_length, include_code_samples, include_visual_descriptions, language_proficiency          |
-| `accessibility` (2)    | cognitive_load_preference, screen_reader                                                           | color_blind_safe, dyslexia_friendly, notes                                                     |
+| Section                    | High-Signal Fields (counted)                                               | Excluded (still in schema)                                                             |
+| -------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `expertise` (4)            | programming.level, programming.languages, ai_fluency.level, business.level | domain, subject_specific.\* (3 fields)                                                 |
+| `goals` (3)                | primary_learning_goal, urgency, career_goal                                | secondary_goals, urgency_note, immediate_application                                   |
+| `professional_context` (3) | current_role, industry, tools_in_use                                       | organization_type, team_context, real_projects, constraints                            |
+| `communication` (5)        | language_complexity, preferred_structure, verbosity, tone, wants_summaries | analogy_domain, wants_check_in_questions, format_notes                                 |
+| `delivery` (3)             | output_format, code_verbosity, language                                    | target_length, include_code_samples, include_visual_descriptions, language_proficiency |
+| `accessibility` (2)        | cognitive_load_preference, screen_reader                                   | color_blind_safe, dyslexia_friendly, notes                                             |
 
 > **ADR 2026-02-28: Trimmed from 41 to 20 high-signal fields.** With 41 fields, completing all 6 onboarding phases yielded only ~26% completeness — misleading and deflating for users who did real work. The excluded fields are either (a) too granular for most users (known_misconceptions), (b) redundant with other fields (include_code_samples vs code_verbosity), or (c) CSS-level settings that don't affect content (color_blind_safe, dyslexia_friendly). Post-onboarding completeness now lands in the **50-60% range**, which honestly reflects the personalization quality.
 
@@ -1054,10 +1054,10 @@ This service is read-heavy. The hot path is `GET /me` during lesson personalizat
 
 ### Cold-Start Behavior
 
-| Profile State              | User Experience                                                                                |
-| -------------------------- | ---------------------------------------------------------------------------------------------- |
-| No profile                 | Redirect-once → onboarding. Afterwards: source content + global CTA bar ("Set up your Learner Profile") |
-| Profile exists, incomplete | Redirect-once → onboarding. Afterwards: content with defaults + global CTA bar ("Finish your Learner Profile") |
+| Profile State              | User Experience                                                                                                          |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| No profile                 | Redirect-once → onboarding. Afterwards: source content + global CTA bar ("Set up your Learner Profile")                  |
+| Profile exists, incomplete | Redirect-once → onboarding. Afterwards: content with defaults + global CTA bar ("Finish your Learner Profile")           |
 | Profile exists, complete   | Full profile served to downstream consumers. Optional in-content card: "Profile X% complete" → "Improve personalization" |
 
 ---
@@ -1113,19 +1113,19 @@ For the full “ship to 50k users” verification protocol (frontend + backend +
 
 ### P2 — Edge Cases
 
-| Test                                                      | What It Verifies                                                                                                                                                                                                                                                      |
-| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `test_null_vs_missing_vs_empty`                           | `name: null`, omitting name, `name: ""` → all treated as unknown                                                                                                                                                                                                      |
-| `test_duplicate_topics_deduplicated`                      | `topics_already_mastered: ["Python", "python"]` → stored as one entry                                                                                                                                                                                                 |
-| `test_unicode_in_all_fields`                              | Arabic name, Urdu notes → stored and returned correctly                                                                                                                                                                                                               |
-| `test_profile_version_set_automatically`                  | Client cannot override `profile_version`                                                                                                                                                                                                                              |
-| `test_restore_preserves_data_and_onboarding`              | `POST /` after soft delete → 200, restores existing row with all data + onboarding state intact. `[D-13 nuance]`                                                                                                                                                      |
+| Test                                                      | What It Verifies                                                                                                                                                                                                                                                           |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `test_null_vs_missing_vs_empty`                           | `name: null`, omitting name, `name: ""` → all treated as unknown                                                                                                                                                                                                           |
+| `test_duplicate_topics_deduplicated`                      | `topics_already_mastered: ["Python", "python"]` → stored as one entry                                                                                                                                                                                                      |
+| `test_unicode_in_all_fields`                              | Arabic name, Urdu notes → stored and returned correctly                                                                                                                                                                                                                    |
+| `test_profile_version_set_automatically`                  | Client cannot override `profile_version`                                                                                                                                                                                                                                   |
+| `test_restore_preserves_data_and_onboarding`              | `POST /` after soft delete → 200, restores existing row with all data + onboarding state intact. `[D-13 nuance]`                                                                                                                                                           |
 | `test_merge_patch_preserves_untouched_fields`             | PATCH with `{expertise: {programming: {level: "advanced"}}}` → `expertise.programming.level = "advanced"` AND `expertise.ai_fluency.level` unchanged (not wiped to default). `field_sources["expertise.programming.level"] = "user"`, other sources unchanged. `[P0-R3-1]` |
-| `test_completeness_zero_for_fresh_profile`                | New profile with all defaults → `profile_completeness = 0.0`. `[P0-R2-4]`                                                                                                                                                                                             |
-| `test_audit_log_created_on_update`                        | Every PATCH creates an audit log entry                                                                                                                                                                                                                                |
-| `test_rate_limit_returns_429`                             | Exceed `PATCH /me` rate limit → 429 with `Retry-After` header and `rate_limited` error code. `[P2-1]`                                                                                                                                                                 |
-| `test_concurrent_updates_different_fields_do_not_clobber` | Two simultaneous PATCHes to the same section updating different fields → both changes persist (no lost update). Requires row lock / equivalent transactional merge. `[P0-R4-2]`                                                                                       |
-| `test_concurrent_updates_same_field_last_write_wins`      | Two simultaneous PATCHes updating the same field → last commit wins deterministically. No crash. `[P2-2 FIX]`                                                                                                                                                         |
+| `test_completeness_zero_for_fresh_profile`                | New profile with all defaults → `profile_completeness = 0.0`. `[P0-R2-4]`                                                                                                                                                                                                  |
+| `test_audit_log_created_on_update`                        | Every PATCH creates an audit log entry                                                                                                                                                                                                                                     |
+| `test_rate_limit_returns_429`                             | Exceed `PATCH /me` rate limit → 429 with `Retry-After` header and `rate_limited` error code. `[P2-1]`                                                                                                                                                                      |
+| `test_concurrent_updates_different_fields_do_not_clobber` | Two simultaneous PATCHes to the same section updating different fields → both changes persist (no lost update). Requires row lock / equivalent transactional merge. `[P0-R4-2]`                                                                                            |
+| `test_concurrent_updates_same_field_last_write_wins`      | Two simultaneous PATCHes updating the same field → last commit wins deterministically. No crash. `[P2-2 FIX]`                                                                                                                                                              |
 
 ---
 
@@ -1150,35 +1150,35 @@ For the full “ship to 50k users” verification protocol (frontend + backend +
 
 ## 8. Decision Log
 
-| #    | Decision                  | Resolution                                           | Rationale                                                                                                                                             |
-| ---- | ------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| D-1  | Onboarding approach       | **Hybrid (Option C)**                                | Form for structured + AI for enrichment. Demos AI capability.                                                                                         |
-| D-2  | Default expertise level   | **`beginner`**                                       | Under-estimating is less harmful than over-estimating                                                                                                 |
-| D-3  | `ai_fluency.level` enum   | **Standardize to `beginner`**                        | Cross-field consistency. Notes captures nuance.                                                                                                       |
-| D-4  | Accessibility section     | **Profile Settings Only**                            | Removed from onboarding to save time. Available in settings.                                                                                          | **Include in v1**                                    | Schemas don't change daily. Foundational.                                                                                                             |
-| D-5  | GDPR compliance           | **Hard delete + consent flag**                       | Right to erasure. Audit log anonymized.                                                                                                               |
-| D-6  | Prompt injection          | **Sandwich + length limits**                         | Length limits at API. Sandwich at consumer.                                                                                                           |
-| D-7  | Personalization engine    | **Out of scope**                                     | Separate build. Profile system serves data.                                                                                                           |
-| D-8  | Progressive profiling     | **Basic triggers in v1**                             | After-lesson feedback, after-3-lessons prompt, settings page                                                                                          |
-| D-9  | Multi-domain              | **Array in v1**                                      | Target audience is multi-domain experts                                                                                                               |
-| D-10 | Onboarding abandonment    | **Save partial + nudge**                             | Never block content access                                                                                                                            |
-| D-11 | Database hosting          | **Neon (serverless PG)**                             | Zero ops, `pool_pre_ping` for cold starts                                                                                                             |
-| D-12 | `learner_id` identity     | **Auth sub string**                                  | JWT `sub` claim, not generated UUID. Internal `id` is UUID PK. `[P0-1]`                                                                               |
-| D-13 | Soft-delete lifecycle     | **Restore old row**                                  | `POST /` on soft-deleted profile restores it. GDPR-erase first for true fresh start. `[P0-2]`                                                         |
-| D-14 | Completeness metrics      | **Two separate metrics**                             | `onboarding_progress` (user actions) + `profile_completeness` (personalization readiness). XP potential. `[P0-4]`                                     |
-| D-15 | Field provenance          | **`field_sources` map**                              | `user > phm > inferred > default` priority. Enables PHM respect + future downranking. `[P0-5]`                                                        |
-| D-16 | PHM downranking           | **Disabled in v1, config flag for future**           | `PHM_ALLOW_DOWNRANK=false`. When enabled, PHM can lower `inferred`-sourced values.                                                                    |
-| D-17 | Accessibility onboarding  | **Removed from Onboarding**                          | User decided to keep onboarding lean (90s max). Moved strictly to profile settings.                                                                   | **Include in Phase 3.5**                             | User confirmed: must collect accessibility needs during first-session experience.                                                                     |
-| D-18 | Consent HTTP status       | **400 via handler, not 422 via Pydantic**            | `consent_given` defaults to `False` in model so missing field reaches handler, not FastAPI validation. `[P0-R2-1]`                                    |
-| D-19 | PATCH provenance tracking | **Use `model_fields_set` for explicit-only marking** | Prevents Pydantic defaults from being marked `user`-sourced. `[P0-R2-3]`                                                                              |
+| #    | Decision                  | Resolution                                                        | Rationale                                                                                                                                             |
+| ---- | ------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------- |
+| D-1  | Onboarding approach       | **Hybrid (Option C)**                                             | Form for structured + AI for enrichment. Demos AI capability.                                                                                         |
+| D-2  | Default expertise level   | **`beginner`**                                                    | Under-estimating is less harmful than over-estimating                                                                                                 |
+| D-3  | `ai_fluency.level` enum   | **Standardize to `beginner`**                                     | Cross-field consistency. Notes captures nuance.                                                                                                       |
+| D-4  | Accessibility section     | **Profile Settings Only**                                         | Removed from onboarding to save time. Available in settings.                                                                                          | **Include in v1**        | Schemas don't change daily. Foundational.                                         |
+| D-5  | GDPR compliance           | **Hard delete + consent flag**                                    | Right to erasure. Audit log anonymized.                                                                                                               |
+| D-6  | Prompt injection          | **Sandwich + length limits**                                      | Length limits at API. Sandwich at consumer.                                                                                                           |
+| D-7  | Personalization engine    | **Out of scope**                                                  | Separate build. Profile system serves data.                                                                                                           |
+| D-8  | Progressive profiling     | **Basic triggers in v1**                                          | After-lesson feedback, after-3-lessons prompt, settings page                                                                                          |
+| D-9  | Multi-domain              | **Array in v1**                                                   | Target audience is multi-domain experts                                                                                                               |
+| D-10 | Onboarding abandonment    | **Save partial + nudge**                                          | Never block content access                                                                                                                            |
+| D-11 | Database hosting          | **Neon (serverless PG)**                                          | Zero ops, `pool_pre_ping` for cold starts                                                                                                             |
+| D-12 | `learner_id` identity     | **Auth sub string**                                               | JWT `sub` claim, not generated UUID. Internal `id` is UUID PK. `[P0-1]`                                                                               |
+| D-13 | Soft-delete lifecycle     | **Restore old row**                                               | `POST /` on soft-deleted profile restores it. GDPR-erase first for true fresh start. `[P0-2]`                                                         |
+| D-14 | Completeness metrics      | **Two separate metrics**                                          | `onboarding_progress` (user actions) + `profile_completeness` (personalization readiness). XP potential. `[P0-4]`                                     |
+| D-15 | Field provenance          | **`field_sources` map**                                           | `user > phm > inferred > default` priority. Enables PHM respect + future downranking. `[P0-5]`                                                        |
+| D-16 | PHM downranking           | **Disabled in v1, config flag for future**                        | `PHM_ALLOW_DOWNRANK=false`. When enabled, PHM can lower `inferred`-sourced values.                                                                    |
+| D-17 | Accessibility onboarding  | **Removed from Onboarding**                                       | User decided to keep onboarding lean (90s max). Moved strictly to profile settings.                                                                   | **Include in Phase 3.5** | User confirmed: must collect accessibility needs during first-session experience. |
+| D-18 | Consent HTTP status       | **400 via handler, not 422 via Pydantic**                         | `consent_given` defaults to `False` in model so missing field reaches handler, not FastAPI validation. `[P0-R2-1]`                                    |
+| D-19 | PATCH provenance tracking | **Use `model_fields_set` for explicit-only marking**              | Prevents Pydantic defaults from being marked `user`-sourced. `[P0-R2-3]`                                                                              |
 | D-20 | Completeness scoring      | **Weight by `field_sources` provenance, high-signal fields only** | `user=1.0, phm=0.8, inferred=0.5, default=0.0`. 20 high-signal fields (not 41). Post-onboarding ~50-60%. `[P0-R2-4]`                                  |
-| D-21 | Restore preserves state   | **No onboarding reset on restore**                   | Old progress is valid. GDPR-erase + recreate for true fresh start. `[D-13 nuance]`                                                                    |
-| D-22 | Onboarding skip semantics | **Skip counts as phase complete**                    | Distinction tracked via `field_sources` (skipped = `default`). `[P1-R2-2]`                                                                            |
-| D-23 | PATCH semantics           | **Merge (not replace)**                              | Use `model_fields_set` recursively. Only explicitly-sent fields are written; omitted fields preserve existing values. Prevents data loss. `[P0-R3-1]` |
-| D-24 | Inference timing          | **Deferred until real data exists**                  | Inference does NOT run at profile creation (all defaults = meaningless). Runs after first user/PHM expertise update. `[P0-R3-2]`                      |
-| D-25 | `domain_name` requirement | **Optional at API, prompted in UI**                  | PHM and defaults may create domain entries with null `domain_name`. UI encourages filling it. `[P0-R3-3]`                                             |
-| D-26 | Admin route path          | **`/admin/by-learner/{learner_id}`**                 | Avoids JWT sub encoding issues (`auth0\|...`) and route shadowing. `[P1-R3-1]`                                                                        |
-| D-27 | Concurrent PATCH behavior | **Row-level lock for merge updates**                 | Prevents lost updates when multiple clients/consumers PATCH different fields concurrently. `[P0-R4-2]`                                                |
+| D-21 | Restore preserves state   | **No onboarding reset on restore**                                | Old progress is valid. GDPR-erase + recreate for true fresh start. `[D-13 nuance]`                                                                    |
+| D-22 | Onboarding skip semantics | **Skip counts as phase complete**                                 | Distinction tracked via `field_sources` (skipped = `default`). `[P1-R2-2]`                                                                            |
+| D-23 | PATCH semantics           | **Merge (not replace)**                                           | Use `model_fields_set` recursively. Only explicitly-sent fields are written; omitted fields preserve existing values. Prevents data loss. `[P0-R3-1]` |
+| D-24 | Inference timing          | **Deferred until real data exists**                               | Inference does NOT run at profile creation (all defaults = meaningless). Runs after first user/PHM expertise update. `[P0-R3-2]`                      |
+| D-25 | `domain_name` requirement | **Optional at API, prompted in UI**                               | PHM and defaults may create domain entries with null `domain_name`. UI encourages filling it. `[P0-R3-3]`                                             |
+| D-26 | Admin route path          | **`/admin/by-learner/{learner_id}`**                              | Avoids JWT sub encoding issues (`auth0\|...`) and route shadowing. `[P1-R3-1]`                                                                        |
+| D-27 | Concurrent PATCH behavior | **Row-level lock for merge updates**                              | Prevents lost updates when multiple clients/consumers PATCH different fields concurrently. `[P0-R4-2]`                                                |
 
 ---
 
@@ -1382,13 +1382,13 @@ This section documents gaps discovered during implementation review: data the sc
 
 The onboarding wizard now implements the v1.2 additions (Goals context, programming languages, professional tools/team context, and Quick Preferences). The table below reflects the **current implementation** and what remains deferred to settings/progressive profiling.
 
-| Onboarding Step           | Fields Collected                                                                                      | Fields Supported but NOT Asked                                                                                                                                    | Impact                                                                                                                                                                                         |
-| ------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Step 0: Goals**         | `primary_learning_goal`, `urgency`, optional `urgency_note`, optional `immediate_application`, optional `secondary_goals[]` | — | Strong first-session personalization anchor with explicit urgency context.                                                                                                                       |
-| **Step 1: Expertise**     | `programming.level`, `programming.languages[]`, `ai_fluency.level`, `business.level`, `domain[0].level` + optional `domain_name` | per-field `notes`, additional `domain[1-4]`                                                                                                                      | Correct code language + depth; deeper per-field nuance deferred.                                                                                                                                |
-| **Step 2: Professional**  | `current_role`, `industry`, `organization_type`, `team_context`, `tools_in_use[]`, optional `constraints` | additional `real_projects[]` (captured in Step 5 for 1 project)                                                                                                   | Stronger real-world examples and fewer “this won’t work in my environment” mismatches.                                                                                                           |
-| **Step 3: Quick Preferences** | `communication.preferred_structure`, `communication.verbosity`, `communication.tone`, optional `communication.wants_summaries`, optional `communication.wants_check_in_questions`, `delivery.language` (locale-gated) + optional `delivery.language_proficiency` | `communication.language_complexity`, `communication.analogy_domain`, `communication.format_notes`, most of `delivery.*`                                           | AI “voice” is now user-steered early; fine-grained formatting and delivery remain configurable in settings and/or inferred.                                                                    |
-| **Step 4: AI Enrichment (Project)** | 1 `real_project` (name + desc), `career_goal`, optional `expertise.subject_specific.*` (skip/partial/misconceptions) | Up to 4 more `real_projects`                                                                                                                                       | Captures one real project for grounding + high-signal “skip what I already know” guidance; additional projects deferred.                                                                        |
+| Onboarding Step                     | Fields Collected                                                                                                                                                                                                                                                 | Fields Supported but NOT Asked                                                                                          | Impact                                                                                                                      |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Step 0: Goals**                   | `primary_learning_goal`, `urgency`, optional `urgency_note`, optional `immediate_application`, optional `secondary_goals[]`                                                                                                                                      | —                                                                                                                       | Strong first-session personalization anchor with explicit urgency context.                                                  |
+| **Step 1: Expertise**               | `programming.level`, `programming.languages[]`, `ai_fluency.level`, `business.level`, `domain[0].level` + optional `domain_name`                                                                                                                                 | per-field `notes`, additional `domain[1-4]`                                                                             | Correct code language + depth; deeper per-field nuance deferred.                                                            |
+| **Step 2: Professional**            | `current_role`, `industry`, `organization_type`, `team_context`, `tools_in_use[]`, optional `constraints`                                                                                                                                                        | additional `real_projects[]` (captured in Step 5 for 1 project)                                                         | Stronger real-world examples and fewer “this won’t work in my environment” mismatches.                                      |
+| **Step 3: Quick Preferences**       | `communication.preferred_structure`, `communication.verbosity`, `communication.tone`, optional `communication.wants_summaries`, optional `communication.wants_check_in_questions`, `delivery.language` (locale-gated) + optional `delivery.language_proficiency` | `communication.language_complexity`, `communication.analogy_domain`, `communication.format_notes`, most of `delivery.*` | AI “voice” is now user-steered early; fine-grained formatting and delivery remain configurable in settings and/or inferred. |
+| **Step 4: AI Enrichment (Project)** | 1 `real_project` (name + desc), `career_goal`, optional `expertise.subject_specific.*` (skip/partial/misconceptions)                                                                                                                                             | Up to 4 more `real_projects`                                                                                            | Captures one real project for grounding + high-signal “skip what I already know” guidance; additional projects deferred.    |
 
 **Summary:** ~29+ fields collected / ~45+ supported = **~64% schema utilization at onboarding.**
 
@@ -1543,16 +1543,18 @@ interface LearnerProfileSummary {
 
 ### 9.5 Decision Log Additions (v1.2)
 
-| #    | Decision                            | Resolution                                                    | Rationale                                                                                                    |
-| ---- | ----------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| D-28 | Programming languages in onboarding | **Add multi-select to Step 1**                                | Highest-signal missing field. Code examples in wrong language = negative personalization.                    |
-| D-29 | Communication preferences step      | **Add new Step 3.75 with 4 radio groups**                     | 12 seconds of user time, 60%+ improvement in first-session communication quality.                            |
-| D-30 | Inference engine granularity        | **Two-axis (technical + professional) instead of single max** | Fixes incorrect defaults for 4 common personas (PhD researcher, returning expert, startup founder, student). |
-| D-31 | Study mode summary enrichment       | **Expand from 7 to ~20 fields**                               | Current summary discards most profile data. Tutor can't personalize without goals, languages, domain, tools. |
-| D-32 | Immediate application in onboarding | **Add optional field to Step 0**                              | Concrete anchor for every lesson. "You're building X" framing is 10x better than generic.                    |
-| D-33 | Tools in use in onboarding          | **Add multi-select chips to Step 2**                          | Book content references specific IDEs. 5 seconds of user time.                                               |
-| D-34 | Team context in onboarding          | **Add single-select to Step 2**                               | Solo vs team changes agent architecture framing. 3 seconds.                                                  |
-| D-35 | Inferred value UI indicator         | **Flag inferred values with "auto-set" badge**                | Encourages correction without requiring it. Transparent about what's inferred vs explicit.                   |
+| #    | Decision                            | Resolution                                                                                   | Rationale                                                                                                                                                                                                                                     |
+| ---- | ----------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D-28 | Programming languages in onboarding | **Add multi-select to Step 1**                                                               | Highest-signal missing field. Code examples in wrong language = negative personalization.                                                                                                                                                     |
+| D-29 | Communication preferences step      | **Add new Step 3.75 with 4 radio groups**                                                    | 12 seconds of user time, 60%+ improvement in first-session communication quality.                                                                                                                                                             |
+| D-30 | Inference engine granularity        | **Two-axis (technical + professional) instead of single max**                                | Fixes incorrect defaults for 4 common personas (PhD researcher, returning expert, startup founder, student).                                                                                                                                  |
+| D-31 | Study mode summary enrichment       | **Expand from 7 to ~20 fields**                                                              | Current summary discards most profile data. Tutor can't personalize without goals, languages, domain, tools.                                                                                                                                  |
+| D-32 | Immediate application in onboarding | **Add optional field to Step 0**                                                             | Concrete anchor for every lesson. "You're building X" framing is 10x better than generic.                                                                                                                                                     |
+| D-33 | Tools in use in onboarding          | **Add multi-select chips to Step 2**                                                         | Book content references specific IDEs. 5 seconds of user time.                                                                                                                                                                                |
+| D-34 | Team context in onboarding          | **Add single-select to Step 2**                                                              | Solo vs team changes agent architecture framing. 3 seconds.                                                                                                                                                                                   |
+| D-35 | Inferred value UI indicator         | **Flag inferred values with "auto-set" badge**                                               | Encourages correction without requiring it. Transparent about what's inferred vs explicit.                                                                                                                                                    |
+| D-36 | Field definitions canonical file    | **Single `profile-field-definitions.ts` for all UI options**                                 | Eliminates option drift between onboarding and edit pages. One file = one truth for labels, values, and hints. Backend Python equivalent tracked in GitHub #787.                                                                              |
+| D-37 | Enum values vs semantic hints       | **Stored profile contains raw enum values only; hints/labels live in the consumption layer** | `profile-field-definitions.ts` (frontend) and future `field_definitions.py` (backend) own the human-readable labels and onboarding hints. Profile JSON stores only the enum value (e.g., `"examples-first"`, not `"Show me examples first"`). |
 
 ---
 
@@ -1615,19 +1617,23 @@ interface LearnerProfileSummary {
 **Context:** The 6-phase wizard is highly efficient (90–180 seconds to complete). To align with 2026 UX expectations of zero-friction setup, we apply a layer of "Micro-UX Polish" to the existing flow rather than reinventing the wheel.
 
 **Enhancement 1: 1-Click Auto-Advance**
+
 - **Trigger:** Any screen with only a single-select requirement (e.g., Tone, Verbosity, Cognitive Load).
 - **UX:** Clicking the radio button/card instantly selects it and auto-advances to the next phase after a 400ms delay. The "Next" button click is eliminated.
 - **Impact:** Shaves ~15 seconds off total completion time.
 
 **Enhancement 2: Context Pre-fill (OAuth Sync)**
+
 - **Trigger:** Login via GitHub, LinkedIn, or Enterprise SSO.
 - **UX:** The server uses the auth context to pre-fill `professional_context.industry`, `current_role`, and `tools_in_use`. The wizard screens for these fields flash past or are simply presented as "Confirm & Next" with the boxes already checked.
 
 **Enhancement 3: Gamified Progress Indicator**
+
 - **Trigger:** User makes any selection in the wizard.
 - **UX:** Replace "Step 1 of 6" with a dynamic `"Context Density: XX%"` bar. As the user clicks, the bar fills up, directly correlating form completion with AI performance.
 
 **Enhancement 4: Frictionless "Skip"**
+
 - **Trigger:** A screen requires a text input (e.g., `primary_learning_goal`).
 - **UX:** If the text box is empty, the primary green button reads "Skip for now". If the user types a single character, it morphs into "Next". Eliminates the cognitive block of staring at a blank text field.
 
@@ -1637,14 +1643,72 @@ interface LearnerProfileSummary {
 
 **v1.3 ROI items are implemented.** Next priorities focus on remaining high-signal data gaps and downstream consumption.
 
-| Priority | Change                                                                 | Effort  | Impact    | Status |
-| -------- | ---------------------------------------------------------------------- | ------- | --------- | ------ |
-| **P0**   | BaseUrl-safe navigation (avoid hardcoded `"/onboarding"`, `"/profile"`) | Small   | High      | Implemented (learn-app) |
-| **P0**   | Onboarding “Exit” confirmation + sticky bottom action bar               | Small   | High      | Implemented (learn-app) |
-| **P0**   | Expand Study Mode summary with role/industry/team/org + urgency/career   | Small   | High      | Pending |
-| **P1**   | Collect `expertise.subject_specific.*` via onboarding add-on or prompts  | Medium  | Med-High  | Implemented (learn-app) |
-| **P1**   | Add PHM sync trigger (manual button or scheduled auto-sync)             | Small   | Medium    | Pending |
-| **P2**   | Allow re-onboarding after profile delete (clear redirect-once key)      | Small   | Medium    | Implemented (learn-app) |
+| Priority | Change                                                                  | Effort | Impact   | Status                  |
+| -------- | ----------------------------------------------------------------------- | ------ | -------- | ----------------------- |
+| **P0**   | BaseUrl-safe navigation (avoid hardcoded `"/onboarding"`, `"/profile"`) | Small  | High     | Implemented (learn-app) |
+| **P0**   | Onboarding “Exit” confirmation + sticky bottom action bar               | Small  | High     | Implemented (learn-app) |
+| **P0**   | Expand Study Mode summary with role/industry/team/org + urgency/career  | Small  | High     | Pending                 |
+| **P1**   | Collect `expertise.subject_specific.*` via onboarding add-on or prompts | Medium | Med-High | Implemented (learn-app) |
+| **P1**   | Add PHM sync trigger (manual button or scheduled auto-sync)             | Small  | Medium   | Pending                 |
+| **P2**   | Allow re-onboarding after profile delete (clear redirect-once key)      | Small  | Medium   | Implemented (learn-app) |
+| **P0**   | Canonical field definitions file (eliminate option drift)               | Small  | High     | Implemented (learn-app) |
+| **P1**   | Backend `field_definitions.py` with `?enrich=true` endpoint             | Small  | Medium   | Pending (GitHub #787)   |
+| **P1**   | CI sync check between TS and Python field definitions                   | Small  | Medium   | Pending (GitHub #788)   |
+
+---
+
+### 9.9 Field Definitions Architecture (v1.3)
+
+**Date:** 2026-02-28
+**Status:** Frontend implemented; backend pending (GitHub #787, #788)
+
+#### Problem: Option Drift
+
+Field option arrays (dropdowns, radio groups, chip selects) were duplicated across 9+ frontend components. Each copy could — and did — drift independently:
+
+- `ProfessionalEdit.tsx` had `academic` and `nonprofit` for organization type; `ProfessionalStep.tsx` (onboarding) had `education` and `non_profit` for the same field.
+- Onboarding wizard showed 8 org types; edit page showed 7 (missing `small_business`).
+- Labels differed between onboarding and edit pages for the same enum value.
+
+#### Solution: Canonical Definitions File
+
+**Frontend:** `apps/learn-app/src/lib/profile-field-definitions.ts`
+
+Single source of truth for all UI field options. Exports typed arrays with `{ value, label, hint }` for every dropdown, radio group, toggle, and chip-select in the learner profile system.
+
+**Key types:**
+
+- `FieldOption<V>` — `{ value: V; label: string; hint: string }` for dropdowns/radios
+- `ToggleOption` — `{ key: string; label: string; hint: string }` for accessibility toggles
+
+**Coverage:** All 9 refactored components import from this single file:
+
+- Onboarding: `ExpertiseLevelSelect`, `UrgencyRadio`, `QuickPreferencesStep`, `AccessibilityStep`, `ProfessionalStep`
+- Edit pages: `CommunicationEdit`, `DeliveryEdit`, `ProfessionalEdit`, `AccessibilityToggles`
+
+**Onboarding subset pattern:** Onboarding shows fewer options than the full set (e.g., 3 of 5 structures, 3 of 4 tones). Implemented via `Set.filter()` on canonical arrays, not separate constant definitions.
+
+#### Backend Sync (Pending)
+
+**GitHub #787:** Create `field_definitions.py` in `learner-profile-api` with Python equivalents. Expose via `GET /api/v1/field-definitions?enrich=true` for dynamic frontend hydration (future).
+
+**GitHub #788:** CI sync check between TypeScript and Python definitions. Ensures enum values never drift between frontend and backend. Depends on #787.
+
+#### Standardizations Applied (v1.3)
+
+| Field               | Old Values (pre-fix)                      | New Values (canonical)                                    |
+| ------------------- | ----------------------------------------- | --------------------------------------------------------- |
+| `organization_type` | `academic`, `nonprofit`                   | `education`, `non_profit`                                 |
+| `organization_type` | (missing)                                 | `small_business` added                                    |
+| Tool options        | 12 items (inconsistent across components) | 14 items (unified, includes GitHub Copilot + Claude Code) |
+
+#### Architectural Decision: Enum Values vs Semantic Hints
+
+Stored profile JSON contains only raw enum values (e.g., `"examples-first"`, `"non_profit"`). Human-readable labels and onboarding hints live exclusively in the consumption layer:
+
+- **Frontend:** `profile-field-definitions.ts` maps enum → `{ label, hint }`
+- **Backend (future):** `field_definitions.py` provides the same mapping for server-side rendering or API enrichment
+- **Rationale:** Decouples display concerns from stored data. Changing a label (e.g., "Casual & friendly" → "Relaxed") requires zero data migration.
 
 ---
 

@@ -77,6 +77,7 @@ def _create_engine():
         pool_size=settings.db_pool_size,
         max_overflow=10,
         pool_pre_ping=True,
+        pool_recycle=300,
         echo=settings.debug,
         connect_args=connect_args,
     )

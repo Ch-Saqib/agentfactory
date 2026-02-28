@@ -70,6 +70,14 @@ This checklist is the “spec → implementation” bridge. Any change to learne
   - Evidence: `apps/learner-profile-api/src/learner_profile_api/schemas/profile.py`
   - Verification: `apps/learner-profile-api/tests/test_schema_validation.py`
 
+- [x] Canonical field definitions file eliminates option drift across all 9 profile components.
+  - Evidence: `apps/learn-app/src/lib/profile-field-definitions.ts`
+  - Verification: `npx tsc --noEmit` — zero new type errors; all components import from single canonical file.
+
+- [x] Organization type values standardized (`academic`→`education`, `nonprofit`→`non_profit`, `small_business` added).
+  - Evidence: `apps/learn-app/src/lib/profile-field-definitions.ts` (`ORGANIZATION_TYPE_OPTIONS`), `apps/learn-app/src/components/profile/sections/ProfessionalEdit.tsx`
+  - Verification: manual QA (edit page shows all 8 org types with correct values).
+
 ## Pending / Next
 
 - [ ] Expand Study Mode summary payload to include the highest-impact profile fields (role/industry/team/org + goals/urgency/career/tools/languages).
@@ -79,3 +87,11 @@ This checklist is the “spec → implementation” bridge. Any change to learne
 - [ ] Add PHM sync trigger UX (manual button + safe rate limiting/backoff).
   - Owner: TBD
   - Verification: API + learn-app integration tests.
+
+- [ ] Backend `field_definitions.py` with `?enrich=true` endpoint (GitHub #787).
+  - Owner: TBD
+  - Verification: Python unit tests + manual QA (`GET /api/v1/field-definitions?enrich=true` returns enriched options).
+
+- [ ] CI sync check between TS and Python field definitions (GitHub #788). Depends on #787.
+  - Owner: TBD
+  - Verification: CI job fails when enum values drift between `profile-field-definitions.ts` and `field_definitions.py`.
