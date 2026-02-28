@@ -8,13 +8,13 @@ deck:
 cards:
   - id: "ch14-04-two-platforms-001"
     front: "What is a SKILL.md file in the Anthropic Cowork architecture?"
-    back: "A plain-English instruction document authored by a knowledge worker (not a developer) that defines an agent's persona, operating principles, domain constraints, and response behaviours."
+    back: "A structured Markdown document with YAML frontmatter, authored by a knowledge worker (not a developer), that defines an agent's persona, operating principles, domain constraints, and response behaviours."
     tags: ["cowork", "SKILL.md"]
     difficulty: "basic"
 
   - id: "ch14-04-two-platforms-002"
-    front: "What are the three components of a Cowork agent deployment, and who creates each?"
-    back: "1. SKILL.md -- created by the knowledge worker (domain expert).\n2. config.yaml -- created by the IT administrator (metadata, permissions).\n3. Connector scripts -- created by a developer (one-time MCP integration infrastructure)."
+    front: "What are the main components inside a Cowork plugin?"
+    back: "1. Skills (SKILL.md files) -- authored by the knowledge worker, encoding domain expertise in structured Markdown.\n2. Connectors (.mcp.json) -- configured by plugin developers or IT, connecting to enterprise systems via MCP servers.\n3. Commands -- slash commands for explicit workflows.\n4. Sub-agents -- specialised assistants for multi-step tasks.\nPlus a manifest (plugin.json) for identity."
     tags: ["cowork", "architecture"]
     difficulty: "intermediate"
 
@@ -65,7 +65,7 @@ cards:
 
   - id: "ch14-04-two-platforms-010"
     front: "Name three enterprise systems that have production-ready Cowork connectors."
-    back: "Any three from: Salesforce, HubSpot, Gmail, Outlook, Notion, Snowflake, BigQuery, DocuSign, Jira. Industry-specific connectors also exist for financial data terminals, Revit APIs, clinical documentation, and legal research platforms."
+    back: "Any three from: Google Workspace (Drive, Gmail, Calendar), Salesforce, HubSpot, DocuSign, Slack, Notion, Jira, WordPress, Apollo, Clay, Outreach, Similarweb. Industry-specific connectors also exist for financial data (FactSet, MSCI) and legal workflows (LegalZoom)."
     tags: ["cowork", "connectors"]
     difficulty: "basic"
 

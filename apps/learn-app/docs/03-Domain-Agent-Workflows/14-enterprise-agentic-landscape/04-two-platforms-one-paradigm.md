@@ -2,7 +2,17 @@
 sidebar_position: 4
 title: "Two Platforms, One Paradigm"
 description: "Compare Anthropic Cowork and OpenAI Frontier architectures, understand their deployment models, and apply a decision framework for choosing the right platform for your organisation"
-keywords: ["Anthropic Cowork", "OpenAI Frontier", "enterprise AI platforms", "SKILL.md", "semantic layer", "platform decision framework", "product-led growth", "enterprise sales"]
+keywords:
+  [
+    "Anthropic Cowork",
+    "OpenAI Frontier",
+    "enterprise AI platforms",
+    "SKILL.md",
+    "semantic layer",
+    "platform decision framework",
+    "product-led growth",
+    "enterprise sales",
+  ]
 chapter: 14
 lesson: 4
 duration_minutes: 30
@@ -14,7 +24,7 @@ skills:
     category: "Conceptual"
     bloom_level: "Understand"
     digcomp_area: "Information Literacy"
-    measurable_at_this_level: "Student can describe the core architectural difference between Cowork (modular plugin environment with SKILL.md) and Frontier (unified semantic layer) and name at least two distinguishing features of each"
+    measurable_at_this_level: "Student can describe the core architectural difference between Cowork (plugin-based system where knowledge workers author SKILL.md files) and Frontier (unified semantic layer) and name at least two distinguishing features of each"
 
   - name: "Apply Platform Decision Framework"
     proficiency_level: "B1"
@@ -50,7 +60,7 @@ cognitive_load:
   new_concepts: 5
   concepts_list:
     - "SKILL.md as agent instruction file"
-    - "config.yaml as metadata layer"
+    - "Cowork plugin as a bundled package (skills + connectors + commands + sub-agents)"
     - "MCP connectors as integration infrastructure"
     - "Semantic layer as unified intelligence infrastructure"
     - "Product-led growth versus enterprise sales"
@@ -66,12 +76,12 @@ teaching_guide:
   session_title: "Platform Landscape"
   key_points:
     - "Cowork and Frontier represent two genuinely different deployment philosophies, not just competing products -- understanding both prevents premature platform commitment"
-    - "The SKILL.md file is the defining innovation of Cowork: a plain-English document that knowledge workers author without engineering support"
+    - "The SKILL.md file is the knowledge worker's contribution to a Cowork plugin: structured Markdown that encodes domain expertise. The plugin bundles it with connectors, commands, and sub-agents into a ready-to-deploy package."
     - "Frontier targets enterprise-wide transformation through a semantic layer, sold top-down via consulting partnerships"
     - "The decision framework (scope, procurement, knowledge distribution) prevents the common mistake of choosing a platform based on brand preference rather than organisational fit"
   misconceptions:
     - "Students assume one platform is 'better' than the other -- emphasise that fitness depends on organisational context, not technical superiority"
-    - "Students confuse SKILL.md with code or configuration files -- it is a plain-English instruction document authored by domain experts"
+    - "Students confuse SKILL.md with code or configuration -- it is structured Markdown with YAML frontmatter, authored by the domain expert"
     - "Students think Frontier is only for large companies -- it targets enterprise-wide deployment regardless of company size, though procurement complexity increases with organisational size"
   discussion_prompts:
     - "If you had to deploy an AI agent for your team next month, which platform would you start with and why?"
@@ -83,7 +93,7 @@ teaching_guide:
     - "Emphasise that for most Part 3 readers, Cowork is the starting point -- this reduces decision anxiety and focuses attention on the hands-on exercises ahead"
   assessment_checks:
     - question: "What is a SKILL.md file and who writes it?"
-      expected_response: "A plain-English instruction document that defines an agent's persona, principles, constraints, and behaviours. It is written by a knowledge worker, not a developer."
+      expected_response: "A structured Markdown document with YAML frontmatter that defines an agent's persona, principles, constraints, and behaviours. It is written by a knowledge worker, not a developer."
     - question: "Name the three questions in the platform decision framework."
       expected_response: "Organisational scope (team vs enterprise-wide), procurement reality (team budget vs capital expenditure), and nature of knowledge (concentrated in one team vs cross-functional)."
 ---
@@ -98,23 +108,30 @@ This lesson introduces both platforms and gives you a decision framework to choo
 
 ## Anthropic Cowork: The Knowledge Worker's Platform
 
-Cowork is a modular plugin environment built for knowledge workers who need to deploy domain-specific agents without engineering support. Its defining architectural feature is the **SKILL.md file**: a plain-English instruction document that you, the domain expert, author yourself.
+Cowork is a desktop productivity tool that lets knowledge workers deploy domain-specific agents through **plugins** -- complete packages that bundle skills, connectors, slash commands, and sub-agents into one installable unit. Its defining architectural feature is the **SKILL.md file**: a structured Markdown document with YAML frontmatter that you, the domain expert, author yourself.
 
-A SKILL.md defines an agent's persona, operating principles, domain constraints, and response behaviours. It is not code. It is not configuration in the traditional sense. It is a structured English document that tells the agent who it is, what it knows, what it must never do, and how it should respond.
+A SKILL.md defines an agent's persona, operating principles, domain constraints, and response behaviours. It is not code. It is not configuration in the traditional sense. It is a structured Markdown document that tells the agent who it is, what it knows, what it must never do, and how it should respond.
 
-### The Three Components
+### What a Plugin Contains
 
-| Component | Who Creates It | What It Does |
-|-----------|---------------|--------------|
-| **SKILL.md** | Knowledge worker (you) | Defines the agent's persona, principles, domain knowledge, and constraints in plain English |
-| **config.yaml** | IT administrator | Sets metadata: model version, token limits, access permissions, compliance flags |
-| **Connector scripts** | Developer (one-time setup) | Integrates with enterprise systems via MCP (Model Context Protocol) -- handed to you as infrastructure |
+A Cowork plugin bundles everything a domain agent needs:
 
-The division of labour is deliberate. You write the intelligence (SKILL.md). IT handles the guardrails (config.yaml). Engineering builds the plumbing once (connectors), then gets out of the way.
+| What's Inside               | What It Does                                                                                      | Who Owns It            |
+| --------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------- |
+| **Skills** (SKILL.md files) | Encodes the agent's domain knowledge, persona, principles, and constraints in structured Markdown | Knowledge worker (you) |
+| **Connectors** (.mcp.json)  | Wires the agent to enterprise systems (CRM, email, project tools) via MCP servers                 | Plugin developer or IT |
+| **Commands**                | Slash commands you invoke explicitly (e.g., `/sales:call-prep`)                                   | Plugin developer       |
+| **Sub-agents**              | Specialised assistants for complex multi-step workflows                                           | Plugin developer       |
+
+A plugin also carries a **manifest** (`plugin.json` inside `.claude-plugin/`) declaring its name, version, and author.
+
+You install a plugin in seconds from a marketplace. The real work -- and the work only you can do -- is customising its skills. When you open the Customize menu in Cowork, you are editing SKILL.md files: the intelligence layer that carries your institutional knowledge. Everything else in the plugin is infrastructure that a developer or the community has already built.
+
+The division of labour is deliberate. Plugins arrive as ready-made packages -- Anthropic and the community have built plugins for sales, legal, finance, marketing, data, customer support, and more. Your contribution is the part no one else can write: the SKILL.md that encodes how _your_ organisation actually works.
 
 ### Production Connectors
 
-Cowork ships with production-ready connectors for the systems knowledge workers already use: Salesforce, HubSpot, Gmail, Outlook, Notion, Snowflake, BigQuery, DocuSign, and Jira. Industry-specific connectors are in development or early production for financial data terminals, Revit model APIs, clinical documentation systems, and legal research platforms. When you write a SKILL.md that says "pull the latest pipeline data from Salesforce," the connector handles authentication, API calls, and data formatting. You never see it.
+Cowork ships with production-ready MCP connectors for the systems knowledge workers already use: Google Workspace (Drive, Gmail, Calendar), Salesforce, HubSpot, DocuSign, Slack, Notion, Jira, WordPress, Apollo, Clay, Outreach, and Similarweb. Industry-specific connectors serve financial data (FactSet, MSCI), legal workflows (LegalZoom), and other verticals. When you write a SKILL.md that says "pull the latest pipeline data from Salesforce," the connector handles authentication, API calls, and data formatting. You never see it.
 
 The connector ecosystem is Anthropic's primary infrastructure investment. The open-source MCP standard means third-party developers can build connectors for any system, and the growing marketplace through which connectors are published and distributed is creating the same kind of developer community dynamics that have driven the expansion of other platform ecosystems.
 
@@ -146,16 +163,16 @@ Procurement is enterprise-wide: capital expenditure, legal review, security asse
 
 ## Side-by-Side Comparison
 
-| Dimension | Anthropic Cowork | OpenAI Frontier |
-|-----------|-----------------|-----------------|
-| **Target buyer** | Team lead, department head | C-suite, CIO/CTO |
-| **Architecture** | Modular plugins (SKILL.md + connectors) | Unified semantic layer |
-| **Agent scope** | Single team or function | Cross-department, enterprise-wide |
-| **Adoption path** | Bottom-up (product-led growth) | Top-down (enterprise sales) |
-| **Procurement** | Team budget | Capital expenditure + legal/security review |
-| **Time to first agent** | Weeks | Quarters |
-| **Knowledge assumption** | Concentrated in a specific team | Distributed across the organisation |
-| **Governance model** | Team-level permissions | Centralised enterprise governance |
+| Dimension                | Anthropic Cowork                                   | OpenAI Frontier                             |
+| ------------------------ | -------------------------------------------------- | ------------------------------------------- |
+| **Target buyer**         | Team lead, department head                         | C-suite, CIO/CTO                            |
+| **Architecture**         | Plugins (skills, connectors, commands, sub-agents) | Unified semantic layer                      |
+| **Agent scope**          | Single team or function                            | Cross-department, enterprise-wide           |
+| **Adoption path**        | Bottom-up (product-led growth)                     | Top-down (enterprise sales)                 |
+| **Procurement**          | Team budget                                        | Capital expenditure + legal/security review |
+| **Time to first agent**  | Weeks                                              | Quarters                                    |
+| **Knowledge assumption** | Concentrated in a specific team                    | Distributed across the organisation         |
+| **Governance model**     | Team-level permissions                             | Centralised enterprise governance           |
 
 ## The Decision Framework
 
@@ -238,7 +255,6 @@ about whether Cowork or Frontier is gaining traction first?
 ```
 
 **What you're learning:** You are connecting the abstract framework to real adoption patterns in your industry. This grounds your platform decision in evidence, not theory.
-
 
 ## Flashcards Study Aid
 
