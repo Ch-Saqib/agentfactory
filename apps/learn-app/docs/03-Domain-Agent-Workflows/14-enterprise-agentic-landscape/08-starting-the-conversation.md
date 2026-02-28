@@ -101,13 +101,13 @@ Every deployment begins with a conversation, and the quality of that conversatio
 
 The most common mistake in enterprise AI conversations is proposing a solution before understanding the context. The maturity model from Lesson 6 is your qualification tool.
 
-| Maturity Level | What They Need | What You Offer |
-| --- | --- | --- |
-| Level 1 (Awareness) | Education | A briefing, not a proposal |
-| Level 2 (Experimentation) | Direction | A pilot scope with clear success criteria |
-| Level 3 (Integration) | Governance | A deployment plan with measurement framework |
-| Level 4 (Optimisation) | Optimisation | Cross-functional coordination strategy |
-| Level 5 (Transformation) | Partnership | Strategic advisory on competitive positioning |
+| Maturity Level            | What They Need | What You Offer                                |
+| ------------------------- | -------------- | --------------------------------------------- |
+| Level 1 (Awareness)       | Education      | A briefing, not a proposal                    |
+| Level 2 (Experimentation) | Direction      | A pilot scope with clear success criteria     |
+| Level 3 (Integration)     | Governance     | A deployment plan with measurement framework  |
+| Level 4 (Optimisation)    | Optimisation   | Cross-functional coordination strategy        |
+| Level 5 (Transformation)  | Partnership    | Strategic advisory on competitive positioning |
 
 A Level 1 organisation does not need a deployment proposal. They need someone to explain what domain agents are and why they matter. Presenting a technical architecture to a Level 1 audience is the fastest way to lose the conversation.
 
@@ -119,13 +119,13 @@ A Level 3 organisation does not need education. They have already run pilots. Th
 
 Different stakeholders respond to different value framings. The monetisation models from Lesson 5 are not just pricing structures -- they are communication tools.
 
-| Stakeholder | Framing That Resonates | Why |
-| --- | --- | --- |
-| Sales leader | Success-fee economics | Aligned incentives -- they pay only when the agent delivers measurable results |
-| HR director | Subscription with policy governance | Predictable cost, compliance assurance, institutional memory preservation |
-| CFO | License with ROI projection | Capital expenditure framing, data sovereignty, total cost of ownership |
-| IT leader | Platform comparison (Cowork vs Frontier) | Architecture fit, integration requirements, security model |
-| CEO | Maturity model positioning | Strategic competitive advantage, organisational transformation roadmap |
+| Stakeholder  | Framing That Resonates                   | Why                                                                            |
+| ------------ | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| Sales leader | Success-fee economics                    | Aligned incentives -- they pay only when the agent delivers measurable results |
+| HR director  | Subscription with policy governance      | Predictable cost, compliance assurance, institutional memory preservation      |
+| CFO          | License with ROI projection              | Capital expenditure framing, data sovereignty, total cost of ownership         |
+| IT leader    | Platform comparison (Cowork vs Frontier) | Architecture fit, integration requirements, security model                     |
+| CEO          | Maturity model positioning               | Strategic competitive advantage, organisational transformation roadmap         |
 
 The sales leader who hears "subscription pricing for an HR tool" will disengage. The same sales leader who hears "you pay 15% of the additional revenue the agent generates, nothing if it generates nothing" will lean forward. Same technology. Different conversation.
 
@@ -152,7 +152,7 @@ A deployment conversation that uses these frameworks follows a natural sequence:
 2. **Identify** -- Ask the knowledge question. Whose expertise? In what form? For whom? Under what constraints?
 3. **Frame** -- Match the value proposition to the stakeholder. Use the monetisation model that resonates with their role and concerns.
 4. **Position** -- Place the deployment on the platform landscape. Cowork for team-level, knowledge-worker-led deployment. Frontier for enterprise-wide, executive-sponsored transformation.
-5. **Scope** -- Map to the appropriate domain profile. Use the domain chapter (17-23) as the deployment guide.
+5. **Scope** -- Map to the appropriate domain profile. Use the domain chapter (17-24) as the deployment guide.
 
 This sequence works whether you are proposing a deployment to your own organisation, pitching a consulting engagement, or evaluating a vendor's claims. The frameworks are the same. The conversation changes based on your role in it.
 
@@ -203,7 +203,6 @@ model, and deployment approach.
 ```
 
 **What you're learning:** How to use the knowledge question as the foundation for every deployment decision. This exercise demonstrates that platform selection, pricing, and architecture all follow naturally from answering "whose expertise, in what form, for whom, under what constraints" with enough specificity.
-
 
 ## Flashcards Study Aid
 

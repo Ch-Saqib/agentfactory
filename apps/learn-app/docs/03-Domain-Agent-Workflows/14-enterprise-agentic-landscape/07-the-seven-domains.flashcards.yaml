@@ -105,7 +105,7 @@ cards:
     why: How would you encode this distinction into agent instructions?
 
   - id: ch14-07-seven-domains-012
-    front: If your professional work spans multiple domains, how should you approach the domain chapters (17-23)?
+    front: If your professional work spans multiple domains, how should you approach the domain chapters (17-24)?
     back: Read the domain chapter closest to your primary expertise first. The deployment patterns learned there transfer to any adjacent domain because the methodology is consistent across all seven.
     tags:
       - cross-domain

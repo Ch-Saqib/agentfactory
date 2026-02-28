@@ -1,8 +1,8 @@
 deck:
   id: "ch15-01-what-a-plugin-actually-is"
   title: "What a Plugin Actually Is"
-  description: "Cowork plugin definition, the five structural properties, the three-component model, and transparency as an architectural property."
-  tags: ["cowork-plugin", "plugin-architecture", "three-component-model", "transparency", "enterprise-ai"]
+  description: "Cowork plugin definition, the five structural properties, the plugin package structure, and transparency as an architectural property."
+  tags: ["cowork-plugin", "plugin-architecture", "plugin-package", "transparency", "enterprise-ai"]
   version: 1
 
 cards:
@@ -19,9 +19,9 @@ cards:
     difficulty: "basic"
 
   - id: "ch15-01-components-003"
-    front: "Name the three components of a Cowork plugin and who owns each."
-    back: "1. SKILL.md (intelligence layer) — owned by the knowledge worker\n2. config.yaml (metadata and configuration layer) — owned by IT administrator\n3. Connector scripts (MCP integration layer) — owned by IT / Developer"
-    tags: ["three-components", "ownership"]
+    front: "Name the plugin package components of a Cowork plugin and who owns each."
+    back: "1. SKILL.md files (intelligence layer) — owned by the knowledge worker\n2. Connectors (.mcp.json) (integration layer) — owned by IT / Developer\n3. Commands, sub-agents, and manifest (plugin.json) (orchestration and deployment) — owned by IT / plugin developer"
+    tags: ["plugin-package", "ownership"]
     difficulty: "basic"
 
   - id: "ch15-01-skillmd-004"
@@ -30,21 +30,21 @@ cards:
     tags: ["SKILL.md", "intelligence-layer"]
     difficulty: "basic"
 
-  - id: "ch15-01-configyaml-005"
-    front: "What does the config.yaml component deliver?"
-    back: "Deployment settings configured by the IT administrator: model version, token limits, access permissions, and compliance flags."
-    tags: ["config.yaml", "configuration-layer"]
+  - id: "ch15-01-manifest-005"
+    front: "What does the plugin manifest (plugin.json) deliver?"
+    back: "Deployment metadata and configuration managed by the IT/plugin developer: plugin identity, version, model settings, access permissions, and compliance flags."
+    tags: ["plugin.json", "manifest"]
     difficulty: "basic"
 
   - id: "ch15-01-connector-006"
-    front: "What do connector scripts deliver, and who builds them?"
-    back: "Authenticated connections to enterprise systems — built and maintained by IT and developers. They handle authentication, data retrieval, and format translation so the agent can access live enterprise data."
-    tags: ["connector-scripts", "MCP", "integration-layer"]
+    front: "What do MCP connectors deliver, and who builds them?"
+    back: "Authenticated connections to enterprise systems — declared in .mcp.json and built/maintained by IT and developers. They handle authentication, data retrieval, and format translation so the agent can access live enterprise data."
+    tags: ["MCP-connectors", "mcp-json", "integration-layer"]
     difficulty: "basic"
 
   - id: "ch15-01-transparency-007"
     front: "Why is transparency described as an architectural property of Cowork plugins rather than an incidental feature?"
-    back: "BECAUSE every aspect of the plugin is inspectable by design — the SKILL.md is readable by the knowledge worker, config.yaml by IT, audit logs by compliance. THEREFORE no property is a black box. This is not transparency by aspiration but by structural requirement."
+    back: "BECAUSE every aspect of the plugin is inspectable by design — the SKILL.md is readable by the knowledge worker, connectors and manifest by IT, audit logs by compliance. THEREFORE no property is a black box. This is not transparency by aspiration but by structural requirement."
     tags: ["transparency", "architectural-property"]
     difficulty: "intermediate"
     why: "Tests whether student understands the distinction between structural transparency and optional transparency features"
@@ -63,8 +63,8 @@ cards:
     why: "Tests understanding that the five structural properties are threshold requirements, not optional enhancements"
 
   - id: "ch15-01-separation-010"
-    front: "Why does the three-component model assign each component to a single owner?"
+    front: "Why does the plugin architecture assign each component to a single owner?"
     back: "BECAUSE ownership clarity is a governance feature — when something goes wrong, the ownership model identifies which layer is responsible and who can fix it. THEREFORE mixing ownership across roles creates accountability ambiguity and makes failures harder to diagnose and resolve."
-    tags: ["ownership", "three-components", "governance"]
+    tags: ["ownership", "plugin-package", "governance"]
     difficulty: "intermediate"
     why: "Tests whether student understands the governance rationale for separation of ownership, not just the division itself"

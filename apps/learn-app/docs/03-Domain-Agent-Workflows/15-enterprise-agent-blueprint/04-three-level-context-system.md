@@ -64,7 +64,7 @@ cognitive_load:
     - "Platform context (Anthropic-set, immutable)"
     - "Organisation context (admin-set, governs all plugins)"
     - "Plugin context as SKILL.md (knowledge worker-set, operates within higher constraints)"
-  assessment: "3 concepts at A2-B1 level — well within the 5-7 cognitive limit for this tier. Students have completed L01-L03 and understand SKILL.md, config.yaml, and connectors as distinct components. This lesson adds the governance hierarchy that sits above those components, building on established vocabulary without requiring new vocabulary from scratch."
+  assessment: "3 concepts at A2-B1 level — well within the 5-7 cognitive limit for this tier. Students have completed L01-L03 and understand the plugin package structure (SKILL.md, connectors, commands, sub-agents, manifest). This lesson adds the governance hierarchy that sits above those components, building on established vocabulary without requiring new vocabulary from scratch."
 
 differentiation:
   extension_for_advanced: "Consider a regulated industry where you work or know well. Map out what you would expect to find at each of the three context levels: what would Anthropic likely constrain at platform level, what would your organisation's administrator configure at organisation level, and what would a domain expert author at plugin level? Identify one scenario where an organisation-level policy might conflict with what a knowledge worker wants to achieve, and describe how you would work through that conflict."
@@ -106,9 +106,9 @@ teaching_guide:
 
 # The Three-Level Context System
 
-In Lesson 3, you established that the config.yaml sets the deployment environment — the model, the connectors, the permission scope, and the governance settings — and that this file is owned by IT, not the knowledge worker. You also saw that permission boundaries in the config.yaml are enforced by the Cowork runtime: if the SKILL.md were to instruct the agent to access data outside its configured scope, the attempt would fail silently.
+In Lesson 3, you established what the plugin infrastructure looks like — the manifest (plugin.json), the connector declarations (.mcp.json), and the settings that configure the deployment environment. You also saw that permission boundaries are enforced by the Cowork runtime: if the SKILL.md were to instruct the agent to access data outside its configured scope, the attempt would fail silently.
 
-That single observation — that a SKILL.md instruction can be overridden without announcement — points to something larger than the config.yaml. There is a hierarchy of contexts in which every Cowork plugin operates, and understanding that hierarchy is what allows you to diagnose why an agent behaves differently from what the SKILL.md describes. Without this understanding, the diagnostic for unexpected agent behaviour almost always starts in the wrong place.
+That single observation — that a SKILL.md instruction can be overridden without announcement — points to something larger than any single component. There is a hierarchy of contexts in which every Cowork plugin operates, and understanding that hierarchy is what allows you to diagnose why an agent behaves differently from what the SKILL.md describes. Without this understanding, the diagnostic for unexpected agent behaviour almost always starts in the wrong place.
 
 This lesson explains the three-level context system, what each level controls, and how to run the diagnostic correctly when an agent does not do what you expect.
 
@@ -124,11 +124,11 @@ Before the analyst rewrites the SKILL.md a fourth time, she needs to understand 
 
 Cowork's context system operates at three levels, each set by a different authority, each governing a different scope.
 
-| Level | Set By | Scope | Can the Knowledge Worker Override? |
-|-------|--------|-------|------------------------------------|
-| **Platform** | Anthropic | All Claude deployments, regardless of plugin configuration | No |
-| **Organisation** | Cowork administrator | All plugins within the organisation | No |
-| **Plugin** | Knowledge worker | This specific plugin, within the boundaries of levels above | Within limits |
+| Level            | Set By               | Scope                                                       | Can the Knowledge Worker Override? |
+| ---------------- | -------------------- | ----------------------------------------------------------- | ---------------------------------- |
+| **Platform**     | Anthropic            | All Claude deployments, regardless of plugin configuration  | No                                 |
+| **Organisation** | Cowork administrator | All plugins within the organisation                         | No                                 |
+| **Plugin**       | Knowledge worker     | This specific plugin, within the boundaries of levels above | Within limits                      |
 
 ### Level 1: Platform Context
 
@@ -170,11 +170,11 @@ The practical implication is that the knowledge worker must understand the three
 
 When an agent does not follow a SKILL.md instruction, the diagnostic runs in the same order as the hierarchy: platform level first, organisation level second, SKILL.md last.
 
-| Step | Question | Outcome if True |
-|------|----------|-----------------|
-| **1. Platform level** | Is this a behaviour that no Cowork deployment can produce? | The constraint is immutable. Find an alternative approach. |
-| **2. Organisation level** | Has the administrator set a policy that governs this behaviour? | Speak with your administrator. The constraint may be modifiable; it may be regulatory. |
-| **3. Plugin level** | Is there an error or ambiguity in the SKILL.md instruction itself? | Revise the instruction. This is the only level the knowledge worker can modify directly. |
+| Step                      | Question                                                           | Outcome if True                                                                          |
+| ------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| **1. Platform level**     | Is this a behaviour that no Cowork deployment can produce?         | The constraint is immutable. Find an alternative approach.                               |
+| **2. Organisation level** | Has the administrator set a policy that governs this behaviour?    | Speak with your administrator. The constraint may be modifiable; it may be regulatory.   |
+| **3. Plugin level**       | Is there an error or ambiguity in the SKILL.md instruction itself? | Revise the instruction. This is the only level the knowledge worker can modify directly. |
 
 The sequence matters because starting at step 3 — which is the most natural starting point for a knowledge worker — wastes time when the constraint is actually at step 1 or step 2. The compliance analyst who rewrote her SKILL.md three times was running the diagnostic from step 3. Had she started at step 2, she would have recognised the organisation-level policy within minutes and had a productive conversation with her administrator about whether the constraint was mandatory or configurable.
 
@@ -271,4 +271,4 @@ Organisation-Level Constraint | How It Appears to the Knowledge Worker.
 
 ---
 
-Continue to [Lesson 5: The Agent Skills Pattern in Practice →](./05-agent-skills-pattern-in-practice.md)
+Continue to [Lesson 5: The PQP Framework in Practice →](./05-agent-skills-pattern-in-practice.md)

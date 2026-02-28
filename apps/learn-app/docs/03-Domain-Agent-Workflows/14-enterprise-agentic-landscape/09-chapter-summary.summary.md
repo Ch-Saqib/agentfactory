@@ -26,4 +26,4 @@ The chapter's frameworks are not independent models to be memorised separately. 
 ### Connections
 
 - **Builds on**: All eight preceding lessons in Chapter 14, synthesising their individual frameworks into a connected decision system
-- **Leads to**: Chapter 15 (technical architecture of a Cowork plugin) where the strategic vocabulary becomes the language for explaining what the deployment architecture is doing and why; domain-specific chapters (17-23) providing detailed deployment guides for each of the seven domains
+- **Leads to**: Chapter 15 (technical architecture of a Cowork plugin) where the strategic vocabulary becomes the language for explaining what the deployment architecture is doing and why; domain-specific chapters (17-24) providing detailed deployment guides for each of the seven domains

@@ -1,11 +1,11 @@
 ---
 sidebar_position: 5
-title: "The Agent Skills Pattern in Practice"
+title: "The PQP Framework in Practice"
 description: "Walk through a complete, annotated SKILL.md for a financial research agent and identify the quality signals that distinguish a production-ready specification from an amateur one"
 keywords:
   [
     "SKILL.md",
-    "Agent Skills Pattern",
+    "PQP Framework",
     "Persona",
     "Questions",
     "Principles",
@@ -106,11 +106,11 @@ teaching_guide:
       expected_response: "Positive redirection is more useful than refusal. If a user asks for something outside the agent's remit and receives only 'I cannot help with that', they are stuck. If they receive 'that falls outside my scope — for tax advice, contact the finance team', they know what to do next. The agent remains useful even at its boundary."
 ---
 
-# The Agent Skills Pattern in Practice
+# The PQP Framework in Practice
 
 In Lesson 2, you learned the architecture: the SKILL.md file has three sections — Persona, Questions, and Principles — and each section performs a distinct function. Persona defines who the agent is. Questions defines what it handles. Principles defines how it decides. You learned why specificity matters, why identity governs ambiguous situations more reliably than rules, and why the out-of-scope boundary is as important as the in-scope list. What you did not see was all three sections working together in a single, coherent document.
 
-This lesson shows you that. The Agent Skills Pattern in Practice means reading a production-ready SKILL.md as a whole — tracing how the sections interact, identifying what makes it trustworthy, and understanding what each design choice prevents. The example is a financial research agent. Financial services is a useful domain for this illustration because the failure modes are concrete (fabricated numbers, misplaced confidence, regulatory exposure), the professional standards are legible, and the range of in-scope and out-of-scope territory is clearly bounded. What you learn here applies equally to legal, clinical, architectural, and operational domains.
+This lesson shows you that. The PQP Framework in Practice means reading a production-ready SKILL.md as a whole — tracing how the sections interact, identifying what makes it trustworthy, and understanding what each design choice prevents. The example is a financial research agent. Financial services is a useful domain for this illustration because the failure modes are concrete (fabricated numbers, misplaced confidence, regulatory exposure), the professional standards are legible, and the range of in-scope and out-of-scope territory is clearly bounded. What you learn here applies equally to legal, clinical, architectural, and operational domains.
 
 The example below is simplified relative to what a production organisation would deploy. A production SKILL.md for a financial research function would be two to four times longer, with more detailed data source specifications, organisation-specific output templates, jurisdiction references, and a fuller escalation taxonomy. But the structure is complete. Every section is present, every quality signal is visible, and the document would produce a reliable, trustworthy agent as written. Read it as an architectural example rather than a sizing guide.
 
@@ -144,7 +144,7 @@ human decision-making; you do not substitute for it.
 
 > **Annotation — Persona:** This opening establishes three things: professional standing (senior analyst), communication register (precise, economical), and epistemic standard (evidence-grounded). Each one governs how the agent behaves across every interaction.
 >
-> Notice how the section handles the most important constraint: "You are not an investment adviser." It does not say "Do not give investment recommendations." It states a professional identity. The difference is significant. A rule can be argued around — a user who frames their request cleverly enough may elicit advice that is technically not labelled as a recommendation. An identity constraint cannot be argued around: an agent that *is* a senior analyst and *is not* an investment adviser will decline to produce investment recommendations not because it is following a rule but because that is who it is. Identity governs ambiguous situations more reliably than any finite list of instructions.
+> Notice how the section handles the most important constraint: "You are not an investment adviser." It does not say "Do not give investment recommendations." It states a professional identity. The difference is significant. A rule can be argued around — a user who frames their request cleverly enough may elicit advice that is technically not labelled as a recommendation. An identity constraint cannot be argued around: an agent that _is_ a senior analyst and _is not_ an investment adviser will decline to produce investment recommendations not because it is following a rule but because that is who it is. Identity governs ambiguous situations more reliably than any finite list of instructions.
 >
 > The sentence "You flag uncertainty with confidence rather than apologetically" is functional rather than stylistic. It tells the agent how to handle incomplete data — not by hedging vaguely or producing caveated analysis, but by stating clearly what is known and what is not. This shapes thousands of individual responses without requiring a specific rule for each scenario.
 
@@ -205,6 +205,7 @@ you are using in any quantitative analysis. Flag when market conditions have
 changed significantly since the last data update.
 
 **Uncertainty Calibration:** Use the following language conventions:
+
 - "The data indicates..." — directly supported by available data
 - "Based on available data, it appears that..." — reasonable inferences one step beyond direct data
 - "It is worth considering whether..." — questions/hypotheses data raises but does not resolve

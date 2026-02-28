@@ -45,7 +45,7 @@ skills:
     measurable_at_this_level: "Student can produce a maintenance schedule for a plugin in their domain that assigns specific review responsibilities to each of the three owners and specifies trigger conditions for unscheduled updates"
 
 learning_objectives:
-  - objective: "Map each component of a Cowork plugin — SKILL.md sections, config.yaml, connector scripts, and governance configuration — to its correct owner using the three-way ownership model"
+  - objective: "Map each component of a Cowork plugin — SKILL.md sections, connectors (.mcp.json), commands, sub-agents, and governance configuration — to its correct owner using the ownership model"
     proficiency_level: "B1"
     bloom_level: "Apply"
     assessment_method: "Given a list of plugin components and tasks, student can assign each to knowledge worker, IT, or administrator without error, and articulate the reasoning for ambiguous cases"
@@ -98,7 +98,7 @@ teaching_guide:
     - question: "Users in the compliance department can no longer access the plugin, but the rest of the finance team can. Whose problem is this?"
       expected_response: "This is an IT or administrator problem, depending on whether the issue is a connector permission change (IT) or an access control misconfiguration (admin). The knowledge worker's SKILL.md is not involved — the agent's logic has not changed, only who can reach it."
     - question: "The agent is occasionally drawing on client data from accounts it should not have access to. Whose problem is this?"
-      expected_response: "This is an IT problem. Connector scope is configured in the config.yaml and implemented in the connector scripts — both owned by IT. The knowledge worker may have specified the required scope, but the misconfiguration lives in the integration layer."
+      expected_response: "This is an IT problem. Connector scope is configured in the .mcp.json and implemented through the MCP server declarations — both owned by IT. The knowledge worker may have specified the required scope, but the misconfiguration lives in the integration layer."
     - question: "What is the layer independence principle?"
       expected_response: "Each role operates within its own layer and has no incentive to intrude on the other two layers, because each layer contains only what that role understands and controls. IT does not need to read SKILL.md to maintain connectors. The knowledge worker does not need connector code to maintain SKILL.md. The administrator does not need either to configure governance. Dependencies are explicit and interfaces are clean."
 ---
@@ -107,7 +107,7 @@ teaching_guide:
 
 The trouble with ambiguous ownership is that it rarely announces itself. A deployed agent does not send a message saying "no one is sure who is responsible for maintaining me." What it does, instead, is drift. The Principles section encodes a regulatory standard that was updated eight months ago, but no one thought to update the SKILL.md because the knowledge worker assumed IT had done something, and IT assumed it was a content issue, and the administrator assumed the knowledge worker was on top of it. The agent keeps running. The outputs keep looking plausible. And slowly, quietly, the gap between what the agent does and what it should do becomes the kind of gap that surfaces in a compliance review rather than a routine check.
 
-This is the central failure mode that clean ownership prevents. Not spectacular breakdowns, but slow degradation — the kind that is hardest to detect precisely because the system continues to function, just not correctly. The seven lessons that preceded this one have built the complete architecture of a Cowork plugin: the three components, the context hierarchy, the connector ecosystem, and the governance layer. This lesson establishes who is responsible for maintaining each part of that architecture, what their responsibilities are, and why the boundaries between responsibilities are drawn where they are.
+This is the central failure mode that clean ownership prevents. Not spectacular breakdowns, but slow degradation — the kind that is hardest to detect precisely because the system continues to function, just not correctly. The seven lessons that preceded this one have built the complete architecture of a Cowork plugin: the plugin package structure, the context hierarchy, the connector ecosystem, and the governance layer. This lesson establishes who is responsible for maintaining each part of that architecture, what their responsibilities are, and why the boundaries between responsibilities are drawn where they are.
 
 The ownership model is not bureaucratic convention. It is the mechanism that makes a deployed agent diagnosable — and diagnosability is what separates a managed system from a technical liability.
 
@@ -117,7 +117,7 @@ A Cowork plugin has three owners. Each owner operates in a distinct layer. Each 
 
 **The knowledge worker** owns the intelligence layer. This means the SKILL.md in its entirety: the Persona that defines the agent's identity and professional positioning, the Questions section that defines scope and out-of-scope handling, and the Principles that encode the operating logic, domain constraints, escalation thresholds, and quality standards. The knowledge worker authored the SKILL.md, tested it against domain scenarios during shadow mode, and takes professional responsibility for what the agent does. If the SKILL.md applies a wrong jurisdictional standard, that is the knowledge worker's error. If the SKILL.md fails to cover a recurring case, it is the knowledge worker's responsibility to update it.
 
-**IT** owns the integration layer. This means the connector scripts that maintain authenticated connections to enterprise systems, and the config.yaml that configures the deployment environment — model version, interface settings, permission scope, connector access, governance flags. When a connector begins returning stale data because an upstream API changed, that is an IT problem. When the plugin needs access to a new enterprise system, IT builds and maintains the connector. The knowledge worker specifies what data access is needed; IT implements and maintains it.
+**IT and plugin developers** own the integration layer. This means the connectors declared in `.mcp.json` that wire the agent to enterprise systems, the commands that provide explicit workflows, the sub-agents that handle complex multi-step processes, and the manifest (`plugin.json`) that identifies the plugin. When a connector begins returning stale data because an upstream API changed, that is an IT problem. When the plugin needs access to a new enterprise system, IT configures the connector. The knowledge worker specifies what data access is needed; IT implements and maintains it.
 
 **The administrator** owns the governance layer. This means the organisation-level policies that determine who can access the plugin and at what permission level, the audit trail configuration, the shadow mode settings, and the human-in-the-loop gate enforcement. The knowledge worker does not modify governance configuration without going through the administrator. The administrator does not modify SKILL.md without going through the knowledge worker.
 
@@ -125,16 +125,17 @@ A Cowork plugin has three owners. Each owner operates in a distinct layer. Each 
 
 The complete ownership assignment across every plugin component:
 
-| Component | Owner | What They Do |
-|---|---|---|
-| SKILL.md (Persona) | Knowledge worker | Defines agent identity, authority, and tone |
-| SKILL.md (Questions) | Knowledge worker | Defines scope, capabilities, and out-of-scope handling |
-| SKILL.md (Principles) | Knowledge worker | Defines operating logic, constraints, and escalation |
-| config.yaml | IT (with knowledge worker specification) | Configures model, interface, permissions, and connector access |
-| MCP connector scripts | IT / Developer | Builds and maintains data source integrations |
-| Organisation governance policy | Cowork administrator | Sets access control, audit requirements, shadow mode |
-| Validation and testing | Knowledge worker | Tests outputs against domain scenarios, manages shadow mode transition |
-| Performance monitoring | Knowledge worker + IT | Reviews audit logs, identifies degradation, schedules updates |
+| Component                      | Owner                 | What They Do                                                           |
+| ------------------------------ | --------------------- | ---------------------------------------------------------------------- |
+| SKILL.md (Persona)             | Knowledge worker      | Defines agent identity, authority, and tone                            |
+| SKILL.md (Questions)           | Knowledge worker      | Defines scope, capabilities, and out-of-scope handling                 |
+| SKILL.md (Principles)          | Knowledge worker      | Defines operating logic, constraints, and escalation                   |
+| Connectors (.mcp.json)         | IT / Plugin developer | Configures and maintains MCP server connections to enterprise systems  |
+| Commands and sub-agents        | Plugin developer      | Builds workflow commands and specialised assistants                    |
+| Manifest (plugin.json)         | Plugin developer      | Declares plugin identity: name, version, author                        |
+| Organisation governance policy | Cowork administrator  | Sets access control, audit requirements, shadow mode                   |
+| Validation and testing         | Knowledge worker      | Tests outputs against domain scenarios, manages shadow mode transition |
+| Performance monitoring         | Knowledge worker + IT | Reviews audit logs, identifies degradation, schedules updates          |
 
 The final two rows — validation and monitoring — are the only places where responsibilities overlap. Validation belongs primarily to the knowledge worker because assessing whether outputs are correct against domain standards requires domain expertise. Performance monitoring is shared because the knowledge worker reads the quality dimension of the audit log while IT monitors the technical dimension: connector health, latency, error rates. The overlap is explicit and bounded.
 
@@ -144,9 +145,9 @@ The ownership model has a structural property that is worth making explicit, bec
 
 Each role has no incentive to intrude on the other two layers, because each layer contains only what that role understands and controls.
 
-IT does not need to read or understand the SKILL.md to maintain the connectors. The connector scripts operate at the data transport layer — they authenticate, retrieve, and format data. Whether that data is being used to analyse contract clauses or screen investment portfolios is not something IT needs to know. The connector is correct when it retrieves the right data reliably. IT can assess that without opening the SKILL.md.
+IT does not need to read or understand the SKILL.md to maintain the connectors. The MCP server declarations in `.mcp.json` operate at the data transport layer — they authenticate, retrieve, and format data. Whether that data is being used to analyse contract clauses or screen investment portfolios is not something IT needs to know. The connector is correct when it retrieves the right data reliably. IT can assess that without opening the SKILL.md.
 
-The knowledge worker does not need to understand connector code or infrastructure configuration to maintain the SKILL.md. They interact with the connector through the config.yaml specification: they communicate which systems the agent needs access to and what data scope is required. The implementation is IT's. The knowledge worker can assess whether the agent is using the right information without knowing how the connection is built.
+The knowledge worker does not need to understand connector code or infrastructure configuration to maintain the SKILL.md. They communicate which systems the agent needs access to and what data scope is required. The implementation is IT's. The knowledge worker can assess whether the agent is using the right information without knowing how the connection is built.
 
 The administrator does not need to understand either the domain logic in the SKILL.md or the technical implementation of the connectors to configure governance correctly. The governance layer operates on the output and access dimensions: who sees the plugin, what gets recorded, when human review is required. The administrator can configure those settings without reading a line of the SKILL.md or a line of connector code.
 
@@ -160,7 +161,7 @@ A recurring misconception about the SKILL.md deserves direct attention: it is no
 
 Domain expertise evolves. A financial research agent deployed in early 2026 encodes the regulatory landscape as it existed then. By mid-2026, new guidance has been issued. By 2027, a key piece of legislation has been amended. The Principles section that was accurate at deployment is now incorrect in ways that will not be visible to anyone who does not understand the domain — which is to say, to everyone except the knowledge worker.
 
-Organisational standards change. The firm's risk appetite may shift. A new investment mandate may change which market categories the agent covers. A merger may expand or alter the jurisdictions in which the agent operates. None of these changes affect the connector scripts or the governance configuration. All of them require a SKILL.md update.
+Organisational standards change. The firm's risk appetite may shift. A new investment mandate may change which market categories the agent covers. A merger may expand or alter the jurisdictions in which the agent operates. None of these changes affect the connectors or the governance configuration. All of them require a SKILL.md update.
 
 New edge cases surface. Shadow mode surfaces quality issues during the transition period, but production use reveals cases that shadow mode did not see. A user query type that was not anticipated in the Questions section. A data condition the connector produces that the Principles do not account for. A recurring escalation pattern that suggests the agent is uncertain about something it should be certain about.
 
@@ -190,7 +191,7 @@ Use these prompts in Anthropic Cowork or your preferred AI assistant to apply th
 I'm planning a Cowork plugin for [YOUR ROLE / WORKFLOW] in [YOUR DOMAIN/INDUSTRY].
 
 Help me map ownership responsibilities for this plugin using the three-way ownership model:
-knowledge worker → SKILL.md, IT → connectors and config.yaml, administrator → governance.
+knowledge worker → SKILL.md, IT/developer → connectors and infrastructure, administrator → governance.
 
 For each of the following components, identify: (1) who owns it, (2) what their
 specific responsibilities are for this plugin, and (3) what trigger conditions
@@ -200,8 +201,8 @@ Components to map:
 - SKILL.md (Persona section)
 - SKILL.md (Questions section)
 - SKILL.md (Principles section)
-- config.yaml
-- MCP connector scripts
+- Connectors (.mcp.json)
+- Commands and sub-agents
 - Organisation governance policy
 - Validation and testing
 - Performance monitoring
@@ -221,7 +222,7 @@ The plugin: [DESCRIBE YOUR PLUGIN — domain, purpose, connectors]
 The observed problem: [DESCRIBE WHAT IS GOING WRONG]
 
 For each of the three ownership layers (knowledge worker / SKILL.md, IT / connectors
-and config.yaml, administrator / governance), assess:
+and infrastructure, administrator / governance), assess:
 1. Could this layer be responsible for the observed problem? Why or why not?
 2. What specific component within this layer would you examine first?
 3. What question would you ask the owner of this layer to begin diagnosing?
@@ -245,10 +246,10 @@ Help me create a maintenance schedule that covers all three ownership layers:
    - What should a routine SKILL.md review assess? How often?
    - How do I validate that an updated SKILL.md has not introduced new problems?
 
-2. IT maintenance (connector and config.yaml reviews):
+2. IT maintenance (connector and infrastructure reviews):
    - What monitoring should IT run on connector health?
    - What trigger conditions should prompt a connector update?
-   - What is the change management process if the config.yaml needs to be updated?
+   - What is the change management process if the .mcp.json configuration needs to be updated?
 
 3. ADMINISTRATOR maintenance (governance reviews):
    - When should the permission configuration be reviewed?

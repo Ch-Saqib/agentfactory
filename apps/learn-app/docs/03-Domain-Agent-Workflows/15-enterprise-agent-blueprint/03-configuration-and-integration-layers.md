@@ -1,17 +1,18 @@
 ---
 sidebar_position: 3
-title: "The Configuration and Integration Layers"
-description: "Understand how config.yaml defines a plugin's deployment environment and permission boundaries, and how MCP connector scripts provide live data integration — while recognising what knowledge workers need to understand versus what IT teams own"
+title: "The Plugin Infrastructure"
+description: "Understand how plugin.json, .mcp.json, and settings.json form the infrastructure layer of a Cowork plugin — the components that developers and IT maintain so that your SKILL.md has the environment and data connections it needs to operate"
 keywords:
   [
-    "config.yaml",
+    "plugin.json",
+    ".mcp.json",
     "MCP connector",
-    "permission scope",
+    "settings.json",
     "Cowork plugin",
     "enterprise integration",
-    "connector failure modes",
+    "plugin manifest",
     "infrastructure literacy",
-    "data connectors",
+    "plugin architecture",
   ]
 chapter: 15
 lesson: 3
@@ -19,39 +20,39 @@ duration_minutes: 25
 
 # HIDDEN SKILLS METADATA
 skills:
-  - name: "Read and Interpret config.yaml"
+  - name: "Read and Interpret Plugin Infrastructure Files"
     proficiency_level: "B1"
     category: "Technical"
     bloom_level: "Apply"
     digcomp_area: "Problem-Solving"
-    measurable_at_this_level: "Student can read a config.yaml file, identify the plugin's permission scope, list which connectors are attached, and explain what each permission grants the agent"
+    measurable_at_this_level: "Student can identify the three infrastructure files in a Cowork plugin (plugin.json, .mcp.json, settings.json), explain what each configures, and describe who owns each file"
 
-  - name: "Distinguish Connector States"
+  - name: "Distinguish MCP Connector States"
     proficiency_level: "A2"
     category: "Conceptual"
     bloom_level: "Understand"
     digcomp_area: "Safety"
-    measurable_at_this_level: "Student can describe what a working connector does, what a failed connector does, and why fabricating data is the dangerous failure mode to watch for"
+    measurable_at_this_level: "Student can describe what a working MCP connector does, what happens when one is unavailable, and why fabricating data is the dangerous failure mode to watch for"
 
   - name: "Apply Infrastructure Literacy"
     proficiency_level: "A2"
     category: "Applied"
     bloom_level: "Understand"
     digcomp_area: "Information Literacy"
-    measurable_at_this_level: "Student can explain the concept of infrastructure literacy — knowing enough to detect and accurately describe a connector problem without needing to fix it themselves"
+    measurable_at_this_level: "Student can explain the concept of infrastructure literacy — knowing enough to detect and accurately describe an infrastructure problem without needing to fix it themselves"
 
 learning_objectives:
-  - objective: "Read a config.yaml and identify the plugin's permission scope, connector access, and governance settings"
+  - objective: "Identify the three infrastructure files in a Cowork plugin and explain what each one configures"
     proficiency_level: "B1"
     bloom_level: "Apply"
-    assessment_method: "Given an unfamiliar config.yaml, student can annotate each section and explain what the agent is and is not permitted to do"
+    assessment_method: "Given an unfamiliar plugin directory listing, student can name each infrastructure file and describe its purpose in one sentence"
 
-  - objective: "Explain what an MCP connector does at a conceptual level, including the three states a connector can be in"
+  - objective: "Explain what MCP connectors do at a conceptual level, including the three states a connector can be in"
     proficiency_level: "A2"
     bloom_level: "Understand"
     assessment_method: "Student can describe a working connector, a failed connector showing explicit unavailability, and the dangerous failure mode of fabricated data"
 
-  - objective: "Articulate the knowledge worker's infrastructure literacy requirement — enough to detect a connector problem, not enough to fix it"
+  - objective: "Articulate the knowledge worker's infrastructure literacy requirement — enough to detect a problem, not enough to fix it"
     proficiency_level: "A2"
     bloom_level: "Understand"
     assessment_method: "Student can explain in their own words what infrastructure literacy means and why it matters for productive collaboration with IT"
@@ -59,228 +60,232 @@ learning_objectives:
 cognitive_load:
   new_concepts: 4
   concepts_list:
-    - "config.yaml structure and sections"
-    - "permission scope and connector access"
-    - "MCP connector function and lifecycle"
+    - "plugin.json manifest (identity and versioning)"
+    - ".mcp.json connector declarations (data source access)"
+    - "settings.json default plugin behaviour configuration"
     - "connector failure modes (stale, unavailable, fabricated)"
-  assessment: "4 concepts at A2-B1 level — within the 7-10 cognitive budget for intermediate content. The config.yaml example anchors all four concepts concretely."
+  assessment: "4 concepts at A2-B1 level — within the 7-10 cognitive budget for intermediate content. The plugin directory structure anchors all four concepts concretely."
 
 differentiation:
-  extension_for_advanced: "Examine the governance section of the config.yaml and consider the implications of audit_log, output_review_required, and shadow_mode settings for a regulated industry such as financial services or healthcare. What governance configuration would you recommend for an agent operating in each domain, and why?"
-  remedial_for_struggling: "Focus on the permission scope section of the config.yaml alone. For the bloomberg_mcp connector, answer three questions: What is the connector's name? What permission level does it have (read or write)? What specific data can it access? Repeat for each connector in the example."
+  extension_for_advanced: "Consider the security implications of the .mcp.json file. If a malicious actor could modify this file, what kinds of data exfiltration or unauthorised access could they enable? Why does this make the plugin review and deployment process a critical security control point?"
+  remedial_for_struggling: "Focus on the plugin.json manifest alone. Answer four questions: What is the plugin's name? What does it do? What version is it? Who authored it? Then look at the .mcp.json and list the names of the external systems the plugin connects to. Do not worry about how the connections work — just identify what they connect to."
 
 teaching_guide:
   lesson_type: "core"
   session_group: 1
   session_title: "The Three Components"
   key_points:
-    - "config.yaml is the IT-owned layer — it configures the environment, not the intelligence. Knowledge workers read and verify it; they do not author it."
-    - "Permission scope is the most important section for knowledge workers to understand — it determines what data the agent can access and with what authority."
-    - "MCP connectors are continuously running programmes that handle authentication, query execution, and data format translation."
+    - "plugin.json is a simple manifest — name, description, version, author. It identifies the plugin but does not configure its intelligence or behaviour."
+    - ".mcp.json declares which external systems the plugin connects to. Each entry names an MCP server and provides its connection configuration. This is where data access is defined."
+    - "settings.json configures default plugin behaviour — currently its primary use is the agent key, which activates a custom agent as the main thread. Organisation administrators can override these defaults."
+    - "Governance settings (permissions, audit, shadow mode) are configured in Cowork's org admin panel, not in any file within the plugin package."
     - "The dangerous connector failure mode is not unavailability — it is an agent fabricating data when a connector is down. This must be named explicitly."
     - "Infrastructure literacy is a professional skill: enough to detect and describe problems accurately, enabling productive conversation with the people who fix them."
   misconceptions:
-    - "Students may think they need to understand how connectors work technically — they need to understand what connectors do and what to watch for, not how to build or debug them"
-    - "Students may think that if a connector fails, the agent will show an error message — in poorly configured systems, the agent may silently fabricate data instead"
-    - "Students may think config.yaml is something they write — it is authored by IT and reviewed by knowledge workers"
-    - "Students may confuse permission scope with data access in general — scope defines specifically which data categories within a connector the agent may query"
+    - "Students may think plugin.json contains the agent's instructions or behaviour — it contains only identity metadata (name, description, version, author)"
+    - "Students may think governance settings like audit logging and shadow mode are configured inside the plugin — they are configured by organisation administrators in Cowork's admin panel"
+    - "Students may think they need to understand how MCP connectors work technically — they need to understand what connectors enable and what to watch for, not how to build or debug them"
+    - "Students may think that if a connector fails, the agent will always show an error message — in poorly configured systems, the agent may silently fabricate data instead"
   discussion_prompts:
-    - "Look at the connectors section of the config.yaml example. Which connector gives the agent access to internal models and deal history? Why might that permission require particularly careful scoping?"
-    - "If you were a senior analyst and your research agent gave you market data that seemed oddly specific and coherent, but you had not verified the bloomberg_mcp connector was working — what would you do?"
+    - "Look at the .mcp.json example. If the Salesforce MCP server went down, what would you expect a well-configured agent to do? What would a poorly configured agent do?"
+    - "If you were a senior analyst and your research agent gave you market data that seemed oddly specific and coherent, but you had not verified that the data connector was working — what would you do?"
   teaching_tips:
-    - "The config.yaml walkthrough is the centrepiece of this lesson. Walk through each section in order: metadata, model, interface, connectors, governance. Do not rush the connectors section."
-    - "The connector failure modes discussion is emotionally important — students need to understand that fabricated data is not a hypothetical edge case. Make it concrete."
+    - "Walk through the plugin directory structure first so students have a spatial map of where each file lives. The directory listing is the anchor for the entire lesson."
+    - "Emphasise that plugin.json is deliberately minimal. Students may expect it to be the 'main configuration file' — it is not. The intelligence lives in SKILL.md, the connections live in .mcp.json."
     - "Frame infrastructure literacy positively: it is not about knowing less, it is about knowing the right things to be effective and to have productive conversations with IT."
   assessment_checks:
-    - question: "What does the permission field in a connector entry mean, and what is the difference between read and write?"
-      expected_response: "The permission field defines what authority the agent has with that connector. Read permission means the agent can query data but cannot create, update, or delete anything. Write permission would allow the agent to modify data in the external system."
-    - question: "What are the three states a connector can be in, and which one is dangerous?"
-      expected_response: "Working (the connector is running, authenticating, and returning live data), explicitly unavailable (the connector is down and the agent reports it cannot access that data source), and fabricated (the most dangerous state — the connector is unavailable but the agent invents data rather than reporting the gap). The fabricated state is dangerous."
-    - question: "Who authors the config.yaml, and what is the knowledge worker's role with respect to it?"
-      expected_response: "IT authors the config.yaml. The knowledge worker's role is to understand it well enough to verify that the connectors and permission scopes match their intentions, and to flag discrepancies to IT."
+    - question: "What does plugin.json contain, and what does it NOT contain?"
+      expected_response: "plugin.json contains only identity metadata: the plugin's name, description, version number, and author. It does not contain the agent's instructions (that is SKILL.md), data connections (that is .mcp.json), or governance settings (those are in the org admin panel)."
+    - question: "What are the three states an MCP connector can be in, and which one is dangerous?"
+      expected_response: "Working (the connector is running and returning live data), explicitly unavailable (the connector is down and the agent reports it cannot access that data source), and fabricating (the most dangerous state — the connector is unavailable but the agent invents data rather than reporting the gap). The fabricating state is dangerous because it is undetectable without external verification."
+    - question: "Where are governance settings like audit logging and shadow mode configured?"
+      expected_response: "Governance settings are configured in Cowork's organisation admin panel by administrators, not in any file within the plugin package itself."
 ---
 
-# The Configuration and Integration Layers
+# The Plugin Infrastructure
 
-In Lesson 2, you examined the SKILL.md — the intelligence layer of a Cowork plugin, written in plain English and owned by the knowledge worker. The SKILL.md tells the agent who it is, what it does, and how it behaves. But a SKILL.md without data is an expert locked in an empty room. The next two components — config.yaml and the MCP connector scripts — provide the deployment environment and the data infrastructure that make the agent operational.
+In Lesson 2, you examined the SKILL.md — the intelligence layer of a Cowork plugin, written in plain English and owned by the knowledge worker. The SKILL.md tells the agent who it is, what it does, and how it behaves. But a SKILL.md without infrastructure is an expert locked in an empty room. The surrounding files — plugin.json, .mcp.json, and settings.json — provide the identity, data connections, and default configuration that make the agent operational.
 
-Both components are owned by IT, not by the knowledge worker. This is not a limitation; it is a design choice that reflects where the risk and the technical complexity actually sit. Your role with respect to these layers is not to author them but to understand them well enough to verify that they match your intentions, and to detect when something is wrong. That combination — sufficient understanding without operational responsibility — is what this lesson will build.
+These infrastructure components are owned by developers and IT, not by the knowledge worker. This is not a limitation; it is a design choice that reflects where the technical complexity actually sits. Your role with respect to these files is not to author them but to understand them well enough to verify that they match your intentions, and to detect when something is wrong. That combination — sufficient understanding without operational responsibility — is what this lesson will build.
 
 There is a professional skill embedded in this lesson that does not have a widely used name but deserves one: **infrastructure literacy**. It means knowing enough about the systems you depend on to detect problems accurately, describe them precisely, and have productive conversations with the people who fix them. It is not about becoming a systems engineer. It is about being a competent professional user of complex infrastructure.
 
-## Component Two: The config.yaml
+## The Plugin Directory Structure
 
-The config.yaml is the metadata and configuration layer of a Cowork plugin. It is written in YAML — a structured format that is readable without technical training but is simultaneously machine-readable by the Cowork runtime. Where the SKILL.md is written to be read by an agent, the config.yaml is written to be consumed by the platform.
+Before examining each file individually, it helps to see where they live in relation to each other. A Cowork plugin is a directory with a specific structure:
 
-IT configures it. The knowledge worker understands it.
-
-Here is the complete config.yaml for a Financial Research Agent:
-
-```yaml
-name: "Financial Research Agent"
-version: "1.2.0"
-description: "Senior analyst agent for market research, competitor analysis, and financial summarisation"
-model: "claude-opus-4-6"
-
-interface:
-  input_types: ["text", "document"]
-  output_format: "structured_report"
-  sidebar_icon: "chart-line"
-
-connectors:
-  - name: "bloomberg_mcp"
-    permission: "read"
-    scope: ["market_data", "company_financials", "news_feed"]
-  - name: "snowflake_mcp"
-    permission: "read"
-    scope: ["internal_models", "deal_history"]
-  - name: "sharepoint_mcp"
-    permission: "read"
-    scope: ["research_templates", "approved_sources"]
-
-governance:
-  audit_log: true
-  output_review_required: false
-  escalation_routing: "finance_review_queue"
-  shadow_mode: false
+```
+financial-research/
+├── .claude-plugin/
+│   └── plugin.json        # Manifest: name, description, version, author
+├── .mcp.json              # MCP server declarations
+├── commands/              # Slash commands
+├── skills/                # SKILL.md files (your contribution)
+├── agents/                # Sub-agents
+├── hooks/                 # Event handlers
+├── settings.json          # Default settings
+└── .lsp.json              # LSP server configs
 ```
 
-Walk through this section by section.
+Notice the division of labour built into this structure. The `skills/` directory is where your SKILL.md files live — the intelligence layer you author. Everything else is infrastructure that developers and IT maintain. This lesson covers the three infrastructure files that matter most for your understanding: plugin.json, .mcp.json, and settings.json.
 
-### Metadata
+## Component One: The Plugin Manifest (plugin.json)
 
-The opening block — `name`, `version`, `description`, and `model` — is the plugin's identity card. The name and description matter because they determine how the plugin appears to users in the Cowork interface. The version matters for change management: when IT updates the config.yaml, the version number makes it possible to trace which configuration was in effect at any point in time.
+The plugin.json file lives inside the `.claude-plugin/` directory. It is the plugin's identity card — and it is deliberately minimal. Here is the complete plugin.json for a Financial Research Agent:
 
-The `model` field specifies which Claude model powers this plugin. Selecting `claude-opus-4-6` gives the Financial Research Agent access to the most capable reasoning, which is appropriate for analytical work that requires synthesising information across multiple data sources and producing structured reports. Different plugins within the same organisation may run on different models, balancing capability against cost.
+```json
+{
+  "name": "financial-research",
+  "description": "Financial research agent for FTSE equity analysis and market data retrieval",
+  "version": "1.2.0",
+  "author": {
+    "name": "Acme Financial"
+  }
+}
+```
 
-### Interface
+That is the entire file. Four fields: `name`, `description`, `version`, and `author`.
 
-The `interface` section configures how users interact with the plugin. `input_types: ["text", "document"]` means users can submit both typed queries and uploaded documents. A compliance agent that needs to analyse uploaded contracts would require document input; a simpler assistant might accept text only.
+This minimalism surprises people. If you expected the manifest to be the "main configuration file" containing the agent's instructions, permissions, and data connections, that expectation is wrong — and the mismatch is worth understanding.
 
-The `output_format: "structured_report"` tells the Cowork runtime how to render the agent's output. Different formats are rendered differently in the Cowork UI: a `structured_report` produces a formatted document with sections; a `data_table` might produce a sortable grid; a `conversational` output presents as a chat response.
+The `name` field is a machine-readable identifier. It determines how the Cowork platform references this plugin internally and how it appears in deployment systems. The `description` field tells the plugin manager — and anyone browsing the marketplace — what this plugin does. It is displayed in discovery interfaces and should clearly state the plugin's purpose. The `version` field matters for change management: when IT updates any file in the plugin, the version number makes it possible to trace which configuration was in effect at any point in time. The `author` field identifies ownership — useful for auditing and for knowing which team to contact when something needs to change.
 
-### Connectors and Permission Scope
+What plugin.json does _not_ contain is equally important. It does not contain the agent's instructions (that is the SKILL.md). It does not configure data connections (that is .mcp.json). It does not set governance policies like audit logging or shadow mode (those are configured in Cowork's organisation admin panel, not in any file within the plugin). The manifest identifies the plugin. Other components configure it.
 
-The `connectors` section is the most important part of the config.yaml for knowledge workers to understand. It defines which external systems the agent can access and — critically — what it is permitted to do with each.
+## Component Two: MCP Connector Declarations (.mcp.json)
 
-Each connector entry has three fields: `name` (which MCP connector to use), `permission` (what authority the agent has), and `scope` (which specific data categories within that connector are accessible).
+The .mcp.json file is where the plugin's data connections are declared. It specifies which MCP (Model Context Protocol) servers the plugin connects to — and through those servers, which external systems the agent can access.
 
-For this Financial Research Agent:
+An MCP server is a small service that acts as a bridge between the agent and an external system. When the Financial Research Agent needs current market data, it does not connect to Bloomberg directly. It communicates with a Bloomberg MCP server, which handles authentication, executes queries, translates data formats, and returns structured results. Each external system the agent connects to has its own MCP server.
 
-| Connector | Permission | Scope |
-| --- | --- | --- |
-| bloomberg_mcp | read | market_data, company_financials, news_feed |
-| snowflake_mcp | read | internal_models, deal_history |
-| sharepoint_mcp | read | research_templates, approved_sources |
+The .mcp.json file declares which of these servers the plugin uses. For the Financial Research Agent, it might declare connections to a Bloomberg data server, a Snowflake analytics server, and a SharePoint document server. Each entry names the server and provides its connection configuration — the address, the protocol, and any parameters needed to establish the connection.
 
-All three connectors have `read` permission. This means the agent can query data but cannot create, modify, or delete anything in those systems. A connector with `write` permission would allow the agent to act — for example, an agent that drafts and sends emails would need write access to a mail connector. Write permissions require considerably more scrutiny during configuration, because they extend the agent's autonomy into consequential actions.
+This design has several advantages. The agent does not need to know how to authenticate with each external system — that complexity lives in the MCP server. The agent does not need to handle different data formats from different sources — the server normalises them. And when external systems change their APIs or authentication protocols, only the MCP server needs to be updated, not the agent itself.
 
-The `scope` field narrows what the agent can see within a connector. The snowflake_mcp connector gives access to `internal_models` and `deal_history`, but not to all data in the Snowflake instance. Perhaps the same Snowflake environment contains HR data, executive compensation records, or audit logs — none of which this agent should touch. The scope definition enforces that boundary.
-
-**Permission boundaries are enforced by the Cowork runtime, not by the SKILL.md.** If the Financial Research Agent's SKILL.md were somehow to instruct it to access payroll data, the attempt would fail safely — because payroll data is not within the configured scope. The config.yaml is the authority; the SKILL.md is subordinate to it.
-
-### Governance
-
-The `governance` section records four settings that determine how the agent operates within the organisation's oversight framework:
-
-`audit_log: true` means every query and response is recorded in an immutable log. This is standard for any agent operating in a regulated environment — it provides the evidence trail required by compliance and legal functions.
-
-`output_review_required: false` means the agent's outputs go directly to the user without human review. For a research assistant producing internal analysis, this is appropriate. For an agent producing client-facing documents or regulatory filings, this setting would likely be `true`.
-
-`escalation_routing: "finance_review_queue"` specifies where the agent routes queries that exceed its authority or require human judgment. When the agent determines it cannot or should not complete a task autonomously, it does not simply stop — it routes the request to the appropriate queue.
-
-`shadow_mode: false` means the agent is operating autonomously rather than in parallel with human analysts for comparison purposes. Shadow mode, which will be covered in Lesson 7, is how new agents build the performance record that justifies their autonomous operation. Once this agent passed its shadow mode evaluation, that setting was turned off.
-
-## Component Three: Connector Scripts
-
-Behind each entry in the connectors section of the config.yaml is a small programme called an MCP connector. Understanding what these connectors do — and what happens when they do not — is the second half of infrastructure literacy.
-
-An MCP connector is a continuously running service that listens for queries from the agent, retrieves the requested data from an external system, and returns it in a format the agent can use. When the Financial Research Agent needs current market data for a company, it does not connect to Bloomberg directly. It sends a query to the bloomberg_mcp connector, which handles the authentication credentials, executes the API call, translates the response into a consistent format, and returns the data to the agent.
-
-This design has several advantages. The agent does not need to know how to authenticate with each external system — that complexity lives in the connector. The agent does not need to handle different data formats from different sources — the connector normalises them. And when external systems change their APIs or authentication protocols, only the connector needs to be updated, not the agent itself.
+**Who writes .mcp.json?** Developers and IT. They configure the servers, manage the credentials, and maintain the connections. Your role as the knowledge worker is to understand what the .mcp.json enables — which data sources your agent can reach — and to verify that those connections match the requirements of your workflow.
 
 ### The Three Connector States
 
-The practical literacy question is not how connectors work internally — that is an IT concern — but what state a connector is in at any given moment. There are three states:
+The practical literacy question is not how MCP servers work internally — that is an IT concern — but what state a connector is in at any given moment. There are three states:
 
-**Working.** The connector is running, the authentication is valid, and queries return live data from the external system. When a connector is working, the agent has access to current information. Research reflects today's market data, not last week's cached snapshot.
+**Working.** The MCP server is running, the authentication is valid, and queries return live data from the external system. When a connector is working, the agent has access to current information. Research reflects today's data, not last week's cached snapshot.
 
-**Explicitly unavailable.** The connector is not running or cannot authenticate. In a well-configured system, the agent detects this state and tells the user it cannot access that data source. "I was unable to retrieve current Bloomberg data for this analysis. Please verify the bloomberg_mcp connector status with your IT team." This is the correct failure mode — it is transparent about the limitation.
+**Explicitly unavailable.** The MCP server is not running or cannot authenticate. In a well-configured system, the agent detects this state and tells the user it cannot access that data source. "I was unable to retrieve current Bloomberg data for this analysis. Please verify the connector status with your IT team." This is the correct failure mode — it is transparent about the limitation.
 
 **Fabricating data.** This is the dangerous failure mode, and it must be named explicitly. In a poorly designed or misconfigured system, when a connector is unavailable, the agent may draw on its training data or internal knowledge to produce responses that appear to be live data but are not. The output looks like a real market data response. The numbers are plausible. The format is correct. But the information is invented.
 
 The reason this is categorically different from the second state is that it is undetectable without external verification. An agent that says "I cannot access Bloomberg" gives you accurate information about its limitations. An agent that generates a plausible-looking market data table without access to Bloomberg has produced a hallucination presented as fact — and in a financial context, acting on fabricated data can have serious consequences.
 
-Cowork's architecture is designed to make the third state unlikely. The governance layer and connector design enforce explicit failure reporting rather than silent substitution. But no architecture eliminates the risk entirely, which is why infrastructure literacy includes knowing this risk exists and building the habit of verifying data provenance when stakes are high.
+Cowork's architecture is designed to make the third state unlikely. The platform and connector design enforce explicit failure reporting rather than silent substitution. But no architecture eliminates the risk entirely, which is why infrastructure literacy includes knowing this risk exists and building the habit of verifying data provenance when stakes are high.
+
+## Component Three: Default Settings (settings.json)
+
+The settings.json file configures default plugin behaviour. Its current primary use is the `agent` key, which activates a custom agent definition as the plugin's main conversation thread. When a plugin includes a settings.json with an `agent` key pointing to an agent file, that agent becomes the entry point when a user starts a session with the plugin.
+
+This scope is deliberately narrow today — settings.json may support additional configuration keys as the platform evolves — but even a single key carries architectural significance. It means the plugin developer decides which agent a user interacts with by default, while the organisation retains the ability to override that choice through the admin panel.
+
+The distinction between settings.json and governance controls is important. Settings.json lives inside the plugin package and configures developer-chosen defaults for plugin behaviour. Governance controls — audit logging, output review requirements, shadow mode, escalation routing — are configured by organisation administrators in Cowork's admin panel. They sit above the plugin, applying organisation-wide policies that no individual plugin can override.
+
+This separation is a security design: the people who build plugins cannot weaken the governance controls that the organisation applies to them.
+
+## A Note on Governance
+
+If you are wondering where audit logging, permission scopes, shadow mode, and escalation routing are configured — the answer is: not inside the plugin. These governance settings live in Cowork's organisation admin panel, managed by administrators who set policies that apply across all plugins in the organisation.
+
+This means governance is not something a plugin author decides. It is something the organisation enforces. A plugin author cannot disable audit logging for their plugin, and a knowledge worker cannot bypass review requirements. The governance layer wraps around the plugin from the outside, which is precisely how enterprise security should work.
+
+You will examine governance in detail in Lesson 7 when the chapter covers shadow mode and compliance frameworks. For now, the key point is architectural: governance is organisational, not per-plugin.
+
+## The Relationship Between Infrastructure and Intelligence
+
+With all three infrastructure files in view, the division of labour becomes clear:
+
+| Component               | What It Does                                                          | Who Owns It        |
+| ----------------------- | --------------------------------------------------------------------- | ------------------ |
+| **plugin.json**         | Identifies the plugin (name, description, version, author)            | Developers         |
+| **.mcp.json**           | Declares data connections to external systems                         | Developers / IT    |
+| **settings.json**       | Configures default plugin behaviour (e.g., activating a custom agent) | Developers         |
+| **SKILL.md**            | Defines the agent's expertise and behaviour                           | Knowledge worker   |
+| **Governance settings** | Enforces organisational policies (audit, review, shadow mode)         | Org administrators |
+
+Your contribution — the SKILL.md — sits at the centre. It is the intelligence that makes the agent useful. But it operates within the environment that the infrastructure files create. A SKILL.md that instructs the agent to analyse Bloomberg data only works if the .mcp.json declares a Bloomberg MCP server and IT has configured that server to be available. A SKILL.md that describes careful, audited research behaviour only matters if the organisation's governance settings actually enforce audit logging.
+
+Understanding this relationship is what makes you an effective collaborator rather than someone who writes instructions in isolation and hopes the infrastructure team gets the rest right.
 
 ### What the Knowledge Worker Needs to Know
 
-You do not need to build connectors, debug connector failures, or manage connector authentication. That work belongs to IT. What you need is enough understanding to operate as a competent professional user of the infrastructure.
+You do not need to build MCP servers, write plugin.json files, or manage settings.json. That work belongs to developers and IT. What you need is enough understanding to operate as a competent professional user of the infrastructure.
 
-| Capability | What It Looks Like in Practice |
-| --- | --- |
-| **Verify connector alignment** | Confirm that the connectors listed in the config.yaml match the data sources your workflow actually requires |
-| **Detect data quality issues** | Recognise when an agent's output may be based on unavailable or stale data |
-| **Report problems accurately** | Describe a connector problem in terms IT can act on — "the bloomberg_mcp connector appears to be returning stale data, last updated three days ago" is more useful than "the agent seems off" |
-| **Trigger verification proactively** | Know when to ask IT to verify connector status before proceeding with high-stakes analysis |
+| Capability                      | What It Looks Like in Practice                                                                                                                                                                  |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Verify connector alignment**  | Confirm that the MCP servers declared in .mcp.json match the data sources your workflow actually requires                                                                                       |
+| **Detect data quality issues**  | Recognise when an agent's output may be based on unavailable or stale data                                                                                                                      |
+| **Report problems accurately**  | Describe an infrastructure problem in terms IT can act on — "the Bloomberg connector appears to be returning stale data, last updated three days ago" is more useful than "the agent seems off" |
+| **Understand the architecture** | Know which file controls what, so you can direct questions to the right people                                                                                                                  |
 
 This is infrastructure literacy: not operational depth, but sufficient awareness to be a capable professional user and an effective collaborator with the people who maintain the infrastructure you depend on.
 
 ## Try With AI
 
-Use these prompts in Anthropic Cowork or your preferred AI assistant to practise reading and reasoning about plugin configuration.
+Use these prompts in Anthropic Cowork or your preferred AI assistant to practise reasoning about plugin infrastructure.
 
-### Prompt 1: Configuration Annotation
+### Prompt 1: Plugin Structure Annotation
 
 ```
-I'm going to share a config.yaml for a Cowork plugin. For each section,
-annotate what it configures and what it means for the agent's behaviour.
-Then identify: (1) what data sources the agent has access to, (2) what
-the agent cannot access, and (3) what the governance settings imply about
-the expected operating context.
+I'm going to describe a Cowork plugin directory structure. For each
+infrastructure file (plugin.json, .mcp.json, settings.json), explain:
+(1) what it configures, (2) who owns it, and (3) what would happen if
+it were missing or misconfigured.
 
-[Paste a config.yaml here]
+Then tell me: where do the governance settings like audit logging and
+shadow mode live? Why don't they live inside the plugin?
+
+The plugin is called "legal-contract-reviewer" and it connects to
+a LexisNexis database, a SharePoint document library, and a DocuSign
+signing service.
 ```
 
-**What you're learning:** Reading a config.yaml requires more than parsing the syntax — it requires interpreting what each setting means for the agent's behaviour and limitations. This prompt practises treating the config.yaml as a source of operational information, not just a technical file.
+**What you're learning:** Understanding the plugin directory structure requires more than memorising file names — it requires knowing what each file controls and who is responsible for it. This prompt practises treating the infrastructure as a map of responsibilities, not just a list of files.
 
 ### Prompt 2: Connector Failure Diagnosis
 
 ```
-I'm using a Financial Research Agent built on the config.yaml from the
-Chapter 15 lesson. The agent has produced a report with detailed market
+I'm using a Financial Research Agent that connects to Bloomberg,
+Snowflake, and SharePoint through MCP servers declared in its
+.mcp.json file. The agent has produced a report with detailed market
 data and company financials for three competitors. I haven't verified
-whether the bloomberg_mcp connector was working when the report was
+whether the Bloomberg MCP server was running when the report was
 generated.
 
 Help me think through: (1) what questions I should ask before trusting
-this data, (2) how I would verify whether the data is live or fabricated,
-and (3) what I should tell IT if I suspect a connector problem. Be
-specific about what "fabricated data" looks like versus "live data with
-genuine uncertainties."
+this data, (2) how I would verify whether the data is live or
+fabricated, and (3) what I should tell IT if I suspect a connector
+problem. Be specific about what "fabricated data" looks like versus
+"live data with genuine uncertainties."
 ```
 
 **What you're learning:** Infrastructure literacy includes knowing how to verify data provenance — not just trusting that the agent has access to what it is supposed to have access to. This prompt practises the reasoning process for high-stakes data verification, which is a core professional skill when working with AI-powered research tools.
 
-### Prompt 3: Permission Scope Design
+### Prompt 3: Infrastructure Requirements Conversation
 
 ```
-I'm working with IT to configure a new Cowork plugin for our legal team.
-The agent will review contracts, flag risk clauses, and cross-reference
-regulatory guidance. I need to decide what connectors and permission scopes
-to request.
+I'm a senior analyst preparing to work with IT to set up a new Cowork
+plugin for our research team. I need to explain what MCP server
+connections the plugin requires so that IT can write the .mcp.json file
+and configure the servers.
 
-We have access to: a LexisNexis MCP connector, a SharePoint connector
-(containing both approved legal templates and confidential settlement
-records), and a DocuSign connector.
+Our workflow requires: live market data from Bloomberg, access to our
+internal analytics database in Snowflake (specifically the models and
+deal history tables, not HR data), and read access to approved research
+templates in SharePoint.
 
-Help me think through what permission scope to request for each connector.
-What should the agent be able to access, and what should be explicitly
-excluded? What would you recommend for the permission field (read vs write)
-for the DocuSign connector, and why?
+Help me draft a clear, specific request to IT that describes what
+connections I need, what data each connection should provide access to,
+and any access restrictions I want to emphasise. Frame this as a
+knowledge worker communicating requirements to a technical team.
 ```
 
-**What you're learning:** Designing permission scope is a knowledge worker responsibility even though IT implements it. You specify what data the agent needs; IT configures it. This prompt practises thinking through data access requirements carefully — including the principle that scope should be as narrow as the workflow allows.
+**What you're learning:** Even though IT writes the .mcp.json and configures the MCP servers, the knowledge worker specifies the requirements. This prompt practises the communication skill of translating workflow needs into infrastructure requirements — clearly enough that IT can implement them correctly on the first pass.
 
 ## Flashcards Study Aid
 

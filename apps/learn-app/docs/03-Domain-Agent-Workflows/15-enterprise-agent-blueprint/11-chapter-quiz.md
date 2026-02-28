@@ -5,7 +5,7 @@ title: "Chapter 15: The Enterprise Agent Blueprint Quiz"
 
 # Chapter 15: The Enterprise Agent Blueprint Quiz
 
-Test your understanding of the enterprise agent blueprint — from plugin architecture and the Agent Skills Pattern to governance, ownership, and the marketplace.
+Test your understanding of the enterprise agent blueprint — from plugin architecture and the PQP Framework to governance, ownership, and the marketplace.
 
 <Quiz
 title="Chapter 15: The Enterprise Agent Blueprint Assessment"
@@ -19,7 +19,7 @@ options: [
 "A Cowork plugin processes documents, whereas a chatbot add-on only handles text queries"
 ],
 correctOption: 0,
-explanation: "The colleague is pointing to the five structural properties that define a Cowork plugin: identity, instructions, connections, governance, and performance record. A chatbot add-on that only responds when asked is a wrapper, not an agent, and lacks the governance and performance infrastructure that makes a plugin deployable in an audited environment. Option B is wrong because the model version is a config.yaml setting, not the defining distinction. Option C is incorrect because knowledge workers — not developers — own the SKILL.md, which is the intelligence layer. Option D is too narrow; the distinction is architectural, not limited to input type.",
+explanation: "The colleague is pointing to the five structural properties that define a Cowork plugin: identity, instructions, connections, governance, and performance record. A chatbot add-on that only responds when asked is a wrapper, not an agent, and lacks the governance and performance infrastructure that makes a plugin deployable in an audited environment. Option B is wrong because the model version is a plugin manifest setting, not the defining distinction. Option C is incorrect because knowledge workers — not developers — own the SKILL.md, which is the intelligence layer. Option D is too narrow; the distinction is architectural, not limited to input type.",
 source: "Lesson 1: What a Plugin Actually Is"
 },
 {
@@ -47,15 +47,15 @@ explanation: "The architectural basis is transparency as a structural property: 
 source: "Lesson 1: What a Plugin Actually Is"
 },
 {
-question: "An architecture firm is building its first Cowork plugin for BIM coordination. The project lead assigns the SKILL.md to the lead architect, the config.yaml to the IT team, and the connector scripts to a developer. A junior colleague asks why the SKILL.md was not assigned to the developer, who 'knows technology better.' What is the most accurate response?",
+question: "An architecture firm is building its first Cowork plugin for BIM coordination. The project lead assigns the SKILL.md to the lead architect, the connectors (.mcp.json) and manifest to the IT team, and the MCP connector implementation to a developer. A junior colleague asks why the SKILL.md was not assigned to the developer, who 'knows technology better.' What is the most accurate response?",
 options: [
 "The developer lacks security clearance to access the SKILL.md",
 "SKILL.md is a plain-English document requiring domain expertise — the lead architect understands BIM coordination; the developer does not need to",
 "The developer is too junior to be trusted with the intelligence layer",
-"The config.yaml is more technically complex than the SKILL.md, so the developer is assigned there instead"
+"The plugin manifest is more technically complex than the SKILL.md, so the developer is assigned there instead"
 ],
 correctOption: 1,
-explanation: "The SKILL.md is a plain-text structured document written in English, not a code file. It requires domain expertise — knowledge of BIM coordination conventions, clash detection standards, escalation protocols — not programming ability. The lead architect is the correct owner because she has that expertise. The developer builds connector scripts, which require technical skills but not domain knowledge. Option A is wrong; there is no security clearance dimension to SKILL.md ownership. Option C misidentifies the reason — it is about expertise, not seniority. Option D is incorrect; the config.yaml is structured YAML, but the distinction is based on what knowledge each role has, not comparative complexity.",
+explanation: "The SKILL.md is a plain-text structured document written in English, not a code file. It requires domain expertise — knowledge of BIM coordination conventions, clash detection standards, escalation protocols — not programming ability. The lead architect is the correct owner because she has that expertise. The developer builds MCP connectors, which require technical skills but not domain knowledge. Option A is wrong; there is no security clearance dimension to SKILL.md ownership. Option C misidentifies the reason — it is about expertise, not seniority. Option D is incorrect; the plugin manifest is structured JSON, but the distinction is based on what knowledge each role has, not comparative complexity.",
 source: "Lesson 1: What a Plugin Actually Is"
 },
 {
@@ -64,7 +64,7 @@ options: [
 "The Persona section — the agent's professional identity is too broad",
 "The out-of-scope boundary in the Questions section — the agent has no defined boundary preventing it from straying into employment law",
 "The Source Integrity principle — the agent is drawing from the wrong data sources",
-"The config.yaml model setting — the AI model selected is too capable and oversteps its remit"
+"The plugin manifest model setting — the AI model selected is too capable and oversteps its remit"
 ],
 correctOption: 1,
 explanation: "The agent is straying beyond its intended scope into employment law, which indicates the Questions section lacks a well-defined out-of-scope boundary. As Lesson 2 explains, an agent without an explicit out-of-scope list will attempt queries it cannot handle well, producing confident-sounding output in areas where it has no grounded expertise. Option A is possible but less precise — the Persona shapes authority and tone but the Questions section is the scope document. Option C is about data sourcing, not scope management. Option D is incorrect; model capability is not the issue — the SKILL.md has not defined what the agent should decline.",
@@ -100,10 +100,10 @@ options: [
 "The agent will refuse all queries not exactly matching the five listed types",
 "The agent will work correctly within scope but log out-of-scope queries for manual review",
 "The agent will attempt to answer queries outside its expertise, producing confident-sounding but unreliable output in areas like legal advice or financial projections",
-"The config.yaml will automatically restrict the agent to the five listed query types without requiring an out-of-scope section"
+"The plugin manifest will automatically restrict the agent to the five listed query types without requiring an out-of-scope section"
 ],
 correctOption: 2,
-explanation: "Lesson 2 states: 'An agent without a well-defined scope will attempt to answer queries it cannot handle well. This produces confident-sounding outputs in areas where it has no grounded expertise.' Without an explicit out-of-scope boundary, a lead qualification agent may venture into areas like contract terms, pricing authority, or legal compliance — areas where its grounded expertise ends and professional liability begins. Option A inverts the problem; the agent does not refuse, it proceeds. Option B is incorrect; there is no automatic logging mechanism for scope violations. Option D is wrong; the config.yaml governs deployment environment and connectors, not query scope.",
+explanation: "Lesson 2 states: 'An agent without a well-defined scope will attempt to answer queries it cannot handle well. This produces confident-sounding outputs in areas where it has no grounded expertise.' Without an explicit out-of-scope boundary, a lead qualification agent may venture into areas like contract terms, pricing authority, or legal compliance — areas where its grounded expertise ends and professional liability begins. Option A inverts the problem; the agent does not refuse, it proceeds. Option B is incorrect; there is no automatic logging mechanism for scope violations. Option D is wrong; the plugin manifest governs deployment environment and connectors, not query scope.",
 source: "Lesson 2: The Intelligence Layer — SKILL.md"
 },
 {
@@ -119,15 +119,15 @@ explanation: "Lesson 2 explains that identity governs ambiguous situations more 
 source: "Lesson 2: The Intelligence Layer — SKILL.md"
 },
 {
-question: "A financial research team deploys a Cowork plugin. The IT administrator configures the config.yaml with three connectors: bloomberg_mcp (read, scope: market_data, news_feed), snowflake_mcp (read, scope: internal_models), and sharepoint_mcp (read, scope: research_templates). One analyst asks whether the agent can access the Snowflake instance's HR payroll data to check a restructuring rumour. What is the correct answer?",
+question: "A financial research team deploys a Cowork plugin. The IT administrator configures the .mcp.json with three MCP connectors: bloomberg_mcp (read, scope: market_data, news_feed), snowflake_mcp (read, scope: internal_models), and sharepoint_mcp (read, scope: research_templates). One analyst asks whether the agent can access the Snowflake instance's HR payroll data to check a restructuring rumour. What is the correct answer?",
 options: [
 "Yes — if the SKILL.md instructs the agent to query Snowflake, it can access all data within Snowflake",
 "No — permission boundaries are enforced by the Cowork runtime, and payroll data is outside the configured scope of snowflake_mcp",
-"It depends on whether the administrator grants an exception in the governance section of the config.yaml",
+"It depends on whether the administrator grants an exception in the governance configuration",
 "Yes — but the agent will flag the query as sensitive and route it to the finance review queue"
 ],
 correctOption: 1,
-explanation: "Lesson 3 states explicitly: 'Permission boundaries are enforced by the Cowork runtime, not by the SKILL.md.' The snowflake_mcp connector's scope is limited to 'internal_models' — payroll data is outside that scope. Even if the SKILL.md instructed the agent to query payroll data, the attempt would fail safely because the Cowork runtime enforces the configured scope boundaries. Option A is incorrect; scope restrictions apply within a connector, not just at connector level. Option C is wrong; the governance section handles audit and HITL settings, not ad hoc data access exceptions. Option D is incorrect; the agent cannot access the data at all — routing it to a review queue is not the response to a scope boundary violation.",
+explanation: "Lesson 3 states explicitly: 'Permission boundaries are enforced by the Cowork runtime, not by the SKILL.md.' The snowflake_mcp connector's scope is limited to 'internal_models' — payroll data is outside that scope. Even if the SKILL.md instructed the agent to query payroll data, the attempt would fail safely because the Cowork runtime enforces the configured scope boundaries. Option A is incorrect; scope restrictions apply within a connector, not just at connector level. Option C is wrong; the governance configuration handles audit and HITL settings, not ad hoc data access exceptions. Option D is incorrect; the agent cannot access the data at all — routing it to a review queue is not the response to a scope boundary violation.",
 source: "Lesson 3: The Configuration and Integration Layers"
 },
 {
@@ -143,7 +143,7 @@ explanation: "Lesson 3 identifies the fabricating state as 'the dangerous failur
 source: "Lesson 3: The Configuration and Integration Layers"
 },
 {
-question: "A knowledge worker reviews the governance section of her plugin's config.yaml and finds: audit_log: true, output_review_required: true, escalation_routing: 'legal_review_queue', shadow_mode: false. What does output_review_required: true imply about this plugin's deployment context?",
+question: "A knowledge worker reviews the governance section of her plugin's configuration and finds: audit_log: true, output_review_required: true, escalation_routing: 'legal_review_queue', shadow_mode: false. What does output_review_required: true imply about this plugin's deployment context?",
 options: [
 "The agent's outputs go through a technical validation check before being stored in the audit log",
 "The agent is still in shadow mode and outputs require review before reaching users",
@@ -151,19 +151,19 @@ options: [
 "The knowledge worker must approve each output before the agent submits it to the escalation queue"
 ],
 correctOption: 2,
-explanation: "Lesson 3 explains that output_review_required: false means outputs go directly to the user, while the implication of true is that outputs require human review before reaching anyone. This setting is appropriate when the plugin produces client-facing documents, regulatory filings, or other outputs where human judgment is required before release. Option A incorrectly describes a technical validation step that is not part of the config.yaml governance model. Option B is wrong; shadow_mode: false means the agent is not in shadow mode. Option D misidentifies who does the reviewing; output review involves a qualified human reviewer, not the knowledge worker who owns the plugin.",
+explanation: "Lesson 3 explains that output_review_required: false means outputs go directly to the user, while the implication of true is that outputs require human review before reaching anyone. This setting is appropriate when the plugin produces client-facing documents, regulatory filings, or other outputs where human judgment is required before release. Option A incorrectly describes a technical validation step that is not part of the plugin governance model. Option B is wrong; shadow_mode: false means the agent is not in shadow mode. Option D misidentifies who does the reviewing; output review involves a qualified human reviewer, not the knowledge worker who owns the plugin.",
 source: "Lesson 3: The Configuration and Integration Layers"
 },
 {
 question: "An IT manager is explaining MCP connectors to a new team member. She says: 'You do not need to know how they work internally — but you do need to understand what infrastructure literacy means for our knowledge workers.' What does infrastructure literacy mean in this context?",
 options: [
-"Knowledge workers must be able to build and debug connector scripts independently",
+"Knowledge workers must be able to build and debug MCP connectors independently",
 "Knowledge workers must understand enough about connectors to detect problems accurately, describe them precisely to IT, and recognise when to verify data provenance before acting",
 "Knowledge workers must obtain an IT certification before they can use any Cowork plugin with live data connectors",
 "Knowledge workers must review the connector code before each deployment to ensure it meets security standards"
 ],
 correctOption: 1,
-explanation: "Lesson 3 defines infrastructure literacy as 'knowing enough about the systems you depend on to detect problems accurately, describe them precisely, and have productive conversations with the people who fix them.' It explicitly states this is 'not about becoming a systems engineer.' Knowledge workers need sufficient awareness to confirm connectors match their workflow needs, recognise stale or fabricated data, and report problems accurately to IT. Option A inverts the ownership model — connector maintenance belongs to IT. Option C is incorrect; no certification is described. Option D is wrong; knowledge workers review the config.yaml to verify connectors are configured correctly, not the connector code itself.",
+explanation: "Lesson 3 defines infrastructure literacy as 'knowing enough about the systems you depend on to detect problems accurately, describe them precisely, and have productive conversations with the people who fix them.' It explicitly states this is 'not about becoming a systems engineer.' Knowledge workers need sufficient awareness to confirm connectors match their workflow needs, recognise stale or fabricated data, and report problems accurately to IT. Option A inverts the ownership model — MCP connector maintenance belongs to IT. Option C is incorrect; no certification is described. Option D is wrong; knowledge workers review the connector configuration to verify connectors are set up correctly, not the connector code itself.",
 source: "Lesson 3: The Configuration and Integration Layers"
 },
 {
@@ -182,7 +182,7 @@ source: "Lesson 4: The Three-Level Context System"
 question: "A knowledge worker at a healthcare organisation has written a SKILL.md that instructs her clinical documentation agent to send discharge summaries directly to the hospital's patient records system. The agent instead always routes summaries to a review queue. She is confused because the instruction is clearly written. What diagnostic step should she take first?",
 options: [
 "Rewrite the SKILL.md instruction using more specific language about the patient records system endpoint",
-"Ask IT to rebuild the connector script that routes outputs to the patient records system",
+"Ask IT to rebuild the MCP connector that routes outputs to the patient records system",
 "Check whether a platform-level constraint (Anthropic) or an organisation-level policy (administrator) prevents direct autonomous output to clinical systems — before assuming the SKILL.md has an error",
 "Delete the instruction from the Principles section and add it to the Questions section instead"
 ],
@@ -224,7 +224,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "Lesson 5 uses this exact example to demonstrate the central insight: identity constraints govern more robustly than rules. A rule ('do not give investment recommendations') can be argued around if a user frames their request as 'what factors would you weigh if you were deciding?' A professional identity ('I am not an investment adviser') governs even this reframing — the agent's identity precludes it from producing investment-flavoured analysis in any form. Option A is incorrect; there is no processing-priority hierarchy in the lesson. Option C is wrong; the statement can appear in both sections if needed. Option D is incorrect; no regulatory requirement is cited for Persona placement.",
-source: "Lesson 5: The Agent Skills Pattern in Practice"
+source: "Lesson 5: The PQP Framework in Practice"
 },
 {
 question: "The Principles section of the financial research SKILL.md includes a Source Integrity principle: 'If you cannot ground a figure in a connected source or user-provided document, say I don't have a grounded source for this figure rather than providing a number from memory.' What specific failure mode does this prevent?",
@@ -236,7 +236,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "Lesson 5 explains: 'A model trained on large amounts of financial data can produce plausible-looking figures — revenue numbers, market capitalisations, deal valuations — that are drawn from training memory rather than connected, current data sources. In a financial research context where decisions are made on the basis of these numbers, it is a serious risk.' The Source Integrity principle forces the agent to acknowledge the gap rather than fabricate authoritative-looking output. Option A is about source approval, not the failure mode addressed. Option C incorrectly frames it as preventing users from asking questions — the principle governs agent behaviour, not user queries. Option D describes Recency Transparency, which is a separate principle in the SKILL.md.",
-source: "Lesson 5: The Agent Skills Pattern in Practice"
+source: "Lesson 5: The PQP Framework in Practice"
 },
 {
 question: "The financial research SKILL.md includes an uncertainty calibration vocabulary: 'The data indicates...' means directly supported; 'Based on available data, it appears that...' means reasonable inferences; 'It is worth considering whether...' means hypothesis only. A portfolio manager who uses this agent regularly says this vocabulary 'makes the agent's outputs auditable.' What does she mean?",
@@ -248,7 +248,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "Lesson 5 explains uncertainty calibration as 'infrastructure for trust': the shared vocabulary between agent and professional user means outputs are auditable because the professional can read the agent's language and know immediately what degree of reliance is appropriate. 'The data indicates' signals that a claim is directly grounded; 'it is worth considering whether' signals a hypothesis. This makes the analysis reviewable: a reviewer can check whether the agent applied its calibration correctly. Option A conflates auditability with regulatory filing. Option C misidentifies the purpose as simplification. Option D invents a percentage-mapping system not described in the lesson.",
-source: "Lesson 5: The Agent Skills Pattern in Practice"
+source: "Lesson 5: The PQP Framework in Practice"
 },
 {
 question: "The financial research SKILL.md's Questions section ends with: 'For out-of-scope requests, tell the user clearly why the request is outside your remit and suggest an appropriate alternative where one exists.' A junior analyst asks why the out-of-scope section does not simply say 'refuse out-of-scope requests.' What is the best explanation?",
@@ -260,7 +260,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "Lesson 5 explains: 'Positive redirection is more useful than refusal. If a user asks for something outside the agent's remit and receives only I cannot help with that, they are stuck. If they receive that falls outside my scope — for tax advice, contact the finance team, they know what to do next. The agent remains useful even at its boundary.' The out-of-scope section is designed to route users toward the right resource, not simply stop them. Option A invents a regulatory requirement. Option C is incorrect; the SKILL.md can instruct refusals, but positive redirection is more valuable. Option D is a plausible side effect but not the primary reason.",
-source: "Lesson 5: The Agent Skills Pattern in Practice"
+source: "Lesson 5: The PQP Framework in Practice"
 },
 {
 question: "A legal practice wants to connect its contract review agent to LexisNexis and Westlaw. The IT manager says the connectors cannot be activated yet. The knowledge worker asks why — both connectors appear in the Cowork marketplace connector list. What is the most likely reason?",
@@ -327,11 +327,11 @@ question: "A financial services firm deploys a Cowork plugin for portfolio analy
 options: [
 "The SKILL.md Questions section defines which user roles can access which capabilities",
 "IAM-integrated permissions with role-based scoping — Cowork inherits permissions from the organisation's IAM system and administrators can restrict which capabilities different roles can access within the plugin",
-"The config.yaml output_format setting controls which output types are available to different user roles",
+"The plugin manifest output_format setting controls which output types are available to different user roles",
 "Shadow mode restricts escalation routing to senior users during the initial deployment period"
 ],
 correctOption: 1,
-explanation: "Lesson 7 explains that Cowork inherits permissions from the organisation's IAM system (Azure AD, Okta, or equivalent) and that 'within the population of authorised users, role-based scoping allows more granular control.' The example in the lesson specifically describes restricting escalation routing to the FP&A lead. This configuration is defined in the organisation's admin settings, not in the SKILL.md. Option A is wrong; the Questions section defines scope of content, not user role capabilities. Option C is incorrect; output_format governs rendering, not role-based access. Option D misidentifies shadow mode as the access control mechanism.",
+explanation: "Lesson 7 explains that Cowork inherits permissions from the organisation's IAM system (Azure AD, Okta, or equivalent) and that 'within the population of authorised users, role-based scoping allows more granular control.' The example in the lesson specifically describes restricting escalation routing to the FP&A lead. This configuration is defined in the organisation's admin settings, not in the SKILL.md. Option A is wrong; the Questions section defines scope of content, not user role capabilities. Option C is incorrect; the output_format setting governs rendering, not role-based access. Option D misidentifies shadow mode as the access control mechanism.",
 source: "Lesson 7: The Governance Layer"
 },
 {
@@ -340,7 +340,7 @@ options: [
 "The shadow mode report — a summary of all outputs reviewed during the shadow mode period",
 "The SKILL.md Principles section — which records the operating logic applied to each interaction",
 "The immutable audit trail — which logs the user's query, data sources accessed, output generated, timestamp, and user identity for every interaction",
-"The config.yaml version history — which tracks every change to the plugin configuration"
+"The plugin manifest version history — which tracks every change to the plugin configuration"
 ],
 correctOption: 2,
 explanation: "Lesson 7 states: 'The audit trail is not a surveillance mechanism. It is a defensibility asset.' The immutable audit log records exactly what the compliance officer needs: query, data sources, output, timestamp, user identity. The lesson makes the point explicit: 'With an audit trail, the compliance department can produce an exact account of what happened: which version of the contract the agent reviewed, which legal research databases it queried, what output it generated, when, and for whom.' Option A is wrong; shadow mode reports cover the transition period, not ongoing production interactions. Option B is incorrect; the SKILL.md records the rules, not each interaction's execution. Option D is wrong; version history tracks configuration changes, not interaction logs.",
@@ -385,7 +385,7 @@ source: "Lesson 7: The Governance Layer"
 {
 question: "A Cowork plugin's financial research reports are consistently citing a regulatory capital standard that was revised four months ago. The knowledge worker insists this must be a connector issue because 'the agent is pulling old data.' IT investigates and finds all connectors are current and functioning correctly. Whose problem is this, and why?",
 options: [
-"IT's problem — even if connectors are current, data formatting by the connector scripts may be applying old transformation rules",
+"IT's problem — even if connectors are current, data formatting by the MCP connectors may be applying old transformation rules",
 "The administrator's problem — governance settings may be caching outputs from before the regulatory revision",
 "The knowledge worker's problem — the SKILL.md Principles section likely encodes the old regulatory standard, and only the knowledge worker can update domain-specific operating logic",
 "A shared problem — both IT and the knowledge worker must update their respective components simultaneously"
@@ -423,11 +423,11 @@ question: "An IT engineer decides to 'help' a knowledge worker by editing the Pr
 options: [
 "The IT engineer's edit is acceptable because they have system access and acted in good faith",
 "IT editing the SKILL.md violates the layer independence principle — IT does not have the domain expertise to determine which Principles constraints are regulatory requirements versus stylistic preferences, and the edit may have introduced errors that are invisible to anyone without domain knowledge",
-"The knowledge worker must accept IT's changes because IT owns the config.yaml and connector infrastructure",
+"The knowledge worker must accept IT's changes because IT owns the connectors (.mcp.json) and plugin infrastructure",
 "The administrator should approve or reject IT's edit after reviewing the compliance implications"
 ],
 correctOption: 1,
-explanation: "Lesson 8's layer independence principle states: 'Consider what happens if IT decides to help by editing the SKILL.md's Principles section... IT does not know enough about the domain to make that edit correctly. They do not know which constraints are regulatory requirements and which are stylistic preferences.' The model's independence is structural: each role has no incentive to intrude on the other two layers because each layer contains only what that role understands. IT's well-intentioned edit may produce an agent that is quietly wrong in ways neither IT nor users can detect. Option A confuses good intent with appropriate expertise. Option C is wrong; IT owns connectors and config.yaml, not the SKILL.md. Option D incorrectly assigns adjudication to the administrator.",
+explanation: "Lesson 8's layer independence principle states: 'Consider what happens if IT decides to help by editing the SKILL.md's Principles section... IT does not know enough about the domain to make that edit correctly. They do not know which constraints are regulatory requirements and which are stylistic preferences.' The model's independence is structural: each role has no incentive to intrude on the other two layers because each layer contains only what that role understands. IT's well-intentioned edit may produce an agent that is quietly wrong in ways neither IT nor users can detect. Option A confuses good intent with appropriate expertise. Option C is wrong; IT owns connectors (.mcp.json) and plugin infrastructure, not the SKILL.md. Option D incorrectly assigns adjudication to the administrator.",
 source: "Lesson 8: The Division of Responsibility"
 },
 {
@@ -435,11 +435,11 @@ question: "A knowledge worker has been using a Cowork plugin for legal research.
 options: [
 "Yes — the SKILL.md Principles section must include explicit exclusions for closed client matters",
 "Possibly — both the SKILL.md and the connector scope may need to be reviewed",
-"No — connector scope is configured in the config.yaml and implemented in the connector scripts, both owned by IT. The misconfiguration is in the integration layer, not the intelligence layer",
+"No — connector scope is configured in the .mcp.json and implemented in the MCP connectors, both owned by IT. The misconfiguration is in the integration layer, not the intelligence layer",
 "No — this is a governance configuration issue and the administrator should restrict the plugin's data access"
 ],
 correctOption: 2,
-explanation: "Lesson 8 provides a near-identical diagnostic example: 'The agent is occasionally drawing on client data from accounts it should not have access to. Whose problem is this? This is an IT problem. Connector scope is configured in the config.yaml and implemented in the connector scripts — both owned by IT.' The SKILL.md cannot enforce data access restrictions that the connector configuration has not implemented — scope boundaries are a configuration layer responsibility. Option A is wrong; even if the SKILL.md excluded closed matters, the connector scope would still need to be corrected. Option B overcomplicates the diagnosis. Option D is wrong; scope configuration is IT's responsibility, not the administrator's.",
+explanation: "Lesson 8 provides a near-identical diagnostic example: 'The agent is occasionally drawing on client data from accounts it should not have access to. Whose problem is this? This is an IT problem. Connector scope is configured in the .mcp.json and implemented in the MCP connectors — both owned by IT.' The SKILL.md cannot enforce data access restrictions that the connector configuration has not implemented — scope boundaries are a configuration layer responsibility. Option A is wrong; even if the SKILL.md excluded closed matters, the connector scope would still need to be corrected. Option B overcomplicates the diagnosis. Option D is wrong; scope configuration is IT's responsibility, not the administrator's.",
 source: "Lesson 8: The Division of Responsibility"
 },
 {
@@ -500,7 +500,7 @@ options: [
 ],
 correctOption: 1,
 explanation: "This is a scope failure: the agent is answering queries outside its remit and producing advice that carries accountability consequences. Lesson 2 explains that without a defined out-of-scope boundary, 'the agent will attempt to answer queries it cannot handle well.' A properly specified Questions section would explicitly list specific disciplinary outcomes as out-of-scope and direct users to qualified HR advisers. This also connects to Lesson 5's principle of positive redirection. Option A addresses testing duration but not the architectural gap. Option C is an overcorrection that would make the agent useless. Option D is irrelevant — the problem is scope definition, not data access.",
-source: "Lessons 2 and 5: The Intelligence Layer; The Agent Skills Pattern in Practice"
+source: "Lessons 2 and 5: The Intelligence Layer; The PQP Framework in Practice"
 },
 {
 question: "A BIM coordination agent has been in shadow mode for 35 days. Its outputs have been reviewed by qualified structural engineers and MEP coordinators. The accuracy review shows 96% of outputs meeting the rubric criteria, with no critical errors in the past 12 days. The project lead wants to transition to autonomous operation. What is the correct assessment?",
@@ -554,12 +554,12 @@ source: "Lesson 9: The Cowork Plugin Marketplace"
 question: "A knowledge worker designs a Cowork plugin for financial research. She wants to ensure the agent can access market data from Bloomberg and internal deal records from Snowflake, but not HR compensation records that also reside in Snowflake. Which two architectural mechanisms ensure this protection?",
 options: [
 "The SKILL.md Principles section explicitly prohibiting HR data access, and the shadow mode rubric excluding HR-related queries",
-"The connector scope in the config.yaml, which limits Snowflake access to specific data categories, and the Cowork runtime enforcement that enforces scope boundaries regardless of what the SKILL.md instructs",
+"The connector scope in the .mcp.json, which limits Snowflake access to specific data categories, and the Cowork runtime enforcement that enforces scope boundaries regardless of what the SKILL.md instructs",
 "The audit log, which flags HR data queries for review, and the HITL gate that routes any HR-touching output to the administrator",
 "The platform-level context, which prevents Claude from accessing HR data in any enterprise deployment, and the knowledge worker's Principles instruction to avoid HR queries"
 ],
 correctOption: 1,
-explanation: "Lesson 3 explains both mechanisms working together. The config.yaml's scope field narrows what the agent can see within a connector: 'Perhaps the same Snowflake environment contains HR data, executive compensation records... none of which this agent should touch. The scope definition enforces that boundary.' Lesson 3 also states: 'Permission boundaries are enforced by the Cowork runtime, not by the SKILL.md. If the Financial Research Agent's SKILL.md were somehow to instruct it to access payroll data, the attempt would fail safely — because payroll data is not within the configured scope.' Option A incorrectly assigns data access control to the SKILL.md. Option C conflates audit logging with access prevention. Option D invents a platform-level HR data restriction.",
+explanation: "Lesson 3 explains both mechanisms working together. The .mcp.json scope field narrows what the agent can see within a connector: 'Perhaps the same Snowflake environment contains HR data, executive compensation records... none of which this agent should touch. The scope definition enforces that boundary.' Lesson 3 also states: 'Permission boundaries are enforced by the Cowork runtime, not by the SKILL.md. If the Financial Research Agent's SKILL.md were somehow to instruct it to access payroll data, the attempt would fail safely — because payroll data is not within the configured scope.' Option A incorrectly assigns data access control to the SKILL.md. Option C conflates audit logging with access prevention. Option D invents a platform-level HR data restriction.",
 source: "Lessons 3 and 4: The Configuration and Integration Layers; The Three-Level Context System"
 },
 {
@@ -578,7 +578,7 @@ source: "Lesson 7: The Governance Layer"
 question: "A Cowork plugin for HR analytics has been producing reports that are accurate and well-structured. A knowledge worker updates the SKILL.md to expand the agent's scope to include salary benchmarking analysis. After the update, the agent still does not produce salary benchmarking outputs. The knowledge worker has confirmed the instruction is clearly written and correctly placed in the Questions section. What should she check next?",
 options: [
 "Whether the SKILL.md update was saved correctly — the file may not have been committed to the plugin",
-"Whether salary benchmarking data is within the configured scope of the connected data sources in the config.yaml, and whether any organisation-level policy restricts agent access to compensation data",
+"Whether salary benchmarking data is within the configured scope of the connected data sources in the .mcp.json, and whether any organisation-level policy restricts agent access to compensation data",
 "Whether the Persona section needs to be updated to explicitly authorise salary benchmarking activities",
 "Whether the administrator has approved the SKILL.md update before it becomes active"
 ],
@@ -603,11 +603,11 @@ question: "A Cowork administrator is configuring a new plugin for the procuremen
 options: [
 "In the SKILL.md Questions section, where the knowledge worker specifies different capabilities for different user types",
 "In the organisation's admin settings using role-based scoping that inherits from the IAM system, restricting escalation routing capability to senior buyer credentials",
-"In the config.yaml governance section, where the knowledge worker configures per-role output permissions",
+"In the plugin manifest governance section, where the knowledge worker configures per-role output permissions",
 "In the connector permission scope, where IT assigns read permissions to junior buyers and write permissions to senior buyers"
 ],
 correctOption: 1,
-explanation: "Lesson 7 explains: 'Within the population of authorised users, role-based scoping allows more granular control.' The example in the lesson describes restricting escalation routing to the FP&A lead — identical to this scenario. 'This scoping is defined in the organisation's admin settings, not in the SKILL.md.' The administrator configures role-based access based on IAM identities. Option A is wrong; the SKILL.md does not configure per-role capabilities. Option C is wrong; the knowledge worker does not configure per-role permissions in config.yaml — that is the administrator's responsibility in org admin settings. Option D is wrong; connector permissions govern data access, not user role capability within the plugin.",
+explanation: "Lesson 7 explains: 'Within the population of authorised users, role-based scoping allows more granular control.' The example in the lesson describes restricting escalation routing to the FP&A lead — identical to this scenario. 'This scoping is defined in the organisation's admin settings, not in the SKILL.md.' The administrator configures role-based access based on IAM identities. Option A is wrong; the SKILL.md does not configure per-role capabilities. Option C is wrong; the knowledge worker does not configure per-role permissions in the plugin manifest — that is the administrator's responsibility in org admin settings. Option D is wrong; connector permissions govern data access, not user role capability within the plugin.",
 source: "Lesson 7: The Governance Layer"
 }
 ]}

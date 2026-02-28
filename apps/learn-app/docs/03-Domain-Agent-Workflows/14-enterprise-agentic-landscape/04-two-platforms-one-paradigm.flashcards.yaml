@@ -8,13 +8,13 @@ deck:
 cards:
   - id: "ch14-04-two-platforms-001"
     front: "What is a SKILL.md file in the Anthropic Cowork architecture?"
-    back: "A structured Markdown document with YAML frontmatter, authored by a knowledge worker (not a developer), that defines an agent's persona, operating principles, domain constraints, and response behaviours."
+    back: "A natural-language instruction document, authored by a knowledge worker (not a developer), that defines an agent's persona, operating principles, domain constraints, and response behaviours."
     tags: ["cowork", "SKILL.md"]
     difficulty: "basic"
 
   - id: "ch14-04-two-platforms-002"
-    front: "What are the main components inside a Cowork plugin?"
-    back: "1. Skills (SKILL.md files) -- authored by the knowledge worker, encoding domain expertise in structured Markdown.\n2. Connectors (.mcp.json) -- configured by plugin developers or IT, connecting to enterprise systems via MCP servers.\n3. Commands -- slash commands for explicit workflows.\n4. Sub-agents -- specialised assistants for multi-step tasks.\nPlus a manifest (plugin.json) for identity."
+    front: "What does a Cowork plugin do, and what are its three main components?"
+    back: "A plugin turns Claude from a generalist into a specialist for your role. Its three components are:\n1. Skills (SKILL.md) -- domain expertise Claude draws on automatically, authored by the knowledge worker.\n2. Commands -- explicit actions you trigger (e.g., /finance:reconciliation).\n3. Connectors -- wire Claude to the tools your role depends on via MCP.\nThe entire plugin is file-based: markdown and JSON, no code required."
     tags: ["cowork", "architecture"]
     difficulty: "intermediate"
 

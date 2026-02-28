@@ -220,10 +220,10 @@ options: [
 "plugin.json — the manifest declaring the plugin's name, version, and author",
 ".mcp.json — the file configuring connections to enterprise systems via MCP servers",
 "The semantic layer — the unified intelligence infrastructure across all systems",
-"SKILL.md — a structured Markdown document defining the agent's persona, principles, and constraints"
+"SKILL.md — a natural-language instruction document defining the agent's persona, principles, and constraints"
 ],
 correctOption: 3,
-explanation: "The knowledge worker authors the SKILL.md file, which defines the agent's persona, operating principles, domain knowledge, and constraints in structured Markdown with YAML frontmatter. It is not code or traditional configuration. Option A is wrong because plugin.json is the plugin manifest created by the plugin developer, declaring the plugin's identity and metadata. Option B is incorrect because .mcp.json configures connections to enterprise systems via MCP servers and is handled by plugin developers or IT. Option C is wrong because the semantic layer is Frontier's architecture, not Cowork's.",
+explanation: "The knowledge worker authors the SKILL.md file, which defines the agent's persona, operating principles, domain knowledge, and constraints in natural language. It is not code or traditional configuration. Option A is wrong because plugin.json is the plugin manifest created by the plugin developer, declaring the plugin's identity and metadata. Option B is incorrect because .mcp.json configures connections to enterprise systems via MCP servers and is handled by plugin developers or IT. Option C is wrong because the semantic layer is Frontier's architecture, not Cowork's.",
 source: "Lesson 4: Two Platforms, One Paradigm"
 },
 {
@@ -253,13 +253,13 @@ source: "Lesson 4: Two Platforms, One Paradigm"
 {
 question: "What is the key architectural difference between Cowork and Frontier?",
 options: [
-"Cowork uses plugins (bundling skills, connectors, commands, and sub-agents) while Frontier provides a unified semantic layer across all systems",
+"Cowork uses plugins (bundling skills, commands, and connectors) to turn Claude into a role specialist, while Frontier provides a unified semantic layer across all systems",
 "Cowork is cloud-based while Frontier runs on-premises only",
 "Cowork supports only small teams while Frontier works at any scale",
 "Cowork uses natural language while Frontier requires programming skills"
 ],
 correctOption: 0,
-explanation: "Cowork is a modular plugin environment built around SKILL.md files and MCP connectors, designed for team-level deployment. Frontier provides a unified semantic layer — a translation service that understands the meaning of data across every system in the organisation. Option B is incorrect; the lesson does not distinguish the platforms by hosting model. Option C oversimplifies; the distinction is about deployment philosophy (bottom-up vs top-down), not absolute scale limitations. Option D is wrong because both platforms support natural language — the difference is in architecture and deployment model, not input method.",
+explanation: "Cowork uses plugins to turn Claude from a generalist into a role specialist, bundling skills, commands, and connectors for team-level deployment. Frontier provides a unified semantic layer — a translation service that understands the meaning of data across every system in the organisation. Option B is incorrect; the lesson does not distinguish the platforms by hosting model. Option C oversimplifies; the distinction is about deployment philosophy (bottom-up vs top-down), not absolute scale limitations. Option D is wrong because both platforms support natural language — the difference is in architecture and deployment model, not input method.",
 source: "Lesson 4: Two Platforms, One Paradigm"
 },
 {

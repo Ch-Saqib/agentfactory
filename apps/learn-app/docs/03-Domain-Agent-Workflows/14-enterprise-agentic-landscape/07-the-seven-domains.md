@@ -111,15 +111,15 @@ The seven domains that follow are where this problem is most acute -- and where 
 
 ## The Seven Domains
 
-| Domain | Chapter | Core Expertise at Risk |
-| --- | --- | --- |
-| Finance and Banking | 17 | Analyst judgment on data trust, risk calibration, regulatory materiality |
-| Legal and Compliance | 18 | Clause pattern recognition, jurisdictional risk assessment |
-| Sales and Revenue | 19 | Qualification heuristics, signal recognition, outreach personalisation |
-| HR and Operations | 20 | Policy intent, exception logic, human context behind processes |
-| Healthcare Operations | 21 | Prior authorisation research, compliance monitoring, documentation |
-| Architecture and Engineering | 22 | Spatial reasoning, coordination logic, clash detection judgment |
-| Technical Documentation | 23 | Specification completeness standards, requirements review patterns |
+| Domain                       | Chapter | Core Expertise at Risk                                                   |
+| ---------------------------- | ------- | ------------------------------------------------------------------------ |
+| Finance and Banking          | 17-18   | Analyst judgment on data trust, risk calibration, regulatory materiality |
+| Legal and Compliance         | 19      | Clause pattern recognition, jurisdictional risk assessment               |
+| Sales and Revenue            | 20      | Qualification heuristics, signal recognition, outreach personalisation   |
+| HR and Operations            | 21      | Policy intent, exception logic, human context behind processes           |
+| Healthcare Operations        | 22      | Prior authorisation research, compliance monitoring, documentation       |
+| Architecture and Engineering | 23      | Spatial reasoning, coordination logic, clash detection judgment          |
+| Technical Documentation      | 24      | Specification completeness standards, requirements review patterns       |
 
 ### Finance and Banking
 
@@ -169,7 +169,7 @@ This is why Part 3 can address seven different domains with a consistent framewo
 
 Most professionals reading this chapter will recognise their work in one or two of these domains immediately. Some will find themselves at the intersection of multiple domains -- an architect who also writes technical specifications, a compliance officer who also manages HR policy, a sales leader who also handles financial reporting.
 
-If your work does not map neatly to any single domain, that is normal. The domain chapters (17-23) are designed to be read selectively. Read the one closest to your expertise first. The deployment patterns you learn there will transfer to any adjacent domain.
+If your work does not map neatly to any single domain, that is normal. The domain chapters (17-24) are designed to be read selectively. Read the one closest to your expertise first. The deployment patterns you learn there will transfer to any adjacent domain.
 
 If your work falls entirely outside these seven domains, the frameworks still apply. The maturity model, the monetisation models, the platform comparison -- all of these are domain-agnostic. The seven domain chapters simply provide the most detailed deployment guides for the domains where the infrastructure is most mature.
 
@@ -214,7 +214,6 @@ specific regulatory examples.
 ```
 
 **What you're learning:** How governance requirements shape deployment boundaries. Understanding why certain types of expertise are deployable with current frameworks and others require fundamentally different approaches is critical for scoping any enterprise AI initiative.
-
 
 ## Flashcards Study Aid
 

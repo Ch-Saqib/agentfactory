@@ -102,7 +102,7 @@ teaching_guide:
 
 # The Cowork Plugin Marketplace
 
-In Lesson 8, you established how the three-component model distributes ownership: you write the SKILL.md, IT configures the connectors, the administrator governs the deployment. The result is a plugin that serves one organisation's domain workflows. But the question this lesson asks is a different one: what happens when the SKILL.md you have built encodes expertise that could benefit not just your organisation, but dozens of others doing similar work?
+In Lesson 8, you established how the ownership model distributes responsibility: you write the SKILL.md, IT and plugin developers maintain the connectors and infrastructure, the administrator governs the deployment. The result is a plugin that serves one organisation's domain workflows. But the question this lesson asks is a different one: what happens when the SKILL.md you have built encodes expertise that could benefit not just your organisation, but dozens of others doing similar work?
 
 The answer is the Cowork Plugin Marketplace — a distribution mechanism designed for exactly that situation. When domain expertise is genuinely generalisable, the marketplace provides the infrastructure to publish it, the discovery layer for other organisations to find it, and the deployment pathway that allows a subscribing organisation to use a plugin built by someone they have never met. A published plugin can be subscribed to, configured with the subscriber's own connector settings, and deployed without involvement from the original author.
 
@@ -124,13 +124,13 @@ What the pack does not include is the institutional knowledge that makes a plugi
 
 The subscriber receives a well-structured SKILL.md ready for customisation. The marketplace provides the architecture; the knowledge worker inside the subscribing organisation provides the institutional knowledge that transforms a general template into a deployed agent that actually reflects how their practice works. This is not a deficiency of the skill pack — it is the design. The general cannot substitute for the specific. What the pack sells is the months of structural thinking that the subscriber would otherwise have to do from scratch.
 
-| Property | Vertical Skill Pack |
-| --- | --- |
-| **What it contains** | SKILL.md template with Persona, Questions, and Principles sections reflecting general domain best practice |
-| **What it does not contain** | Organisation-specific jurisdiction settings, clause standards, escalation routing, client conventions |
-| **Who customises it** | A knowledge worker inside the subscribing organisation, using the template as a starting point |
-| **Deployment effort** | Moderate — the SKILL.md must be customised before deployment; connectors must be configured separately |
-| **Best for** | Organisations that have the domain expertise to customise but want to avoid building the structural scaffold from scratch |
+| Property                     | Vertical Skill Pack                                                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **What it contains**         | SKILL.md template with Persona, Questions, and Principles sections reflecting general domain best practice                |
+| **What it does not contain** | Organisation-specific jurisdiction settings, clause standards, escalation routing, client conventions                     |
+| **Who customises it**        | A knowledge worker inside the subscribing organisation, using the template as a starting point                            |
+| **Deployment effort**        | Moderate — the SKILL.md must be customised before deployment; connectors must be configured separately                    |
+| **Best for**                 | Organisations that have the domain expertise to customise but want to avoid building the structural scaffold from scratch |
 
 Domains with well-developed vertical skill packs in the marketplace include contract review (covering major common law jurisdictions), financial research (covering equity analysis and fixed income), BIM coordination (covering standard building code categories), and clinical triage (covering primary care assessment frameworks). Each pack represents a publishable body of general best practice. None encodes a specific firm's proprietary knowledge.
 
@@ -138,15 +138,15 @@ Domains with well-developed vertical skill packs in the marketplace include cont
 
 A connector package takes the vertical skill pack concept and extends it: rather than providing the SKILL.md template alone, a connector package bundles MCP connectors alongside the template to enable more complete deployment from a single subscription.
 
-The rationale is practical. Many domain workflows depend on a predictable set of external integrations. A financial research agent reliably needs access to market data, financial databases, and internal data warehouses. Rather than requiring each subscribing organisation to commission these connectors separately — a process that, as Lesson 6 explained, takes two to eight weeks depending on the system — a connector package provides pre-built connectors configured for standard API patterns. The subscriber still needs to provide their own API credentials and configure permission scopes appropriate to their deployment. But the connector infrastructure itself — the scripts that run continuously, handle authentication, and translate data formats — arrives pre-built rather than requiring commissioning.
+The rationale is practical. Many domain workflows depend on a predictable set of external integrations. A financial research agent reliably needs access to market data, financial databases, and internal data warehouses. Rather than requiring each subscribing organisation to commission these connectors separately — a process that, as Lesson 6 explained, takes two to eight weeks depending on the system — a connector package provides pre-built connectors configured for standard API patterns. The subscriber still needs to provide their own API credentials and configure permission scopes appropriate to their deployment. But the connector infrastructure itself — the MCP server declarations that handle authentication and translate data formats — arrives pre-built rather than requiring commissioning.
 
-| Property | Connector Package |
-| --- | --- |
-| **What it contains** | SKILL.md template plus pre-built MCP connectors for the systems the domain agent typically requires |
-| **What it does not contain** | API credentials, organisation-specific permission scopes, proprietary data access |
-| **Who customises it** | IT configures connector credentials and scopes; knowledge worker customises the SKILL.md |
-| **Deployment effort** | Lower than a skill pack alone — connector infrastructure is pre-built, reducing time-to-deployment |
-| **Best for** | Organisations that need the complete deployment package and have IT capacity to configure credentials |
+| Property                     | Connector Package                                                                                     |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **What it contains**         | SKILL.md template plus pre-built MCP connectors for the systems the domain agent typically requires   |
+| **What it does not contain** | API credentials, organisation-specific permission scopes, proprietary data access                     |
+| **Who customises it**        | IT configures connector credentials and scopes; knowledge worker customises the SKILL.md              |
+| **Deployment effort**        | Lower than a skill pack alone — connector infrastructure is pre-built, reducing time-to-deployment    |
+| **Best for**                 | Organisations that need the complete deployment package and have IT capacity to configure credentials |
 
 A financial research connector package, for example, bundles connectors for Bloomberg, Snowflake, and common CRM platforms alongside a financial research SKILL.md template. The subscribing organisation connects their Bloomberg terminal credentials, scopes the Snowflake access to their data warehouse, and assigns appropriate CRM read permissions — tasks that are specific to their environment. What they do not have to do is specify and commission the connector infrastructure from scratch.
 
@@ -164,14 +164,14 @@ This test also connects directly to the marketplace economics covered in [Chapte
 
 ## Skill Packs Versus Connector Packages: A Summary
 
-| Dimension | Vertical Skill Pack | Connector Package |
-| --- | --- | --- |
-| **Included** | SKILL.md template only | SKILL.md template + MCP connectors |
-| **Subscriber customises** | SKILL.md with institutional knowledge; configures connectors separately | SKILL.md with institutional knowledge; configures connector credentials |
-| **IT involvement** | Connector commissioning or selection required | Credential configuration only |
-| **Time to deployment** | Longer (connector work needed) | Shorter (connectors pre-built) |
-| **Best use case** | Organisations with strong IT connector infrastructure already | Organisations new to the connector ecosystem |
-| **Publisher creates** | SKILL.md template encoding general domain best practice | SKILL.md template plus connector scripts for standard integrations |
+| Dimension                 | Vertical Skill Pack                                                     | Connector Package                                                           |
+| ------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Included**              | SKILL.md template only                                                  | SKILL.md template + MCP connectors                                          |
+| **Subscriber customises** | SKILL.md with institutional knowledge; configures connectors separately | SKILL.md with institutional knowledge; configures connector credentials     |
+| **IT involvement**        | Connector commissioning or selection required                           | Credential configuration only                                               |
+| **Time to deployment**    | Longer (connector work needed)                                          | Shorter (connectors pre-built)                                              |
+| **Best use case**         | Organisations with strong IT connector infrastructure already           | Organisations new to the connector ecosystem                                |
+| **Publisher creates**     | SKILL.md template encoding general domain best practice                 | SKILL.md template plus MCP connector declarations for standard integrations |
 
 Both categories rest on the same foundational principle: the marketplace distributes architecture and general practice; the subscribing organisation provides institutional specificity. The marketplace cannot replace the knowledge worker inside the subscribing organisation. It can, however, eliminate months of structural work that would otherwise be duplicated across every organisation attempting to build a similar capability.
 

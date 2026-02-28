@@ -25,4 +25,4 @@ Part 3 is organised around seven professional domains chosen because they repres
 ### Connections
 
 - **Builds on**: Maturity model (Lesson 6) determining readiness for domain deployment; monetisation models (Lesson 5) mapping to specific domains; platform landscape (Lesson 4) providing deployment infrastructure
-- **Leads to**: Starting the Conversation (Lesson 8) using domain profiles as vocabulary in deployment discussions; Chapter 15 providing the technical blueprint for deploying within a domain; domain-specific chapters (17-23) providing detailed deployment guides
+- **Leads to**: Starting the Conversation (Lesson 8) using domain profiles as vocabulary in deployment discussions; Chapter 15 providing the technical blueprint for deploying within a domain; domain-specific chapters (17-24) providing detailed deployment guides

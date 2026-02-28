@@ -84,7 +84,7 @@ teaching_guide:
   misconceptions:
     - "Students may assume all connectors are available out of the box — financial and legal connectors require licensed subscriptions that the organisation must already hold"
     - "Students may underestimate custom connector timelines — 2-4 weeks is the floor for modern APIs, and complex or legacy systems take longer"
-    - "Students may think they can specify connectors themselves in config.yaml — connectors are IT-owned infrastructure, the knowledge worker specifies requirements in plain language and IT builds"
+    - "Students may think they can configure connectors themselves in .mcp.json — connectors are IT-owned infrastructure, the knowledge worker specifies requirements in plain language and IT builds"
     - "Students may conflate connector scoping with connector capability — a Confluence connector scoped to one space is not a less capable connector, it is a correctly configured one"
   discussion_prompts:
     - "Which systems in your current role would need MCP connectors for your agent to be useful? Are those systems in the marketplace?"
@@ -108,7 +108,7 @@ teaching_guide:
 
 # The MCP Connector Ecosystem
 
-In Lesson 3, you saw that connector scripts are the integration infrastructure of a Cowork plugin — they run continuously, handle authentication, and translate your enterprise systems' data into formats the agent can reason over. That lesson established what connectors do. This lesson maps what connectors exist.
+In Lesson 3, you saw that connectors are the integration infrastructure of a Cowork plugin — declared in the `.mcp.json` file, they wire the agent to enterprise systems by handling authentication and translating data into formats the agent can reason over. That lesson established what connectors do. This lesson maps what connectors exist.
 
 The question every domain professional asks when they begin designing their agent is whether the system they most need to integrate with is already connected. For most enterprise environments, the answer is yes — the Cowork marketplace includes production connectors for the systems that appear on most enterprise software inventories. For the systems that are genuinely specific to your organisation's configuration or industry tooling, there is a commissioning process that follows a predictable timeline. Understanding both sides of this picture is the prerequisite for building a realistic deployment plan.
 
@@ -116,30 +116,55 @@ This lesson is a reference lesson. The connector table is designed to be consult
 
 ## The Marketplace Connector Landscape
 
-The connectors below represent the production ecosystem as of early 2026. They are organised by category. Each connector has been built, maintained, and validated by Cowork's integration team. Configuration and scoping are handled in the plugin's `config.yaml` by IT — the knowledge worker specifies what they need in plain language, and the technical implementation follows.
+The connectors below represent the ecosystem as of early 2026, organised by category. Connectors are declared in the plugin's `.mcp.json` file and configured by IT — the knowledge worker specifies what they need in plain language, and the technical implementation follows.
 
-| Category | Connector | Access Type | Key Feature / Note |
-|---|---|---|---|
-| **CRM** | Salesforce (Sales Cloud + Service Cloud) | Read/Write | Custom field mapping supported |
-| **CRM** | HubSpot (Marketing, Sales, CRM APIs) | Read/Write | Custom field mapping supported |
-| **Communication** | Gmail | Read + Write (drafts/sending) | Scoped to specified mailboxes and threads only |
-| **Communication** | Outlook | Read + Write (drafts/sending) | Scoped to specified mailboxes and threads only |
-| **Knowledge / Document** | Confluence | Read | Folder-level and site-level scoping |
-| **Knowledge / Document** | Notion | Read | Folder-level and site-level scoping |
-| **Knowledge / Document** | SharePoint Online + On-Premises | Read | Folder-level and site-level scoping |
-| **Data / Analytics** | Snowflake | Read (parameterised query) | Row-level security supported |
-| **Data / Analytics** | BigQuery | Read (parameterised query) | Parameterised query execution |
-| **Workflow / Process** | Jira | Read/Write | Issue creation, comments, status transitions, queries |
-| **Workflow / Process** | ServiceNow | Read/Write | Incident and change management |
-| **Financial Data** | Bloomberg | Read | Market data, financials, news — licensed subscription required |
-| **Financial Data** | Refinitiv | Read | Market data, financials, news — licensed subscription required |
-| **Legal Research** | LexisNexis | Read | Legal and compliance use cases — licensed subscription required |
-| **Legal Research** | Westlaw | Read | Legal and compliance use cases — licensed subscription required |
-| **Clinical Systems** | Epic | Read/Write | HIPAA-compliant configuration required |
-| **Clinical Systems** | Cerner | Read/Write | HIPAA-compliant configuration required |
-| **Design / Engineering** | Revit MCP Server | Read (structured BIM data) | Custom connector — not a marketplace connector |
-| **Contracting / Signature** | DocuSign | Read/Write | Contract workflows, signature status, document repositories |
-| **Data Enrichment** | Clay | Read/Write | Prospect databases and enrichment workflows |
+**Important note on connector availability**: The first table below lists connectors that Anthropic has officially announced as production-ready. The second table lists connectors that are either in development, available through third-party providers, or specific to industry verticals — their availability should be confirmed before including them in deployment plans.
+
+### Confirmed Production Connectors
+
+These connectors have been officially announced by Anthropic as part of the Cowork platform:
+
+| Category                    | Connector       | Access Type                   | Key Feature / Note                                          |
+| --------------------------- | --------------- | ----------------------------- | ----------------------------------------------------------- |
+| **CRM**                     | Salesforce      | Read/Write                    | Custom field mapping supported                              |
+| **CRM**                     | HubSpot         | Read/Write                    | Custom field mapping supported                              |
+| **Communication**           | Gmail           | Read + Write (drafts/sending) | Scoped to specified mailboxes and threads only              |
+| **Communication**           | Slack           | Read/Write                    | Channel and thread scoping                                  |
+| **Knowledge / Document**    | Notion          | Read                          | Folder-level and site-level scoping                         |
+| **Knowledge / Document**    | Google Drive    | Read                          | Folder-level scoping, Google Workspace integration          |
+| **Knowledge / Document**    | Google Calendar | Read/Write                    | Schedule management, event creation                         |
+| **Workflow / Process**      | Jira            | Read/Write                    | Issue creation, comments, status transitions, queries       |
+| **Workflow / Process**      | Linear          | Read/Write                    | Issue and project management                                |
+| **Financial Data**          | FactSet         | Read                          | Financial data — licensed subscription required             |
+| **Financial Data**          | MSCI            | Read                          | ESG and index data — licensed subscription required         |
+| **Legal**                   | LegalZoom       | Read/Write                    | Legal document workflows                                    |
+| **Contracting / Signature** | DocuSign        | Read/Write                    | Contract workflows, signature status, document repositories |
+| **Sales / Enrichment**      | Apollo          | Read/Write                    | Prospect databases and outreach                             |
+| **Sales / Enrichment**      | Clay            | Read/Write                    | Prospect databases and enrichment workflows                 |
+| **Sales / Enrichment**      | Outreach        | Read/Write                    | Sales engagement sequences                                  |
+| **Sales / Enrichment**      | SimilarWeb      | Read                          | Website analytics and competitive intelligence              |
+| **Content / Publishing**    | WordPress       | Read/Write                    | Content management and publishing                           |
+| **Development**             | GitHub          | Read/Write                    | Repository, issue, and PR management                        |
+
+### Additional Connectors (Third-Party and Industry-Specific)
+
+The following connectors are available through third-party MCP server implementations or are specific to industry verticals. Confirm availability and production readiness before including them in deployment plans:
+
+| Category                 | Connector        | Status                    | Key Feature / Note                                            |
+| ------------------------ | ---------------- | ------------------------- | ------------------------------------------------------------- |
+| **Communication**        | Outlook          | Available via third-party | Scoped to specified mailboxes                                 |
+| **Knowledge / Document** | Confluence       | Available via third-party | Folder-level and site-level scoping                           |
+| **Knowledge / Document** | SharePoint       | Available via third-party | Cloud and on-premises variants                                |
+| **Data / Analytics**     | Snowflake        | Available via third-party | Row-level security supported                                  |
+| **Data / Analytics**     | BigQuery         | Available via third-party | Parameterised query execution                                 |
+| **Workflow / Process**   | ServiceNow       | Available via third-party | Incident and change management                                |
+| **Financial Data**       | Bloomberg        | Industry-specific         | Market data — licensed subscription and custom setup required |
+| **Financial Data**       | Refinitiv        | Industry-specific         | Market data — licensed subscription and custom setup required |
+| **Legal Research**       | LexisNexis       | Industry-specific         | Licensed subscription required                                |
+| **Legal Research**       | Westlaw          | Industry-specific         | Licensed subscription required                                |
+| **Clinical Systems**     | Epic             | Industry-specific         | HIPAA-compliant configuration required                        |
+| **Clinical Systems**     | Cerner           | Industry-specific         | HIPAA-compliant configuration required                        |
+| **Design / Engineering** | Revit MCP Server | Custom connector          | Organisation-specific setup required                          |
 
 ### CRM Connectors
 
@@ -147,7 +172,7 @@ The Salesforce and HubSpot connectors cover the two dominant CRM platforms in en
 
 ### Communication Connectors
 
-The Gmail and Outlook connectors provide read access to specified mailboxes and threads, and write access for drafting and sending if that permission has been granted in the plugin's configuration. Neither connector accesses mailboxes that were not specified in the config. This is a deliberate security property, not a limitation — the agent can only see what IT has explicitly opened to it. An agent that monitors a shared inbox for incoming contract requests, for example, would be configured with access to that inbox only.
+The Gmail and Outlook connectors provide read access to specified mailboxes and threads, and write access for drafting and sending if that permission has been granted in the plugin's configuration. Neither connector accesses mailboxes that were not specified in the `.mcp.json` configuration. This is a deliberate security property, not a limitation — the agent can only see what IT has explicitly opened to it. An agent that monitors a shared inbox for incoming contract requests, for example, would be configured with access to that inbox only.
 
 ### Knowledge and Document Connectors
 
@@ -199,10 +224,10 @@ A sufficient plain-language specification addresses four questions:
 
 Custom connector development follows predictable timelines based on the underlying system's API maturity.
 
-| System Characteristic | Typical Timeline |
-|---|---|
-| Modern API (REST, documented, actively maintained) | 2-4 weeks |
-| Complex or legacy system (older protocols, sparse documentation, custom schemas) | 4-8 weeks |
+| System Characteristic                                                            | Typical Timeline |
+| -------------------------------------------------------------------------------- | ---------------- |
+| Modern API (REST, documented, actively maintained)                               | 2-4 weeks        |
+| Complex or legacy system (older protocols, sparse documentation, custom schemas) | 4-8 weeks        |
 
 These timelines are not estimates to be adjusted later — they are planning facts. A plugin that requires a custom connector must include that timeline in the project plan from the outset. An agent that depends on a legacy ERP connector cannot go live in three weeks regardless of how quickly the SKILL.md is written. Connector commissioning and SKILL.md development can run in parallel — but connector commissioning must start first, because it is on the critical path.
 

@@ -1,8 +1,8 @@
 deck:
   id: "ch15-02-the-intelligence-layer-skill-md"
   title: "The Intelligence Layer — SKILL.md"
-  description: "The SKILL.md as plain-English intelligence layer, the Agent Skills Pattern (Persona, Questions, Principles), and why identity governs ambiguous situations more reliably than rules."
-  tags: ["SKILL.md", "agent-skills-pattern", "persona", "questions", "principles", "intelligence-layer"]
+  description: "The SKILL.md as plain-English intelligence layer, the PQP Framework (Persona, Questions, Principles), and why identity governs ambiguous situations more reliably than rules."
+  tags: ["SKILL.md", "pqp-framework", "persona", "questions", "principles", "intelligence-layer"]
   version: 1
 
 cards:
@@ -19,9 +19,9 @@ cards:
     difficulty: "basic"
 
   - id: "ch15-02-three-sections-003"
-    front: "Name the three sections of the Agent Skills Pattern."
+    front: "Name the three sections of the PQP Framework (Persona-Questions-Principles Framework)."
     back: "1. Persona — defines the agent's professional identity, authority, and tone\n2. Questions — defines scope (what the agent handles and what it redirects)\n3. Principles — defines operating logic, constraints, escalation thresholds, and quality standards"
-    tags: ["agent-skills-pattern", "three-sections"]
+    tags: ["pqp-framework", "three-sections"]
     difficulty: "basic"
 
   - id: "ch15-02-persona-function-004"
@@ -61,7 +61,7 @@ cards:
     back: "BECAUSE a configuration file sets deployment parameters (model version, token limits, permissions). The SKILL.md determines what the agent knows, who it is, how it decides, and what it will not do. THEREFORE two agents with identical configuration files but different SKILL.md files are fundamentally different agents — the intelligence is in the SKILL.md, not the configuration."
     tags: ["SKILL.md", "intelligence-layer", "configuration"]
     difficulty: "intermediate"
-    why: "Tests understanding of why SKILL.md is categorically different from config.yaml"
+    why: "Tests understanding of why SKILL.md is categorically different from infrastructure components like .mcp.json and plugin.json"
 
   - id: "ch15-02-extraction-010"
     front: "Why is writing a production-quality SKILL.md described as a knowledge extraction exercise rather than a formatting exercise?"

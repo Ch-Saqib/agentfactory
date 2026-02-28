@@ -85,16 +85,16 @@ Here is the logic chain that runs through all eight lessons. Each framework answ
 
 The chapter's frameworks connect in a specific sequence. Each step depends on the one before it.
 
-| Step | Question | Framework | Lesson |
-| --- | --- | --- | --- |
-| 1 | Why did enterprise AI stall? | The Pilot Trap and knowledge transfer diagnosis | L01 |
-| 2 | What changed to unlock deployment? | 2026 platform shift (Cowork and Frontier) | L02 |
-| 3 | Who is central to the solution? | Knowledge worker as author and operator | L03 |
-| 4 | Which platform fits my context? | Cowork vs Frontier decision framework | L04 |
-| 5 | How do I capture value? | Four monetisation models | L05 |
-| 6 | Is the organisation ready? | Five-level maturity model | L06 |
-| 7 | Which domain am I deploying in? | Seven professional domain profiles | L07 |
-| 8 | How do I start? | Knowledge question and conversation qualification | L08 |
+| Step | Question                           | Framework                                         | Lesson |
+| ---- | ---------------------------------- | ------------------------------------------------- | ------ |
+| 1    | Why did enterprise AI stall?       | The Pilot Trap and knowledge transfer diagnosis   | L01    |
+| 2    | What changed to unlock deployment? | 2026 platform shift (Cowork and Frontier)         | L02    |
+| 3    | Who is central to the solution?    | Knowledge worker as author and operator           | L03    |
+| 4    | Which platform fits my context?    | Cowork vs Frontier decision framework             | L04    |
+| 5    | How do I capture value?            | Four monetisation models                          | L05    |
+| 6    | Is the organisation ready?         | Five-level maturity model                         | L06    |
+| 7    | Which domain am I deploying in?    | Seven professional domain profiles                | L07    |
+| 8    | How do I start?                    | Knowledge question and conversation qualification | L08    |
 
 The sequence matters. You cannot select a platform (Step 4) without understanding why the knowledge worker is central (Step 3). You cannot frame monetisation (Step 5) without knowing which platform fits the context (Step 4). You cannot have an effective deployment conversation (Step 8) without the vocabulary from every preceding step.
 
@@ -121,7 +121,7 @@ Before moving to Chapter 15, test whether you can answer these questions. If you
 - [ ] **The Knowledge Question**: Can you answer "whose expertise, in what form, for whom, under what constraints" for a specific deployment you care about?
 - [ ] **Conversation Qualification**: Can you assess a stakeholder's readiness and frame value in terms that resonate with their specific role?
 
-If any of these feel uncertain, revisit the relevant lesson before continuing. The deployment chapters (15-23) assume this vocabulary is in place.
+If any of these feel uncertain, revisit the relevant lesson before continuing. The deployment chapters (15-24) assume this vocabulary is in place.
 
 ## What Comes Next
 
@@ -176,7 +176,6 @@ beyond the listed domains.
 ```
 
 **What you're learning:** Whether the chapter's frameworks are genuinely general-purpose or limited to the seven listed domains. Applying the decision system to an unlisted domain is the strongest test of comprehension -- if the frameworks work, they should produce coherent answers for any domain with institutional knowledge at risk.
-
 
 ## Flashcards Study Aid
 

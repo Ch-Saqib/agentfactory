@@ -1,7 +1,7 @@
 ---
 sidebar_position: 7
 title: "The Governance Layer"
-description: "Understand how governance works in a Cowork plugin through four mechanisms: IAM-integrated permissions, immutable audit trails, shadow mode with the 30-day/95% accuracy threshold, and human-in-the-loop gates where human judgment is non-negotiable"
+description: "Understand how governance works in a Cowork plugin through four mechanisms: IAM-integrated permissions, immutable audit trails, shadow mode with this book's recommended 30-day/95% accuracy protocol, and human-in-the-loop gates where human judgment is non-negotiable"
 keywords:
   [
     "enterprise governance",
@@ -87,7 +87,7 @@ teaching_guide:
   key_points:
     - "Governance in Cowork means four specific things — permissions, audit trails, shadow mode, HITL gates — and each has a distinct purpose and mechanism"
     - "Audit trails are not monitoring tools designed to catch misbehaving knowledge workers — they are defensibility assets that turn potential compliance incidents into documented, reviewable processes"
-    - "The shadow mode protocol (30 days minimum, 95% accuracy threshold) is precise and non-negotiable — these are not estimates, they are transition criteria"
+    - "The recommended shadow mode protocol (30 days minimum, 95% accuracy threshold) provides a professional standard for enterprise deployments — these are transition criteria, not rough estimates"
     - "The HITL principle is autonomy by default, human judgment where it genuinely matters — not human approval of everything, but human judgment for actions where the cost of error exceeds the value of automation"
     - "Governance is configured by administrators in org admin settings, not in SKILL.md — the knowledge worker understands governance but does not own it"
   misconceptions:
@@ -103,7 +103,7 @@ teaching_guide:
   teaching_tips:
     - "The governance-as-coffee-subject-change framing works as an opening hook — but pivot quickly to reframing governance as the mechanism that makes deployment possible, not the mechanism that prevents it"
     - "The audit trail section benefits from a concrete scenario: ask students to imagine walking into a compliance review and being able to produce an exact record of what the agent queried, what it produced, and for whom — contrast this with having no record at all"
-    - "Shadow mode is the most technically specific section — the numbers (30 days, 95%) should be stated as facts, not explained as design choices. Students do not need to understand why those numbers were chosen; they need to know what they are and how to plan around them"
+    - "Shadow mode is the most technically specific section — present the 30-day/95% framework as the book's recommended professional standard for enterprise deployments. Students need to know what the numbers are and how to plan around them"
     - "HITL gates resonate when grounded in domain-specific examples students recognise — ask them to name the decisions in their own work where they would never want to be removed from the loop, then connect those intuitions to the principle"
   assessment_checks:
     - question: "How does Cowork know which users can access a plugin?"
@@ -146,17 +146,17 @@ This is the reframe that matters. In regulated industries, the ability to demons
 
 ## Shadow Mode
 
-A new plugin enters production in shadow mode. In shadow mode, the agent operates at full capability — it runs queries, processes data, and generates outputs as it would in autonomous operation — but those outputs do not reach the end user until a qualified human reviewer has approved them. The agent works. The outputs are held for review.
+A new plugin should enter production in shadow mode. In shadow mode, the agent operates at full capability — it runs queries, processes data, and generates outputs as it would in autonomous operation — but those outputs do not reach the end user until a qualified human reviewer has approved them. The agent works. The outputs are held for review. Cowork provides the governance infrastructure — audit trails, output review mechanisms, and admin controls — that makes shadow mode deployments practical. This book's recommended protocol puts those infrastructure capabilities to work in a structured, measurable deployment methodology.
 
 Shadow mode serves two purposes. The first is quality validation. A body of reviewed outputs provides the evidence base for calibrating the plugin: identifying systematic errors in the agent's reasoning, gaps in the SKILL.md that produce inconsistent outputs, and connector issues that cause the agent to work with stale or incomplete data. Shadow mode is not the only place where quality issues surface, but it is the place where they surface before they affect anyone.
 
 The second purpose is organisational confidence-building. Legal, compliance, and operations stakeholders who have legitimate concerns about autonomous agent deployment need evidence, not reassurance. Shadow mode produces that evidence in a form they can review: a corpus of agent outputs with human assessments attached. The conversation with a sceptical general counsel changes materially when the answer to "how do we know it's reliable?" is "here are 340 reviewed outputs from the past six weeks, with this accuracy profile."
 
-The standard shadow mode protocol is specific: a minimum of 30 days, with a 95% accuracy threshold across a representative sample. The agent must operate in shadow mode for at least 30 days. The outputs must be reviewed against a domain-specific scoring rubric. When 95% or more of outputs across a representative sample meet the rubric's criteria — and when there have been no critical errors in the preceding 10 days — the plugin is eligible for transition to autonomous operation.
+This book recommends a specific shadow mode protocol as a professional standard for enterprise deployments: a minimum of 30 days, with a 95% accuracy threshold across a representative sample. The agent should operate in shadow mode for at least 30 days. The outputs should be reviewed against a domain-specific scoring rubric. When 95% or more of outputs across a representative sample meet the rubric's criteria — and when there have been no critical errors in the preceding 10 days — the plugin is eligible for transition to autonomous operation.
 
-The 30-day minimum is not negotiable. It exists because a representative sample of outputs requires sufficient variety in the inputs — different users, different query types, different data conditions — to surface the failure modes that only appear in edge cases. A week of shadow mode in a quiet period does not produce the same evidence as a month across normal operating conditions.
+The 30-day minimum exists because a representative sample of outputs requires sufficient variety in the inputs — different users, different query types, different data conditions — to surface the failure modes that only appear in edge cases. A week of shadow mode in a quiet period does not produce the same evidence as a month across normal operating conditions.
 
-The 95% threshold reflects a practical cost-benefit calculation. For most workflows, the cost of a human review step is lower than the cost of a systematic error rate above 5%. This threshold is not universal. For higher-stakes domains — clinical decision support, regulatory compliance filing, material contract analysis — the appropriate threshold is higher, and the definition of "critical error" is more stringent. The 30-day / 95% framework is the standard; domain-specific calibration of what accuracy means and what counts as critical is the knowledge worker's contribution to the shadow mode process.
+The 95% threshold reflects a practical cost-benefit calculation. For most workflows, the cost of a human review step is lower than the cost of a systematic error rate above 5%. This threshold is not universal. For higher-stakes domains — clinical decision support, regulatory compliance filing, material contract analysis — the appropriate threshold is higher, and the definition of "critical error" is more stringent. The 30-day / 95% framework is the recommended standard for most enterprise deployments; domain-specific calibration of what accuracy means and what counts as critical is the knowledge worker's contribution to the shadow mode process.
 
 ## Human-in-the-Loop Gates
 
@@ -170,11 +170,11 @@ The second side is that some actions categorically require human judgment, and t
 
 Domain examples make this concrete.
 
-| Domain | Autonomous (no human required) | HITL Gate (human required) |
-|---|---|---|
-| **Financial research** | Market summaries, portfolio screening, competitor analysis | Board presentations, investment committee materials, client-facing advisory outputs |
-| **Contract triage** | Low-risk NDA processing, standard template review, volume intake sorting | Material liability clauses, indemnification analysis, cross-border regulatory exposure |
-| **Healthcare (clinical)** | Administrative summaries, scheduling optimisation, billing pre-review | Clinical decision outputs, medication recommendations, diagnostic summaries reaching patients |
+| Domain                           | Autonomous (no human required)                                              | HITL Gate (human required)                                                                             |
+| -------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Financial research**           | Market summaries, portfolio screening, competitor analysis                  | Board presentations, investment committee materials, client-facing advisory outputs                    |
+| **Contract triage**              | Low-risk NDA processing, standard template review, volume intake sorting    | Material liability clauses, indemnification analysis, cross-border regulatory exposure                 |
+| **Healthcare (clinical)**        | Administrative summaries, scheduling optimisation, billing pre-review       | Clinical decision outputs, medication recommendations, diagnostic summaries reaching patients          |
 | **Architecture and engineering** | Drawing annotation, specification cross-referencing, regulatory code lookup | Design sign-off, structural calculations requiring professional stamp, safety-critical recommendations |
 
 The healthcare row in that table deserves a specific note. Clinical accuracy requirements for HITL gate configuration are covered in depth in Chapter 21, which addresses the healthcare domain specifically. The clinical context introduces additional considerations — regulatory requirements, professional liability standards, patient safety thresholds — that go beyond what the standard governance layer covers. Healthcare organisations should treat Chapter 21 as required reading before configuring HITL gates for clinical use cases.
@@ -187,7 +187,7 @@ HITL gates, once defined, are encoded in the SKILL.md's Principles section and e
 
 Governance in Cowork is not a checklist applied to an agent after it is built. It is an architectural property that shapes how the agent is deployed, how trust in it accumulates, and where its autonomy ends. Understanding it before building a plugin is not a compliance exercise — it is the prerequisite for building a plugin that can actually be deployed.
 
-For the knowledge worker designing a plugin, governance translates into four concrete design questions. Who should be able to see and use this? What should be recorded about every interaction? How will I demonstrate, over 30 days, that the agent meets a 95% accuracy standard in my domain? And which specific steps in my workflow require a human in the loop, not because the agent cannot do them, but because the accountability for those decisions must remain with a person?
+For the knowledge worker designing a plugin, governance translates into four concrete design questions. Who should be able to see and use this? What should be recorded about every interaction? How will I demonstrate, following this book's recommended 30-day / 95% protocol, that the agent meets the accuracy standard my domain requires? And which specific steps in my workflow require a human in the loop, not because the agent cannot do them, but because the accountability for those decisions must remain with a person?
 
 The answers to those questions, communicated to the administrator who configures the governance layer, are the governance contribution of the knowledge worker. The configuration itself belongs to the admin. The intelligence that informs the configuration belongs to the domain expert who understands what the workflow actually requires.
 

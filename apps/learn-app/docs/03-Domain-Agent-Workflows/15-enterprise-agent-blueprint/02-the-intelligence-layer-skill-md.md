@@ -5,7 +5,7 @@ description: "Understand the three sections of the SKILL.md file — Persona, Qu
 keywords:
   [
     "SKILL.md",
-    "Agent Skills Pattern",
+    "PQP Framework",
     "Persona",
     "Questions",
     "Principles",
@@ -28,7 +28,7 @@ skills:
     digcomp_area: "Information Literacy"
     measurable_at_this_level: "Student can explain in their own words what a SKILL.md file is, who authors it, and why it is described as the intelligence layer rather than a configuration or code file"
 
-  - name: "Explain the Agent Skills Pattern"
+  - name: "Explain the Persona–Questions–Principles Framework"
     proficiency_level: "A2"
     category: "Conceptual"
     bloom_level: "Understand"
@@ -55,7 +55,7 @@ learning_objectives:
     bloom_level: "Understand"
     assessment_method: "Student can describe SKILL.md in their own words, correctly identifying it as plain English authored by a domain expert, not a developer"
 
-  - objective: "Describe the function of each section of the Agent Skills Pattern — Persona, Questions, and Principles — with a concrete domain example for each"
+  - objective: "Describe the function of each section of the Persona–Questions–Principles Framework — Persona, Questions, and Principles — with a concrete domain example for each"
     proficiency_level: "A2"
     bloom_level: "Understand"
     assessment_method: "Student can walk through each section and explain what it does and why it matters, using examples from at least two different professional domains"
@@ -66,13 +66,14 @@ learning_objectives:
     assessment_method: "Given a scenario in which an agent encounters an ambiguous request, student can predict how a well-written Persona would guide the agent's response and explain why a list of rules alone would be insufficient"
 
 cognitive_load:
-  new_concepts: 4
+  new_concepts: 5
   concepts_list:
     - "SKILL.md as intelligence layer (not code, not configuration)"
+    - "Agent Skills specification and YAML frontmatter fields (name, description, allowed-tools)"
     - "Persona as professional identity specification"
     - "Questions as scope document (in-scope and out-of-scope)"
     - "Principles as domain-specific operating logic"
-  assessment: "4 concepts at A2 level — within the 5-7 cognitive limit for this tier. Concepts are sequenced progressively: SKILL.md first (what it is), then Persona (who the agent is), then Questions (what it does), then Principles (how it decides). Each concept builds on the previous without requiring new prerequisites."
+  assessment: "5 concepts at A2 level — within the 5-7 cognitive limit for this tier. Concepts are sequenced progressively: SKILL.md first (what it is), then the Agent Skills specification and frontmatter (how it is discovered), then Persona (who the agent is), then Questions (what it does), then Principles (how it decides). Each concept builds on the previous without requiring new prerequisites."
 
 differentiation:
   extension_for_advanced: "Take a domain you know well and draft a one-paragraph Persona for an agent in that domain. Ask yourself: if this agent encountered a query that was technically within its scope but felt ethically uncomfortable, how would the Persona guide its response? Revise the Persona until you are satisfied with how it would govern that edge case."
@@ -115,9 +116,9 @@ teaching_guide:
 
 # The Intelligence Layer — SKILL.md
 
-In Lesson 1, you established what a Cowork plugin is: a domain-specific agent with three components — the SKILL.md, the config.yaml, and the connector scripts. You learned that these components have three owners: you (the knowledge worker) own the SKILL.md, IT owns the connectors, and the administrator owns the governance settings. Now it is time to understand what you are actually responsible for. The SKILL.md is the intelligence layer of the plugin. Everything the agent knows about who it is, what it does, and how it decides — that is yours to write.
+In Lesson 1, you established what a Cowork plugin is: a domain-specific agent deployed as a bundled package containing skills (SKILL.md files), connectors (.mcp.json), commands, sub-agents, and a manifest (plugin.json). You learned that plugins arrive from the marketplace as ready-made packages, and your contribution is the part no one else can write: the SKILL.md that encodes how your organisation actually works. Now it is time to understand what you are actually responsible for. The SKILL.md is the intelligence layer of the plugin. Everything the agent knows about who it is, what it does, and how it decides — that is yours to write.
 
-The description "intelligence layer" is deliberate. The config.yaml configures the deployment environment: model version, token limits, access permissions. The connector scripts connect to external data sources. Neither of these makes the agent intelligent in any domain-specific sense. Intelligence — the ability to apply domain expertise to real professional situations — comes from the SKILL.md. A compliance agent and a financial research agent might run on identical model versions, behind identical governance settings, with identical connector infrastructure. What makes them different, and what makes each of them useful, is the SKILL.md.
+The description "intelligence layer" is deliberate. The manifest identifies the plugin. The connectors wire it to enterprise systems. The commands and sub-agents provide workflow infrastructure. None of these makes the agent intelligent in any domain-specific sense. Intelligence — the ability to apply domain expertise to real professional situations — comes from the SKILL.md. A compliance agent and a financial research agent might run on identical connector infrastructure, behind identical governance settings, with identical commands. What makes them different, and what makes each of them useful, is the SKILL.md.
 
 This lesson explains the structure of that document. There are three sections, each with a distinct function: Persona, Questions, and Principles. Understanding what each section does — and why the specifics matter — is the prerequisite for everything in this chapter. Lesson 5 will show you a complete, annotated example. This lesson shows you the architecture and the reasoning behind it.
 
@@ -125,25 +126,40 @@ This lesson explains the structure of that document. There are three sections, e
 
 Before covering the three sections, it is worth stating clearly what a SKILL.md file is, because the name generates consistent confusion.
 
-A SKILL.md is a plain-text file, written in English, using no programming language and no specialised syntax. It is a structured document that tells the agent who it is, what it knows, how to behave in the situations it will encounter, and what it must never do. It requires no programming ability. It requires domain expertise.
+A SKILL.md is a structured Markdown file with YAML frontmatter followed by body content written in English. The frontmatter is a short header block that declares metadata the platform uses to discover and manage the skill. The body of the document tells the agent who it is, what it knows, how to behave in the situations it will encounter, and what it must never do. Writing a SKILL.md requires no programming ability. It requires domain expertise.
 
-| What people assume SKILL.md is | What SKILL.md actually is |
-|--------------------------------|---------------------------|
-| A configuration file with settings and parameters | A structured English document with identity, scope, and operating logic |
-| Written by a developer or ML engineer | Written by a domain expert — a lawyer, analyst, architect, or clinician |
-| Code that executes when the agent runs | Text that the agent reads and applies to every interaction |
-| A technical artefact managed by IT | A professional document managed by the knowledge worker who owns the domain |
+The YAML frontmatter follows the [Agent Skills specification](https://agentskills.io/specification) — an open standard originally developed by Anthropic and now adopted across the industry. The required fields are minimal:
+
+| Field           | Required | What It Does                                                                                                     |
+| --------------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| `name`          | Yes      | Short identifier (lowercase, hyphens only). Must match the parent directory name.                                |
+| `description`   | Yes      | What the skill does and when to use it. The platform reads this at startup to decide when to activate the skill. |
+| `allowed-tools` | No       | Pre-approved tools the skill may use (e.g., restricting a skill to read-only operations).                        |
+| `license`       | No       | License name or reference to a bundled license file.                                                             |
+| `compatibility` | No       | Environment requirements (intended product, required packages, network access).                                  |
+| `metadata`      | No       | Arbitrary key-value pairs for additional information (author, version, etc.).                                    |
+
+The `description` field deserves attention. Agents load only the `name` and `description` of every available skill at startup — a progressive disclosure model that keeps context lean. When a task matches a skill's description, the agent loads the full body content. A vague description means the agent may not activate the skill when it should. A precise description — one that includes specific keywords and use cases — ensures the agent recognises relevant tasks reliably.
+
+| What people assume SKILL.md is                    | What SKILL.md actually is                                                        |
+| ------------------------------------------------- | -------------------------------------------------------------------------------- |
+| A configuration file with settings and parameters | Structured Markdown with YAML frontmatter — identity, scope, and operating logic |
+| Written by a developer or ML engineer             | Written by a domain expert — a lawyer, analyst, architect, or clinician          |
+| Code that executes when the agent runs            | Text that the agent reads and applies to every interaction                       |
+| A technical artefact managed by IT                | A professional document managed by the knowledge worker who owns the domain      |
 
 This distinction matters because it determines who can build useful agents. A senior compliance officer can write a SKILL.md. A project architect can write a SKILL.md. A clinical pharmacist can write a SKILL.md. None of them can write a Python class, configure an API, or train a model. The SKILL.md is what closes the knowledge transfer gap that Chapter 14 described: it is the pathway through which domain expertise reaches a deployed system.
 
-## The Agent Skills Pattern
+## The Persona–Questions–Principles Framework
 
-The structure of the SKILL.md follows a pattern called the **Agent Skills Pattern**. It has three sections: Persona, Questions, and Principles. Each section performs a specific function, and each section requires a specific kind of thinking to write well.
+The [Agent Skills specification](https://agentskills.io/specification) — the open standard that defines the SKILL.md format — imposes no restrictions on how you structure the body content. It says: "Write whatever helps agents perform the task effectively." That flexibility is deliberate. Skills range from simple checklists to complex domain workflows, and the standard accommodates all of them.
 
-| Section | What It Defines | Who Benefits |
-|---------|-----------------|--------------|
-| **Persona** | Professional identity, authority, tone, relationship to user | The agent's behaviour in unanticipated situations |
-| **Questions** | Scope — what the agent handles and what it redirects | The reliability boundary of the agent's expertise |
+For enterprise domain agents, however, that open canvas benefits from structure. This book recommends a framework we call the **Persona–Questions–Principles Framework** (PQP Framework for short). It has three sections: Persona, Questions, and Principles. Each section performs a specific function, and each section requires a specific kind of thinking to write well. This is not the only way to structure a SKILL.md — but for the enterprise use cases this chapter addresses, it is the approach that produces the most reliable, auditable agents.
+
+| Section        | What It Defines                                                        | Who Benefits                                                   |
+| -------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Persona**    | Professional identity, authority, tone, relationship to user           | The agent's behaviour in unanticipated situations              |
+| **Questions**  | Scope — what the agent handles and what it redirects                   | The reliability boundary of the agent's expertise              |
 | **Principles** | Operating logic, constraints, escalation thresholds, quality standards | The agent's decision-making in complex or contested situations |
 
 None of these sections is optional. Remove the Persona and the agent has no reliable identity to fall back on when a query does not fit any anticipated pattern. Remove the Questions section and the agent has no boundary — it will attempt queries it cannot handle well. Remove the Principles and the agent has no operating logic for the hard cases, where the right answer is not obvious.
@@ -164,12 +180,12 @@ This is the central insight about the Persona section: **identity governs ambigu
 
 The Persona section answers four questions:
 
-| Question | Why It Matters |
-|----------|----------------|
-| What is the agent's professional standing? | Determines the authority and confidence with which it speaks |
-| What is its relationship to the user? | Shapes how it balances deference with expertise |
-| What is its characteristic tone? | Determines how it handles disagreement, uncertainty, and complexity |
-| What will it never claim to be? | Sets the boundaries of its professional identity |
+| Question                                   | Why It Matters                                                      |
+| ------------------------------------------ | ------------------------------------------------------------------- |
+| What is the agent's professional standing? | Determines the authority and confidence with which it speaks        |
+| What is its relationship to the user?      | Shapes how it balances deference with expertise                     |
+| What is its characteristic tone?           | Determines how it handles disagreement, uncertainty, and complexity |
+| What will it never claim to be?            | Sets the boundaries of its professional identity                    |
 
 Consider how these answers differ across domains. A legal contract triage agent describes itself as a legal professional who flags risk clearly and defers to qualified counsel on matters requiring independent legal advice — not an authority, but a rigorous first-pass reviewer. A BIM coordination agent for construction describes itself as a project coordinator who understands all disciplines and escalates when a structural decision falls outside its competence. A clinical pharmacology agent describes itself as a specialist who flags drug interactions against evidence-based thresholds and always defers to the prescribing clinician on patient-specific decisions.
 
@@ -187,12 +203,12 @@ The out-of-scope boundary defines where the agent redirects rather than responds
 
 Consider what a well-specified Questions section looks like for different domains:
 
-| Domain | Example In-Scope Items | Example Out-of-Scope Items |
-|--------|----------------------|---------------------------|
-| **Financial research** | Equity analysis on FTSE-listed companies; earnings call summaries; sector comparison tables | Portfolio construction recommendations; tax implications; regulatory filings outside the UK |
-| **Legal contract triage** | Risk flagging in commercial contracts under English law; clause pattern analysis; escalation recommendations | Drafting new contract language; advising on employment law; jurisdiction-specific analysis outside England and Wales |
-| **Clinical pharmacology** | Drug interaction checking against approved formulary; dosage verification against weight and renal function; contraindication flagging | Prescribing decisions; patient-specific risk assessment; off-formulary authorisations |
-| **BIM coordination** | Clash detection across structural, MEP, and architectural models; specification compliance checking; RFI preparation | Structural engineering sign-off; cost estimates; planning authority submissions |
+| Domain                    | Example In-Scope Items                                                                                                                 | Example Out-of-Scope Items                                                                                           |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Financial research**    | Equity analysis on FTSE-listed companies; earnings call summaries; sector comparison tables                                            | Portfolio construction recommendations; tax implications; regulatory filings outside the UK                          |
+| **Legal contract triage** | Risk flagging in commercial contracts under English law; clause pattern analysis; escalation recommendations                           | Drafting new contract language; advising on employment law; jurisdiction-specific analysis outside England and Wales |
+| **Clinical pharmacology** | Drug interaction checking against approved formulary; dosage verification against weight and renal function; contraindication flagging | Prescribing decisions; patient-specific risk assessment; off-formulary authorisations                                |
+| **BIM coordination**      | Clash detection across structural, MEP, and architectural models; specification compliance checking; RFI preparation                   | Structural engineering sign-off; cost estimates; planning authority submissions                                      |
 
 In each case, the out-of-scope items are not arbitrary. They are the areas where the agent's grounded expertise ends and where professional liability, clinical risk, or regulatory accountability begins. The Questions section does not just describe what the agent knows — it maps the boundary of where its knowledge is reliable.
 
@@ -216,12 +232,12 @@ The difference is not merely stylistic. Generic principles require the agent to 
 
 The Principles section also contains escalation thresholds: the operating constraints that define when the agent should stop acting autonomously and refer to a human. These thresholds are domain-specific for the same reason. An escalation threshold for a financial research agent is not the same as an escalation threshold for a clinical pharmacology agent.
 
-| Domain | Illustrative Escalation Thresholds |
-|--------|-----------------------------------|
-| **Financial research** | Any analysis forming the basis of a board-level investment recommendation; any query involving non-public information |
-| **Legal contract triage** | Any clause with potential material liability for the organisation; any dispute resolution mechanism that waives litigation rights |
-| **Healthcare** | Any interaction flagged as a critical drug interaction by the approved formulary; any dosage outside the validated range for the patient's renal function category |
-| **Architecture/BIM** | Any structural coordination issue that a qualified structural engineer has not reviewed; any clash that cannot be resolved without changing the structural grid |
+| Domain                    | Illustrative Escalation Thresholds                                                                                                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Financial research**    | Any analysis forming the basis of a board-level investment recommendation; any query involving non-public information                                              |
+| **Legal contract triage** | Any clause with potential material liability for the organisation; any dispute resolution mechanism that waives litigation rights                                  |
+| **Healthcare**            | Any interaction flagged as a critical drug interaction by the approved formulary; any dosage outside the validated range for the patient's renal function category |
+| **Architecture/BIM**      | Any structural coordination issue that a qualified structural engineer has not reviewed; any clash that cannot be resolved without changing the structural grid    |
 
 In each case, the escalation threshold is defined by the professional standard for that domain — not by a generic rule about when AI should involve a human. A contract that has a complex indemnity structure requires a qualified solicitor to review, not because AI is generally unreliable, but because that specific type of decision carries professional liability that requires human accountability.
 
@@ -243,7 +259,7 @@ Use these prompts in Anthropic Cowork or your preferred AI assistant to explore 
 
 ```
 I work as [YOUR ROLE] in [YOUR INDUSTRY]. I want to understand how
-the three sections of the Agent Skills Pattern — Persona, Questions,
+the three sections of the PQP Framework — Persona, Questions,
 and Principles — would apply to an agent for my specific work.
 
 Help me think through each section:
@@ -312,7 +328,6 @@ domain-specific.
 ```
 
 **What you're learning:** How to distinguish domain-specific Principles from generic ones, and how to refine generic statements into actionable professional operating constraints. The self-evaluation at the end of the prompt builds the critical skill of recognising when a Principle is doing real work versus filling space.
-
 
 ## Flashcards Study Aid
 

@@ -1,14 +1,14 @@
 deck:
   id: "ch15-08-division-of-responsibility"
   title: "The Division of Responsibility"
-  description: "The three-way ownership model (knowledge worker, IT, administrator), layer independence principle, SKILL.md maintenance as ongoing discipline, and diagnosing failures by layer."
+  description: "The three-way ownership model (knowledge worker, IT, administrator), layer independence principle, SKILL.md maintenance as ongoing discipline, and diagnosing failures by layer. Uses the plugin architecture with SKILL.md files, connectors (.mcp.json), commands, sub-agents, and manifest (plugin.json)."
   tags: ["ownership-model", "division-of-responsibility", "layer-independence", "SKILL.md-maintenance", "plugin-accountability"]
   version: 1
 
 cards:
   - id: "ch15-08-three-owners-001"
     front: "Name the three owners of a Cowork plugin and what each owns."
-    back: "1. Knowledge worker — owns the SKILL.md (intelligence layer): Persona, Questions, Principles, and validation against domain scenarios\n2. IT — owns the integration layer: connector scripts and config.yaml\n3. Administrator — owns the governance layer: access control, audit configuration, shadow mode settings, and HITL gate enforcement"
+    back: "1. Knowledge worker — owns the SKILL.md (intelligence layer): Persona, Questions, Principles, and validation against domain scenarios\n2. IT — owns the integration and infrastructure layer: connectors (.mcp.json), commands, sub-agents, and manifest (plugin.json)\n3. Administrator — owns the governance layer: access control, audit configuration, shadow mode settings, and HITL gate enforcement"
     tags: ["three-owners", "ownership-model"]
     difficulty: "basic"
 
@@ -20,7 +20,7 @@ cards:
 
   - id: "ch15-08-layer-independence-003"
     front: "What is the layer independence principle?"
-    back: "Each role operates within its own layer and has no incentive to intrude on the other two layers, because each layer contains only what that role understands and controls. IT does not need SKILL.md to maintain connectors. The knowledge worker does not need connector code to maintain SKILL.md. The administrator needs neither to configure governance. Dependencies are explicit and interfaces are clean."
+    back: "Each role operates within its own layer and has no incentive to intrude on the other two layers, because each layer contains only what that role understands and controls. IT does not need SKILL.md to maintain connectors (.mcp.json) and plugin infrastructure. The knowledge worker does not need connector configuration to maintain SKILL.md. The administrator needs neither to configure governance. Dependencies are explicit and interfaces are clean."
     tags: ["layer-independence", "ownership-model"]
     difficulty: "intermediate"
 
@@ -33,7 +33,7 @@ cards:
 
   - id: "ch15-08-diagnose-outdated-005"
     front: "An agent is returning analyses referencing a regulatory standard updated three months ago. Whose problem is this and why?"
-    back: "The knowledge worker's problem. The SKILL.md's Principles section encodes the old standard. The knowledge worker must review and update the SKILL.md to reflect the current regulatory position. IT cannot help with this because connector scripts and config.yaml have not changed — the intelligence layer needs updating."
+    back: "The knowledge worker's problem. The SKILL.md's Principles section encodes the old standard. The knowledge worker must review and update the SKILL.md to reflect the current regulatory position. IT cannot help with this because the connectors and plugin infrastructure have not changed — the intelligence layer needs updating."
     tags: ["diagnosis", "SKILL.md-maintenance", "knowledge-worker"]
     difficulty: "intermediate"
 
@@ -45,7 +45,7 @@ cards:
 
   - id: "ch15-08-diagnose-scope-007"
     front: "The agent is occasionally drawing on client data from accounts it should not have access to. Whose problem is this?"
-    back: "IT's problem. Connector scope is configured in the config.yaml and implemented in the connector scripts — both owned by IT. The knowledge worker may have specified the required scope, but the misconfiguration lives in the integration layer. Rewriting the SKILL.md cannot fix a connector scope error."
+    back: "IT's problem. Connector scope is configured in the .mcp.json and implemented in the MCP connectors — both owned by IT. The knowledge worker may have specified the required scope, but the misconfiguration lives in the integration layer. Rewriting the SKILL.md cannot fix a connector scope error."
     tags: ["diagnosis", "connector-scope", "IT"]
     difficulty: "intermediate"
 

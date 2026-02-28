@@ -1,6 +1,6 @@
 deck:
   id: "ch15-05-agent-skills-pattern-in-practice"
-  title: "The Agent Skills Pattern in Practice"
+  title: "The PQP Framework in Practice"
   description: "Annotated walkthrough of a production financial research SKILL.md — identity constraints, positive out-of-scope redirection, source integrity, and uncertainty calibration."
   tags: ["SKILL.md", "financial-research-agent", "source-integrity", "uncertainty-calibration", "identity-constraints", "production-quality"]
   version: 1

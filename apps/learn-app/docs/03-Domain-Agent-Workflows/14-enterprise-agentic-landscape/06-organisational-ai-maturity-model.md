@@ -2,7 +2,18 @@
 sidebar_position: 6
 title: "Organisational AI Maturity Model"
 description: "Assess any organisation's AI readiness using the five-level Organisational AI Maturity Model and determine the appropriate intervention for each level"
-keywords: ["AI maturity model", "organisational readiness", "AI adoption levels", "awareness", "experimentation", "integration", "optimisation", "transformation", "Post-Pilot Trap"]
+keywords:
+  [
+    "AI maturity model",
+    "organisational readiness",
+    "AI adoption levels",
+    "awareness",
+    "experimentation",
+    "integration",
+    "optimisation",
+    "transformation",
+    "Post-Pilot Trap",
+  ]
 chapter: 14
 lesson: 6
 duration_minutes: 30
@@ -188,7 +199,7 @@ This is where platform commitment and build-versus-buy decisions become relevant
 - Where to invest in custom development versus marketplace solutions
 - How to balance agent capability against governance requirements
 
-The cross-vertical portfolio strategy in Chapter 24 is addressed primarily to Level 4 organisations. The build-versus-buy decision for SKILL.md development -- whether to invest in internal knowledge extraction capability or engage an external services provider -- becomes relevant at this level.
+The cross-vertical portfolio strategy in Chapter 25 is addressed primarily to Level 4 organisations. The build-versus-buy decision for SKILL.md development -- whether to invest in internal knowledge extraction capability or engage an external services provider -- becomes relevant at this level.
 
 ## Level 5: Transformation
 
@@ -208,13 +219,13 @@ At Level 5, the organisation has fundamentally redesigned how it works. Job desc
 
 ### Summary Table
 
-| Level | Name | Defining Feature | Appropriate Intervention |
-|-------|------|-----------------|------------------------|
-| **1** | Awareness | AI on agenda, not in operations | Education and policy |
-| **2** | Experimentation | Active pilots, isolated results | Team-level Cowork deployment |
-| **3** | Integration | Production agents with governance | Single vertical, full stack |
-| **4** | Optimisation | Multi-vertical portfolio | Platform commitment, portfolio management |
-| **5** | Transformation | Organisational redesign | Continuous evolution |
+| Level | Name            | Defining Feature                  | Appropriate Intervention                  |
+| ----- | --------------- | --------------------------------- | ----------------------------------------- |
+| **1** | Awareness       | AI on agenda, not in operations   | Education and policy                      |
+| **2** | Experimentation | Active pilots, isolated results   | Team-level Cowork deployment              |
+| **3** | Integration     | Production agents with governance | Single vertical, full stack               |
+| **4** | Optimisation    | Multi-vertical portfolio          | Platform commitment, portfolio management |
+| **5** | Transformation  | Organisational redesign           | Continuous evolution                      |
 
 ## Try With AI
 
@@ -272,7 +283,6 @@ the curve?
 ```
 
 **What you're learning:** You are positioning your own organisation within your industry's maturity landscape. This helps you set realistic expectations and identify competitive advantages available at your current level.
-
 
 ## Flashcards Study Aid
 
