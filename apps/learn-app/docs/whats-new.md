@@ -18,6 +18,9 @@ Track meaningful updates to the book. This page is automatically updated when do
 <!-- CHANGELOG_START - Do not remove this marker -->
 
 ### 2026-02-28
+- docs: add Ch 15 (Development Environment) and Ch 16 (Reading Python) ([#782](https://github.com/panaversity/agentfactory/pull/782))
+
+### 2026-02-28
 
 - Fix Chapter 11 Quiz on Linux Operations for Agent Deployment ([#784](https://github.com/panaversity/agentfactory/pull/784))
 
