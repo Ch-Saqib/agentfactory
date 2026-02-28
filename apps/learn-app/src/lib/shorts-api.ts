@@ -12,21 +12,31 @@
 import type { ShortVideo, ShortsFilters } from "../components/shorts/types";
 
 // API base URL (configure based on environment)
-const getApiBaseUrl = () => {
+// This is a default - the actual URL should be fetched from Docusaurus config
+// using getShortsApiBaseUrl() when possible
+const getDefaultApiBaseUrl = () => {
   // Check for environment variable (server-side or build-time)
-  if (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_SHORTS_API_URL) {
-    return process.env.NEXT_PUBLIC_SHORTS_API_URL + "/api/v1";
+  if (typeof process !== "undefined" && process.env?.SHORTS_API_URL) {
+    return process.env.SHORTS_API_URL + "/api/v1";
   }
-  // Client-side detection
-  if (typeof window !== "undefined") {
-    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    return (isLocalhost ? "http://localhost:8002" : "https://shorts-api.panaversity.org") + "/api/v1";
-  }
-  // Default fallback
-  return "http://localhost:8002/api/v1";
+  // Default fallback (should be overridden by components)
+  return "http://localhost:8003/api/v1";
 };
 
-const API_BASE_URL = getApiBaseUrl();
+const DEFAULT_API_BASE_URL = getDefaultApiBaseUrl();
+
+/**
+ * Get the Shorts API base URL from Docusaurus config or environment
+ * Call this from React components to get the configured URL
+ */
+export function getShortsApiBaseUrl(): string {
+  // Try to read from injected global (set by client scripts)
+  if (typeof window !== "undefined" && (window as any).__SHORTS_API_URL__) {
+    return (window as any).__SHORTS_API_URL__ + "/api/v1";
+  }
+  // Fall back to default
+  return DEFAULT_API_BASE_URL;
+}
 
 /**
  * API error class
@@ -145,7 +155,7 @@ export class ShortsApiClient {
   private baseUrl: string;
   private apiKey: string | null;
 
-  constructor(baseUrl: string = API_BASE_URL, apiKey: string | null = null) {
+  constructor(baseUrl: string = DEFAULT_API_BASE_URL, apiKey: string | null = null) {
     this.baseUrl = baseUrl;
     this.apiKey = apiKey;
   }
@@ -912,16 +922,17 @@ let apiClient: ShortsApiClient | null = null;
 
 /**
  * Get or create the API client singleton
+ * The baseUrl is fetched from Docusaurus config or environment on first call
  */
 export function getShortsApiClient(): ShortsApiClient {
   if (!apiClient) {
-    apiClient = new ShortsApiClient();
+    apiClient = new ShortsApiClient(getShortsApiBaseUrl());
   }
   return apiClient;
 }
 
 /**
- * Reset the API client singleton (useful for testing)
+ * Reset the API client singleton (useful for testing or config changes)
  */
 export function resetShortsApiClient(): void {
   apiClient = null;

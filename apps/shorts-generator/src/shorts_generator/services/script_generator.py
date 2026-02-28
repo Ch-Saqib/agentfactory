@@ -197,12 +197,35 @@ class GeneratedScript:
 
 
 class ScriptGenerator:
-    """Generates short video scripts using Google Gemini 2.0 Flash."""
+    """Generates short video scripts using multiple LLM providers.
+
+    Supported providers:
+    - gemini: Google Gemini API
+    - groq: Groq with Llama models (best free tier)
+    - openai: OpenAI GPT models
+    """
 
     def __init__(self):
-        """Initialize the script generator with the new Google GenAI client."""
-        self.client = genai.Client(api_key=settings.gemini_api_key)
-        self.model = settings.gemini_model
+        """Initialize the script generator with configured provider."""
+        self.provider = getattr(settings, 'script_provider', 'groq').lower()
+
+        if self.provider == "gemini":
+            self.client = genai.Client(api_key=settings.gemini_api_key)
+            self.model = settings.gemini_model
+        elif self.provider == "groq":
+            from groq import Groq
+            self.client = Groq(api_key=getattr(settings, 'groq_api_key', None))
+            self.model = settings.groq_model
+        elif self.provider == "openai":
+            from openai import OpenAI
+            self.client = OpenAI(api_key=getattr(settings, 'openai_api_key', None))
+            self.model = settings.openai_model
+        else:
+            logger.warning(f"Unknown provider '{self.provider}', falling back to groq")
+            from groq import Groq
+            self.provider = "groq"
+            self.client = Groq(api_key=getattr(settings, 'groq_api_key', None))
+            self.model = "llama-3.3-70b-versatile"
 
     def _calculate_word_count(self, duration_seconds: int) -> int:
         """Calculate target word count for a duration.
@@ -338,12 +361,212 @@ Keep all descriptions brief. Respond with ONLY raw JSON."""
 
         return prompt
 
+    async def _generate_with_gemini(
+        self,
+        prompt: str,
+        lesson: LessonContent,
+        target_duration: int,
+    ) -> dict:
+        """Generate script using Google Gemini API."""
+        import asyncio
+
+        response = await asyncio.to_thread(
+            self.client.models.generate_content,
+            model=self.model,
+            contents=prompt,
+            config={
+                "temperature": 0.7,
+                "max_output_tokens": 8192,
+                "response_mime_type": "application/json",
+            },
+        )
+
+        response_text = response.text
+        logger.info(f"Gemini response length: {len(response_text)}")
+        return self._parse_response(response_text, lesson, target_duration, "gemini")
+
+    async def _generate_with_groq(
+        self,
+        prompt: str,
+        lesson: LessonContent,
+        target_duration: int,
+    ) -> dict:
+        """Generate script using Groq API with Llama models."""
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": "You are an expert educational content creator. Always respond with valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7,
+            max_tokens=8192,
+            response_format={"type": "json_object"},
+        )
+
+        response_text = response.choices[0].message.content
+        logger.info(f"Groq response length: {len(response_text)}")
+        return self._parse_response(response_text, lesson, target_duration, "groq")
+
+    async def _generate_with_openai(
+        self,
+        prompt: str,
+        lesson: LessonContent,
+        target_duration: int,
+    ) -> dict:
+        """Generate script using OpenAI API."""
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": "You are an expert educational content creator. Always respond with valid JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7,
+            max_tokens=8192,
+            response_format={"type": "json_object"},
+        )
+
+        response_text = response.choices[0].message.content
+        logger.info(f"OpenAI response length: {len(response_text)}")
+        return self._parse_response(response_text, lesson, target_duration, "openai")
+
+    def _parse_response(
+        self,
+        response_text: str,
+        lesson: LessonContent,
+        target_duration: int,
+        provider: str,
+    ) -> dict:
+        """Parse and validate LLM response into script data.
+
+        Args:
+            response_text: Raw response from LLM
+            lesson: Original lesson content
+            target_duration: Target duration
+            provider: Provider name for logging
+
+        Returns:
+            Parsed script data dictionary
+
+        Raises:
+            ValueError: If parsing fails
+        """
+        import asyncio
+
+        logger.debug(f"{provider} response preview: {response_text[:200]}...")
+
+        # Extract JSON from response (handle markdown code blocks)
+        json_text = response_text.strip()
+
+        # Remove markdown code blocks if present
+        if json_text.startswith("```"):
+            lines = json_text.split("\n")
+            if lines[0].startswith("```json"):
+                lines = lines[1:]  # Remove opening ```json
+            elif lines[0].startswith("```"):
+                lines = lines[1:]  # Remove opening ```
+
+            # Find closing ```
+            for i, line in enumerate(lines):
+                if line.strip() == "```":
+                    lines = lines[:i]
+                    break
+
+            json_text = "\n".join(lines).strip()
+
+        logger.debug(f"Extracted JSON preview: {json_text[:200]}...")
+
+        # Check for incomplete JSON and retry if needed
+        if is_incomplete_json(json_text):
+            logger.warning(f"Response appears truncated. Retrying with simplified prompt...")
+            prompt = self._build_simple_prompt(lesson, target_duration)
+
+            if self.provider == "gemini":
+                response = asyncio.to_thread(
+                    self.client.models.generate_content,
+                    model=self.model,
+                    contents=prompt,
+                    config={
+                        "temperature": 0.7,
+                        "max_output_tokens": 8192,
+                        "response_mime_type": "application/json",
+                    },
+                )
+                response_text = response.result().text
+            elif self.provider == "groq":
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": "Respond with valid JSON only."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=4096,
+                    response_format={"type": "json_object"},
+                )
+                response_text = response.choices[0].message.content
+            elif self.provider == "openai":
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": "Respond with valid JSON only."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=4096,
+                    response_format={"type": "json_object"},
+                )
+                response_text = response.choices[0].message.content
+
+            json_text = response_text.strip()
+            if json_text.startswith("```"):
+                lines = json_text.split("\n")
+                if lines[0].startswith("```json"):
+                    lines = lines[1:]
+                elif lines[0].startswith("```"):
+                    lines = lines[1:]
+                for i, line in enumerate(lines):
+                    if line.strip() == "```":
+                        lines = lines[:i]
+                        break
+                json_text = "\n".join(lines).strip()
+
+        # Parse with JSON repair
+        script_data = None
+        parse_errors = []
+
+        try:
+            script_data = json.loads(json_text)
+        except json.JSONDecodeError as e1:
+            parse_errors.append(f"Direct parse failed: {e1}")
+            logger.warning(f"Direct JSON parse failed, attempting repair: {e1}")
+
+            try:
+                repaired = repair_json(json_text)
+                script_data = json.loads(repaired)
+                logger.info("Successfully parsed with JSON repair")
+            except json.JSONDecodeError as e2:
+                parse_errors.append(f"Repair parse failed: {e2}")
+                logger.error(f"JSON repair also failed. Errors: {parse_errors}")
+                logger.error(f"Failed JSON content (first 500 chars): {json_text[:500]}")
+                raise ValueError(
+                    f"Failed to parse {provider} JSON response. "
+                    f"Errors: {'; '.join(parse_errors)}"
+                ) from e1
+
+        # Validate structure
+        if not all(key in script_data for key in ["hook", "concepts", "example", "cta"]):
+            raise ValueError(f"Invalid script structure from {provider}")
+
+        return script_data
+
     async def generate_script(
         self,
         lesson: LessonContent,
         target_duration: int = 60,
     ) -> GeneratedScript:
         """Generate a script from lesson content.
+
+        Routes to the appropriate provider based on settings.script_provider.
 
         Args:
             lesson: Parsed lesson content
@@ -355,120 +578,23 @@ Keep all descriptions brief. Respond with ONLY raw JSON."""
         Raises:
             Exception: If generation fails
         """
-        logger.info(f"Generating script for: {lesson.lesson_path}")
+        logger.info(f"Generating script for: {lesson.lesson_path} using {self.provider}")
 
         # Build prompt
         prompt = self._build_generation_prompt(lesson, target_duration)
 
         try:
-            # Generate content using new Google GenAI SDK
-            # The new SDK uses synchronous calls - run in thread pool for async
-            import asyncio
+            # Route to appropriate provider
+            if self.provider == "gemini":
+                script_data = await self._generate_with_gemini(prompt, lesson, target_duration)
+            elif self.provider == "groq":
+                script_data = await self._generate_with_groq(prompt, lesson, target_duration)
+            elif self.provider == "openai":
+                script_data = await self._generate_with_openai(prompt, lesson, target_duration)
+            else:
+                raise ValueError(f"Unknown provider: {self.provider}")
 
-            response = await asyncio.to_thread(
-                self.client.models.generate_content,
-                model=self.model,
-                contents=prompt,
-                config={
-                    "temperature": 0.7,
-                    "max_output_tokens": 8192,  # Max for Gemini 2.5 Flash - full script requires more tokens
-                    "response_mime_type": "application/json",
-                },
-            )
-
-            # Get response text
-            response_text = response.text
-            logger.info(f"Gemini response length: {len(response_text)}")
-            logger.debug(f"Gemini response preview: {response_text[:200]}...")
-
-            # Extract JSON from response (handle markdown code blocks)
-            json_text = response_text.strip()
-
-            # Remove markdown code blocks if present
-            if json_text.startswith("```"):
-                # Extract content between ```json and ``` or just ``` and ```
-                lines = json_text.split("\n")
-                if lines[0].startswith("```json"):
-                    lines = lines[1:]  # Remove opening ```json
-                elif lines[0].startswith("```"):
-                    lines = lines[1:]  # Remove opening ```
-
-                # Find closing ```
-                for i, line in enumerate(lines):
-                    if line.strip() == "```":
-                        lines = lines[:i]
-                        break
-
-                json_text = "\n".join(lines).strip()
-
-            logger.debug(f"Extracted JSON preview: {json_text[:200]}...")
-
-            # Check for incomplete JSON (truncated response)
-            if is_incomplete_json(json_text):
-                logger.warning("Response appears to be truncated. Retrying with simplified request...")
-                # Retry with a shorter, more focused prompt
-                prompt = self._build_simple_prompt(lesson, target_duration)
-
-                response = await asyncio.to_thread(
-                    self.client.models.generate_content,
-                    model=self.model,
-                    contents=prompt,
-                    config={
-                        "temperature": 0.7,
-                        "max_output_tokens": 8192,
-                        "response_mime_type": "application/json",
-                    },
-                )
-
-                response_text = response.text
-                logger.info(f"Retry response length: {len(response_text)}")
-
-                # Extract JSON from retry response
-                json_text = response_text.strip()
-                if json_text.startswith("```"):
-                    lines = json_text.split("\n")
-                    if lines[0].startswith("```json"):
-                        lines = lines[1:]
-                    elif lines[0].startswith("```"):
-                        lines = lines[1:]
-                    for i, line in enumerate(lines):
-                        if line.strip() == "```":
-                            lines = lines[:i]
-                            break
-                    json_text = "\n".join(lines).strip()
-
-            # Parse response with JSON repair for LLM issues
-            script_data = None
-            parse_errors = []
-
-            # Try 1: Direct parsing
-            try:
-                script_data = json.loads(json_text)
-            except json.JSONDecodeError as e1:
-                parse_errors.append(f"Direct parse failed: {e1}")
-                logger.warning(f"Direct JSON parse failed, attempting repair: {e1}")
-
-                # Try 2: Repair and parse
-                try:
-                    repaired = repair_json(json_text)
-                    script_data = json.loads(repaired)
-                    logger.info("Successfully parsed with JSON repair")
-                except json.JSONDecodeError as e2:
-                    parse_errors.append(f"Repair parse failed: {e2}")
-                    logger.error(f"JSON repair also failed. Errors: {parse_errors}")
-
-                    # Log the actual content for debugging
-                    logger.error(f"Failed JSON content (first 500 chars): {json_text[:500]}")
-                    raise ValueError(
-                        f"Failed to parse Gemini JSON response after repair attempts. "
-                        f"Errors: {'; '.join(parse_errors)}"
-                    ) from e1
-
-            # Validate structure
-            if not all(key in script_data for key in ["hook", "concepts", "example", "cta"]):
-                raise ValueError("Invalid script structure from Gemini")
-
-            # Create script objects
+            # Create script objects from parsed data
             hook = ScriptScene(
                 text=script_data["hook"]["text"],
                 visual_description=script_data["hook"]["visual"],
@@ -525,7 +651,7 @@ Keep all descriptions brief. Respond with ONLY raw JSON."""
                 cta=cta,
                 total_duration=total_duration,
                 visual_descriptions=visual_descriptions,
-                model_used=settings.gemini_model,
+                model_used=f"{self.provider}:{self.model}",
             )
 
             logger.info(f"Script generated successfully: {total_duration}s target duration")
@@ -533,8 +659,8 @@ Keep all descriptions brief. Respond with ONLY raw JSON."""
             return generated_script
 
         except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse Gemini response as JSON: {e}")
-            raise ValueError(f"Invalid JSON response from Gemini: {e}") from e
+            logger.error(f"Failed to parse response as JSON: {e}")
+            raise ValueError(f"Invalid JSON response from {self.provider}: {e}") from e
         except Exception as e:
             logger.error(f"Script generation failed: {e}")
             raise

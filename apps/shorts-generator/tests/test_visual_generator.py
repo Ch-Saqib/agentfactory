@@ -41,80 +41,90 @@ def test_hash_visual_description(generator):
 @pytest.mark.asyncio
 async def test_get_cached_image_miss(generator):
     """Test cache miss returns None."""
-    with patch.object(generator, "_get_redis") as mock_redis:
-        mock_redis_instance = AsyncMock()
-        mock_redis_instance.get = AsyncMock(return_value=None)
-        mock_redis.return_value = mock_redis_instance
+    # Clear the cache for this test
+    VisualGenerator._cache.clear()
 
-        result = await generator._get_cached_image("nonexistent_hash")
+    result = await generator._get_cached_image("nonexistent_hash")
 
-        assert result is None
+    assert result is None
 
 
 @pytest.mark.asyncio
 async def test_get_cached_image_hit(generator):
     """Test cache hit returns cached image."""
-    cached_data = json.dumps({
-        "url": "https://example.com/image.png",
-        "width": 1080,
-        "height": 1920,
-    })
+    # Clear the cache for this test
+    VisualGenerator._cache.clear()
 
-    with patch.object(generator, "_get_redis") as mock_redis:
-        mock_redis_instance = AsyncMock()
-        mock_redis_instance.get = AsyncMock(return_value=cached_data)
-        mock_redis.return_value = mock_redis_instance
+    # Manually add an item to the cache
+    test_hash = "test_hash"
+    VisualGenerator._cache[test_hash] = (
+        {
+            "url": "https://example.com/image.png",
+            "width": 1080,
+            "height": 1920,
+        },
+        float('inf'),  # Never expire
+    )
 
-        result = await generator._get_cached_image("test_hash")
+    result = await generator._get_cached_image(test_hash)
 
-        assert result is not None
-        assert result.url == "https://example.com/image.png"
-        assert result.width == 1080
-        assert result.generation_method == "cached"
-        assert result.cost_usd == 0.0
+    assert result is not None
+    assert result.url == "https://example.com/image.png"
+    assert result.width == 1080
+    assert result.generation_method == "cached"
+    assert result.cost_usd == 0.0
+
+    # Clean up
+    VisualGenerator._cache.clear()
 
 
 @pytest.mark.asyncio
 async def test_generate_scene_image_uses_cache(generator):
     """Test that generate_scene_image checks cache first."""
-    cached_image = GeneratedImage(
-        url="https://cached.example.com/image.png",
-        visual_hash="test_hash_123",
-        width=1080,
-        height=1920,
-        generation_method="cached",
-        cost_usd=0.0,
+    # Clear the cache for this test
+    VisualGenerator._cache.clear()
+
+    test_hash = "test_hash_123"
+    VisualGenerator._cache[test_hash] = (
+        {
+            "url": "https://cached.example.com/image.png",
+            "width": 1080,
+            "height": 1920,
+        },
+        float('inf'),  # Never expire
     )
 
-    with patch.object(generator, "_get_cached_image", return_value=cached_image):
+    # Mock _hash_visual_description to return our test hash
+    with patch.object(generator, "_hash_visual_description", return_value=test_hash):
         result = await generator.generate_scene_image("Test description")
 
-        assert result == cached_image
         assert result.generation_method == "cached"
         assert result.cost_usd == 0.0
+        assert result.url == "https://cached.example.com/image.png"
+
+    # Clean up
+    VisualGenerator._cache.clear()
 
 
 @pytest.mark.asyncio
-async def test_generate_scene_image_calls_replicate(generator):
-    """Test that generate_scene_image calls Replicate API."""
-    mock_response = MagicMock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {
-        "output": [{"image_url": "https://replicate-output.example.com/image.png"}],
-    }
+async def test_generate_scene_image_calls_pollinations(generator):
+    """Test that generate_scene_image calls Pollinations API when provider is pollinations."""
+    # Clear the cache for this test
+    VisualGenerator._cache.clear()
 
-    with patch.object(generator, "_get_http_client") as mock_client:
-        mock_client_instance = AsyncMock()
-        mock_client_instance.post = AsyncMock(return_value=mock_response)
-        mock_client.return_value = mock_client_instance
+    # Mock the settings to use pollinations provider
+    with patch.object(generator, "_hash_visual_description", return_value="test_hash"):
+        with patch("shorts_generator.services.visual_generator.settings") as mock_settings:
+            mock_settings.image_provider = "pollinations"
 
-        with patch.object(generator, "_get_cached_image", return_value=None):
-            with patch.object(generator, "_cache_image"):
-                result = await generator.generate_scene_image("A futuristic robot brain")
+            result = await generator.generate_scene_image("A futuristic robot brain")
 
-                assert result.generation_method == "flux"
-                assert result.url == "https://replicate-output.example.com/image.png"
-                assert result.cost_usd == generator.FLUX_COST_PER_IMAGE
+            assert result.generation_method == "pollinations"
+            assert result.cost_usd == generator.POLLINATIONS_COST
+            assert "image.pollinations.ai" in result.url
+
+    # Clean up
+    VisualGenerator._cache.clear()
 
 
 @pytest.mark.asyncio
@@ -160,7 +170,7 @@ async def test_generate_thumbnail(generator):
                 )
 
                 assert "AI Agents 101" in result.visual_hash or True  # Different visual, so different hash
-                assert result.generation_method == "flux"
+                assert result.generation_method == "replicate"
 
 
 def test_generated_image_dataclass():
@@ -170,7 +180,7 @@ def test_generated_image_dataclass():
         visual_hash="abc123",
         width=1080,
         height=1920,
-        generation_method="flux",
+        generation_method="replicate",
         cost_usd=0.002,
     )
 
@@ -178,39 +188,46 @@ def test_generated_image_dataclass():
     assert image.visual_hash == "abc123"
     assert image.width == 1080
     assert image.height == 1920
-    assert image.generation_method == "flux"
+    assert image.generation_method == "replicate"
     assert image.cost_usd == 0.002
 
 
 @pytest.mark.asyncio
-async def test_cache_image_stores_in_redis(generator):
-    """Test that images are cached in Redis."""
+async def test_cache_image_stores_in_memory(generator):
+    """Test that images are cached in memory."""
+    # Clear the cache for this test
+    VisualGenerator._cache.clear()
+
     image = GeneratedImage(
         url="https://example.com/image.png",
         visual_hash="test_hash",
         width=1080,
         height=1920,
-        generation_method="flux",
+        generation_method="replicate",
         cost_usd=0.002,
     )
 
-    with patch.object(generator, "_get_redis") as mock_redis:
-        mock_redis_instance = AsyncMock()
-        mock_redis_instance.setex = AsyncMock()
-        mock_redis.return_value = mock_redis_instance
+    await generator._cache_image("test_hash", image)
 
-        await generator._cache_image("test_hash", image)
+    # Verify the image was cached
+    assert "test_hash" in VisualGenerator._cache
+    cached_data, expiry_time = VisualGenerator._cache["test_hash"]
+    assert cached_data["url"] == "https://example.com/image.png"
+    assert cached_data["width"] == 1080
+    assert cached_data["height"] == 1920
+    # Verify TTL is approximately 30 minutes (1800 seconds)
+    import time
+    assert expiry_time > time.time()
+    assert expiry_time <= time.time() + 1800
 
-        # Verify setex was called with correct TTL (30 days)
-        mock_redis_instance.setex.assert_called_once()
-        args, kwargs = mock_redis_instance.setex.call_args
-        assert args[1] == 2592000  # 30 days in seconds
+    # Clean up
+    VisualGenerator._cache.clear()
 
 
 @pytest.mark.asyncio
-async def test_flux_cost_constant(generator):
-    """Test that Flux cost constant is set correctly."""
-    assert generator.FLUX_COST_PER_IMAGE == 0.002
+async def test_imagen_cost_constant(generator):
+    """Test that Imagen cost constant is set correctly."""
+    assert generator.IMAGEN_COST == 0.03
 
 
 @pytest.mark.asyncio
@@ -226,19 +243,26 @@ async def test_image_dimensions_for_vertical_video(generator):
 
 @pytest.mark.asyncio
 async def test_generate_scene_image_handles_api_error(generator):
-    """Test that Replicate API errors are handled correctly."""
-    mock_response = MagicMock()
-    mock_response.status_code = 500
-    mock_response.text = "Internal Server Error"
+    """Test that provider API errors are handled correctly."""
+    # Clear the cache for this test
+    VisualGenerator._cache.clear()
 
-    with patch.object(generator, "_get_http_client") as mock_client:
-        mock_client_instance = AsyncMock()
-        mock_client_instance.post = AsyncMock(return_value=mock_response)
-        mock_client.return_value = mock_client_instance
+    # Mock the settings to use replicate provider
+    with patch("shorts_generator.services.visual_generator.settings") as mock_settings:
+        mock_settings.image_provider = "replicate"
+        mock_settings.replicate_api_key = "test-key"
 
-        with patch.object(generator, "_get_cached_image", return_value=None):
-            with pytest.raises(Exception, match="Flux.1 generation failed"):
+        # Mock ReplicateClient to raise an error
+        with patch("shorts_generator.services.visual_generator.ReplicateClient") as mock_replicate:
+            mock_client = MagicMock()
+            mock_client.run = AsyncMock(side_effect=Exception("Replicate API error"))
+            mock_replicate.return_value = mock_client
+
+            with pytest.raises(Exception, match="Replicate generation failed"):
                 await generator.generate_scene_image("Test description")
+
+    # Clean up
+    VisualGenerator._cache.clear()
 
 
 @pytest.mark.asyncio

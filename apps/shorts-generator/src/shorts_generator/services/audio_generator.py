@@ -107,8 +107,8 @@ class AudioGenerator:
 
             # Save to temporary file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
-                # edge-tts communicate.save_mp3() is blocking, run in thread
-                await asyncio.to_thread(communicate.save, tmp_file.name)
+                # Use native async method from edge-tts
+                await communicate.save(tmp_file.name)
 
                 # Get file size for logging
                 file_size = os.path.getsize(tmp_file.name)

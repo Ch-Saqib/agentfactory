@@ -36,6 +36,10 @@ const PRACTICE_ENABLED = process.env.PRACTICE_ENABLED === "true";
 const PROGRESS_API_URL =
   process.env.PROGRESS_API_URL || "http://localhost:8002";
 
+// Shorts Generator API URL - lesson shorts generation
+const SHORTS_API_URL =
+  process.env.SHORTS_API_URL || "http://localhost:8003";
+
 // ChatKit domain key for OpenAI ChatKit (register at OpenAI dashboard for production)
 const CHATKIT_DOMAIN_KEY =
   process.env.CHATKIT_DOMAIN_KEY?.trim() || "domain_pk_localhost_dev";
@@ -62,6 +66,7 @@ const config: Config = {
     tokenMeteringApiUrl: TOKEN_METERING_API_URL,
     chatkitDomainKey: CHATKIT_DOMAIN_KEY,
     progressApiUrl: PROGRESS_API_URL,
+    shortsApiUrl: SHORTS_API_URL,
     practiceEnabled: PRACTICE_ENABLED,
   },
 
@@ -74,6 +79,9 @@ const config: Config = {
   url: siteConfig.url,
   // Set the /<baseUrl>/ pathname under which your site is served
   baseUrl: siteConfig.baseUrl,
+
+  // Client modules - run on client-side startup
+  clientModules: [require.resolve('./src/client/api-globals')],
 
   // Sitemap is configured via the classic preset's sitemap option below
 

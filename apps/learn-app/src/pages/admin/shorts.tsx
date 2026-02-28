@@ -17,6 +17,7 @@
 
 import { GenerationDashboard, GenerationDashboardMini, AnalyticsDashboard, CostMonitorWidget } from "../../components/shorts/admin";
 import { useState, useEffect } from "react";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { Lock, AlertCircle, LogOut, LayoutDashboard, BarChart3, DollarSign, Sparkles, Settings, Clock, Play, Pause, Save, Calendar, BookOpen, ChevronDown, ChevronRight, Loader2 } from "lucide-react";
 
 // Simple admin password - in production use proper auth
@@ -64,6 +65,9 @@ interface BookPart {
 }
 
 export default function AdminShortsPage() {
+  const { siteConfig } = useDocusaurusContext();
+  const shortsApiUrl = (siteConfig.customFields?.shortsApiUrl as string) || "http://localhost:8001";
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -88,11 +92,7 @@ export default function AdminShortsPage() {
 
   const loadAutomationSettings = async () => {
     try {
-      const apiBaseUrl = window.location.hostname === "localhost"
-        ? process.env.NEXT_PUBLIC_SHORTS_API_URL
-        : "https://shorts-api.panaversity.org";
-
-      const response = await fetch(`${apiBaseUrl}/api/v1/automation/settings`);
+      const response = await fetch(`${shortsApiUrl}/api/v1/automation/settings`);
       if (response.ok) {
         const data = await response.json();
         // Convert snake_case from API to camelCase for state
@@ -124,11 +124,7 @@ export default function AdminShortsPage() {
 
   const loadBookParts = async () => {
     try {
-      const apiBaseUrl = window.location.hostname === "localhost"
-        ? "http://localhost:8002"
-        : "https://shorts-api.panaversity.org";
-
-      const response = await fetch(`${apiBaseUrl}/api/v1/automation/available-parts`);
+      const response = await fetch(`${shortsApiUrl}/api/v1/automation/available-parts`);
       if (response.ok) {
         const data = await response.json();
         setBookParts(data.parts || []);
@@ -164,10 +160,6 @@ export default function AdminShortsPage() {
       localStorage.setItem("shorts_automation_settings", JSON.stringify(settings));
 
       // Call the API to update settings
-      const apiBaseUrl = window.location.hostname === "localhost"
-        ? "http://localhost:8002"
-        : "https://shorts-api.panaversity.org";
-
       // Convert camelCase to snake_case for backend
       const apiSettings = {
         enabled: settings.enabled,
@@ -181,7 +173,7 @@ export default function AdminShortsPage() {
         selected_parts: settings.selectedParts,
       };
 
-      const response = await fetch(`${apiBaseUrl}/api/v1/automation/settings`, {
+      const response = await fetch(`${shortsApiUrl}/api/v1/automation/settings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(apiSettings),

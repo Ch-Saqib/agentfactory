@@ -6,6 +6,7 @@
  */
 
 import { useCallback } from 'react';
+import { useDocusaurusContext } from '@docusaurus/useDocusaurusContext';
 import { useStudyMode, type Message, type ChatMode } from '../../contexts/StudyModeContext';
 
 // =============================================================================
@@ -36,19 +37,16 @@ interface ErrorResponse {
 }
 
 // =============================================================================
-// API Configuration
-// =============================================================================
-
-// API base URL - can be configured via window variable or defaults to ChatKit server
-const API_BASE_URL = typeof window !== 'undefined'
-  ? (window as unknown as { __STUDY_MODE_API_URL__?: string }).__STUDY_MODE_API_URL__ || 'http://localhost:8000/api'
-  : 'http://localhost:8000/api';
-
-// =============================================================================
 // Hook
 // =============================================================================
 
 export function useStudyModeAPI() {
+  const { siteConfig } = useDocusaurusContext();
+
+  // Get Study Mode API URL from Docusaurus config (set via environment variable)
+  const studyModeApiUrl = (siteConfig.customFields?.studyModeApiUrl as string) || 'http://localhost:8000';
+  const API_BASE_URL = `${studyModeApiUrl}/api`;
+
   const {
     mode,
     getCurrentConversation,
@@ -134,7 +132,7 @@ export function useStudyModeAPI() {
       setError(errorMessage);
       setLoading(false);
     }
-  }, [mode, getCurrentConversation, addMessage, setLoading, setError]);
+  }, [mode, getCurrentConversation, addMessage, setLoading, setError, API_BASE_URL]);
 
   return {
     sendMessage,
