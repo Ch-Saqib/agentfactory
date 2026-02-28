@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: "What a Plugin Actually Is"
-description: "Define a Cowork plugin precisely, understand its plugin package structure, and understand why transparency is the architectural property that makes domain agents deployable in regulated industries"
+description: "Understand the three layers of a Cowork plugin — the generic format, knowledge-work specialisation, and enterprise readiness evaluation — plus the transparency property that makes domain agents deployable in regulated industries"
 keywords:
   [
     "Cowork plugin",
@@ -29,7 +29,7 @@ skills:
     category: "Conceptual"
     bloom_level: "Remember"
     digcomp_area: "Information Literacy"
-    measurable_at_this_level: "Student can state the definition of a Cowork plugin, describe its six plugin package components and Panaversity's enterprise readiness evaluation model from memory"
+    measurable_at_this_level: "Student can distinguish the three layers (generic plugin format, knowledge-work specialisation, enterprise readiness evaluation) and describe the six plugin package components from memory"
 
   - name: "Identify the Plugin Package Structure"
     proficiency_level: "A2"
@@ -46,10 +46,10 @@ skills:
     measurable_at_this_level: "Student can explain why inspectability is not incidental to plugin design but structural, and articulate what this means for deployment in regulated industries"
 
 learning_objectives:
-  - objective: "State the definition of a Cowork plugin and describe its plugin package components"
+  - objective: "Distinguish the three layers of a Cowork plugin (format, knowledge-work specialisation, enterprise readiness) and describe the plugin package components"
     proficiency_level: "A1"
     bloom_level: "Remember"
-    assessment_method: "Student can reproduce the plugin definition and name the plugin package components from memory without reference to the lesson"
+    assessment_method: "Student can name the three layers and the six plugin package components from memory without reference to the lesson"
 
   - objective: "Explain the purpose of the key plugin components and identify which role owns each one"
     proficiency_level: "A2"
@@ -64,10 +64,10 @@ learning_objectives:
 cognitive_load:
   new_concepts: 3
   concepts_list:
-    - "Cowork plugin as a defined entity (plugin package components: skills, agents, connectors, hooks, commands, manifest)"
+    - "Three-layer model (generic format → knowledge-work specialisation → enterprise readiness evaluation)"
     - "Plugin package structure (skills, connectors, commands, agents, hooks, manifest)"
     - "Transparency as an architectural property (not incidental)"
-  assessment: "3 concepts at A1-A2 level — well within the 5-7 cognitive limit for this tier. Students already know SKILL.md and MCP connectors at surface level from Chapter 14 Lesson 4; this lesson deepens the conceptual model by introducing the full plugin package components and the enterprise readiness evaluation framework."
+  assessment: "3 concepts at A1-A2 level — well within the 5-7 cognitive limit for this tier. Students already know SKILL.md and MCP connectors at surface level from Chapter 14 Lesson 4; this lesson deepens the conceptual model by distinguishing Anthropic's plugin format from knowledge-work specialisation and Panaversity's enterprise readiness evaluation framework."
 
 differentiation:
   extension_for_advanced: "Identify a domain agent you have seen described in industry press or your own organisation. Using the enterprise readiness framework from this lesson, assess how many of the five properties are visible to you. Which properties are opaque? What would need to change for the plugin to be fully inspectable? Document your analysis in a short note."
@@ -78,24 +78,24 @@ teaching_guide:
   session_group: 1
   session_title: "Defining the Unit of Work"
   key_points:
-    - "A Cowork plugin is not a vague concept — it has a precise definition and a plugin package with six components. Students should be able to reproduce the definition and name the components, not just paraphrase them."
+    - "A Cowork plugin has three layers students must keep distinct: the generic format (a directory of components), the knowledge-work specialisation (domain expertise + enterprise connectors), and enterprise readiness evaluation (Panaversity's five-property framework). Conflating these layers leads to misattribution."
     - "The plugin package structure maps cleanly to two primary roles: knowledge worker (skills) and plugin developer/IT (connectors, commands, agents, hooks, manifest). This ownership clarity is a feature, not an incidental detail."
     - "Transparency is architectural, not incidental. Every plugin property is inspectable by design. This is what makes plugins deployable in regulated industries — not trust, but verifiability."
     - "Students have already encountered SKILL.md and connectors in Chapter 14 Lesson 4 (which introduced the full plugin package). This lesson moves from surface recognition to conceptual understanding of what each component actually does."
   misconceptions:
-    - "Students may think a 'plugin' is just a chatbot add-on. Correct this early: a Cowork plugin is a domain-specific agent with a complete governance and performance infrastructure, not a UI widget."
+    - "Students may think a 'plugin' is just a chatbot add-on. Correct this early: the plugin format is a general-purpose extension system, but knowledge-work plugins use it to create domain-specialist agents with real enterprise connections — not UI widgets."
     - "Students may assume transparency means 'visible to everyone'. Clarify: transparency means every property is inspectable by the right role (knowledge worker reads SKILL.md, IT reads .mcp.json and plugin.json, admin sees audit logs). The point is that no property is a black box."
     - "Students may treat the plugin components as interchangeable. The division of ownership is the key insight — each component (skills, connectors, commands, agents, hooks, manifest) has a defined owner and a defined scope. Mixing them creates governance problems."
   discussion_prompts:
     - "Think of a workflow in your organisation that is currently done by a person. Which of the five plugin properties (identity, instructions, connections, governance, performance record) does that person's role already have, informally? Which are missing?"
     - "If your organisation audited an AI agent tomorrow, which plugin properties would they need to inspect? Could they inspect them in an agent your organisation has already deployed?"
   teaching_tips:
-    - "Open with the plugin definition and package components before introducing the enterprise readiness framework. Students who can name the six components have a conceptual hook for everything in the chapter."
+    - "Open with the three-layer distinction. Students who understand that the format is generic, the knowledge-work specialisation is Anthropic's use of it, and the enterprise readiness model is Panaversity's evaluation lens will avoid conflating them throughout the chapter."
     - "When introducing the plugin package, use the ownership framing immediately: SKILL.md belongs to the knowledge worker, everything else (connectors, commands, agents, hooks, manifest) belongs to the developer or IT. This prevents the components from feeling like arbitrary technical divisions."
     - "On transparency: use the analogy of a licensed professional. A doctor's practice is inspectable (credentials, records, outcomes) not because someone added a transparency feature, but because the framework of the profession requires it. A Cowork plugin is designed the same way."
   assessment_checks:
     - question: "What is a Cowork plugin?"
-      expected_response: "A domain-specific agent deployed inside the Cowork environment, delivered as a plugin package including skills, agents, connectors, hooks, commands, and a manifest"
+      expected_response: "At its base, a self-contained directory of components that extends Claude Code. Knowledge-work plugins use this format to turn a general-purpose agent into a domain specialist. Panaversity's enterprise readiness model then evaluates whether the result is production-ready via five properties: identity, instructions, connections, governance, and performance record."
     - question: "Name the key components of a Cowork plugin package."
       expected_response: "Skills (SKILL.md files — the intelligence layer, owned by the knowledge worker), connectors (.mcp.json — MCP server declarations for enterprise system integration), commands (slash commands for explicit invocation), agents (specialised assistants for complex workflows), hooks (event handlers for lifecycle automation), and a manifest (plugin.json declaring name, version, and author)"
     - question: "Why does transparency matter as an architectural property?"
@@ -108,27 +108,23 @@ teaching_guide:
 
 In Chapter 14, you established that the knowledge worker, not the developer, is the central figure in enterprise AI deployment. You identified the knowledge transfer gap — the structural barrier between domain expertise and deployed agents — and recognised the platform that closes it. Now the question becomes concrete: what, precisely, is the thing you are going to build?
 
-Anthropic describes the transformation this way: a Cowork plugin turns a general-purpose coding agent into a specialised domain expert. A general-purpose agent knows how to reason, write, and use tools. A plugin gives it specific knowledge — what your organisation's contracts look like, how your compliance reviews work, what your financial analysis conventions require. The plugin is the mechanism that makes that transformation repeatable, governable, and deployable.
+The word "plugin" carries baggage from its previous life in software. Browser plugins, email plugins, productivity suite plugins — add-ons that bolt a feature onto a product someone else built. A Cowork plugin is something more capable than that, but to understand what it actually is, you need to separate three things that are easy to conflate: the plugin format itself, what knowledge-work plugins do with it, and how enterprises evaluate whether the result is production-ready.
 
-The word "plugin" carries baggage from its previous life in software. Browser plugins, email plugins, productivity suite plugins — add-ons that bolt a feature onto a product someone else built. A Cowork plugin is something architecturally different. Before the chapter goes any further, it is worth defining it precisely, because the definition will do a great deal of work in everything that follows.
+This lesson gives you all three layers, plus the architectural property that makes the whole thing deployable in environments that do not tolerate black boxes.
 
-This lesson gives you the definition, the plugin package structure, and the architectural property that makes the whole thing deployable in environments that do not tolerate black boxes.
+## Layer 1: What a Plugin Is
 
-## The Definition
+Anthropic's [plugin reference](https://code.claude.com/docs/en/plugins-reference) defines a plugin precisely: **a self-contained directory of components that extends Claude Code with custom functionality.** A plugin is a packaging format. It bundles skills, agents, hooks, MCP server declarations, and a manifest into a directory that Claude Code can discover, load, and use. That is all the format requires. It does not prescribe what the plugin is _about_, any more than a ZIP file prescribes its contents.
 
-A Cowork plugin is a **domain-specific agent deployed inside the Cowork environment**. It has a defined identity, explicit instructions, connections to external systems via MCP, and operates within a platform that handles authentication, audit, and governance.
+## Layer 2: What Knowledge-Work Plugins Do With It
 
-_Domain-specific_ means the agent knows something particular. Not general knowledge from a large language model, but the specific conventions, standards, thresholds, and edge cases of a defined professional field — compliance review in a particular jurisdiction, financial analysis within a specific investment mandate, contract triage against a firm's established risk criteria.
+Anthropic's [knowledge-work plugins](https://github.com/anthropics/knowledge-work-plugins) use this generic format for a specific purpose: turning a general-purpose coding agent into a domain specialist. A general-purpose agent knows how to reason, write, and use tools. A knowledge-work plugin gives it specific knowledge — what your organisation's contracts look like, how your compliance reviews work, what your financial analysis conventions require. The SKILL.md files encode that domain expertise. The MCP connectors wire it to the systems where the work actually lives. The result is an agent that operates within a defined professional field — compliance review, financial analysis, contract triage — rather than as a generalist.
 
-_Agent_ means the system acts, not just responds. It monitors, analyses, sequences multi-step workflows, and produces outputs. It does not wait to be asked the same question twice.
-
-_Deployed_ means it is running in production, not in a demonstration. It is connected to real systems, operating against real data, with real outputs being used by real people.
-
-_Inside the Cowork environment_ means it operates within an infrastructure that handles authentication, governance, audit, and platform-level constraints — not as a standalone script, but as a managed component of an enterprise platform.
+This is the kind of plugin this chapter teaches you to build. When the rest of this chapter says "plugin," it means a knowledge-work plugin: one that encodes domain expertise and connects to enterprise systems. But it is worth remembering that the underlying format is general-purpose, and Anthropic designed it that way deliberately.
 
 ## The Plugin Package
 
-The definition above tells you what a plugin _is_. The plugin package tells you what it _contains_. A plugin package is a bundled directory with everything a domain agent needs to operate. The official structure, as documented at [code.claude.com](https://code.claude.com/docs/en/plugins-reference), includes:
+The two layers above tell you what a plugin _is_ and what knowledge-work plugins _do_. The plugin package tells you what one _contains_. The official structure, as documented at [code.claude.com](https://code.claude.com/docs/en/plugins-reference), includes:
 
 | Component                   | What It Contains                                                                                                               | Who Owns It            |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------- |
@@ -145,9 +141,9 @@ The division of labour here is intentional and significant. The knowledge worker
 
 This separation is not bureaucratic overhead. It is what makes a plugin governable. When something goes wrong — and in production, something eventually goes wrong — the ownership model tells you immediately which layer is responsible and who can fix it. This chapter and Chapter 16 will go deep on each component in turn. What matters here is the model: the knowledge worker owns the intelligence layer, everyone else owns the infrastructure.
 
-## Evaluating Enterprise Readiness
+## Layer 3: Evaluating Enterprise Readiness
 
-The plugin package gives you the building blocks. But when an enterprise evaluates whether a domain agent is ready for production deployment — not just functional, but _governable_ — a different lens is needed. At Panaversity, we use five properties as an enterprise readiness evaluation model:
+The plugin format gives you a packaging standard. Knowledge-work plugins give you domain specialisation. But neither tells you whether the result is ready for production in an enterprise that answers to regulators, auditors, and compliance officers. That requires a different lens. At Panaversity, we use five properties as an enterprise readiness evaluation model:
 
 | Property               | What It Evaluates                                                                         |
 | ---------------------- | ----------------------------------------------------------------------------------------- |
