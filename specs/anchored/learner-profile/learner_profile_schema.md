@@ -1,4 +1,4 @@
-> **LEGACY DOCUMENT** — This is the original v1.0 research input. The authoritative schema is now `specs/learner-profile/spec.md` (v1.1). Key differences: `learner_id` is now auth sub string (not UUID), `topics_to_skip` merged into `topics_already_mastered`, `ai_ml.level` enum standardized, accessibility section added, defaults changed from `intermediate` to `beginner`, and many other refinements. Do NOT use this file as a template for implementation.
+> **LEGACY DOCUMENT** — This is the original v1.0 research input. The authoritative schema is now `spec.md` (v1.3). Key differences: `learner_id` is now auth sub string (not UUID), `topics_to_skip` merged into `topics_already_mastered`, `ai_fluency.level` standardized, accessibility section added, defaults changed from `intermediate` to `beginner`, and many other refinements. Do NOT use this file as a template for implementation.
 
 # Learner Profile Schema for Content Personalization
 **Version:** 1.0 — Static Content Personalization (SUPERSEDED by spec.md v1.1)
