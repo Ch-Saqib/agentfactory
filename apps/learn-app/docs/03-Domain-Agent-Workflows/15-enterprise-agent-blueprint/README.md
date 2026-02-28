@@ -6,6 +6,10 @@ chapter_number: 15
 part_number: 3
 version: 1.0
 status: draft
+slides:
+  source: "https://pub-80f166e40b854371ac7b05053b435162.r2.dev/books/ai-native-dev/static/slides/part-3/chapter-15/enterprise-agent-blueprint.pdf"
+  title: "The Enterprise Agent Blueprint"
+  height: 700
 ---
 
 # Chapter 15: The Enterprise Agent Blueprint
@@ -17,6 +21,8 @@ Chapter 14 established why the enterprise agentic era arrived when it did, who t
 A Cowork plugin is a bundled package that contains everything a domain agent needs: SKILL.md files that encode the expertise of the knowledge worker, MCP connector declarations (.mcp.json) that wire the agent to enterprise systems, slash commands, agents, hooks, and a manifest (plugin.json). The knowledge worker's contribution is the SKILL.md — the intelligence layer that carries institutional knowledge. Everything else is infrastructure built by developers, the community, or Anthropic. An administrator governs the deployment through organisational settings. These layers are independent by design, and that independence is what makes the system maintainable, diagnosable, and scalable.
 
 This chapter describes the anatomy of a Cowork plugin in terms a knowledge worker can act on. It explains the three-level context system that determines which instructions the agent follows. It walks through a complete, annotated SKILL.md so you can recognise the difference between a production-ready file and an amateur one. It maps the MCP connector ecosystem available for the major professional domains. And it covers the governance mechanisms — permissions, audit trails, shadow mode, and human-in-the-loop gates — that make enterprise deployment of autonomous agents defensible in regulated industries. By the end, you will have the architectural vocabulary that Chapter 16 assumes.
+
+## 📚 Teaching Aid
 
 ## What You'll Learn
 
