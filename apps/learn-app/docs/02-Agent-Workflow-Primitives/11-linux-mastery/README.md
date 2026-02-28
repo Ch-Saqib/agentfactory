@@ -3,6 +3,10 @@ sidebar_position: 11
 title: "Chapter 11: Linux Operations for Agent Deployment"
 description: "Learn to deploy, manage, and troubleshoot AI agents on Linux servers by directing Claude Code — from first SSH login to production systemd service."
 keywords: ["linux", "ssh", "systemd", "deployment", "server", "agent operations", "production", "debugging", "security"]
+slides:
+  source: "https://pub-80f166e40b854371ac7b05053b435162.r2.dev/books/ai-native-dev/static/slides/part-2/chapter-11/linux-mastery.pdf"
+  title: "Linux Operations for Agent Deployment"
+  height: 700
 ---
 # Chapter 11: Linux Operations for Agent Deployment
 
@@ -19,6 +23,8 @@ This chapter is how Ali — and you — go from that blinking cursor to a produc
 :::tip[Chapter Thesis]
 Your agent's code might be perfect. If you can't deploy it to a server, keep it running, and fix it when it breaks, it's a side project — not a product. Linux operations is the bridge between "it works on my laptop" and "it runs in production."
 :::
+
+## 📚 Teaching Aid
 
 ## What You'll Learn
 
