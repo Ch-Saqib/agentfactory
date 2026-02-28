@@ -19,6 +19,15 @@ export function useLearnerProfileApiUrl(): string {
   );
 }
 
+/**
+ * Returns true only if learnerProfileApiUrl is explicitly configured.
+ * Use as a feature flag: no URL configured = all profile features off.
+ */
+export function useLearnerProfileEnabled(): boolean {
+  const { siteConfig } = useDocusaurusContext();
+  return Boolean(siteConfig.customFields?.learnerProfileApiUrl);
+}
+
 export class ApiError extends Error {
   constructor(
     message: string,

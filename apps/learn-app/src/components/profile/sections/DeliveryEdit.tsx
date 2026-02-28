@@ -1,5 +1,6 @@
 import React from "react";
 import type { DeliverySection } from "@/lib/learner-profile-types";
+import { NULL_SELECT_VALUE } from "@/lib/learner-profile-types";
 import { InferredBadge } from "@/components/profile/fields";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -50,11 +51,16 @@ export function DeliveryEdit({
   onChange: (data: unknown) => void;
   fieldSources?: Record<string, string>;
 }) {
+  if (!data) return null;
   const delivery = data as DeliverySection;
 
   const update = (field: keyof DeliverySection, value: unknown) => {
     if (field === "include_code_samples" && value === false) {
-      onChange({ ...delivery, include_code_samples: false, code_verbosity: null });
+      onChange({
+        ...delivery,
+        include_code_samples: false,
+        code_verbosity: null,
+      });
       return;
     }
     onChange({ ...delivery, [field]: value });
@@ -77,16 +83,19 @@ export function DeliveryEdit({
           />
         </div>
         <Select
-          value={delivery?.output_format || "none"}
+          value={delivery?.output_format || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("output_format", val === "none" ? null : val)
+            update("output_format", val === NULL_SELECT_VALUE ? null : val)
           }
         >
           <SelectTrigger id="output-format" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {OUTPUT_FORMAT_OPTIONS.filter((opt) => opt.value !== "").map(
@@ -104,16 +113,19 @@ export function DeliveryEdit({
           Target Length
         </label>
         <Select
-          value={delivery?.target_length || "none"}
+          value={delivery?.target_length || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("target_length", val === "none" ? null : val)
+            update("target_length", val === NULL_SELECT_VALUE ? null : val)
           }
         >
           <SelectTrigger id="target-length" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {TARGET_LENGTH_OPTIONS.filter((opt) => opt.value !== "").map(
@@ -143,7 +155,9 @@ export function DeliveryEdit({
           </div>
           <Switch
             checked={includeCode}
-            onCheckedChange={(checked) => update("include_code_samples", checked)}
+            onCheckedChange={(checked) =>
+              update("include_code_samples", checked)
+            }
             aria-label="Toggle code samples"
           />
         </div>
@@ -175,9 +189,9 @@ export function DeliveryEdit({
           />
         </div>
         <Select
-          value={delivery?.code_verbosity || "none"}
+          value={delivery?.code_verbosity || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("code_verbosity", val === "none" ? null : val)
+            update("code_verbosity", val === NULL_SELECT_VALUE ? null : val)
           }
           disabled={!includeCode}
         >
@@ -185,7 +199,10 @@ export function DeliveryEdit({
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {CODE_VERBOSITY_OPTIONS.filter((opt) => opt.value !== "").map(
@@ -229,28 +246,34 @@ export function DeliveryEdit({
             Language Proficiency
           </label>
           <Select
-            value={delivery?.language_proficiency || "none"}
+            value={delivery?.language_proficiency || NULL_SELECT_VALUE}
             onValueChange={(val) =>
-              update("language_proficiency", val === "none" ? null : val)
+              update(
+                "language_proficiency",
+                val === NULL_SELECT_VALUE ? null : val,
+              )
             }
           >
-            <SelectTrigger id="delivery-language-proficiency" className="w-full">
+            <SelectTrigger
+              id="delivery-language-proficiency"
+              className="w-full"
+            >
               <SelectValue placeholder="Select…" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem
-                value="none"
+                value={NULL_SELECT_VALUE}
                 className="italic text-muted-foreground"
               >
                 Select…
               </SelectItem>
-              {LANGUAGE_PROFICIENCY_OPTIONS.filter((opt) => opt.value !== "").map(
-                (opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </SelectItem>
-                ),
-              )}
+              {LANGUAGE_PROFICIENCY_OPTIONS.filter(
+                (opt) => opt.value !== "",
+              ).map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

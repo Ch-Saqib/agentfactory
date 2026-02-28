@@ -1,25 +1,11 @@
 import React from "react";
 import { ExpertiseLevelSelect, ChipSelect } from "@/components/profile/fields";
 import type { ExpertiseSection } from "@/lib/learner-profile-types";
+import { PROGRAMMING_LANGUAGES } from "@/lib/learner-profile-types";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { itemVariants, staggerContainerVariants } from "./variants";
-
-const PROGRAMMING_LANGUAGES = [
-  { value: "Python", label: "Python" },
-  { value: "JavaScript", label: "JavaScript" },
-  { value: "TypeScript", label: "TypeScript" },
-  { value: "Java", label: "Java" },
-  { value: "C#", label: "C#" },
-  { value: "Go", label: "Go" },
-  { value: "Rust", label: "Rust" },
-  { value: "Ruby", label: "Ruby" },
-  { value: "PHP", label: "PHP" },
-  { value: "Swift", label: "Swift" },
-  { value: "Kotlin", label: "Kotlin" },
-  { value: "C++", label: "C++" },
-];
 
 interface ExpertiseStepProps {
   data: ExpertiseSection;

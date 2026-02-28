@@ -3,6 +3,7 @@ import type {
   ProfessionalContextSection,
   RealProject,
 } from "@/lib/learner-profile-types";
+import { NULL_SELECT_VALUE } from "@/lib/learner-profile-types";
 import { ChipSelect } from "@/components/profile/fields";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,6 +50,7 @@ export function ProfessionalEdit({
   data: unknown;
   onChange: (data: unknown) => void;
 }) {
+  if (!data) return null;
   const ctx = data as ProfessionalContextSection;
 
   const update = (field: keyof ProfessionalContextSection, value: unknown) => {
@@ -92,16 +94,19 @@ export function ProfessionalEdit({
           Organization Type
         </label>
         <Select
-          value={ctx?.organization_type || "none"}
+          value={ctx?.organization_type || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("organization_type", val === "none" ? null : val)
+            update("organization_type", val === NULL_SELECT_VALUE ? null : val)
           }
         >
           <SelectTrigger id="settings-org-type" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {ORG_TYPES.filter((opt) => opt.value !== "").map((opt) => (
@@ -117,16 +122,19 @@ export function ProfessionalEdit({
           Team Context
         </label>
         <Select
-          value={ctx?.team_context || "none"}
+          value={ctx?.team_context || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("team_context", val === "none" ? null : val)
+            update("team_context", val === NULL_SELECT_VALUE ? null : val)
           }
         >
           <SelectTrigger id="settings-team-context" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             <SelectItem value="solo">Solo / side project</SelectItem>
@@ -182,13 +190,8 @@ function RealProjectsEditor({
     onChange([...projects, { project_name: "", description: "" }]);
   };
 
-  const updateProject = (
-    index: number,
-    patch: Partial<RealProject>,
-  ) => {
-    onChange(
-      projects.map((p, i) => (i === index ? { ...p, ...patch } : p)),
-    );
+  const updateProject = (index: number, patch: Partial<RealProject>) => {
+    onChange(projects.map((p, i) => (i === index ? { ...p, ...patch } : p)));
   };
 
   const removeProject = (index: number) => {
@@ -216,9 +219,7 @@ function RealProjectsEditor({
       </div>
 
       {projects.length === 0 ? (
-        <div className="text-sm text-muted-foreground">
-          No projects added.
-        </div>
+        <div className="text-sm text-muted-foreground">No projects added.</div>
       ) : (
         <div className="space-y-3">
           {projects.map((project, idx) => (

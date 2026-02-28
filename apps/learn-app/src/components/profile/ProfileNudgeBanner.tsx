@@ -22,15 +22,14 @@ export function ProfileNudgeBanner() {
   const profileHref = useBaseUrl("/profile");
 
   const userId = session?.user?.id;
-  const isOptedOut = (() => {
-    if (!userId) return false;
-    if (typeof window === "undefined") return false;
+  const isOptedOut = useMemo(() => {
+    if (!userId || typeof window === "undefined") return false;
     try {
       return localStorage.getItem(`learner_profile_opt_out:${userId}`) === "1";
     } catch {
       return false;
     }
-  })();
+  }, [userId]);
 
   const dismissKey = useMemo(() => {
     return userId ? `profile_nudge_dismissed:${userId}` : null;
@@ -58,14 +57,19 @@ export function ProfileNudgeBanner() {
     setIsDismissed(true);
     if (!dismissKey || typeof window === "undefined") return;
     try {
-      localStorage.setItem(dismissKey, JSON.stringify({ timestamp: Date.now() }));
+      localStorage.setItem(
+        dismissKey,
+        JSON.stringify({ timestamp: Date.now() }),
+      );
     } catch {
       // ignore
     }
   };
 
   const hasNoProfile = !profile && needsOnboarding;
-  const hasIncompleteProfile = Boolean(profile && !profile.onboarding_completed);
+  const hasIncompleteProfile = Boolean(
+    profile && !profile.onboarding_completed,
+  );
 
   const shouldShow =
     !isLoading &&

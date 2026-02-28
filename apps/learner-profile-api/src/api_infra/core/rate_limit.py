@@ -191,7 +191,7 @@ class RateLimiter:
         identifier = self.identifier(request)
         key = f"rate_limit:{self.redis_key}:{identifier}"
         window_ms = self.config.get_window()
-        logger.info("[RateLimit] Identifier resolved: %s", identifier)
+        logger.debug("[RateLimit] Identifier resolved: %s", identifier)
 
         try:
             # Execute Lua script for atomic operations
@@ -210,7 +210,7 @@ class RateLimiter:
                 return await self._execute_lua(redis_client, request, _retried=True)
             raise
 
-        logger.info(
+        logger.debug(
             "[RateLimit] Redis key=%s, current=%d, limit=%d, window=%dms, ttl=%dms",
             key, current, self.config.times, window_ms, ttl,
         )

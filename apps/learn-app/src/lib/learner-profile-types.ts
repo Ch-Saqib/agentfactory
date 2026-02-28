@@ -1,3 +1,10 @@
+/**
+ * Sentinel value for nullable Select components.
+ * Distinct from any domain value (e.g., ExpertiseLevel "none").
+ * Use as the "unset" SelectItem value, map to null on change.
+ */
+export const NULL_SELECT_VALUE = "__null__";
+
 // Literal union types matching backend enums
 export type ExpertiseLevel =
   | "none"
@@ -261,3 +268,19 @@ export const SECTION_CONFIGS: Record<SectionName, SectionConfig> = {
     description: "Screen reader, cognitive load, and display preferences",
   },
 };
+
+// Shared option constants
+export const PROGRAMMING_LANGUAGES = [
+  { value: "Python", label: "Python" },
+  { value: "JavaScript", label: "JavaScript" },
+  { value: "TypeScript", label: "TypeScript" },
+  { value: "Java", label: "Java" },
+  { value: "C#", label: "C#" },
+  { value: "Go", label: "Go" },
+  { value: "Rust", label: "Rust" },
+  { value: "Ruby", label: "Ruby" },
+  { value: "PHP", label: "PHP" },
+  { value: "Swift", label: "Swift" },
+  { value: "Kotlin", label: "Kotlin" },
+  { value: "C++", label: "C++" },
+] as const;

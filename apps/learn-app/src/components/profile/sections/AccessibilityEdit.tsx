@@ -11,6 +11,7 @@ export function AccessibilityEdit({
   data: unknown;
   onChange: (data: unknown) => void;
 }) {
+  if (!data) return null;
   const a11y = data as AccessibilitySection;
   const notes = a11y?.notes || "";
 
@@ -24,7 +25,12 @@ export function AccessibilityEdit({
         <legend className="text-sm font-medium mb-2">Cognitive Load</legend>
         <RadioGroup
           value={a11y?.cognitive_load_preference || "standard"}
-          onValueChange={(val) => onChange({ ...a11y, cognitive_load_preference: val as "standard" | "reduced" })}
+          onValueChange={(val) =>
+            onChange({
+              ...a11y,
+              cognitive_load_preference: val as "standard" | "reduced",
+            })
+          }
           className="space-y-2"
         >
           {(["standard", "reduced"] as const).map((option) => (

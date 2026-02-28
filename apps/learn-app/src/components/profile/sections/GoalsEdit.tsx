@@ -14,6 +14,7 @@ export function GoalsEdit({
   data: unknown;
   onChange: (data: unknown) => void;
 }) {
+  if (!data) return null;
   const goals = data as GoalsSection;
 
   const update = (field: keyof GoalsSection, value: unknown) => {

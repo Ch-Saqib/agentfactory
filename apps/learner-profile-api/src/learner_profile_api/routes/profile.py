@@ -15,9 +15,15 @@ from ..core.exceptions import ProfileExists, ProfileNotFound
 from ..schemas.profile import (
     ONBOARDING_PHASES,
     SECTION_MODELS,
+    AccessibilitySection,
+    CommunicationSection,
     CompletenessResponse,
+    DeliverySection,
     ErrorResponse,
+    ExpertiseSection,
+    GoalsSection,
     OnboardingStatus,
+    ProfessionalContextSection,
     ProfileCreate,
     ProfileResponse,
     ProfileUpdate,
@@ -61,15 +67,6 @@ def _backfill_sections_completed(profile) -> dict:
 
 def _profile_to_response(profile) -> ProfileResponse:
     """Convert a LearnerProfile model to a ProfileResponse."""
-    from ..schemas.profile import (
-        AccessibilitySection,
-        CommunicationSection,
-        DeliverySection,
-        ExpertiseSection,
-        GoalsSection,
-        ProfessionalContextSection,
-    )
-
     field_sources = profile.field_sources or {}
     sections_completed = _backfill_sections_completed(profile)
 
@@ -251,8 +248,9 @@ async def update_my_profile(
     """Update profile with merge semantics. Only provided fields are updated."""
     try:
         profile = await update_profile(session, user["sub"], body)
-        await invalidate_profile_cache(user["sub"])
-        return _profile_to_response(profile)
+        resp = _profile_to_response(profile)
+        await set_cached_profile(user["sub"], resp.model_dump(mode="json"))
+        return resp
     except ProfileNotFound:
         raise HTTPException(
             status_code=404,
@@ -294,8 +292,9 @@ async def update_profile_section(
 
     try:
         profile = await update_section(session, user["sub"], section, section_data)
-        await invalidate_profile_cache(user["sub"])
-        return _profile_to_response(profile)
+        resp = _profile_to_response(profile)
+        await set_cached_profile(user["sub"], resp.model_dump(mode="json"))
+        return resp
     except ProfileNotFound:
         raise HTTPException(
             status_code=404,
@@ -461,8 +460,9 @@ async def update_onboarding(
 
     try:
         profile = await update_onboarding_section(session, user["sub"], section, body)
-        await invalidate_profile_cache(user["sub"])
-        return _profile_to_response(profile)
+        resp = _profile_to_response(profile)
+        await set_cached_profile(user["sub"], resp.model_dump(mode="json"))
+        return resp
     except ProfileNotFound:
         raise HTTPException(
             status_code=404,
@@ -489,8 +489,9 @@ async def sync_from_phm_route(
 
     try:
         profile = await sync_from_phm(session, user["sub"], token)
-        await invalidate_profile_cache(user["sub"])
-        return _profile_to_response(profile)
+        resp = _profile_to_response(profile)
+        await set_cached_profile(user["sub"], resp.model_dump(mode="json"))
+        return resp
     except ProfileNotFound:
         raise HTTPException(
             status_code=404,
@@ -520,23 +521,31 @@ async def get_completeness(
     session: AsyncSession = Depends(get_session),
 ):
     """Get profile completeness score and recommendations."""
-    try:
-        profile = await get_profile(session, user["sub"])
-    except ProfileNotFound:
-        raise HTTPException(
-            status_code=404,
-            detail={"error": "not_found", "message": "No profile found"},
-        )
+    learner_id = user["sub"]
 
-    field_sources = profile.field_sources or {}
-    sections_completed = profile.onboarding_sections_completed or {}
+    # Try to derive completeness from cached profile to avoid DB hit
+    cached = await get_cached_profile(learner_id)
+    if cached:
+        cached_resp = ProfileResponse.model_validate(cached)
+        field_sources = cached_resp.field_sources or {}
+        sections_completed = cached_resp.onboarding_sections_completed or {}
+    else:
+        try:
+            profile = await get_profile(session, learner_id)
+        except ProfileNotFound:
+            raise HTTPException(
+                status_code=404,
+                detail={"error": "not_found", "message": "No profile found"},
+            )
+        field_sources = profile.field_sources or {}
+        sections_completed = profile.onboarding_sections_completed or {}
 
     completeness, per_section = compute_profile_completeness(field_sources)
     onboarding_progress = compute_onboarding_progress(sections_completed)
     highest_impact = compute_highest_impact_missing(field_sources)
 
     return CompletenessResponse(
-        learner_id=profile.learner_id,
+        learner_id=learner_id,
         profile_completeness=round(completeness, 2),
         onboarding_progress=round(onboarding_progress, 2),
         per_section={k: round(v, 2) for k, v in per_section.items()},

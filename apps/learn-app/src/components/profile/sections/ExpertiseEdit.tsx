@@ -3,6 +3,7 @@ import type {
   ExpertiseSection,
   DomainExpertise,
 } from "@/lib/learner-profile-types";
+import { PROGRAMMING_LANGUAGES } from "@/lib/learner-profile-types";
 import { ExpertiseLevelSelect } from "@/components/profile/fields/ExpertiseLevelSelect";
 import {
   ChipSelect,
@@ -22,21 +23,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const PROGRAMMING_LANGUAGES = [
-  { value: "Python", label: "Python" },
-  { value: "JavaScript", label: "JavaScript" },
-  { value: "TypeScript", label: "TypeScript" },
-  { value: "Java", label: "Java" },
-  { value: "C#", label: "C#" },
-  { value: "Go", label: "Go" },
-  { value: "Rust", label: "Rust" },
-  { value: "Ruby", label: "Ruby" },
-  { value: "PHP", label: "PHP" },
-  { value: "Swift", label: "Swift" },
-  { value: "Kotlin", label: "Kotlin" },
-  { value: "C++", label: "C++" },
-];
-
 export function ExpertiseEdit({
   data,
   onChange,
@@ -44,6 +30,7 @@ export function ExpertiseEdit({
   data: unknown;
   onChange: (data: unknown) => void;
 }) {
+  if (!data) return null;
   const expertise = data as ExpertiseSection;
   const subjectSpecific = expertise.subject_specific || {
     topics_already_mastered: [],

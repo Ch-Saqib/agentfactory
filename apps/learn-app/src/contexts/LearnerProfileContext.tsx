@@ -9,7 +9,10 @@ import React, {
   ReactNode,
 } from "react";
 import { useAuth } from "./AuthContext";
-import { useLearnerProfileApiUrl } from "@/lib/api-utils";
+import {
+  useLearnerProfileApiUrl,
+  useLearnerProfileEnabled,
+} from "@/lib/api-utils";
 import {
   getMyProfileOrNull,
   createProfile,
@@ -23,6 +26,7 @@ import type {
   ProfileCreateRequest,
   ProfileUpdateRequest,
   OnboardingPhase,
+  SectionName,
 } from "@/lib/learner-profile-types";
 
 // =============================================================================
@@ -50,8 +54,10 @@ function clearLegacyCache(): void {
   }
 }
 
+// Run once at module load to clean up legacy cache key
+clearLegacyCache();
+
 function getCachedProfile(userId: string): ProfileResponse | null {
-  clearLegacyCache();
   try {
     const raw = localStorage.getItem(cacheKeyForUser(userId));
     if (!raw) return null;
@@ -72,7 +78,6 @@ function getCachedProfile(userId: string): ProfileResponse | null {
 }
 
 function setCachedProfile(userId: string, profile: ProfileResponse): void {
-  clearLegacyCache();
   try {
     localStorage.setItem(
       cacheKeyForUser(userId),
@@ -84,7 +89,6 @@ function setCachedProfile(userId: string, profile: ProfileResponse): void {
 }
 
 function clearCachedProfile(userId: string): void {
-  clearLegacyCache();
   try {
     localStorage.removeItem(cacheKeyForUser(userId));
   } catch {
@@ -102,7 +106,10 @@ interface LearnerProfileContextType {
   needsOnboarding: boolean;
   refreshProfile: () => Promise<void>;
   updateProfile: (data: ProfileUpdateRequest) => Promise<ProfileResponse>;
-  updateSection: (section: string, data: unknown) => Promise<ProfileResponse>;
+  updateSection: (
+    section: SectionName,
+    data: unknown,
+  ) => Promise<ProfileResponse>;
   completeOnboardingPhase: (
     phase: OnboardingPhase,
     data?: unknown,
@@ -116,16 +123,40 @@ const LearnerProfileContext = createContext<
   LearnerProfileContextType | undefined
 >(undefined);
 
+// Inert context value when profile features are disabled (no API URL configured)
+const DISABLED_CONTEXT: LearnerProfileContextType = {
+  profile: null,
+  isLoading: false,
+  needsOnboarding: false,
+  refreshProfile: async () => {},
+  updateProfile: async () => {
+    throw new Error("Learner profile is not enabled");
+  },
+  updateSection: async () => {
+    throw new Error("Learner profile is not enabled");
+  },
+  completeOnboardingPhase: async () => {
+    throw new Error("Learner profile is not enabled");
+  },
+  createNewProfile: async () => {
+    throw new Error("Learner profile is not enabled");
+  },
+  ensureProfileLoaded: async () => {},
+};
+
 export function LearnerProfileProvider({ children }: { children: ReactNode }) {
   const { session } = useAuth();
   const apiUrl = useLearnerProfileApiUrl();
+  const enabled = useLearnerProfileEnabled();
 
   const [profile, setProfile] = useState<ProfileResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [needsOnboarding, setNeedsOnboarding] = useState(false);
-  const [hasAttemptedFetch, setHasAttemptedFetch] = useState(false);
+  const [profileKnown, setProfileKnown] = useState(false);
   const fetchingRef = useRef(false);
   const lastUserIdRef = useRef<string | null>(null);
+
+  // Derived: needs onboarding when we've fetched and there's no profile
+  const needsOnboarding = profileKnown && !profile;
 
   // Helper: set profile in both React state and localStorage
   const setProfileWithCache = useCallback(
@@ -139,7 +170,8 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
 
   // Lazy trigger — called when context is consumed via useLearnerProfile
   const ensureProfileLoaded = useCallback(async () => {
-    if (hasAttemptedFetch || fetchingRef.current || !session?.user) return;
+    if (!enabled || profileKnown || fetchingRef.current || !session?.user)
+      return;
     fetchingRef.current = true;
 
     const userId = session.user.id;
@@ -148,8 +180,7 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
     const cached = getCachedProfile(userId);
     if (cached) {
       setProfile(cached);
-      setNeedsOnboarding(!cached.onboarding_completed);
-      setHasAttemptedFetch(true);
+      setProfileKnown(true);
       fetchingRef.current = false;
       return;
     }
@@ -159,19 +190,17 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
       const data = await getMyProfileOrNull(apiUrl);
       if (data) {
         setProfileWithCache(data);
-        setNeedsOnboarding(false);
-      } else {
-        setNeedsOnboarding(true);
       }
-      setHasAttemptedFetch(true);
+      // Mark known whether profile exists or not — needsOnboarding is derived
+      setProfileKnown(true);
     } catch (err) {
       console.error("[LearnerProfileContext] Failed to load profile:", err);
-      // Do NOT set hasAttemptedFetch on failure — allow retry on next mount
+      // Do NOT set profileKnown on failure — allow retry on next mount
     } finally {
       setIsLoading(false);
       fetchingRef.current = false;
     }
-  }, [hasAttemptedFetch, session?.user, apiUrl, setProfileWithCache]);
+  }, [enabled, profileKnown, session?.user, apiUrl, setProfileWithCache]);
 
   // Clear state on sign-out (or when switching users)
   useEffect(() => {
@@ -181,15 +210,13 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
     if (lastUserId && lastUserId !== currentUserId) {
       clearCachedProfile(lastUserId);
       setProfile(null);
-      setNeedsOnboarding(false);
-      setHasAttemptedFetch(false);
+      setProfileKnown(false);
       fetchingRef.current = false;
     }
 
     if (!currentUserId) {
       setProfile(null);
-      setNeedsOnboarding(false);
-      setHasAttemptedFetch(false);
+      setProfileKnown(false);
       fetchingRef.current = false;
     }
 
@@ -205,11 +232,10 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
       const data = await getMyProfileOrNull(apiUrl);
       if (data) {
         setProfileWithCache(data);
-        setNeedsOnboarding(false);
       } else {
         setProfile(null);
-        setNeedsOnboarding(true);
       }
+      setProfileKnown(true);
     } catch (err) {
       console.error("[LearnerProfileContext] Failed to refresh profile:", err);
     } finally {
@@ -223,7 +249,7 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
       if (!baseline) {
         const updated = await updateMyProfile(apiUrl, data);
         setProfileWithCache(updated);
-        setNeedsOnboarding(false);
+
         return updated;
       }
 
@@ -256,14 +282,14 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
 
       const updated = await updateMyProfile(apiUrl, patch);
       setProfileWithCache(updated);
-      setNeedsOnboarding(false);
+
       return updated;
     },
     [apiUrl, profile, setProfileWithCache],
   );
 
   const updateSectionFn = useCallback(
-    async (section: string, data: unknown): Promise<ProfileResponse> => {
+    async (section: SectionName, data: unknown): Promise<ProfileResponse> => {
       const baseline = profile as unknown as Record<string, unknown> | null;
       const baselineSection = baseline?.[section];
       const patch = buildSparsePatch(baselineSection, data);
@@ -327,7 +353,7 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
 
       const updated = await apiCompleteOnboardingPhase(apiUrl, phase, payload);
       setProfileWithCache(updated);
-      setNeedsOnboarding(false);
+
       return updated;
     },
     [apiUrl, profile, setProfileWithCache],
@@ -337,7 +363,7 @@ export function LearnerProfileProvider({ children }: { children: ReactNode }) {
     async (data?: ProfileCreateRequest): Promise<ProfileResponse> => {
       const created = await createProfile(apiUrl, data || {});
       setProfileWithCache(created);
-      setNeedsOnboarding(false);
+
       return created;
     },
     [apiUrl, setProfileWithCache],

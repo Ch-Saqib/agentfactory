@@ -21,6 +21,7 @@ import { useUserDisplayName } from "../../hooks/useUserDisplayName";
 import { getOAuthAuthorizationUrl } from "@/lib/auth-client";
 import { Sheet, SheetContent, SheetClose } from "@/components/ui/sheet";
 import { X, Lock } from "lucide-react";
+import { ProfileSoftNudge } from "@/components/profile/ProfileSoftNudge";
 import styles from "./styles.module.css";
 
 // Fallback user ID for anonymous users (not logged in)
@@ -251,13 +252,7 @@ function ChatKitWrapper({
 
 export function TeachMePanel({ lessonPath }: TeachMePanelProps) {
   const { siteConfig } = useDocusaurusContext();
-  const {
-    isOpen,
-    closePanel,
-    openPanel,
-    mode,
-    setMode,
-  } = useStudyMode();
+  const { isOpen, closePanel, openPanel, mode, setMode } = useStudyMode();
   const { session } = useAuth();
   const [chatKey, setChatKey] = useState(0);
   // Mode is now managed by context (useStudyMode)
@@ -438,6 +433,7 @@ export function TeachMePanel({ lessonPath }: TeachMePanelProps) {
             <span className="sr-only">Close</span>
           </SheetClose>
 
+          <ProfileSoftNudge />
           <div className={styles.chatContainer}>
             <ChatKitWrapper
               key={`${lessonPath}-${chatKey}-${mode}`}

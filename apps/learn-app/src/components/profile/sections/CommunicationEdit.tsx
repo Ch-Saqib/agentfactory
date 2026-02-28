@@ -1,5 +1,6 @@
 import React from "react";
 import type { CommunicationSection } from "@/lib/learner-profile-types";
+import { NULL_SELECT_VALUE } from "@/lib/learner-profile-types";
 import { InferredBadge } from "@/components/profile/fields";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -53,6 +54,7 @@ export function CommunicationEdit({
   onChange: (data: unknown) => void;
   fieldSources?: Record<string, string>;
 }) {
+  if (!data) return null;
   const comm = data as CommunicationSection;
 
   const update = (field: keyof CommunicationSection, value: unknown) => {
@@ -72,16 +74,22 @@ export function CommunicationEdit({
           />
         </div>
         <Select
-          value={comm?.language_complexity || "none"}
+          value={comm?.language_complexity || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("language_complexity", val === "none" ? null : val)
+            update(
+              "language_complexity",
+              val === NULL_SELECT_VALUE ? null : val,
+            )
           }
         >
           <SelectTrigger id="language-complexity" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {LANGUAGE_COMPLEXITY_OPTIONS.filter((opt) => opt.value !== "").map(
@@ -105,16 +113,22 @@ export function CommunicationEdit({
           />
         </div>
         <Select
-          value={comm?.preferred_structure || "none"}
+          value={comm?.preferred_structure || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("preferred_structure", val === "none" ? null : val)
+            update(
+              "preferred_structure",
+              val === NULL_SELECT_VALUE ? null : val,
+            )
           }
         >
           <SelectTrigger id="preferred-structure" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {STRUCTURE_OPTIONS.filter((opt) => opt.value !== "").map((opt) => (
@@ -136,16 +150,19 @@ export function CommunicationEdit({
           />
         </div>
         <Select
-          value={comm?.verbosity || "none"}
+          value={comm?.verbosity || NULL_SELECT_VALUE}
           onValueChange={(val) =>
-            update("verbosity", val === "none" ? null : val)
+            update("verbosity", val === NULL_SELECT_VALUE ? null : val)
           }
         >
           <SelectTrigger id="verbosity" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {VERBOSITY_OPTIONS.filter((opt) => opt.value !== "").map((opt) => (
@@ -167,14 +184,19 @@ export function CommunicationEdit({
           />
         </div>
         <Select
-          value={comm?.tone || "none"}
-          onValueChange={(val) => update("tone", val === "none" ? null : val)}
+          value={comm?.tone || NULL_SELECT_VALUE}
+          onValueChange={(val) =>
+            update("tone", val === NULL_SELECT_VALUE ? null : val)
+          }
         >
           <SelectTrigger id="tone" className="w-full">
             <SelectValue placeholder="Select…" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none" className="italic text-muted-foreground">
+            <SelectItem
+              value={NULL_SELECT_VALUE}
+              className="italic text-muted-foreground"
+            >
               Select…
             </SelectItem>
             {TONE_OPTIONS.filter((opt) => opt.value !== "").map((opt) => (

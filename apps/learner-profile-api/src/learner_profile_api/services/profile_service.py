@@ -21,6 +21,8 @@ from ..models.profile import LearnerProfile, ProfileAuditLog
 from ..schemas.profile import (
     ONBOARDING_PHASES,
     SECTION_MODELS,
+    AuditAction,
+    AuditSource,
     ExpertiseSection,
     ProfileCreate,
     ProfileUpdate,
@@ -93,6 +95,13 @@ def _deduplicate_mastered_topics(expertise: dict) -> dict:
     return expertise
 
 
+def _normalize_expertise(expertise: dict) -> dict:
+    """Apply all expertise normalization rules (domain auto-primary + topic dedup)."""
+    expertise = _ensure_domain_auto_primary(expertise)
+    expertise = _deduplicate_mastered_topics(expertise)
+    return expertise
+
+
 def merge_section(existing_json: dict, update_model: BaseModel) -> dict:
     """Merge only explicitly-provided fields into existing section data.
 
@@ -139,10 +148,10 @@ async def _apply_update(
     session: AsyncSession,
     profile: LearnerProfile,
     changed_sections: list[str],
-    source: str = "api",
+    source: AuditSource = "api",
     field_source_updates: dict[str, str] | None = None,
     previous_values: dict[str, Any] | None = None,
-    action: str = "updated",
+    action: AuditAction = "updated",
 ) -> LearnerProfile:
     """Centralized update: updates timestamps, field_sources, and creates audit log."""
     profile.updated_at = datetime.now(UTC)
@@ -214,8 +223,7 @@ async def create_profile(
     delivery_dict = data.delivery.model_dump()
 
     # Apply domain auto-primary and topic dedup
-    expertise_dict = _ensure_domain_auto_primary(expertise_dict)
-    expertise_dict = _deduplicate_mastered_topics(expertise_dict)
+    expertise_dict = _normalize_expertise(expertise_dict)
 
     # Apply Appendix B defaults for communication/delivery
     # (fills None fields with spec defaults without polluting model_fields_set)
@@ -336,8 +344,7 @@ async def update_profile(
 
         # Apply domain auto-primary and topic dedup for expertise
         if section_name == "expertise":
-            merged = _ensure_domain_auto_primary(merged)
-            merged = _deduplicate_mastered_topics(merged)
+            merged = _normalize_expertise(merged)
 
         # Re-validate merged data before writing to DB
         if section_name in SECTION_MODELS:
@@ -406,8 +413,7 @@ async def update_section(
 
     # Apply domain auto-primary and topic dedup for expertise
     if section_name == "expertise":
-        merged = _ensure_domain_auto_primary(merged)
-        merged = _deduplicate_mastered_topics(merged)
+        merged = _normalize_expertise(merged)
 
     setattr(profile, section_name, merged)
 
@@ -464,10 +470,9 @@ async def _run_inference_on_profile(
     profile.communication = comm
     profile.delivery = delivery
 
-    # Update field sources
-    fs = dict(profile.field_sources) if profile.field_sources else {}
-    fs.update(inferred_sources)
-    profile.field_sources = fs
+    # Update field sources (reuse the copy from above)
+    field_sources.update(inferred_sources)
+    profile.field_sources = field_sources
 
 
 async def soft_delete_profile(
@@ -481,6 +486,7 @@ async def soft_delete_profile(
             LearnerProfile.learner_id == learner_id,
             LearnerProfile.deleted_at.is_(None),
         )
+        .with_for_update()
     )
     result = await session.execute(stmt)
     profile = result.scalar_one_or_none()
@@ -583,8 +589,7 @@ async def update_onboarding_section(
 
         # Apply domain auto-primary and topic dedup for expertise
         if section_name == "expertise":
-            merged = _ensure_domain_auto_primary(merged)
-            merged = _deduplicate_mastered_topics(merged)
+            merged = _normalize_expertise(merged)
 
         setattr(profile, section_name, merged)
 
@@ -607,8 +612,7 @@ async def update_onboarding_section(
                 merged = merge_section(existing_json, validated)
 
                 if key == "expertise":
-                    merged = _ensure_domain_auto_primary(merged)
-                    merged = _deduplicate_mastered_topics(merged)
+                    merged = _normalize_expertise(merged)
 
                 setattr(profile, key, merged)
 
@@ -693,8 +697,7 @@ async def sync_from_phm(
         profile.communication or {},
         profile.field_sources or {},
     )
-    expertise = _ensure_domain_auto_primary(expertise)
-    expertise = _deduplicate_mastered_topics(expertise)
+    expertise = _normalize_expertise(expertise)
 
     previous_values = {
         "expertise": dict(profile.expertise) if profile.expertise else {},

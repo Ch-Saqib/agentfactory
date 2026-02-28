@@ -9,6 +9,8 @@ from pydantic import BaseModel, Field
 
 ExpertiseLevel = Literal["none", "beginner", "intermediate", "advanced", "expert"]
 FieldSource = Literal["user", "phm", "inferred", "default"]
+AuditAction = Literal["created", "updated", "deleted", "restored", "gdpr_erased", "section_updated"]
+AuditSource = Literal["api", "onboarding", "phm_sync", "gdpr_erase"]
 OnboardingPhase = Literal[
     "goals", "expertise", "professional_context",
     "accessibility", "communication_preferences", "ai_enrichment"
