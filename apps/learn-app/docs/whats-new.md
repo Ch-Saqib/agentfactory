@@ -17,6 +17,10 @@ Track meaningful updates to the book. This page is automatically updated when do
 
 <!-- CHANGELOG_START - Do not remove this marker -->
 
+### 2026-03-01
+
+- docs: add Chapter 17 — Finance Domain Agents ([#795](https://github.com/panaversity/agentfactory/pull/795))
+
 ### 2026-02-28
 - Part2/update exercises ([#792](https://github.com/panaversity/agentfactory/pull/792))
 
