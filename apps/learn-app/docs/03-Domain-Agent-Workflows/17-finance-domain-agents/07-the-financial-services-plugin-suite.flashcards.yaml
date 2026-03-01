@@ -1,0 +1,67 @@
+deck:
+  id: "ch17-07-the-financial-services-plugin-suite"
+  title: "The Financial Services Plugin Suite"
+  description: "Shared-core architecture, 11 MCP connectors, 5 Anthropic plugins, 2 partner plugins, end-to-end workflows, and customisation dimensions."
+  tags: ["financial-services-plugins", "MCP", "plugin-architecture", "finance-workflows"]
+  version: 1
+
+cards:
+  - id: "ch17-07-scale-001"
+    front: "What is the scale of the financial-services-plugins suite?"
+    back: "41 skills, 38 commands, 11 MCP integrations across 7 plugins (5 Anthropic-built plus 2 partner-built from LSEG and S&P Global)."
+    tags: ["scale", "overview"]
+    difficulty: "basic"
+
+  - id: "ch17-07-architecture-002"
+    front: "Why must the core plugin be installed before any add-on plugins?"
+    back: "All 11 MCP data connectors are centralised in the core plugin (financial-analysis). Add-on plugins inherit these connections — without the core installed first, add-ons have no data sources to work with."
+    tags: ["architecture", "install-order", "MCP"]
+    difficulty: "basic"
+
+  - id: "ch17-07-mcp-count-003"
+    front: "How many MCP data connectors does the core plugin provide, and name three of them?"
+    back: "11 MCP connectors. Examples include Daloopa (financial model data extraction), FactSet (market data and analytics), Moody's (credit ratings), PitchBook (private company and PE deal data), and Aiera (earnings call transcripts)."
+    tags: ["MCP", "data-connectors"]
+    difficulty: "basic"
+
+  - id: "ch17-07-workflows-004"
+    front: "Name the five end-to-end workflow patterns the plugin suite enables."
+    back: "Research to Report, Spreadsheet Analysis, Financial Modelling, Deal Materials, and Portfolio to Presentation. Each moves from raw data to professional deliverable in a single session."
+    tags: ["workflows", "end-to-end"]
+    difficulty: "basic"
+
+  - id: "ch17-07-core-commands-005"
+    front: "What are the five core commands in the financial-analysis plugin?"
+    back: "/comps (comparable company analysis), /dcf (DCF valuation model), /lbo (leveraged buyout model), /one-pager (company profile), and /ppt-template (register firm's branded PowerPoint template)."
+    tags: ["core-plugin", "commands"]
+    difficulty: "basic"
+
+  - id: "ch17-07-lbo-006"
+    front: "What is an LBO model, and what are the key return metrics?"
+    back: "A Leveraged Buyout model values acquiring a company using significant debt (typically 50-70%). Key metrics: Entry multiple (EV/EBITDA at purchase), Exit multiple (EV/EBITDA at sale), IRR (annualised equity return, target 20-25%), and MOIC (total proceeds / equity invested, target 3-5x over 5 years)."
+    tags: ["LBO", "financial-modelling", "concept-box"]
+    difficulty: "intermediate"
+
+  - id: "ch17-07-ic-memo-007"
+    front: "What is an IC memo, and what does the plugin produce vs. require from the professional?"
+    back: "An Investment Committee memo is the formal document recommending a new investment. Standard sections: executive summary, company overview, investment thesis, financials, valuation, return analysis, risks, deal structure. The plugin produces the structure and populates data sections from MCP sources; the professional provides the investment thesis, risk assessment, and recommendation."
+    tags: ["IC-memo", "private-equity", "concept-box"]
+    difficulty: "intermediate"
+
+  - id: "ch17-07-sell-buy-008"
+    front: "What is the difference between a sell-side and buy-side analyst?"
+    back: "Sell-side analysts work for investment banks and publish equity research (ratings, price targets) for institutional investor clients. Buy-side analysts work for institutional investors (asset managers, hedge funds, pension funds) and analyse to support their own firm's investment decisions — they do not publish externally."
+    tags: ["sell-side", "buy-side", "equity-research", "concept-box"]
+    difficulty: "basic"
+
+  - id: "ch17-07-customisation-009"
+    front: "What are the five dimensions for customising the financial-services-plugins for your firm?"
+    back: "Swap connectors (point .mcp.json at your data providers), add firm context (terminology and processes in skill files), bring templates (register branded PowerPoint with /ppt-template), adjust workflows (modify skill instructions), and build new plugins (follow the standard structure to extend the collection)."
+    tags: ["customisation", "firm-adaptation"]
+    difficulty: "intermediate"
+
+  - id: "ch17-07-partner-plugins-010"
+    front: "What do the two partner-built plugins (LSEG and S&P Global) provide?"
+    back: "LSEG: 8 commands for bond pricing, yield curve analysis, FX carry trades, options valuation, and macro dashboards using LSEG financial data. S&P Global: company tearsheets, earnings previews, and funding digests powered by S&P Capital IQ data, supporting multiple audience types (equity research, IB/M&A, corporate development, sales)."
+    tags: ["partner-plugins", "LSEG", "S&P-Global"]
+    difficulty: "intermediate"

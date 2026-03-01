@@ -1,0 +1,70 @@
+deck:
+  id: "ch17-04-agent-skills-market-analysis"
+  title: "The Six Agent Skills: Market Analysis"
+  description: "Agent Skills in Claude in Excel: Comparable Company Analysis (Comps) and Discounted Cash Flow (DCF) -- multiples, enterprise value, WACC, and sensitivity analysis."
+  tags: ["agent-skills", "comps", "dcf", "enterprise-value", "wacc", "sensitivity-analysis", "valuation"]
+  version: 1
+
+cards:
+  - id: "ch17-04-agent-skill-definition-001"
+    front: "What is an Agent Skill in Claude in Excel, and how does it differ from general workbook assistance?"
+    back: "An Agent Skill is a pre-built workflow that performs a specific, structured financial task following professional templates. Unlike general assistance (free-form language describing any task), Agent Skills know the expected format, standard multiples, and colour-coding conventions for their deliverable type."
+    tags: ["agent-skills", "definition"]
+    difficulty: "basic"
+
+  - id: "ch17-04-connector-architecture-002"
+    front: "Where do Agent Skills get their market data, and is this different from Cowork's data sources?"
+    back: "Agent Skills connect to MCP connectors configured in Claude settings (such as S&P Global, PitchBook, Morningstar). These are the same connectors shared across all Claude tools -- Excel and Cowork use the same connector ecosystem. The difference is scope: Excel serves analysis within one workbook; Cowork serves multi-application workflows."
+    tags: ["mcp-connectors", "architecture"]
+    difficulty: "basic"
+
+  - id: "ch17-04-comps-definition-003"
+    front: "What is a comparable company analysis (comps) and what does it produce?"
+    back: "Comps values a company by comparing it to similar public companies using market-based multiples (EV/EBITDA, P/E, EV/Revenue). It produces an implied valuation range by applying the peer group's median and quartile multiples to the subject company's financials. Comps is a market check, not a fundamental valuation."
+    tags: ["comps", "valuation"]
+    difficulty: "basic"
+
+  - id: "ch17-04-ev-formula-004"
+    front: "What is the enterprise value (EV) formula, and why is cash subtracted?"
+    back: "EV = Market Cap + Total Debt + Preferred Stock + Minority Interest - Cash. Cash is subtracted because an acquirer inherits the company's cash, which offsets part of the purchase price. EV represents the total cost to acquire a company, including both equity and debt."
+    tags: ["enterprise-value", "formula"]
+    difficulty: "basic"
+
+  - id: "ch17-04-ev-vs-market-cap-005"
+    front: "Why is enterprise value used instead of market capitalisation in comps?"
+    back: "EV is capital-structure-neutral. Two companies with identical operations but different debt levels have different market caps but similar EVs. Using EV/EBITDA allows fair comparison between differently leveraged businesses, which market cap alone cannot provide."
+    tags: ["enterprise-value", "market-cap", "comparison"]
+    difficulty: "intermediate"
+    why: "Tests understanding of why capital structure neutrality matters for peer comparison"
+
+  - id: "ch17-04-ltm-definition-006"
+    front: "What does LTM (Trailing Twelve Months) mean, and why is it used in comps?"
+    back: "LTM is a company's financial performance over the most recent twelve-month period, regardless of fiscal year end. Calculation: Most Recent Annual Period + Most Recent Partial Period - Prior Year Comparable Partial Period. It ensures all companies in a comps analysis are compared on the same timeframe."
+    tags: ["ltm", "trailing-twelve-months"]
+    difficulty: "basic"
+
+  - id: "ch17-04-wacc-formula-007"
+    front: "What is the WACC formula and what are its components?"
+    back: "WACC = (E/V x Cost of Equity) + (D/V x Cost of Debt x (1 - Tax Rate)). E = market value of equity, D = market value of debt, V = E + D. Cost of equity is estimated via CAPM (Risk-Free Rate + Beta x Equity Risk Premium). The tax adjustment reflects that interest on debt is tax-deductible."
+    tags: ["wacc", "formula", "capm"]
+    difficulty: "intermediate"
+
+  - id: "ch17-04-wacc-sensitivity-008"
+    front: "Why does a 1 percentage point change in WACC have such a large impact on DCF equity value?"
+    back: "WACC is the discount rate applied to all future cash flows and the terminal value. Because DCF values are the sum of discounted future amounts, small changes in the discount rate compound across every year of the projection, typically moving equity value by 10-20% per percentage point change."
+    tags: ["wacc", "sensitivity", "dcf"]
+    difficulty: "intermediate"
+    why: "Tests understanding of why the sensitivity table is the most important DCF output"
+
+  - id: "ch17-04-dcf-range-009"
+    front: "Why does a DCF produce a range of answers rather than a single valuation?"
+    back: "The key inputs -- WACC and terminal growth rate -- are estimates, not facts. Reasonable professionals can disagree on both. The sensitivity table shows equity value across plausible assumption combinations, making the uncertainty explicit. The analyst's job is to anchor assumptions with evidence and present the range honestly."
+    tags: ["dcf", "sensitivity-table", "uncertainty"]
+    difficulty: "intermediate"
+
+  - id: "ch17-04-comps-professional-skill-010"
+    front: "What is the professional skill in a comps analysis, beyond the arithmetic?"
+    back: "Choosing the right peer group (are these companies genuinely comparable in size, geography, and business model?) and knowing when a company deserves to trade above or below the peer median based on factors comps cannot capture -- management quality, competitive position, growth trajectory, and regulatory risk."
+    tags: ["comps", "professional-judgement"]
+    difficulty: "intermediate"
+    why: "Tests understanding that the analyst's judgement, not the calculation, is the irreplaceable skill"

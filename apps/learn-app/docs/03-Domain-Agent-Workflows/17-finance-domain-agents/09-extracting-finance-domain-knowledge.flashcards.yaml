@@ -1,0 +1,70 @@
+deck:
+  id: "ch17-09-extracting-finance-domain-knowledge"
+  title: "Extracting Finance Domain Knowledge"
+  description: "Knowledge Extraction Method applied to finance — Five Questions for a CFO interview, generic vs firm-specific knowledge, and SKILL.md authoring from extraction outputs."
+  tags: ["knowledge-extraction", "finance-domain", "five-questions", "SKILL.md", "monthly-close", "materiality"]
+  version: 1
+
+cards:
+  - id: "ch17-09-generic-vs-specific-001"
+    front: "Why is a generic finance plugin insufficient for a firm's monthly close workflow?"
+    back: "Because it applies industry-standard materiality thresholds and variance rules identically across all companies. Every firm has specific thresholds, seasonal patterns, and judgment calls that differ from the standard. The CFO's tacit knowledge about which variances matter at this firm is what the extraction encodes into a SKILL.md."
+    tags: ["generic-vs-specific", "materiality"]
+    difficulty: "basic"
+
+  - id: "ch17-09-variance-example-002"
+    front: "A $50K revenue variance and a $5K dormant account variance occur in the same month. How does a generic plugin respond versus an experienced CFO?"
+    back: "The generic plugin flags the $50K revenue variance (exceeds threshold) and ignores the $5K dormant account variance (below threshold). The CFO ignores the revenue variance as normal monthly noise and investigates the dormant account immediately — dormant account activity is a potential fraud signal regardless of dollar amount."
+    tags: ["variance-analysis", "materiality", "firm-specific"]
+    difficulty: "intermediate"
+    why: "Tests understanding that firm-specific thresholds can invert the priority of standard thresholds"
+
+  - id: "ch17-09-q1-finance-003"
+    front: "What does Question 1 ('What do you do that no manual captures?') typically surface in a finance extraction?"
+    back: "Undocumented heuristics governing materiality judgment, account-level attention patterns, and timing logic. For example: which dollar thresholds actually trigger investigation at this firm, which accounts get scrutiny regardless of threshold, and when to adjust baselines before comparing variances."
+    tags: ["five-questions", "Q1", "heuristics"]
+    difficulty: "basic"
+
+  - id: "ch17-09-q2-override-004"
+    front: "Give an example of a standard process override that Question 2 would surface in finance."
+    back: "Post-acquisition close workflow: the CFO waives normal materiality thresholds for the acquired entity's accounts during the first three complete quarters, because integration adjustments (purchase price allocation, system migration reclassifications) distort standard baselines and produce hundreds of false positive variance flags."
+    tags: ["five-questions", "Q2", "override"]
+    difficulty: "intermediate"
+
+  - id: "ch17-09-q3-leading-indicator-005"
+    front: "What leading indicator does Question 3 surface in the CFO interview example?"
+    back: "Accounts receivable aging distribution shifts. When the 60-90 day bucket grows as a percentage of total receivables while the 0-30 day bucket shrinks, collection patterns are deteriorating — even if the aggregate DSO metric still looks acceptable. The DSO catches this two to three months later; the aging distribution catches it now."
+    tags: ["five-questions", "Q3", "leading-indicators", "accounts-receivable"]
+    difficulty: "intermediate"
+    why: "Tests understanding of how experienced finance professionals detect problems before standard metrics confirm them"
+
+  - id: "ch17-09-q4-experience-gap-006"
+    front: "What recurring mistake does Question 4 surface in the monthly close example?"
+    back: "New controllers post intercompany elimination entries before confirming the subsidiary has completed and locked its close. The subsidiary's numbers then shift, the eliminations become wrong, and the consolidation must be reversed and re-run. Experienced controllers always verify subsidiary lock status first."
+    tags: ["five-questions", "Q4", "intercompany", "experience-gap"]
+    difficulty: "intermediate"
+
+  - id: "ch17-09-q5-deferred-revenue-007"
+    front: "What is the CFO's 'day one instruction' from Question 5?"
+    back: "'Never trust the revenue number until you have confirmed the deferred revenue schedule is clean.' At this firm, revenue recognition depends on milestone completion confirmed by project managers who are not accountants. At least two milestones per month are marked complete while deliverables are still in client review, creating revenue that must be reversed."
+    tags: ["five-questions", "Q5", "deferred-revenue", "revenue-recognition"]
+    difficulty: "basic"
+
+  - id: "ch17-09-persona-three-questions-008"
+    front: "What three Persona writing questions from Chapter 16 are applied to the finance SKILL.md?"
+    back: "1. What is this agent's professional level and authority? (Senior controller with close entry approval authority, not CFO-level override authority)\n2. What does this agent value in its outputs? (Precision over speed — catching a restatement risk matters more than meeting the close deadline)\n3. What does this agent do when it does not know? (Flags explicitly, describes the observation, states no precedent exists, routes to CFO)"
+    tags: ["persona", "three-questions", "SKILL.md"]
+    difficulty: "basic"
+
+  - id: "ch17-09-testable-principle-009"
+    front: "Why does 'Flag material variances' fail as a SKILL.md Principle for the monthly close agent?"
+    back: "It is untestable — 'material' is undefined, no account-level logic is specified, and no action beyond 'flag' is described. A testable version: 'When a dormant account shows activity above $1,000 outside year-end reclassification periods, flag for immediate investigation regardless of the firm-wide materiality threshold, because dormant account activity is a potential indicator of unauthorised transactions.'"
+    tags: ["testability", "principles", "SKILL.md"]
+    difficulty: "intermediate"
+    why: "Tests the core distinction between vague instructions and operationally testable Principles in a finance context"
+
+  - id: "ch17-09-method-b-documents-010"
+    front: "What three document types does Method B extract from in a finance close context, and what does each yield?"
+    back: "1. Close checklist — explicit rules (sequence, sign-offs, deadlines) and practice-vs-policy contradictions\n2. Accounting policies manual — firm-specific interpretations of standards and gaps where no policy exists\n3. Prior period adjustments log — patterns of post-close corrections that reveal recurring failure modes the SKILL.md should prevent"
+    tags: ["method-b", "document-extraction", "close-documents"]
+    difficulty: "intermediate"

@@ -1,0 +1,68 @@
+deck:
+  id: "ch17-06-from-assistant-to-agent"
+  title: "From Assistant to Agent: Cowork Finance Plugins"
+  description: "The architecture shift from embedded assistant to orchestrating agent, the knowledge-work-plugins/finance plugin structure, skills vs commands, category placeholders, and month-end close workflow."
+  tags: ["cowork", "finance-plugin", "skills-vs-commands", "category-placeholders", "month-end-close", "orchestration"]
+  version: 1
+
+cards:
+  - id: "ch17-06-architecture-shift-001"
+    front: "What is the key difference between Claude in Excel and Claude through Cowork?"
+    back: "Scope, not technology. Claude in Excel works within one workbook -- analysis, formulas, Agent Skills all bounded by the spreadsheet. Cowork enables Claude to orchestrate across multiple applications, carrying context from Excel to PowerPoint to email. The same MCP connectors serve both contexts."
+    tags: ["architecture-shift", "scope"]
+    difficulty: "basic"
+
+  - id: "ch17-06-same-connectors-002"
+    front: "Do Claude in Excel and Cowork use different MCP connectors?"
+    back: "No. They share the same MCP connector set. Any connector configured in Claude settings works in both contexts automatically. The difference is what Claude can do with them: single-workbook analysis (Excel) vs multi-app orchestration (Cowork)."
+    tags: ["connectors", "mcp", "common-mistake"]
+    difficulty: "basic"
+
+  - id: "ch17-06-skills-vs-commands-003"
+    front: "What is the difference between a skill and a command in a Cowork plugin?"
+    back: "Commands are active -- explicitly invoked by typing /command-name, triggering a specific workflow. Skills are passive -- they fire automatically in the background whenever Claude judges them contextually relevant. Commands give you control over specific tasks; skills ensure consistent domain standards across all interactions."
+    tags: ["skills", "commands", "plugin-architecture"]
+    difficulty: "basic"
+
+  - id: "ch17-06-close-management-skill-004"
+    front: "What makes the close-management skill particularly valuable as a passive skill?"
+    back: "It activates whenever you are in a close context -- even for general questions about account balances -- and applies the close checklist lens automatically. It flags whether items are resolved, whether they need resolution before a specific close day, and who owns them. It provides continuous context rather than waiting to be invoked."
+    tags: ["close-management", "passive-skill"]
+    difficulty: "intermediate"
+
+  - id: "ch17-06-plugin-structure-005"
+    front: "What are the five components of the knowledge-work-plugins/finance directory structure?"
+    back: "1. .claude-plugin/plugin.json (manifest: name, description, version)\n2. .mcp.json (tool connections / data sources)\n3. CONNECTORS.md (documentation of connected tools)\n4. commands/ (5 slash command .md files you invoke explicitly)\n5. skills/ (6 skill directories with SKILL.md files Claude draws on automatically)"
+    tags: ["plugin-structure", "directory-layout"]
+    difficulty: "basic"
+
+  - id: "ch17-06-five-commands-006"
+    front: "What are the five commands in the knowledge-work-plugins/finance plugin?"
+    back: "1. /journal-entry [type] [period] -- generate journal entries with debits, credits, and rationale\n2. /reconciliation [account] [period] -- compare GL to source of truth, categorise differences\n3. /income-statement [period-type] [period] -- management P&L with variance flagging\n4. /variance-analysis [area] [period-vs-period] -- decompose variances into volume, price, mix\n5. /sox-testing [process] [period] -- SOX 404 control testing workpapers"
+    tags: ["five-commands", "finance-plugin"]
+    difficulty: "intermediate"
+
+  - id: "ch17-06-category-placeholders-007"
+    front: "What is the category placeholder system (~~erp, ~~data warehouse) and why does the plugin use it?"
+    back: "Category placeholders are tool-agnostic references in workflow definitions. The plugin says 'pull data from ~~erp' instead of 'pull data from NetSuite.' This separates workflow knowledge (owned by the knowledge worker) from connector configuration (owned by IT). The same plugin works with NetSuite or SAP without modifying any SKILL.md or command file -- IT just configures .mcp.json to point ~~erp at the right MCP server."
+    tags: ["category-placeholders", "tool-agnostic", "separation-of-concerns"]
+    difficulty: "intermediate"
+    why: "Tests understanding of the architectural insight: workflows are product-agnostic, connections are product-specific"
+
+  - id: "ch17-06-division-of-responsibility-008"
+    front: "How does the category placeholder system connect to Chapter 15's division of responsibility?"
+    back: "Chapter 15 established that the knowledge worker owns the SKILL.md (workflow definitions) and IT owns the infrastructure. The category placeholder system makes this concrete: SKILL.md files and commands use ~~erp and ~~data warehouse to describe workflows. IT configures .mcp.json to map these placeholders to specific products. Neither modifies the other's work."
+    tags: ["division-of-responsibility", "ch15-connection"]
+    difficulty: "intermediate"
+
+  - id: "ch17-06-gl-reconciliation-009"
+    front: "What are the four categories of reconciling items in a GL reconciliation?"
+    back: "1. Timing difference -- transaction in GL but not yet at the bank (resolves next period)\n2. In-transit item -- deposit recorded but not yet credited (also resolves automatically)\n3. Error -- wrong amount, account, or period (requires correcting entry)\n4. Item requiring investigation -- no obvious explanation (most important to resolve before closing)"
+    tags: ["gl-reconciliation", "reconciling-items"]
+    difficulty: "intermediate"
+
+  - id: "ch17-06-month-end-sequence-010"
+    front: "In the month-end close workflow example, what command would you use on Day 5 and why?"
+    back: "/variance-analysis revenue 2025-Q1 vs budget. By Day 5, reconciliations and journal entries are complete. The variance analysis decomposes the difference between actual and budget into volume, price, and mix components, producing CFO-ready narratives. The close-management skill simultaneously checks this step off the close checklist and confirms readiness for Day 6's income statement."
+    tags: ["month-end-close", "workflow-sequence"]
+    difficulty: "intermediate"

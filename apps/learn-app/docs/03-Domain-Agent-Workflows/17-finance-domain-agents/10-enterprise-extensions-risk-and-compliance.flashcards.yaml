@@ -1,0 +1,69 @@
+deck:
+  id: "ch17-10-enterprise-extensions-risk-compliance"
+  title: "Enterprise Extensions — Risk and Compliance"
+  description: "SKILL.md extensions for credit risk, regulatory reporting, IPS compliance, and portfolio attribution — encoding institutional knowledge that generic plugins cannot provide."
+  tags: ["enterprise-extensions", "credit-risk", "regulatory-reporting", "IPS-compliance", "portfolio-attribution"]
+  version: 1
+
+cards:
+  - id: "ch17-10-generic-vs-extension-001"
+    front: "What is the difference between a generic finance plugin and an enterprise extension?"
+    back: "A generic plugin computes standard financial metrics correctly but without institutional context. An enterprise extension adds organisation-specific thresholds, governance sequences, and judgment calls — the institutional knowledge that determines whether output is immediately usable or requires significant rework. Extensions layer on top of generic plugins; they do not replace them."
+    tags: ["generic-vs-extension", "core-concept"]
+    difficulty: "basic"
+
+  - id: "ch17-10-three-step-pattern-002"
+    front: "What three-step pattern do all enterprise extensions follow?"
+    back: "1. Identify the gap — name what the generic plugin computes correctly but without institutional context.\n2. Write specific instructions — encode thresholds, sequences, and escalation conditions from real experience.\n3. Add governance gates — define who reviews what before output reaches production."
+    tags: ["extension-pattern", "three-steps"]
+    difficulty: "basic"
+
+  - id: "ch17-10-variance-analysis-003"
+    front: "What are the three components of a variance analysis, and why must they be shown separately?"
+    back: "Volume variance (selling more or fewer units), price variance (selling at higher or lower price), and mix variance (different product mix). They must be shown separately because the total variance masks which drivers are within management control. A -$2,150 total could be a volume problem (-$5,000) partially offset by pricing strength (+$2,850) — each requires a different management response."
+    tags: ["variance-analysis", "volume-price-mix"]
+    difficulty: "intermediate"
+
+  - id: "ch17-10-interest-coverage-004"
+    front: "What does the Interest Coverage Ratio measure, and what thresholds indicate stress?"
+    back: "Interest Coverage Ratio = EBIT / Interest Expense. It measures how many times operating profit covers interest payments. Below 2.0x is stressed; below 1.0x means operating income cannot cover interest obligations."
+    tags: ["credit-ratios", "interest-coverage"]
+    difficulty: "basic"
+
+  - id: "ch17-10-cash-conversion-cycle-005"
+    front: "What is the Cash Conversion Cycle and what does a shorter or negative cycle indicate?"
+    back: "Cash Conversion Cycle = DSO + DIO - DPO (Days Sales Outstanding + Days Inventory Outstanding - Days Payable Outstanding). A shorter or negative cycle means the company collects cash from customers before paying suppliers — a sign of strong working capital management."
+    tags: ["credit-ratios", "cash-conversion-cycle", "working-capital"]
+    difficulty: "intermediate"
+
+  - id: "ch17-10-cet1-ratio-006"
+    front: "What is the CET1 Ratio and what is its Basel III minimum?"
+    back: "CET1 (Common Equity Tier 1) Ratio = highest quality capital (ordinary shares + retained earnings) as a percentage of risk-weighted assets. Basel III minimum: 4.5% plus 2.5% conservation buffer = 7.0%. Most large banks target 11-14%."
+    tags: ["regulatory-capital", "CET1", "Basel-III"]
+    difficulty: "intermediate"
+
+  - id: "ch17-10-jurisdiction-specific-007"
+    front: "Why must regulatory reporting extensions be jurisdiction-specific?"
+    back: "Because each regulator's implementation of Basel III differs in calculation methodology, filing format, submission timeline, and materiality thresholds. SBP rules differ from the Fed's DFAST requirements and from the EBA's CRR/CRD implementation. Applying the wrong jurisdiction's methodology produces a materially incorrect filing — not just a formatting error."
+    tags: ["regulatory-reporting", "jurisdiction-specific"]
+    difficulty: "intermediate"
+    why: "Tests understanding of why a single generic regulatory extension is insufficient"
+
+  - id: "ch17-10-ips-verification-sequence-008"
+    front: "In what order does an IPS compliance extension check constraints?"
+    back: "1. Hard caps first — violation is never permissible.\n2. Concentration targets — violation requires advisor sign-off.\n3. Screening exclusions — violation requires client waiver.\n4. Liquidity requirements — violation triggers senior advisor review.\nThis hierarchy routes routine compliance automatically and edge cases to human judgment."
+    tags: ["IPS-compliance", "constraint-verification", "sequence"]
+    difficulty: "intermediate"
+
+  - id: "ch17-10-brinson-attribution-009"
+    front: "What are the three components of Brinson attribution analysis?"
+    back: "1. Allocation effect — value added by overweighting/underweighting sectors relative to benchmark.\n2. Selection effect — value added by picking securities that outperformed/underperformed within each sector.\n3. Interaction effect — the combined effect of being overweight in a sector where you also had superior stock selection.\nTotal: Portfolio return = benchmark return + allocation + selection + interaction."
+    tags: ["portfolio-attribution", "Brinson", "return-decomposition"]
+    difficulty: "intermediate"
+
+  - id: "ch17-10-credit-skill-quality-010"
+    front: "What distinguishes a high-quality credit risk SKILL.md from a generic one?"
+    back: "A high-quality credit SKILL.md encodes specific ratios, sector-specific thresholds, and escalation conditions derived from institutional experience — for example, 'flag net debt/EBITDA above 4.0x in non-cyclical sectors, above 3.0x in cyclical sectors.' A generic one uses untestable directives like 'analyze credit risk carefully' or 'flag high leverage' without specifying what 'high' means per sector."
+    tags: ["credit-risk", "SKILL-quality", "specificity"]
+    difficulty: "intermediate"
+    why: "Tests the key lesson distinction between institutional knowledge and textbook definitions"

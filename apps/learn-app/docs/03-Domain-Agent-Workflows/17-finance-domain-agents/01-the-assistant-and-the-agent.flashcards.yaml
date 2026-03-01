@@ -1,0 +1,69 @@
+deck:
+  id: "ch17-01-the-assistant-and-the-agent"
+  title: "The Assistant and the Agent"
+  description: "The architectural distinction between Claude in Excel (embedded assistant) and Cowork with Excel (orchestrating agent), the two layers of Claude in Excel, and MCP connector scope."
+  tags: ["claude-in-excel", "cowork", "finance-domain", "assistant-vs-agent", "MCP-connectors", "agent-skills"]
+  version: 1
+
+cards:
+  - id: "ch17-01-claude-in-excel-001"
+    front: "What is Claude in Excel?"
+    back: "A standalone Microsoft Excel add-in that embeds an AI assistant directly in a workbook sidebar. It reads all sheets, formulas, and data to answer questions, trace dependencies, debug errors, and — through six pre-built Agent Skills — produce professional financial deliverables with live market data. It does not require Cowork."
+    tags: ["claude-in-excel", "definition"]
+    difficulty: "basic"
+
+  - id: "ch17-01-cowork-excel-002"
+    front: "What is Cowork with Excel?"
+    back: "An AI agent that orchestrates across multiple applications using the Cowork platform. Excel is one node in a multi-step autonomous workflow — the agent can analyse data in Excel, then carry context forward to build a presentation in PowerPoint without manual copy-paste. It requires a Team or Enterprise subscription."
+    tags: ["cowork", "definition"]
+    difficulty: "basic"
+
+  - id: "ch17-01-core-distinction-003"
+    front: "What is the core architectural distinction between Claude in Excel and Cowork with Excel?"
+    back: "Claude in Excel is an AI assistant embedded in one application (single-workbook scope). Cowork with Excel is an AI agent orchestrating across multiple applications (multi-app scope). They share the same MCP connectors — the difference is scope, not capability."
+    tags: ["assistant-vs-agent", "architecture"]
+    difficulty: "basic"
+
+  - id: "ch17-01-two-layers-004"
+    front: "What are the two layers of Claude in Excel?"
+    back: "Layer 1 is general workbook intelligence — always active, reads all sheets and formulas, traces dependencies, debugs errors, builds models from descriptions. Layer 2 is six pre-built Agent Skills — specialist financial workflows that connect to live market data terminals and produce industry-standard deliverables."
+    tags: ["claude-in-excel", "two-layers"]
+    difficulty: "basic"
+
+  - id: "ch17-01-six-agent-skills-005"
+    front: "Name the six pre-built Agent Skills in Claude in Excel."
+    back: "1. Comparable Company Analysis, 2. Discounted Cash Flow Model, 3. Due Diligence Data Pack, 4. Company Teaser, 5. Earnings Analysis, 6. Initiating Coverage Report."
+    tags: ["agent-skills", "claude-in-excel"]
+    difficulty: "intermediate"
+
+  - id: "ch17-01-connectors-shared-006"
+    front: "Do Claude in Excel and Cowork use separate MCP connector ecosystems?"
+    back: "No. Any MCP connector configured in your Claude settings works in both environments automatically. The difference is scope: Claude in Excel uses connectors to serve analysis within one workbook, while Cowork uses the same connectors to serve workflows spanning multiple applications."
+    tags: ["MCP-connectors", "shared-ecosystem"]
+    difficulty: "intermediate"
+    why: "Tests whether student understands the corrected connector narrative — same connectors, different scope"
+
+  - id: "ch17-01-plan-requirement-007"
+    front: "Which Claude subscription plans support Claude in Excel?"
+    back: "Pro, Max, Team, and Enterprise (currently in beta). Pro was added in January 2026."
+    tags: ["plan-requirement", "access"]
+    difficulty: "basic"
+
+  - id: "ch17-01-model-switching-008"
+    front: "Which AI models can you switch between in Claude in Excel, and why would you?"
+    back: "Sonnet 4.6 and Opus 4.6. Sonnet is faster and costs fewer credits — suitable for routine workbook questions. Opus provides deeper reasoning — suitable for complex financial analysis. Choose based on the task's complexity and your credit budget."
+    tags: ["model-switching", "claude-in-excel"]
+    difficulty: "intermediate"
+
+  - id: "ch17-01-security-risk-009"
+    front: "What security risk should finance professionals be aware of when using Claude in Excel with spreadsheets from untrusted sources?"
+    back: "Prompt injection. Claude reads cell values, formulas, and comments — malicious instructions hidden in these elements can trick Claude into extracting sensitive information, modifying critical records, or performing destructive actions. Claude shows confirmation pop-ups for external data fetching functions as a protection."
+    tags: ["security", "prompt-injection"]
+    difficulty: "intermediate"
+    why: "Tests awareness of a real operational risk particularly relevant in finance where spreadsheets are routinely shared between organisations"
+
+  - id: "ch17-01-chapter-structure-010"
+    front: "What are the three parts of Chapter 17 and what does each cover?"
+    back: "Part One covers Claude in Excel (the embedded assistant — general workbook intelligence and six Agent Skills). Part Two covers Cowork finance plugins (the orchestrating agent — domain plugins, MCP connectors, cross-app orchestration). Part Three covers enterprise extensions (custom SKILL.md files applying the Knowledge Extraction Method from Chapter 16)."
+    tags: ["chapter-structure", "roadmap"]
+    difficulty: "basic"
