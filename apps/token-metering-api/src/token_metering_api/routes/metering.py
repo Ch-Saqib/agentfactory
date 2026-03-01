@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..core.auth import CurrentUser, get_current_user
 from ..core.database import get_session
 from ..core.exceptions import MeteringAPIException
-from ..core.rate_limit import limiter, standard_rate_limit
+from ..core.rate_limit import standard_rate_limit
 from ..services.metering import MeteringService
 from .schemas import (
     BlockedResponse,

@@ -129,7 +129,8 @@ async def verify_jwt(token: str) -> dict[str, Any]:
             token,
             rsa_key,
             algorithms=["RS256"],
-            options={"verify_aud": False},  # Audience varies by OAuth client (matches api-infra + progress-api)
+            # Audience varies by OAuth client (matches api-infra + progress-api)
+            options={"verify_aud": False},
         )
         return payload
 
