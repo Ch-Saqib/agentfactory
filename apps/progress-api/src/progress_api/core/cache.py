@@ -104,3 +104,15 @@ async def set_leaderboard_cache(
         logger.warning(f"[Cache] Failed to cache leaderboard: {e}")
 
 
+async def invalidate_leaderboard_cache(redis: Redis | None) -> None:
+    """Invalidate cached leaderboard so next GET fetches fresh data from mat view."""
+    if redis is None:
+        return
+
+    try:
+        await redis.delete(LEADERBOARD_KEY)
+        logger.info("[Cache] Leaderboard cache invalidated")
+    except Exception as e:
+        logger.warning(f"[Cache] Failed to invalidate leaderboard: {e}")
+
+
