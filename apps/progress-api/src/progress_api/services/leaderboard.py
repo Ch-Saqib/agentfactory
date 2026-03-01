@@ -6,7 +6,11 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..core.auth import CurrentUser
-from ..core.cache import get_cached_leaderboard, set_leaderboard_cache
+from ..core.cache import (
+    get_cached_leaderboard,
+    invalidate_leaderboard_cache,
+    set_leaderboard_cache,
+)
 from ..core.redis import get_redis
 from ..schemas.leaderboard import LeaderboardEntry, LeaderboardResponse
 
@@ -242,7 +246,7 @@ async def debounced_refresh_leaderboard() -> None:
                 _REFRESH_LOCK_KEY, "1", nx=True, ex=REFRESH_COOLDOWN_SECS
             )
             if not acquired:
-                logger.debug("[Leaderboard] Refresh debounced — last refresh was <10 min ago")
+                logger.info("[Leaderboard] Refresh debounced — last refresh was <10 min ago")
                 return
         except Exception as e:
             logger.warning(f"[Leaderboard] Redis debounce check failed: {e}, refreshing anyway")
@@ -253,5 +257,8 @@ async def debounced_refresh_leaderboard() -> None:
 
         async with async_session() as session:
             await refresh_leaderboard(session)
+
+        # Invalidate cached leaderboard so next GET fetches fresh data
+        await invalidate_leaderboard_cache(redis)
     except Exception as e:
         logger.warning(f"[Leaderboard] Background refresh failed: {e}")
