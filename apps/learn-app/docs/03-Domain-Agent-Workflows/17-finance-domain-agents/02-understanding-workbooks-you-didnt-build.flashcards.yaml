@@ -1,0 +1,69 @@
+deck:
+  id: "ch17-02-understanding-workbooks"
+  title: "Understanding Workbooks You Didn't Build"
+  description: "Formula dependency tracing, cell-level citations, financial model types, and the verification discipline for inherited workbooks."
+  tags: ["claude-in-excel", "dependency-tracing", "financial-models", "cell-citations", "model-comprehension"]
+  version: 1
+
+cards:
+  - id: "ch17-02-dependency-tracing-001"
+    front: "What does Claude in Excel provide when you ask it to trace a formula dependency chain?"
+    back: "A plain-language explanation of the formula logic with specific cell references. Each cited cell reference is clickable in the Claude sidebar, navigating Excel directly to that cell so you can verify the trace without manually hunting through tabs."
+    tags: ["dependency-tracing", "cell-citations"]
+    difficulty: "basic"
+
+  - id: "ch17-02-layer-1-002"
+    front: "What is Layer 1 of Claude in Excel, and what does it require to use?"
+    back: "Layer 1 is general workbook intelligence — Claude reads all sheets, all formulas, and all data in the open workbook and applies general reasoning to answer questions, trace dependencies, and explain model logic. It requires no configuration and works on any workbook. It is always active."
+    tags: ["layer-1", "general-intelligence"]
+    difficulty: "basic"
+
+  - id: "ch17-02-four-models-003"
+    front: "What are the four major financial model types?"
+    back: "1. Three-statement model (links income statement, balance sheet, cash flow statement)\n2. DCF model (projects and discounts future cash flows to estimate business value)\n3. Comps model (compares companies using market-based multiples for relative valuation)\n4. LBO model (models leveraged acquisition with significant debt, projecting equity returns)"
+    tags: ["financial-models", "model-types"]
+    difficulty: "basic"
+
+  - id: "ch17-02-input-output-004"
+    front: "What structural pattern do all four financial model types share?"
+    back: "All financial models have input cells (blue by convention) containing assumptions you set, and output cells containing formulas that calculate results from those inputs. Claude in Excel reads both. Understanding which cells are inputs and which are formula-calculated outputs is the first step in comprehending any inherited model."
+    tags: ["input-output", "model-structure"]
+    difficulty: "basic"
+
+  - id: "ch17-02-verification-005"
+    front: "Why must you always verify Claude's cell-level citations before presenting or acting on a dependency trace?"
+    back: "Because any AI-generated cell reference could be inaccurate. In finance, a wrong cell reference in a board presentation or analysis is a career-damaging error. The professional discipline is to navigate to each cited cell and confirm the reference matches what Claude described. The trace accelerates comprehension; the verification makes it trustworthy."
+    tags: ["verification", "professional-discipline"]
+    difficulty: "intermediate"
+    why: "Tests understanding that AI assistance requires human verification in high-stakes professional contexts"
+
+  - id: "ch17-02-cascade-006"
+    front: "What is cascade analysis and why does it matter for inherited models?"
+    back: "Cascade analysis identifies which input cells affect the largest number of downstream formulas and ranks them by impact. It matters because not all assumptions carry equal weight — a wrong high-impact input can produce plausible but incorrect results throughout the model. Experienced analysts prioritise verifying high-impact inputs first rather than tracing every cell in order."
+    tags: ["cascade-analysis", "prioritisation"]
+    difficulty: "intermediate"
+    why: "Tests understanding of risk-based verification prioritisation in model comprehension"
+
+  - id: "ch17-02-before-modifying-007"
+    front: "What should you always do before modifying any cell in an inherited financial model?"
+    back: "Trace the dependency chain first. A change to a seemingly isolated cell can cascade through a multi-tab model in ways you cannot anticipate without mapping the chain. Ask Claude to identify every downstream cell that would change if you modify the input, then verify the cascade path before making any changes."
+    tags: ["dependency-tracing", "professional-discipline"]
+    difficulty: "basic"
+
+  - id: "ch17-02-board-scenario-008"
+    front: "In the board call scenario, how did Claude identify the source of the 6% revenue variance?"
+    back: "Claude traced the revenue cell's dependency chain and found that the unit volume assumption (Assumptions tab, D8: 12,450 units) was lower than the budget assumption (Budget tab, D8: 13,200 units). The revenue formula multiplied unit volume by average selling price, so the 750-unit difference in the volume assumption was the specific driver of the variance."
+    tags: ["worked-example", "variance-analysis"]
+    difficulty: "intermediate"
+
+  - id: "ch17-02-blue-cells-009"
+    front: "What does the blue-cell convention in financial modelling indicate?"
+    back: "Blue cells indicate input cells — hardcoded assumptions that a user sets manually (such as growth rates, unit volumes, or discount rates). Non-blue cells typically contain formulas that calculate results from those inputs. This convention helps analysts quickly distinguish which cells they can modify directly from which cells are formula-driven."
+    tags: ["blue-cells", "modelling-conventions"]
+    difficulty: "basic"
+
+  - id: "ch17-02-iterative-questioning-010"
+    front: "How did the worked example demonstrate iterative questioning with Claude?"
+    back: "The first question asked what drives the revenue cell, which revealed the dependency chain and the variance source. Based on that answer, the follow-up question asked which cells to change for a recovery scenario — a question that only became possible because the initial trace revealed where the volume assumption lived. Neither question alone produced the full picture; the iteration did."
+    tags: ["iterative-questioning", "ai-collaboration"]
+    difficulty: "intermediate"
