@@ -22,6 +22,7 @@ os.environ["REDIS_URL"] = ""
 os.environ["DATABASE_URL"] = "sqlite+aiosqlite://"
 os.environ["ALLOWED_ORIGINS"] = "http://localhost:3000,http://test.com"
 os.environ["GDPR_HASH_SALT"] = "test-salt-must-be-at-least-32-chars-long"
+os.environ["AUTO_CREATE_SCHEMA"] = "true"  # Tests need schema auto-creation
 
 
 @pytest.fixture(scope="session")
