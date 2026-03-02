@@ -15,13 +15,18 @@ from .config import settings  # noqa: E402
 from .core.exceptions import ProgressAPIException  # noqa: E402
 from .core.lifespan import lifespan  # noqa: E402
 from .routes import (  # noqa: E402
+    challenges,
+    checkpoints,
     flashcard,
+    friends,
     health,
     leaderboard,
     lesson,
     preferences,
     progress,
     quiz,
+    review,
+    roadmap,
 )
 
 # Configure logging
@@ -105,6 +110,11 @@ app.include_router(lesson.router, prefix="/api/v1", tags=["Lesson"])
 app.include_router(progress.router, prefix="/api/v1", tags=["Progress"])
 app.include_router(leaderboard.router, prefix="/api/v1", tags=["Leaderboard"])
 app.include_router(preferences.router, prefix="/api/v1", tags=["Preferences"])
+app.include_router(challenges.router, prefix="/api/v1", tags=["Challenges"])
+app.include_router(roadmap.router, prefix="/api/v1", tags=["Roadmap"])
+app.include_router(friends.router, prefix="/api/v1", tags=["Friends"])
+app.include_router(checkpoints.router, prefix="/api/v1", tags=["Checkpoints"])
+app.include_router(review.router, prefix="/api/v1", tags=["Review"])
 
 
 if __name__ == "__main__":

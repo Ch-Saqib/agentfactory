@@ -92,6 +92,48 @@ async def init_db() -> None:
 
     logger.info("[DB] Schema initialized")
 
+    # Ensure dev user exists in dev mode
+    if settings.dev_mode:
+        await _ensure_dev_user_exists()
+
+
+async def _ensure_dev_user_exists() -> None:
+    """Ensure dev user exists in the database for local development."""
+    from sqlalchemy import select, text
+    from sqlalchemy.ext.asyncio import AsyncSession
+
+    from ..models.user import User
+    from ..models.progress import UserProgress
+
+    async with async_session() as session:
+        # Check if dev user exists
+        result = await session.execute(
+            select(User).where(User.id == settings.dev_user_id)
+        )
+        user = result.scalar_one_or_none()
+
+        if not user:
+            # Create dev user
+            dev_user = User(
+                id=settings.dev_user_id,
+                display_name="Dev User",
+                email="dev@example.com",
+            )
+            session.add(dev_user)
+
+            # Create dev user progress
+            dev_progress = UserProgress(
+                user_id=settings.dev_user_id,
+                total_xp=0,
+                current_streak=0,
+                longest_streak=0,
+                badge_count=0,
+            )
+            session.add(dev_progress)
+
+            await session.commit()
+            logger.info(f"[DB] Dev user created: {settings.dev_user_id}")
+
 
 async def create_materialized_views() -> None:
     """Create materialized views via raw SQL (create_all doesn't handle views)."""

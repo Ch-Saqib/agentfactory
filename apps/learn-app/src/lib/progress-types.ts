@@ -107,6 +107,188 @@ export interface BadgeDefinition {
   icon: string;
 }
 
+// Daily Challenges
+export interface ChallengeProgress {
+  current: number;
+  target: number;
+  unit: string;
+}
+
+export interface ChallengeResponse {
+  id: number;
+  challenge_date: string;
+  challenge_type: string;
+  title: string;
+  description: string;
+  config: Record<string, unknown>;
+  xp_bonus: number;
+  progress: ChallengeProgress;
+  completed: boolean;
+  started_at: string | null;
+}
+
+export interface ChallengeHistoryItem {
+  id: number;
+  challenge_date: string;
+  title: string;
+  completed: boolean;
+  xp_awarded: number;
+  completed_at: string | null;
+}
+
+export interface ChallengeHistoryResponse {
+  challenges: ChallengeHistoryItem[];
+}
+
+export interface ChallengeProgressUpdate {
+  progress_delta: number;
+}
+
+export interface ChallengeCompleteResponse {
+  xp_earned: number;
+  total_xp: number;
+  new_badges: Array<Record<string, unknown>>;
+  streak: Record<string, number>;
+}
+
+// Achievement Roadmap
+export interface RoadmapNodeResponse {
+  id: string;
+  parent_id: string | null;
+  node_type: string; // 'part', 'chapter', 'milestone'
+  title: string;
+  description: string | null;
+  position_x: number;
+  position_y: number;
+  config: Record<string, unknown>;
+  required_xp: number;
+  icon: string | null;
+  unlocked: boolean;
+  unlocked_at: string | null;
+  locked: boolean;
+}
+
+export interface RoadmapEdge {
+  id: string;
+  source: string;
+  target: string;
+  animated: boolean;
+}
+
+export interface RoadmapResponse {
+  nodes: RoadmapNodeResponse[];
+  edges: RoadmapEdge[];
+  user_xp: number;
+  unlocked_count: number;
+  total_count: number;
+}
+
+export interface RoadmapSyncResponse {
+  new_unlocks: string[];
+  total_unlocked: number;
+  total_nodes: number;
+}
+
+// Study Buddies (Friends)
+export interface FriendActivity {
+  activity_type: string;
+  activity_ref: string;
+  completed_at: string;
+}
+
+export interface FriendInfo {
+  user_id: string;
+  display_name: string;
+  avatar_url: string | null;
+  total_xp: number;
+  current_streak: number;
+  last_activity: FriendActivity | null;
+  friendship_status: "accepted";
+}
+
+export interface FriendListResponse {
+  friends: FriendInfo[];
+  pending_requests: FriendInfo[];
+  sent_requests: FriendInfo[];
+}
+
+export interface FriendsLeaderboardEntry {
+  rank: number;
+  user_id: string;
+  display_name: string;
+  avatar_url: string | null;
+  total_xp: number;
+  badge_count: number;
+  current_streak: number;
+  is_you: boolean;
+}
+
+export interface FriendsLeaderboardResponse {
+  entries: FriendsLeaderboardEntry[];
+  your_rank: number | null;
+}
+
+export interface BuddyXpCheckResponse {
+  eligible: boolean;
+  buddy_xp: number;
+  friend_names: string[];
+}
+
+// Knowledge Checkpoints
+export interface CheckpointQuestion {
+  question: string;
+  options: string[];
+  correct_answer: number;
+  explanation: string;
+}
+
+export interface CheckpointResponse {
+  id: number;
+  lesson_slug: string;
+  position_pct: number;
+  question: CheckpointQuestion;
+  xp_bonus: number;
+}
+
+export interface CheckpointAnswerRequest {
+  checkpoint_id: number;
+  answer: number;
+}
+
+export interface CheckpointAnswerResponse {
+  correct: boolean;
+  explanation: string;
+  correct_answer: number;
+  xp_awarded: number;
+  total_xp: number;
+}
+
+// Smart Review
+export interface ReviewItem {
+  id: number;
+  chapter_slug: string;
+  priority: string; // 'high', 'medium', 'low'
+  reason: string; // 'weak_area', 'spaced_repetition', 'prerequisite'
+  due_date: string;
+  interval_days: number;
+}
+
+export interface ReviewQueueResponse {
+  items: ReviewItem[];
+  total_count: number;
+  high_priority_count: number;
+}
+
+export interface ReviewCompleteRequest {
+  score_pct: number;
+}
+
+export interface ReviewCompleteResponse {
+  interval_days: number;
+  next_due_date: string;
+  message: string;
+}
+
 /** All badge definitions (mirrors backend BADGE_DEFINITIONS). */
 export const BADGE_DEFINITIONS: Record<string, BadgeDefinition> = {
   "first-steps": {

@@ -80,4 +80,32 @@ This constitution is the authoritative source of project principles. It supersed
 - All agent work (skills, subagents, commands) must comply with these principles.
 - CLAUDE.md provides operational rules that implement these principles. When in conflict, clarify with the user.
 
-**Version**: 1.0.0 | **Ratified**: 2026-02-26 | **Last Amended**: 2026-02-26
+## VI. Student Engagement
+
+The platform employs science-backed engagement strategies to maximize learning outcomes while maintaining ethical design.
+
+1. **Gamification enhances, never replaces.** XP, badges, and leaderboards supplement intrinsic motivation. Content value comes first; rewards are additive celebration, not the primary driver.
+
+2. **Daily habits over marathon sessions.** Features encourage consistent daily engagement (15-30 min) rather than binge-reading. Spaced repetition and streak protection support sustainable learning patterns.
+
+3. **Social accountability, not social pressure.** Friend systems are opt-in only. Peer comparison is side-by-side (buddy leaderboard) not adversarial. No public shaming or negative reinforcement.
+
+4. **Active learning over passive consumption.** Checkpoint questions, quizzes, and flashcards require active recall. The AI tutor uses Socratic method — asking questions, not just answering.
+
+5. **Transparent progression.** Users always see their next step (roadmap) and why they're being asked to review something (smart scheduler). Hidden algorithms erode trust.
+
+6. **Privacy-respecting personalization.** All recommendations are based on user's own learning data. No cross-user behavioral profiling. No dark patterns or addictive design.
+
+7. **Accessibility first.** Engagement features must work for users with disabilities. Colorblind-friendly badge icons, keyboard navigation, screen reader support.
+
+---
+
+## Governance
+
+This constitution is the authoritative source of project principles. It supersedes ad-hoc decisions but is subordinate to explicit user instructions in the moment.
+
+- Amendments require updating this file with a new version number and date.
+- All agent work (skills, subagents, commands) must comply with these principles.
+- CLAUDE.md provides operational rules that implement these principles. When in conflict, clarify with the user.
+
+**Version**: 1.1.0 | **Ratified**: 2026-02-26 | **Last Amended**: 2026-03-02
