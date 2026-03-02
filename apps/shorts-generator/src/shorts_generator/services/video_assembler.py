@@ -14,6 +14,7 @@ Video Spec:
 """
 
 import asyncio
+import hashlib
 import logging
 import os
 import tempfile
@@ -39,6 +40,18 @@ VIDEO_BITRATE = "2M"  # 2 Mbps for good quality
 AUDIO_CODEC = "aac"
 AUDIO_BITRATE = "128k"
 MAX_FILE_SIZE_MB = 50
+
+# Caption styling (burned into the video via FFmpeg drawtext)
+CAPTION_FONT_SIZE = 64
+CAPTION_MAX_CHARS = 96
+CAPTION_MAX_LINES = 2
+CAPTION_LINE_CHARS = 28  # soft wrap target; tuned for 1080x1920
+CAPTION_FADE_IN_SECONDS = 0.22
+CAPTION_FADE_OUT_SECONDS = 0.18
+CAPTION_SLIDE_SECONDS = 0.22
+CAPTION_SLIDE_PX = 90
+CAPTION_MAX_ENTRIES = 14
+CAPTION_ANIMATION_VARIANTS = 3
 
 
 @dataclass
@@ -235,7 +248,298 @@ class VideoAssembler:
 
         return caption_list
 
-    def _build_caption_filter(self, captions: list[dict], total_duration: float) -> str:
+    def _compress_captions(self, captions: list[dict], max_entries: int = CAPTION_MAX_ENTRIES) -> list[dict]:
+        """Reduce caption count by merging adjacent entries (keeps full timeline coverage)."""
+        if len(captions) <= max_entries:
+            return captions
+
+        # Work on a copy to keep caller data safe.
+        caps = [
+            {"start": float(c["start"]), "end": float(c["end"]), "text": str(c["text"])}
+            for c in captions
+            if c.get("text")
+        ]
+        if len(caps) <= max_entries:
+            return caps
+
+        # Merge the shortest adjacent pair repeatedly until within limit.
+        # This favors keeping longer captions (more important moments) intact.
+        while len(caps) > max_entries:
+            best_i = 0
+            best_cost = float("inf")
+            for i in range(len(caps) - 1):
+                a = caps[i]
+                b = caps[i + 1]
+                merged_dur = max(0.0, float(b["end"]) - float(a["start"]))
+                merged_len = len(a["text"]) + 1 + len(b["text"])
+                # Cost: prioritize merging very short durations + long text bursts.
+                cost = merged_dur * 10 + (merged_len / 80)
+                if cost < best_cost:
+                    best_cost = cost
+                    best_i = i
+
+            a = caps[best_i]
+            b = caps[best_i + 1]
+            merged = {
+                "start": a["start"],
+                "end": b["end"],
+                "text": f"{a['text']} {b['text']}".strip(),
+            }
+            caps[best_i : best_i + 2] = [merged]
+
+        return caps
+
+    def _select_caption_animation_params(self, script: GeneratedScript, audio_path: str) -> tuple[int, int]:
+        """Deterministically pick animation params so each video feels different."""
+        seed = f"{script.lesson_path}|{script.lesson_title}|{audio_path}".encode("utf-8", errors="ignore")
+        digest = hashlib.sha256(seed).hexdigest()
+        variant = int(digest[:8], 16) % CAPTION_ANIMATION_VARIANTS
+        seed_int = int(digest[8:16], 16)
+        return variant, seed_int
+
+    def _build_ass_subtitles_file(self, captions: list[dict], variant: int = 0, seed_int: int = 0) -> str:
+        """Build an .ass subtitle file for centered, animated captions.
+
+        We prefer ASS over drawtext for animation because it is more reliable and expressive:
+        - Center alignment and margins
+        - Fade and move animations (fad/move)
+        - Transform-based pop (t with fscx/fscy)
+        """
+        def _ass_time(seconds: float) -> str:
+            seconds = max(0.0, float(seconds))
+            h = int(seconds // 3600)
+            m = int((seconds % 3600) // 60)
+            s = seconds % 60
+            # ASS uses centiseconds
+            cs = int(round((s - int(s)) * 100))
+            return f"{h:d}:{m:02d}:{int(s):02d}.{cs:02d}"
+
+        def _ass_escape(text: str) -> str:
+            # Basic escaping for ASS dialogue text.
+            text = text.replace("\\", "\\\\")
+            text = text.replace("{", "(").replace("}", ")")
+            return text
+
+        def _wrap_text(text: str) -> str:
+            words = text.split()
+            if not words:
+                return ""
+            lines: list[str] = []
+            current: list[str] = []
+            for w in words:
+                candidate = (" ".join(current + [w])).strip()
+                if current and len(candidate) > CAPTION_LINE_CHARS:
+                    lines.append(" ".join(current))
+                    current = [w]
+                    if len(lines) >= CAPTION_MAX_LINES:
+                        break
+                else:
+                    current.append(w)
+            if len(lines) < CAPTION_MAX_LINES and current:
+                lines.append(" ".join(current))
+            return "\\N".join(lines[:CAPTION_MAX_LINES])
+
+        captions = self._compress_captions(captions, max_entries=CAPTION_MAX_ENTRIES)
+
+        # Layout: center of 1080x1920
+        center_x = VIDEO_WIDTH // 2
+        center_y = VIDEO_HEIGHT // 2
+
+        # Style: boxed text for readability
+        # ASS colors are &HAABBGGRR. BackColour is used for box when BorderStyle=3.
+        ass = []
+        ass.append("[Script Info]")
+        ass.append("ScriptType: v4.00+")
+        ass.append(f"PlayResX: {VIDEO_WIDTH}")
+        ass.append(f"PlayResY: {VIDEO_HEIGHT}")
+        ass.append("")
+        ass.append("[V4+ Styles]")
+        ass.append(
+            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
+            "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
+            "Alignment, MarginL, MarginR, MarginV, Encoding"
+        )
+        ass.append(
+            "Style: Default,DejaVu Sans,"
+            f"{CAPTION_FONT_SIZE},"
+            "&H00FFFFFF,&H00FFFFFF,&H00000000,&H66000000,"
+            "-1,0,0,0,100,100,0,0,3,4,2,5,80,80,120,1"
+        )
+        ass.append("")
+        ass.append("[Events]")
+        ass.append(
+            "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"
+        )
+
+        for i, cap in enumerate(captions):
+            start = float(cap["start"])
+            end = float(cap["end"])
+            if end <= start:
+                continue
+
+            text = str(cap["text"]).strip()
+            text = " ".join(text.split())
+            if len(text) > CAPTION_MAX_CHARS:
+                text = text[: CAPTION_MAX_CHARS - 3].rstrip() + "..."
+            text = _ass_escape(_wrap_text(text))
+
+            # Mix a couple animation styles within the same video to keep it lively.
+            # This meets your "every video different" goal without sacrificing readability.
+            anim = (seed_int + i + variant) % 3
+            fade_in_ms = int(CAPTION_FADE_IN_SECONDS * 1000)
+            fade_out_ms = int(CAPTION_FADE_OUT_SECONDS * 1000)
+
+            if anim == 0:
+                # Slide up to center + fade
+                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({center_x},{center_y+CAPTION_SLIDE_PX},{center_x},{center_y})}}"
+            elif anim == 1:
+                # Slide in from left + fade
+                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({-200},{center_y},{center_x},{center_y})}}"
+            else:
+                # Pop-in + fade (scale transform)
+                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\fscx80\\fscy80\\t(0,{fade_in_ms},\\fscx100\\fscy100)}}"
+
+            line = (
+                f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Default,,0,0,0,,{tag}{text}"
+            )
+            ass.append(line)
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:
+            tmp.write("\n".join(ass))
+            tmp.flush()
+            return tmp.name
+
+    def _build_ass_karaoke_file(
+        self,
+        word_timings: list[dict[str, Any]],
+        variant: int = 0,
+        seed_int: int = 0,
+    ) -> str:
+        """Build a karaoke-style ASS subtitle file using word boundary timings."""
+
+        def _ass_time(seconds: float) -> str:
+            seconds = max(0.0, float(seconds))
+            h = int(seconds // 3600)
+            m = int((seconds % 3600) // 60)
+            s = seconds % 60
+            cs = int(round((s - int(s)) * 100))
+            return f"{h:d}:{m:02d}:{int(s):02d}.{cs:02d}"
+
+        def _ass_escape(text: str) -> str:
+            text = text.replace("\\", "\\\\")
+            text = text.replace("{", "(").replace("}", ")")
+            return text
+
+        # Normalize and clamp timings (edge-tts sometimes emits 0 duration)
+        tokens: list[dict[str, Any]] = []
+        for wt in word_timings:
+            w = str(wt.get("word") or "").strip()
+            if not w:
+                continue
+            start = float(wt.get("start") or 0.0)
+            end = float(wt.get("end") or start)
+            if end <= start:
+                end = start + 0.12
+            tokens.append({"word": w, "start": start, "end": end})
+
+        if not tokens:
+            # Create an empty file; caller should fall back before using this.
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:
+                tmp.write("")
+                tmp.flush()
+                return tmp.name
+
+        # Group words into 1-at-a-time lines (up to 2 wrapped lines) with karaoke highlighting.
+        # Constraints: keep each displayed chunk short and readable on mobile.
+        lines: list[list[dict[str, Any]]] = []
+        current: list[dict[str, Any]] = []
+
+        def current_text_len(c: list[dict[str, Any]]) -> int:
+            return len(" ".join(x["word"] for x in c))
+
+        for tok in tokens:
+            if not current:
+                current.append(tok)
+                continue
+
+            # Start a new line if we'd exceed readability bounds.
+            next_len = len(" ".join(x["word"] for x in (current + [tok])))
+            duration = float(tok["end"]) - float(current[0]["start"])
+
+            if (
+                len(current) >= 7
+                or next_len > (CAPTION_LINE_CHARS * CAPTION_MAX_LINES)
+                or duration > 2.8
+            ):
+                lines.append(current)
+                current = [tok]
+            else:
+                current.append(tok)
+
+        if current:
+            lines.append(current)
+
+        # Header + styles: karaoke needs Primary/Secondary colors (secondary shown first).
+        center_x = VIDEO_WIDTH // 2
+        center_y = VIDEO_HEIGHT // 2
+
+        ass: list[str] = []
+        ass.append("[Script Info]")
+        ass.append("ScriptType: v4.00+")
+        ass.append(f"PlayResX: {VIDEO_WIDTH}")
+        ass.append(f"PlayResY: {VIDEO_HEIGHT}")
+        ass.append("WrapStyle: 2")
+        ass.append("")
+        ass.append("[V4+ Styles]")
+        ass.append(
+            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
+            "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
+            "Alignment, MarginL, MarginR, MarginV, Encoding"
+        )
+        # Primary = highlight color (cyan), Secondary = base (white)
+        ass.append(
+            "Style: Default,DejaVu Sans,"
+            f"{CAPTION_FONT_SIZE},"
+            "&H00CCFF00,&H00FFFFFF,&H00000000,&H66000000,"
+            "-1,0,0,0,100,100,0,0,3,4,2,5,80,80,120,1"
+        )
+        ass.append("")
+        ass.append("[Events]")
+        ass.append("Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text")
+
+        for i, group in enumerate(lines):
+            start = float(group[0]["start"])
+            end = float(group[-1]["end"])
+
+            # Build karaoke text with per-word \k (centiseconds)
+            parts: list[str] = []
+            for g in group:
+                w = _ass_escape(g["word"])
+                dur_cs = max(1, int(round((float(g["end"]) - float(g["start"])) * 100)))
+                parts.append(f"{{\\k{dur_cs}}}{w}")
+            text = " ".join(parts)
+
+            # Mild entrance animation per line (readability first)
+            fade_in_ms = int(CAPTION_FADE_IN_SECONDS * 1000)
+            fade_out_ms = int(CAPTION_FADE_OUT_SECONDS * 1000)
+            anim = (seed_int + i + variant) % 3
+            if anim == 0:
+                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({center_x},{center_y+CAPTION_SLIDE_PX},{center_x},{center_y})}}"
+            elif anim == 1:
+                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({-200},{center_y},{center_x},{center_y})}}"
+            else:
+                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\fscx90\\fscy90\\t(0,{fade_in_ms},\\fscx100\\fscy100)}}"
+
+            ass.append(
+                f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Default,,0,0,0,,{tag}{text}"
+            )
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:
+            tmp.write("\n".join(ass))
+            tmp.flush()
+            return tmp.name
+
+    def _build_caption_filter(self, captions: list[dict], total_duration: float, variant: int = 0) -> str:
         """Build FFmpeg drawtext filter for dynamic caption overlay.
 
         Creates multiple drawtext filters that enable/disable at specific times,
@@ -251,23 +555,50 @@ class VideoAssembler:
         if not captions:
             return ""
 
-        # Common caption styling
-        text_y = VIDEO_HEIGHT - 200  # 200px from bottom
+        def _wrap_caption_text(text: str) -> str:
+            """Soft-wrap caption to max lines, returning FFmpeg-safe newlines."""
+            words = text.split()
+            if not words:
+                return ""
+
+            lines: list[str] = []
+            current: list[str] = []
+            for w in words:
+                candidate = (" ".join(current + [w])).strip()
+                if current and len(candidate) > CAPTION_LINE_CHARS:
+                    lines.append(" ".join(current))
+                    current = [w]
+                    if len(lines) >= CAPTION_MAX_LINES:
+                        break
+                else:
+                    current.append(w)
+
+            if len(lines) < CAPTION_MAX_LINES and current:
+                lines.append(" ".join(current))
+
+            # Join with drawtext newline escape. FFmpeg uses \n; inside a python
+            # string used in a filtergraph we need a literal backslash+n.
+            return "\\n".join(lines[:CAPTION_MAX_LINES])
+
+        # Common caption styling (centered, mobile-first readability)
+        # Note: x/y are expressions evaluated by FFmpeg.
         common_params = (
-            f"fontsize=48:"
+            f"fontsize={CAPTION_FONT_SIZE}:"
             f"fontcolor=white:"
             f"font=DejaVuSans:"
-            f"x=(w-text_w)/2:"
-            f"y={text_y}:"
-            f"shadowcolor=black:"
-            f"shadowx=2:"
-            f"shadowy=2:"
-            f"line_spacing=10:"
+            f"shadowcolor=black@0.85:"
+            f"shadowx=3:"
+            f"shadowy=3:"
+            f"line_spacing=12:"
+            f"box=1:"
+            f"boxcolor=black@0.45:"
+            f"boxborderw=26:"
+            f"borderw=2:"
+            f"bordercolor=white@0.10:"
         )
 
-        # Limit to reasonable number of captions (FFmpeg has filter limits)
-        max_captions = min(len(captions), 10)
-        captions = captions[:max_captions]
+        # Keep filtergraph size bounded, but preserve full timeline by compressing.
+        captions = self._compress_captions(captions, max_entries=CAPTION_MAX_ENTRIES)
 
         # Create drawtext filters with timeline-based enable/disable
         # Format: enable='between(t,start,end)'
@@ -277,15 +608,55 @@ class VideoAssembler:
             text = cap["text"].strip()
             # Remove newlines and excess whitespace
             text = " ".join(text.split())
-            # Limit length
-            if len(text) > 80:
-                text = text[:77] + "..."
+            # Limit length (keep it readable; prefer wrapping over truncation)
+            if len(text) > CAPTION_MAX_CHARS:
+                text = text[: CAPTION_MAX_CHARS - 3].rstrip() + "..."
+            text = _wrap_caption_text(text)
             # Escape special characters for FFmpeg
             text = text.replace("'", "'\\''").replace(":", "\\:")
 
             # Time range for this caption
             start = cap["start"]
             end = cap["end"]
+
+            # Animation: slide-up + fade-in at start, fade-out near end.
+            # y animates from center+CAPTION_SLIDE_PX to center over CAPTION_SLIDE_SECONDS.
+            # Using min/max to clamp progress into [0,1].
+            fade_in = CAPTION_FADE_IN_SECONDS
+            fade_out = CAPTION_FADE_OUT_SECONDS
+            slide_dur = CAPTION_SLIDE_SECONDS
+            slide_px = CAPTION_SLIDE_PX
+
+            alpha_expr = (
+                "if(lt(t,{start}),0,"
+                "if(lt(t,{start_fade_end}),(t-{start})/{fade_in},"
+                "if(lt(t,{end_fade_start}),1,"
+                "if(lt(t,{end}),({end}-t)/{fade_out},0))))"
+            ).format(
+                start=start,
+                start_fade_end=start + fade_in,
+                end=end,
+                end_fade_start=max(start, end - fade_out),
+                fade_in=fade_in,
+                fade_out=fade_out,
+            )
+
+            y_expr = (
+                "(h-text_h)/2"
+                f"+{slide_px}*(1-min(max((t-{start})/{slide_dur},0),1))"
+            )
+
+            # Variant animation: keep it readable while adding variety.
+            # 0: slide-up, 1: slide-in from left, 2: slide-down.
+            progress = f"min(max((t-{start})/{slide_dur},0),1)"
+            if variant % CAPTION_ANIMATION_VARIANTS == 1:
+                x_expr = f"-text_w+((w+text_w)/2)*{progress}"
+                y_expr = "(h-text_h)/2"
+            elif variant % CAPTION_ANIMATION_VARIANTS == 2:
+                x_expr = "(w-text_w)/2"
+                y_expr = f"(h-text_h)/2-{slide_px}*(1-{progress})"
+            else:
+                x_expr = "(w-text_w)/2"
 
             # Create enable expression
             enable_expr = f"between(t,{start},{end})"
@@ -295,6 +666,9 @@ class VideoAssembler:
             filter_str = (
                 f"drawtext=text='{text}':"
                 f"{common_params}"
+                f"x={x_expr}:"
+                f"y={y_expr}:"
+                f"alpha='{alpha_expr}':"
                 f"enable='{enable_expr}'"
             )
 
@@ -527,6 +901,7 @@ class VideoAssembler:
         audio: GeneratedAudio,
         script: GeneratedScript,
         captions: str,
+        script_text: str | None = None,
         transition: str = "fade",
     ) -> AssembledVideo:
         """Assemble video from scenes, audio, and captions.
@@ -535,7 +910,8 @@ class VideoAssembler:
             scene_images: List of image URLs (one per scene)
             audio: GeneratedAudio with narration
             script: GeneratedScript with timing info
-            captions: SRT format captions
+            captions: SRT format captions (fallback when word timings not available)
+            script_text: Full TTS script text (optional; improves caption accuracy)
             transition: Transition type between scenes
 
         Returns:
@@ -599,18 +975,35 @@ class VideoAssembler:
 
                 # Parse captions for text overlay
                 caption_texts = self._parse_captions_for_overlay(captions, script)
+                caption_variant, caption_seed = self._select_caption_animation_params(script, audio_path)
 
                 # Build video filter with scale and text overlay
-                # Add captions at the bottom of the video
+                # Captions are rendered centered with a subtle entrance animation.
                 video_filters = [f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}"]
 
                 # Add text overlay for captions (if available)
-                if caption_texts:
-                    # Create drawtext filter with word-by-word timing
-                    text_filter = self._build_caption_filter(caption_texts, total_duration)
-                    if text_filter:
-                        video_filters.append(text_filter)
-                        logger.info(f"Added {len(caption_texts)} caption overlays")
+                ass_path: str | None = None
+
+                # 1) Best: karaoke using word boundary timings from TTS.
+                if getattr(audio, "word_timings", None):
+                    ass_path = self._build_ass_karaoke_file(
+                        audio.word_timings or [],
+                        variant=caption_variant,
+                        seed_int=caption_seed,
+                    )
+                    logger.info("Added karaoke captions via ASS word timings")
+                # 2) Fallback: scene/SRT-level ASS captions.
+                elif caption_texts:
+                    ass_path = self._build_ass_subtitles_file(
+                        caption_texts,
+                        variant=caption_variant,
+                        seed_int=caption_seed,
+                    )
+                    logger.info(f"Added {len(caption_texts)} caption overlays via ASS subtitles")
+
+                if ass_path:
+                    # Note: This requires ffmpeg built with libass (common in most distros).
+                    video_filters.append(f"subtitles='{ass_path}'")
 
                 vf_string = ",".join(video_filters)
 

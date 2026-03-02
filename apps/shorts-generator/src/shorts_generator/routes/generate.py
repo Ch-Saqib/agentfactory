@@ -230,6 +230,7 @@ async def generate_short_sync(
             audio=audio,
             script=script,
             captions=captions,
+            script_text=full_script,
         )
 
         # Step 6: Save to database

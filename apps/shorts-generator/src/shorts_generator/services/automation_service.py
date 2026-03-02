@@ -139,6 +139,7 @@ async def generate_single_short(
                 audio=audio,
                 script=script,
                 captions=captions,
+                script_text=full_script,
             )
 
             job.progress = 95

@@ -36,6 +36,7 @@ class GeneratedAudio:
         file_path: Local file path (for temporary files)
         generation_method: How the audio was generated (edge_tts)
         voice_used: Which voice was used
+        word_timings: Optional list of word boundary timings from TTS
     """
 
     url: str
@@ -43,6 +44,7 @@ class GeneratedAudio:
     file_path: str
     generation_method: str
     voice_used: str
+    word_timings: list[dict[str, Any]] | None = None
 
 
 class AudioGenerator:
@@ -62,6 +64,36 @@ class AudioGenerator:
             self._http_client = httpx.AsyncClient(timeout=60.0)
         return self._http_client
 
+    async def _get_audio_duration(self, audio_path: str) -> float:
+        """Get the actual duration of an audio file using ffprobe."""
+        try:
+            import subprocess
+
+            result = await asyncio.to_thread(
+                subprocess.run,
+                [
+                    "ffprobe",
+                    "-v",
+                    "error",
+                    "-show_entries",
+                    "format=duration",
+                    "-of",
+                    "default=noprint_wrappers=1:nokey=1",
+                    audio_path,
+                ],
+                capture_output=True,
+                text=True,
+            )
+
+            if result.returncode == 0 and result.stdout.strip():
+                return float(result.stdout.strip())
+
+            logger.warning(f"ffprobe failed for audio duration: {result.stderr}")
+            return 0.0
+        except Exception as e:
+            logger.warning(f"Could not detect audio duration: {e}")
+            return 0.0
+
     def _estimate_duration(self, text: str, words_per_second: float = 2.5) -> float:
         """Estimate spoken duration from text.
 
@@ -73,7 +105,9 @@ class AudioGenerator:
             Estimated duration in seconds
         """
         word_count = len(text.split())
-        return max(1.0, word_count / words_per_second)
+        # Keep this as a *fallback* only. Real duration should come from ffprobe.
+        # Avoid a hard 1.0s minimum because it causes noticeable caption drift on short phrases.
+        return max(0.2, word_count / words_per_second)
 
     async def generate_narration(
         self,
@@ -95,8 +129,6 @@ class AudioGenerator:
         logger.info(f"Generating narration with voice: {voice}")
 
         try:
-            # Use edge-tts library to generate audio
-            # The library is synchronous, so run in thread pool
             communicate = edge_tts.Communicate(
                 text=script_text,
                 voice=voice,
@@ -107,14 +139,36 @@ class AudioGenerator:
 
             # Save to temporary file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
-                # Use native async method from edge-tts
-                await communicate.save(tmp_file.name)
+                # Use streaming API to collect word boundaries for karaoke sync.
+                word_timings: list[dict[str, Any]] = []
+                async for chunk in communicate.stream():
+                    if chunk.get("type") == "audio":
+                        tmp_file.write(chunk.get("data", b""))
+                    elif chunk.get("type") == "WordBoundary":
+                        # Offsets are in 100-nanosecond units.
+                        offset_100ns = chunk.get("offset", 0) or 0
+                        duration_100ns = chunk.get("duration", 0) or 0
+                        start_s = float(offset_100ns) / 10_000_000.0
+                        end_s = float(offset_100ns + duration_100ns) / 10_000_000.0
+
+                        spoken = (chunk.get("text") or "").strip()
+                        if spoken:
+                            word_timings.append(
+                                {
+                                    "word": spoken,
+                                    "start": start_s,
+                                    "end": end_s,
+                                }
+                            )
+
+                tmp_file.flush()
 
                 # Get file size for logging
                 file_size = os.path.getsize(tmp_file.name)
 
-                # Calculate approximate duration
-                duration = self._estimate_duration(script_text)
+                # Prefer real duration from the audio file (improves caption sync)
+                detected_duration = await self._get_audio_duration(tmp_file.name)
+                duration = detected_duration if detected_duration > 0 else self._estimate_duration(script_text)
 
                 audio = GeneratedAudio(
                     url=f"file://{tmp_file.name}",
@@ -122,9 +176,13 @@ class AudioGenerator:
                     file_path=tmp_file.name,
                     generation_method="edge_tts",
                     voice_used=voice,
+                    word_timings=word_timings or None,
                 )
 
-                logger.info(f"Narration generated: {duration:.2f}s, {file_size} bytes")
+                logger.info(
+                    f"Narration generated: {duration:.2f}s (detected={detected_duration:.2f}s), "
+                    f"{file_size} bytes, word_timings={len(word_timings)}"
+                )
 
                 return audio
 
@@ -235,6 +293,7 @@ class AudioGenerator:
         self,
         script_text: str,
         scene_timings: list[dict[str, Any]] | None = None,
+        duration_seconds: float | None = None,
     ) -> str:
         """Generate closed captions in SRT format.
 
@@ -251,9 +310,12 @@ class AudioGenerator:
         words = script_text.split()
         total_words = len(words)
 
+        if total_words == 0:
+            return ""
+
         # Assume even distribution of words across time
         # In production, you'd use word timings from TTS API if available
-        duration_seconds = self._estimate_duration(script_text)
+        duration_seconds = duration_seconds or self._estimate_duration(script_text)
         time_per_word = duration_seconds / total_words
 
         # Build SRT content
@@ -305,7 +367,7 @@ class AudioGenerator:
         narration = await self.generate_narration(script_text, voice)
 
         # Generate captions
-        captions = await self.generate_captions(script_text)
+        captions = await self.generate_captions(script_text, duration_seconds=narration.duration_seconds)
 
         # Add music if requested
         if add_music:
