@@ -141,8 +141,13 @@ class R2StorageService:
                     },
                 )
 
-            # Generate CDN URL
-            cdn_url = self.get_public_url(storage_key)
+            # Generate CDN URL - use presigned URL if no custom domain
+            if settings.r2_custom_domain:
+                cdn_url = self.get_public_url(storage_key)
+            else:
+                # Use presigned URL (7 days expiration) when no custom domain is set
+                cdn_url = self.generate_presigned_url(storage_key, expiration=PRESIGNED_URL_EXPIRY)
+                logger.info(f"Using presigned URL (no custom domain configured)")
 
             logger.info(f"Video uploaded successfully: {storage_key} ({file_size} bytes)")
 
@@ -206,8 +211,13 @@ class R2StorageService:
                     },
                 )
 
-            # Generate CDN URL
-            cdn_url = self.get_public_url(storage_key)
+            # Generate CDN URL - use presigned URL if no custom domain
+            if settings.r2_custom_domain:
+                cdn_url = self.get_public_url(storage_key)
+            else:
+                # Use presigned URL (7 days expiration) when no custom domain is set
+                cdn_url = self.generate_presigned_url(storage_key, expiration=PRESIGNED_URL_EXPIRY)
+                logger.info(f"Using presigned URL for thumbnail (no custom domain configured)")
 
             logger.info(f"Thumbnail uploaded successfully: {storage_key}")
 
@@ -265,8 +275,13 @@ class R2StorageService:
                 },
             )
 
-            # Generate CDN URL
-            cdn_url = self.get_public_url(storage_key)
+            # Generate CDN URL - use presigned URL if no custom domain
+            if settings.r2_custom_domain:
+                cdn_url = self.get_public_url(storage_key)
+            else:
+                # Use presigned URL (7 days expiration) when no custom domain is set
+                cdn_url = self.generate_presigned_url(storage_key, expiration=PRESIGNED_URL_EXPIRY)
+                logger.info(f"Using presigned URL for captions (no custom domain configured)")
 
             logger.info(f"Captions uploaded successfully: {storage_key}")
 
