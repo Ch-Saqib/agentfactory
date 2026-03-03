@@ -99,11 +99,10 @@ async def init_db() -> None:
 
 async def _ensure_dev_user_exists() -> None:
     """Ensure dev user exists in the database for local development."""
-    from sqlalchemy import select, text
-    from sqlalchemy.ext.asyncio import AsyncSession
+    from sqlalchemy import select
 
-    from ..models.user import User
     from ..models.progress import UserProgress
+    from ..models.user import User
 
     async with async_session() as session:
         # Check if dev user exists

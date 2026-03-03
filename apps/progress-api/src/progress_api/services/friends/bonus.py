@@ -12,8 +12,8 @@ from datetime import UTC, date, datetime, timedelta
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
+from ...config import settings
 from ...core.exceptions import ProgressAPIException
 from ...models.friendship import Friendship, FriendshipStatus, SharedActivity
 from ...models.progress import UserProgress
@@ -114,10 +114,12 @@ async def send_friend_request(
                 )
 
     # Create friend request
+    # In dev mode, auto-accept friend requests
+    status = FriendshipStatus.ACCEPTED if settings.dev_mode else FriendshipStatus.PENDING
     friendship = Friendship(
         requester_id=user_id,
         accepter_id=target_user.id,
-        status=FriendshipStatus.PENDING,
+        status=status,
     )
     session.add(friendship)
     await session.commit()
@@ -161,9 +163,7 @@ async def get_friends_list(
     """Get user's friends list with activity information."""
     # Get accepted friendships (both requester and accepter sides)
     result = await session.execute(
-        select(Friendship)
-        .options(selectinload(Friendship.requester_id), selectinload(Friendship.accepter_id))
-        .where(
+        select(Friendship).where(
             Friendship.status == FriendshipStatus.ACCEPTED,
             ((Friendship.requester_id == user_id) | (Friendship.accepter_id == user_id)),
         )

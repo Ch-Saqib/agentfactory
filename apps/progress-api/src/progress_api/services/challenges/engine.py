@@ -96,7 +96,8 @@ async def _ensure_templates_exist(session: AsyncSession) -> None:
         await session.execute(
             text(
                 """
-                INSERT INTO challenge_templates (id, name, description, config_schema, xp_bonus, is_active)
+                INSERT INTO challenge_templates
+                (id, name, description, config_schema, xp_bonus, is_active)
                 VALUES (:id, :name, :description, :config, :xp, true)
                 ON CONFLICT (id) DO NOTHING
             """
