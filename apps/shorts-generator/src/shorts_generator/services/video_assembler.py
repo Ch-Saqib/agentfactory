@@ -41,17 +41,22 @@ AUDIO_CODEC = "aac"
 AUDIO_BITRATE = "128k"
 MAX_FILE_SIZE_MB = 50
 
-# Caption styling (burned into the video via FFmpeg drawtext)
-CAPTION_FONT_SIZE = 64
-CAPTION_MAX_CHARS = 96
+# Caption styling — premium centered captions via ASS subtitles
+CAPTION_FONT_SIZE = 68
+CAPTION_MAX_CHARS = 72
 CAPTION_MAX_LINES = 2
-CAPTION_LINE_CHARS = 28  # soft wrap target; tuned for 1080x1920
+CAPTION_LINE_CHARS = 24  # tighter wrap → faster read → less "slow text" feel
 CAPTION_FADE_IN_SECONDS = 0.22
 CAPTION_FADE_OUT_SECONDS = 0.18
 CAPTION_SLIDE_SECONDS = 0.22
-CAPTION_SLIDE_PX = 90
-CAPTION_MAX_ENTRIES = 14
-CAPTION_ANIMATION_VARIANTS = 3
+CAPTION_SLIDE_PX = 80
+CAPTION_MAX_ENTRIES = 18
+CAPTION_ANIMATION_VARIANTS = 6  # up from 3 for more variety
+
+# Karaoke word grouping — tighter = words don't linger
+KARAOKE_MAX_WORDS_PER_GROUP = 5  # was 7
+KARAOKE_MAX_GROUP_DURATION = 2.0  # was 2.8s
+KARAOKE_MAX_GROUP_CHARS = 48  # CAPTION_LINE_CHARS × CAPTION_MAX_LINES
 
 
 @dataclass
@@ -297,79 +302,150 @@ class VideoAssembler:
         seed_int = int(digest[8:16], 16)
         return variant, seed_int
 
+    # ── ASS helpers ────────────────────────────────────────────────
+
+    @staticmethod
+    def _ass_time(seconds: float) -> str:
+        """Format seconds as ASS timestamp ``H:MM:SS.cc``."""
+        seconds = max(0.0, float(seconds))
+        h = int(seconds // 3600)
+        m = int((seconds % 3600) // 60)
+        s = seconds % 60
+        cs = int(round((s - int(s)) * 100))
+        return f"{h:d}:{m:02d}:{int(s):02d}.{cs:02d}"
+
+    @staticmethod
+    def _ass_escape(text: str) -> str:
+        """Escape text for ASS dialogue lines."""
+        text = text.replace("\\", "\\\\")
+        text = text.replace("{", "(").replace("}", ")")
+        return text
+
+    @staticmethod
+    def _wrap_text(text: str) -> str:
+        """Soft-wrap text into CAPTION_MAX_LINES using ``\\N``."""
+        words = text.split()
+        if not words:
+            return ""
+        lines: list[str] = []
+        current: list[str] = []
+        for w in words:
+            candidate = (" ".join(current + [w])).strip()
+            if current and len(candidate) > CAPTION_LINE_CHARS:
+                lines.append(" ".join(current))
+                current = [w]
+                if len(lines) >= CAPTION_MAX_LINES:
+                    break
+            else:
+                current.append(w)
+        if len(lines) < CAPTION_MAX_LINES and current:
+            lines.append(" ".join(current))
+        return "\\N".join(lines[:CAPTION_MAX_LINES])
+
+    def _dynamic_fade(self, group_duration: float) -> tuple[int, int]:
+        """Return (fade_in_ms, fade_out_ms) scaled to group duration."""
+        fade_in = min(int(CAPTION_FADE_IN_SECONDS * 1000), int(group_duration * 150))
+        fade_out = min(int(CAPTION_FADE_OUT_SECONDS * 1000), int(group_duration * 120))
+        return max(80, fade_in), max(60, fade_out)
+
+    def _pick_animation_tag(
+        self,
+        anim_index: int,
+        center_x: int,
+        center_y: int,
+        fade_in_ms: int,
+        fade_out_ms: int,
+    ) -> str:
+        """Return an ASS override tag for one of 6 animation variants."""
+        anim = anim_index % CAPTION_ANIMATION_VARIANTS
+        sp = CAPTION_SLIDE_PX
+
+        if anim == 0:
+            # Slide up to center + fade
+            return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
+                    f"\\move({center_x},{center_y+sp},{center_x},{center_y})}}")
+        elif anim == 1:
+            # Slide in from left + fade
+            return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
+                    f"\\move({-200},{center_y},{center_x},{center_y})}}")
+        elif anim == 2:
+            # Pop-in with bounce overshoot (60→110→100%)
+            t1 = int(fade_in_ms * 0.6)
+            t2 = fade_in_ms
+            return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
+                    f"\\fscx60\\fscy60"
+                    f"\\t(0,{t1},\\fscx110\\fscy110)"
+                    f"\\t({t1},{t2},\\fscx100\\fscy100)}}")
+        elif anim == 3:
+            # Bounce drop from above
+            return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
+                    f"\\move({center_x},{center_y-sp},{center_x},{center_y})}}")
+        elif anim == 4:
+            # Typewriter pop — scale from 0 on X + fade
+            return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
+                    f"\\fscx0\\t(0,{fade_in_ms},\\fscx100)}}")
+        else:
+            # Color sweep — fade in + colour shift accent→white
+            return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
+                    f"\\c&H00FFFF&\\t(0,{fade_in_ms},\\c&HFFFFFF&)}}")
+
+    def _ass_header(self, *, karaoke: bool = False) -> list[str]:
+        """Build the [Script Info] + [V4+ Styles] header for ASS files."""
+        ass: list[str] = []
+        ass.append("[Script Info]")
+        ass.append("ScriptType: v4.00+")
+        ass.append(f"PlayResX: {VIDEO_WIDTH}")
+        ass.append(f"PlayResY: {VIDEO_HEIGHT}")
+        if karaoke:
+            ass.append("WrapStyle: 2")
+        ass.append("")
+        ass.append("[V4+ Styles]")
+        ass.append(
+            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, "
+            "OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, "
+            "ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
+            "Alignment, MarginL, MarginR, MarginV, Encoding"
+        )
+        if karaoke:
+            # Karaoke: Primary = highlight (electric yellow), Secondary = base white
+            # BorderStyle 1 = outline+shadow (cleaner than opaque box)
+            ass.append(
+                "Style: Default,Arial Bold,"
+                f"{CAPTION_FONT_SIZE},"
+                "&H0000FFFF,&H00FFFFFF,&H00000000,&H40000000,"
+                "-1,0,0,0,100,100,1,0,1,5,3,5,80,80,120,1"
+            )
+        else:
+            # Regular: white text, dark outline, subtle shadow
+            ass.append(
+                "Style: Default,Arial Bold,"
+                f"{CAPTION_FONT_SIZE},"
+                "&H00FFFFFF,&H00FFFFFF,&H00000000,&H40000000,"
+                "-1,0,0,0,100,100,1,0,1,5,3,5,80,80,120,1"
+            )
+        ass.append("")
+        ass.append("[Events]")
+        ass.append(
+            "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"
+        )
+        return ass
+
+    # ── ASS subtitle builders ─────────────────────────────────────
+
     def _build_ass_subtitles_file(self, captions: list[dict], variant: int = 0, seed_int: int = 0) -> str:
         """Build an .ass subtitle file for centered, animated captions.
 
         We prefer ASS over drawtext for animation because it is more reliable and expressive:
         - Center alignment and margins
         - Fade and move animations (fad/move)
-        - Transform-based pop (t with fscx/fscy)
+        - 6 animation variants for visual variety
         """
-        def _ass_time(seconds: float) -> str:
-            seconds = max(0.0, float(seconds))
-            h = int(seconds // 3600)
-            m = int((seconds % 3600) // 60)
-            s = seconds % 60
-            # ASS uses centiseconds
-            cs = int(round((s - int(s)) * 100))
-            return f"{h:d}:{m:02d}:{int(s):02d}.{cs:02d}"
-
-        def _ass_escape(text: str) -> str:
-            # Basic escaping for ASS dialogue text.
-            text = text.replace("\\", "\\\\")
-            text = text.replace("{", "(").replace("}", ")")
-            return text
-
-        def _wrap_text(text: str) -> str:
-            words = text.split()
-            if not words:
-                return ""
-            lines: list[str] = []
-            current: list[str] = []
-            for w in words:
-                candidate = (" ".join(current + [w])).strip()
-                if current and len(candidate) > CAPTION_LINE_CHARS:
-                    lines.append(" ".join(current))
-                    current = [w]
-                    if len(lines) >= CAPTION_MAX_LINES:
-                        break
-                else:
-                    current.append(w)
-            if len(lines) < CAPTION_MAX_LINES and current:
-                lines.append(" ".join(current))
-            return "\\N".join(lines[:CAPTION_MAX_LINES])
-
         captions = self._compress_captions(captions, max_entries=CAPTION_MAX_ENTRIES)
 
-        # Layout: center of 1080x1920
         center_x = VIDEO_WIDTH // 2
         center_y = VIDEO_HEIGHT // 2
 
-        # Style: boxed text for readability
-        # ASS colors are &HAABBGGRR. BackColour is used for box when BorderStyle=3.
-        ass = []
-        ass.append("[Script Info]")
-        ass.append("ScriptType: v4.00+")
-        ass.append(f"PlayResX: {VIDEO_WIDTH}")
-        ass.append(f"PlayResY: {VIDEO_HEIGHT}")
-        ass.append("")
-        ass.append("[V4+ Styles]")
-        ass.append(
-            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
-            "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
-            "Alignment, MarginL, MarginR, MarginV, Encoding"
-        )
-        ass.append(
-            "Style: Default,DejaVu Sans,"
-            f"{CAPTION_FONT_SIZE},"
-            "&H00FFFFFF,&H00FFFFFF,&H00000000,&H66000000,"
-            "-1,0,0,0,100,100,0,0,3,4,2,5,80,80,120,1"
-        )
-        ass.append("")
-        ass.append("[Events]")
-        ass.append(
-            "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"
-        )
+        ass = self._ass_header(karaoke=False)
 
         for i, cap in enumerate(captions):
             start = float(cap["start"])
@@ -381,28 +457,16 @@ class VideoAssembler:
             text = " ".join(text.split())
             if len(text) > CAPTION_MAX_CHARS:
                 text = text[: CAPTION_MAX_CHARS - 3].rstrip() + "..."
-            text = _ass_escape(_wrap_text(text))
+            text = self._ass_escape(self._wrap_text(text))
 
-            # Mix a couple animation styles within the same video to keep it lively.
-            # This meets your "every video different" goal without sacrificing readability.
-            anim = (seed_int + i + variant) % 3
-            fade_in_ms = int(CAPTION_FADE_IN_SECONDS * 1000)
-            fade_out_ms = int(CAPTION_FADE_OUT_SECONDS * 1000)
-
-            if anim == 0:
-                # Slide up to center + fade
-                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({center_x},{center_y+CAPTION_SLIDE_PX},{center_x},{center_y})}}"
-            elif anim == 1:
-                # Slide in from left + fade
-                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({-200},{center_y},{center_x},{center_y})}}"
-            else:
-                # Pop-in + fade (scale transform)
-                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\fscx80\\fscy80\\t(0,{fade_in_ms},\\fscx100\\fscy100)}}"
-
-            line = (
-                f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Default,,0,0,0,,{tag}{text}"
+            fade_in_ms, fade_out_ms = self._dynamic_fade(end - start)
+            tag = self._pick_animation_tag(
+                seed_int + i + variant, center_x, center_y, fade_in_ms, fade_out_ms
             )
-            ass.append(line)
+
+            ass.append(
+                f"Dialogue: 0,{self._ass_time(start)},{self._ass_time(end)},Default,,0,0,0,,{tag}{text}"
+            )
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:
             tmp.write("\n".join(ass))
@@ -415,22 +479,12 @@ class VideoAssembler:
         variant: int = 0,
         seed_int: int = 0,
     ) -> str:
-        """Build a karaoke-style ASS subtitle file using word boundary timings."""
+        """Build a karaoke-style ASS subtitle file using word boundary timings.
 
-        def _ass_time(seconds: float) -> str:
-            seconds = max(0.0, float(seconds))
-            h = int(seconds // 3600)
-            m = int((seconds % 3600) // 60)
-            s = seconds % 60
-            cs = int(round((s - int(s)) * 100))
-            return f"{h:d}:{m:02d}:{int(s):02d}.{cs:02d}"
-
-        def _ass_escape(text: str) -> str:
-            text = text.replace("\\", "\\\\")
-            text = text.replace("{", "(").replace("}", ")")
-            return text
-
-        # Normalize and clamp timings (edge-tts sometimes emits 0 duration)
+        Uses tighter grouping (max 5 words / 2.0s) and 6 animation variants
+        with dynamic fade speed tied to actual group duration.
+        """
+        # Normalize and clamp timings
         tokens: list[dict[str, Any]] = []
         for wt in word_timings:
             w = str(wt.get("word") or "").strip()
@@ -443,33 +497,27 @@ class VideoAssembler:
             tokens.append({"word": w, "start": start, "end": end})
 
         if not tokens:
-            # Create an empty file; caller should fall back before using this.
             with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:
                 tmp.write("")
                 tmp.flush()
                 return tmp.name
 
-        # Group words into 1-at-a-time lines (up to 2 wrapped lines) with karaoke highlighting.
-        # Constraints: keep each displayed chunk short and readable on mobile.
+        # ── Group words into tight display chunks ──
         lines: list[list[dict[str, Any]]] = []
         current: list[dict[str, Any]] = []
-
-        def current_text_len(c: list[dict[str, Any]]) -> int:
-            return len(" ".join(x["word"] for x in c))
 
         for tok in tokens:
             if not current:
                 current.append(tok)
                 continue
 
-            # Start a new line if we'd exceed readability bounds.
             next_len = len(" ".join(x["word"] for x in (current + [tok])))
             duration = float(tok["end"]) - float(current[0]["start"])
 
             if (
-                len(current) >= 7
-                or next_len > (CAPTION_LINE_CHARS * CAPTION_MAX_LINES)
-                or duration > 2.8
+                len(current) >= KARAOKE_MAX_WORDS_PER_GROUP
+                or next_len > KARAOKE_MAX_GROUP_CHARS
+                or duration > KARAOKE_MAX_GROUP_DURATION
             ):
                 lines.append(current)
                 current = [tok]
@@ -479,59 +527,32 @@ class VideoAssembler:
         if current:
             lines.append(current)
 
-        # Header + styles: karaoke needs Primary/Secondary colors (secondary shown first).
         center_x = VIDEO_WIDTH // 2
         center_y = VIDEO_HEIGHT // 2
 
-        ass: list[str] = []
-        ass.append("[Script Info]")
-        ass.append("ScriptType: v4.00+")
-        ass.append(f"PlayResX: {VIDEO_WIDTH}")
-        ass.append(f"PlayResY: {VIDEO_HEIGHT}")
-        ass.append("WrapStyle: 2")
-        ass.append("")
-        ass.append("[V4+ Styles]")
-        ass.append(
-            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
-            "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
-            "Alignment, MarginL, MarginR, MarginV, Encoding"
-        )
-        # Primary = highlight color (cyan), Secondary = base (white)
-        ass.append(
-            "Style: Default,DejaVu Sans,"
-            f"{CAPTION_FONT_SIZE},"
-            "&H00CCFF00,&H00FFFFFF,&H00000000,&H66000000,"
-            "-1,0,0,0,100,100,0,0,3,4,2,5,80,80,120,1"
-        )
-        ass.append("")
-        ass.append("[Events]")
-        ass.append("Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text")
+        ass = self._ass_header(karaoke=True)
 
         for i, group in enumerate(lines):
             start = float(group[0]["start"])
             end = float(group[-1]["end"])
+            group_dur = end - start
 
             # Build karaoke text with per-word \k (centiseconds)
             parts: list[str] = []
             for g in group:
-                w = _ass_escape(g["word"])
+                w = self._ass_escape(g["word"])
                 dur_cs = max(1, int(round((float(g["end"]) - float(g["start"])) * 100)))
                 parts.append(f"{{\\k{dur_cs}}}{w}")
             text = " ".join(parts)
 
-            # Mild entrance animation per line (readability first)
-            fade_in_ms = int(CAPTION_FADE_IN_SECONDS * 1000)
-            fade_out_ms = int(CAPTION_FADE_OUT_SECONDS * 1000)
-            anim = (seed_int + i + variant) % 3
-            if anim == 0:
-                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({center_x},{center_y+CAPTION_SLIDE_PX},{center_x},{center_y})}}"
-            elif anim == 1:
-                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\move({-200},{center_y},{center_x},{center_y})}}"
-            else:
-                tag = f"{{\\fad({fade_in_ms},{fade_out_ms})\\fscx90\\fscy90\\t(0,{fade_in_ms},\\fscx100\\fscy100)}}"
+            # Dynamic fade timing + one of 6 animation variants
+            fade_in_ms, fade_out_ms = self._dynamic_fade(group_dur)
+            tag = self._pick_animation_tag(
+                seed_int + i + variant, center_x, center_y, fade_in_ms, fade_out_ms
+            )
 
             ass.append(
-                f"Dialogue: 0,{_ass_time(start)},{_ass_time(end)},Default,,0,0,0,,{tag}{text}"
+                f"Dialogue: 0,{self._ass_time(start)},{self._ass_time(end)},Default,,0,0,0,,{tag}{text}"
             )
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:

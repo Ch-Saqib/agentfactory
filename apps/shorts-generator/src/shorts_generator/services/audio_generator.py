@@ -94,6 +94,74 @@ class AudioGenerator:
             logger.warning(f"Could not detect audio duration: {e}")
             return 0.0
 
+    async def _refine_timings_with_alignment(
+        self,
+        audio_path: str,
+        transcript: str,
+        word_timings: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        """Refine word timings using Whisper forced alignment (stable-ts).
+
+        This takes the audio file and known transcript and runs forced alignment
+        to get frame-accurate word boundaries — significantly more precise than
+        Edge-TTS WordBoundary events.
+
+        Falls back gracefully to the original timings if stable-ts is
+        unavailable or alignment fails.
+
+        Args:
+            audio_path: Path to the generated audio file
+            transcript: The original script text
+            word_timings: Word timings from Edge-TTS WordBoundary events
+
+        Returns:
+            Refined word timings list (or the original if alignment fails)
+        """
+        try:
+            import stable_whisper  # type: ignore[import-untyped]
+        except ImportError:
+            logger.info(
+                "stable-ts not installed — using Edge-TTS WordBoundary timings. "
+                "Install with: pip install stable-ts"
+            )
+            return word_timings
+
+        try:
+            # Use the tiny model — it's sufficient for forced alignment when
+            # we already have the correct transcript.  The model is ~39 MB.
+            model = await asyncio.to_thread(stable_whisper.load_model, "tiny")
+            result = await asyncio.to_thread(
+                model.align, audio_path, transcript, language="en"
+            )
+
+            refined: list[dict[str, Any]] = []
+            for segment in result.segments:
+                for word_info in segment.words:
+                    w = (word_info.word or "").strip()
+                    if not w:
+                        continue
+                    refined.append(
+                        {
+                            "word": w,
+                            "start": float(word_info.start),
+                            "end": float(word_info.end),
+                        }
+                    )
+
+            if refined:
+                logger.info(
+                    f"Forced alignment refined {len(refined)} words "
+                    f"(was {len(word_timings)} from EdgeTTS)"
+                )
+                return refined
+
+            logger.warning("Forced alignment returned 0 words — keeping EdgeTTS timings")
+            return word_timings
+
+        except Exception as e:
+            logger.warning(f"Forced alignment failed, keeping EdgeTTS timings: {e}")
+            return word_timings
+
     def _estimate_duration(self, text: str, words_per_second: float = 2.5) -> float:
         """Estimate spoken duration from text.
 
@@ -169,6 +237,14 @@ class AudioGenerator:
                 # Prefer real duration from the audio file (improves caption sync)
                 detected_duration = await self._get_audio_duration(tmp_file.name)
                 duration = detected_duration if detected_duration > 0 else self._estimate_duration(script_text)
+
+                # Refine word timings using forced alignment (stable-ts)
+                # for frame-accurate sync. Falls back to EdgeTTS timings
+                # if stable-ts is unavailable or alignment fails.
+                if word_timings:
+                    word_timings = await self._refine_timings_with_alignment(
+                        tmp_file.name, script_text, word_timings
+                    )
 
                 audio = GeneratedAudio(
                     url=f"file://{tmp_file.name}",

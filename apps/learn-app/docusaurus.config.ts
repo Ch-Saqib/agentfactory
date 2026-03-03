@@ -38,7 +38,7 @@ const PROGRESS_API_URL =
 
 // Shorts Generator API URL - lesson shorts generation
 const SHORTS_API_URL =
-  process.env.SHORTS_API_URL || "http://localhost:8003";
+  process.env.SHORTS_API_URL || "http://localhost:8004";
 
 // ChatKit domain key for OpenAI ChatKit (register at OpenAI dashboard for production)
 const CHATKIT_DOMAIN_KEY =

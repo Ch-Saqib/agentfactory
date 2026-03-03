@@ -20,7 +20,7 @@ const getDefaultApiBaseUrl = () => {
     return process.env.SHORTS_API_URL + "/api/v1";
   }
   // Default fallback (should be overridden by components)
-  return "http://localhost:8003/api/v1";
+  return "http://localhost:8004/api/v1";
 };
 
 const DEFAULT_API_BASE_URL = getDefaultApiBaseUrl();

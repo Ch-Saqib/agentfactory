@@ -24,6 +24,7 @@ dependencies = [
     "markdown>=3.7.0",
     "pyyaml>=6.0.0",
     "pillow>=10.0.0",
+    "stable-ts>=2.16.0",
 ]
 
 [dependency-groups]
@@ -63,3 +64,12 @@ strict = false
 warn_return_any = true
 warn_unused_ignores = true
 ignore_missing_imports = true
+
+# Force CPU-only PyTorch (avoids ~2GB NVIDIA CUDA download)
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
