@@ -13,6 +13,9 @@ from ..config import settings
 
 logger = logging.getLogger(__name__)
 
+# Track which users have been synced this session to avoid repeated checks
+_synced_users: set[str] = set()
+
 
 def _check_dev_mode_safety() -> None:
     """Block dev mode in production environment."""
@@ -125,6 +128,21 @@ async def get_current_user(request: Request) -> CurrentUser:
     if settings.dev_mode:
         _check_dev_mode_safety()
 
+        # In dev mode, try JWT first, fall back to X-User-ID
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header[7:]
+            if token.count(".") == 2:
+                try:
+                    payload = await verify_jwt(token)
+                    user = CurrentUser(payload)
+                    # Auto-sync user to database (non-blocking, runs in background)
+                    asyncio.create_task(_ensure_user_synced(user))
+                    return user
+                except Exception:
+                    # JWT verification failed, fall through to X-User-ID
+                    pass
+
         # Dev mode: use X-User-ID header or fallback
         user_id = request.headers.get("X-User-ID") or settings.dev_user_id
         return CurrentUser({"sub": user_id})
@@ -148,7 +166,12 @@ async def get_current_user(request: Request) -> CurrentUser:
         )
 
     payload = await verify_jwt(token)
-    return CurrentUser(payload)
+    user = CurrentUser(payload)
+
+    # Auto-sync user to database (non-blocking, runs in background)
+    asyncio.create_task(_ensure_user_synced(user))
+
+    return user
 
 
 async def get_optional_user(request: Request) -> CurrentUser | None:
@@ -159,6 +182,23 @@ async def get_optional_user(request: Request) -> CurrentUser | None:
     """
     if settings.dev_mode:
         _check_dev_mode_safety()
+
+        # In dev mode, try JWT first, fall back to X-User-ID
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header[7:]
+            if token.count(".") == 2:
+                try:
+                    payload = await verify_jwt(token)
+                    user = CurrentUser(payload)
+                    # Auto-sync user to database (non-blocking, runs in background)
+                    asyncio.create_task(_ensure_user_synced(user))
+                    return user
+                except Exception:
+                    # JWT verification failed, fall through to X-User-ID
+                    pass
+
+        # Dev mode: use X-User-ID header or fallback
         user_id = request.headers.get("X-User-ID") or settings.dev_user_id
         return CurrentUser({"sub": user_id})
 
@@ -172,6 +212,38 @@ async def get_optional_user(request: Request) -> CurrentUser | None:
 
     try:
         payload = await verify_jwt(token)
-        return CurrentUser(payload)
+        user = CurrentUser(payload)
+
+        # Auto-sync user to database (non-blocking, runs in background)
+        asyncio.create_task(_ensure_user_synced(user))
+
+        return user
     except HTTPException:
         return None
+
+
+async def _ensure_user_synced(user: CurrentUser) -> None:
+    """Ensure user exists in progress-api database.
+
+    Runs in background to avoid blocking request handling.
+    Only syncs each user once per server session.
+    """
+    global _synced_users
+
+    # Skip if already synced this session or dev user
+    if user.id in _synced_users or user.id == settings.dev_user_id:
+        return
+
+    try:
+        from .database import ensure_user_exists
+
+        await ensure_user_exists(
+            user_id=user.id,
+            display_name=user.name,
+            email=user.email,
+        )
+        _synced_users.add(user.id)
+        logger.info(f"[Auth] User synced to database: {user.id}")
+    except Exception as e:
+        # Log but don't fail the request
+        logger.warning(f"[Auth] Failed to sync user {user.id}: {e}")

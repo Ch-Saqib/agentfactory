@@ -15,7 +15,7 @@ export function ReviewQueue({ className, onStartReview }: ReviewQueueProps) {
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [data, setData] = useState<ReviewQueueResponse | null>(null);
   const [loading, setLoading] = useState(true);

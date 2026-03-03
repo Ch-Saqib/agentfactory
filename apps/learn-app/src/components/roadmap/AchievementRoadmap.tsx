@@ -56,7 +56,7 @@ export default function AchievementRoadmap({
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [roadmap, setRoadmap] = useState<RoadmapResponse | null>(null);
   const [nodes, setNodes] = useState<Node[]>([]);

@@ -112,11 +112,12 @@ async def _ensure_dev_user_exists() -> None:
         user = result.scalar_one_or_none()
 
         if not user:
-            # Create dev user
+            # Create dev user (hidden from leaderboard)
             dev_user = User(
                 id=settings.dev_user_id,
                 display_name="Dev User",
                 email="dev@example.com",
+                show_on_leaderboard=False,
             )
             session.add(dev_user)
 
@@ -132,6 +133,51 @@ async def _ensure_dev_user_exists() -> None:
 
             await session.commit()
             logger.info(f"[DB] Dev user created: {settings.dev_user_id}")
+
+
+async def ensure_user_exists(
+    user_id: str,
+    display_name: str | None = None,
+    email: str | None = None,
+) -> None:
+    """Ensure a user exists in the database.
+
+    Called when authenticated users interact with the API.
+    Creates the user record if it doesn't exist yet.
+    """
+    from sqlalchemy import select
+
+    from ..models.progress import UserProgress
+    from ..models.user import User
+
+    async with async_session() as session:
+        # Check if user exists
+        result = await session.execute(
+            select(User).where(User.id == user_id)
+        )
+        user = result.scalar_one_or_none()
+
+        if not user:
+            # Create user with provided info or defaults
+            new_user = User(
+                id=user_id,
+                display_name=display_name or "Learner",
+                email=email or f"{user_id}@users.example.com",
+            )
+            session.add(new_user)
+
+            # Create user progress
+            user_progress = UserProgress(
+                user_id=user_id,
+                total_xp=0,
+                current_streak=0,
+                longest_streak=0,
+                badge_count=0,
+            )
+            session.add(user_progress)
+
+            await session.commit()
+            logger.info(f"[DB] User created: {user_id} ({display_name})")
 
 
 async def create_materialized_views() -> None:

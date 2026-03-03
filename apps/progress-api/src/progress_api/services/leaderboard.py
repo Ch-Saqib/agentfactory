@@ -5,6 +5,7 @@ import logging
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from ..config import settings
 from ..core.auth import CurrentUser
 from ..core.cache import (
     get_cached_leaderboard,
@@ -40,10 +41,13 @@ async def get_leaderboard(
     cached = await get_cached_leaderboard(redis)
     logger.debug(f"[Leaderboard] cache {'HIT' if cached is not None else 'MISS'}")
     if cached is not None:
-        # Still need to find current user's rank
+        # Filter out dev user from cached entries
+        filtered_cache = [e for e in cached if e.get("user_id") != settings.dev_user_id]
+
+        # Still need to find current user's rank (but not for dev user)
         current_user_rank = None
-        if user_id:
-            for entry in cached:
+        if user_id and user_id != settings.dev_user_id:
+            for entry in filtered_cache:
                 if entry["user_id"] == user_id:
                     current_user_rank = entry["rank"]
                     break
@@ -52,9 +56,9 @@ async def get_leaderboard(
                 current_user_rank = await _get_user_rank(session, user_id)
 
         return LeaderboardResponse(
-            entries=[LeaderboardEntry(**e) for e in cached],
+            entries=[LeaderboardEntry(**e) for e in filtered_cache],
             current_user_rank=current_user_rank,
-            total_users=len(cached),
+            total_users=len(filtered_cache),
         )
 
     # 2. Query materialized view for top N
@@ -119,6 +123,10 @@ async def get_leaderboard(
     entries = []
     current_user_rank = None
     for row in rows:
+        # Skip dev user from leaderboard entries
+        if row.id == settings.dev_user_id:
+            continue
+
         entry = LeaderboardEntry(
             rank=row.rank,
             user_id=row.id,
@@ -132,8 +140,8 @@ async def get_leaderboard(
         if user_id and row.id == user_id:
             current_user_rank = row.rank
 
-    # 3. If current user not in top N, find their rank separately
-    if user_id and current_user_rank is None:
+    # 3. If current user not in top N, find their rank separately (but not for dev user)
+    if user_id and user_id != settings.dev_user_id and current_user_rank is None:
         current_user_rank = await _get_user_rank(session, user_id)
 
     total_users = len(entries)
@@ -154,7 +162,14 @@ async def get_leaderboard(
 
 
 async def _get_user_rank(session: AsyncSession, user_id: str) -> int | None:
-    """Get a specific user's rank from the materialized view, with live fallback."""
+    """Get a specific user's rank from the materialized view, with live fallback.
+
+    Dev user is explicitly excluded from ranking.
+    """
+    # Dev user should never have a rank
+    if user_id == settings.dev_user_id:
+        return None
+
     result = await session.execute(
         text("SELECT rank FROM leaderboard WHERE id = :user_id"),
         {"user_id": user_id},

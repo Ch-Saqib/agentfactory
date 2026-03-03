@@ -35,7 +35,7 @@ export function KnowledgeCheckpoint({
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [checkpoint, setCheckpoint] = useState<CheckpointResponse | null>(null);
   const [loading, setLoading] = useState(false);

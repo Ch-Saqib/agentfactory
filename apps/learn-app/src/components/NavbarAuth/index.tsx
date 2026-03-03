@@ -21,6 +21,7 @@ import {
   Trophy,
   Zap,
   Flame,
+  BarChart3,
 } from "lucide-react";
 import { useCredits } from "@/hooks/useCredits";
 import { useProgress } from "@/contexts/ProgressContext";
@@ -227,6 +228,12 @@ export function NavbarAuth() {
                 <DropdownMenuSeparator />
               </>
             )}
+            <DropdownMenuItem asChild>
+              <Link to="/progress" className="cursor-pointer flex items-center">
+                <BarChart3 className="mr-2 h-4 w-4" />
+                <span>My Progress</span>
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={handleEditProfile}
               className="cursor-pointer"

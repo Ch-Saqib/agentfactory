@@ -11,7 +11,7 @@
  * If not set, analytics will not load.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { LearnerProfileProvider } from '@/contexts/LearnerProfileContext';
@@ -28,6 +28,26 @@ export default function Root({ children }: { children: React.ReactNode }) {
   const { siteConfig } = useDocusaurusContext();
   const authUrl = (siteConfig.customFields?.authUrl as string) || 'http://localhost:3001';
   const oauthClientId = (siteConfig.customFields?.oauthClientId as string) || 'agent-factory-public-client';
+
+  // Expose dev mode helpers to window for easy testing in browser console
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      (window as any).enableDevMode = (userId: string = 'dev-user-123') => {
+        localStorage.setItem('dev_user_id', userId);
+        console.log(`[Dev Mode] Enabled with user: ${userId}`);
+        window.location.reload();
+      };
+      (window as any).disableDevMode = () => {
+        localStorage.removeItem('dev_user_id');
+        console.log('[Dev Mode] Disabled');
+        window.location.reload();
+      };
+      (window as any).isDevMode = () => {
+        return !!localStorage.getItem('dev_user_id');
+      };
+      console.log('[Dev Mode] Available commands: enableDevMode(), disableDevMode(), isDevMode()');
+    }
+  }, []);
 
   return (
     <AuthProvider authUrl={authUrl} oauthClientId={oauthClientId}>

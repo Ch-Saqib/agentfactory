@@ -92,13 +92,9 @@ export async function getProgress(baseUrl: string): Promise<ProgressResponse> {
 export async function getLeaderboard(
   baseUrl: string,
 ): Promise<LeaderboardResponse> {
-  const headers: Record<string, string> = {};
-  // Send auth if available (for personalized current_user_rank), but don't require it
-  const token = localStorage.getItem("ainative_id_token");
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
-  }
-  const response = await fetch(`${baseUrl}/api/v1/leaderboard`, { headers });
+  const response = await fetch(`${baseUrl}/api/v1/leaderboard`, {
+    headers: getAuthHeaders(),
+  });
   if (!response.ok) {
     throw new Error(`Get leaderboard failed: ${response.status}`);
   }

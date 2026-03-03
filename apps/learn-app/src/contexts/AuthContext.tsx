@@ -103,6 +103,7 @@ export function AuthProvider({
             if (payload) {
               // Token is valid, extract user info from token (no server call needed!)
               const user = extractUserFromToken(payload);
+              localStorage.setItem("ainative_user_id", user.id);
               setSession({ user, accessToken: accessToken || undefined });
               setIsLoading(false);
               return;
@@ -138,6 +139,7 @@ export function AuthProvider({
                   );
                   if (payload) {
                     const verifiedUser = extractUserFromToken(payload);
+                    localStorage.setItem("ainative_user_id", verifiedUser.id);
                     setSession({ user: verifiedUser, accessToken: newToken });
                     setIsLoading(false);
                     return;
@@ -153,6 +155,7 @@ export function AuthProvider({
           }
 
           if (user) {
+            localStorage.setItem("ainative_user_id", user.id);
             setSession({ user, accessToken });
           } else {
             // Both token and refresh failed, clear everything
@@ -181,6 +184,7 @@ export function AuthProvider({
     localStorage.removeItem("ainative_access_token");
     localStorage.removeItem("ainative_refresh_token");
     localStorage.removeItem("ainative_id_token");
+    localStorage.removeItem("ainative_user_id");
 
     // Clear learner profile caches before losing the user id
     try {

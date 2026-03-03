@@ -476,6 +476,11 @@ const config: Config = {
           label: "Progress",
         },
         {
+          to: "/roadmap",
+          position: "left",
+          label: "Roadmap",
+        },
+        {
           to: "/leaderboard",
           position: "left",
           label: "Leaderboard",

@@ -11,8 +11,11 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLocation } from '@docusaurus/router';
 import ContentGate from '@/components/ContentGate';
 import { HighlightTip } from '@/components/HighlightTip';
+import { KnowledgeCheckpoint } from '@/components/checkpoints/KnowledgeCheckpoint';
+import { useCheckpoints } from '@/components/checkpoints/useCheckpoints';
 import styles from './styles.module.css';
 
 interface LessonContentProps {
@@ -95,6 +98,18 @@ export const LessonContent: React.FC<LessonContentProps> = ({
   const [activeTab, setActiveTab] = useState<'lesson' | 'summary'>('lesson');
   const contentRef = useRef<HTMLDivElement>(null);
   const { session, isLoading } = useAuth();
+  const location = useLocation();
+
+  // Extract lesson slug from URL path
+  // Path format: /docs/part-chapter/lesson-slug or similar
+  const lessonSlug = location.pathname.split('/').pop() || '';
+
+  // Enable checkpoints for authenticated users on lesson pages
+  const isLessonPage = /^\/docs\/.+/ .test(location.pathname);
+  const { activeCheckpoint, closeCheckpoint } = useCheckpoints(
+    !!session && isLessonPage,
+    lessonSlug
+  );
 
   const handleTabChange = useCallback((tab: 'lesson' | 'summary') => {
     setActiveTab(tab);
@@ -203,6 +218,16 @@ export const LessonContent: React.FC<LessonContentProps> = ({
           )}
         </div>
       </div>
+
+      {/* Knowledge Checkpoint Modals */}
+      {activeCheckpoint && (
+        <KnowledgeCheckpoint
+          lessonSlug={lessonSlug}
+          positionPct={activeCheckpoint}
+          open={!!activeCheckpoint}
+          onClose={closeCheckpoint}
+        />
+      )}
     </div>
   );
 };

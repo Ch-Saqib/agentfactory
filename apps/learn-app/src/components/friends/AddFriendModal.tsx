@@ -21,7 +21,7 @@ export function AddFriendModal({ onSuccess }: AddFriendModalProps) {
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState("");

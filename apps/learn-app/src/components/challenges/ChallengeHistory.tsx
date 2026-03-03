@@ -24,7 +24,7 @@ export function ChallengeHistory({ className }: ChallengeHistoryProps) {
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [history, setHistory] = useState<ChallengeHistoryResponse | null>(
     null

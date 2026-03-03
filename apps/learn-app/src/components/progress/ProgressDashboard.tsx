@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "@docusaurus/Link";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { BadgeGrid } from "@/components/progress/BadgeCard";
+import DailyChallengeCard from "@/components/challenges/DailyChallengeCard";
+import { FriendList } from "@/components/friends/FriendList";
+import { ReviewQueue } from "@/components/review/ReviewQueue";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import "@/components/progress/gamification.css";
 import styles from "./ProgressDashboard.module.css";
 
@@ -33,6 +37,71 @@ export default function ProgressDashboard() {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>My Progress</h1>
+
+      {/* Daily Challenge Card */}
+      <div className={styles.section}>
+        <DailyChallengeCard />
+      </div>
+
+      {/* Tabbed sections for Friends and Review */}
+      <Tabs defaultValue="chapters" className={styles.section}>
+        <TabsList>
+          <TabsTrigger value="chapters">Chapters</TabsTrigger>
+          <TabsTrigger value="friends">Study Buddies</TabsTrigger>
+          <TabsTrigger value="review">Smart Review</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="chapters">
+          {/* Chapter progress */}
+          <div className={styles.section}>
+            <h2 className={styles.sectionTitle}>Chapter Progress</h2>
+            {(progress?.chapters?.length ?? 0) === 0 ? (
+              <p className={styles.empty}>
+                No chapter activity yet. Take a quiz to get started!
+              </p>
+            ) : (
+              <div className={styles.chapterList}>
+                {progress!.chapters.map((ch) => (
+                  <div key={ch.slug} className={styles.chapterCard}>
+                    <div className={styles.chapterInfo}>
+                      <div className={styles.chapterTitle}>
+                        {ch.title || ch.slug}
+                      </div>
+                      <div className={styles.chapterMeta}>
+                        <span>
+                          Best: {ch.best_score != null ? `${ch.best_score}%` : "—"}
+                        </span>
+                        <span>{ch.xp_earned} XP</span>
+                        <span>
+                          {ch.attempts} attempt{ch.attempts !== 1 ? "s" : ""}
+                        </span>
+                        <span>
+                          {ch.lessons_completed.length} lesson
+                          {ch.lessons_completed.length !== 1 ? "s" : ""}
+                        </span>
+                      </div>
+                    </div>
+                    <div className={styles.progressBar}>
+                      <div
+                        className={styles.progressFill}
+                        style={{ width: `${Math.min(ch.best_score ?? 0, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="friends">
+          <FriendList />
+        </TabsContent>
+
+        <TabsContent value="review">
+          <ReviewQueue />
+        </TabsContent>
+      </Tabs>
 
       {/* Stat cards */}
       <div className={styles.stats}>
@@ -76,45 +145,14 @@ export default function ProgressDashboard() {
         />
       </div>
 
-      {/* Chapter progress */}
+      {/* Link to Roadmap page */}
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Chapter Progress</h2>
-        {(progress?.chapters?.length ?? 0) === 0 ? (
-          <p className={styles.empty}>
-            No chapter activity yet. Take a quiz to get started!
-          </p>
-        ) : (
-          <div className={styles.chapterList}>
-            {progress!.chapters.map((ch) => (
-              <div key={ch.slug} className={styles.chapterCard}>
-                <div className={styles.chapterInfo}>
-                  <div className={styles.chapterTitle}>
-                    {ch.title || ch.slug}
-                  </div>
-                  <div className={styles.chapterMeta}>
-                    <span>
-                      Best: {ch.best_score != null ? `${ch.best_score}%` : "—"}
-                    </span>
-                    <span>{ch.xp_earned} XP</span>
-                    <span>
-                      {ch.attempts} attempt{ch.attempts !== 1 ? "s" : ""}
-                    </span>
-                    <span>
-                      {ch.lessons_completed.length} lesson
-                      {ch.lessons_completed.length !== 1 ? "s" : ""}
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.progressBar}>
-                  <div
-                    className={styles.progressFill}
-                    style={{ width: `${Math.min(ch.best_score ?? 0, 100)}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <Link
+          to="/roadmap"
+          className="no-underline inline-flex items-center gap-2 px-4 py-3 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 transition-all"
+        >
+          <span className="text-sm font-medium">View Full Achievement Roadmap →</span>
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 """Knowledge Checkpoints endpoints."""
 
+import random
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -22,6 +23,91 @@ from ..services.shared import (
 router = APIRouter()
 
 
+# Checkpoint question templates for different positions and contexts
+CHECKPOINT_TEMPLATES = {
+    50: [  # Mid-lesson checkpoints
+        {
+            "question": "Let's check your understanding so far. Which concept from this section resonates most with you?",
+            "options": [
+                "I understand the core concepts well",
+                "I need to review some key ideas",
+                "I'm confused and need clarification",
+            ],
+            "correct_answer": 0,
+            "explanation": "Great that you're engaging with the material! Keeping track of your understanding helps you learn more effectively.",
+        },
+        {
+            "question": "Quick knowledge check: What's the main takeaway from what you've read so far?",
+            "options": [
+                "I can explain it clearly",
+                "I understand the basics",
+                "I'm still processing the information",
+            ],
+            "correct_answer": 0,
+            "explanation": "Being able to articulate key concepts shows strong learning. Keep up the good work!",
+        },
+        {
+            "question": "How confident are you with the material covered up to this point?",
+            "options": [
+                "Very confident - ready to move on",
+                "Somewhat confident - but slowing down",
+                "Not confident - need to re-read",
+            ],
+            "correct_answer": 0,
+            "explanation": "Confidence monitoring is an important part of learning. Adjust your pace based on how you're feeling!",
+        },
+    ],
+    75: [  # Near-end checkpoints
+        {
+            "question": "You're almost done! What's one thing you'll apply from this lesson?",
+            "options": [
+                "I have several ideas in mind",
+                "I'm thinking about how to use this",
+                "Not sure yet, need to finish first",
+            ],
+            "correct_answer": 0,
+            "explanation": "Applying what you learn is key to retention! Great job thinking about practical applications.",
+        },
+        {
+            "question": "Final check: Would you be able to explain this lesson's content to someone else?",
+            "options": [
+                "Yes, I could teach this now",
+                "Mostly, with some notes",
+                "I'd need more practice first",
+            ],
+            "correct_answer": 0,
+            "explanation": "The Feynman Technique says if you can't explain it simply, you don't understand it well enough yet.",
+        },
+        {
+            "question": "How would you rate your comprehension of this lesson overall?",
+            "options": [
+                "Excellent - I've learned a lot",
+                "Good - with some areas to review",
+                "Challenging - but I'm making progress",
+            ],
+            "correct_answer": 0,
+            "explanation": "Self-assessment helps you identify areas where you need more practice. Great job being honest with yourself!",
+        },
+    ],
+}
+
+
+def generate_checkpoint_question(lesson_slug: str, position_pct: int) -> dict:
+    """Generate a contextual checkpoint question for a lesson."""
+    templates = CHECKPOINT_TEMPLATES.get(position_pct, CHECKPOINT_TEMPLATES[50])
+    template = random.choice(templates)
+
+    # Add lesson context to make it feel more personalized
+    lesson_name = lesson_slug.replace("-", " ").replace("_", " ").title()
+
+    return {
+        "question": f"[{lesson_name}] {template['question']}",
+        "options": template["options"],
+        "correct_answer": template["correct_answer"],
+        "explanation": template["explanation"],
+    }
+
+
 @router.get("/checkpoints", response_model=CheckpointResponse)
 async def get_checkpoint(
     lesson_slug: str = Query(..., description="Lesson slug"),
@@ -41,16 +127,12 @@ async def get_checkpoint(
     checkpoint = result.scalar_one_or_none()
 
     if not checkpoint:
-        # Return a default checkpoint if none exists
+        # Generate a contextual checkpoint question
+        question_data = generate_checkpoint_question(lesson_slug, position_pct)
         checkpoint = KnowledgeCheckpoint(
             lesson_slug=lesson_slug,
             position_pct=position_pct,
-            question_data={
-                "question": "Are you ready to test your understanding?",
-                "options": ["Yes, let's continue!", "I need to review this section"],
-                "correct_answer": 0,
-                "explanation": "Great! Keep up the good work.",
-            },
+            question_data=question_data,
             xp_bonus=5,
         )
         session.add(checkpoint)

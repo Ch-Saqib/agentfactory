@@ -14,7 +14,7 @@ export function FriendsLeaderboard({ className }: FriendsLeaderboardProps) {
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [data, setData] = useState<FriendsLeaderboardResponse | null>(null);
   const [loading, setLoading] = useState(true);

@@ -14,7 +14,7 @@ export function FriendList({ className }: FriendListProps) {
   const { siteConfig } = useDocusaurusContext();
   const progressApiUrl =
     (siteConfig.customFields?.progressApiUrl as string) ||
-    "http://localhost:8001";
+    "http://localhost:8002";
 
   const [data, setData] = useState<FriendListResponse | null>(null);
   const [loading, setLoading] = useState(true);
