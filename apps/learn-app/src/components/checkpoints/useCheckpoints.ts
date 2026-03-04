@@ -7,13 +7,19 @@ interface CheckpointTrigger {
 
 export function useCheckpoints(enabled: boolean, lessonSlug: string) {
   const [activeCheckpoint, setActiveCheckpoint] = useState<number | null>(null);
-  const checkpointsRef = useRef<CheckpointTrigger[]>([
-    { position: 50, triggered: false },
-    { position: 75, triggered: false },
-  ]);
+  // Use a ref to track checkpoints per lesson
+  const lessonCheckpointsRef = useRef<Map<string, CheckpointTrigger[]>>(new Map());
 
   useEffect(() => {
     if (!enabled) return;
+
+    // Initialize or reset checkpoints for this lesson
+    if (!lessonCheckpointsRef.current.has(lessonSlug)) {
+      lessonCheckpointsRef.current.set(lessonSlug, [
+        { position: 50, triggered: false },
+        { position: 75, triggered: false },
+      ]);
+    }
 
     const handleScroll = () => {
       const scrollHeight = document.documentElement.scrollHeight;
@@ -25,8 +31,12 @@ export function useCheckpoints(enabled: boolean, lessonSlug: string) {
         ((scrollTop + clientHeight) / scrollHeight) * 100
       );
 
+      // Get checkpoints for this lesson
+      const checkpoints = lessonCheckpointsRef.current.get(lessonSlug);
+      if (!checkpoints) return;
+
       // Check if we've passed any checkpoint thresholds
-      checkpointsRef.current.forEach((checkpoint) => {
+      checkpoints.forEach((checkpoint) => {
         if (
           !checkpoint.triggered &&
           scrollPercent >= checkpoint.position

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useProgress } from "@/contexts/ProgressContext";
 import "@/components/progress/gamification.css";
 
 interface KnowledgeCheckpointProps {
@@ -43,6 +44,7 @@ export function KnowledgeCheckpoint({
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<CheckpointAnswerResponse | null>(null);
 
+  const { refreshProgress } = useProgress();
   const hasShownRef = useRef(false);
 
   useEffect(() => {
@@ -76,6 +78,11 @@ export function KnowledgeCheckpoint({
       });
       setResult(data);
       onAnswered?.(data.correct);
+
+      // Refresh progress to update XP display if answer was correct
+      if (data.correct && data.xp_awarded > 0) {
+        await refreshProgress();
+      }
     } catch (err) {
       console.error("Failed to submit answer:", err);
     } finally {

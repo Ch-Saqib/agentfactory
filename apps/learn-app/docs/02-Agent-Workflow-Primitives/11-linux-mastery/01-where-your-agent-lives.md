@@ -97,6 +97,37 @@ teaching_guide:
     - "Name two things a server has that a laptop doesn't (answer: 24/7 uptime, internet connection without user present)"
     - "What directory would you find Ali's files in? (answer: /home/ali or /home/dev)"
     - "What is the difference between a terminal and a shell?"
+
+# KNOWLEDGE CHECKPOINT QUESTIONS
+# These questions appear during reading to test understanding at 50% and 75% scroll positions
+checkpoint_questions:
+  - position_pct: 50
+    question: "What is the main difference between a server and a laptop for running AI agents?"
+    options:
+      - "Servers run 24/7 with internet connection, laptops sleep when closed"
+      - "Servers have more processing power than laptops"
+      - "Servers are located in the same building as the developer"
+      - "Servers require special software that laptops don't need"
+    correct_answer: 0
+    explanation: "Servers run continuously without sleeping, ensuring your agents stay active and responsive. Laptops sleep when closed, which would stop any running agents."
+  - position_pct: 75
+    question: "In Linux, what does the / (root) directory represent?"
+    options:
+      - "The starting point of the entire filesystem tree"
+      - "A temporary storage location for files"
+      - "The user's home directory"
+      - "A system configuration directory"
+    correct_answer: 0
+    explanation: "The / directory is the root of the entire filesystem tree. All other directories and files branch from this single starting point."
+  - position_pct: 50
+    question: "What does SSH provide when connecting to a remote server?"
+    options:
+      - "A secure encrypted tunnel for communication"
+      - "A graphical desktop interface"
+      - "File transfer only"
+      - "Automatic backup services"
+    correct_answer: 0
+    explanation: "SSH (Secure Shell) creates an encrypted tunnel between your computer and the server, allowing secure command-line access."
 ---
 
 # Where Your Agent Lives

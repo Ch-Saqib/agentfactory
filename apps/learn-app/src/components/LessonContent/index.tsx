@@ -101,8 +101,13 @@ export const LessonContent: React.FC<LessonContentProps> = ({
   const location = useLocation();
 
   // Extract lesson slug from URL path
-  // Path format: /docs/part-chapter/lesson-slug or similar
-  const lessonSlug = location.pathname.split('/').pop() || '';
+  // Path format: /docs/part-chapter/lesson-slug
+  // We need the full path after /docs/ to match the lesson file location
+  const pathParts = location.pathname.split('/');
+  const docsIndex = pathParts.indexOf('docs');
+  const lessonSlug = docsIndex !== -1 && pathParts.length > docsIndex + 1
+    ? pathParts.slice(docsIndex + 1).join('/')
+    : pathParts.pop() || '';
 
   // Enable checkpoints for authenticated users on lesson pages
   const isLessonPage = /^\/docs\/.+/ .test(location.pathname);
