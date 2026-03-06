@@ -1,15 +1,14 @@
 """Main FastAPI application for Lesson Shorts Generator."""
 
-import asyncio
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from shorts_generator.core.config import settings
 from shorts_generator.database.connection import _create_engine
-from shorts_generator.models import Base
+from shorts_generator.database.models import Base
 
 
 @asynccontextmanager
@@ -19,7 +18,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     Handles startup and shutdown events.
     """
     # Startup
-    print(f"🚀 Starting Lesson Shorts Generator v0.1.0")
+    print("🚀 Starting Lesson Shorts Generator v0.1.0")
     print(f"📝 Gemini Model: {settings.gemini_model}")
     print(f"🔊 TTS Voice: {settings.edge_tts_voice}")
     print(f"💰 Max cost per video: ${settings.max_cost_per_video:.4f}")
@@ -81,14 +80,16 @@ app.add_middleware(
 
 # Health check is handled by status.router at /api/v1/health
 # Import and include routes
-from shorts_generator.routes import (
+from shorts_generator.routes import (  # noqa: E402
     analytics,
     automation,
     batch,
     cost_monitor,
+    daily_automation,
     engagement,
     generate,
     recommendations,
+    shorts,
     status,
 )
 
@@ -100,6 +101,8 @@ app.include_router(analytics.router)
 app.include_router(recommendations.router)
 app.include_router(cost_monitor.router)
 app.include_router(automation.router)
+app.include_router(daily_automation.router)  # New daily automation API
+app.include_router(shorts.router)
 
 
 # Root endpoint
@@ -112,6 +115,10 @@ async def root():
         "description": "Automated short video generation from lesson content",
         "endpoints": {
             "health": "/api/v1/health",
+            "shorts_health": "/api/v1/shorts/health",
+            "generate_short": "POST /api/v1/shorts/generate/from-markdown",
+            "job_status": "GET /api/v1/shorts/jobs/{job_id}",
+            "list_videos": "GET /api/v1/shorts/videos",
             "docs": "/docs",
             "redoc": "/redoc",
         },

@@ -1,7 +1,7 @@
 """Configuration settings for Lesson Shorts Generator."""
 
-import os
 from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -81,8 +81,22 @@ class Settings(BaseSettings):
     replicate_api_key: str = ""
     flux_model: str = "black-forest-labs/flux-schnell"
 
-    # Edge-TTS
+    # Edge-TTS (free alternative)
     edge_tts_voice: str = "en-US-AriaNeural"
+
+    # Google Cloud TTS
+    # Path to service account credentials JSON file
+    # Get from: https://console.cloud.google.com/iam-admin/serviceaccounts
+    google_cloud_credentials_path: str = ""
+    google_project_id: str = ""
+    # TTS provider: "edge_tts" (free) or "google_tts" (paid, better timing)
+    tts_provider: str = "edge_tts"
+    # Google Cloud TTS voice preset (narration_male, narration_female, news, casual, dramatic)
+    google_tts_voice_preset: str = "narration_male"
+    # Google Cloud TTS encoding (MP3, WAV, OGG_OPUS)
+    google_tts_encoding: str = "MP3"
+    # Google Cloud TTS sample rate (16000, 24000, 48000)
+    google_tts_sample_rate: int = 24000
 
     # PostgreSQL (format: postgresql://user:password@host/database)
     shorts_database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/shorts"
@@ -117,6 +131,25 @@ class Settings(BaseSettings):
     target_duration: int = 60
     max_duration: int = 90
     num_scenes: int = 3
+
+    # Frame Generation Settings
+    # Video dimensions (9:16 aspect ratio for vertical video)
+    video_width: int = 1080
+    video_height: int = 1920
+    video_fps: int = 30
+    # Colors (hex format)
+    video_bg_color: str = "#1a1a2e"  # Dark blue-black
+    video_text_color: str = "#ffffff"  # White
+    video_accent_color: str = "#0f3460"  # Dark blue
+    # Font settings
+    video_title_font_size: int = 80
+    video_content_font_size: int = 48
+    video_font_path: str = ""  # Empty = use system default
+    # Animation settings
+    video_fade_duration: float = 0.5  # Fade in/out duration in seconds
+    # Text settings
+    video_max_line_width: int = 980  # Max text width in pixels
+    video_line_spacing: float = 1.5  # Line spacing multiplier
 
     @property
     def allowed_origins_list(self) -> list[str]:
