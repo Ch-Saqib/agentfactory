@@ -58,6 +58,14 @@ KARAOKE_MAX_WORDS_PER_GROUP = 5  # was 7
 KARAOKE_MAX_GROUP_DURATION = 2.0  # was 2.8s
 KARAOKE_MAX_GROUP_CHARS = 48  # CAPTION_LINE_CHARS × CAPTION_MAX_LINES
 
+# Word-popup mode — 1-3 words at a time, each replacing the previous
+POPUP_MAX_WORDS = 3
+POPUP_MAX_CHARS = 25
+POPUP_FONT_SIZE = 80  # larger since only a few words visible at once
+POPUP_ANIMATION_VARIANTS = 3
+POPUP_SCALE_DURATION_MS = 150  # pop-in duration
+POPUP_FADE_OUT_MS = 100  # quick fade-out for snappy transitions
+
 
 @dataclass
 class AssembledVideo:
@@ -389,7 +397,7 @@ class VideoAssembler:
             return (f"{{\\fad({fade_in_ms},{fade_out_ms})"
                     f"\\c&H00FFFF&\\t(0,{fade_in_ms},\\c&HFFFFFF&)}}")
 
-    def _ass_header(self, *, karaoke: bool = False) -> list[str]:
+    def _ass_header(self, *, karaoke: bool = False, popup: bool = False) -> list[str]:
         """Build the [Script Info] + [V4+ Styles] header for ASS files."""
         ass: list[str] = []
         ass.append("[Script Info]")
@@ -406,7 +414,15 @@ class VideoAssembler:
             "ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
             "Alignment, MarginL, MarginR, MarginV, Encoding"
         )
-        if karaoke:
+        if popup:
+            # Word-popup: large bold white, strong outline+shadow, center-center (Alignment 5)
+            ass.append(
+                "Style: Default,Arial Bold,"
+                f"{POPUP_FONT_SIZE},"
+                "&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,"
+                "-1,0,0,0,100,100,2,0,1,6,4,5,80,80,200,1"
+            )
+        elif karaoke:
             # Karaoke: Primary = highlight (electric yellow), Secondary = base white
             # BorderStyle 1 = outline+shadow (cleaner than opaque box)
             ass.append(
@@ -556,6 +572,122 @@ class VideoAssembler:
             )
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".ass", mode="w", encoding="utf-8") as tmp:
+            tmp.write("\n".join(ass))
+            tmp.flush()
+            return tmp.name
+
+    def _build_ass_word_popup_file(
+        self,
+        word_timings: list[dict[str, Any]],
+        variant: int = 0,
+        seed_int: int = 0,
+    ) -> str:
+        """Build a word-by-word popup ASS subtitle file.
+
+        Each 1-3 word chunk gets its own Dialogue event with exact start/end
+        times from word boundary data.  Text pops in with a scale animation
+        and disappears before the next chunk appears — sync is guaranteed by
+        construction since each chunk only exists during its spoken window.
+        """
+        # ── Normalize word timings ──────────────────────────────────
+        tokens: list[dict[str, Any]] = []
+        for wt in word_timings:
+            w = str(wt.get("word") or "").strip()
+            if not w:
+                continue
+            start = float(wt.get("start") or 0.0)
+            end = float(wt.get("end") or start)
+            if end <= start:
+                end = start + 0.15
+            tokens.append({"word": w, "start": start, "end": end})
+
+        if not tokens:
+            with tempfile.NamedTemporaryFile(
+                delete=False, suffix=".ass", mode="w", encoding="utf-8"
+            ) as tmp:
+                tmp.write("")
+                tmp.flush()
+                return tmp.name
+
+        # ── Group words into 1-3 word chunks ───────────────────────
+        groups: list[list[dict[str, Any]]] = []
+        current: list[dict[str, Any]] = []
+
+        for tok in tokens:
+            if not current:
+                current.append(tok)
+                continue
+
+            candidate_text = " ".join(x["word"] for x in (current + [tok]))
+            if (
+                len(current) >= POPUP_MAX_WORDS
+                or len(candidate_text) > POPUP_MAX_CHARS
+            ):
+                groups.append(current)
+                current = [tok]
+            else:
+                current.append(tok)
+
+        if current:
+            groups.append(current)
+
+        # ── Pick animation variant (deterministic per video) ───────
+        anim = (seed_int + variant) % POPUP_ANIMATION_VARIANTS
+        pop_ms = POPUP_SCALE_DURATION_MS
+        fade_out = POPUP_FADE_OUT_MS
+
+        # ── Build ASS dialogue events ──────────────────────────────
+        ass = self._ass_header(popup=True)
+
+        for i, group in enumerate(groups):
+            g_start = float(group[0]["start"])
+            g_end = float(group[-1]["end"])
+
+            # Ensure minimum visible duration (at least 200ms)
+            if g_end - g_start < 0.20:
+                g_end = g_start + 0.20
+
+            text = " ".join(self._ass_escape(g["word"]) for g in group)
+            text = text.upper()  # all-caps for impact, like reference video
+
+            # Build animation override tag
+            if anim == 0:
+                # Scale Pop: 0 → 105% → 100%
+                t1 = pop_ms
+                t2 = pop_ms + 50
+                tag = (
+                    f"{{\\fscx0\\fscy0"
+                    f"\\t(0,{t1},\\fscx105\\fscy105)"
+                    f"\\t({t1},{t2},\\fscx100\\fscy100)"
+                    f"\\fad(0,{fade_out})}}"
+                )
+            elif anim == 1:
+                # Slide Up Pop: move from 60px below to center + fade out
+                cx = VIDEO_WIDTH // 2
+                cy = int(VIDEO_HEIGHT * 0.58)
+                tag = (
+                    f"{{\\move({cx},{cy + 60},{cx},{cy},0,{pop_ms})"
+                    f"\\fad(0,{fade_out})}}"
+                )
+            else:
+                # Bounce Pop: 0 → 115% → 100%
+                t1 = int(pop_ms * 0.65)
+                t2 = pop_ms
+                tag = (
+                    f"{{\\fscx0\\fscy0"
+                    f"\\t(0,{t1},\\fscx115\\fscy115)"
+                    f"\\t({t1},{t2},\\fscx100\\fscy100)"
+                    f"\\fad(0,{fade_out})}}"
+                )
+
+            ass.append(
+                f"Dialogue: 0,{self._ass_time(g_start)},{self._ass_time(g_end)},"
+                f"Default,,0,0,0,,{tag}{text}"
+            )
+
+        with tempfile.NamedTemporaryFile(
+            delete=False, suffix=".ass", mode="w", encoding="utf-8"
+        ) as tmp:
             tmp.write("\n".join(ass))
             tmp.flush()
             return tmp.name
@@ -1005,14 +1137,14 @@ class VideoAssembler:
                 # Add text overlay for captions (if available)
                 ass_path: str | None = None
 
-                # 1) Best: karaoke using word boundary timings from TTS.
+                # 1) Best: word-by-word popup using word boundary timings.
                 if getattr(audio, "word_timings", None):
-                    ass_path = self._build_ass_karaoke_file(
+                    ass_path = self._build_ass_word_popup_file(
                         audio.word_timings or [],
                         variant=caption_variant,
                         seed_int=caption_seed,
                     )
-                    logger.info("Added karaoke captions via ASS word timings")
+                    logger.info("Added word-popup captions via ASS word timings")
                 # 2) Fallback: scene/SRT-level ASS captions.
                 elif caption_texts:
                     ass_path = self._build_ass_subtitles_file(

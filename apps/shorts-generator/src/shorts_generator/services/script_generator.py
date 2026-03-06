@@ -321,8 +321,16 @@ Generate an engaging script for a short video from this lesson:
 - Total duration must be approximately {target_duration} seconds
 - Each section's duration must sum correctly
 - Hook MUST be provocative (e.g., "Did you know...", "Here's why...", "The truth about...")
-- CTA must include: "Read the full lesson at [link]"
+- CTA must say something like "Check out the full lesson to learn more" (natural, spoken language)
 - Visual descriptions should be specific enough for AI image generation (e.g., "Futuristic AI brain network with glowing purple and blue neural connections on dark background")
+- CRITICAL: The "text" fields will be read aloud by a text-to-speech engine. They MUST contain ONLY natural spoken English:
+  - NO slashes (write "or" instead of "/")
+  - NO brackets, parentheses, or square brackets
+  - NO URLs or links
+  - NO markdown formatting (no *, #, `, etc.)
+  - NO code syntax, file paths, or technical notation
+  - NO abbreviations that sound odd when spoken (spell them out)
+  - Write exactly how a human narrator would say it
 
 Respond with ONLY the JSON object, nothing else:"""
 
@@ -680,33 +688,75 @@ Keep all descriptions brief. Respond with ONLY raw JSON."""
 
         return deviation <= tolerance_seconds
 
+    @staticmethod
+    def _sanitize_for_speech(text: str) -> str:
+        """Strip non-speakable artefacts so TTS receives clean text.
+
+        Removes markdown, URLs, brackets, slashes-between-words, and
+        other formatting that would be read aloud literally.
+        """
+        t = text
+
+        # Remove markdown bold/italic markers
+        t = re.sub(r'\*{1,3}', '', t)
+
+        # Remove markdown headers (# ## ###)
+        t = re.sub(r'^#{1,6}\s*', '', t, flags=re.MULTILINE)
+
+        # Remove markdown links [text](url) -> text
+        t = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', t)
+
+        # Remove raw URLs (http:// or https://)
+        t = re.sub(r'https?://\S+', '', t)
+
+        # Remove square-bracket placeholders like [link], [code], etc.
+        t = re.sub(r'\[[^\]]*\]', '', t)
+
+        # Remove parenthetical asides like (e.g., ...)
+        t = re.sub(r'\([^)]{0,60}\)', '', t)
+
+        # Replace slash-separated words like "API/webhook" -> "API or webhook"
+        t = re.sub(r'(\w)/(\w)', r'\1 or \2', t)
+
+        # Remove stray backticks
+        t = t.replace('`', '')
+
+        # Remove stray angle brackets
+        t = re.sub(r'[<>]', '', t)
+
+        # Collapse whitespace
+        t = re.sub(r'\s+', ' ', t).strip()
+
+        return t
+
     def format_for_tts(self, script: GeneratedScript) -> str:
         """Format script for text-to-speech generation.
 
-        Combines all scenes into a single text with pause indicators.
+        Combines all scenes into a single text, sanitized for TTS.
 
         Args:
             script: Generated script
 
         Returns:
-            Formatted text for TTS
+            Clean spoken text for TTS
         """
         parts = []
 
         # Hook
-        parts.append(f"{script.hook.text}")
+        parts.append(script.hook.text)
 
         # Concepts
         for concept in script.concepts:
-            parts.append(f"{concept.text}")
+            parts.append(concept.text)
 
         # Example
-        parts.append(f"{script.example.text}")
+        parts.append(script.example.text)
 
         # CTA
-        parts.append(f"{script.cta.text}")
+        parts.append(script.cta.text)
 
-        return " ".join(parts)
+        raw = " ".join(parts)
+        return self._sanitize_for_speech(raw)
 
     def get_script_text(self, script: GeneratedScript) -> str:
         """Get the full script as formatted text.
