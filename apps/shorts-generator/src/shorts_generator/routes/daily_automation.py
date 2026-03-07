@@ -119,35 +119,52 @@ async def trigger_generation(background_tasks: BackgroundTasks) -> dict[str, Any
     # Generate a unique job ID for this trigger
     job_id = f"manual-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid4().hex[:6]}"
 
+    print(f"\n{'='*60}")
+    print(f"🎬 [TRIGGER] Manual generation requested")
+    print(f"🆔 [TRIGGER] job_id={job_id}")
+    print(f"📍 [TRIGGER] Status endpoint: /api/v1/status/{job_id}")
+    print(f"{'='*60}")
     logger.info(f"=== POST /api/v1/daily/trigger - Manual generation triggered | job_id={job_id} ===")
 
     # Define the background task
     async def run_generation():
         """Run generation in background and update job status."""
+        print(f"\n⏳ [{job_id}] Background task STARTED")
         logger.info(f"[{job_id}] Background task started")
         try:
             # Pass the job_id through to ensure consistency
+            print(f"📞 [{job_id}] Calling trigger_daily_generation()...")
             result = await trigger_daily_generation(job_id=job_id)
+            print(f"📥 [{job_id}] Result received: success={result.get('success')}")
 
             if result.get("success"):
+                print(f"✅ [{job_id}] Generation SUCCEEDED")
+                print(f"   ├─ chapter_id: {result.get('chapter_id')}")
+                print(f"   ├─ video_id: {result.get('video_id')}")
+                print(f"   └─ video_url: {result.get('video_url', 'N/A')}")
                 logger.info(
                     f"[{job_id}] Generation succeeded | "
                     f"chapter_id={result.get('chapter_id')} "
                     f"video_id={result.get('video_id')}"
                 )
             else:
+                print(f"❌ [{job_id}] Generation FAILED")
+                print(f"   └─ error: {result.get('error', result.get('message', 'unknown'))}")
                 logger.warning(
                     f"[{job_id}] Generation failed | "
                     f"error={result.get('error', result.get('message', 'unknown'))}"
                 )
         except Exception as e:
+            print(f"💥 [{job_id}] Background task EXCEPTION: {e}")
             logger.error(
                 f"[{job_id}] Background task failed: {e}",
                 exc_info=True,
             )
 
     # Add task to background
+    print(f"➕ [{job_id}] Adding to background tasks...")
     background_tasks.add_task(run_generation)
+    print(f"✅ [{job_id}] Background task scheduled, returning response to client")
 
     # Return immediately with job_id
     return {

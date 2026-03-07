@@ -1,5 +1,6 @@
 """Job status and tracking endpoints."""
 
+import json
 import logging
 from typing import Any
 
@@ -16,6 +17,19 @@ from shorts_generator.services.storage import storage_service
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1", tags=["Status"])
+
+
+def _parse_result_data(result_data: Any) -> dict[str, Any] | None:
+    """Parse result_data from JSON string to dict if needed."""
+    if not result_data:
+        return None
+    try:
+        if isinstance(result_data, str):
+            return json.loads(result_data)
+        return result_data
+    except (json.JSONDecodeError, TypeError):
+        logger.warning(f"Could not parse result_data: {result_data}")
+        return None
 
 
 class JobStatusResponse(BaseModel):
@@ -82,31 +96,49 @@ async def get_job_status(
     Raises:
         HTTPException: If job_id not found
     """
-    # Query by job_id field, not id field
-    result = await session.execute(
-        select(GenerationJob).where(GenerationJob.job_id == job_id)
-    )
-    job = result.scalar_one_or_none()
+    logger.info(f"🔍 [STATUS] Fetching job status for job_id={job_id}")
 
-    if not job:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Job not found: {job_id}",
+    try:
+        # Query by job_id field, not id field
+        logger.debug(f"🔍 [STATUS] Executing database query...")
+        result = await session.execute(
+            select(GenerationJob).where(GenerationJob.job_id == job_id)
+        )
+        job = result.scalar_one_or_none()
+        logger.debug(f"🔍 [STATUS] Query completed, job found: {job is not None}")
+
+        if not job:
+            logger.warning(f"❌ [STATUS] Job not found: {job_id}")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Job not found: {job_id}",
+            )
+
+        response = JobStatusResponse(
+            id=job.id,
+            job_id=job.job_id,
+            type=job.type,
+            status=job.status,
+            chapter_id=job.chapter_id,
+            progress=job.progress,
+            error_message=job.error_message,
+            created_at=job.created_at.isoformat() if job.created_at else "",
+            started_at=job.started_at.isoformat() if job.started_at else None,
+            completed_at=job.completed_at.isoformat() if job.completed_at else None,
+            result_data=_parse_result_data(job.result_data),
         )
 
-    return JobStatusResponse(
-        id=job.id,
-        job_id=job.job_id,
-        type=job.type,
-        status=job.status,
-        chapter_id=job.chapter_id,
-        progress=job.progress,
-        error_message=job.error_message,
-        created_at=job.created_at.isoformat() if job.created_at else "",
-        started_at=job.started_at.isoformat() if job.started_at else None,
-        completed_at=job.completed_at.isoformat() if job.completed_at else None,
-        result_data=job.result_data,
-    )
+        logger.info(f"✅ [STATUS] Job {job_id} - status={job.status}, progress={job.progress}%")
+        return response
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ [STATUS] Error fetching job {job_id}: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error fetching job status: {str(e)}",
+        )
 
 
 @router.get("/jobs", response_model=JobsListResponse)
@@ -176,7 +208,7 @@ async def list_jobs(
                 created_at=job.created_at.isoformat() if job.created_at else "",
                 started_at=job.started_at.isoformat() if job.started_at else None,
                 completed_at=job.completed_at.isoformat() if job.completed_at else None,
-                result_data=job.result_data,
+                result_data=_parse_result_data(job.result_data),
             )
             for job in jobs
         ],
@@ -213,13 +245,13 @@ async def get_video_metadata(
 
     return VideoMetadataResponse(
         video_id=str(video.id),
-        lesson_path=video.lesson_path,
-        title=video.title,
-        duration_seconds=video.duration_seconds,
+        lesson_path=video.chapter_id,
+        title=video.chapter_title,
+        duration_seconds=int(video.duration_seconds),
         video_url=video.video_url,
-        thumbnail_url=video.thumbnail_url,
+        thumbnail_url=video.thumbnail_url or "",
         created_at=video.created_at.isoformat() if video.created_at else "",
-        generation_cost=float(video.generation_cost) if video.generation_cost else 0.0,
+        generation_cost=0.0,  # Not tracked in Video model
     )
 
 
@@ -259,13 +291,13 @@ async def list_videos(
     return [
         VideoMetadataResponse(
             video_id=str(video.id),
-            lesson_path=video.lesson_path,
-            title=video.title,
-            duration_seconds=video.duration_seconds,
+            lesson_path=video.chapter_id,
+            title=video.chapter_title,
+            duration_seconds=int(video.duration_seconds),
             video_url=video.video_url,
-            thumbnail_url=video.thumbnail_url,
+            thumbnail_url=video.thumbnail_url or "",
             created_at=video.created_at.isoformat() if video.created_at else "",
-            generation_cost=float(video.generation_cost) if video.generation_cost else 0.0,
+            generation_cost=0.0,  # Not tracked in Video model
         )
         for video in videos
     ]
@@ -462,7 +494,7 @@ async def retry_job(
         created_at=job.created_at.isoformat() if job.created_at else "",
         started_at=job.started_at.isoformat() if job.started_at else None,
         completed_at=job.completed_at.isoformat() if job.completed_at else None,
-        result_data=job.result_data,
+        result_data=_parse_result_data(job.result_data),
     )
 
 

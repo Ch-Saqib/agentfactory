@@ -477,7 +477,7 @@ export default function ShortsPage() {
                 muted={muted}
                 onPlay={() => handlePlay(activeVideo)}
                 onPause={() => handlePause(activeVideo)}
-                onTimeChange={(e) =>
+                onTimeUpdate={(e) =>
                   handleTimeUpdate(
                     activeVideo,
                     e.currentTarget.currentTime,

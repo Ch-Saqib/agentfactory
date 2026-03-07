@@ -321,11 +321,18 @@ class DatabaseManager:
             response_data = []
             for video in videos:
                 video_dict = VideoResponse.model_validate(video).model_dump()
-                # Add analytics if available
+                # Add analytics if available (analytics is a one-to-many relationship)
                 if video.analytics:
-                    video_dict["views"] = video.analytics.views
-                    video_dict["likes"] = video.analytics.likes
-                    video_dict["comments"] = video.analytics.comments
+                    # Use the first/most recent analytics entry
+                    analytics = video.analytics[0]
+                    video_dict["views"] = analytics.views
+                    video_dict["likes"] = analytics.likes
+                    video_dict["comments"] = analytics.comments
+                else:
+                    # Set defaults if no analytics
+                    video_dict["views"] = 0
+                    video_dict["likes"] = 0
+                    video_dict["comments"] = 0
 
                 response_data.append(video_dict)
 

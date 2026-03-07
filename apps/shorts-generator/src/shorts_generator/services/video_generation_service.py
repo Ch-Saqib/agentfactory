@@ -38,6 +38,8 @@ from shorts_generator.services.google_tts_audio import (
     GoogleTTSResult,
 )
 from shorts_generator.services.markdown_parser import MarkdownParser
+from shorts_generator.services.script_generator import ScriptGenerator
+from shorts_generator.services.content_extractor import ContentExtractor, Concept, CodeBlock, LessonContent
 from shorts_generator.services.r2_uploader import R2Uploader
 from shorts_generator.services.video_composer import VideoComposer
 
@@ -161,20 +163,55 @@ class VideoGenerationService:
             temp_dir = self.output_dir / chapter_id
             temp_dir.mkdir(parents=True, exist_ok=True)
 
-            # Step 1: Parse markdown
+            # Step 1: Parse markdown and generate AI summary script
             await self._report_progress(
-                progress_callback, "parse_markdown", 10, "Parsing markdown content"
+                progress_callback, "parse_markdown", 10, "Parsing markdown and generating summary"
             )
 
+            # Parse markdown for basic info
             parser = MarkdownParser()
             parsed = parser.parse_content(markdown_content)
 
-            # Derive sections from content paragraphs
-            sections = [s.strip() for s in parsed.content.split("\n\n") if s.strip()]
+            # Create LessonContent from markdown for script generator
+            extractor = ContentExtractor()
+            frontmatter, body = extractor.parse_frontmatter(markdown_content)
+
+            # Extract key concepts from the lesson
+            all_concepts = extractor.extract_headings(body)
+            concepts_with_content = extractor.extract_concept_content(body, all_concepts)
+            key_concepts = extractor.extract_key_concepts(concepts_with_content)
+
+            # Create LessonContent object
+            lesson_content = LessonContent(
+                lesson_path=chapter_id,
+                frontmatter=frontmatter,
+                body=body,
+                title=parsed.title or chapter_title,
+                concepts=key_concepts,
+                code_blocks=extractor.extract_code_blocks(body),
+                difficulty_level=extractor.detect_difficulty_level(frontmatter),
+                word_count=parsed.word_count,
+                is_suitable_for_short=True,
+            )
+
+            # Generate AI summary script using Gemini
+            logger.info(f"🤖 Generating AI summary for: {parsed.title} (full lesson: {parsed.word_count} words)")
+            script_generator = ScriptGenerator()
+            generated_script = await script_generator.generate_script(
+                lesson=lesson_content,
+                target_duration=60,  # 60 seconds target
+            )
+
+            # Format script for TTS
+            excerpt_content = script_generator.format_for_tts(generated_script)
+            excerpt_word_count = len(excerpt_content.split())
+
+            # Derive sections from script scenes (for frame generation)
+            sections = [s.strip() for s in excerpt_content.split(". ") if s.strip()]
 
             logger.info(
-                f"Parsed markdown: {parsed.title}, "
-                f"{len(sections)} sections, {parsed.word_count} words"
+                f"✅ AI summary generated: {excerpt_word_count} words (~{excerpt_word_count/150*60:.0f}s) "
+                f"from {parsed.word_count} word lesson"
             )
 
             # Step 2: Generate audio with word-level timing
@@ -189,7 +226,7 @@ class VideoGenerationService:
 
             logger.info(
                 f"Starting TTS audio generation with voice: {voice}, "
-                f"text length: {len(parsed.content)} chars"
+                f"text length: {len(excerpt_content)} chars"
             )
 
             # Generate audio — EdgeTTSGenerator is async, GoogleCloudTTSGenerator is sync
@@ -207,7 +244,7 @@ class VideoGenerationService:
                     logger.warning(f"Connectivity check skipped due to error: {e}")
 
                 tts_result: GoogleTTSResult = await self.tts_generator.generate(
-                    text=parsed.content,
+                    text=excerpt_content,
                     speaking_rate=1.0,
                     pitch=0.0,
                     custom_voice=voice,
@@ -218,7 +255,7 @@ class VideoGenerationService:
                 logger.info("Using GoogleCloudTTSGenerator (sync wrapper)")
                 tts_result: GoogleTTSResult = await asyncio.to_thread(
                     self.tts_generator.generate,
-                    text=parsed.content,
+                    text=excerpt_content,
                     speaking_rate=1.0,
                     pitch=0.0,
                     custom_voice=voice,
@@ -271,8 +308,9 @@ class VideoGenerationService:
 
             if use_word_sync:
                 # Word-by-word animation (karaoke style)
-                frames_result = self.frame_generator.generate_content_frames_word_sync(
-                    content=parsed.content,
+                frames_result = await asyncio.to_thread(
+                    self.frame_generator.generate_content_frames_word_sync,
+                    content=excerpt_content,
                     word_timings=tts_result.word_timings,
                     start_time=0.0,
                     end_time=tts_result.duration_seconds,
@@ -281,7 +319,8 @@ class VideoGenerationService:
             else:
                 # Scrolling text animation
                 full_content = "\n\n".join(sections)
-                frames_result = self.frame_generator.generate_content_frames_scrolling(
+                frames_result = await asyncio.to_thread(
+                    self.frame_generator.generate_content_frames_scrolling,
                     content=full_content,
                     start_time=0.0,
                     end_time=tts_result.duration_seconds,
@@ -289,13 +328,15 @@ class VideoGenerationService:
                 )
 
             # Add title frames
-            _ = self.frame_generator.generate_title_frames(
+            await asyncio.to_thread(
+                self.frame_generator.generate_title_frames,
                 title=chapter_title,
                 output_dir=str(frames_dir / "title"),
             )
 
             # Add outro frames
-            _ = self.frame_generator.generate_outro_frames(
+            await asyncio.to_thread(
+                self.frame_generator.generate_outro_frames,
                 cta_text="Learn more at agentfactory.dev",
                 output_dir=str(frames_dir / "outro"),
             )
@@ -331,11 +372,12 @@ class VideoGenerationService:
                 ),
             )
 
-            # Generate thumbnail
+            # Generate thumbnail at 25% of video duration
+            thumbnail_timestamp = compose_result.duration_seconds * 0.25
             await self.video_composer.generate_thumbnail(
                 video_path=str(video_path),
                 output_path=str(thumbnail_path),
-                time_percent=25,  # Thumbnail at 25% of video
+                timestamp=thumbnail_timestamp,
             )
 
             logger.info(f"Composed video: {compose_result.duration_seconds:.2f}s")
@@ -345,12 +387,16 @@ class VideoGenerationService:
                 progress_callback, "upload_video", 90, "Uploading to R2 storage"
             )
 
-            video_upload = self.r2_uploader.upload_video(
-                file_path=str(video_path),
+            # Upload video (sync method wrapped in async)
+            video_upload = await asyncio.to_thread(
+                self.r2_uploader.upload_video,
+                video_path=str(video_path),
                 chapter_id=chapter_id,
             )
 
-            thumbnail_upload = self.r2_uploader.upload_file(
+            # Upload thumbnail (sync method wrapped in async)
+            thumbnail_upload = await asyncio.to_thread(
+                self.r2_uploader.upload_file,
                 file_path=str(thumbnail_path),
                 key=f"thumbnails/{chapter_id}/thumbnail.jpg",
             )
@@ -366,13 +412,11 @@ class VideoGenerationService:
                 chapter_id=chapter_id,
                 chapter_title=chapter_title,
                 chapter_number=chapter_number,
-                content_snippet=parsed.content[:200] + "..."
-                if len(parsed.content) > 200
-                else parsed.content,
+                content_snippet=f"🤖 AI Summary ({generated_script.total_duration}s): {excerpt_content[:180]}...",
                 video_url=video_upload.url,
                 thumbnail_url=thumbnail_upload.url,
                 duration_seconds=compose_result.duration_seconds,
-                word_count=parsed.word_count,
+                word_count=excerpt_word_count,
                 scene_count=len(sections),
                 generation_method="google_tts",
                 voice_used=voice,

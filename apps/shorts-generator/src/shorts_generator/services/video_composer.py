@@ -392,26 +392,44 @@ class VideoComposer:
 
                     # Parse duration from FFmpeg output
                     if "Duration:" in line_str and duration is None:
-                        parts = line_str.split()
-                        for i, part in enumerate(parts):
-                            if part.startswith("Duration:"):
-                                dur_str = part.split(":")[1].split(",")[0]
-                                h, m, s = dur_str.split(":")
-                                duration = int(h) * 3600 + int(m) * 60 + float(s)
+                        # Use regex to extract duration more reliably
+                        import re
+                        dur_match = re.search(r'Duration:\s+(\d+):(\d+):([\d.]+)', line_str)
+                        if dur_match:
+                            h, m, s = dur_match.groups()
+                            duration = int(h) * 3600 + int(m) * 60 + float(s)
+                            logger.debug(f"Parsed duration: {duration}s from {h}:{m}:{s}")
+                        else:
+                            # Try shorter format: MM:SS
+                            dur_match = re.search(r'Duration:\s+(\d+):([\d.]+)', line_str)
+                            if dur_match:
+                                m, s = dur_match.groups()
+                                duration = int(m) * 60 + float(s)
+                                logger.debug(f"Parsed duration: {duration}s from {m}:{s}")
+                            else:
+                                logger.warning(f"Could not parse duration from: {line_str[:100]}")
 
                     # Parse time and report progress
                     if "time=" in line_str:
-                        for part in line_str.split():
-                            if part.startswith("time="):
-                                time_str = part.split("=")[1]
-                                try:
-                                    h, m, s = time_str.split(":")
+                        time_match = re.search(r'time=(\d+):(\d+):([\d.]+)', line_str)
+                        if not time_match:
+                            time_match = re.search(r'time=(\d+):([\d.]+)', line_str)
+
+                        if time_match:
+                            try:
+                                parts = time_match.groups()
+                                if len(parts) == 3:
+                                    h, m, s = parts
                                     current_time = int(h) * 3600 + int(m) * 60 + float(s)
-                                    if duration and duration > 0:
-                                        progress = current_time / duration
-                                        progress_callback(min(progress, 1.0))
-                                except (ValueError, IndexError):
-                                    pass
+                                else:
+                                    m, s = parts
+                                    current_time = int(m) * 60 + float(s)
+
+                                if duration and duration > 0:
+                                    progress = current_time / duration
+                                    progress_callback(min(progress, 1.0))
+                            except (ValueError, IndexError):
+                                pass
 
                 returncode = await process.wait()
 

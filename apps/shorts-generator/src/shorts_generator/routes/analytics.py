@@ -145,8 +145,8 @@ async def get_video_analytics(
 
     return {
         "video_id": video_id,
-        "lesson_path": video.lesson_path,
-        "title": video.title,
+        "lesson_path": video.chapter_id,
+        "title": video.chapter_title,
         "duration_seconds": video.duration_seconds,
         "view_count": view_count,
         "unique_viewers": unique_viewers,
@@ -181,8 +181,8 @@ async def get_top_performing(
         query = (
             select(
                 ShortVideo.id,
-                ShortVideo.title,
-                ShortVideo.lesson_path,
+                ShortVideo.chapter_title,
+                ShortVideo.chapter_id,
                 func.count(ShortView.id).label("metric_count"),
             )
             .join(ShortView, ShortView.video_id == ShortVideo.id)
@@ -195,8 +195,8 @@ async def get_top_performing(
         query = (
             select(
                 ShortVideo.id,
-                ShortVideo.title,
-                ShortVideo.lesson_path,
+                ShortVideo.chapter_title,
+                ShortVideo.chapter_id,
                 func.count(ShortLike.id).label("metric_count"),
             )
             .join(ShortLike, ShortLike.video_id == ShortVideo.id)
@@ -209,8 +209,8 @@ async def get_top_performing(
         query = (
             select(
                 ShortVideo.id,
-                ShortVideo.title,
-                ShortVideo.lesson_path,
+                ShortVideo.chapter_title,
+                ShortVideo.chapter_id,
                 (
                     func.count(ShortLike.id) + func.count(ShortComment.id)
                 ).label("metric_count"),

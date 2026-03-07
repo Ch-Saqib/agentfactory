@@ -496,6 +496,89 @@ async def get_video_by_chapter(chapter_id: str) -> VideoResponse:
     return VideoResponse(**video_dict)
 
 
+@router.get("/videos/stream/{video_id}")
+async def stream_video(video_id: int):
+    """Stream a video file from R2 storage.
+
+    This endpoint proxies video files from R2 storage to the client,
+    bypassing CORS and public access restrictions.
+
+    Args:
+        video_id: Video ID
+
+    Returns:
+        StreamingResponse with video content
+
+    Raises:
+        HTTPException: If video not found or cannot be streamed
+    """
+    from fastapi.responses import StreamingResponse
+    from shorts_generator.services.r2_uploader import get_r2_uploader
+    import boto3
+    from botocore.exceptions import ClientError
+
+    # Get video from database
+    video = await database_manager.get_video(video_id)
+
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    # Extract R2 key from video URL
+    # URL format: https://account.r2.cloudflarestorage.com/bucket/key
+    url = video.video_url
+    r2_uploader = get_r2_uploader()
+
+    # Extract key from URL
+    # Remove the base URL to get the key
+    if url.startswith(r2_uploader.public_url):
+        key = url[len(r2_uploader.public_url):].lstrip("/")
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid video URL format",
+        )
+
+    try:
+        # Stream the video from R2
+        response = r2_uploader.client.get_object(
+            Bucket=r2_uploader.bucket_name,
+            Key=key,
+        )
+
+        # Get content type
+        content_type = response.get("ContentType", "video/mp4")
+
+        # Generate streaming response
+        def iterfile():
+            """Iterate over the S3 object."""
+            for chunk in response["Body"].iter_chunks():
+                yield chunk
+
+        return StreamingResponse(
+            iterfile(),
+            media_type=content_type,
+            headers={
+                "Content-Disposition": f"inline; filename={video.chapter_id}.mp4",
+                "Accept-Ranges": "bytes",
+            }
+        )
+
+    except ClientError as e:
+        error_code = e.response.get("Error", {}).get("Code", "Unknown")
+        if error_code == "NoSuchKey":
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Video file not found in storage: {key}",
+            )
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to stream video from R2: {str(e)}",
+        )
+
+
 @router.get("/health", response_model=HealthResponse)
 async def health_check() -> HealthResponse:
     """Health check for the shorts generation service.

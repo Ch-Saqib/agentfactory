@@ -288,130 +288,137 @@ async def run_automation(force: bool = False):
     Args:
         force: If True, bypass the next_run check and run immediately
     """
-    print(f"=== run_automation called with force={force} ===")  # Debug print
-    if force:
-        print("=== FORCE MODE ===")
-    else:
-        print("=== NORMAL MODE ===")
+    try:
+        print(f"=== run_automation called with force={force} ===")  # Debug print
+        if force:
+            print("=== FORCE MODE ===")
+        else:
+            print("=== NORMAL MODE ===")
 
-    print("Getting session...")
-    async for session in get_session():
-            print("Session obtained")
-            # Get automation settings
-            print("Executing query...")
-            result = await session.execute(
-                select(AutomationSettings).order_by(AutomationSettings.created_at.desc())
-            )
-            settings = result.scalar_one_or_none()
-
-            print(f"Settings: {settings}")
-
-            if not settings:
-                print("No settings found, skipping")
-                return
-
-            if not settings.enabled:
-                print(f"Automation disabled, skipping")
-                return
-
-            now = utcnow()
-            print(f"Current time: {now.isoformat()}, next_run: {settings.next_run.isoformat() if settings.next_run else 'None'}, force={force}")
-
-            # Check if we have a next_run time and if we're past it (unless force=True)
-            if settings.next_run and (force or now >= settings.next_run):
-                # Check if we already ran recently (to avoid duplicate runs) - skip this check for force mode
-                if not force and settings.last_run:
-                    if now - settings.last_run < timedelta(hours=1):
-                        print(f"Already ran recently at {settings.last_run}, skipping")
-                        return
-
-                print(f"=== Automation triggered at {now.isoformat()} ===")
-
-                # Find lessons without shorts
-                print("Finding lessons without shorts...")
-                docs_path = Path("/home/saqib-squad/agentfactory/apps/learn-app/docs")
-                if not docs_path.exists():
-                    docs_path = Path(__file__).parent.parent.parent.parent.parent / "learn-app" / "docs"
-
-                selected_part_ids = set(settings.selected_parts.values()) if settings.selected_parts else set()
-                print(f"Selected parts: {selected_part_ids}")
-                lessons = await find_lessons_without_shorts(
-                    docs_path=docs_path,
-                    batch_size=settings.batch_limit,
-                    selected_parts=selected_part_ids,
+        print("Getting session...")
+        async for session in get_session():
+                print("Session obtained")
+                # Get automation settings
+                print("Executing query...")
+                result = await session.execute(
+                    select(AutomationSettings).order_by(AutomationSettings.created_at.desc())
                 )
+                settings = result.scalar_one_or_none()
 
-                print(f"Found {len(lessons)} lessons: {lessons}")
+                print(f"Settings: {settings}")
 
-                if not lessons:
-                    print("No new lessons to generate shorts for")
-                    # Still update last_run
-                    settings.last_run = now
-                    await session.commit()
+                if not settings:
+                    print("No settings found, skipping")
                     return
 
-                print(f"Found {len(lessons)} lessons to generate: {lessons}")
+                if not settings.enabled:
+                    print(f"Automation disabled, skipping")
+                    return
 
-                # Create jobs for each lesson and collect tasks
-                generation_tasks = []
-                for lesson_path in lessons:
-                    print(f"Creating job for: {lesson_path}")
-                    job = GenerationJob(
-                        lesson_path=lesson_path,
-                        status="queued",
-                        progress=0,
+                now = utcnow()
+                print(f"Current time: {now.isoformat()}, next_run: {settings.next_run.isoformat() if settings.next_run else 'None'}, force={force}")
+
+                # Check if we have a next_run time and if we're past it (unless force=True)
+                if settings.next_run and (force or now >= settings.next_run):
+                    # Check if we already ran recently (to avoid duplicate runs) - skip this check for force mode
+                    if not force and settings.last_run:
+                        if now - settings.last_run < timedelta(hours=1):
+                            print(f"Already ran recently at {settings.last_run}, skipping")
+                            return
+
+                    print(f"=== Automation triggered at {now.isoformat()} ===")
+
+                    # Find lessons without shorts
+                    print("Finding lessons without shorts...")
+                    docs_path = Path("/home/saqib-squad/agentfactory/apps/learn-app/docs")
+                    if not docs_path.exists():
+                        docs_path = Path(__file__).parent.parent.parent.parent.parent / "learn-app" / "docs"
+
+                    selected_part_ids = set(settings.selected_parts.values()) if settings.selected_parts else set()
+                    print(f"Selected parts: {selected_part_ids}")
+                    lessons = await find_lessons_without_shorts(
+                        docs_path=docs_path,
+                        batch_size=settings.batch_limit,
+                        selected_parts=selected_part_ids,
                     )
-                    session.add(job)
-                    await session.commit()
-                    await session.refresh(job)
-                    print(f"Job created: {job.id}")
 
-                    # Create generation task (don't fire-and-forget)
-                    task = asyncio.create_task(
-                        generate_single_short(
-                            job_id=str(job.id),
+                    print(f"Found {len(lessons)} lessons: {lessons}")
+
+                    if not lessons:
+                        print("No new lessons to generate shorts for")
+                        # Still update last_run
+                        settings.last_run = now
+                        await session.commit()
+                        return
+
+                    print(f"Found {len(lessons)} lessons to generate: {lessons}")
+
+                    # Create jobs for each lesson and collect tasks
+                    generation_tasks = []
+                    for lesson_path in lessons:
+                        print(f"Creating job for: {lesson_path}")
+                        job = GenerationJob(
                             lesson_path=lesson_path,
-                            target_duration=settings.target_duration,
+                            status="queued",
+                            progress=0,
                         )
-                    )
-                    generation_tasks.append(task)
+                        session.add(job)
+                        await session.commit()
+                        await session.refresh(job)
+                        print(f"Job created: {job.id}")
 
-                print(f"Created {len(generation_tasks)} generation tasks")
+                        # Create generation task (don't fire-and-forget)
+                        task = asyncio.create_task(
+                            generate_single_short(
+                                job_id=str(job.id),
+                                lesson_path=lesson_path,
+                                target_duration=settings.target_duration,
+                            )
+                        )
+                        generation_tasks.append(task)
 
-                # Wait for all tasks to complete (with timeout handling)
-                if generation_tasks:
+                    print(f"Created {len(generation_tasks)} generation tasks")
+
+                    # Wait for all tasks to complete (with timeout handling)
+                    if generation_tasks:
+                        try:
+                            await asyncio.gather(*generation_tasks, return_exceptions=True)
+                            print(f"All {len(generation_tasks)} generation tasks completed")
+                        except Exception as e:
+                            print(f"Error in generation tasks: {e}")
+
+                    # Update last_run and calculate next_run
+                    settings.last_run = now
+
+                    # Calculate next run time with proper timezone conversion
                     try:
-                        await asyncio.gather(*generation_tasks, return_exceptions=True)
-                        print(f"All {len(generation_tasks)} generation tasks completed")
-                    except Exception as e:
-                        print(f"Error in generation tasks: {e}")
+                        user_tz = ZoneInfo(settings.timezone)
+                    except Exception:
+                        user_tz = ZoneInfo("UTC")
 
-                # Update last_run and calculate next_run
-                settings.last_run = now
+                    now_user_tz = now.astimezone(user_tz)
+                    hour, minute = map(int, settings.schedule_time.split(":"))
+                    next_run_user_tz = now_user_tz.replace(hour=hour, minute=minute, second=0, microsecond=0)
 
-                # Calculate next run time with proper timezone conversion
-                try:
-                    user_tz = ZoneInfo(settings.timezone)
-                except Exception:
-                    user_tz = ZoneInfo("UTC")
+                    # If the time has passed today, schedule for tomorrow
+                    if next_run_user_tz <= now_user_tz:
+                        next_run_user_tz += timedelta(days=1)
 
-                now_user_tz = now.astimezone(user_tz)
-                hour, minute = map(int, settings.schedule_time.split(":"))
-                next_run_user_tz = now_user_tz.replace(hour=hour, minute=minute, second=0, microsecond=0)
+                    # Convert back to UTC for storage
+                    next_run = next_run_user_tz.astimezone(ZoneInfo("UTC"))
+                    settings.next_run = next_run
 
-                # If the time has passed today, schedule for tomorrow
-                if next_run_user_tz <= now_user_tz:
-                    next_run_user_tz += timedelta(days=1)
+                    await session.commit()
 
-                # Convert back to UTC for storage
-                next_run = next_run_user_tz.astimezone(ZoneInfo("UTC"))
-                settings.next_run = next_run
-
-                await session.commit()
-
-                print(f"=== Automation complete, next run scheduled for {next_run.isoformat()} ===")
-            else:
-                print(f"Automation not due yet. next_run={settings.next_run.isoformat() if settings.next_run else 'None'}, now={now.isoformat()}")
+                    print(f"=== Automation complete, next run scheduled for {next_run.isoformat()} ===")
+                else:
+                    print(f"Automation not due yet. next_run={settings.next_run.isoformat() if settings.next_run else 'None'}, now={now.isoformat()}")
+    except Exception as e:
+        # Log error but don't crash the scheduler
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Automation task failed (this is expected if automation_settings table doesn't exist): {e}")
+        print(f"⚠️  Automation skipped: {e}")
 
 
 def get_scheduler() -> AsyncIOScheduler:

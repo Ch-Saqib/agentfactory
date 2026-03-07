@@ -96,16 +96,41 @@ async def get_unchapters_lessons(limit: int = 1) -> list[ChapterInput]:
                     with open(lesson_file, encoding="utf-8") as f:
                         markdown_content = f.read()
 
-                    # Extract title from first heading
-                    title = lesson_file.stem
-                    for line in markdown_content.split("\n")[:10]:
-                        line = line.strip()
-                        if line.startswith("# "):
-                            title = line[2:].strip()
+                    # Extract title - check YAML frontmatter first, then headings
+                    title = lesson_file.stem  # Default fallback
+                    lines = markdown_content.split("\n")
+
+                    # Check YAML frontmatter for title
+                    in_yaml = False
+                    for i, line in enumerate(lines[:30]):  # Check first 30 lines
+                        line_stripped = line.strip()
+                        if line_stripped == "---":
+                            if i == 0:
+                                in_yaml = True
+                            else:
+                                break  # End of YAML
+                        elif in_yaml and line_stripped.startswith("title:"):
+                            # Extract title from YAML (handle quoted and unquoted)
+                            title_value = line_stripped[6:].strip()
+                            # Remove quotes if present
+                            if title_value.startswith('"') and title_value.endswith('"'):
+                                title = title_value[1:-1]
+                            elif title_value.startswith("'") and title_value.endswith("'"):
+                                title = title_value[1:-1]
+                            else:
+                                title = title_value
                             break
-                        elif line.startswith("## "):
-                            title = line[3:].strip()
-                            break
+
+                    # If no title in YAML, check for first heading
+                    if title == lesson_file.stem:
+                        for line in lines[:30]:
+                            line_stripped = line.strip()
+                            if line_stripped.startswith("# "):
+                                title = line_stripped[2:].strip()
+                                break
+                            elif line_stripped.startswith("## "):
+                                title = line_stripped[3:].strip()
+                                break
 
                     # Extract chapter number
                     try:
@@ -146,15 +171,22 @@ async def generate_daily_video(job_id: str | None = None) -> dict:
     if not job_id:
         job_id = f"daily-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
+    print(f"\n{'='*60}")
+    print(f"🎬 [SERVICE] generate_daily_video() called")
+    print(f"🆔 [SERVICE] job_id={job_id}")
+    print(f"{'='*60}")
     logger.info(f"=== generate_daily_video: Starting | job_id={job_id} ===")
 
     try:
+        print(f"🔍 [{job_id}] Looking for unprocessed lessons...")
         logger.info("generate_daily_video: Calling get_unchapters_lessons...")
         # Get next unprocessed lesson
         lessons = await get_unchapters_lessons(limit=1)
         logger.info(f"generate_daily_video: Got {len(lessons)} lessons")
+        print(f"📚 [{job_id}] Found {len(lessons)} unprocessed lesson(s)")
 
         if not lessons:
+            print(f"⚠️  [{job_id}] No unprocessed lessons found!")
             logger.info("No unprocessed lessons found")
             return {
                 "success": False,
@@ -163,11 +195,15 @@ async def generate_daily_video(job_id: str | None = None) -> dict:
             }
 
         lesson = lessons[0]
+        print(f"📖 [{job_id}] Processing: {lesson.chapter_id}")
+        print(f"   └─ Title: {lesson.chapter_title}")
         logger.info(f"Generating video for: {lesson.chapter_id} - {lesson.chapter_title}")
 
         # Generate video using pipeline orchestrator
+        print(f"🎬 [{job_id}] Starting video generation...")
         orchestrator = get_pipeline_orchestrator()
         result = await orchestrator.generate_single(lesson, job_id=job_id)
+        print(f"📥 [{job_id}] Generation completed: success={result.success}")
 
         if result.success:
             logger.info(f"✅ Video generated successfully: {result.video_url}")

@@ -34,7 +34,7 @@ def _create_engine() -> AsyncEngine:
 
     return create_async_engine(
         database_url,
-        echo=False,  # Set to True for SQL query logging
+        echo=False,  # SQL query logging disabled (too verbose)
         poolclass=NullPool,  # No local pooling - cloud handles it
         connect_args={
             "server_settings": {"jit": "off"},  # Disable JIT for better performance on Neon

@@ -20,7 +20,7 @@ const getDefaultApiBaseUrl = () => {
     return process.env.SHORTS_API_URL + "/api/v1";
   }
   // Default fallback (should be overridden by components)
-  return "http://localhost:8004/api/v1";
+  return "http://localhost:8001/api/v1";
 };
 
 const DEFAULT_API_BASE_URL = getDefaultApiBaseUrl();
@@ -132,19 +132,28 @@ interface ViewTrackingRequest {
 
 /**
  * Transform API response to ShortVideo
+ * Converts R2 URLs to proxy URLs for streaming
  */
-function transformVideoMetadata(data: VideoMetadataResponse): ShortVideo {
+function transformVideoMetadata(data: VideoMetadataResponse, baseUrl: string): ShortVideo {
+  // Transform video URL to use proxy endpoint
+  // Original R2 URLs may not be publicly accessible
+  let videoUrl = data.video_url;
+  if (videoUrl && !videoUrl.startsWith(baseUrl)) {
+    // Use the streaming proxy endpoint
+    videoUrl = `${baseUrl}/shorts/videos/stream/${data.video_id}`;
+  }
+
   return {
     id: data.video_id,
     lessonPath: data.lesson_path,
     title: data.title,
     durationSeconds: data.duration_seconds,
-    videoUrl: data.video_url,
-    thumbnailUrl: data.thumbnail_url,
-    viewCount: data.view_count,
-    likeCount: data.like_count,
-    commentCount: data.comment_count,
-    generationCost: data.generation_cost,
+    videoUrl: videoUrl,
+    thumbnailUrl: data.thumbnail_url || "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail",
+    viewCount: data.view_count || 0,
+    likeCount: data.like_count || 0,
+    commentCount: data.comment_count || 0,
+    generationCost: data.generation_cost || 0,
   };
 }
 
@@ -248,7 +257,7 @@ export class ShortsApiClient {
 
     const data: VideoMetadataResponse[] = await this.request(url);
 
-    const shorts = data.map(transformVideoMetadata);
+    const shorts = data.map(d => transformVideoMetadata(d, this.baseUrl));
 
     return {
       shorts,
@@ -262,7 +271,7 @@ export class ShortsApiClient {
    */
   async getVideo(videoId: string): Promise<ShortVideo> {
     const data: VideoMetadataResponse = await this.request(`/videos/${videoId}`);
-    return transformVideoMetadata(data);
+    return transformVideoMetadata(data, this.baseUrl);
   }
 
   /**

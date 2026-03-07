@@ -137,8 +137,10 @@ class EdgeTTSGenerator:
                 raw_timepoints: list[dict[str, Any]] = []
                 audio_data = bytearray()
 
-                # Stream with timeout to prevent hanging
-                stream_timeout = 120  # 2 minutes timeout for audio generation
+                # Calculate timeout: ~3x the estimated audio duration for safety
+                # For short content (30-60 seconds), this is 90-180 seconds
+                estimated_duration_seconds = (word_count / 150) * 60  # ~150 words/minute
+                stream_timeout = max(60, int(estimated_duration_seconds * 3))  # Minimum 1 minute
 
                 async def stream_audio_with_timeout():
                     """Stream audio from Edge TTS with timeout protection."""

@@ -66,8 +66,8 @@ async def get_for_you_recommendations(
             "videos": [
                 {
                     "video_id": str(video.id),
-                    "title": video.title,
-                    "lesson_path": video.lesson_path,
+                    "title": video.chapter_title,
+                    "lesson_path": video.chapter_id,
                     "duration_seconds": video.duration_seconds,
                     "thumbnail_url": video.thumbnail_url,
                     "video_url": video.video_url,
@@ -121,8 +121,8 @@ async def get_continue_watching(
             "videos": [
                 {
                     "video_id": str(video.id),
-                    "title": video.title,
-                    "lesson_path": video.lesson_path,
+                    "title": video.chapter_title,
+                    "lesson_path": video.chapter_id,
                     "duration_seconds": video.duration_seconds,
                     "thumbnail_url": video.thumbnail_url,
                     "video_url": video.video_url,
@@ -162,12 +162,12 @@ async def get_trending(
             "videos": [
                 {
                     "video_id": str(video.id),
-                    "title": video.title,
-                    "lesson_path": video.lesson_path,
+                    "title": video.chapter_title,
+                    "lesson_path": video.chapter_id,
                     "duration_seconds": video.duration_seconds,
                     "thumbnail_url": video.thumbnail_url,
                     "video_url": video.video_url,
-                    "generation_cost_usd": video.generation_cost,
+                    "generation_cost_usd": 0.0,  # Not tracked in Video model
                 }
                 for video in videos
             ],

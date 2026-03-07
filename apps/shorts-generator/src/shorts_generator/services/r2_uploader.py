@@ -294,18 +294,41 @@ class R2Uploader:
                     progress_callback=progress_callback,
                 )
 
-            # Single part upload
-            upload_args: dict[str, Any] = {
-                "Bucket": self.bucket_name,
-                "Key": key,
-                "FilePath": file_path,
-                "ExtraArgs": extra_args,
-            }
+            # Single part upload - use upload_fileobj for better compatibility
+            # Verify file exists and is readable
+            if not os.path.exists(file_path):
+                raise FileNotFoundError(f"File not found: {file_path}")
 
-            if progress_callback:
-                upload_args["Callback"] = progress_callback
+            file_size_verify = os.path.getsize(file_path)
+            if file_size_verify == 0:
+                raise ValueError(f"File is empty: {file_path}")
 
-            result = self.client.upload_file(**upload_args)
+            logger.debug(f"Uploading file: {file_path} ({file_size_mb:.2f}MB) to {self.bucket_name}/{key}")
+
+            # Open file and upload
+            # Note: upload_fileobj() returns None on success, not a dict
+            with open(file_path, "rb") as file_data:
+                upload_args: dict[str, Any] = {
+                    "Bucket": self.bucket_name,
+                    "Key": key,
+                    "Fileobj": file_data,
+                    "ExtraArgs": extra_args,
+                }
+
+                self.client.upload_fileobj(**upload_args)
+
+            logger.debug(f"Upload completed for {self.bucket_name}/{key}")
+
+            # Verify upload succeeded by checking if object exists
+            try:
+                head_response = self.client.head_object(
+                    Bucket=self.bucket_name,
+                    Key=key,
+                )
+                etag = head_response.get("ETag", "").strip('"')
+                logger.debug(f"Upload verified, ETag: {etag}")
+            except ClientError as e:
+                raise RuntimeError(f"Upload verification failed for {key}: {e}") from e
 
             upload_result = UploadResult(
                 key=key,
@@ -313,7 +336,7 @@ class R2Uploader:
                 file_size_bytes=file_size,
                 file_size_mb=file_size_mb,
                 upload_time=datetime.now(),
-                etag=result.get("ETag", "").strip('"'),
+                etag=etag,
             )
 
             logger.info(f"✅ Upload complete: {upload_result.url}")
@@ -322,6 +345,7 @@ class R2Uploader:
 
         except (BotoCoreError, ClientError) as e:
             logger.error(f"R2 upload failed: {e}")
+            logger.error(f"Upload args were: {upload_args if 'upload_args' in locals() else 'N/A'}")
             raise RuntimeError(f"Upload to R2 failed: {e}") from e
 
     def _upload_multipart(

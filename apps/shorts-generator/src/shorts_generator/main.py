@@ -1,5 +1,9 @@
 """Main FastAPI application for Lesson Shorts Generator."""
 
+import asyncio
+import logging
+import signal
+import sys
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -10,13 +14,25 @@ from shorts_generator.core.config import settings
 from shorts_generator.database.connection import _create_engine
 from shorts_generator.database.models import Base
 
+# Configure detailed logging for debugging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)-8s | %(name)-20s | %(message)s',
+    datefmt='%H:%M:%S',
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application lifespan manager.
 
-    Handles startup and shutdown events.
+    Handles startup and shutdown events with proper cleanup.
     """
+    # Track background tasks for cleanup
+    background_tasks: set[asyncio.Task] = set()
+
     # Startup
     print("🚀 Starting Lesson Shorts Generator v0.1.0")
     print(f"📝 Gemini Model: {settings.gemini_model}")
@@ -49,15 +65,40 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         traceback.print_exc()
 
     print("🎯 Startup complete, server ready to accept requests")
+
+    # Set up signal handlers for graceful shutdown
+    def signal_handler(sig, frame):
+        logger.info(f"🛑 Received signal {sig}, initiating graceful shutdown...")
+        # This will trigger the lifespan shutdown
+        raise KeyboardInterrupt
+
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
     yield
 
-    # Shutdown
-    print("🛑 Shutting down Lesson Shorts Generator")
+    # Shutdown - cancel all background tasks
+    print("\n🛑 Shutting down Lesson Shorts Generator")
+
+    # Cancel background tasks
+    if background_tasks:
+        logger.info(f"Cancelling {len(background_tasks)} background tasks...")
+        for task in background_tasks:
+            if not task.done():
+                task.cancel()
+        # Wait for tasks to be cancelled
+        await asyncio.gather(*background_tasks, return_exceptions=True)
+        logger.info("✅ All background tasks cancelled")
+
+    # Stop the automation scheduler
     try:
         from shorts_generator.services.automation_service import stop_scheduler
         await stop_scheduler()
-    except Exception:
-        pass
+        print("✅ Automation scheduler stopped")
+    except Exception as e:
+        logger.warning(f"⚠️  Error stopping scheduler: {e}")
+
+    print("👋 Shutdown complete")
 
 
 # Create FastAPI app
