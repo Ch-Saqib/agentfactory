@@ -53,16 +53,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         print("   Tables may already exist or database needs configuration")
         traceback.print_exc()
 
-    # Start the automation scheduler
-    print("⏰ Starting automation scheduler...")
-    try:
-        from shorts_generator.services.automation_service import start_scheduler
-        await start_scheduler()
-        print("✅ Automation scheduler ready")
-    except Exception as e:
-        import traceback
-        print(f"⚠️  Warning: Could not start scheduler: {e}")
-        traceback.print_exc()
+
 
     print("🎯 Startup complete, server ready to accept requests")
 
@@ -90,13 +81,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         await asyncio.gather(*background_tasks, return_exceptions=True)
         logger.info("✅ All background tasks cancelled")
 
-    # Stop the automation scheduler
-    try:
-        from shorts_generator.services.automation_service import stop_scheduler
-        await stop_scheduler()
-        print("✅ Automation scheduler stopped")
-    except Exception as e:
-        logger.warning(f"⚠️  Error stopping scheduler: {e}")
+
 
     print("👋 Shutdown complete")
 
@@ -121,29 +106,11 @@ app.add_middleware(
 
 # Health check is handled by status.router at /api/v1/health
 # Import and include routes
-from shorts_generator.routes import (  # noqa: E402
-    analytics,
-    automation,
-    batch,
-    cost_monitor,
-    daily_automation,
-    engagement,
-    generate,
-    recommendations,
-    shorts,
-    status,
-)
+from shorts_generator.routes import shorts, status, daily_automation  # noqa: E402
 
-app.include_router(generate.router)
-app.include_router(batch.router)
-app.include_router(status.router)
-app.include_router(engagement.router)
-app.include_router(analytics.router)
-app.include_router(recommendations.router)
-app.include_router(cost_monitor.router)
-app.include_router(automation.router)
-app.include_router(daily_automation.router)  # New daily automation API
 app.include_router(shorts.router)
+app.include_router(status.router)
+app.include_router(daily_automation.router)
 
 
 # Root endpoint
