@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from shorts_generator.core.config import settings
 from shorts_generator.database.connection import get_session
-from shorts_generator.models import GenerationJob
+from shorts_generator.database.models import GenerationJob
 
 logger = logging.getLogger(__name__)
 

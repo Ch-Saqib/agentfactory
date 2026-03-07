@@ -662,5 +662,15 @@ class R2Uploader:
             raise
 
 
-# Singleton instance
-r2_uploader = R2Uploader()
+# Singleton instance (lazy initialization)
+r2_uploader: R2Uploader | None = None
+
+
+def get_r2_uploader() -> R2Uploader:
+    """Get or create the R2 uploader singleton (lazy initialization)."""
+    global r2_uploader
+    if r2_uploader is None:
+        logger.info("Creating R2 uploader singleton")
+        r2_uploader = R2Uploader()
+        logger.info("R2 uploader singleton created")
+    return r2_uploader

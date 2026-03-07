@@ -26,7 +26,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # Create database tables automatically using async engine
     print("📊 Creating database tables...")
     try:
-        # Use the existing async engine for table creation
         async_engine = _create_engine()
         async with async_engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
@@ -49,6 +48,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         print(f"⚠️  Warning: Could not start scheduler: {e}")
         traceback.print_exc()
 
+    print("🎯 Startup complete, server ready to accept requests")
     yield
 
     # Shutdown

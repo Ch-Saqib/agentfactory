@@ -28,6 +28,10 @@ from typing import Any
 
 from shorts_generator.core.config import settings
 from shorts_generator.database import VideoCreate, database_manager
+from shorts_generator.services.edge_tts_audio import (
+    EdgeTTSGenerator,
+    check_edge_tts_connectivity,
+)
 from shorts_generator.services.frame_generator import FrameGenerator
 from shorts_generator.services.google_tts_audio import (
     GoogleCloudTTSGenerator,
@@ -79,7 +83,7 @@ class VideoGenerationService:
 
     def __init__(
         self,
-        tts_generator: GoogleCloudTTSGenerator | None = None,
+        tts_generator: GoogleCloudTTSGenerator | EdgeTTSGenerator | None = None,
         frame_generator: FrameGenerator | None = None,
         video_composer: VideoComposer | None = None,
         r2_uploader: R2Uploader | None = None,
@@ -88,22 +92,45 @@ class VideoGenerationService:
         """Initialize the video generation service.
 
         Args:
-            tts_generator: TTS generator (default: new GoogleCloudTTSGenerator)
+            tts_generator: TTS generator (default: based on tts_provider setting)
             frame_generator: Frame generator (default: new FrameGenerator)
             video_composer: Video composer (default: new VideoComposer)
             r2_uploader: R2 uploader (default: r2_uploader singleton)
             output_dir: Output directory for temporary files
         """
-        self.tts_generator = tts_generator or GoogleCloudTTSGenerator()
+        self.tts_generator = tts_generator or self._create_tts_generator()
         self.frame_generator = frame_generator or FrameGenerator()
         self.video_composer = video_composer or VideoComposer()
-        self.r2_uploader = r2_uploader or r2_uploader
+        self.r2_uploader = r2_uploader or self._get_r2_uploader()
         self.output_dir = Path(output_dir or tempfile.gettempdir()) / "shorts_generation"
 
         # Create output directory if it doesn't exist
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        logger.info("VideoGenerationService initialized")
+        logger.info(
+            f"VideoGenerationService initialized (TTS provider: {settings.tts_provider})"
+        )
+
+    @staticmethod
+    def _create_tts_generator() -> GoogleCloudTTSGenerator | EdgeTTSGenerator:
+        """Create TTS generator based on config setting."""
+        if settings.tts_provider == "google_tts":
+            logger.info("Using Google Cloud TTS (paid, requires credentials)")
+            return GoogleCloudTTSGenerator(
+                credentials_path=settings.google_cloud_credentials_path or None,
+                voice_preset=settings.google_tts_voice_preset,
+                encoding=settings.google_tts_encoding,
+                sample_rate=settings.google_tts_sample_rate,
+            )
+        else:
+            logger.info(f"Using Edge TTS (free, voice: {settings.edge_tts_voice})")
+            return EdgeTTSGenerator(voice=settings.edge_tts_voice)
+
+    @staticmethod
+    def _get_r2_uploader():
+        """Get the R2 uploader singleton (lazy import)."""
+        from shorts_generator.services.r2_uploader import get_r2_uploader
+        return get_r2_uploader()
 
     async def generate_from_markdown(
         self,
@@ -158,14 +185,49 @@ class VideoGenerationService:
             audio_path = temp_dir / "audio.mp3"
             timing_path = temp_dir / "timing.json"
 
-            voice = voice_preset or settings.google_tts_voice_preset
+            voice = voice_preset or settings.edge_tts_voice
 
-            tts_result: GoogleTTSResult = self.tts_generator.generate(
-                text=parsed.content,
-                speaking_rate=1.0,
-                pitch=0.0,
-                custom_voice=voice,
-                output_path=str(audio_path),
+            logger.info(
+                f"Starting TTS audio generation with voice: {voice}, "
+                f"text length: {len(parsed.content)} chars"
+            )
+
+            # Generate audio — EdgeTTSGenerator is async, GoogleCloudTTSGenerator is sync
+            if isinstance(self.tts_generator, EdgeTTSGenerator):
+                logger.info("Using EdgeTTSGenerator (async)")
+                # Quick connectivity check (non-blocking - just logs warning if fails)
+                try:
+                    connectivity = await check_edge_tts_connectivity()
+                    if not connectivity["reachable"]:
+                        logger.warning(
+                            f"Edge TTS connectivity check failed: {connectivity.get('message')}. "
+                            f"Proceeding anyway - retries will handle transient issues."
+                        )
+                except Exception as e:
+                    logger.warning(f"Connectivity check skipped due to error: {e}")
+
+                tts_result: GoogleTTSResult = await self.tts_generator.generate(
+                    text=parsed.content,
+                    speaking_rate=1.0,
+                    pitch=0.0,
+                    custom_voice=voice,
+                    output_path=str(audio_path),
+                    max_retries=3,  # Retry on network errors
+                )
+            else:
+                logger.info("Using GoogleCloudTTSGenerator (sync wrapper)")
+                tts_result: GoogleTTSResult = await asyncio.to_thread(
+                    self.tts_generator.generate,
+                    text=parsed.content,
+                    speaking_rate=1.0,
+                    pitch=0.0,
+                    custom_voice=voice,
+                    output_path=str(audio_path),
+                )
+
+            logger.info(
+                f"TTS generation completed: duration={tts_result.duration_seconds:.2f}s, "
+                f"words={len(tts_result.word_timings)}"
             )
 
             # Save timing data
@@ -202,48 +264,50 @@ class VideoGenerationService:
 
             # Determine animation style based on content length
             use_word_sync = len(tts_result.word_timings) < 100
+            logger.info(
+                f"Animation mode: {'word_sync' if use_word_sync else 'scrolling'} "
+                f"({len(tts_result.word_timings)} words, {tts_result.duration_seconds:.1f}s)"
+            )
 
             if use_word_sync:
                 # Word-by-word animation (karaoke style)
                 frames_result = self.frame_generator.generate_content_frames_word_sync(
+                    content=parsed.content,
+                    word_timings=tts_result.word_timings,
+                    start_time=0.0,
+                    end_time=tts_result.duration_seconds,
                     output_dir=str(frames_dir),
-                    words=[
-                        {"word": t.word, "start_time": t.start_time, "end_time": t.end_time}
-                        for t in tts_result.word_timings
-                    ],
-                    fps=settings.video_fps,
                 )
             else:
                 # Scrolling text animation
+                full_content = "\n\n".join(sections)
                 frames_result = self.frame_generator.generate_content_frames_scrolling(
+                    content=full_content,
+                    start_time=0.0,
+                    end_time=tts_result.duration_seconds,
                     output_dir=str(frames_dir),
-                    text_segments=sections,
-                    total_duration=tts_result.duration_seconds,
-                    fps=settings.video_fps,
                 )
 
             # Add title frames
             _ = self.frame_generator.generate_title_frames(
-                output_dir=str(frames_dir / "title"),
                 title=chapter_title,
-                subtitle=parsed.title,
-                fps=settings.video_fps,
+                output_dir=str(frames_dir / "title"),
             )
 
             # Add outro frames
             _ = self.frame_generator.generate_outro_frames(
-                output_dir=str(frames_dir / "outro"),
                 cta_text="Learn more at agentfactory.dev",
-                fps=settings.video_fps,
+                output_dir=str(frames_dir / "outro"),
             )
 
-            logger.info(f"Generated {frames_result.frame_count} frames")
+            frame_count = len(frames_result)
+            logger.info(f"Generated {frame_count} content frames")
 
             await self._report_progress(
                 progress_callback,
                 "generate_frames",
                 70,
-                f"Generated {frames_result.frame_count} frames",
+                f"Generated {frame_count} frames",
             )
 
             # Step 4: Compose video
@@ -335,7 +399,7 @@ class VideoGenerationService:
                     "word_count": parsed.word_count,
                     "scene_count": len(sections),
                     "voice_used": voice,
-                    "frame_count": frames_result.frame_count,
+                    "frame_count": frame_count,
                 },
             )
 
@@ -427,5 +491,15 @@ class VideoGenerationService:
                 logger.warning(f"Progress callback failed: {e}")
 
 
-# Singleton instance
-video_generation_service = VideoGenerationService()
+# Singleton instance (lazy initialization)
+video_generation_service: VideoGenerationService | None = None
+
+
+def get_video_generation_service() -> VideoGenerationService:
+    """Get or create the video generation service singleton (lazy initialization)."""
+    global video_generation_service
+    if video_generation_service is None:
+        logger.info("Creating video generation service singleton")
+        video_generation_service = VideoGenerationService()
+        logger.info("Video generation service singleton created")
+    return video_generation_service

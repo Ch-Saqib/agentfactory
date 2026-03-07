@@ -62,26 +62,42 @@ class DatabaseManager:
 
         self.database_url = database_url
 
-        # Create async engine with SSL support for Neon
-        self._engine = create_async_engine(
-            self.database_url,
-            echo=False,
-            pool_size=10,
-            max_overflow=20,
-            connect_args={
-                "server_settings": {"jit": "off"},  # Disable JIT for better performance on Neon
-                "ssl": True,  # Enable SSL for Neon (asyncpg uses this, not sslmode)
-            },
-        )
+        # Lazy initialization - engine is created on first use
+        self._engine: Any = None
+        self._session_factory: Any = None
+        self._initialized = False
 
-        # Create session factory
-        self._session_factory = async_sessionmaker(
-            bind=self._engine,
-            class_=AsyncSession,
-            expire_on_commit=False,
-        )
+        logger.info("Database manager created (lazy initialization)")
 
-        logger.info("Database manager initialized")
+    def _ensure_initialized(self) -> None:
+        """Ensure database engine is created (lazy initialization)."""
+        if not self._initialized:
+            logger.info(f"_ensure_initialized: Creating engine for {self.database_url[:50]}...")
+            # Create async engine with SSL support for Neon
+            self._engine = create_async_engine(
+                self.database_url,
+                echo=False,
+                pool_size=10,
+                max_overflow=20,
+                pool_pre_ping=True,  # Verify connections before using
+                connect_args={
+                    "server_settings": {"jit": "off"},  # Disable JIT for better performance on Neon
+                    "ssl": True,  # Enable SSL for Neon (asyncpg uses this, not sslmode)
+                    "timeout": 10,  # 10 second connection timeout
+                },
+            )
+            logger.info("_ensure_initialized: Engine created")
+
+            # Create session factory
+            self._session_factory = async_sessionmaker(
+                bind=self._engine,
+                class_=AsyncSession,
+                expire_on_commit=False,
+            )
+            logger.info("_ensure_initialized: Session factory created")
+
+            self._initialized = True
+            logger.info("Database engine initialized")
 
     def get_session(self) -> AsyncSession:
         """Get a database session.
@@ -89,6 +105,7 @@ class DatabaseManager:
         Returns:
             AsyncSession instance
         """
+        self._ensure_initialized()
         return self._session_factory()
 
     async def create_tables(self) -> None:
@@ -96,6 +113,7 @@ class DatabaseManager:
 
         This should be called once during setup.
         """
+        self._ensure_initialized()
         from shorts_generator.database.models import Base
 
         async with self._engine.begin() as conn:
@@ -259,6 +277,8 @@ class DatabaseManager:
         Returns:
             List of Video objects
         """
+        logger.info(f"list_videos called: status={status}, limit={limit}")
+        logger.info("Calling get_session()...")
         async with self.get_session() as session:
             query = select(Video)
 
@@ -633,6 +653,7 @@ class DatabaseManager:
             True if database is accessible
         """
         try:
+            self._ensure_initialized()
             async with self.get_session() as session:
                 # Simple query to test connection
                 await session.execute(select(1).limit(1))
@@ -643,7 +664,7 @@ class DatabaseManager:
 
     async def close(self) -> None:
         """Close all database connections."""
-        if self._engine:
+        if self._initialized and self._engine:
             await self._engine.dispose()
             logger.info("Database connections closed")
 

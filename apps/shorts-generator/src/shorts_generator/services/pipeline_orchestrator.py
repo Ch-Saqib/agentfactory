@@ -138,10 +138,10 @@ class PipelineOrchestrator:
             config: Pipeline configuration
         """
         from shorts_generator.services.video_generation_service import (
-            video_generation_service,
+            get_video_generation_service,
         )
 
-        self.video_service = video_service or video_generation_service
+        self.video_service = video_service or get_video_generation_service()
         self.config = config or PipelineConfig()
         self._active_batches: dict[str, BatchResult] = {}
         self._cancel_flags: dict[str, asyncio.Event] = {}
@@ -220,7 +220,13 @@ class PipelineOrchestrator:
                     )
 
                 # Generate video
+                logger.info(f"[{job_id}] Starting video generation for {chapter.chapter_id}")
+
                 if chapter.markdown_content:
+                    logger.info(
+                        f"[{job_id}] Using markdown content "
+                        f"(length: {len(chapter.markdown_content)} chars)"
+                    )
                     result: GenerationResult = (
                         await self.video_service.generate_from_markdown(
                             markdown_content=chapter.markdown_content,
@@ -234,6 +240,7 @@ class PipelineOrchestrator:
                         )
                     )
                 else:
+                    logger.info(f"[{job_id}] Using markdown file: {chapter.markdown_file}")
                     result = await self.video_service.generate_from_file(
                         markdown_file=chapter.markdown_file,
                         chapter_id=chapter.chapter_id,
@@ -244,6 +251,8 @@ class PipelineOrchestrator:
                         if self.config.enable_progress_callbacks
                         else None,
                     )
+
+                logger.info(f"[{job_id}] Video generation completed: success={result.success}")
 
                 if result.success:
                     logger.info(f"[{job_id}] Generation successful")
@@ -517,5 +526,15 @@ class PipelineOrchestrator:
         return remaining * average_time_per_video
 
 
-# Singleton instance
-pipeline_orchestrator = PipelineOrchestrator()
+# Singleton instance (lazy initialization)
+pipeline_orchestrator: PipelineOrchestrator | None = None
+
+
+def get_pipeline_orchestrator() -> PipelineOrchestrator:
+    """Get or create the pipeline orchestrator singleton (lazy initialization)."""
+    global pipeline_orchestrator
+    if pipeline_orchestrator is None:
+        logger.info("Creating pipeline orchestrator singleton")
+        pipeline_orchestrator = PipelineOrchestrator()
+        logger.info("Pipeline orchestrator singleton created")
+    return pipeline_orchestrator

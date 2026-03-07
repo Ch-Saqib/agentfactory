@@ -27,7 +27,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from shorts_generator.core.config import settings
 from shorts_generator.database import database_manager
-from shorts_generator.services.pipeline_orchestrator import ChapterInput, pipeline_orchestrator
+from shorts_generator.services.pipeline_orchestrator import ChapterInput, get_pipeline_orchestrator
 
 logger = logging.getLogger(__name__)
 
@@ -47,8 +47,12 @@ async def get_unchapters_lessons(limit: int = 1) -> list[ChapterInput]:
     Returns:
         List of ChapterInput objects for unprocessed lessons
     """
+    logger.info(f"=== get_unchapters_lessons called with limit={limit} ===")
+
     # Get all existing chapter_ids from database
+    logger.info("get_unchapters_lessons: Calling database_manager.list_videos...")
     existing_videos = await database_manager.list_videos(status="completed")
+    logger.info(f"get_unchapters_lessons: Got {len(existing_videos)} existing videos")
     existing_chapter_ids = {v.chapter_id for v in existing_videos}
 
     # Find all markdown files in docs directory
@@ -129,17 +133,26 @@ async def get_unchapters_lessons(limit: int = 1) -> list[ChapterInput]:
     return unprocessed
 
 
-async def generate_daily_video() -> dict:
+async def generate_daily_video(job_id: str | None = None) -> dict:
     """Generate one video for the daily automation.
+
+    Args:
+        job_id: Optional job ID for tracking. If not provided, generates a default one.
 
     Returns:
         dict with generation result
     """
-    logger.info("=== Starting daily video generation ===")
+    # Use provided job_id or generate a default one
+    if not job_id:
+        job_id = f"daily-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+
+    logger.info(f"=== generate_daily_video: Starting | job_id={job_id} ===")
 
     try:
+        logger.info("generate_daily_video: Calling get_unchapters_lessons...")
         # Get next unprocessed lesson
         lessons = await get_unchapters_lessons(limit=1)
+        logger.info(f"generate_daily_video: Got {len(lessons)} lessons")
 
         if not lessons:
             logger.info("No unprocessed lessons found")
@@ -152,11 +165,9 @@ async def generate_daily_video() -> dict:
         lesson = lessons[0]
         logger.info(f"Generating video for: {lesson.chapter_id} - {lesson.chapter_title}")
 
-        # Create a unique job_id for tracking
-        job_id = f"daily-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-
         # Generate video using pipeline orchestrator
-        result = await pipeline_orchestrator.generate_single(lesson, job_id=job_id)
+        orchestrator = get_pipeline_orchestrator()
+        result = await orchestrator.generate_single(lesson, job_id=job_id)
 
         if result.success:
             logger.info(f"✅ Video generated successfully: {result.video_url}")
@@ -189,13 +200,16 @@ async def generate_daily_video() -> dict:
         }
 
 
-async def trigger_daily_generation() -> dict:
+async def trigger_daily_generation(job_id: str | None = None) -> dict:
     """Manually trigger daily video generation.
+
+    Args:
+        job_id: Optional job ID for tracking. If not provided, generates a default one.
 
     Returns:
         dict with generation result
     """
-    return await generate_daily_video()
+    return await generate_daily_video(job_id=job_id)
 
 
 async def start_daily_automation(hour: int = 9, minute: int = 0) -> dict:

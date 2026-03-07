@@ -6,6 +6,7 @@ from shorts_generator.database.models import (
     GenerationJobCreate,
     GenerationJobResponse,
     Script,
+    ShortVideo,
     Video,
     VideoAnalytics,
     VideoCreate,
@@ -16,6 +17,7 @@ from shorts_generator.database.models import (
 __all__ = [
     # Models
     "Video",
+    "ShortVideo",  # Alias for Video
     "GenerationJob",
     "Script",
     "VideoAnalytics",

@@ -106,6 +106,10 @@ class Video(Base, TimestampMixin):
         return f"<Video(id={self.id}, chapter_id={self.chapter_id}, status={self.status})>"
 
 
+# Alias for backward compatibility
+ShortVideo = Video
+
+
 class GenerationJob(Base, TimestampMixin):
     """Async job tracking for video generation.
 

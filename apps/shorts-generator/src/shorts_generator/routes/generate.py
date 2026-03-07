@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from shorts_generator.core.config import settings
 from shorts_generator.database.connection import get_session
-from shorts_generator.models import GenerationJob, ShortVideo
+from shorts_generator.database.models import GenerationJob, ShortVideo
 from shorts_generator.services.audio_generator import audio_generator
 from shorts_generator.services.content_extractor import ContentExtractor
 from shorts_generator.services.script_generator import ScriptGenerator

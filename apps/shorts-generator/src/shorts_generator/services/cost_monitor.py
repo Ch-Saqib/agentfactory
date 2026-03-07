@@ -13,7 +13,7 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from shorts_generator.core.config import settings
-from shorts_generator.models import GenerationJob, ShortVideo
+from shorts_generator.database.models import GenerationJob, ShortVideo
 
 logger = logging.getLogger(__name__)
 
