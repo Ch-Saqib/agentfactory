@@ -1,5 +1,14 @@
-"""FastAPI routes."""
+"""FastAPI routes for Lesson Shorts Generator.
 
-from shorts_generator.routes import daily_automation  # noqa: F401
-
-__all__ = ["daily_automation"]
+Routes are imported directly in main.py:
+- analytics
+- automation
+- batch
+- cost_monitor
+- daily_automation
+- engagement
+- generate
+- recommendations
+- shorts
+- status
+"""

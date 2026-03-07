@@ -62,14 +62,6 @@ from shorts_generator.services.batch_processor import (
     ChapterMetadata,
     batch_processor,
 )
-from shorts_generator.services.progress_service import (
-    BatchProgress,
-    ProgressService,
-    ProgressStep,
-    ProgressUpdate,
-    progress_service,
-)
-
 __all__ = [
     # Audio Generator (Edge-TTS)
     "AudioGenerator",
@@ -124,10 +116,4 @@ __all__ = [
     "BatchReport",
     "ChapterMetadata",
     "batch_processor",
-    # Progress Service
-    "ProgressService",
-    "ProgressUpdate",
-    "ProgressStep",
-    "BatchProgress",
-    "progress_service",
 ]

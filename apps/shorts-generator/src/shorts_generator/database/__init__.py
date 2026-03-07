@@ -1,12 +1,12 @@
-"""Database models and repositories."""
+"""Database models, schemas, and repository."""
 
 from shorts_generator.database.db_manager import DatabaseManager, database_manager
+
+# Import models and schemas from database/models.py
 from shorts_generator.database.models import (
+    Base,
     GenerationJob,
-    GenerationJobCreate,
-    GenerationJobResponse,
     Script,
-    ShortVideo,
     Video,
     VideoAnalytics,
     VideoCreate,
@@ -15,20 +15,18 @@ from shorts_generator.database.models import (
 )
 
 __all__ = [
-    # Models
-    "Video",
-    "ShortVideo",  # Alias for Video
+    # SQLAlchemy Models
+    "Base",
     "GenerationJob",
-    "Script",
+    "Script",    "Video",
     "VideoAnalytics",
     "TimestampMixin",
     # Pydantic Schemas
     "VideoCreate",
-    "VideoUpdate",
     "VideoResponse",
-    "GenerationJobCreate",
-    "GenerationJobResponse",
     # Database Manager
     "DatabaseManager",
     "database_manager",
 ]
+
+# Note: ShortVideo is an alias for Video in database/models.py for backward compatibility
