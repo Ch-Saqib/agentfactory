@@ -78,14 +78,12 @@ class TestVideoCRUD:
 
     async def test_create_video(self, db_manager):
         """Test creating a video record."""
-        if not os.getenv("TEST_DATABASE_URL"):
-            pytest.skip("Test database not configured")
-
         video_data = VideoCreate(
             chapter_id="test-chapter-1",
             chapter_title="Test Chapter 1",
             content_snippet="This is a test content snippet...",
             video_url="https://r2.dev/videos/test.mp4",
+            thumbnail_url="https://r2.dev/thumbnails/test.jpg",
             duration_seconds=60.0,
             word_count=150,
             scene_count=3,
@@ -96,17 +94,21 @@ class TestVideoCRUD:
 
         # Mock the session operations
         with mock.patch.object(db_manager, "get_session") as mock_session:
-            mock_session.return_value.__aenter__.return_value.add = mock.Mock()
-            mock_session.return_value.__aenter__.return_value.commit = mock.Mock()
-            mock_session.return_value.__aenter__.return_value.refresh = mock.Mock()
+            session = mock_session.return_value.__aenter__.return_value
+            session.add = mock.Mock()
+            session.commit = mock.AsyncMock()
 
-            mock_video = Video(id=1, **video_data.model_dump())
-            mock_session.return_value.__aenter__.return_value.refresh.return_value = mock_video
+            async def refresh_side_effect(model):
+                if isinstance(model, Video) and model.id is None:
+                    model.id = 1
+
+            session.refresh = mock.AsyncMock(side_effect=refresh_side_effect)
 
             result = await db_manager.create_video(video_data)
 
             assert isinstance(result, Video)
             assert result.chapter_id == "test-chapter-1"
+            assert result.thumbnail_url == "https://r2.dev/thumbnails/test.jpg"
 
     async def test_get_video_by_id(self, db_manager):
         """Test getting a video by ID."""

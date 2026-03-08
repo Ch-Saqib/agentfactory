@@ -219,7 +219,7 @@ async def list_jobs(
 
 @router.get("/videos/{video_id}", response_model=VideoMetadataResponse)
 async def get_video_metadata(
-    video_id: str,
+    video_id: int,
     session: AsyncSession = Depends(get_session),
 ) -> VideoMetadataResponse:
     """Get metadata for a generated video.
@@ -301,6 +301,104 @@ async def list_videos(
         )
         for video in videos
     ]
+
+
+@router.get("/videos/{video_id}/thumbnail")
+async def stream_thumbnail(
+    video_id: int,
+    session: AsyncSession = Depends(get_session),
+):
+    """Stream a thumbnail image from R2 storage.
+
+    This endpoint proxies thumbnail images from R2 storage to the client,
+    bypassing CORS and presigned URL expiry issues.
+
+    Args:
+        video_id: Video ID
+
+    Returns:
+        Response with thumbnail image content
+
+    Raises:
+        HTTPException: If video not found or thumbnail cannot be streamed
+    """
+    import asyncio
+    from fastapi.responses import Response
+    from botocore.exceptions import ClientError as BotoClientError
+    from shorts_generator.services.r2_uploader import get_r2_uploader
+
+    # Get video from database
+    result = await session.execute(select(ShortVideo).where(ShortVideo.id == video_id))
+    video = result.scalar_one_or_none()
+
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    # Extract the R2 storage key from the thumbnail_url
+    thumbnail_key = None
+    if video.thumbnail_url:
+        url = video.thumbnail_url
+        # Extract key from URL - look for "thumbnails/" prefix in URL
+        for prefix in ["thumbnails/"]:
+            idx = url.find(prefix)
+            if idx != -1:
+                # Extract from "thumbnails/" onwards, strip query params
+                thumbnail_key = url[idx:].split("?")[0]
+                break
+
+    # If no thumbnail_url stored, try constructing a key from chapter_id
+    if not thumbnail_key and video.chapter_id:
+        thumbnail_key = f"thumbnails/{video.chapter_id}/thumbnail.jpg"
+
+    if not thumbnail_key:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"No thumbnail available for video: {video_id}",
+        )
+
+    try:
+        r2_uploader = get_r2_uploader()
+
+        def _fetch_thumbnail():
+            return r2_uploader.client.get_object(
+                Bucket=r2_uploader.bucket_name,
+                Key=thumbnail_key,
+            )
+
+        response = await asyncio.to_thread(_fetch_thumbnail)
+        content_type = response.get("ContentType", "image/jpeg")
+        body = await asyncio.to_thread(response["Body"].read)
+
+        return Response(
+            content=body,
+            media_type=content_type,
+            headers={
+                "Cache-Control": "public, max-age=86400",  # 1 day cache
+                "Content-Disposition": f"inline; filename={video_id}-thumbnail.jpg",
+            },
+        )
+
+    except BotoClientError as e:
+        error_code = e.response.get("Error", {}).get("Code", "Unknown")
+        if error_code == "NoSuchKey":
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Thumbnail not found in storage for video: {video_id}",
+            )
+        logger.error(f"R2 error streaming thumbnail for video {video_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to stream thumbnail from R2: {str(e)}",
+        )
+    except Exception as e:
+        logger.error(f"Error streaming thumbnail for video {video_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to stream thumbnail: {str(e)}",
+        )
 
 
 @router.get("/health", response_model=HealthResponse)

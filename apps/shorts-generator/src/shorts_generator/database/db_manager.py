@@ -154,6 +154,7 @@ class DatabaseManager:
                 chapter_number=video_data.chapter_number,
                 content_snippet=video_data.content_snippet,
                 video_url=video_data.video_url,
+                thumbnail_url=video_data.thumbnail_url,
                 duration_seconds=video_data.duration_seconds,
                 word_count=video_data.word_count,
                 scene_count=video_data.scene_count,

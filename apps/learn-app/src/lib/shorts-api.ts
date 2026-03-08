@@ -149,7 +149,9 @@ function transformVideoMetadata(data: VideoMetadataResponse, baseUrl: string): S
     title: data.title,
     durationSeconds: data.duration_seconds,
     videoUrl: videoUrl,
-    thumbnailUrl: data.thumbnail_url || "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail",
+    thumbnailUrl: data.thumbnail_url
+      ? `${baseUrl}/videos/${data.video_id}/thumbnail`
+      : "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail",
     viewCount: data.view_count || 0,
     likeCount: data.like_count || 0,
     commentCount: data.comment_count || 0,

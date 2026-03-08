@@ -219,6 +219,7 @@ class VideoCreate(BaseModel):
     chapter_number: int | None = None
     content_snippet: str
     video_url: str
+    thumbnail_url: str | None = None
     duration_seconds: float
     word_count: int | None = None
     scene_count: int | None = None
