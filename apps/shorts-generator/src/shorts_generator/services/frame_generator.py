@@ -9,6 +9,7 @@ This service generates video frames with text animation:
 """
 
 import logging
+import math
 import os
 import tempfile
 from dataclasses import dataclass, field
@@ -350,6 +351,137 @@ class FrameGenerator:
         # Full opacity
         return 1.0
 
+    def _chunk_caption_words(
+        self,
+        words: list[tuple[str, bool]],
+        max_chars_per_line: int = 20,
+        max_lines: int = 3,
+    ) -> list[list[tuple[str, bool]]]:
+        """Chunk caption words into short, readable lines."""
+        lines: list[list[tuple[str, bool]]] = []
+        current_line: list[tuple[str, bool]] = []
+        current_len = 0
+
+        for word, is_active in words:
+            word_len = len(word)
+            projected = current_len + (1 if current_line else 0) + word_len
+            if current_line and projected > max_chars_per_line:
+                lines.append(current_line)
+                if len(lines) >= max_lines:
+                    return lines
+                current_line = [(word, is_active)]
+                current_len = word_len
+            else:
+                current_line.append((word, is_active))
+                current_len = projected
+
+        if current_line and len(lines) < max_lines:
+            lines.append(current_line)
+
+        return lines
+
+    def _create_word_sync_caption_frame(
+        self,
+        words: list[tuple[str, bool]],
+        opacity: float = 1.0,
+        active_pulse: float = 0.0,
+    ) -> Image.Image:
+        """Create a modern shorts-style animated caption frame."""
+        img = Image.new("RGB", (self.spec.width, self.spec.height), color=self.spec.bg_color)
+        draw = ImageDraw.Draw(img, "RGBA")
+        font = self.content_font
+
+        # Colorful palette for active words
+        palette = [
+            (255, 99, 132),   # pink
+            (255, 193, 7),    # amber
+            (80, 227, 194),   # mint
+            (126, 87, 194),   # violet
+            (255, 112, 67),   # orange
+        ]
+
+        lines = self._chunk_caption_words(words)
+        line_gap = 14
+        word_gap = 14
+        line_height = int(font.size * 1.45)
+        total_height = len(lines) * line_height + max(0, len(lines) - 1) * line_gap
+
+        # Place captions in lower third for reels/shorts style
+        y = int(self.spec.height * 0.62 - total_height / 2)
+
+        # Soft lower-third panel for readability
+        panel_top = y - 28
+        panel_bottom = y + total_height + 28
+        panel_color = (0, 0, 0, int(110 * opacity))
+        draw.rounded_rectangle(
+            [70, panel_top, self.spec.width - 70, panel_bottom],
+            radius=30,
+            fill=panel_color,
+        )
+
+        for line_index, line_words in enumerate(lines):
+            # Measure total line width (chips + gaps)
+            line_width = 0
+            word_boxes: list[tuple[str, bool, int, int]] = []
+            for word, is_active in line_words:
+                rendered_word = word.upper()
+                bbox = draw.textbbox((0, 0), rendered_word, font=font)
+                text_w = bbox[2] - bbox[0]
+                text_h = bbox[3] - bbox[1]
+                pad_x = 18
+                pad_y = 10
+                chip_w = text_w + (pad_x * 2)
+                chip_h = text_h + (pad_y * 2)
+                word_boxes.append((rendered_word, is_active, chip_w, chip_h))
+                line_width += chip_w
+            if word_boxes:
+                line_width += word_gap * (len(word_boxes) - 1)
+
+            x = int((self.spec.width - line_width) / 2)
+            line_y = y + (line_index * (line_height + line_gap))
+
+            for word_index, (rendered_word, is_active, chip_w, chip_h) in enumerate(word_boxes):
+                pulse = 1.0
+                if is_active:
+                    pulse = 1.0 + (0.06 * active_pulse)
+                pulse_w = int(chip_w * pulse)
+                pulse_h = int(chip_h * pulse)
+                dx = (pulse_w - chip_w) // 2
+                dy = (pulse_h - chip_h) // 2
+
+                chip_x1 = x - dx
+                chip_y1 = line_y - dy
+                chip_x2 = x + chip_w + dx
+                chip_y2 = line_y + chip_h + dy
+
+                if is_active:
+                    color = palette[(line_index + word_index) % len(palette)]
+                    fill = (color[0], color[1], color[2], int(235 * opacity))
+                    text_color = (15, 15, 15, int(255 * opacity))
+                    outline = (255, 255, 255, int(180 * opacity))
+                else:
+                    fill = (30, 30, 30, int(180 * opacity))
+                    text_color = (255, 255, 255, int(230 * opacity))
+                    outline = (255, 255, 255, int(70 * opacity))
+
+                draw.rounded_rectangle(
+                    [chip_x1, chip_y1, chip_x2, chip_y2],
+                    radius=16,
+                    fill=fill,
+                    outline=outline,
+                    width=2,
+                )
+
+                text_x = x + 18
+                text_y = line_y + 10
+                # Small shadow for pop
+                draw.text((text_x + 2, text_y + 2), rendered_word, font=font, fill=(0, 0, 0, int(120 * opacity)))
+                draw.text((text_x, text_y), rendered_word, font=font, fill=text_color)
+
+                x += chip_w + word_gap
+
+        return img
+
     def generate_title_frames(
         self,
         title: str,
@@ -441,17 +573,28 @@ class FrameGenerator:
         for frame_num in range(frame_count):
             frame_time = start_time + (frame_num / self.spec.fps)
 
-            # Find which words should be displayed at this time
-            displayed_words = []
-            for word_start, word_end, word in words_to_display:
+            # Find active word index for this frame
+            active_index = -1
+            for idx, (word_start, word_end, _) in enumerate(words_to_display):
                 if word_start <= frame_time < word_end:
-                    displayed_words.append(word)
-                elif frame_time >= word_end and len(displayed_words) < 50:
-                    # Show recent words (karaoke style)
-                    displayed_words.append(word)
+                    active_index = idx
+                    break
+                if frame_time >= word_end:
+                    active_index = idx
 
-            # Build display text
-            display_text = " ".join(displayed_words[-15:])  # Show last 15 words
+            # Build a short window around active word for modern caption style
+            if active_index >= 0:
+                window_start = max(0, active_index - 4)
+                window_end = min(len(words_to_display), active_index + 4)
+                window_words: list[tuple[str, bool]] = [
+                    (word, (window_start + i) == active_index)
+                    for i, (_, _, word) in enumerate(words_to_display[window_start:window_end])
+                ]
+                active_start = words_to_display[active_index][0]
+                active_pulse = math.sin(max(0.0, frame_time - active_start) * 12.0)
+            else:
+                window_words = []
+                active_pulse = 0.0
 
             # Create frame with fade effect
             opacity = self._calculate_opacity(
@@ -462,7 +605,11 @@ class FrameGenerator:
                 self.animation_config.fade_out_duration,
             )
 
-            frame = self._create_frame(display_text, opacity=opacity)
+            frame = self._create_word_sync_caption_frame(
+                window_words,
+                opacity=opacity,
+                active_pulse=active_pulse,
+            )
 
             # Save frame
             frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.png")

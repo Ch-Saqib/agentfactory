@@ -83,6 +83,8 @@ class Settings(BaseSettings):
 
     # Edge-TTS (free alternative)
     edge_tts_voice: str = "en-US-AriaNeural"
+    # TTS speaking rate (0.25 to 4.0, 1.0 = normal). < 1.0 is slower.
+    tts_speaking_rate: float = 0.85
 
     # Google Cloud TTS
     # Path to service account credentials JSON file
@@ -147,6 +149,8 @@ class Settings(BaseSettings):
     video_font_path: str = ""  # Empty = use system default
     # Animation settings
     video_fade_duration: float = 0.5  # Fade in/out duration in seconds
+    # Text animation mode: "word_sync", "scrolling", or "auto"
+    video_text_animation_mode: str = "word_sync"
     # Text settings
     video_max_line_width: int = 980  # Max text width in pixels
     video_line_spacing: float = 1.5  # Line spacing multiplier

@@ -245,7 +245,7 @@ class VideoGenerationService:
 
                 tts_result: GoogleTTSResult = await self.tts_generator.generate(
                     text=excerpt_content,
-                    speaking_rate=1.0,
+                    speaking_rate=settings.tts_speaking_rate,
                     pitch=0.0,
                     custom_voice=voice,
                     output_path=str(audio_path),
@@ -256,7 +256,7 @@ class VideoGenerationService:
                 tts_result: GoogleTTSResult = await asyncio.to_thread(
                     self.tts_generator.generate,
                     text=excerpt_content,
-                    speaking_rate=1.0,
+                    speaking_rate=settings.tts_speaking_rate,
                     pitch=0.0,
                     custom_voice=voice,
                     output_path=str(audio_path),
@@ -299,8 +299,16 @@ class VideoGenerationService:
             frames_dir = temp_dir / "frames"
             frames_dir.mkdir(exist_ok=True)
 
-            # Determine animation style based on content length
-            use_word_sync = len(tts_result.word_timings) < 100
+            # Determine animation mode
+            animation_mode = settings.video_text_animation_mode.lower().strip()
+            if animation_mode == "word_sync":
+                use_word_sync = True
+            elif animation_mode == "scrolling":
+                use_word_sync = False
+            else:
+                # Auto mode: use word-sync for shorter clips and scrolling for longer text
+                use_word_sync = len(tts_result.word_timings) < 100
+
             logger.info(
                 f"Animation mode: {'word_sync' if use_word_sync else 'scrolling'} "
                 f"({len(tts_result.word_timings)} words, {tts_result.duration_seconds:.1f}s)"
@@ -359,17 +367,25 @@ class VideoGenerationService:
             video_path = temp_dir / "video.mp4"
             thumbnail_path = temp_dir / "thumbnail.jpg"
 
+            def _compose_progress(progress: float) -> None:
+                # Compose callback is sync; schedule async progress updates safely.
+                if progress_callback is None:
+                    return
+                asyncio.create_task(
+                    self._report_progress(
+                        progress_callback,
+                        "compose_video",
+                        80 + int(progress * 10),
+                        f"Composing video: {progress * 100:.0f}%",
+                    )
+                )
+
             compose_result = await self.video_composer.compose(
                 frames_dir=str(frames_dir),
                 audio_path=str(audio_path),
                 output_path=str(video_path),
                 fps=settings.video_fps,
-                progress_callback=lambda p: self._report_progress(
-                    progress_callback,
-                    "compose_video",
-                    80 + int(p * 10),
-                    f"Composing video: {p * 100:.0f}%",
-                ),
+                progress_callback=_compose_progress,
             )
 
             # Generate thumbnail at 25% of video duration
