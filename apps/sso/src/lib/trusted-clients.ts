@@ -125,6 +125,7 @@ export const TRUSTED_CLIENTS = [
     redirectUrls: getRedirectUrls([
       "http://localhost:3000/api/auth/callback",
       "https://assessment.panaversity.org/api/auth/callback",
+      "https://panaversity-staging-pana-quiz.vercel.app/api/auth/callback"
     ]),
     disabled: false,
     skipConsent: true,
