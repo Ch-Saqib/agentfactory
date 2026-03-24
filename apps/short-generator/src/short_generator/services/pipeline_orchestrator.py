@@ -24,8 +24,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 
-from shorts_generator.database import database_manager
-from shorts_generator.services.video_generation_service import (
+from short_generator.database import database_manager
+from short_generator.services.video_generation_service import (
     GenerationProgress,
     GenerationResult,
     VideoGenerationService,
@@ -137,7 +137,7 @@ class PipelineOrchestrator:
             video_service: Video generation service (default: singleton)
             config: Pipeline configuration
         """
-        from shorts_generator.services.video_generation_service import (
+        from short_generator.services.video_generation_service import (
             get_video_generation_service,
         )
 

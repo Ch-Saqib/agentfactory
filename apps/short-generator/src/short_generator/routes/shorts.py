@@ -19,11 +19,11 @@ from typing import Any
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-from shorts_generator.database import (
+from short_generator.database import (
     VideoResponse,
     database_manager,
 )
-from shorts_generator.services.video_generation_service import (
+from short_generator.services.video_generation_service import (
     GenerationProgress,
     GenerationResult,
     video_generation_service,
@@ -288,7 +288,7 @@ async def stream_video(video_id: int):
         HTTPException: If video not found or cannot be streamed
     """
     from fastapi.responses import StreamingResponse
-    from shorts_generator.services.r2_uploader import get_r2_uploader
+    from short_generator.services.r2_uploader import get_r2_uploader
     import boto3
     from botocore.exceptions import ClientError
 
@@ -371,7 +371,7 @@ async def health_check() -> HealthResponse:
     components["r2_storage"] = "configured"
 
     # Check TTS (assume configured if credentials exist)
-    from shorts_generator.core.config import settings
+    from short_generator.core.config import settings
 
     if settings.google_cloud_credentials_path:
         components["tts_service"] = "configured"
@@ -500,7 +500,7 @@ async def batch_generate(
     Returns:
         BatchGenerateResponse with batch_id for tracking
     """
-    from shorts_generator.services.pipeline_orchestrator import (
+    from short_generator.services.pipeline_orchestrator import (
         ChapterInput,
         pipeline_orchestrator,
     )
@@ -565,7 +565,7 @@ async def get_batch_status(batch_id: str) -> BatchStatusResponse:
     Raises:
         HTTPException: If batch_id not found
     """
-    from shorts_generator.services.pipeline_orchestrator import pipeline_orchestrator
+    from short_generator.services.pipeline_orchestrator import pipeline_orchestrator
 
     batch_result = pipeline_orchestrator.get_batch_status(batch_id)
 
@@ -616,7 +616,7 @@ async def cancel_batch(batch_id: str) -> dict[str, Any]:
     Raises:
         HTTPException: If batch_id not found
     """
-    from shorts_generator.services.pipeline_orchestrator import pipeline_orchestrator
+    from short_generator.services.pipeline_orchestrator import pipeline_orchestrator
 
     cancelled = await pipeline_orchestrator.cancel_batch(batch_id)
 
@@ -673,7 +673,7 @@ async def batch_generate_from_directory(
             detail=f"Directory not found: {root_dir}",
         )
 
-    from shorts_generator.services.batch_processor import batch_processor
+    from short_generator.services.batch_processor import batch_processor
 
     # Generate batch ID
     batch_id = batch_id or f"batch-dir-{uuid.uuid4().hex[:8]}"

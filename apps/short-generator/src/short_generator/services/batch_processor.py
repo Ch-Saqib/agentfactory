@@ -19,7 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from shorts_generator.services.pipeline_orchestrator import (
+from short_generator.services.pipeline_orchestrator import (
     BatchResult,
     ChapterInput,
     PipelineOrchestrator,
@@ -255,7 +255,7 @@ class BatchProcessor:
         Returns:
             BatchResult with all results
         """
-        from shorts_generator.database import database_manager
+        from short_generator.database import database_manager
 
         # Filter out already completed if resuming
         if resume_from_failed:

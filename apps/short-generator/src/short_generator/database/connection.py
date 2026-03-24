@@ -10,8 +10,8 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.pool import NullPool
 
-from shorts_generator.core.config import settings
-from shorts_generator.models import Base
+from short_generator.core.config import settings
+from short_generator.models import Base
 
 
 def _create_engine() -> AsyncEngine:

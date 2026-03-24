@@ -1,9 +1,9 @@
 """Database models, schemas, and repository."""
 
-from shorts_generator.database.db_manager import DatabaseManager, database_manager
+from short_generator.database.db_manager import DatabaseManager, database_manager
 
 # Import models and schemas from database/models.py
-from shorts_generator.database.models import (
+from short_generator.database.models import (
     Base,
     GenerationJob,
     Script,

@@ -25,9 +25,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from PIL import Image, ImageDraw
 
-from shorts_generator.services.frame_generator import FrameGenerator
-from shorts_generator.services.google_tts_audio import GoogleCloudTTSGenerator
-from shorts_generator.services.video_composer import VideoComposer
+from short_generator.services.frame_generator import FrameGenerator
+from short_generator.services.google_tts_audio import GoogleCloudTTSGenerator
+from short_generator.services.video_composer import VideoComposer
 
 
 def create_sample_frames(output_dir: str, num_frames: int = 30):

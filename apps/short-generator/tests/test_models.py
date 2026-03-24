@@ -3,8 +3,8 @@
 import pytest
 from sqlalchemy import select
 
-from shorts_generator.database.connection import get_session, init_db, reset_engine
-from shorts_generator.models import (
+from short_generator.database.connection import get_session, init_db, reset_engine
+from short_generator.models import (
     Base,
     GenerationJob,
     ShortVideo,

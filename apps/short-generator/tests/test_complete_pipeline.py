@@ -15,11 +15,11 @@ from unittest import mock
 
 import pytest
 
-from shorts_generator.services.batch_processor import (
+from short_generator.services.batch_processor import (
     BatchProcessor,
     ChapterMetadata,
 )
-from shorts_generator.services.pipeline_orchestrator import (
+from short_generator.services.pipeline_orchestrator import (
     BatchResult,
     ChapterInput,
     ChapterResult,
@@ -27,7 +27,7 @@ from shorts_generator.services.pipeline_orchestrator import (
     PipelineOrchestrator,
     PipelineStatus,
 )
-from shorts_generator.services.progress_service import (
+from short_generator.services.progress_service import (
     ProgressService,
     ProgressStep,
 )
@@ -71,7 +71,7 @@ class TestPipelineOrchestrator:
             orchestrator.video_service, "generate_from_markdown", return_value=mock_result
         ):
             with mock.patch(
-                "shorts_generator.services.pipeline_orchestrator.database_manager"
+                "short_generator.services.pipeline_orchestrator.database_manager"
             ) as mock_db:
                 mock_db.create_job.return_value = mock.Mock()
                 mock_db.update_job_status.return_value = None
@@ -102,7 +102,7 @@ class TestPipelineOrchestrator:
             side_effect=[mock_fail, mock_success],
         ):
             with mock.patch(
-                "shorts_generator.services.pipeline_orchestrator.database_manager"
+                "short_generator.services.pipeline_orchestrator.database_manager"
             ) as mock_db:
                 mock_db.create_job.return_value = mock.Mock()
                 mock_db.update_job_status.return_value = None
@@ -135,7 +135,7 @@ class TestPipelineOrchestrator:
             orchestrator.video_service, "generate_from_markdown", return_value=mock_result
         ):
             with mock.patch(
-                "shorts_generator.services.pipeline_orchestrator.database_manager"
+                "short_generator.services.pipeline_orchestrator.database_manager"
             ) as mock_db:
                 mock_db.create_job.return_value = mock.Mock()
                 mock_db.update_job_status.return_value = mock.Mock()
@@ -163,7 +163,7 @@ class TestPipelineOrchestrator:
         orchestrator._cancel_flags[batch_id] = mock.Mock()
 
         with mock.patch(
-            "shorts_generator.services.pipeline_orchestrator.database_manager"
+            "short_generator.services.pipeline_orchestrator.database_manager"
         ) as mock_db:
             mock_db.update_job_status.return_value = None
 
@@ -283,7 +283,7 @@ class TestBatchProcessor:
 
     def test_generate_report(self, processor):
         """Test generating batch report."""
-        from shorts_generator.services.pipeline_orchestrator import BatchResult, PipelineStatus
+        from short_generator.services.pipeline_orchestrator import BatchResult, PipelineStatus
 
         mock_batch = BatchResult(
             batch_id="test-batch",
@@ -452,7 +452,7 @@ class TestIntegration:
             orchestrator.video_service, "generate_from_markdown", return_value=mock_result
         ):
             with mock.patch(
-                "shorts_generator.services.pipeline_orchestrator.database_manager"
+                "short_generator.services.pipeline_orchestrator.database_manager"
             ) as mock_db:
                 mock_db.create_job.return_value = mock.Mock()
                 mock_db.update_job_status.return_value = None

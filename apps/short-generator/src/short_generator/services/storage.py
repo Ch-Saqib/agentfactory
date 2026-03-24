@@ -21,7 +21,7 @@ import boto3
 from botocore.client import Config as BotoConfig
 from botocore.exceptions import ClientError
 
-from shorts_generator.core.config import settings
+from short_generator.core.config import settings
 
 logger = logging.getLogger(__name__)
 

@@ -25,9 +25,9 @@ from uuid import uuid4
 
 import httpx
 
-from shorts_generator.services.audio_generator import GeneratedAudio
-from shorts_generator.services.script_generator import GeneratedScript
-from shorts_generator.services.storage import storage_service
+from short_generator.services.audio_generator import GeneratedAudio
+from short_generator.services.script_generator import GeneratedScript
+from short_generator.services.storage import storage_service
 
 logger = logging.getLogger(__name__)
 
@@ -1452,7 +1452,7 @@ class VideoAssembler:
         captions = assets.get("captions", "")
 
         # For testing, we'd need to create GeneratedAudio
-        from shorts_generator.services.audio_generator import GeneratedAudio as Audio
+        from short_generator.services.audio_generator import GeneratedAudio as Audio
 
         if not audio_path:
             # Create dummy audio for testing

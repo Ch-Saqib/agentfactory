@@ -22,7 +22,7 @@ from urllib.parse import quote
 
 import httpx
 
-from shorts_generator.core.config import settings
+from short_generator.core.config import settings
 
 logger = logging.getLogger(__name__)
 

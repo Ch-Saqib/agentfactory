@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from shorts_generator.services.audio_generator import (
+from short_generator.services.audio_generator import (
     AudioGenerator,
     GeneratedAudio,
 )
@@ -130,7 +130,7 @@ async def test_add_background_music_with_ffmpeg(generator):
             voice_used="en-US-AriaNeural",
         )
 
-        with patch("shorts_generator.services.audio_generator.ffmpeg") as mock_ffmpeg:
+        with patch("short_generator.services.audio_generator.ffmpeg") as mock_ffmpeg:
             mock_probe = MagicMock()
             mock_probe.format = {"duration": "10.0"}
             mock_ffmpeg.probe = MagicMock(return_value=mock_probe)
@@ -157,7 +157,7 @@ async def test_add_background_music_ffmpeg_unavailable(generator):
         voice_used="en-US-AriaNeural",
     )
 
-    with patch("shorts_generator.services.audio_generator.ffmpeg", side_effect=ImportError):
+    with patch("short_generator.services.audio_generator.ffmpeg", side_effect=ImportError):
         result = await generator.add_background_music(narration.url)
 
         # Should return narration unchanged

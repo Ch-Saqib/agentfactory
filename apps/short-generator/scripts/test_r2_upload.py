@@ -25,7 +25,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from shorts_generator.services.r2_uploader import R2Uploader
+from short_generator.services.r2_uploader import R2Uploader
 
 
 def create_test_file(size_mb: float, suffix: str = ".mp4") -> str:

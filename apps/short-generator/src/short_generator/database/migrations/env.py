@@ -16,8 +16,8 @@ from pathlib import Path
 # Add src directory to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from shorts_generator.core.config import settings
-from shorts_generator.models import Base
+from short_generator.core.config import settings
+from short_generator.models import Base
 
 # Alembic config object
 config = context.config

@@ -4,7 +4,7 @@ This script tests the shorts generation API endpoints with a real server.
 
 Usage:
     # Start the server first:
-    uvicorn shorts_generator.main:app --reload
+    uvicorn short_generator.main:app --reload
 
     # Then run this script:
     python scripts/test_shorts_api.py

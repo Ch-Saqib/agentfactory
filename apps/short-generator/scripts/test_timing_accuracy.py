@@ -23,7 +23,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from shorts_generator.services.google_tts_audio import GoogleCloudTTSGenerator
+from short_generator.services.google_tts_audio import GoogleCloudTTSGenerator
 
 
 def print_timing_report(result):

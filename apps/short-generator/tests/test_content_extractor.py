@@ -3,7 +3,7 @@
 import pytest
 from unittest.mock import AsyncMock, patch
 
-from shorts_generator.services.content_extractor import (
+from short_generator.services.content_extractor import (
     CodeBlock,
     Concept,
     ContentExtractor,

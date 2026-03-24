@@ -19,9 +19,9 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from shorts_generator.core.config import settings
-from shorts_generator.database.db_manager import DatabaseManager
-from shorts_generator.database.models import (
+from short_generator.core.config import settings
+from short_generator.database.db_manager import DatabaseManager
+from short_generator.database.models import (
     VideoCreate,
 )
 

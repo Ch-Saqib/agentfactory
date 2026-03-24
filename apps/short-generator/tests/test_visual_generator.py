@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from shorts_generator.services.visual_generator import (
+from short_generator.services.visual_generator import (
     GeneratedImage,
     VisualGenerator,
 )
@@ -114,7 +114,7 @@ async def test_generate_scene_image_calls_pollinations(generator):
 
     # Mock the settings to use pollinations provider
     with patch.object(generator, "_hash_visual_description", return_value="test_hash"):
-        with patch("shorts_generator.services.visual_generator.settings") as mock_settings:
+        with patch("short_generator.services.visual_generator.settings") as mock_settings:
             mock_settings.image_provider = "pollinations"
 
             result = await generator.generate_scene_image("A futuristic robot brain")
@@ -248,12 +248,12 @@ async def test_generate_scene_image_handles_api_error(generator):
     VisualGenerator._cache.clear()
 
     # Mock the settings to use replicate provider
-    with patch("shorts_generator.services.visual_generator.settings") as mock_settings:
+    with patch("short_generator.services.visual_generator.settings") as mock_settings:
         mock_settings.image_provider = "replicate"
         mock_settings.replicate_api_key = "test-key"
 
         # Mock ReplicateClient to raise an error
-        with patch("shorts_generator.services.visual_generator.ReplicateClient") as mock_replicate:
+        with patch("short_generator.services.visual_generator.ReplicateClient") as mock_replicate:
             mock_client = MagicMock()
             mock_client.run = AsyncMock(side_effect=Exception("Replicate API error"))
             mock_replicate.return_value = mock_client

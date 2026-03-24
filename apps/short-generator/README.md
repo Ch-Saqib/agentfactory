@@ -54,7 +54,7 @@ nx serve shorts-generator
 
 # Or directly from the app directory
 cd apps/short-generator
-uv run fastapi dev src/shorts_generator/main.py --port 8001
+uv run fastapi dev main.py --port 8001
 ```
 
 ### 4. Test Health Endpoint
@@ -137,9 +137,9 @@ docker run -p 8001:8001 --env-file .env shorts-generator:latest
 
 1. Set up PostgreSQL database
 2. Run migrations: `uv run alembic upgrade head`
-3. Configure Celery worker: `uv run celery -A shorts_generator.workers.celery_worker worker --loglevel=info`
-4. Start API server: `uv run fastapi run src/shorts_generator/main.py --host 0.0.0.0 --port 8001`
-5. Deploy to FastAPI Cloud: `uv run fastapi deploy src/shorts_generator/main.py`
+3. Configure Celery worker: `uv run celery -A short_generator.workers.celery_worker worker --loglevel=info`
+4. Start API server: `uv run fastapi run main.py --host 0.0.0.0 --port 8001`
+5. Deploy to FastAPI Cloud: `uv run fastapi deploy main.py`
 
 ## License
 

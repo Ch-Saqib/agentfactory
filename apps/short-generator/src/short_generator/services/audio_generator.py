@@ -21,7 +21,7 @@ from typing import Any
 import httpx
 import edge_tts
 
-from shorts_generator.core.config import settings
+from short_generator.core.config import settings
 
 logger = logging.getLogger(__name__)
 

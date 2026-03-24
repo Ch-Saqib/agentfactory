@@ -17,7 +17,7 @@ from unittest import mock
 
 import pytest
 
-from shorts_generator.services.r2_uploader import (
+from short_generator.services.r2_uploader import (
     PresignedURLResult,
     R2Uploader,
     UploadResult,

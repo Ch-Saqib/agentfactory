@@ -23,8 +23,8 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from shorts_generator.services.frame_generator import FrameGenerator
-from shorts_generator.services.google_tts_audio import GoogleCloudTTSGenerator
+from short_generator.services.frame_generator import FrameGenerator
+from short_generator.services.google_tts_audio import GoogleCloudTTSGenerator
 
 
 def test_frame_generation():
@@ -63,7 +63,7 @@ def test_frame_generation():
     print("\n🎬 Test 2: Content Frames (Word Sync)")
     print("-" * 40)
 
-    from shorts_generator.services.google_tts_audio import WordTiming
+    from short_generator.services.google_tts_audio import WordTiming
 
     # Create mock word timings
     word_timings = [

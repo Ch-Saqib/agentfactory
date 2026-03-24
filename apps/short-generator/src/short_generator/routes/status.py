@@ -9,10 +9,10 @@ from pydantic import BaseModel
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from shorts_generator.core.config import settings
-from shorts_generator.database.connection import _create_engine, get_session
-from shorts_generator.database.models import GenerationJob, ShortVideo
-from shorts_generator.services.storage import storage_service
+from short_generator.core.config import settings
+from short_generator.database.connection import _create_engine, get_session
+from short_generator.database.models import GenerationJob, ShortVideo
+from short_generator.services.storage import storage_service
 
 logger = logging.getLogger(__name__)
 
@@ -325,7 +325,7 @@ async def stream_thumbnail(
     import asyncio
     from fastapi.responses import Response
     from botocore.exceptions import ClientError as BotoClientError
-    from shorts_generator.services.r2_uploader import get_r2_uploader
+    from short_generator.services.r2_uploader import get_r2_uploader
 
     # Get video from database
     result = await session.execute(select(ShortVideo).where(ShortVideo.id == video_id))
@@ -424,7 +424,7 @@ async def health_check() -> HealthResponse:
 
     # Check scheduler
     try:
-        from shorts_generator.services.automation_service import get_scheduler
+        from short_generator.services.automation_service import get_scheduler
 
         sched = get_scheduler()
         if sched.running:
@@ -436,7 +436,7 @@ async def health_check() -> HealthResponse:
 
     # Check Edge TTS connectivity
     try:
-        from shorts_generator.services.edge_tts_audio import check_edge_tts_connectivity
+        from short_generator.services.edge_tts_audio import check_edge_tts_connectivity
 
         connectivity = await check_edge_tts_connectivity()
         if connectivity["reachable"]:
@@ -481,7 +481,7 @@ async def check_tts_connectivity() -> dict:
 
     # Check Edge TTS connectivity
     try:
-        from shorts_generator.services.edge_tts_audio import check_edge_tts_connectivity
+        from short_generator.services.edge_tts_audio import check_edge_tts_connectivity
 
         edge_status = await check_edge_tts_connectivity()
         result["services"]["edge_tts"] = edge_status
@@ -502,7 +502,7 @@ async def _run_generation_task(
     voice: str,
 ):
     """Background task for video generation."""
-    from shorts_generator.services.automation_service import generate_single_short
+    from short_generator.services.automation_service import generate_single_short
     await generate_single_short(
         job_id=job_id,
         lesson_path=lesson_path,
@@ -559,7 +559,7 @@ async def retry_job(
     # Trigger background task for retry using the pipeline orchestrator
     async def retry_generation():
         """Retry generation in background."""
-        from shorts_generator.services.pipeline_orchestrator import get_pipeline_orchestrator, ChapterInput
+        from short_generator.services.pipeline_orchestrator import get_pipeline_orchestrator, ChapterInput
 
         try:
             orchestrator = get_pipeline_orchestrator()

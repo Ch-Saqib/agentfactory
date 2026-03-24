@@ -16,7 +16,7 @@ from uuid import uuid4
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, status
 
-from shorts_generator.services.daily_automation import (
+from short_generator.services.daily_automation import (
     get_automation_status,
     start_daily_automation,
     stop_daily_automation,
@@ -191,7 +191,7 @@ async def automation_status() -> dict[str, Any]:
 
         # Add video count
         logger.info("Importing database_manager...")
-        from shorts_generator.database import database_manager
+        from short_generator.database import database_manager
         logger.info("database_manager imported")
 
         logger.info("Calling list_videos...")
@@ -220,7 +220,7 @@ async def list_pending_lessons(limit: int = 10) -> dict[str, Any]:
         dict with pending lessons
     """
     try:
-        from shorts_generator.services.daily_automation import get_unchapters_lessons
+        from short_generator.services.daily_automation import get_unchapters_lessons
 
         lessons = await get_unchapters_lessons(limit=limit)
 

@@ -3,8 +3,8 @@
 import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from shorts_generator.services.content_extractor import LessonContent
-from shorts_generator.services.script_generator import (
+from short_generator.services.content_extractor import LessonContent
+from short_generator.services.script_generator import (
     GeneratedScript,
     ScriptGenerator,
     ScriptScene,
@@ -14,7 +14,7 @@ from shorts_generator.services.script_generator import (
 @pytest.fixture
 def generator():
     """Create a script generator instance."""
-    with patch("shorts_generator.services.script_generator.genai"):
+    with patch("short_generator.services.script_generator.genai"):
         gen = ScriptGenerator()
         gen.model = MagicMock()
         yield gen

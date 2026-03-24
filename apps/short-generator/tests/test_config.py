@@ -3,7 +3,7 @@
 import os
 from unittest.mock import patch
 
-from shorts_generator.core.config import Settings
+from short_generator.core.config import Settings
 
 
 def test_settings_defaults():

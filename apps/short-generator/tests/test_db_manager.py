@@ -16,8 +16,8 @@ from unittest import mock
 import pytest
 import pytest_asyncio
 
-from shorts_generator.database.db_manager import DatabaseManager
-from shorts_generator.database.models import (
+from short_generator.database.db_manager import DatabaseManager
+from short_generator.database.models import (
     GenerationJob,
     Script,
     Video,
@@ -465,7 +465,7 @@ class TestSingleton:
 
     def test_database_manager_singleton(self):
         """Test that database_manager singleton exists."""
-        from shorts_generator.database.db_manager import database_manager
+        from short_generator.database.db_manager import database_manager
 
         assert database_manager is not None
         assert isinstance(database_manager, DatabaseManager)

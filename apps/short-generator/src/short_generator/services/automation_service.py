@@ -15,13 +15,13 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from shorts_generator.database.connection import get_session
-from shorts_generator.models import AutomationSettings, GenerationJob, ShortVideo, utcnow
-from shorts_generator.services.content_extractor import ContentExtractor
-from shorts_generator.services.script_generator import ScriptGenerator
-from shorts_generator.services.visual_generator import VisualGenerator
-from shorts_generator.services.audio_generator import audio_generator
-from shorts_generator.services.video_assembler import VideoAssembler
+from short_generator.database.connection import get_session
+from short_generator.models import AutomationSettings, GenerationJob, ShortVideo, utcnow
+from short_generator.services.content_extractor import ContentExtractor
+from short_generator.services.script_generator import ScriptGenerator
+from short_generator.services.visual_generator import VisualGenerator
+from short_generator.services.audio_generator import audio_generator
+from short_generator.services.video_assembler import VideoAssembler
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +148,7 @@ async def generate_single_short(
             # Step 6: Save to database (100%)
             logger.info("Step 6: Saving video metadata to database")
 
-            from shorts_generator.services.storage import storage_service
+            from short_generator.services.storage import storage_service
 
             video_id = str(uuid4())
 

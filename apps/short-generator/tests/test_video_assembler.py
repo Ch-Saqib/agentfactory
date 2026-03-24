@@ -4,9 +4,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from shorts_generator.services.audio_generator import GeneratedAudio
-from shorts_generator.services.script_generator import GeneratedScript, ScriptScene
-from shorts_generator.services.video_assembler import (
+from short_generator.services.audio_generator import GeneratedAudio
+from short_generator.services.script_generator import GeneratedScript, ScriptScene
+from short_generator.services.video_assembler import (
     AssembledVideo,
     VideoAssembler,
 )
@@ -91,7 +91,7 @@ async def test_assemble_video_creates_video(assembler, sample_script):
     )
     captions = "1\n00:00:00,000 --> 00:00:05,000\nHook text\n\n2\n00:00:05,000 --> 00:00:20,000\nConcept text"
 
-    with patch("shorts_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
+    with patch("short_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
         mock_probe = MagicMock()
         mock_probe.format = {"duration": "60.0"}
         mock_ffmpeg.probe = MagicMock(return_value=mock_probe)
@@ -141,7 +141,7 @@ async def test_generate_thumbnail(assembler):
     """Test thumbnail generation from first scene image."""
     image_url = "file:///path/to/image.jpg"
 
-    with patch("shorts_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
+    with patch("short_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
         mock_input = MagicMock()
         mock_output = MagicMock()
         mock_output.overwrite_output = MagicMock()
@@ -163,7 +163,7 @@ async def test_optimize_for_web(assembler):
         tmp_video.write(b"MOCK_VIDEO_DATA")
         tmp_video.flush()
 
-        with patch("shorts_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
+        with patch("short_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
             mock_probe = MagicMock()
             mock_probe.format = {"duration": "60.0"}
             mock_ffmpeg.probe = MagicMock(return_value=mock_probe)
@@ -216,7 +216,7 @@ async def test_assemble_video_handles_ffmpeg_error(assembler, sample_script):
     )
     captions = "1\n00:00:00,000 --> 00:00:05,000\nCaption text"
 
-    with patch("shorts_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
+    with patch("short_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
         # Make FFmpeg raise an exception
         mock_ffmpeg.input.side_effect = Exception("FFmpeg error")
 
@@ -256,7 +256,7 @@ async def test_assemble_video_from_assets(assembler, sample_script):
         "captions": "1\n00:00:00,000 --> 00:00:05,000\nCaption",
     }
 
-    with patch("shorts_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
+    with patch("short_generator.services.video_assembler.ffmpeg") as mock_ffmpeg:
         mock_probe = MagicMock()
         mock_probe.format = {"duration": "60.0"}
         mock_ffmpeg.probe = MagicMock(return_value=mock_probe)
@@ -276,7 +276,7 @@ async def test_assemble_video_from_assets(assembler, sample_script):
 
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as mock_audio:
                 # Create mock audio file
-                with patch("shorts_generator.services.audio_generator.GeneratedAudio") as mock_audio_cls:
+                with patch("short_generator.services.audio_generator.GeneratedAudio") as mock_audio_cls:
                     # We need to skip the actual audio generation
                     pass
 

@@ -21,8 +21,8 @@ from typing import Any
 
 from google import genai
 
-from shorts_generator.core.config import settings
-from shorts_generator.services.content_extractor import LessonContent
+from short_generator.core.config import settings
+from short_generator.services.content_extractor import LessonContent
 
 logger = logging.getLogger(__name__)
 

@@ -19,8 +19,8 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
-from shorts_generator.services.frame_generator import FrameGenerationResult
-from shorts_generator.services.google_tts_audio import GoogleTTSResult
+from short_generator.services.frame_generator import FrameGenerationResult
+from short_generator.services.google_tts_audio import GoogleTTSResult
 
 logger = logging.getLogger(__name__)
 

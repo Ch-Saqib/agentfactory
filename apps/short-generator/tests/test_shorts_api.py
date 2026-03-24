@@ -16,7 +16,7 @@ import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
 
-from shorts_generator.main import app
+from short_generator.main import app
 
 
 @pytest.fixture
@@ -40,7 +40,7 @@ class TestGenerateFromMarkdown:
 
         # Mock database manager
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             # Mock get_video_by_chapter_id (not found)
             mock_db.get_video_by_chapter_id.return_value = None
@@ -92,7 +92,7 @@ class TestGenerateFromMarkdown:
         mock_video.id = 123
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video_by_chapter_id.return_value = mock_video
 
@@ -125,7 +125,7 @@ class TestGenerateFromFile:
             }
 
             with mock.patch(
-                "shorts_generator.routes.shorts.database_manager"
+                "short_generator.routes.shorts.database_manager"
             ) as mock_db:
                 mock_db.get_video_by_chapter_id.return_value = None
                 mock_db.create_job.return_value = mock.Mock(job_id="test-job-file")
@@ -170,7 +170,7 @@ class TestJobStatus:
         mock_job.result_data = None
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_job.return_value = mock_job
 
@@ -185,7 +185,7 @@ class TestJobStatus:
     def test_get_job_status_not_found(self, client):
         """Test getting job status when job doesn't exist."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_job.return_value = None
 
@@ -222,7 +222,7 @@ class TestVideoList:
         ]
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.list_videos.return_value = mock_videos
 
@@ -236,7 +236,7 @@ class TestVideoList:
     def test_list_videos_with_status_filter(self, client):
         """Test listing videos with status filter."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.list_videos.return_value = []
 
@@ -253,7 +253,7 @@ class TestVideoList:
     def test_list_videos_with_pagination(self, client):
         """Test listing videos with pagination."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.list_videos.return_value = []
 
@@ -292,7 +292,7 @@ class TestGetVideoForPage:
         ]
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_videos_for_shorts_page.return_value = mock_response
 
@@ -316,7 +316,7 @@ class TestGetVideoById:
         mock_video.analytics = None
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video.return_value = mock_video
 
@@ -329,7 +329,7 @@ class TestGetVideoById:
     def test_get_video_by_id_not_found(self, client):
         """Test getting video by ID when video doesn't exist."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video.return_value = None
 
@@ -349,7 +349,7 @@ class TestGetVideoByChapter:
         mock_video.analytics = None
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video_by_chapter_id.return_value = mock_video
 
@@ -362,7 +362,7 @@ class TestGetVideoByChapter:
     def test_get_video_by_chapter_not_found(self, client):
         """Test getting video by chapter when video doesn't exist."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video_by_chapter_id.return_value = None
 
@@ -377,7 +377,7 @@ class TestHealthCheck:
     def test_health_check_healthy(self, client):
         """Test health check when all components are healthy."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.health_check.return_value = True
 
@@ -395,7 +395,7 @@ class TestHealthCheck:
     def test_health_check_database_unhealthy(self, client):
         """Test health check when database is unhealthy."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.health_check.return_value = False
 
@@ -419,7 +419,7 @@ class TestDeleteVideo:
         mock_video.id = 1
 
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video.return_value = mock_video
             mock_db.delete_video.return_value = True
@@ -434,7 +434,7 @@ class TestDeleteVideo:
     def test_delete_video_not_found(self, client):
         """Test deleting non-existent video."""
         with mock.patch(
-            "shorts_generator.routes.shorts.database_manager"
+            "short_generator.routes.shorts.database_manager"
         ) as mock_db:
             mock_db.get_video.return_value = None
 

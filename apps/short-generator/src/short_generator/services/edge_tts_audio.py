@@ -20,7 +20,7 @@ from typing import Any
 import edge_tts
 from aiohttp import ClientConnectorDNSError, ClientConnectorError
 
-from shorts_generator.services.google_tts_audio import GoogleTTSResult, WordTiming
+from short_generator.services.google_tts_audio import GoogleTTSResult, WordTiming
 
 logger = logging.getLogger(__name__)
 

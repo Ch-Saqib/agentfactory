@@ -20,7 +20,7 @@ from google.cloud.texttospeech import (
     Timepoint,
 )
 
-from shorts_generator.services.google_tts_audio import (
+from short_generator.services.google_tts_audio import (
     GoogleCloudTTSGenerator,
     GoogleTTSResult,
     WordTiming,
@@ -399,7 +399,7 @@ class TestConfigIntegration:
 
     def test_generator_uses_settings(self):
         """Test that generator respects settings."""
-        from shorts_generator.core.config import settings
+        from short_generator.core.config import settings
 
         generator = GoogleCloudTTSGenerator(
             voice_preset=settings.google_tts_voice_preset,

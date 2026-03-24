@@ -23,7 +23,7 @@ from botocore.exceptions import BotoCoreError, ClientError
 from mypy_boto3_s3 import S3Client
 from mypy_boto3_s3.service_resource import S3ServiceResource
 
-from shorts_generator.core.config import settings
+from short_generator.core.config import settings
 
 logger = logging.getLogger(__name__)
 

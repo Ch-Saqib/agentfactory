@@ -17,7 +17,7 @@ import httpx
 import yaml
 from markdown import Markdown
 
-from shorts_generator.core.config import settings
+from short_generator.core.config import settings
 
 logger = logging.getLogger(__name__)
 

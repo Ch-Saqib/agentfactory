@@ -17,8 +17,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-from shorts_generator.core.config import settings
-from shorts_generator.services.google_tts_audio import GoogleTTSResult, WordTiming
+from short_generator.core.config import settings
+from short_generator.services.google_tts_audio import GoogleTTSResult, WordTiming
 
 logger = logging.getLogger(__name__)
 

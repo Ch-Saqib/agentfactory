@@ -17,9 +17,9 @@ from unittest import mock
 
 import pytest
 
-from shorts_generator.services.frame_generator import FrameGenerationResult
-from shorts_generator.services.google_tts_audio import GoogleTTSResult
-from shorts_generator.services.video_composer import (
+from short_generator.services.frame_generator import FrameGenerationResult
+from short_generator.services.google_tts_audio import GoogleTTSResult
+from short_generator.services.video_composer import (
     VideoCodec,
     VideoComposer,
     VideoCompositionConfig,

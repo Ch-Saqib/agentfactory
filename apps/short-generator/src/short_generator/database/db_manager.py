@@ -19,8 +19,8 @@ from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import selectinload
 
-from shorts_generator.core.config import settings
-from shorts_generator.database.models import (
+from short_generator.core.config import settings
+from short_generator.database.models import (
     GenerationJob,
     Script,
     Video,
@@ -114,7 +114,7 @@ class DatabaseManager:
         This should be called once during setup.
         """
         self._ensure_initialized()
-        from shorts_generator.database.models import Base
+        from short_generator.database.models import Base
 
         async with self._engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
@@ -126,7 +126,7 @@ class DatabaseManager:
 
         WARNING: This will delete all data!
         """
-        from shorts_generator.database.models import Base
+        from short_generator.database.models import Base
 
         async with self._engine.begin() as conn:
             await conn.run_sync(Base.metadata.drop_all)

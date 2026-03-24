@@ -8,7 +8,7 @@ This script tests the end-to-end pipeline including:
 
 Usage:
     # Start the server first:
-    uvicorn shorts_generator.main:app --reload
+    uvicorn short_generator.main:app --reload
 
     # Then run this script:
     python scripts/test_complete_pipeline.py

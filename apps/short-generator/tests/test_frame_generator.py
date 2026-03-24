@@ -14,15 +14,15 @@ import tempfile
 import pytest
 from PIL import Image
 
-from shorts_generator.core.config import settings
-from shorts_generator.services.frame_generator import (
+from short_generator.core.config import settings
+from short_generator.services.frame_generator import (
     FrameGenerationResult,
     FrameGenerator,
     FrameSpec,
     TextAnimationConfig,
     frame_generator,
 )
-from shorts_generator.services.google_tts_audio import GoogleTTSResult, WordTiming
+from short_generator.services.google_tts_audio import GoogleTTSResult, WordTiming
 
 
 class TestFrameSpec:

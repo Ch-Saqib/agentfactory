@@ -25,9 +25,9 @@ from uuid import uuid4
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from shorts_generator.core.config import settings
-from shorts_generator.database import database_manager
-from shorts_generator.services.pipeline_orchestrator import ChapterInput, get_pipeline_orchestrator
+from short_generator.core.config import settings
+from short_generator.database import database_manager
+from short_generator.services.pipeline_orchestrator import ChapterInput, get_pipeline_orchestrator
 
 logger = logging.getLogger(__name__)
 

@@ -26,22 +26,22 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from shorts_generator.core.config import settings
-from shorts_generator.database import VideoCreate, database_manager
-from shorts_generator.services.edge_tts_audio import (
+from short_generator.core.config import settings
+from short_generator.database import VideoCreate, database_manager
+from short_generator.services.edge_tts_audio import (
     EdgeTTSGenerator,
     check_edge_tts_connectivity,
 )
-from shorts_generator.services.frame_generator import FrameGenerator
-from shorts_generator.services.google_tts_audio import (
+from short_generator.services.frame_generator import FrameGenerator
+from short_generator.services.google_tts_audio import (
     GoogleCloudTTSGenerator,
     GoogleTTSResult,
 )
-from shorts_generator.services.markdown_parser import MarkdownParser
-from shorts_generator.services.script_generator import ScriptGenerator
-from shorts_generator.services.content_extractor import ContentExtractor, Concept, CodeBlock, LessonContent
-from shorts_generator.services.r2_uploader import R2Uploader
-from shorts_generator.services.video_composer import VideoComposer
+from short_generator.services.markdown_parser import MarkdownParser
+from short_generator.services.script_generator import ScriptGenerator
+from short_generator.services.content_extractor import ContentExtractor, Concept, CodeBlock, LessonContent
+from short_generator.services.r2_uploader import R2Uploader
+from short_generator.services.video_composer import VideoComposer
 
 logger = logging.getLogger(__name__)
 
@@ -131,7 +131,7 @@ class VideoGenerationService:
     @staticmethod
     def _get_r2_uploader():
         """Get the R2 uploader singleton (lazy import)."""
-        from shorts_generator.services.r2_uploader import get_r2_uploader
+        from short_generator.services.r2_uploader import get_r2_uploader
         return get_r2_uploader()
 
     async def generate_from_markdown(

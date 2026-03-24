@@ -4,15 +4,18 @@ import asyncio
 import logging
 import signal
 import sys
+import os
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from shorts_generator.core.config import settings
-from shorts_generator.database.connection import _create_engine
-from shorts_generator.database.models import Base
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+
+from short_generator.core.config import settings
+from short_generator.database.connection import _create_engine
+from short_generator.database.models import Base
 
 # Configure detailed logging for debugging
 logging.basicConfig(
@@ -102,7 +105,7 @@ app.add_middleware(
 
 # Health check is handled by status.router at /api/v1/health
 # Import and include routes
-from shorts_generator.routes import shorts, status, daily_automation  # noqa: E402
+from short_generator.routes import shorts, status, daily_automation  # noqa: E402
 
 app.include_router(shorts.router)
 app.include_router(status.router)
