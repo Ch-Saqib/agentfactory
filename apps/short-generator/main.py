@@ -4,7 +4,7 @@ Expose the real ASGI app at the project root so commands that inspect `.`
 or `main.py` can find `app` without needing an explicit `--app` path.
 """
 
-from src.shorts_generator.main import app
+from shorts_generator.main import app
 
 
 def main() -> None:

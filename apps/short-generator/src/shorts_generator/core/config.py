@@ -57,11 +57,6 @@ class Settings(BaseSettings):
     groq_api_key: str = Field(default="", validation_alias="GROQ_API_KEY")
     groq_model: str = "llama-3.3-70b-versatile"
 
-    # OpenAI API (alternative for script generation)
-    # Get from: https://platform.openai.com/api-keys
-    openai_api_key: str = Field(default="", validation_alias="OPENAI_API_KEY")
-    openai_model: str = "gpt-4o-mini"
-
     # Image Generation Provider (options: imagen, replicate, pollinations)
     # - imagen: Google Imagen via Gemini API ($0.03-$0.06/image, uses existing GEMINI_API_KEY)
     # - replicate: Replicate Flux Schnell (~$0.0025/image, requires REPLICATE_API_KEY)
@@ -76,12 +71,6 @@ class Settings(BaseSettings):
     # Aspect ratio for generated images (9:16 for vertical video)
     imagen_aspect_ratio: str = "9:16"
 
-    # Replicate API (get from: https://replicate.com/account/api-tokens)
-    # Free trial: $5 in credits, then pay-as-you-go
-    # Flux Schnell: ~$0.0025 per image
-    replicate_api_key: str = Field(default="", validation_alias="REPLICATE_API_KEY")
-    flux_model: str = "black-forest-labs/flux-schnell"
-
     # Edge-TTS (free alternative)
     edge_tts_voice: str = "en-US-AriaNeural"
     # TTS speaking rate (0.25 to 4.0, 1.0 = normal). < 1.0 is slower.
@@ -91,7 +80,6 @@ class Settings(BaseSettings):
     # Path to service account credentials JSON file
     # Get from: https://console.cloud.google.com/iam-admin/serviceaccounts
     google_cloud_credentials_path: str = Field(default="", validation_alias="GOOGLE_CLOUD_CREDENTIALS_PATH")
-    google_project_id: str = Field(default="", validation_alias="GOOGLE_PROJECT_ID")
     # TTS provider: "edge_tts" (free) or "google_tts" (paid, better timing)
     tts_provider: str = "edge_tts"
     # Google Cloud TTS voice preset (narration_male, narration_female, news, casual, dramatic)
@@ -112,23 +100,11 @@ class Settings(BaseSettings):
     r2_public_url: str = Field(default="", validation_alias="R2_PUBLIC_URL")
     r2_custom_domain: str = Field(default="", validation_alias="R2_CUSTOM_DOMAIN")
 
-    # Content API
-    content_api_url: str = Field(default="http://localhost:8000", validation_alias="CONTENT_API_URL")
-
     # Security
     allowed_origins: str = Field(default="http://localhost:3000,http://localhost:8001", validation_alias="ALLOWED_ORIGINS")
-    admin_secret: str = Field(default="", validation_alias="ADMIN_SECRET")
-
-    # Development
-    dev_mode: bool = True
-    dev_user_id: str = Field(default="dev-user-123", validation_alias="DEV_USER_ID")
-    dev_user_email: str = Field(default="dev@example.com", validation_alias="DEV_USER_EMAIL")
-    dev_user_name: str = Field(default="Developer", validation_alias="DEV_USER_NAME")
 
     # Cost Control
     max_cost_per_video: float = 0.006
-    daily_budget_alert: float = 10.0
-    monthly_budget_limit: float = 100.0
 
     # Generation Settings
     target_duration: int = 60
