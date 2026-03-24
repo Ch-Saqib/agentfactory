@@ -25,8 +25,18 @@ Video Assembly (FFmpeg) → Upload to R2 CDN → Short Video
 ### 1. Install Dependencies
 
 ```bash
-cd apps/shorts-generator
+# From the repo root so uv syncs the workspace environment
+cd /home/saqib-squad/agentfactory
 uv sync
+```
+
+If you prefer an app-local virtualenv inside `apps/short-generator`, install the package into that
+environment explicitly:
+
+```bash
+cd apps/short-generator
+uv venv
+uv pip install --python .venv/bin/python -e .
 ```
 
 ### 2. Set Environment Variables
@@ -42,9 +52,9 @@ cp .env.example .env
 # Using nx
 nx serve shorts-generator
 
-# Or directly
-cd src
-uv run python -m uvicorn shorts_generator.main:app --reload --port 8001
+# Or directly from the app directory
+cd apps/short-generator
+uv run fastapi dev src/shorts_generator/main.py --port 8001
 ```
 
 ### 4. Test Health Endpoint
@@ -128,7 +138,8 @@ docker run -p 8001:8001 --env-file .env shorts-generator:latest
 1. Set up PostgreSQL database
 2. Run migrations: `uv run alembic upgrade head`
 3. Configure Celery worker: `uv run celery -A shorts_generator.workers.celery_worker worker --loglevel=info`
-4. Start API server: `uvicorn shorts_generator.main:app --host 0.0.0.0 --port 8001`
+4. Start API server: `uv run fastapi run src/shorts_generator/main.py --host 0.0.0.0 --port 8001`
+5. Deploy to FastAPI Cloud: `uv run fastapi deploy src/shorts_generator/main.py`
 
 ## License
 

@@ -83,10 +83,10 @@ class VideoCompositionConfig:
     """
 
     codec: VideoCodec = VideoCodec.H264
-    preset: VideoPreset = VideoPreset.MEDIUM
-    crf: VideoQuality = VideoQuality.MEDIUM
+    preset: VideoPreset = VideoPreset.SLOW
+    crf: VideoQuality = VideoQuality.GOOD
     pixel_format: str = "yuv420p"
-    audio_bitrate: str = "128k"
+    audio_bitrate: str = "192k"
     audio_codec: str = "aac"
 
     @classmethod
@@ -107,12 +107,18 @@ class VideoCompositionConfig:
             self.preset.value,
             "-crf",
             self.crf.value,
+            "-profile:v",
+            "high",
+            "-level:v",
+            "4.1",
             "-pix_fmt",
             self.pixel_format,
             "-c:a",
             self.audio_codec,
             "-b:a",
             self.audio_bitrate,
+            "-movflags",
+            "+faststart",
         ]
 
 

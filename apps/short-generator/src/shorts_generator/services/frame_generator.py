@@ -386,10 +386,11 @@ class FrameGenerator:
         opacity: float = 1.0,
         active_pulse: float = 0.0,
     ) -> Image.Image:
-        """Create a modern shorts-style animated caption frame."""
+        """Create a modern word-sync caption frame (no background box)."""
         img = Image.new("RGB", (self.spec.width, self.spec.height), color=self.spec.bg_color)
         draw = ImageDraw.Draw(img, "RGBA")
-        font = self.content_font
+        caption_font_size = max(int(self.animation_config.font_size_content * 1.35), 64)
+        font = self._get_font(caption_font_size)
 
         # Colorful palette for active words
         palette = [
@@ -401,84 +402,61 @@ class FrameGenerator:
         ]
 
         lines = self._chunk_caption_words(words)
-        line_gap = 14
-        word_gap = 14
-        line_height = int(font.size * 1.45)
+        line_gap = 18
+        word_gap = 16
+        line_height = int(font.size * 1.35)
         total_height = len(lines) * line_height + max(0, len(lines) - 1) * line_gap
 
-        # Place captions in lower third for reels/shorts style
-        y = int(self.spec.height * 0.62 - total_height / 2)
-
-        # Soft lower-third panel for readability
-        panel_top = y - 28
-        panel_bottom = y + total_height + 28
-        panel_color = (0, 0, 0, int(110 * opacity))
-        draw.rounded_rectangle(
-            [70, panel_top, self.spec.width - 70, panel_bottom],
-            radius=30,
-            fill=panel_color,
-        )
+        # Force true centered captions for creator-style readability.
+        y = int((self.spec.height - total_height) / 2)
 
         for line_index, line_words in enumerate(lines):
-            # Measure total line width (chips + gaps)
+            # Measure total line width (word runs + gaps)
             line_width = 0
-            word_boxes: list[tuple[str, bool, int, int]] = []
+            word_runs: list[tuple[str, bool, int, int]] = []
             for word, is_active in line_words:
                 rendered_word = word.upper()
                 bbox = draw.textbbox((0, 0), rendered_word, font=font)
                 text_w = bbox[2] - bbox[0]
                 text_h = bbox[3] - bbox[1]
-                pad_x = 18
-                pad_y = 10
-                chip_w = text_w + (pad_x * 2)
-                chip_h = text_h + (pad_y * 2)
-                word_boxes.append((rendered_word, is_active, chip_w, chip_h))
-                line_width += chip_w
-            if word_boxes:
-                line_width += word_gap * (len(word_boxes) - 1)
+                word_runs.append((rendered_word, is_active, text_w, text_h))
+                line_width += text_w
+            if word_runs:
+                line_width += word_gap * (len(word_runs) - 1)
 
             x = int((self.spec.width - line_width) / 2)
             line_y = y + (line_index * (line_height + line_gap))
 
-            for word_index, (rendered_word, is_active, chip_w, chip_h) in enumerate(word_boxes):
-                pulse = 1.0
-                if is_active:
-                    pulse = 1.0 + (0.06 * active_pulse)
-                pulse_w = int(chip_w * pulse)
-                pulse_h = int(chip_h * pulse)
-                dx = (pulse_w - chip_w) // 2
-                dy = (pulse_h - chip_h) // 2
-
-                chip_x1 = x - dx
-                chip_y1 = line_y - dy
-                chip_x2 = x + chip_w + dx
-                chip_y2 = line_y + chip_h + dy
-
+            for word_index, (rendered_word, is_active, text_w, _text_h) in enumerate(word_runs):
                 if is_active:
                     color = palette[(line_index + word_index) % len(palette)]
-                    fill = (color[0], color[1], color[2], int(235 * opacity))
-                    text_color = (15, 15, 15, int(255 * opacity))
-                    outline = (255, 255, 255, int(180 * opacity))
+                    pulse = max(0.0, min(1.0, (active_pulse + 1.0) / 2.0))
+                    text_color = (
+                        color[0],
+                        color[1],
+                        color[2],
+                        int((220 + (35 * pulse)) * opacity),
+                    )
                 else:
-                    fill = (30, 30, 30, int(180 * opacity))
-                    text_color = (255, 255, 255, int(230 * opacity))
-                    outline = (255, 255, 255, int(70 * opacity))
+                    text_color = (255, 255, 255, int(240 * opacity))
 
-                draw.rounded_rectangle(
-                    [chip_x1, chip_y1, chip_x2, chip_y2],
-                    radius=16,
-                    fill=fill,
-                    outline=outline,
-                    width=2,
+                # Soft shadow + crisp stroke for "pro" readability on any background.
+                draw.text(
+                    (x + 3, line_y + 3),
+                    rendered_word,
+                    font=font,
+                    fill=(0, 0, 0, int(140 * opacity)),
+                )
+                draw.text(
+                    (x, line_y),
+                    rendered_word,
+                    font=font,
+                    fill=text_color,
+                    stroke_width=4,
+                    stroke_fill=(0, 0, 0, int(210 * opacity)),
                 )
 
-                text_x = x + 18
-                text_y = line_y + 10
-                # Small shadow for pop
-                draw.text((text_x + 2, text_y + 2), rendered_word, font=font, fill=(0, 0, 0, int(120 * opacity)))
-                draw.text((text_x, text_y), rendered_word, font=font, fill=text_color)
-
-                x += chip_w + word_gap
+                x += text_w + word_gap
 
         return img
 

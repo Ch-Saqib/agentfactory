@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -41,8 +42,8 @@ class Settings(BaseSettings):
     #   - gemini-2.0-flash-exp: Good balance of speed and quality
     #   - gemini-1.5-flash: Higher limits, faster but less capable
     #   - gemini-2.5-flash: Most capable but only 20 requests/day on free tier
-    gemini_api_key: str = "dev-key"
-    gemini_model: str = "gemini-2.0-flash-lite"
+    gemini_api_key: str = Field(default="", validation_alias="GEMINI_API_KEY")
+    gemini_model: str = Field(default="", validation_alias="GEMINI_MODEL")
 
     # Script Generation Provider (options: gemini, groq, openai)
     # - gemini: Uses Google Gemini (requires GEMINI_API_KEY)
@@ -53,12 +54,12 @@ class Settings(BaseSettings):
     # Groq API (get from: https://console.groq.com/keys)
     # Free tier: Very generous - no hard limits for development
     # Models: llama-3.3-70b-versatile, llama-3.1-8b-instant, mixtral-8x7b-32768
-    groq_api_key: str = ""
+    groq_api_key: str = Field(default="", validation_alias="GROQ_API_KEY")
     groq_model: str = "llama-3.3-70b-versatile"
 
     # OpenAI API (alternative for script generation)
     # Get from: https://platform.openai.com/api-keys
-    openai_api_key: str = ""
+    openai_api_key: str = Field(default="", validation_alias="OPENAI_API_KEY")
     openai_model: str = "gpt-4o-mini"
 
     # Image Generation Provider (options: imagen, replicate, pollinations)
@@ -78,7 +79,7 @@ class Settings(BaseSettings):
     # Replicate API (get from: https://replicate.com/account/api-tokens)
     # Free trial: $5 in credits, then pay-as-you-go
     # Flux Schnell: ~$0.0025 per image
-    replicate_api_key: str = ""
+    replicate_api_key: str = Field(default="", validation_alias="REPLICATE_API_KEY")
     flux_model: str = "black-forest-labs/flux-schnell"
 
     # Edge-TTS (free alternative)
@@ -89,8 +90,8 @@ class Settings(BaseSettings):
     # Google Cloud TTS
     # Path to service account credentials JSON file
     # Get from: https://console.cloud.google.com/iam-admin/serviceaccounts
-    google_cloud_credentials_path: str = ""
-    google_project_id: str = ""
+    google_cloud_credentials_path: str = Field(default="", validation_alias="GOOGLE_CLOUD_CREDENTIALS_PATH")
+    google_project_id: str = Field(default="", validation_alias="GOOGLE_PROJECT_ID")
     # TTS provider: "edge_tts" (free) or "google_tts" (paid, better timing)
     tts_provider: str = "edge_tts"
     # Google Cloud TTS voice preset (narration_male, narration_female, news, casual, dramatic)
@@ -101,28 +102,28 @@ class Settings(BaseSettings):
     google_tts_sample_rate: int = 24000
 
     # PostgreSQL (format: postgresql://user:password@host/database)
-    shorts_database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/shorts"
+    shorts_database_url: str = Field(default="postgresql+asyncpg://postgres:postgres@localhost:5432/shorts", validation_alias="SHORTS_DATABASE_URL")
 
     # Cloudflare R2 (for production, use real values)
-    r2_account_id: str = "dev-account"
-    r2_access_key_id: str = "dev-key"
-    r2_secret_access_key: str = "dev-secret"
-    r2_bucket_name: str = "agentfactory-shorts"
-    r2_public_url: str = "https://dev.r2.dev"
-    r2_custom_domain: str = ""
+    r2_account_id: str = Field(default="", validation_alias="R2_ACCOUNT_ID")
+    r2_access_key_id: str = Field(default="", validation_alias="R2_ACCESS_KEY_ID")
+    r2_secret_access_key: str = Field(default="", validation_alias="R2_SECRET_ACCESS_KEY")
+    r2_bucket_name: str = Field(default="agentfactory-shorts", validation_alias="R2_BUCKET_NAME")
+    r2_public_url: str = Field(default="", validation_alias="R2_PUBLIC_URL")
+    r2_custom_domain: str = Field(default="", validation_alias="R2_CUSTOM_DOMAIN")
 
     # Content API
-    content_api_url: str = "http://localhost:8000"
+    content_api_url: str = Field(default="http://localhost:8000", validation_alias="CONTENT_API_URL")
 
     # Security
-    allowed_origins: str = "http://localhost:3000,http://localhost:8001"
-    admin_secret: str = "dev-secret-change-in-production"
+    allowed_origins: str = Field(default="http://localhost:3000,http://localhost:8001", validation_alias="ALLOWED_ORIGINS")
+    admin_secret: str = Field(default="", validation_alias="ADMIN_SECRET")
 
     # Development
     dev_mode: bool = True
-    dev_user_id: str = "dev-user-123"
-    dev_user_email: str = "dev@example.com"
-    dev_user_name: str = "Developer"
+    dev_user_id: str = Field(default="dev-user-123", validation_alias="DEV_USER_ID")
+    dev_user_email: str = Field(default="dev@example.com", validation_alias="DEV_USER_EMAIL")
+    dev_user_name: str = Field(default="Developer", validation_alias="DEV_USER_NAME")
 
     # Cost Control
     max_cost_per_video: float = 0.006

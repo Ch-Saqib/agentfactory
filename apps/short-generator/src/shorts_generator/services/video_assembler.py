@@ -42,7 +42,7 @@ AUDIO_BITRATE = "128k"
 MAX_FILE_SIZE_MB = 50
 
 # Caption styling — premium centered captions via ASS subtitles
-CAPTION_FONT_SIZE = 68
+CAPTION_FONT_SIZE = 78
 CAPTION_MAX_CHARS = 72
 CAPTION_MAX_LINES = 2
 CAPTION_LINE_CHARS = 24  # tighter wrap → faster read → less "slow text" feel
@@ -419,8 +419,8 @@ class VideoAssembler:
             ass.append(
                 "Style: Default,Arial Bold,"
                 f"{POPUP_FONT_SIZE},"
-                "&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,"
-                "-1,0,0,0,100,100,2,0,1,6,4,5,80,80,200,1"
+                "&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,"
+                "-1,0,0,0,100,100,2,0,1,6,3,5,80,80,200,1"
             )
         elif karaoke:
             # Karaoke: Primary = highlight (electric yellow), Secondary = base white
@@ -428,7 +428,7 @@ class VideoAssembler:
             ass.append(
                 "Style: Default,Arial Bold,"
                 f"{CAPTION_FONT_SIZE},"
-                "&H0000FFFF,&H00FFFFFF,&H00000000,&H40000000,"
+                "&H0000FFFF,&H00FFFFFF,&H00000000,&H00000000,"
                 "-1,0,0,0,100,100,1,0,1,5,3,5,80,80,120,1"
             )
         else:
@@ -436,7 +436,7 @@ class VideoAssembler:
             ass.append(
                 "Style: Default,Arial Bold,"
                 f"{CAPTION_FONT_SIZE},"
-                "&H00FFFFFF,&H00FFFFFF,&H00000000,&H40000000,"
+                "&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,"
                 "-1,0,0,0,100,100,1,0,1,5,3,5,80,80,120,1"
             )
         ass.append("")
@@ -743,9 +743,7 @@ class VideoAssembler:
             f"shadowx=3:"
             f"shadowy=3:"
             f"line_spacing=12:"
-            f"box=1:"
-            f"boxcolor=black@0.45:"
-            f"boxborderw=26:"
+            f"box=0:"
             f"borderw=2:"
             f"bordercolor=white@0.10:"
         )

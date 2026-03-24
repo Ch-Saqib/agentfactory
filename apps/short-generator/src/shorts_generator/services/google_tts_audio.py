@@ -17,6 +17,8 @@ Pricing (as of 2025):
 For a 60-second video (~150 words): ~$0.002 - $0.008 per video
 """
 
+from __future__ import annotations
+
 import asyncio
 import json
 import logging
@@ -25,14 +27,22 @@ import tempfile
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-from google.cloud import texttospeech
-from google.cloud.texttospeech import (
-    AudioConfig,
-    SsmlVoiceGender,
-    SynthesisInput,
-    Voice,
-    VoiceSelectionParams,
-)
+try:
+    from google.cloud import texttospeech
+    from google.cloud.texttospeech import (
+        AudioConfig,
+        SsmlVoiceGender,
+        SynthesisInput,
+        Voice,
+        VoiceSelectionParams,
+    )
+except ModuleNotFoundError:
+    texttospeech = None
+    AudioConfig = Any
+    SsmlVoiceGender = Any
+    SynthesisInput = Any
+    Voice = Any
+    VoiceSelectionParams = Any
 
 logger = logging.getLogger(__name__)
 
@@ -41,9 +51,9 @@ logger = logging.getLogger(__name__)
 AudioEncoding = Literal["MP3", "WAV", "OGG_OPUS"]
 
 ENCODING_MAP = {
-    "MP3": texttospeech.AudioEncoding.MP3,
-    "WAV": texttospeech.AudioEncoding.LINEAR16,
-    "OGG_OPUS": texttospeech.AudioEncoding.OGG_OPUS,
+    "MP3": getattr(getattr(texttospeech, "AudioEncoding", None), "MP3", None),
+    "WAV": getattr(getattr(texttospeech, "AudioEncoding", None), "LINEAR16", None),
+    "OGG_OPUS": getattr(getattr(texttospeech, "AudioEncoding", None), "OGG_OPUS", None),
 }
 
 
@@ -192,10 +202,20 @@ class GoogleCloudTTSGenerator:
                 f"Available: {list(self.VOICE_PRESETS.keys())}"
             )
 
+    @staticmethod
+    def _ensure_dependency() -> None:
+        """Raise a clear error if Google Cloud TTS is not installed."""
+        if texttospeech is None:
+            raise ModuleNotFoundError(
+                "google.cloud.texttospeech is not installed. "
+                "Install `google-cloud-texttospeech` to use tts_provider=google_tts."
+            )
+
     @property
     def client(self) -> texttospeech.TextToSpeechClient:
         """Get or create TTS client."""
         if self._client is None:
+            self._ensure_dependency()
             # Set credentials path if provided
             if self._credentials_path:
                 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = self._credentials_path
@@ -316,6 +336,7 @@ class GoogleCloudTTSGenerator:
         Raises:
             Exception: If TTS generation fails
         """
+        self._ensure_dependency()
         logger.info(f"Generating audio with {self.voice_preset} voice")
 
         # Prepare input
@@ -462,5 +483,5 @@ def _run_ffprobe(audio_path: str) -> float:
     return 0.0
 
 
-# Singleton instance
-google_tts_generator = GoogleCloudTTSGenerator()
+# Optional singleton placeholder. Instantiate lazily when Google TTS is used.
+google_tts_generator: GoogleCloudTTSGenerator | None = None
