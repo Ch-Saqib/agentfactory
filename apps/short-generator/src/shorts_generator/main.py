@@ -35,10 +35,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     # Startup
     print("🚀 Starting Lesson Shorts Generator v0.1.0")
-    print(f"📝 Gemini Model: {settings.gemini_model}")
-    print(f"🔊 TTS Voice: {settings.edge_tts_voice}")
-    print(f"💰 Max cost per video: ${settings.max_cost_per_video:.4f}")
-
     # Create database tables automatically using async engine
     print("📊 Creating database tables...")
     try:

@@ -35,16 +35,6 @@ class Settings(BaseSettings):
     # Server
     port: int = 8003
 
-    # Gemini API (get from: https://aistudio.google.com/app/apikey)
-    # Used for both script generation and image generation
-    # Recommended models for free tier:
-    #   - gemini-2.0-flash-lite: 15 requests/minute (best for automation)
-    #   - gemini-2.0-flash-exp: Good balance of speed and quality
-    #   - gemini-1.5-flash: Higher limits, faster but less capable
-    #   - gemini-2.5-flash: Most capable but only 20 requests/day on free tier
-    gemini_api_key: str = Field(default="", validation_alias="GEMINI_API_KEY")
-    gemini_model: str = Field(default="", validation_alias="GEMINI_MODEL")
-
     # Script Generation Provider (options: gemini, groq, openai)
     # - gemini: Uses Google Gemini (requires GEMINI_API_KEY)
     # - groq: Uses Groq with Llama models (requires GROQ_API_KEY) - BEST FREE TIER
