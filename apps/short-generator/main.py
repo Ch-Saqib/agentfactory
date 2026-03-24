@@ -14,7 +14,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 import asyncio
 import logging
-import signal
 import sys
 import os
 from collections.abc import AsyncGenerator
@@ -65,17 +64,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         traceback.print_exc()
 
 
-
     print("🎯 Startup complete, server ready to accept requests")
-
-    # Set up signal handlers for graceful shutdown
-    def signal_handler(sig, frame):
-        logger.info(f"🛑 Received signal {sig}, initiating graceful shutdown...")
-        # This will trigger the lifespan shutdown
-        raise KeyboardInterrupt
-
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.signal(signal.SIGTERM, signal_handler)
 
     yield
 

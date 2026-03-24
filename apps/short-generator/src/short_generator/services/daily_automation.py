@@ -34,8 +34,9 @@ logger = logging.getLogger(__name__)
 # Scheduler instance
 scheduler: AsyncIOScheduler | None = None
 
-# Docs path
-DOCS_PATH = Path("/home/saqib-squad/agentfactory/apps/learn-app/docs")
+# Docs path - resolve relative to the project root (works locally and on FastAPI Cloud at /app/)
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent  # src/short_generator/services -> project root
+DOCS_PATH = _PROJECT_ROOT / "docs"
 
 
 async def get_unchapters_lessons(limit: int = 1) -> list[ChapterInput]:
