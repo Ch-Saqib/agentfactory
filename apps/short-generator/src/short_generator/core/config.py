@@ -64,7 +64,7 @@ class Settings(BaseSettings):
     # Edge-TTS (free alternative)
     edge_tts_voice: str = "en-US-AriaNeural"
     # TTS speaking rate (0.25 to 4.0, 1.0 = normal). < 1.0 is slower.
-    tts_speaking_rate: float = 0.85
+    tts_speaking_rate: float = 0.75
 
     # Google Cloud TTS
     # Path to service account credentials JSON file
