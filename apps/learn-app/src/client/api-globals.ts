@@ -2,37 +2,38 @@
  * API Globals Client Module
  *
  * Injects API URLs from Docusaurus config into window globals for
- * backwards compatibility with code that expects these values.
+ * use by API client modules (shorts-api, etc.).
  *
- * This module runs immediately on client-side load.
+ * This module runs immediately on client-side load via Docusaurus clientModules.
+ * It imports the generated site config (which includes customFields from
+ * docusaurus.config.ts) and sets window globals that API clients can read.
  */
 
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import siteConfig from '@generated/docusaurus.config';
 
 if (ExecutionEnvironment.canUseDOM) {
-  // Get the site config from the injected global variable
-  // Docusaurus injects this as __INITIAL_STATE__ or similar
-  const siteConfig = (window as any).__DOCUSAURUS_SITE_CONFIG__;
+  const { customFields } = siteConfig;
 
-  if (siteConfig?.customFields) {
+  if (customFields) {
     // Inject Study Mode API URL
-    if (siteConfig.customFields.studyModeApiUrl) {
-      (window as any).__STUDY_MODE_API_URL__ = siteConfig.customFields.studyModeApiUrl;
+    if (customFields.studyModeApiUrl) {
+      (window as any).__STUDY_MODE_API_URL__ = customFields.studyModeApiUrl;
     }
 
     // Inject Shorts API URL
-    if (siteConfig.customFields.shortsApiUrl) {
-      (window as any).__SHORTS_API_URL__ = siteConfig.customFields.shortsApiUrl;
+    if (customFields.shortsApiUrl) {
+      (window as any).__SHORTS_API_URL__ = customFields.shortsApiUrl;
     }
 
     // Inject Token Metering API URL
-    if (siteConfig.customFields.tokenMeteringApiUrl) {
-      (window as any).__TOKEN_METERING_API_URL__ = siteConfig.customFields.tokenMeteringApiUrl;
+    if (customFields.tokenMeteringApiUrl) {
+      (window as any).__TOKEN_METERING_API_URL__ = customFields.tokenMeteringApiUrl;
     }
 
     // Inject Progress API URL
-    if (siteConfig.customFields.progressApiUrl) {
-      (window as any).__PROGRESS_API_URL__ = siteConfig.customFields.progressApiUrl;
+    if (customFields.progressApiUrl) {
+      (window as any).__PROGRESS_API_URL__ = customFields.progressApiUrl;
     }
   }
 }

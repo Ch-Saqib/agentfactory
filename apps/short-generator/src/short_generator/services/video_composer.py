@@ -19,6 +19,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from short_generator.services.ffmpeg_utils import get_ffmpeg_path, get_ffprobe_path
 from short_generator.services.frame_generator import FrameGenerationResult
 from short_generator.services.google_tts_audio import GoogleTTSResult
 
@@ -191,7 +192,7 @@ class VideoComposer:
         try:
             result = await asyncio.to_thread(
                 subprocess.run,
-                ["ffmpeg", "-version"],
+                [get_ffmpeg_path(), "-version"],
                 capture_output=True,
             )
             return result.returncode == 0
@@ -211,7 +212,7 @@ class VideoComposer:
             result = await asyncio.to_thread(
                 subprocess.run,
                 [
-                    "ffprobe",
+                    get_ffprobe_path(),
                     "-v",
                     "error",
                     "-show_entries",
@@ -245,7 +246,7 @@ class VideoComposer:
             result = await asyncio.to_thread(
                 subprocess.run,
                 [
-                    "ffprobe",
+                    get_ffprobe_path(),
                     "-v",
                     "error",
                     "-select_streams",
@@ -313,7 +314,7 @@ class VideoComposer:
 
         # Base command
         cmd = [
-            "ffmpeg",
+            get_ffmpeg_path(),
             "-y",  # Overwrite output file
             "-framerate",
             str(fps),
@@ -540,7 +541,7 @@ class VideoComposer:
             output_path = str(Path(video_path).with_suffix(".jpg"))
 
         cmd = [
-            "ffmpeg",
+            get_ffmpeg_path(),
             "-y",
             "-ss",
             str(timestamp),
@@ -640,7 +641,7 @@ class VideoComposer:
             output_path = str(Path(video_path).parent / f"{base}_preview.mp4")
 
         cmd = [
-            "ffmpeg",
+            get_ffmpeg_path(),
             "-y",
             "-ss",
             str(start_time),

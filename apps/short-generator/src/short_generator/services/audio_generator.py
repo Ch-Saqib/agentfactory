@@ -68,11 +68,12 @@ class AudioGenerator:
         """Get the actual duration of an audio file using ffprobe."""
         try:
             import subprocess
+            from short_generator.services.ffmpeg_utils import get_ffprobe_path
 
             result = await asyncio.to_thread(
                 subprocess.run,
                 [
-                    "ffprobe",
+                    get_ffprobe_path(),
                     "-v",
                     "error",
                     "-show_entries",

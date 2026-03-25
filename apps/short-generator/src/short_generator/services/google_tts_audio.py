@@ -464,10 +464,11 @@ def _run_ffprobe(audio_path: str) -> float:
         Duration in seconds
     """
     import subprocess
+    from short_generator.services.ffmpeg_utils import get_ffprobe_path
 
     result = subprocess.run(
         [
-            "ffprobe",
+            get_ffprobe_path(),
             "-v", "error",
             "-show_entries", "format=duration",
             "-of", "default=noprint_wrappers=1:nokey=1",

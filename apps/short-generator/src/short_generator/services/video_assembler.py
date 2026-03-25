@@ -26,6 +26,7 @@ from uuid import uuid4
 import httpx
 
 from short_generator.services.audio_generator import GeneratedAudio
+from short_generator.services.ffmpeg_utils import get_ffmpeg_path
 from short_generator.services.script_generator import GeneratedScript
 from short_generator.services.storage import storage_service
 
@@ -119,9 +120,10 @@ class VideoAssembler:
 
             # Use ffprobe to get accurate duration
             import subprocess
+            from short_generator.services.ffmpeg_utils import get_ffprobe_path
             result = await asyncio.to_thread(
                 subprocess.run,
-                ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", audio_path],
+                [get_ffprobe_path(), "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", audio_path],
                 capture_output=True,
                 text=True,
             )
@@ -1161,7 +1163,7 @@ class VideoAssembler:
                 # Build ffmpeg command
                 # Create slideshow from images with audio
                 cmd = [
-                    "ffmpeg",
+                    get_ffmpeg_path(),
                     "-y",  # Overwrite output file
                     "-loop", "1",  # Loop images
                     "-i", clean_images[0],  # Input image
@@ -1280,7 +1282,7 @@ class VideoAssembler:
 
                 # Use ffmpeg to resize the image to thumbnail dimensions
                 cmd = [
-                    "ffmpeg",
+                    get_ffmpeg_path(),
                     "-y",  # Overwrite output file
                     "-i", image_path,  # Input image
                     "-vf", f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}:force_original_aspect_ratio=decrease,pad={VIDEO_WIDTH}:{VIDEO_HEIGHT}:(ow-iw)/2:(oh-ih)/2",

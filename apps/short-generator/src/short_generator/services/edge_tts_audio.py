@@ -249,8 +249,9 @@ class EdgeTTSGenerator:
     async def _get_audio_duration(self, audio_path: str) -> float:
         """Get the actual duration of an audio file using ffprobe."""
         try:
+            from short_generator.services.ffmpeg_utils import get_ffprobe_path
             result = await asyncio.create_subprocess_exec(
-                "ffprobe",
+                get_ffprobe_path(),
                 "-v", "error",
                 "-show_entries", "format=duration",
                 "-of", "default=noprint_wrappers=1:nokey=1",

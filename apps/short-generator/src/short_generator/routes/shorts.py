@@ -380,10 +380,11 @@ async def health_check() -> HealthResponse:
 
     # Check FFmpeg
     import subprocess
+    from short_generator.services.ffmpeg_utils import get_ffmpeg_path
 
     try:
         subprocess.run(
-            ["ffmpeg", "-version"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True
+            [get_ffmpeg_path(), "-version"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True
         )
         components["ffmpeg"] = "available"
     except Exception:
