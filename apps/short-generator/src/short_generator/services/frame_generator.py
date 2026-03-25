@@ -385,6 +385,7 @@ class FrameGenerator:
         words: list[tuple[str, bool]],
         opacity: float = 1.0,
         active_pulse: float = 0.0,
+        variant: int = 0,
     ) -> Image.Image:
         """Create a modern word-sync caption frame (no background box)."""
         img = Image.new("RGB", (self.spec.width, self.spec.height), color=self.spec.bg_color)
@@ -428,6 +429,9 @@ class FrameGenerator:
             line_y = y + (line_index * (line_height + line_gap))
 
             for word_index, (rendered_word, is_active, text_w, _text_h) in enumerate(word_runs):
+                y_offset = 0
+                x_offset = 0
+                
                 if is_active:
                     color = palette[(line_index + word_index) % len(palette)]
                     pulse = max(0.0, min(1.0, (active_pulse + 1.0) / 2.0))
@@ -437,18 +441,31 @@ class FrameGenerator:
                         color[2],
                         int((220 + (35 * pulse)) * opacity),
                     )
+                    
+                    # Apply animation variant styles to active words
+                    if variant == 1:
+                        # Jump: move up during active pulse
+                        y_offset = -int(8 * pulse)
+                    elif variant == 2:
+                        # Wave: rhythmic up/down
+                        y_offset = int(math.sin(active_pulse * math.pi) * 6)
+                    elif variant == 3:
+                        # Pop: slight up and left shift to mimic scaling
+                        x_offset = -int(2 * pulse)
+                        y_offset = -int(4 * pulse)
+                        
                 else:
                     text_color = (255, 255, 255, int(240 * opacity))
 
                 # Soft shadow + crisp stroke for "pro" readability on any background.
                 draw.text(
-                    (x + 3, line_y + 3),
+                    (x + 3 + x_offset, line_y + 3 + y_offset),
                     rendered_word,
                     font=font,
                     fill=(0, 0, 0, int(140 * opacity)),
                 )
                 draw.text(
-                    (x, line_y),
+                    (x + x_offset, line_y + y_offset),
                     rendered_word,
                     font=font,
                     fill=text_color,
@@ -549,6 +566,11 @@ class FrameGenerator:
         for timing in word_timings:
             words_to_display.append((timing.start_time, timing.end_time, timing.word))
 
+        # Deterministically select animation variant based on content
+        import hashlib
+        digest = hashlib.sha256(content.encode("utf-8")).hexdigest()
+        anim_variant = int(digest[:8], 16) % 4
+
         for frame_num in range(frame_count):
             frame_time = start_time + (frame_num / self.spec.fps)
 
@@ -588,6 +610,7 @@ class FrameGenerator:
                 window_words,
                 opacity=opacity,
                 active_pulse=active_pulse,
+                variant=anim_variant,
             )
 
             # Save frame
