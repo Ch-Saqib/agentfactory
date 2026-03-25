@@ -10,6 +10,7 @@ This service combines video frames and audio into final MP4 videos:
 """
 
 import asyncio
+import gc
 import json
 import logging
 import os
@@ -84,11 +85,12 @@ class VideoCompositionConfig:
     """
 
     codec: VideoCodec = VideoCodec.H264
-    preset: VideoPreset = VideoPreset.SLOW
-    crf: VideoQuality = VideoQuality.GOOD
+    preset: VideoPreset = VideoPreset.ULTRAFAST
+    crf: VideoQuality = VideoQuality.MINIMAL
     pixel_format: str = "yuv420p"
-    audio_bitrate: str = "192k"
+    audio_bitrate: str = "128k"
     audio_codec: str = "aac"
+    threads: int = 1
 
     @classmethod
     def from_settings(cls) -> "VideoCompositionConfig":
@@ -109,10 +111,11 @@ class VideoCompositionConfig:
             "-crf",
             self.crf.value,
             "-profile:v",
-            "high",
+            "baseline",
             "-level:v",
-            "4.1",
+            "3.0",
             "-pix_fmt",
+
             self.pixel_format,
             "-c:a",
             self.audio_codec,
@@ -120,6 +123,10 @@ class VideoCompositionConfig:
             self.audio_bitrate,
             "-movflags",
             "+faststart",
+            "-threads",
+            str(self.threads),
+            "-max_muxing_queue_size",
+            "1024",
         ]
 
 
@@ -310,7 +317,7 @@ class VideoComposer:
             FFmpeg command as list of strings
         """
         # Build frame input pattern
-        frame_pattern = os.path.join(frames_dir, "frame_%05d.png")
+        frame_pattern = os.path.join(frames_dir, "frame_%05d.jpg")
 
         # Base command
         cmd = [
@@ -379,6 +386,10 @@ class VideoComposer:
         # Create output directory if needed
         os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
 
+        # Force garbage collection to free any memory held by thousands of generated PNG frames
+        # This prevents the cloud container from getting OOM killed the moment FFmpeg starts
+        gc.collect()
+
         # Run FFmpeg
         try:
             if progress_callback:
@@ -441,17 +452,22 @@ class VideoComposer:
                 returncode = await process.wait()
 
             else:
-                # Run without progress tracking
-                result = await asyncio.to_thread(
-                    subprocess.run,
-                    cmd,
-                    capture_output=True,
-                    text=True,
+                # Run without progress tracking natively, avoiding thread pools
+                process = await asyncio.create_subprocess_exec(
+                    *cmd,
+                    stdout=asyncio.subprocess.DEVNULL,
+                    stderr=asyncio.subprocess.DEVNULL,
                 )
-                returncode = result.returncode
+                await process.communicate()
+                returncode = process.returncode
+                
+                # Mock result object for error reporting compatibility
+                import collections
+                ResultMock = collections.namedtuple('ResultMock', ['stderr'])
+                result = ResultMock(stderr="Check ffmpeg logs (stderr suppressed)")
 
             if returncode != 0:
-                error_msg = result.stderr if progress_callback else result.stderr
+                error_msg = result.stderr if not progress_callback else "Check ffmpeg logs"
                 raise RuntimeError(f"FFmpeg failed with code {returncode}: {error_msg}")
 
         except subprocess.CalledProcessError as e:

@@ -161,9 +161,9 @@ async def trigger_generation(background_tasks: BackgroundTasks) -> dict[str, Any
                 exc_info=True,
             )
 
-    # Add task to background
-    print(f"➕ [{job_id}] Adding to background tasks...")
-    background_tasks.add_task(run_generation)
+    # Add task to background natively (detach from HTTP request completely)
+    print(f"➕ [{job_id}] Spawning detached asyncio background task...")
+    asyncio.create_task(run_generation())
     print(f"✅ [{job_id}] Background task scheduled, returning response to client")
 
     # Return immediately with job_id

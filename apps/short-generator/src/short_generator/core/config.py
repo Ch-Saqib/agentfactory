@@ -103,8 +103,8 @@ class Settings(BaseSettings):
 
     # Frame Generation Settings
     # Video dimensions (9:16 aspect ratio for vertical video)
-    video_width: int = 1080
-    video_height: int = 1920
+    video_width: int = 480
+    video_height: int = 854
     video_fps: int = 30
     # Colors (hex format)
     video_bg_color: str = "#1a1a2e"  # Dark blue-black

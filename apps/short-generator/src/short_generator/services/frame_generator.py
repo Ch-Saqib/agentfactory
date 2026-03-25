@@ -502,8 +502,9 @@ class FrameGenerator:
             frame = self._create_frame(title, opacity=opacity, font=self.title_font)
 
             # Save frame
-            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.png")
+            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.jpg")
             frame.save(frame_path)
+            frame.close()
             frame_paths.append(frame_path)
 
         logger.info(f"Generated {len(frame_paths)} title frames")
@@ -590,8 +591,9 @@ class FrameGenerator:
             )
 
             # Save frame
-            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.png")
+            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.jpg")
             frame.save(frame_path)
+            frame.close()
             frame_paths.append(frame_path)
 
         logger.info(f"Generated {len(frame_paths)} content frames (word sync)")
@@ -661,8 +663,9 @@ class FrameGenerator:
             frame = self._create_multiline_frame(display_text, opacity=opacity)
 
             # Save frame
-            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.png")
+            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.jpg")
             frame.save(frame_path)
+            frame.close()
             frame_paths.append(frame_path)
 
         logger.info(f"Generated {len(frame_paths)} content frames (scrolling)")
@@ -755,8 +758,9 @@ class FrameGenerator:
             frame = self._create_frame(cta_text, opacity=opacity, font=self.title_font)
 
             # Save frame
-            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.png")
+            frame_path = os.path.join(output_dir, f"frame_{frame_offset + frame_num:05d}.jpg")
             frame.save(frame_path)
+            frame.close()
             frame_paths.append(frame_path)
 
         logger.info(f"Generated {len(frame_paths)} outro frames")
