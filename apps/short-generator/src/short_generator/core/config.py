@@ -111,15 +111,15 @@ class Settings(BaseSettings):
     video_text_color: str = "#ffffff"  # White
     video_accent_color: str = "#0f3460"  # Dark blue
     # Font settings
-    video_title_font_size: int = 80
-    video_content_font_size: int = 48
+    video_title_font_size: int = 36
+    video_content_font_size: int = 24
     video_font_path: str = ""  # Empty = use system default
     # Animation settings
     video_fade_duration: float = 0.5  # Fade in/out duration in seconds
     # Text animation mode: "word_sync", "scrolling", or "auto"
     video_text_animation_mode: str = "word_sync"
     # Text settings
-    video_max_line_width: int = 980  # Max text width in pixels
+    video_max_line_width: int = 400  # Max text width in pixels
     video_line_spacing: float = 1.5  # Line spacing multiplier
 
     @property

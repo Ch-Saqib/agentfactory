@@ -132,7 +132,7 @@ export function ShortVideoPlayer({
       {/* Video Element */}
       <video
         ref={videoRef}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain bg-black"
         src={short.videoUrl}
         loop
         playsInline

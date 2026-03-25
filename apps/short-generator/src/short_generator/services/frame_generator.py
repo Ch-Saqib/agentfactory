@@ -389,7 +389,7 @@ class FrameGenerator:
         """Create a modern word-sync caption frame (no background box)."""
         img = Image.new("RGB", (self.spec.width, self.spec.height), color=self.spec.bg_color)
         draw = ImageDraw.Draw(img, "RGBA")
-        caption_font_size = max(int(self.animation_config.font_size_content * 1.35), 64)
+        caption_font_size = max(int(self.animation_config.font_size_content * 1.35), int(self.spec.width * 0.06))
         font = self._get_font(caption_font_size)
 
         # Colorful palette for active words

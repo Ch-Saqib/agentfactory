@@ -300,6 +300,7 @@ Generate an engaging script for a short video from this lesson:
 **Visual Style**:
 - Modern, tech-focused with AI aesthetic
 - Clean typography and smooth animations
+- Wide-angle perspective, zoomed out, full view framing
 - Use bold colors (purple/blue gradient) matching brand
 
 **Tone**: Energetic, educational, accessible - not jargon-heavy

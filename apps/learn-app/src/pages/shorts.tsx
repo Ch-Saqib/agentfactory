@@ -321,7 +321,7 @@ export default function ShortsPage() {
                           <img
                             src={short.thumbnailUrl}
                             alt={cleanLabel(short.title)}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain bg-black"
                           />
 
                           {/* Gradient Overlay */}
@@ -418,7 +418,7 @@ export default function ShortsPage() {
                     <img
                       src={short.thumbnailUrl}
                       alt={cleanLabel(short.title)}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain bg-black"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">

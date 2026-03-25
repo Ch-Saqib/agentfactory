@@ -1130,9 +1130,9 @@ class VideoAssembler:
                 caption_texts = self._parse_captions_for_overlay(captions, script)
                 caption_variant, caption_seed = self._select_caption_animation_params(script, audio_path)
 
-                # Build video filter with scale and text overlay
+                # Build video filter with scale with aspect ratio preservation and padding
                 # Captions are rendered centered with a subtle entrance animation.
-                video_filters = [f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}"]
+                video_filters = [f"scale={VIDEO_WIDTH}:{VIDEO_HEIGHT}:force_original_aspect_ratio=decrease,pad={VIDEO_WIDTH}:{VIDEO_HEIGHT}:(ow-iw)/2:(oh-ih)/2"]
 
                 # Add text overlay for captions (if available)
                 ass_path: str | None = None
