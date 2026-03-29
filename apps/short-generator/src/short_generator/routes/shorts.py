@@ -33,10 +33,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/shorts", tags=["Shorts Generation"])
 
-# In-memory unique view guard keyed by (video_id, viewer_key).
-# This prevents repeat view increments from the same user in the running process.
-_view_registry: dict[tuple[int, str], datetime] = {}
-
 
 # Request/Response Models
 
@@ -465,25 +461,7 @@ async def record_video_view(
 
     client_ip = request.client.host if request.client and request.client.host else "unknown"
     viewer_key = (payload.viewer_id or "").strip() or f"ip:{client_ip}"
-    registry_key = (video_id, viewer_key)
-    unique_view_applied = False
-
-    # Periodically trim old entries to prevent unbounded growth.
-    if len(_view_registry) > 100_000:
-        cutoff = datetime.now().timestamp() - (7 * 24 * 60 * 60)
-        stale_keys = [k for k, ts in _view_registry.items() if ts.timestamp() < cutoff]
-        for stale_key in stale_keys:
-            _view_registry.pop(stale_key, None)
-
-    if registry_key not in _view_registry:
-        updated = await database_manager.increment_views(video_id)
-        if not updated:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Failed to update view count",
-            )
-        _view_registry[registry_key] = datetime.now()
-        unique_view_applied = True
+    unique_view_applied = await database_manager.add_view(video_id, viewer_key)
 
     analytics = await database_manager.get_analytics(video_id)
     return {

@@ -28,6 +28,7 @@ from short_generator.database.models import (
     VideoAnalytics,
     VideoComment,
     VideoLike,
+    VideoView,
     VideoCreate,
     VideoResponse,
 )
@@ -571,6 +572,40 @@ class DatabaseManager:
                 return True
 
             return False
+
+    async def add_view(self, video_id: int, user_id: str) -> bool:
+        """Add view for a user if not already viewed.
+
+        Returns True only when a new unique view is created and count is incremented.
+        """
+        async with self.get_session() as session:
+            existing_result = await session.execute(
+                select(VideoView).where(
+                    VideoView.video_id == video_id,
+                    VideoView.user_id == user_id,
+                )
+            )
+            existing = existing_result.scalar_one_or_none()
+            if existing:
+                return False
+
+            view = VideoView(video_id=video_id, user_id=user_id)
+            session.add(view)
+
+            analytics_result = await session.execute(
+                select(VideoAnalytics).where(VideoAnalytics.video_id == video_id)
+            )
+            analytics = analytics_result.scalar_one_or_none()
+            if analytics:
+                analytics.views += 1
+
+            try:
+                await session.commit()
+                return True
+            except IntegrityError:
+                await session.rollback()
+                # Another request inserted concurrently; treat as already viewed.
+                return False
 
     async def increment_likes(self, video_id: int) -> bool:
         """Increment like count for a video.

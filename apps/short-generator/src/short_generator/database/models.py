@@ -243,6 +243,19 @@ class VideoLike(Base, TimestampMixin):
     user_id: Mapped[str] = mapped_column(String(200), nullable=False, index=True)
 
 
+class VideoView(Base, TimestampMixin):
+    """View event with one-view-per-user-per-video uniqueness."""
+
+    __tablename__ = "video_views"
+    __table_args__ = (
+        UniqueConstraint("video_id", "user_id", name="uq_video_views_video_user"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    video_id: Mapped[int] = mapped_column(ForeignKey("videos.id"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(String(200), nullable=False, index=True)
+
+
 # Pydantic schemas for API input/output
 class VideoCreate(BaseModel):
     """Schema for creating a video record."""

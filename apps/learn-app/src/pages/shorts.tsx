@@ -39,6 +39,7 @@ const THUMBNAIL_FALLBACK =
   "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail";
 const VIEWED_VIDEOS_STORAGE_KEY = "shorts_viewed_video_ids";
 const LIKED_VIDEOS_STORAGE_KEY = "shorts_liked_video_ids";
+const WATCHED_VIDEOS_STORAGE_KEY = "shorts_watched_video_ids";
 
 interface VideoComment {
   id: string;
@@ -103,6 +104,20 @@ export default function ShortsPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(WATCHED_VIDEOS_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        setWatchedVideoIds(new Set(parsed.filter((v) => typeof v === "string")));
+      }
+    } catch {
+      // ignore invalid localStorage data
+    }
+  }, []);
+
   const persistRecordedViews = useCallback((ids: Set<string>) => {
     if (typeof window === "undefined") return;
     try {
@@ -116,6 +131,15 @@ export default function ShortsPage() {
     if (typeof window === "undefined") return;
     try {
       window.localStorage.setItem(LIKED_VIDEOS_STORAGE_KEY, JSON.stringify(Array.from(ids)));
+    } catch {
+      // ignore storage write errors
+    }
+  }, []);
+
+  const persistWatchedIds = useCallback((ids: Set<string>) => {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(WATCHED_VIDEOS_STORAGE_KEY, JSON.stringify(Array.from(ids)));
     } catch {
       // ignore storage write errors
     }
@@ -193,6 +217,12 @@ export default function ShortsPage() {
           persistRecordedViews(next);
           return next;
         });
+        setWatchedVideoIds((prev) => {
+          if (prev.has(videoId)) return prev;
+          const next = new Set(prev).add(videoId);
+          persistWatchedIds(next);
+          return next;
+        });
         if (result.uniqueViewApplied) {
           setViewCounts((prev) => ({
             ...prev,
@@ -203,7 +233,7 @@ export default function ShortsPage() {
         console.warn("Failed to record view:", err);
       }
     },
-    [apiClient, persistRecordedViews, recordedViewIds]
+    [apiClient, persistRecordedViews, persistWatchedIds, recordedViewIds]
   );
 
   const handlePause = useCallback((videoId: string) => {
@@ -223,10 +253,11 @@ export default function ShortsPage() {
         if (prev.has(videoId)) return prev;
         const next = new Set(prev);
         next.add(videoId);
+        persistWatchedIds(next);
         return next;
       });
     }
-  }, []);
+  }, [persistWatchedIds]);
 
   const loadComments = useCallback(
     async (videoId: string) => {
@@ -286,16 +317,21 @@ export default function ShortsPage() {
 
   const handleToggleComments = useCallback(
     (videoId: string) => {
-      setOpenCommentsByVideo((prev) => {
-        const nextOpen = !prev[videoId];
-        if (nextOpen && !commentsByVideo[videoId]) {
-          void loadComments(videoId);
-        }
-        return { ...prev, [videoId]: nextOpen };
-      });
+      setOpenCommentsByVideo((prev) => ({ ...prev, [videoId]: true }));
+      if (!commentsByVideo[videoId]) {
+        void loadComments(videoId);
+      }
     },
     [commentsByVideo, loadComments]
   );
+
+  useEffect(() => {
+    if (!activeVideo) return;
+    setOpenCommentsByVideo((prev) => ({ ...prev, [activeVideo]: true }));
+    if (!commentsByVideo[activeVideo]) {
+      void loadComments(activeVideo);
+    }
+  }, [activeVideo, commentsByVideo, loadComments]);
 
   const handleSubmitComment = useCallback(
     async (videoId: string) => {
@@ -822,10 +858,7 @@ export default function ShortsPage() {
                       </div>
 
                       {/* Comment Section */}
-                      <div
-                        id={`comments-${short.id}`}
-                        className={`mt-6 pt-6 border-t ${openCommentsByVideo[short.id] ? "" : "hidden"}`}
-                      >
+                      <div id={`comments-${short.id}`} className="mt-6 pt-6 border-t">
                         <h3 className="text-lg font-semibold mb-4">Comments</h3>
                         <div className="space-y-4">
                           {/* Add Comment */}
