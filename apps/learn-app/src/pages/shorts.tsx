@@ -719,18 +719,6 @@ export default function ShortsPage() {
 
       {!loading && !error && viewMode === "grid" && shorts.length > 0 && (
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-8">
-          <div className="mb-8 rounded-[2rem] border border-border/60 bg-card/70 p-5 shadow-lg backdrop-blur-sm sm:p-6">
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary/70">Gallery mode</p>
-                <h2 className="mt-1 text-xl font-semibold sm:text-2xl">Dense view for quick picking</h2>
-              </div>
-              <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-                The cards keep a 9:16 frame but move metadata below the thumbnail so they hold together better from mobile widths up to desktop.
-              </p>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {shorts.map((short) => {
               const progress = currentProgress[short.id] || 0;
@@ -1044,10 +1032,10 @@ export default function ShortsPage() {
       )}
 
       {shorts.length > 0 && !activeVideo && (
-        <div className="fixed bottom-20 left-1/2 z-30 hidden -translate-x-1/2 md:block">
-          <div className="flex items-center gap-4 rounded-full border bg-card/85 px-5 py-2.5 text-xs text-muted-foreground shadow-lg backdrop-blur-sm">
-            <span><kbd className="rounded bg-muted px-1.5 py-0.5">Click</kbd> to watch</span>
-            <span><kbd className="rounded bg-muted px-1.5 py-0.5">Space</kbd> play/pause</span>
+        <div className="fixed bottom-4 left-1/2 z-20 hidden -translate-x-1/2 lg:block">
+          <div className="flex items-center gap-3 rounded-full border border-border/70 bg-background/92 px-4 py-2 text-xs text-muted-foreground shadow-md backdrop-blur-sm">
+            <span><kbd className="rounded bg-muted px-1.5 py-0.5">Click</kbd> watch</span>
+            <span><kbd className="rounded bg-muted px-1.5 py-0.5">Space</kbd> play</span>
             <span><kbd className="rounded bg-muted px-1.5 py-0.5">M</kbd> mute</span>
             <span><kbd className="rounded bg-muted px-1.5 py-0.5">Esc</kbd> close</span>
           </div>
