@@ -199,6 +199,13 @@ interface RecordViewResponse {
   uniqueViewApplied?: boolean;
 }
 
+interface LikeActionResponse {
+  video_id: string;
+  likes?: number | null;
+  like_applied?: boolean;
+  like_removed?: boolean;
+}
+
 function getStoredViewerId(): string | null {
   if (typeof window === "undefined") return null;
   try {
@@ -463,23 +470,41 @@ export class ShortsApiClient {
   /**
    * Like a video
    */
-  async likeVideo(videoId: string): Promise<void> {
-    await this.request(
+  async likeVideo(videoId: string): Promise<{ likes?: number; likeApplied: boolean }> {
+    const response = await this.request<LikeActionResponse>(
       `/videos/${videoId}/like`,
-      { method: "POST" },
+      {
+        method: "POST",
+        body: JSON.stringify({
+          viewer_id: getStoredViewerId(),
+        }),
+      },
       [`/shorts/videos/${videoId}/like`]
     );
+    return {
+      likes: response.likes ?? undefined,
+      likeApplied: Boolean(response.like_applied),
+    };
   }
 
   /**
    * Unlike a video
    */
-  async unlikeVideo(videoId: string): Promise<void> {
-    await this.request(
+  async unlikeVideo(videoId: string): Promise<{ likes?: number; likeRemoved: boolean }> {
+    const response = await this.request<LikeActionResponse>(
       `/videos/${videoId}/unlike`,
-      { method: "POST" },
+      {
+        method: "POST",
+        body: JSON.stringify({
+          viewer_id: getStoredViewerId(),
+        }),
+      },
       [`/shorts/videos/${videoId}/unlike`]
     );
+    return {
+      likes: response.likes ?? undefined,
+      likeRemoved: Boolean(response.like_removed),
+    };
   }
 
   /**

@@ -130,6 +130,12 @@ class RecordViewRequest(BaseModel):
     viewer_id: str | None = Field(None, max_length=200)
 
 
+class LikeRequest(BaseModel):
+    """Request payload for like/unlike actions."""
+
+    viewer_id: str | None = Field(None, max_length=200)
+
+
 class CommentResponse(BaseModel):
     """Comment response model."""
 
@@ -327,8 +333,12 @@ async def list_videos(
 
 
 @router.post("/videos/{video_id}/like")
-async def like_video(video_id: int) -> dict[str, Any]:
-    """Increment like count for a video."""
+async def like_video(
+    video_id: int,
+    request: Request,
+    payload: LikeRequest | None = None,
+) -> dict[str, Any]:
+    """Apply like once per viewer for a video."""
     video = await database_manager.get_video(video_id)
     if not video:
         raise HTTPException(
@@ -336,23 +346,26 @@ async def like_video(video_id: int) -> dict[str, Any]:
             detail=f"Video not found: {video_id}",
         )
 
-    updated = await database_manager.increment_likes(video_id)
-    if not updated:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update like count",
-        )
+    client_ip = request.client.host if request.client and request.client.host else "unknown"
+    viewer_id = payload.viewer_id if payload else None
+    viewer_key = (viewer_id or "").strip() or f"ip:{client_ip}"
+    like_applied = await database_manager.add_like(video_id, viewer_key)
 
     analytics = await database_manager.get_analytics(video_id)
     return {
         "video_id": str(video_id),
         "likes": analytics.likes if analytics else None,
+        "like_applied": like_applied,
     }
 
 
 @router.post("/videos/{video_id}/unlike")
-async def unlike_video(video_id: int) -> dict[str, Any]:
-    """Decrement like count for a video."""
+async def unlike_video(
+    video_id: int,
+    request: Request,
+    payload: LikeRequest | None = None,
+) -> dict[str, Any]:
+    """Remove like for a viewer if present."""
     video = await database_manager.get_video(video_id)
     if not video:
         raise HTTPException(
@@ -360,17 +373,16 @@ async def unlike_video(video_id: int) -> dict[str, Any]:
             detail=f"Video not found: {video_id}",
         )
 
-    updated = await database_manager.decrement_likes(video_id)
-    if not updated:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to update like count",
-        )
+    client_ip = request.client.host if request.client and request.client.host else "unknown"
+    viewer_id = payload.viewer_id if payload else None
+    viewer_key = (viewer_id or "").strip() or f"ip:{client_ip}"
+    like_removed = await database_manager.remove_like(video_id, viewer_key)
 
     analytics = await database_manager.get_analytics(video_id)
     return {
         "video_id": str(video_id),
         "likes": analytics.likes if analytics else None,
+        "like_removed": like_removed,
     }
 
 

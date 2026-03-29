@@ -16,6 +16,7 @@ from datetime import datetime, timedelta
 from typing import Any, Optional
 
 from sqlalchemy import delete, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import selectinload
 
@@ -26,6 +27,7 @@ from short_generator.database.models import (
     Video,
     VideoAnalytics,
     VideoComment,
+    VideoLike,
     VideoCreate,
     VideoResponse,
 )
@@ -593,6 +595,40 @@ class DatabaseManager:
 
             return False
 
+    async def add_like(self, video_id: int, user_id: str) -> bool:
+        """Add like for a user if not already liked.
+
+        Returns True only when a new like is created and count is incremented.
+        """
+        async with self.get_session() as session:
+            existing_result = await session.execute(
+                select(VideoLike).where(
+                    VideoLike.video_id == video_id,
+                    VideoLike.user_id == user_id,
+                )
+            )
+            existing = existing_result.scalar_one_or_none()
+            if existing:
+                return False
+
+            like = VideoLike(video_id=video_id, user_id=user_id)
+            session.add(like)
+
+            analytics_result = await session.execute(
+                select(VideoAnalytics).where(VideoAnalytics.video_id == video_id)
+            )
+            analytics = analytics_result.scalar_one_or_none()
+            if analytics:
+                analytics.likes += 1
+
+            try:
+                await session.commit()
+                return True
+            except IntegrityError:
+                await session.rollback()
+                # Another request inserted concurrently; treat as already liked.
+                return False
+
     async def decrement_likes(self, video_id: int) -> bool:
         """Decrement like count for a video (floor at 0)."""
         async with self.get_session() as session:
@@ -608,6 +644,34 @@ class DatabaseManager:
                 return True
 
             return False
+
+    async def remove_like(self, video_id: int, user_id: str) -> bool:
+        """Remove a user's like if present.
+
+        Returns True only when a like existed and was removed.
+        """
+        async with self.get_session() as session:
+            like_result = await session.execute(
+                select(VideoLike).where(
+                    VideoLike.video_id == video_id,
+                    VideoLike.user_id == user_id,
+                )
+            )
+            like = like_result.scalar_one_or_none()
+            if not like:
+                return False
+
+            await session.delete(like)
+
+            analytics_result = await session.execute(
+                select(VideoAnalytics).where(VideoAnalytics.video_id == video_id)
+            )
+            analytics = analytics_result.scalar_one_or_none()
+            if analytics:
+                analytics.likes = max(0, analytics.likes - 1)
+
+            await session.commit()
+            return True
 
     async def create_comment(
         self,

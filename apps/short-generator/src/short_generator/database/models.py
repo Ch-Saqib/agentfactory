@@ -22,6 +22,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -227,6 +228,19 @@ class VideoComment(Base, TimestampMixin):
     )
 
     video: Mapped["Video"] = relationship("Video", back_populates="comments")
+
+
+class VideoLike(Base, TimestampMixin):
+    """Like event with one-like-per-user-per-video uniqueness."""
+
+    __tablename__ = "video_likes"
+    __table_args__ = (
+        UniqueConstraint("video_id", "user_id", name="uq_video_likes_video_user"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    video_id: Mapped[int] = mapped_column(ForeignKey("videos.id"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(String(200), nullable=False, index=True)
 
 
 # Pydantic schemas for API input/output

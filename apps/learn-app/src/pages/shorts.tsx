@@ -38,6 +38,7 @@ import {
 const THUMBNAIL_FALLBACK =
   "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail";
 const VIEWED_VIDEOS_STORAGE_KEY = "shorts_viewed_video_ids";
+const LIKED_VIDEOS_STORAGE_KEY = "shorts_liked_video_ids";
 
 interface VideoComment {
   id: string;
@@ -88,10 +89,33 @@ export default function ShortsPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(LIKED_VIDEOS_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        setLikedIds(new Set(parsed.filter((v) => typeof v === "string")));
+      }
+    } catch {
+      // ignore invalid localStorage data
+    }
+  }, []);
+
   const persistRecordedViews = useCallback((ids: Set<string>) => {
     if (typeof window === "undefined") return;
     try {
       window.localStorage.setItem(VIEWED_VIDEOS_STORAGE_KEY, JSON.stringify(Array.from(ids)));
+    } catch {
+      // ignore storage write errors
+    }
+  }, []);
+
+  const persistLikedIds = useCallback((ids: Set<string>) => {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(LIKED_VIDEOS_STORAGE_KEY, JSON.stringify(Array.from(ids)));
     } catch {
       // ignore storage write errors
     }
@@ -227,29 +251,28 @@ export default function ShortsPage() {
       if (likedIds.has(videoId)) return;
 
       setPendingLikeIds((prev) => new Set(prev).add(videoId));
-      setLikedIds((prev) => {
-        const next = new Set(prev);
-        next.add(videoId);
-        return next;
-      });
-      setLikeCounts((prev) => ({
-        ...prev,
-        [videoId]: (prev[videoId] || 0) + 1,
-      }));
 
       try {
-        await apiClient.likeVideo(videoId);
-      } catch (err) {
-        console.error("Failed to update like:", err);
+        const result = await apiClient.likeVideo(videoId);
         setLikedIds((prev) => {
           const next = new Set(prev);
-          next.delete(videoId);
+          next.add(videoId);
+          persistLikedIds(next);
           return next;
         });
-        setLikeCounts((prev) => ({
-          ...prev,
-          [videoId]: Math.max(0, (prev[videoId] || 0) - 1),
-        }));
+        if (typeof result.likes === "number") {
+          setLikeCounts((prev) => ({
+            ...prev,
+            [videoId]: result.likes!,
+          }));
+        } else if (result.likeApplied) {
+          setLikeCounts((prev) => ({
+            ...prev,
+            [videoId]: (prev[videoId] || 0) + 1,
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to update like:", err);
       } finally {
         setPendingLikeIds((prev) => {
           const next = new Set(prev);
@@ -258,7 +281,7 @@ export default function ShortsPage() {
         });
       }
     },
-    [apiClient, likedIds, pendingLikeIds]
+    [apiClient, likedIds, pendingLikeIds, persistLikedIds]
   );
 
   const handleToggleComments = useCallback(
@@ -584,6 +607,10 @@ export default function ShortsPage() {
                                 <Heart className="w-3 h-3" />
                                 {likeCounts[short.id] ?? short.likeCount ?? 0}
                               </span>
+                              <span className="flex items-center gap-1">
+                                <MessageCircle className="w-3 h-3" />
+                                {commentCounts[short.id] ?? short.commentCount ?? 0}
+                              </span>
                             </div>
                             {progress >= 100 && (
                               <span className="text-green-500 font-medium flex items-center gap-1">
@@ -647,6 +674,10 @@ export default function ShortsPage() {
                           <span className="flex items-center gap-1">
                             <Heart className="w-3 h-3" />
                             {likeCounts[short.id] ?? short.likeCount ?? 0}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <MessageCircle className="w-3 h-3" />
+                            {commentCounts[short.id] ?? short.commentCount ?? 0}
                           </span>
                         </div>
                         {progress >= 100 && (
@@ -747,6 +778,10 @@ export default function ShortsPage() {
                         <span className="flex items-center gap-1">
                           <Heart className="w-4 h-4" />
                           {likeCounts[short.id] ?? short.likeCount ?? 0} likes
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageCircle className="w-4 h-4" />
+                          {commentCounts[short.id] ?? short.commentCount ?? 0} comments
                         </span>
                       </div>
 
