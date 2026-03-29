@@ -136,6 +136,46 @@ interface CommentRequest {
   parent_id?: string;
 }
 
+interface CommentResponseItem {
+  id?: string | number;
+  userId?: string;
+  user_id?: string;
+  videoId?: string | number;
+  video_id?: string | number;
+  text?: string;
+  parentId?: string | number | null;
+  parent_id?: string | number | null;
+  createdAt?: string;
+  created_at?: string;
+  replies?: unknown[];
+}
+
+interface GetCommentsResponse {
+  comments?: CommentResponseItem[];
+  totalCount?: number;
+  total_count?: number;
+  data?: {
+    comments?: CommentResponseItem[];
+    totalCount?: number;
+    total_count?: number;
+  };
+}
+
+interface AddCommentResponse {
+  commentId?: string | number;
+  comment_id?: string | number;
+  text?: string;
+  createdAt?: string;
+  created_at?: string;
+  data?: {
+    commentId?: string | number;
+    comment_id?: string | number;
+    text?: string;
+    createdAt?: string;
+    created_at?: string;
+  };
+}
+
 /**
  * View tracking request
  */
@@ -519,7 +559,7 @@ export class ShortsApiClient {
     text: string;
     createdAt: string;
   }> {
-    return this.request(
+    const response = await this.request<AddCommentResponse>(
       `/videos/${request.videoId}/comments`,
       {
         method: "POST",
@@ -530,6 +570,13 @@ export class ShortsApiClient {
       },
       [`/shorts/videos/${request.videoId}/comments`]
     );
+
+    const payload = response.data ?? response;
+    return {
+      commentId: String(payload.commentId ?? payload.comment_id ?? ""),
+      text: String(payload.text ?? request.text),
+      createdAt: String(payload.createdAt ?? payload.created_at ?? new Date().toISOString()),
+    };
   }
 
   /**
@@ -565,7 +612,48 @@ export class ShortsApiClient {
     const query = params.toString();
     const legacyUrl = `/videos/${videoId}/comments${query ? `?${query}` : ""}`;
     const scopedUrl = `/shorts/videos/${videoId}/comments${query ? `?${query}` : ""}`;
-    return this.request(legacyUrl, {}, [scopedUrl]);
+    const response = await this.request<GetCommentsResponse>(
+      scopedUrl,
+      {},
+      [legacyUrl]
+    );
+
+    const payload: {
+      comments?: CommentResponseItem[];
+      totalCount?: number;
+      total_count?: number;
+    } = Array.isArray(response)
+      ? { comments: response as unknown as CommentResponseItem[] }
+      : (response.data ?? response);
+    const commentsRaw = Array.isArray(payload.comments) ? payload.comments : [];
+    const comments = commentsRaw.map((comment) => ({
+      id: String(comment.id ?? ""),
+      userId: String(
+        comment.userId ??
+        comment.user_id ??
+        (comment as { username?: string }).username ??
+        "anonymous"
+      ),
+      videoId: String(comment.videoId ?? comment.video_id ?? videoId),
+      text: String(comment.text ?? ""),
+      parentId:
+        comment.parentId !== undefined && comment.parentId !== null
+          ? String(comment.parentId)
+          : comment.parent_id !== undefined && comment.parent_id !== null
+            ? String(comment.parent_id)
+            : undefined,
+      createdAt: String(comment.createdAt ?? comment.created_at ?? new Date().toISOString()),
+      replies: Array.isArray(comment.replies) ? comment.replies : [],
+    }));
+
+    const totalCount = Number(
+      payload.totalCount ?? payload.total_count ?? comments.length
+    );
+
+    return {
+      comments,
+      totalCount: Number.isFinite(totalCount) ? totalCount : comments.length,
+    };
   }
 
   /**
