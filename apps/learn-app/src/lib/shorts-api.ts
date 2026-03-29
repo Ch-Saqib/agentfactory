@@ -76,14 +76,29 @@ interface PaginatedResponse<T> {
  * Video metadata from API
  */
 interface VideoMetadataResponse {
+  id?: string | number;
   video_id: string;
-  lesson_path: string;
+  videoId?: string | number;
+  chapter_id?: string;
+  lesson_path?: string;
+  lessonPath?: string;
+  chapter_title?: string;
+  views?: number;
+  likes?: number;
+  comments?: number;
+  viewCount?: number;
+  likeCount?: number;
+  commentCount?: number;
   title: string;
+  thumbnailUrl?: string;
   duration_seconds: number;
+  durationSeconds?: number;
   video_url: string;
+  videoUrl?: string;
   thumbnail_url: string;
   created_at: string;
   generation_cost: number;
+  generationCost?: number;
   view_count?: number;
   like_count?: number;
   comment_count?: number;
@@ -135,28 +150,71 @@ interface ViewTrackingRequest {
  * Converts R2 URLs to proxy URLs for streaming
  */
 function transformVideoMetadata(data: VideoMetadataResponse, baseUrl: string): ShortVideo {
+  const id = String(data.video_id ?? data.videoId ?? data.id ?? "");
+  const lessonPath = data.lesson_path || data.lessonPath || data.chapter_id || "";
+  const title = data.title || data.chapter_title || "Untitled short";
+  const durationSeconds = data.duration_seconds ?? data.durationSeconds ?? 0;
+
   // Transform video URL to use proxy endpoint
   // Original R2 URLs may not be publicly accessible
-  let videoUrl = data.video_url;
+  let videoUrl = data.video_url || data.videoUrl || "";
   if (videoUrl && !videoUrl.startsWith(baseUrl)) {
     // Use the streaming proxy endpoint
-    videoUrl = `${baseUrl}/shorts/videos/stream/${data.video_id}`;
+    videoUrl = `${baseUrl}/shorts/videos/stream/${id}`;
   }
 
+  // Always prefer thumbnail proxy endpoint for compatibility with private R2 objects/CORS.
+  // Fallback to any direct thumbnail URL when we can't build proxy URL.
+  const proxiedThumbnailUrl = id ? `${baseUrl}/videos/${id}/thumbnail` : "";
+  const directThumbnailUrl = data.thumbnail_url || data.thumbnailUrl || "";
+
+  const viewCount =
+    data.view_count ?? data.viewCount ?? data.views ?? 0;
+  const likeCount =
+    data.like_count ?? data.likeCount ?? data.likes ?? 0;
+  const commentCount =
+    data.comment_count ?? data.commentCount ?? data.comments ?? 0;
+
   return {
-    id: data.video_id,
-    lessonPath: data.lesson_path,
-    title: data.title,
-    durationSeconds: data.duration_seconds,
+    id,
+    lessonPath,
+    title,
+    durationSeconds,
     videoUrl: videoUrl,
-    thumbnailUrl: data.thumbnail_url
-      ? `${baseUrl}/videos/${data.video_id}/thumbnail`
-      : "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail",
-    viewCount: data.view_count || 0,
-    likeCount: data.like_count || 0,
-    commentCount: data.comment_count || 0,
-    generationCost: data.generation_cost || 0,
+    thumbnailUrl: proxiedThumbnailUrl || directThumbnailUrl ||
+      "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail",
+    viewCount,
+    likeCount,
+    commentCount,
+    generationCost: data.generation_cost ?? data.generationCost ?? 0,
   };
+}
+
+interface RecordViewResponse {
+  video_id: string;
+  views?: number | null;
+  watch_duration_seconds: number;
+  completed: boolean;
+  unique_view_applied?: boolean;
+  uniqueViewApplied?: boolean;
+}
+
+function getStoredViewerId(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const key = "shorts_viewer_id";
+    const existing = window.localStorage.getItem(key);
+    if (existing) return existing;
+
+    const generated =
+      typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+        ? crypto.randomUUID()
+        : `viewer-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    window.localStorage.setItem(key, generated);
+    return generated;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -174,7 +232,7 @@ export class ShortsApiClient {
   /**
    * Make API request
    */
-  private async request<T>(
+  private async rawRequest<T>(
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
@@ -209,6 +267,42 @@ export class ShortsApiClient {
     }
 
     return response.json();
+  }
+
+  /**
+   * Make API request with endpoint fallbacks.
+   */
+  private async request<T>(
+    endpoint: string,
+    options: RequestInit = {},
+    fallbackEndpoints: string[] = []
+  ): Promise<T> {
+    const candidates = [endpoint, ...fallbackEndpoints];
+    let lastError: unknown = null;
+
+    for (const candidate of candidates) {
+      try {
+        return await this.rawRequest<T>(candidate, options);
+      } catch (error) {
+        lastError = error;
+        if (
+          error instanceof ShortsApiError &&
+          (
+            error.statusCode === 404 ||
+            error.statusCode === 405 ||
+            error.statusCode === 500 ||
+            error.statusCode === 502 ||
+            error.statusCode === 503 ||
+            error.statusCode === 504
+          )
+        ) {
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    throw lastError instanceof Error ? lastError : new Error("API request failed");
   }
 
   /**
@@ -255,9 +349,13 @@ export class ShortsApiClient {
     }
 
     const query = params.toString();
-    const url = `/videos${query ? `?${query}` : ""}`;
+    const scopedUrl = `/shorts/videos${query ? `?${query}` : ""}`;
+    const legacyUrl = `/videos${query ? `?${query}` : ""}`;
 
-    const data: VideoMetadataResponse[] = await this.request(url);
+    const response = await this.request<
+      VideoMetadataResponse[] | { videos: VideoMetadataResponse[] }
+    >(scopedUrl, {}, [legacyUrl]);
+    const data = Array.isArray(response) ? response : (response.videos || []);
 
     const shorts = data.map(d => transformVideoMetadata(d, this.baseUrl));
 
@@ -272,7 +370,11 @@ export class ShortsApiClient {
    * Get single video by ID
    */
   async getVideo(videoId: string): Promise<ShortVideo> {
-    const data: VideoMetadataResponse = await this.request(`/videos/${videoId}`);
+    const data: VideoMetadataResponse = await this.request(
+      `/videos/${videoId}`,
+      {},
+      [`/shorts/videos/${videoId}`]
+    );
     return transformVideoMetadata(data, this.baseUrl);
   }
 
@@ -362,18 +464,22 @@ export class ShortsApiClient {
    * Like a video
    */
   async likeVideo(videoId: string): Promise<void> {
-    await this.request(`/videos/${videoId}/like`, {
-      method: "POST",
-    });
+    await this.request(
+      `/videos/${videoId}/like`,
+      { method: "POST" },
+      [`/shorts/videos/${videoId}/like`]
+    );
   }
 
   /**
    * Unlike a video
    */
   async unlikeVideo(videoId: string): Promise<void> {
-    await this.request(`/videos/${videoId}/unlike`, {
-      method: "POST",
-    });
+    await this.request(
+      `/videos/${videoId}/unlike`,
+      { method: "POST" },
+      [`/shorts/videos/${videoId}/unlike`]
+    );
   }
 
   /**
@@ -388,13 +494,17 @@ export class ShortsApiClient {
     text: string;
     createdAt: string;
   }> {
-    return this.request(`/videos/${request.videoId}/comments`, {
-      method: "POST",
-      body: JSON.stringify({
-        text: request.text,
-        parent_id: request.parentId,
-      }),
-    });
+    return this.request(
+      `/videos/${request.videoId}/comments`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          text: request.text,
+          parent_id: request.parentId,
+        }),
+      },
+      [`/shorts/videos/${request.videoId}/comments`]
+    );
   }
 
   /**
@@ -428,7 +538,9 @@ export class ShortsApiClient {
     }
 
     const query = params.toString();
-    return this.request(`/videos/${videoId}/comments${query ? `?${query}` : ""}`);
+    const legacyUrl = `/videos/${videoId}/comments${query ? `?${query}` : ""}`;
+    const scopedUrl = `/shorts/videos/${videoId}/comments${query ? `?${query}` : ""}`;
+    return this.request(legacyUrl, {}, [scopedUrl]);
   }
 
   /**
@@ -438,14 +550,28 @@ export class ShortsApiClient {
     videoId: string;
     watchDurationSeconds: number;
     completed: boolean;
-  }): Promise<void> {
-    await this.request(`/videos/${request.videoId}/views`, {
-      method: "POST",
-      body: JSON.stringify({
-        watch_duration_seconds: request.watchDurationSeconds,
-        completed: request.completed,
-      }),
-    });
+    viewerId?: string;
+  }): Promise<{
+    views?: number;
+    uniqueViewApplied: boolean;
+  }> {
+    const response = await this.request<RecordViewResponse>(
+      `/videos/${request.videoId}/views`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          watch_duration_seconds: request.watchDurationSeconds,
+          completed: request.completed,
+          viewer_id: request.viewerId || getStoredViewerId(),
+        }),
+      },
+      [`/shorts/videos/${request.videoId}/views`]
+    );
+
+    return {
+      views: response.views ?? undefined,
+      uniqueViewApplied: Boolean(response.unique_view_applied ?? response.uniqueViewApplied),
+    };
   }
 
   /**

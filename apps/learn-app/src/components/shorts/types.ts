@@ -42,6 +42,10 @@ export interface ShortsFilters {
   search?: string;
   /** Sort order */
   sort?: "recent" | "popular" | "relevant";
+  /** Pagination limit */
+  limit?: number;
+  /** Pagination offset */
+  offset?: number;
 }
 
 /**

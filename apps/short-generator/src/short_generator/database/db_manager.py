@@ -25,6 +25,7 @@ from short_generator.database.models import (
     Script,
     Video,
     VideoAnalytics,
+    VideoComment,
     VideoCreate,
     VideoResponse,
 )
@@ -591,6 +592,75 @@ class DatabaseManager:
                 return True
 
             return False
+
+    async def decrement_likes(self, video_id: int) -> bool:
+        """Decrement like count for a video (floor at 0)."""
+        async with self.get_session() as session:
+            result = await session.execute(
+                select(VideoAnalytics).where(VideoAnalytics.video_id == video_id)
+            )
+            analytics = result.scalar_one_or_none()
+
+            if analytics:
+                analytics.likes = max(0, analytics.likes - 1)
+                await session.commit()
+                logger.info(f"Decremented likes for video {video_id}")
+                return True
+
+            return False
+
+    async def create_comment(
+        self,
+        video_id: int,
+        text: str,
+        user_id: str = "anonymous",
+        parent_id: int | None = None,
+    ) -> VideoComment | None:
+        """Create a comment and increment analytics comment count."""
+        async with self.get_session() as session:
+            video_result = await session.execute(
+                select(Video).where(Video.id == video_id)
+            )
+            video = video_result.scalar_one_or_none()
+            if not video:
+                return None
+
+            comment = VideoComment(
+                video_id=video_id,
+                user_id=user_id,
+                text=text,
+                parent_id=parent_id,
+            )
+            session.add(comment)
+            await session.flush()
+
+            analytics_result = await session.execute(
+                select(VideoAnalytics).where(VideoAnalytics.video_id == video_id)
+            )
+            analytics = analytics_result.scalar_one_or_none()
+            if analytics:
+                analytics.comments += 1
+
+            await session.commit()
+            await session.refresh(comment)
+            return comment
+
+    async def list_comments(
+        self,
+        video_id: int,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[VideoComment]:
+        """List comments for a video (newest first)."""
+        async with self.get_session() as session:
+            result = await session.execute(
+                select(VideoComment)
+                .where(VideoComment.video_id == video_id)
+                .order_by(VideoComment.created_at.desc())
+                .offset(offset)
+                .limit(limit)
+            )
+            return list(result.scalars().all())
 
     async def get_analytics(self, video_id: int) -> VideoAnalytics | None:
         """Get analytics data for a video.

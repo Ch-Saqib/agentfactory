@@ -35,6 +35,19 @@ import {
   RotateCcw,
 } from "lucide-react";
 
+const THUMBNAIL_FALLBACK =
+  "https://via.placeholder.com/1080x1920/1a1a2e/ffffff?text=No+Thumbnail";
+const VIEWED_VIDEOS_STORAGE_KEY = "shorts_viewed_video_ids";
+
+interface VideoComment {
+  id: string;
+  userId: string;
+  videoId: string;
+  text: string;
+  parentId?: string;
+  createdAt: string;
+}
+
 export default function ShortsPage() {
   const [shorts, setShorts] = useState<ShortVideo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,29 +57,80 @@ export default function ShortsPage() {
   const [muted, setMuted] = useState(true);
   const [currentProgress, setCurrentProgress] = useState<Record<string, number>>({});
   const [likedIds, setLikedIds] = useState<Set<string>>(new Set());
+  const [viewCounts, setViewCounts] = useState<Record<string, number>>({});
+  const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
+  const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [filters, setFilters] = useState<ShortsFiltersType>({});
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"story" | "grid">("story");
-  const [watchedCount, setWatchedCount] = useState(0);
+  const [watchedVideoIds, setWatchedVideoIds] = useState<Set<string>>(new Set());
+  const [recordedViewIds, setRecordedViewIds] = useState<Set<string>>(new Set());
+  const [commentsByVideo, setCommentsByVideo] = useState<Record<string, VideoComment[]>>({});
+  const [openCommentsByVideo, setOpenCommentsByVideo] = useState<Record<string, boolean>>({});
+  const [commentDraftByVideo, setCommentDraftByVideo] = useState<Record<string, string>>({});
+  const [loadingCommentsByVideo, setLoadingCommentsByVideo] = useState<Record<string, boolean>>({});
+  const [submittingCommentByVideo, setSubmittingCommentByVideo] = useState<Record<string, boolean>>({});
+  const [pendingLikeIds, setPendingLikeIds] = useState<Set<string>>(new Set());
   const videoRefs = useRef<Record<string, HTMLVideoElement>>({});
+  const apiClient = getShortsApiClient();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.localStorage.getItem(VIEWED_VIDEOS_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        setRecordedViewIds(new Set(parsed.filter((v) => typeof v === "string")));
+      }
+    } catch {
+      // ignore invalid localStorage data
+    }
+  }, []);
+
+  const persistRecordedViews = useCallback((ids: Set<string>) => {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(VIEWED_VIDEOS_STORAGE_KEY, JSON.stringify(Array.from(ids)));
+    } catch {
+      // ignore storage write errors
+    }
+  }, []);
 
   // Fetch shorts
   const fetchShorts = useCallback(async () => {
     try {
       setLoading(true);
-      const client = getShortsApiClient();
-      const response = await client.getVideos({
+      const response = await apiClient.getVideos({
         ...filters,
         search: searchQuery || undefined,
         limit: 20,
       });
       setShorts(response.shorts);
+      setViewCounts(
+        response.shorts.reduce<Record<string, number>>((acc, short) => {
+          acc[short.id] = short.viewCount || 0;
+          return acc;
+        }, {})
+      );
+      setLikeCounts(
+        response.shorts.reduce<Record<string, number>>((acc, short) => {
+          acc[short.id] = short.likeCount || 0;
+          return acc;
+        }, {})
+      );
+      setCommentCounts(
+        response.shorts.reduce<Record<string, number>>((acc, short) => {
+          acc[short.id] = short.commentCount || 0;
+          return acc;
+        }, {})
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load shorts");
     } finally {
       setLoading(false);
     }
-  }, [filters, searchQuery]);
+  }, [apiClient, filters, searchQuery]);
 
   useEffect(() => {
     fetchShorts();
@@ -83,34 +147,164 @@ export default function ShortsPage() {
     setPlayingId(videoId);
   }, []);
 
+  const recordView = useCallback(
+    async (videoId: string) => {
+      if (recordedViewIds.has(videoId)) return;
+
+      const video = videoRefs.current[videoId];
+      if (!video || !Number.isFinite(video.currentTime)) return;
+
+      const duration = Number.isFinite(video.duration) ? video.duration : 0;
+      const watchDuration = Math.max(0, Math.floor(video.currentTime));
+      const completed = duration > 0 && (video.currentTime / duration) >= 0.9;
+
+      try {
+        const result = await apiClient.recordView({
+          videoId,
+          watchDurationSeconds: watchDuration,
+          completed,
+        });
+        setRecordedViewIds((prev) => {
+          const next = new Set(prev).add(videoId);
+          persistRecordedViews(next);
+          return next;
+        });
+        if (result.uniqueViewApplied) {
+          setViewCounts((prev) => ({
+            ...prev,
+            [videoId]: result.views ?? ((prev[videoId] || 0) + 1),
+          }));
+        }
+      } catch (err) {
+        console.warn("Failed to record view:", err);
+      }
+    },
+    [apiClient, persistRecordedViews, recordedViewIds]
+  );
+
   const handlePause = useCallback((videoId: string) => {
+    void recordView(videoId);
     if (playingId === videoId) {
       setPlayingId(null);
     }
-  }, [playingId]);
+  }, [playingId, recordView]);
 
   const handleTimeUpdate = useCallback((videoId: string, currentTime: number, duration: number) => {
-    const progress = (currentTime / duration) * 100;
+    const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
     setCurrentProgress((prev) => ({ ...prev, [videoId]: progress }));
 
     // Mark as watched when 50% complete
-    if (progress >= 50 && !currentProgress[videoId]) {
-      setWatchedCount((prev) => prev + 1);
+    if (progress >= 50) {
+      setWatchedVideoIds((prev) => {
+        if (prev.has(videoId)) return prev;
+        const next = new Set(prev);
+        next.add(videoId);
+        return next;
+      });
     }
-  }, [currentProgress]);
-
-  const handleLike = useCallback((videoId: string) => {
-    setLikedIds((prev) => {
-      const newLiked = new Set(prev);
-      if (newLiked.has(videoId)) {
-        newLiked.delete(videoId);
-      } else {
-        newLiked.add(videoId);
-        // Visual feedback animation could go here
-      }
-      return newLiked;
-    });
   }, []);
+
+  const loadComments = useCallback(
+    async (videoId: string) => {
+      setLoadingCommentsByVideo((prev) => ({ ...prev, [videoId]: true }));
+      try {
+        const result = await apiClient.getComments(videoId);
+        setCommentsByVideo((prev) => ({ ...prev, [videoId]: result.comments }));
+        setCommentCounts((prev) => ({ ...prev, [videoId]: result.totalCount }));
+      } catch (err) {
+        console.error("Failed to load comments:", err);
+      } finally {
+        setLoadingCommentsByVideo((prev) => ({ ...prev, [videoId]: false }));
+      }
+    },
+    [apiClient]
+  );
+
+  const handleLike = useCallback(
+    async (videoId: string) => {
+      if (pendingLikeIds.has(videoId)) return;
+
+      if (likedIds.has(videoId)) return;
+
+      setPendingLikeIds((prev) => new Set(prev).add(videoId));
+      setLikedIds((prev) => {
+        const next = new Set(prev);
+        next.add(videoId);
+        return next;
+      });
+      setLikeCounts((prev) => ({
+        ...prev,
+        [videoId]: (prev[videoId] || 0) + 1,
+      }));
+
+      try {
+        await apiClient.likeVideo(videoId);
+      } catch (err) {
+        console.error("Failed to update like:", err);
+        setLikedIds((prev) => {
+          const next = new Set(prev);
+          next.delete(videoId);
+          return next;
+        });
+        setLikeCounts((prev) => ({
+          ...prev,
+          [videoId]: Math.max(0, (prev[videoId] || 0) - 1),
+        }));
+      } finally {
+        setPendingLikeIds((prev) => {
+          const next = new Set(prev);
+          next.delete(videoId);
+          return next;
+        });
+      }
+    },
+    [apiClient, likedIds, pendingLikeIds]
+  );
+
+  const handleToggleComments = useCallback(
+    (videoId: string) => {
+      setOpenCommentsByVideo((prev) => {
+        const nextOpen = !prev[videoId];
+        if (nextOpen && !commentsByVideo[videoId]) {
+          void loadComments(videoId);
+        }
+        return { ...prev, [videoId]: nextOpen };
+      });
+    },
+    [commentsByVideo, loadComments]
+  );
+
+  const handleSubmitComment = useCallback(
+    async (videoId: string) => {
+      const text = (commentDraftByVideo[videoId] || "").trim();
+      if (!text) return;
+
+      setSubmittingCommentByVideo((prev) => ({ ...prev, [videoId]: true }));
+      try {
+        const result = await apiClient.commentOnVideo({ videoId, text });
+        setCommentsByVideo((prev) => ({
+          ...prev,
+          [videoId]: [
+            {
+              id: result.commentId,
+              userId: "you",
+              videoId,
+              text: result.text,
+              createdAt: result.createdAt,
+            },
+            ...(prev[videoId] || []),
+          ],
+        }));
+        setCommentCounts((prev) => ({ ...prev, [videoId]: (prev[videoId] || 0) + 1 }));
+        setCommentDraftByVideo((prev) => ({ ...prev, [videoId]: "" }));
+      } catch (err) {
+        console.error("Failed to submit comment:", err);
+      } finally {
+        setSubmittingCommentByVideo((prev) => ({ ...prev, [videoId]: false }));
+      }
+    },
+    [apiClient, commentDraftByVideo]
+  );
 
   const handleShare = useCallback(async (short: ShortVideo) => {
     if (navigator.share) {
@@ -142,6 +336,9 @@ export default function ShortsPage() {
         setMuted((prev) => !prev);
       }
       if (e.key === "Escape") {
+        if (activeVideo) {
+          void recordView(activeVideo);
+        }
         setActiveVideo(null);
       }
       if (e.key === "ArrowLeft") {
@@ -159,7 +356,7 @@ export default function ShortsPage() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeVideo, shorts]);
+  }, [activeVideo, recordView, shorts]);
 
   // Group shorts by lesson path
   const groupedShorts = shorts.reduce((acc, short) => {
@@ -210,7 +407,7 @@ export default function ShortsPage() {
             <div className="hidden md:flex items-center gap-6">
               <div className="flex items-center gap-2 px-3 py-1.5 bg-accent/10 rounded-lg">
                 <Flame className="w-4 h-4 text-orange-500" />
-                <span className="font-semibold">{watchedCount}</span>
+                <span className="font-semibold">{watchedVideoIds.size}</span>
                 <span className="text-xs text-muted-foreground">watched</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
@@ -322,6 +519,12 @@ export default function ShortsPage() {
                             src={short.thumbnailUrl}
                             alt={cleanLabel(short.title)}
                             className="w-full h-full object-contain bg-black"
+                            onError={(e) => {
+                              const img = e.currentTarget;
+                              if (img.src !== THUMBNAIL_FALLBACK) {
+                                img.src = THUMBNAIL_FALLBACK;
+                              }
+                            }}
                           />
 
                           {/* Gradient Overlay */}
@@ -375,11 +578,11 @@ export default function ShortsPage() {
                             <div className="flex items-center gap-3">
                               <span className="flex items-center gap-1">
                                 <Eye className="w-3 h-3" />
-                                {short.viewCount || 0}
+                                {viewCounts[short.id] ?? short.viewCount ?? 0}
                               </span>
                               <span className="flex items-center gap-1">
                                 <Heart className="w-3 h-3" />
-                                {short.likeCount || 0}
+                                {likeCounts[short.id] ?? short.likeCount ?? 0}
                               </span>
                             </div>
                             {progress >= 100 && (
@@ -419,6 +622,12 @@ export default function ShortsPage() {
                       src={short.thumbnailUrl}
                       alt={cleanLabel(short.title)}
                       className="w-full h-full object-contain bg-black"
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        if (img.src !== THUMBNAIL_FALLBACK) {
+                          img.src = THUMBNAIL_FALLBACK;
+                        }
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">
@@ -426,10 +635,20 @@ export default function ShortsPage() {
                         {cleanLabel(short.title)}
                       </h3>
                       <div className="flex items-center justify-between text-xs">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {short.durationSeconds}s
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {short.durationSeconds}s
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Eye className="w-3 h-3" />
+                            {viewCounts[short.id] ?? short.viewCount ?? 0}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Heart className="w-3 h-3" />
+                            {likeCounts[short.id] ?? short.likeCount ?? 0}
+                          </span>
+                        </div>
                         {progress >= 100 && (
                           <span className="text-green-400 flex items-center gap-1">
                             <Sparkles className="w-3 h-3" />
@@ -450,7 +669,10 @@ export default function ShortsPage() {
       {activeVideo && (
         <div
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setActiveVideo(null)}
+          onClick={() => {
+            void recordView(activeVideo);
+            setActiveVideo(null);
+          }}
         >
           <div
             className="relative w-full max-w-4xl bg-card rounded-3xl overflow-hidden shadow-2xl"
@@ -458,7 +680,10 @@ export default function ShortsPage() {
           >
             {/* Close Button */}
             <button
-              onClick={() => setActiveVideo(null)}
+              onClick={() => {
+                void recordView(activeVideo);
+                setActiveVideo(null);
+              }}
               className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-colors"
             >
               <X className="w-5 h-5 text-white" />
@@ -514,33 +739,37 @@ export default function ShortsPage() {
                       <p className="text-sm text-muted-foreground mb-4">
                         {short.lessonPath}
                       </p>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                        <span className="flex items-center gap-1">
+                          <Eye className="w-4 h-4" />
+                          {viewCounts[short.id] ?? short.viewCount ?? 0} views
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Heart className="w-4 h-4" />
+                          {likeCounts[short.id] ?? short.likeCount ?? 0} likes
+                        </span>
+                      </div>
 
                       {/* Action Buttons */}
                       <div className="flex items-center gap-3">
                         <button
-                          onClick={() => handleLike(short.id)}
+                          onClick={() => void handleLike(short.id)}
+                          disabled={pendingLikeIds.has(short.id)}
                           className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-all ${
                             isLiked
                               ? "bg-red-500 text-white"
                               : "bg-muted hover:bg-red-500 hover:text-white"
-                          }`}
+                          } ${pendingLikeIds.has(short.id) ? "opacity-60 cursor-not-allowed" : ""}`}
                         >
                           <Heart className={`w-5 h-5 ${isLiked ? "fill-current" : ""}`} />
-                          <span>{short.likeCount || 0}</span>
+                          <span>{likeCounts[short.id] ?? short.likeCount ?? 0}</span>
                         </button>
                         <button
-                          onClick={() => {
-                            // Toggle comment section visibility
-                            const commentSection = document.getElementById(`comments-${short.id}`);
-                            if (commentSection) {
-                              commentSection.classList.toggle("hidden");
-                              commentSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                            }
-                          }}
+                          onClick={() => handleToggleComments(short.id)}
                           className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground transition-all"
                         >
                           <MessageCircle className="w-5 h-5" />
-                          Comment
+                          Comment ({commentCounts[short.id] ?? short.commentCount ?? 0})
                         </button>
                         <button
                           onClick={() => handleShare(short)}
@@ -558,7 +787,10 @@ export default function ShortsPage() {
                       </div>
 
                       {/* Comment Section */}
-                      <div id={`comments-${short.id}`} className="hidden mt-6 pt-6 border-t">
+                      <div
+                        id={`comments-${short.id}`}
+                        className={`mt-6 pt-6 border-t ${openCommentsByVideo[short.id] ? "" : "hidden"}`}
+                      >
                         <h3 className="text-lg font-semibold mb-4">Comments</h3>
                         <div className="space-y-4">
                           {/* Add Comment */}
@@ -566,22 +798,49 @@ export default function ShortsPage() {
                             <input
                               type="text"
                               placeholder="Add a comment..."
+                              value={commentDraftByVideo[short.id] || ""}
                               className="flex-1 px-4 py-2 rounded-full border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                              onKeyPress={(e) => {
-                                if (e.key === "Enter" && e.currentTarget.value.trim()) {
-                                  // TODO: Submit comment to API
-                                  e.currentTarget.value = "";
+                              onChange={(e) =>
+                                setCommentDraftByVideo((prev) => ({
+                                  ...prev,
+                                  [short.id]: e.target.value,
+                                }))
+                              }
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                  void handleSubmitComment(short.id);
                                 }
                               }}
                             />
-                            <button className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
+                            <button
+                              onClick={() => void handleSubmitComment(short.id)}
+                              disabled={submittingCommentByVideo[short.id]}
+                              className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+                            >
                               Post
                             </button>
                           </div>
-                          {/* Placeholder for comments */}
-                          <p className="text-sm text-muted-foreground text-center py-4">
-                            No comments yet. Be the first to comment!
-                          </p>
+
+                          {loadingCommentsByVideo[short.id] && (
+                            <p className="text-sm text-muted-foreground text-center py-4">
+                              Loading comments...
+                            </p>
+                          )}
+
+                          {!loadingCommentsByVideo[short.id] &&
+                            (commentsByVideo[short.id] || []).length === 0 && (
+                              <p className="text-sm text-muted-foreground text-center py-4">
+                                No comments yet. Be the first to comment!
+                              </p>
+                            )}
+
+                          {(commentsByVideo[short.id] || []).map((comment) => (
+                            <div key={comment.id} className="rounded-lg border bg-muted/40 p-3">
+                              <p className="text-sm font-medium">{comment.userId}</p>
+                              <p className="text-sm text-muted-foreground">{comment.text}</p>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
@@ -650,7 +909,7 @@ export default function ShortsPage() {
         <div className="flex items-center justify-around text-xs">
           <div className="flex flex-col items-center">
             <Flame className="w-4 h-4 text-orange-500" />
-            <span className="font-semibold">{watchedCount}</span>
+            <span className="font-semibold">{watchedVideoIds.size}</span>
             <span className="text-muted-foreground">Watched</span>
           </div>
           <div className="flex flex-col items-center">

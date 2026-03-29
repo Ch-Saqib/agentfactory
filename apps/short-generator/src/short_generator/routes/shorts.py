@@ -16,7 +16,7 @@ import uuid
 from datetime import datetime
 from typing import Any
 
-from fastapi import APIRouter, BackgroundTasks, HTTPException, Query, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Query, Request, status
 from pydantic import BaseModel, Field
 
 from short_generator.database import (
@@ -32,6 +32,10 @@ from short_generator.services.video_generation_service import (
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/shorts", tags=["Shorts Generation"])
+
+# In-memory unique view guard keyed by (video_id, viewer_key).
+# This prevents repeat view increments from the same user in the running process.
+_view_registry: dict[tuple[int, str], datetime] = {}
 
 
 # Request/Response Models
@@ -108,6 +112,33 @@ class HealthResponse(BaseModel):
     status: str
     service: str
     components: dict[str, str]
+
+
+class AddCommentRequest(BaseModel):
+    """Request payload for adding a comment."""
+
+    text: str = Field(..., min_length=1, max_length=2000)
+    parent_id: int | None = Field(None)
+    user_id: str | None = Field(None, max_length=100)
+
+
+class RecordViewRequest(BaseModel):
+    """Request payload for recording a view event."""
+
+    watch_duration_seconds: int = Field(..., ge=0)
+    completed: bool = Field(False)
+    viewer_id: str | None = Field(None, max_length=200)
+
+
+class CommentResponse(BaseModel):
+    """Comment response model."""
+
+    id: str
+    userId: str
+    videoId: str
+    text: str
+    parentId: str | None = None
+    createdAt: str
 
 
 # Background Tasks
@@ -252,15 +283,39 @@ async def list_videos(
         include_analytics=True,
     )
 
-    # Convert to response format
+    # Convert to response format without triggering lazy-loading on detached ORM
+    # relationships (notably `Video.comments`).
     video_responses = []
     for video in videos:
-        video_dict = VideoResponse.model_validate(video).model_dump()
-        # Add analytics if available
+        video_dict: dict[str, Any] = {
+            "id": video.id,
+            "chapter_id": video.chapter_id,
+            "chapter_title": video.chapter_title,
+            "chapter_number": video.chapter_number,
+            "content_snippet": video.content_snippet,
+            "video_url": video.video_url,
+            "thumbnail_url": video.thumbnail_url,
+            "duration_seconds": video.duration_seconds,
+            "file_size_mb": video.file_size_mb,
+            "status": video.status,
+            "word_count": video.word_count,
+            "scene_count": video.scene_count,
+            "generation_method": video.generation_method,
+            "voice_used": video.voice_used,
+            "created_at": video.created_at,
+            "updated_at": video.updated_at,
+        }
+        # Add analytics if available (relationship is one-to-many in current model)
+        analytics = None
         if video.analytics:
-            video_dict["views"] = video.analytics.views
-            video_dict["likes"] = video.analytics.likes
-            video_dict["comments"] = video.analytics.comments
+            if isinstance(video.analytics, list):
+                analytics = video.analytics[0] if len(video.analytics) > 0 else None
+            else:
+                analytics = video.analytics
+
+        video_dict["views"] = analytics.views if analytics else 0
+        video_dict["likes"] = analytics.likes if analytics else 0
+        video_dict["comments"] = analytics.comments if analytics else 0
         video_responses.append(VideoResponse(**video_dict))
 
     return VideoListResponse(
@@ -269,6 +324,163 @@ async def list_videos(
         page=None,
         limit=limit,
     )
+
+
+@router.post("/videos/{video_id}/like")
+async def like_video(video_id: int) -> dict[str, Any]:
+    """Increment like count for a video."""
+    video = await database_manager.get_video(video_id)
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    updated = await database_manager.increment_likes(video_id)
+    if not updated:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update like count",
+        )
+
+    analytics = await database_manager.get_analytics(video_id)
+    return {
+        "video_id": str(video_id),
+        "likes": analytics.likes if analytics else None,
+    }
+
+
+@router.post("/videos/{video_id}/unlike")
+async def unlike_video(video_id: int) -> dict[str, Any]:
+    """Decrement like count for a video."""
+    video = await database_manager.get_video(video_id)
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    updated = await database_manager.decrement_likes(video_id)
+    if not updated:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update like count",
+        )
+
+    analytics = await database_manager.get_analytics(video_id)
+    return {
+        "video_id": str(video_id),
+        "likes": analytics.likes if analytics else None,
+    }
+
+
+@router.get("/videos/{video_id}/comments")
+async def get_video_comments(
+    video_id: int,
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+) -> dict[str, Any]:
+    """Get comments for a video."""
+    video = await database_manager.get_video(video_id)
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    comments = await database_manager.list_comments(
+        video_id=video_id,
+        limit=limit,
+        offset=offset,
+    )
+
+    payload = [
+        CommentResponse(
+            id=str(comment.id),
+            userId=comment.user_id,
+            videoId=str(comment.video_id),
+            text=comment.text,
+            parentId=str(comment.parent_id) if comment.parent_id is not None else None,
+            createdAt=comment.created_at.isoformat(),
+        ).model_dump()
+        for comment in comments
+    ]
+
+    return {
+        "comments": payload,
+        "totalCount": len(payload),
+    }
+
+
+@router.post("/videos/{video_id}/comments")
+async def add_video_comment(
+    video_id: int,
+    request: AddCommentRequest,
+) -> dict[str, Any]:
+    """Add a comment to a video."""
+    created = await database_manager.create_comment(
+        video_id=video_id,
+        text=request.text.strip(),
+        user_id=request.user_id or "anonymous",
+        parent_id=request.parent_id,
+    )
+    if not created:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    return {
+        "commentId": str(created.id),
+        "text": created.text,
+        "createdAt": created.created_at.isoformat(),
+    }
+
+
+@router.post("/videos/{video_id}/views")
+async def record_video_view(
+    video_id: int,
+    payload: RecordViewRequest,
+    request: Request,
+) -> dict[str, Any]:
+    """Record a video view."""
+    video = await database_manager.get_video(video_id)
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video not found: {video_id}",
+        )
+
+    client_ip = request.client.host if request.client and request.client.host else "unknown"
+    viewer_key = (payload.viewer_id or "").strip() or f"ip:{client_ip}"
+    registry_key = (video_id, viewer_key)
+    unique_view_applied = False
+
+    # Periodically trim old entries to prevent unbounded growth.
+    if len(_view_registry) > 100_000:
+        cutoff = datetime.now().timestamp() - (7 * 24 * 60 * 60)
+        stale_keys = [k for k, ts in _view_registry.items() if ts.timestamp() < cutoff]
+        for stale_key in stale_keys:
+            _view_registry.pop(stale_key, None)
+
+    if registry_key not in _view_registry:
+        updated = await database_manager.increment_views(video_id)
+        if not updated:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Failed to update view count",
+            )
+        _view_registry[registry_key] = datetime.now()
+        unique_view_applied = True
+
+    analytics = await database_manager.get_analytics(video_id)
+    return {
+        "video_id": str(video_id),
+        "views": analytics.views if analytics else None,
+        "watch_duration_seconds": payload.watch_duration_seconds,
+        "completed": payload.completed,
+        "unique_view_applied": unique_view_applied,
+    }
 
 
 @router.get("/videos/stream/{video_id}")

@@ -101,6 +101,9 @@ class Video(Base, TimestampMixin):
     analytics: Mapped[list["VideoAnalytics"]] = relationship(
         "VideoAnalytics", back_populates="video", cascade="all, delete-orphan"
     )
+    comments: Mapped[list["VideoComment"]] = relationship(
+        "VideoComment", back_populates="video", cascade="all, delete-orphan"
+    )
 
     def __repr__(self) -> str:
         return f"<Video(id={self.id}, chapter_id={self.chapter_id}, status={self.status})>"
@@ -208,6 +211,22 @@ class VideoAnalytics(Base, TimestampMixin):
 
     def __repr__(self) -> str:
         return f"<VideoAnalytics(id={self.id}, views={self.views}, likes={self.likes})>"
+
+
+class VideoComment(Base, TimestampMixin):
+    """Comment on a video."""
+
+    __tablename__ = "video_comments"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    video_id: Mapped[int] = mapped_column(ForeignKey("videos.id"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(String(100), nullable=False, default="anonymous")
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    parent_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("video_comments.id"), nullable=True, index=True
+    )
+
+    video: Mapped["Video"] = relationship("Video", back_populates="comments")
 
 
 # Pydantic schemas for API input/output
