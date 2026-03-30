@@ -12,6 +12,7 @@
  */
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import Link from "@docusaurus/Link";
 import { getShortsApiClient } from "../lib/shorts-api";
 import type { ShortVideo, ShortsFilters as ShortsFiltersType } from "../components/shorts/types";
 import { ShortsSearch } from "../components/shorts";
@@ -489,7 +490,11 @@ export default function ShortsPage() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
               <div className="min-w-0">
-                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Learning Shorts</h1>
+                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                  <Link to="/" className="hover:text-primary transition-colors text-inherit no-underline">
+                    Learning Shorts
+                  </Link>
+                </h1>
                 <p className="mt-1 max-w-2xl text-sm text-muted-foreground sm:text-[15px]">
                   Short video lessons for quick browsing and review.
                 </p>
