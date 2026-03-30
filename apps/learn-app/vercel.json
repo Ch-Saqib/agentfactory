@@ -1,6 +1,6 @@
 {
-  "installCommand": "cd ../.. && corepack enable && corepack prepare pnpm@9.15.9 --activate && pnpm install --frozen-lockfile",
-  "buildCommand": "cd ../.. && pnpm nx build learn-app",
+  "installCommand": "cd ../.. && corepack enable && corepack prepare pnpm@9.15.9 --activate && corepack pnpm install --frozen-lockfile",
+  "buildCommand": "cd ../.. && corepack pnpm nx build learn-app",
   "outputDirectory": "build",
   "cleanUrls": true,
   "trailingSlash": false,
