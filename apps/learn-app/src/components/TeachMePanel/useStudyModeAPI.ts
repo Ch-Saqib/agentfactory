@@ -5,6 +5,9 @@
  * Works with StudyModeContext for state management
  */
 
+import { useCallback } from 'react';
+import { useDocusaurusContext } from '@docusaurus/useDocusaurusContext';
+import { useStudyMode, type Message, type ChatMode } from '../../contexts/StudyModeContext';
 import { useCallback, useMemo } from "react";
 import {
   useStudyMode,
@@ -66,6 +69,19 @@ const API_BASE_URL =
 // =============================================================================
 
 export function useStudyModeAPI() {
+  const { siteConfig } = useDocusaurusContext();
+
+  // Get Study Mode API URL from Docusaurus config (set via environment variable)
+  const studyModeApiUrl = (siteConfig.customFields?.studyModeApiUrl as string) || 'http://localhost:8000';
+  const API_BASE_URL = `${studyModeApiUrl}/api`;
+
+  const {
+    mode,
+    getCurrentConversation,
+    addMessage,
+    setLoading,
+    setError,
+  } = useStudyMode();
   const { mode, getCurrentConversation, addMessage, setLoading, setError } =
     useStudyMode();
   const { profile } = useLearnerProfile();
@@ -122,6 +138,10 @@ export function useStudyModeAPI() {
         ...(learnerProfileSummary && { learnerProfile: learnerProfileSummary }),
       };
 
+      setError(errorMessage);
+      setLoading(false);
+    }
+  }, [mode, getCurrentConversation, addMessage, setLoading, setError, API_BASE_URL]);
       setLoading(true);
       setError(null);
 

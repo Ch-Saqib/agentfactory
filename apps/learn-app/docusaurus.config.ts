@@ -36,6 +36,10 @@ const PRACTICE_ENABLED = process.env.PRACTICE_ENABLED === "true";
 const PROGRESS_API_URL =
   process.env.PROGRESS_API_URL || "http://localhost:8002";
 
+// Shorts Generator API URL - lesson shorts generation
+const SHORTS_API_URL =
+  process.env.SHORTS_API_URL || "http://localhost:8005";
+
 // Learner Profile API URL - personalized learning profiles
 const LEARNER_PROFILE_API_URL =
   process.env.LEARNER_PROFILE_API_URL || "http://localhost:8004";
@@ -66,6 +70,7 @@ const config: Config = {
     tokenMeteringApiUrl: TOKEN_METERING_API_URL,
     chatkitDomainKey: CHATKIT_DOMAIN_KEY,
     progressApiUrl: PROGRESS_API_URL,
+    shortsApiUrl: SHORTS_API_URL,
     learnerProfileApiUrl: LEARNER_PROFILE_API_URL,
     practiceEnabled: PRACTICE_ENABLED,
   },
@@ -87,6 +92,9 @@ const config: Config = {
   url: siteConfig.url,
   // Set the /<baseUrl>/ pathname under which your site is served
   baseUrl: siteConfig.baseUrl,
+
+  // Client modules - run on client-side startup
+  clientModules: [require.resolve('./src/client/api-globals')],
 
   // Sitemap is configured via the classic preset's sitemap option below
 
