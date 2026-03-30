@@ -1,0 +1,112 @@
+deck:
+  id: "ch02-05-links-and-images"
+  title: "Links and Images"
+  description: "Covers link and image syntax, text emphasis with bold and italic, tables, task lists, and how these elements add context, priority, and visual communication to specifications."
+  tags: ["markdown", "links", "images", "emphasis", "tables"]
+  version: 1
+
+cards:
+  - id: "ch02-05-links-and-images-001"
+    type: recall
+    front: "What is the markdown syntax for creating a hyperlink?"
+    back: "[link text](url)"
+    tags: ["links", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-05-links-and-images-002"
+    type: recall
+    front: "What is the markdown syntax for embedding an image?"
+    back: "![alt text](image-url)"
+    tags: ["images", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-05-links-and-images-003"
+    type: recall
+    front: "Markdown link [text](url): takes you there. Image ![text](url)?"
+    back: "Shows it here (embeds the image inline)."
+    tags: ["links", "images", "discrimination"]
+    difficulty: "intermediate"
+
+  - id: "ch02-05-links-and-images-004"
+    type: thinking
+    front: "Why does using 'click here' as link text hurt AI's ability to understand your specification?"
+    back: "BECAUSE AI uses link text to understand what the destination provides without following the link, THEREFORE 'click here' gives zero semantic context while 'Python documentation' tells AI exactly what resource is being referenced."
+    tags: ["links", "descriptive-text", "ai-parsing"]
+    difficulty: "intermediate"
+    why: "How does descriptive link text help AI decide which libraries to use in its implementation?"
+
+  - id: "ch02-05-links-and-images-005"
+    type: recall
+    front: "What markdown syntax creates bold, italic, and bold-italic text?"
+    back: "Bold: **text**\nItalic: *text*\nBold-italic: ***text***"
+    tags: ["emphasis", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-05-links-and-images-006"
+    type: recall
+    front: "In a specification, bold (**must**) signals what? Italic (*recommended*) signals what?"
+    back: "Bold = critical requirements (hard rules).\nItalic = optional enhancements (nice-to-haves)."
+    tags: ["emphasis", "requirements", "priority"]
+    difficulty: "intermediate"
+
+  - id: "ch02-05-links-and-images-007"
+    type: thinking
+    front: "How does an AI use bold vs italic emphasis to prioritize its implementation work?"
+    back: "BECAUSE bold marks non-negotiable requirements and italic marks optional enhancements, THEREFORE AI implements bold items first and treats italic items as deprioritized or skippable."
+    tags: ["emphasis", "ai-parsing", "priority"]
+    difficulty: "intermediate"
+    why: "What would happen if a security requirement like password hashing was marked italic instead of bold?"
+
+  - id: "ch02-05-links-and-images-008"
+    type: thinking
+    front: "Why does descriptive alt text matter even though modern AI can view images directly?"
+    back: "BECAUSE in text-based workflows AI only sees alt text and filename rather than the actual image, THEREFORE descriptive alt text provides context regardless of processing method and also enables screen reader accessibility."
+    tags: ["images", "alt-text", "accessibility"]
+    difficulty: "intermediate"
+    why: "How should alt text differ between 'screenshot' and a useful description of what the screenshot shows?"
+
+  - id: "ch02-05-links-and-images-009"
+    type: recall
+    front: "What is the markdown syntax for creating a table?"
+    back: "Use pipes (|) to separate columns and dashes (---) for the header row separator."
+    tags: ["tables", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-05-links-and-images-010"
+    type: recall
+    front: "What is the markdown syntax for task list checkboxes?"
+    back: "- [x] for checked (done).\n- [ ] for unchecked (pending)."
+    tags: ["task-lists", "syntax", "gfm"]
+    difficulty: "basic"
+
+  - id: "ch02-05-links-and-images-011"
+    type: thinking
+    front: "Why does bolding every other word in a specification defeat the purpose of emphasis?"
+    back: "BECAUSE bold's signaling power depends on contrast with regular text, THEREFORE when everything is bold, AI and humans can no longer distinguish critical requirements from ordinary content."
+    tags: ["emphasis", "anti-pattern"]
+    difficulty: "intermediate"
+    why: "How should you make a full sentence stand out if bold on every word is wrong?"
+
+  - id: "ch02-05-links-and-images-012"
+    type: thinking
+    front: "How do documentation links in a spec serve as 'context anchors' that help AI understand your project?"
+    back: "BECAUSE link text tells AI what each resource provides and some AI tools can fetch linked pages for additional context, THEREFORE documentation links make specs richer without repeating content — '[requests library]' signals a specific Python package."
+    tags: ["links", "context-anchors", "ai-parsing"]
+    difficulty: "advanced"
+    why: "Why is linking to the requests library documentation more useful to AI than describing the library in prose?"
+
+  - id: "ch02-05-links-and-images-013"
+    type: thinking
+    front: "Why do spaces in URLs break markdown links?"
+    back: "BECAUSE markdown's parser treats a space as the end of the URL, THEREFORE the link splits into a broken reference and leftover text — use URLs without spaces or replace spaces with %20."
+    tags: ["links", "common-mistakes", "url-encoding"]
+    difficulty: "intermediate"
+    why: "What is URL encoding and when would you use %20 vs finding a clean URL?"
+
+  - id: "ch02-05-links-and-images-014"
+    type: thinking
+    front: "Why is using bold emphasis on entire sentences a worse choice than using a heading or callout?"
+    back: "BECAUSE emphasis is for highlighting words within sentences rather than creating document structure, THEREFORE bolding entire sentences clutters the text when a heading or callout would provide clearer visual hierarchy and better AI parsing."
+    tags: ["emphasis", "document-design", "anti-pattern"]
+    difficulty: "advanced"
+    why: "What structural element would you use instead of bold to make an important warning stand out?"

@@ -1,0 +1,82 @@
+deck:
+  id: "ch03-10-skills-exercises"
+  title: "Agent Skills Exercises"
+  description: "Frameworks and methodologies for building, testing, evaluating, and composing agent skills through systematic practice."
+  tags: ["skills", "frameworks", "iteration", "assessment"]
+  version: 1
+
+cards:
+  - id: "ch03-10-skills-exercises-001"
+    type: recall
+    front: "What are the six steps of the Skill-Building Framework in order?"
+    back: "Define, Draft, Test, Evaluate, Improve, Repeat"
+    tags: ["framework", "process"]
+    difficulty: "basic"
+
+  - id: "ch03-10-skills-exercises-002"
+    type: recall
+    front: "What score on the self-assessment rubric indicates a production-ready skill?"
+    back: "18 or higher out of 24"
+    tags: ["rubric", "assessment"]
+    difficulty: "basic"
+
+  - id: "ch03-10-skills-exercises-003"
+    type: recall
+    front: "Name any 4 of the 6 criteria on the skill self-assessment rubric?"
+    back: "Trigger Description, Instructions, Examples, Edge Case Handling, Testing, Iteration"
+    tags: ["rubric", "assessment"]
+    difficulty: "intermediate"
+
+  - id: "ch03-10-skills-exercises-004"
+    type: recall
+    front: "What are the four criteria for deciding if a task is skill-worthy?"
+    back: "Is it repeatable? Consistent output needed? Can you write clear rules? Requires background context?"
+    tags: ["decision-framework", "skill-worthiness"]
+    difficulty: "intermediate"
+
+  - id: "ch03-10-skills-exercises-005"
+    type: thinking
+    front: "Why does the module progression start with reading skills before writing them?"
+    back: "BECAUSE reading fluency must precede writing ability, THEREFORE analyzing existing skill structure builds the pattern recognition needed to create effective skills."
+    tags: ["pedagogy", "progression"]
+    difficulty: "intermediate"
+    why: "Connects to how natural language literacy develops"
+
+  - id: "ch03-10-skills-exercises-006"
+    type: thinking
+    front: "How does a pipeline skill differ from the individual skills it orchestrates?"
+    back: "BECAUSE a pipeline skill delegates work rather than performing it directly, THEREFORE it manages data flow between steps, handles errors at boundaries, and coordinates outputs as inputs for the next stage."
+    tags: ["composition", "pipeline"]
+    difficulty: "advanced"
+    why: "Distinguishes orchestration from execution"
+
+  - id: "ch03-10-skills-exercises-007"
+    type: thinking
+    front: "Why must skill testing use the same inputs and rubric when comparing versions?"
+    back: "BECAUSE changing multiple variables simultaneously makes it impossible to isolate what improved, THEREFORE controlled testing with fixed inputs and rubric ensures measured differences come only from skill changes."
+    tags: ["testing", "iteration"]
+    difficulty: "intermediate"
+    why: "Relates to scientific method of controlled experiments"
+
+  - id: "ch03-10-skills-exercises-008"
+    type: recall
+    front: "What self-assessment rubric score indicates a skill needs another full iteration round?"
+    back: "Below 12 out of 24"
+    tags: ["rubric", "assessment"]
+    difficulty: "basic"
+
+  - id: "ch03-10-skills-exercises-009"
+    type: thinking
+    front: "Why does Exercise 1.3 compare skill output against raw prompt output?"
+    back: "BECAUSE intuition about skill superiority is not evidence, THEREFORE measurable side-by-side scoring on a fixed rubric provides concrete proof that skills enforce consistency raw prompts cannot."
+    tags: ["evidence", "comparison"]
+    difficulty: "intermediate"
+    why: "Establishes empirical basis for skill investment"
+
+  - id: "ch03-10-skills-exercises-010"
+    type: thinking
+    front: "How does skill composition prepare students for agent delegation workflows?"
+    back: "BECAUSE manually chaining skills into pipelines teaches data flow and error handling between steps, THEREFORE students understand orchestration patterns before automating them with subagents."
+    tags: ["composition", "progression"]
+    difficulty: "advanced"
+    why: "Bridges Module 6 to Lesson 11 on subagents"

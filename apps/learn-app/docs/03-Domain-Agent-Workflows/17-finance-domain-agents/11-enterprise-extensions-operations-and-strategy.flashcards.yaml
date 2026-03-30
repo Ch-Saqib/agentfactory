@@ -1,0 +1,68 @@
+deck:
+  id: "ch17-11-enterprise-extensions"
+  title: "Enterprise Extensions: Operations and Strategy"
+  description: "Seven enterprise finance extension domains — treasury, tax, FP&A, M&A integration, ESG, fund administration, and insurance — and the SKILL.md instructions that encode institutional knowledge for each."
+  tags: ["enterprise-extensions", "treasury", "tax-provision", "FP&A", "ESG", "fund-admin", "insurance", "SKILL.md"]
+  version: 1
+
+cards:
+  - id: "ch17-11-extension-gap-001"
+    front: "What distinguishes an enterprise extension from a generic finance plugin?"
+    back: "A generic plugin applies standard financial logic. An extension encodes organisation-specific rules, policies, thresholds, and institutional knowledge — the things that make a generic output usable without reformatting or manual adjustment."
+    tags: ["enterprise-extension", "generic-plugin", "institutional-knowledge"]
+    difficulty: "basic"
+
+  - id: "ch17-11-treasury-002"
+    front: "What four categories of institutional knowledge must a treasury extension encode?"
+    back: "Hedging policy rules (which exposures are hedged, acceptable instruments, maximum tenor), banking relationship structure (accounts, sweep mechanics, minimum balances by currency), FX rate source for valuation (mid-market, bid/offer, or specific fixing), and intercompany loan structure (entities, currencies, interest rates, transfer pricing)."
+    tags: ["treasury", "cash-management", "FX-hedging"]
+    difficulty: "intermediate"
+
+  - id: "ch17-11-tax-provision-003"
+    front: "What is a tax provision and why does the generic plugin lack the ability to calculate it?"
+    back: "A tax provision estimates income tax owed for a period. The effective tax rate differs from the statutory rate due to permanent differences, temporary differences, and credits. The generic plugin cannot calculate it because it does not know the organisation's jurisdictional mix, specific permanent and temporary differences, or deferred tax asset valuation methodology."
+    tags: ["tax-provision", "ASC-740", "ETR"]
+    difficulty: "intermediate"
+
+  - id: "ch17-11-driver-based-004"
+    front: "What is driver-based forecasting and why does it make variances actionable?"
+    back: "Driver-based forecasting builds projections from operational inputs (units, price per unit) rather than accounting line items. It decomposes variances into volume, price, and mix components, making them actionable: a revenue shortfall from fewer orders requires a different response than one from deeper discounting."
+    tags: ["FP&A", "driver-based", "variance-bridge"]
+    difficulty: "basic"
+
+  - id: "ch17-11-pmo-005"
+    front: "What three things does an M&A integration PMO track?"
+    back: "Day-1 readiness (can the combined entity operate on day one — payroll, IT, customer communication, regulatory notifications), synergy delivery (are cost and revenue synergies being realised on schedule), and cultural integration (retention targets, engagement scores, key talent departures)."
+    tags: ["M&A", "PMO", "integration"]
+    difficulty: "basic"
+
+  - id: "ch17-11-esg-frameworks-006"
+    front: "What are CSRD and ISSB, and how do they differ?"
+    back: "CSRD is the EU's mandatory sustainability reporting directive using ESRS standards with double materiality (financial impact AND company impact on people/planet). ISSB issues IFRS S1 and S2 focused on enterprise value — what sustainability matters mean for investors. CSRD is broader in scope; ISSB is investor-focused."
+    tags: ["ESG", "CSRD", "ISSB", "sustainability"]
+    difficulty: "intermediate"
+
+  - id: "ch17-11-nav-007"
+    front: "What is NAV and why do fee waterfall errors matter?"
+    back: "Net Asset Value is a fund's assets minus liabilities divided by outstanding units — it determines investor returns and the price for subscriptions and redemptions. Fee waterfall errors are not rounding differences — they are contractual disputes because the waterfall (management fee, hurdle, catch-up, carried interest) is defined by the partnership agreement."
+    tags: ["NAV", "fund-administration", "fee-waterfall"]
+    difficulty: "intermediate"
+
+  - id: "ch17-11-prioritisation-008"
+    front: "What three criteria should you use to prioritise which enterprise extensions to build first?"
+    back: "Operational pain (where the workflow gap causes the most daily friction), knowledge risk (where expertise is concentrated in individuals who could leave), and regulatory exposure (where compliance requirements create urgency that overrides other priorities). Run three extensions in parallel in Q1: highest volume, highest compliance risk, highest knowledge risk."
+    tags: ["prioritisation", "roadmap", "extension-sequencing"]
+    difficulty: "basic"
+
+  - id: "ch17-11-specificity-009"
+    front: "Why do generic SKILL.md instructions produce poor results for enterprise extensions?"
+    back: "Generic instructions like 'calculate the tax provision' produce generic outputs. Organisation-specific instructions that encode actual jurisdictional rates, permanent differences, and valuation methodologies produce outputs matching how the organisation works. The specificity of the instruction determines the quality of the output."
+    tags: ["SKILL.md", "specificity", "institutional-knowledge"]
+    difficulty: "basic"
+    why: "Tests understanding of the core lesson thesis — that the gap between generic and specific instructions is the gap between a concept and a deployable extension"
+
+  - id: "ch17-11-emissions-scope-010"
+    front: "What are emissions Scopes 1, 2, and 3?"
+    back: "Scope 1: direct emissions from owned or controlled sources. Scope 2: indirect emissions from purchased energy (electricity, heat, steam). Scope 3: all other indirect emissions across the value chain — typically the largest and hardest to measure. The SKILL.md must encode the organisational boundary approach, emission factor sources, and Scope 3 category coverage."
+    tags: ["ESG", "emissions", "scope-1-2-3"]
+    difficulty: "intermediate"

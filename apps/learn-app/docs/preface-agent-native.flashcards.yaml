@@ -1,136 +1,182 @@
 deck:
   id: "preface-agent-native"
   title: "PREFACE: The AI Agent Factory"
-  description: "Core concepts from the preface — the SaaSpocalypse, Digital FTEs, the Agent Triangle, monetization models, and the Agent Factory blueprint."
-  tags: ["preface", "agent-factory", "digital-fte", "saaspocalypse"]
-  version: 1
+  description: "The SaaSpocalypse, Digital FTEs, the Agent Triangle, monetization models, and the spec-driven blueprint for building AI employees."
+  tags: ["agent-factory", "digital-fte", "saaspocalypse", "agent-triangle", "monetization"]
+  version: 2
 
 cards:
   - id: "preface-agent-native-001"
-    front: "What event in February 2026 erased nearly $1 trillion from software stocks, and what triggered it?"
-    back: "The SaaSpocalypse — triggered by Anthropic releasing eleven open-source plugins for Claude Cowork that demonstrated autonomous agents could perform complex professional work."
-    tags: ["saaspocalypse", "market-shift"]
+    front: "What event did traders call the 'SaaSpocalypse' in February 2026?"
+    back: "~$1 trillion erased from software stocks after Anthropic's eleven Claude Cowork plugins launched."
+    tags: ["saaspocalypse", "market-event"]
     difficulty: "basic"
 
   - id: "preface-agent-native-002"
-    front: "Why did legal tech stocks like Thomson Reuters and RELX fall hardest during the SaaSpocalypse?"
-    back: "A single legal plugin handling NDA triage and compliance tracking proved agents could do the core professional work these companies sold — wiping $285 billion off legal tech and professional services in one session."
-    tags: ["saaspocalypse", "legal-tech"]
+    front: "A single legal AI plugin wipes $285 billion off legal tech stocks in one session. Why was legal tech hit hardest?"
+    back: "Because legal tech revenue depended on humans doing contract review and compliance — the exact tasks the plugin automated, making their seat-based pricing indefensible."
+    tags: ["saaspocalypse", "legal-tech", "disruption"]
     difficulty: "intermediate"
-    why: "What does it imply when one plugin can replicate a company's core revenue-generating service?"
+    why: "Which other professional domains are similarly vulnerable to single-plugin disruption?"
 
   - id: "preface-agent-native-003"
     front: "In the Agent Factory model, what is a Digital FTE?"
-    back: "An AI agent that is built, hired, and priced as if it were a human employee — working 24/7 (~8,760 hours/year vs. ~2,000 for humans)."
+    back: "An AI agent built, hired, and priced as if it were a human employee."
     tags: ["digital-fte", "definition"]
     difficulty: "basic"
 
   - id: "preface-agent-native-004"
-    front: "How does scaling differ between per-seat SaaS and the Digital FTE model?"
-    back: "SaaS scales linearly — hire more humans, buy more seats. Digital FTEs scale exponentially — clone the agent instantly. No seat, no UI, no training needed."
-    tags: ["scaling", "saas-vs-fte"]
-    difficulty: "intermediate"
-    why: "What happens to a SaaS company whose revenue depends entirely on headcount growth at its customers?"
+    front: "Why is pricing an agent as a 'Digital FTE' more profitable than pricing it as software?"
+    back: "Because it shifts the buyer's comparison from IT budgets to HR budgets — departmental headcount budgets are often 10x larger than software budgets."
+    tags: ["digital-fte", "pricing-psychology", "monetization"]
+    difficulty: "advanced"
+    why: "How does this framing change the sales conversation with a CEO?"
 
   - id: "preface-agent-native-005"
-    front: "What are the three paths of the Agent Triangle for deploying AI?"
-    back: "A: General Agents (consultants, e.g. Claude Code)\nB: Custom-Built AI Employees (build)\nC: Pre-Built AI Employees (buy, e.g. OpenClaw, Devin)"
-    tags: ["agent-triangle", "deployment"]
+    front: "How many hours per year does a Digital FTE work compared to a human FTE?"
+    back: "Digital FTE: ~8,760 hours (24/7). Human FTE: ~2,000 hours."
+    tags: ["digital-fte", "economics"]
     difficulty: "basic"
 
   - id: "preface-agent-native-006"
-    front: "Why might an organization choose to buy a Pre-Built AI Employee instead of building a custom one?"
-    back: "Speed and convenience — Pre-Built AI Employees come pre-trained, are operational in days (not weeks), offer persistent memory and multi-channel presence, and don't require architectural work. Best for commodity capabilities where the task isn't a competitive differentiator."
-    tags: ["agent-triangle", "build-vs-buy"]
+    front: "How does scaling differ between per-seat SaaS and the Digital FTE model?"
+    back: "Per-seat SaaS scales linearly with headcount. Digital FTEs scale exponentially because agents clone instantly — revenue grows with tasks completed, not humans hired."
+    tags: ["saas-disruption", "scaling", "digital-fte"]
     difficulty: "intermediate"
-    why: "When would buying a Pre-Built AI Employee actually hurt a company's competitive position?"
+    why: "What happens to a SaaS company's valuation when customers switch to Digital FTEs?"
 
   - id: "preface-agent-native-007"
-    front: "What are the two stages of the Agent Maturity Model?"
-    back: "1. Incubator (General Agents) — explore, discover, prototype\n2. Specialist (Custom Agents) — execute, scale, govern"
-    tags: ["maturity-model", "development-path"]
-    difficulty: "basic"
+    front: "Investors rotated capital during the SaaSpocalypse rather than panicking. Why does the preface call this a repricing?"
+    back: "Because they rationally moved capital toward companies deploying autonomous agents, recognizing that seat-based SaaS becomes structurally obsolete when agents do the work directly."
+    tags: ["saaspocalypse", "market-repricing"]
+    difficulty: "intermediate"
+    why: "What signal would distinguish a temporary panic from a permanent structural repricing?"
 
   - id: "preface-agent-native-008"
-    front: "Why is skipping the Incubator stage and jumping straight to building a Specialist agent a mistake?"
-    back: "Without incubation, you over-engineer solutions that solve the wrong problem. The Incubator stage discovers what to build through rapid iteration with General Agents. Skipping it means you crystallize patterns that haven't been validated."
-    tags: ["maturity-model", "anti-pattern"]
-    difficulty: "intermediate"
-    why: "How would you know when a pattern has stabilized enough to move from incubation to specialization?"
+    front: "What is 'Disruption Alpha' as defined in the preface?"
+    back: "The opportunity gap between the old world dying and the new world scaling."
+    tags: ["disruption-alpha", "strategy"]
+    difficulty: "basic"
 
   - id: "preface-agent-native-009"
-    front: "What do Agent Skills and MCP each provide in the Agent Factory?"
-    back: "Agent Skills = the 'How-To' (modular SKILL.md files encoding repeatable expertise).\nMCP (Model Context Protocol) = the 'With-What' (universal protocol connecting agents to live data)."
-    tags: ["mcp", "agent-skills", "twin-enablers"]
-    difficulty: "basic"
+    front: "In the preface, what are the three steps to capture Disruption Alpha?"
+    back: "1. Stop buying seats\n2. Build skills\n3. Deploy Digital FTEs"
+    tags: ["disruption-alpha", "pivot-strategy"]
+    difficulty: "intermediate"
 
   - id: "preface-agent-native-010"
-    front: "How do Agent Skills and MCP together transform a General Agent into a specialized Digital FTE?"
-    back: "Skills provide domain expertise; MCP provides connectivity to real data sources. Plug in a Finance Skill + Finance MCP and you get a Finance Agent. The combination turns generic reasoning into domain-specific execution."
-    tags: ["mcp", "agent-skills", "specialization"]
-    difficulty: "intermediate"
-    why: "What would happen if you had Skills but no MCP, or MCP but no Skills?"
-
-  - id: "preface-agent-native-011"
-    front: "What is 'Code as the Universal Interface' in the Agent Factory context?"
-    back: "Code isn't just for building software — it's how agents interrogate reality. An agent writes SQL, Python, or API calls to answer business questions with facts, using code as the interface between intent and action."
-    tags: ["code-as-interface", "paradigm"]
+    front: "What are the three paths in the Agent Triangle?"
+    back: "A: General Agents (consultants)\nB: Custom-Built AI Employees (build)\nC: Pre-Built AI Employees (buy)"
+    tags: ["agent-triangle", "deployment"]
     difficulty: "basic"
 
-  - id: "preface-agent-native-012"
-    front: "Why does positioning an AI agent as a 'Digital FTE' rather than a 'software tool' change the pricing psychology?"
-    back: "Software is compared to IT budgets ($50 subscriptions). A Digital FTE is compared to HR budgets ($50,000 salaries). By framing the agent as an employee, you tap departmental budgets that are often 10x larger than software budgets."
-    tags: ["monetization", "pricing-psychology"]
+  - id: "preface-agent-native-011"
+    front: "Why does the Agent Maturity Model require an Incubator stage before the Specialist stage?"
+    back: "Because you can't engineer a reliable specialist without first discovering the right solution. Incubation with General Agents explores possibilities; specialization then optimizes the proven pattern for scale."
+    tags: ["agent-maturity-model", "development-stages"]
     difficulty: "intermediate"
-    why: "How does the buyer's mental model change when they think 'hiring an employee' vs. 'buying software'?"
+    why: "How would you know when a pattern is stable enough to move from Incubator to Specialist?"
+
+  - id: "preface-agent-native-012"
+    front: "A startup builds Custom Agents without any General Agent exploration phase first. Why does this typically fail?"
+    back: "Without incubation to discover requirements through iteration, they over-engineer solutions to the wrong problem — the resulting agent is brittle and must be rebuilt."
+    tags: ["agent-maturity-model", "anti-patterns"]
+    difficulty: "advanced"
+    why: "How would you recognize premature specialization in a real project?"
 
   - id: "preface-agent-native-013"
-    front: "What are the four monetization models for Digital FTEs?"
-    back: "1. Subscription ($500-2,000/mo for managed FTE)\n2. Success Fee (commission on results)\n3. License (annual fee for proprietary agent logic)\n4. Marketplace (sell via platforms like OpenAI Apps)"
-    tags: ["monetization", "business-model"]
+    front: "What does the preface call the 'Twin Enablers' that make the Agent Factory possible?"
+    back: "Agent Skills (the How-To) and MCP (the With-What)."
+    tags: ["agent-skills", "mcp", "twin-enablers"]
     difficulty: "basic"
 
   - id: "preface-agent-native-014"
-    front: "What is a Golden Dataset, and what accuracy threshold does the preface recommend for production deployment?"
-    back: "50+ real-world scenarios representing actual work the agent will perform. The threshold is 97%+ accuracy before production deployment."
-    tags: ["evaluation", "golden-dataset"]
-    difficulty: "basic"
+    front: "What distinguishes Agent Skills from MCP in the Agent Factory?"
+    back: "Skills = reusable expertise (SKILL.md workflows). MCP = connectivity to live data (databases, CRMs, APIs)."
+    tags: ["agent-skills", "mcp", "enablers"]
+    difficulty: "intermediate"
 
   - id: "preface-agent-native-015"
-    front: "Why does the preface recommend starting agents in 'shadow mode' before granting full autonomy?"
-    back: "Shadow mode lets the agent recommend while humans execute, building a track record. You graduate to full autonomy only after 95%+ accuracy over 30 days. This catches edge cases and builds organizational trust before removing human oversight."
-    tags: ["deployment", "shadow-mode", "safety"]
+    front: "Why is calling Claude Code a 'Coding Agent' misleading, according to the preface?"
+    back: "Because code is just the tool it uses — like calling a CEO an 'Email Writer.' It's a General Agent using code as a universal interface across any business domain."
+    tags: ["claude-code", "general-agents", "trojan-horse"]
     difficulty: "intermediate"
-    why: "What risks emerge if you skip shadow mode and deploy an agent directly into autonomous production?"
+    why: "What capabilities does a General Agent have that a Coding Agent lacks?"
 
   - id: "preface-agent-native-016"
-    front: "What was Casetext's CoCounsel, and why was its $650M acquisition significant for the Agent Factory thesis?"
-    back: "CoCounsel was an AI legal assistant (document review, case law research, memo drafting) with 97% accuracy. Thomson Reuters paid $650M for encoded legal expertise — proving domain knowledge in AI agents is extraordinarily valuable."
-    tags: ["cocounsel", "proof-point"]
-    difficulty: "basic"
+    front: "What are the four monetization models for Digital FTEs listed in the preface?"
+    back: "1. Subscription\n2. Success Fee\n3. License\n4. Marketplace"
+    tags: ["monetization", "business-models"]
+    difficulty: "intermediate"
 
   - id: "preface-agent-native-017"
-    front: "How does the Three-Role Partnership between human and AI work in the Agent Factory?"
-    back: "AI acts as Teacher (suggests patterns), Student (learns your domain), and Co-Worker (implements). Human acts as Teacher (guides via specs), Student (learns from AI suggestions), and Orchestrator (designs collaboration)."
-    tags: ["three-roles", "collaboration"]
-    difficulty: "basic"
+    front: "Why might a company choose to Build (Option B) a Custom Agent instead of Buying (Option C) a Pre-Built one?"
+    back: "Because custom agents let you architect exact guardrails and workflows for your unique competitive moat, while pre-built agents handle commodity capabilities you don't need to differentiate on."
+    tags: ["agent-triangle", "build-vs-buy"]
+    difficulty: "intermediate"
+    why: "What's the risk of building custom when a pre-built option already exists?"
 
   - id: "preface-agent-native-018"
-    front: "Why does the preface call Claude Code a 'Trojan Horse' rather than just a coding agent?"
-    back: "Calling it a coding agent is like calling a CEO an email writer. Code is just the tool Claude Code uses to solve problems. It's actually a General Agent that can handle any business domain — sales planning, email drafting, data analysis — not just software development."
-    tags: ["claude-code", "general-agent", "paradigm"]
-    difficulty: "intermediate"
-    why: "How does misclassifying Claude Code as 'just a coding tool' limit how organizations deploy it?"
+    front: "What is a Golden Dataset in the context of agent deployment?"
+    back: "50+ real-world test scenarios an agent must pass with 97%+ accuracy before production deployment."
+    tags: ["golden-dataset", "evaluation", "deployment"]
+    difficulty: "basic"
 
   - id: "preface-agent-native-019"
-    front: "What is 'disruption alpha' as described in the preface?"
-    back: "The opportunity gap between the old world dying (legacy SaaS losing valuation) and the new world scaling (firms building Custom Digital Workers capturing that lost value)."
-    tags: ["disruption-alpha", "strategy"]
+    front: "What is shadow mode for agent deployment?"
+    back: "Agent recommends but humans execute. Graduates to autonomy after 95%+ accuracy over 30 days."
+    tags: ["shadow-mode", "deployment", "safety"]
     difficulty: "intermediate"
 
   - id: "preface-agent-native-020"
-    front: "Why does the preface say 80% of AI agent failures stem from organizational issues rather than technical ones?"
-    back: "The five common pitfalls are all organizational: over-automating too fast, ignoring edge cases, no monitoring, underestimating change management, and no success metrics defined. Technology works when the surrounding processes, people, and metrics are in place."
-    tags: ["pitfalls", "deployment"]
+    front: "Why do 80% of AI agent failures stem from organizational issues rather than technical ones?"
+    back: "Because over-automating, ignoring edge cases, skipping monitoring, poor change management, and undefined metrics are human coordination failures no amount of better AI fixes."
+    tags: ["deployment-pitfalls", "organizational"]
+    difficulty: "advanced"
+    why: "Which of the five pitfalls would you address first when deploying in a new organization?"
+
+  - id: "preface-agent-native-021"
+    front: "Why does the preface argue that code is a 'Universal Interface' rather than just a programming tool?"
+    back: "Because agents use code to interrogate reality — writing queries and scripts to answer business questions with facts, bridging intent and action across any domain."
+    tags: ["code-universal-interface", "paradigm"]
     difficulty: "intermediate"
-    why: "How would you structure an agent rollout to address organizational risks before technical ones?"
+    why: "How does this change what 'learning to code' means for non-developers?"
+
+  - id: "preface-agent-native-022"
+    front: "Why did Thomson Reuters pay $650 million for Casetext's CoCounsel in 2023?"
+    back: "They paid for encoded legal expertise — the ability to perform substantive legal work autonomously, validated by a 97% pass rate on complex evaluations."
+    tags: ["cocounsel", "encoded-expertise", "proof-point"]
+    difficulty: "intermediate"
+    why: "What makes encoded domain expertise more valuable than general-purpose AI capability?"
+
+  - id: "preface-agent-native-023"
+    front: "How do the Agent Factory's two production lines complement each other?"
+    back: "Line 1 (Build) creates custom agents for unique competitive moats. Line 2 (Buy) onboards pre-built agents for commodity capabilities — together they cover the full spectrum."
+    tags: ["agent-factory", "production-lines", "build-vs-buy"]
+    difficulty: "intermediate"
+    why: "How would you decide which capabilities to build custom versus buy pre-built?"
+
+  - id: "preface-agent-native-024"
+    front: "Why are specifications described as 'living contracts' rather than static documentation in the Agent Factory?"
+    back: "Because specs actively drive the system — implementation generates from them, tests derive from acceptance criteria, and changes propagate consistently. They're executable, not just descriptive."
+    tags: ["specifications", "sdd", "living-contracts"]
+    difficulty: "advanced"
+    why: "What breaks when a spec becomes outdated but the implementation keeps evolving?"
+
+  - id: "preface-agent-native-025"
+    front: "What are the three roles both humans and AI fulfill in the Agent Factory partnership?"
+    back: "Teacher, Student, and Co-Worker."
+    tags: ["three-roles", "ai-collaboration"]
+    difficulty: "basic"
+
+  - id: "preface-agent-native-026"
+    front: "What are the Nine Pillars of AI-Native Development listed in the preface?"
+    back: "1. AI CLI & Coding Agents\n2. Markdown as Programming Language\n3. MCP Standard\n4. AI-First IDEs\n5. Linux Dev Environment\n6. TDD + Evals\n7. Spec-Driven Development\n8. Composable Vertical Skills\n9. Cloud-Native Deployment"
+    tags: ["nine-pillars", "ai-native-development"]
+    difficulty: "intermediate"
+
+  - id: "preface-agent-native-027"
+    front: "According to the preface, how long does it take to build your first sellable Digital FTE?"
+    back: "Weeks to months of focused learning — not days. No shortcuts to mastery."
+    tags: ["honest-timeline", "expectations"]
+    difficulty: "basic"

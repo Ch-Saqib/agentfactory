@@ -622,3 +622,8 @@ Let's create a CLAUDE.md file that eliminates context friction and makes every s
 > "Now that CLAUDE.md is working, help me identify what ELSE should go in it based on my workflow: I frequently [describe your common tasks: write tests, add API endpoints, update documentation, etc.]. What context would help you give better suggestions for these tasks?"
 
 **What you're learning:** How to evolve CLAUDE.md from "good enough" to "optimized for you." Context that helps Claude help you is always worth discovering.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

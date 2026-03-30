@@ -279,13 +279,13 @@ The lesson from this exercise isn't just "backups are useful." It's that recover
 
 Here's how to build recovery thinking into every workflow:
 
-| When                     | What to Do                                    |
-| ------------------------ | --------------------------------------------- |
-| Before you start         | Ask: "What's my recovery plan if this goes wrong?" |
-| Before destructive ops   | Create or verify backup                       |
-| After batch operations   | Compare results against expectations          |
-| When something's off     | Compare current state vs backup               |
-| After recovery           | Verify the restoration is complete            |
+| When                   | What to Do                                         |
+| ---------------------- | -------------------------------------------------- |
+| Before you start       | Ask: "What's my recovery plan if this goes wrong?" |
+| Before destructive ops | Create or verify backup                            |
+| After batch operations | Compare results against expectations               |
+| When something's off   | Compare current state vs backup                    |
+| After recovery         | Verify the restoration is complete                 |
 
 ### The Agent is Ephemeral, Code is Eternal
 
@@ -293,10 +293,10 @@ Notice something about this lesson. Every time you needed recovery, you typed a 
 
 Now look at Try With AI Prompt 3 below — it asks you to create `restore.sh`. That script is fundamentally different from asking the agent to "restore my files." Here's why:
 
-| Approach | Today | Next Month |
-|----------|-------|------------|
+| Approach          | Today                                                    | Next Month                                                                          |
+| ----------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | **Ask the agent** | Agent interprets your request, picks commands, runs them | Agent may interpret differently, pick different commands, produce different results |
-| **Run a script** | Script executes the exact same steps every time | Script executes the exact same steps every time |
+| **Run a script**  | Script executes the exact same steps every time          | Script executes the exact same steps every time                                     |
 
 This is **Principle 2: Code as the Universal Interface** in action. When you ask the agent to _do_ something, you get a one-time result that depends on the agent's interpretation in that moment. When you ask the agent to _write code_ that does something, you get a deterministic tool that works the same way every time — even without the agent.
 
@@ -326,7 +326,7 @@ You can now break things and fix them. That's a superpower most people never dev
 
 You've now completed five lessons of file processing work. If your Claude Code context is getting long — or if responses feel slower or less focused — this is a natural point to start fresh.
 
-**Why now:** Recovery exercises generate a lot of back-and-forth. Combined with Lessons 1-4, your context may be carrying exploration, organization, batch operations, and recovery all at once. That's the Kitchen Sink pattern from Chapter 6.
+**Why now:** Recovery exercises generate a lot of back-and-forth. Combined with Lessons 1-4, your context may be carrying exploration, organization, batch operations, and recovery all at once. That's the Kitchen Sink pattern from the Seven Principles chapter.
 
 **How to reset:** Commit your work, then start a new session for Lesson 6. Your `rules.md`, `FILE-INVENTORY.md`, backups, and scripts are all saved in files — your progress carries forward across sessions.
 
@@ -365,3 +365,7 @@ Include verification that the restoration was complete.
 ```
 
 **What you're practicing:** Automating recovery. Just like you created scripts for organization, you can create scripts for recovery. The pattern is the same.
+
+## Flashcards Study Aid
+
+<Flashcards />

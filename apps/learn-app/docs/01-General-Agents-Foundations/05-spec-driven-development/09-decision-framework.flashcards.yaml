@@ -1,0 +1,97 @@
+deck:
+  id: "ch05-08-decision-framework"
+  title: "The Decision Framework"
+  description: "When to use SDD versus simpler approaches, the decision heuristic, lightweight specs, and responding to common critiques."
+  tags: ["sdd", "decision-framework", "judgment", "lightweight-spec", "chapter-5"]
+  version: 1
+
+cards:
+  - id: "ch05-08-decision-framework-001"
+    type: recall
+    front: "What three conditions in the decision heuristic trigger using full SDD?"
+    back: "Files affected greater than five, requirements unclear, or learning new technology."
+    tags: ["decision-heuristic", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-08-decision-framework-002"
+    type: recall
+    front: "What five scenarios does SDD excel at?"
+    back: "Large refactors (15+ files), unclear requirements, learning new libraries, team coordination, and legacy modernization."
+    tags: ["sdd-strengths", "recall"]
+    difficulty: "intermediate"
+
+  - id: "ch05-08-decision-framework-003"
+    type: recall
+    front: "What four scenarios make SDD overkill?"
+    back: "Single-file bug fixes, well-defined simple features, exploratory prototyping, and production incidents."
+    tags: ["sdd-overkill", "recall"]
+    difficulty: "intermediate"
+
+  - id: "ch05-08-decision-framework-004"
+    type: recall
+    front: "What two elements make up a lightweight spec?"
+    back: "Constraints and success criteria."
+    tags: ["lightweight-spec", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-08-decision-framework-005"
+    type: thinking
+    front: "Why are SDD and vibe coding complementary rather than competing approaches?"
+    back: "BECAUSE exploration discovers requirements through rapid iteration, THEREFORE SDD then converts those discovered requirements into reliable, reversible implementation steps — each approach handles a different phase of the development cycle."
+    why: "Understanding complementarity prevents false-dichotomy thinking and helps practitioners sequence exploration before specification."
+    tags: ["vibe-coding", "sdd-complement", "thinking"]
+    difficulty: "advanced"
+
+  - id: "ch05-08-decision-framework-006"
+    type: thinking
+    front: "How does SDD differ from waterfall despite both requiring upfront specification?"
+    back: "BECAUSE SDD tasks are atomic and individually reversible via git revert, THEREFORE it remains agile despite upfront specification — unlike waterfall's months-long irreversible phase commitments where specs never update."
+    why: "The reversibility of each task is the structural difference that makes SDD agile despite its spec-first appearance."
+    tags: ["waterfall-critique", "thinking"]
+    difficulty: "intermediate"
+
+  - id: "ch05-08-decision-framework-007"
+    type: recall
+    front: "What four common critiques are raised against SDD?"
+    back: "Just waterfall, doubles code review, diminishing returns at scale, and overhead on simple tasks."
+    tags: ["sdd-critiques", "recall"]
+    difficulty: "intermediate"
+
+  - id: "ch05-08-decision-framework-008"
+    type: thinking
+    front: "Why does the lightweight spec deliver most of a full spec's value at a fraction of the cost?"
+    back: "BECAUSE constraints prevent wrong directions and success criteria define completion — the two highest-value spec elements, THEREFORE detailed architecture adds diminishing value for simpler work and can be omitted."
+    why: "Constraints and success criteria catch the most costly errors (wrong direction, unclear completion), while other sections mainly reduce implementation friction."
+    tags: ["lightweight-spec", "thinking"]
+    difficulty: "intermediate"
+
+  - id: "ch05-08-decision-framework-009"
+    type: thinking
+    front: "Why is complexity exceeding working memory the common signal for adopting SDD?"
+    back: "BECAUSE changes touching enough components overflow mental tracking, THEREFORE untracked dependencies cause mid-implementation pivots — a spec externalizes that complexity into a reviewable document before coding begins."
+    why: "Working memory overflow leads to forgotten constraints and silent regressions, which are exactly the failure modes that specifications prevent."
+    tags: ["complexity-signal", "thinking"]
+    difficulty: "advanced"
+
+  - id: "ch05-08-decision-framework-010"
+    type: thinking
+    front: "Why should production incidents skip SDD while their follow-up fixes benefit from it?"
+    back: "BECAUSE incidents demand immediate action where speed outweighs process, THEREFORE they skip SDD — but the root-cause fix afterward spans multiple files with unclear requirements, making it a strong SDD candidate."
+    why: "The urgency context differs: incident response optimizes for time-to-restore, while root-cause fixes optimize for correctness across a larger change surface."
+    tags: ["production-incidents", "thinking"]
+    difficulty: "intermediate"
+
+  - id: "ch05-08-decision-framework-011"
+    type: recall
+    front: "What three inputs build SDD judgment over time?"
+    back: "Tracking outcomes, calibrating overhead, and recognizing signals."
+    tags: ["judgment", "recall"]
+    difficulty: "basic"
+
+  - id: "ch05-08-decision-framework-012"
+    type: thinking
+    front: "How do you decide when a lightweight spec should expand into a full specification?"
+    back: "BECAUSE writing a lightweight spec is diagnostic, THEREFORE if constraints and success criteria reveal hidden complexity, expand to full SDD — if constraints are clear and criteria unambiguous, ship as-is."
+    why: "The act of writing a lightweight spec is diagnostic: emerging complexity during writing is the signal that full SDD rigor is needed."
+    tags: ["lightweight-spec", "expansion", "thinking"]
+    difficulty: "intermediate"

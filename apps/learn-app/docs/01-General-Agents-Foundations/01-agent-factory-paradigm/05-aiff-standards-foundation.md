@@ -567,3 +567,7 @@ Apply this pattern to my domain.
 ```
 
 **What you're learning:** System integration. Understanding the distinction between expertise (Skills) and connectivity (MCP) is the key to architecting capable Digital FTEs. You're learning to design systems where separate components combine to create intelligence.
+
+## Flashcards Study Aid
+
+<Flashcards />

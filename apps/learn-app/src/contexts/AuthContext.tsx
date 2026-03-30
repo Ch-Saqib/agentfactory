@@ -182,6 +182,21 @@ export function AuthProvider({
     localStorage.removeItem("ainative_refresh_token");
     localStorage.removeItem("ainative_id_token");
 
+    // Clear learner profile caches before losing the user id
+    try {
+      const userId = session?.user?.id;
+      if (userId) {
+        localStorage.removeItem(`learner_profile_cache:${userId}`);
+        localStorage.removeItem(`profile_nudge_dismissed:${userId}`);
+        localStorage.removeItem(
+          `learner_profile_onboarding_redirected:${userId}`,
+        );
+        localStorage.removeItem(`learner_profile_opt_out:${userId}`);
+      }
+    } catch {
+      /* ignore localStorage errors */
+    }
+
     // Clear session state
     setSession(null);
 
@@ -255,4 +270,9 @@ export function useAuth() {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
+}
+
+/** Safe version that returns null when AuthProvider is not in the tree. */
+export function useOptionalAuth(): AuthContextType | null {
+  return useContext(AuthContext) ?? null;
 }

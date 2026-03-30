@@ -1,0 +1,97 @@
+deck:
+  id: "ch05-06-refinement-via-interview"
+  title: "Phase 3: Refinement via Interview"
+  description: "Surface spec ambiguities before implementation through structured interviews where Claude asks questions and you answer, covering the five ambiguity categories and the exponential cost of late-found gaps."
+  tags: ["sdd", "refinement", "interview", "ambiguity-resolution", "spec-driven-development"]
+  version: 1
+
+cards:
+  - id: "ch05-06-refinement-via-interview-001"
+    type: recall
+    front: "What prompt triggers Claude's refinement interview mode for a spec?"
+    back: "Here's my spec. Use the ask_user_question tool to surface any ambiguities before we implement."
+    tags: ["interview-pattern", "prompt"]
+    difficulty: "basic"
+
+  - id: "ch05-06-refinement-via-interview-002"
+    type: recall
+    front: "What are the five ambiguity categories checked during a refinement interview?"
+    back: "Data Decisions, Conflict Resolution, Pattern Selection, Failure Recovery, and Boundary Conditions."
+    tags: ["ambiguity-categories", "interview-checklist"]
+    difficulty: "intermediate"
+
+  - id: "ch05-06-refinement-via-interview-003"
+    type: recall
+    front: "What are the fix costs at each stage: spec, interview, coding, post-commit, and production?"
+    back: "Spec: 5 min\nInterview: 10 min\nCoding: 30 min\nPost-commit: 2-4 hr\nProduction: 8-16 hr"
+    tags: ["cost-multiplier", "ambiguity"]
+    difficulty: "basic"
+
+  - id: "ch05-06-refinement-via-interview-004"
+    type: thinking
+    front: "Why does reversing roles so Claude asks and you answer surface gaps you missed?"
+    back: "BECAUSE Claude reads the spec without your implicit assumptions, THEREFORE it questions decisions you made unconsciously — gaps that feel obvious to the author are visible to a fresh reader who must implement from text alone."
+    tags: ["role-reversal", "interview-pattern"]
+    difficulty: "intermediate"
+    why: "The author's curse of knowledge hides unstated assumptions; an outside reader lacks that context and must ask about every ambiguity to proceed."
+
+  - id: "ch05-06-refinement-via-interview-005"
+    type: recall
+    front: "What does the Data Decisions ambiguity category cover?"
+    back: "Migration strategy, schema transitions, and what happens to data during transition periods."
+    tags: ["ambiguity-categories", "data-decisions"]
+    difficulty: "basic"
+
+  - id: "ch05-06-refinement-via-interview-006"
+    type: recall
+    front: "What does the Conflict Resolution ambiguity category cover?"
+    back: "Strategy choice (last-write-wins vs prompt-user-to-resolve vs merge) and handling multi-user edits."
+    tags: ["ambiguity-categories", "conflict-resolution"]
+    difficulty: "basic"
+
+  - id: "ch05-06-refinement-via-interview-007"
+    type: thinking
+    front: "Why must failure recovery decisions be resolved during refinement rather than left to implementation?"
+    back: "BECAUSE retry, queue, and fail-fast produce fundamentally different architectures, THEREFORE a subagent choosing the wrong recovery strategy builds infrastructure that cannot be patched — it must be replaced entirely."
+    tags: ["failure-recovery", "thinking"]
+    difficulty: "intermediate"
+    why: "What happens when two tasks in the same spec assume different recovery strategies?"
+
+  - id: "ch05-06-refinement-via-interview-008"
+    type: thinking
+    front: "Why did the phrase 'handle conflicts optimistically' cause a three-day rework?"
+    back: "BECAUSE 'optimistically' carries multiple valid technical meanings, THEREFORE the developer meant last-write-wins but Claude interpreted prompt-user-to-resolve — the mismatch went undetected until implementation diverged during testing."
+    tags: ["conflict-resolution", "real-example"]
+    difficulty: "intermediate"
+    why: "Natural language terms like 'optimistically' carry multiple valid technical meanings, and each party silently selects a different one without realizing the ambiguity exists."
+
+  - id: "ch05-06-refinement-via-interview-009"
+    type: thinking
+    front: "Why does annoyance at interview questions often signal unexamined design decisions?"
+    back: "BECAUSE the discomfort comes from confronting decisions you haven't consciously made, THEREFORE questions that feel pedantic are touching unresolved assumptions you were avoiding — annoyance is diagnostic of genuine uncertainty."
+    tags: ["interview-pattern", "mindset"]
+    difficulty: "advanced"
+    why: "Emotional resistance during interviews is diagnostic: trivial questions don't cause annoyance, but questions exposing genuine uncertainty do."
+
+  - id: "ch05-06-refinement-via-interview-010"
+    type: thinking
+    front: "How do you know when to stop the refinement interview?"
+    back: "BECAUSE refinement has diminishing returns, THEREFORE stop when questions become repetitive, new questions are trivial, or you can imagine implementation without guessing — these three signals mark the point of sufficiency."
+    tags: ["interview-pattern", "completion-signals"]
+    difficulty: "intermediate"
+    why: "Continuing past these signals wastes time on settled decisions, while stopping too early leaves real gaps that will surface during coding."
+
+  - id: "ch05-06-refinement-via-interview-011"
+    type: thinking
+    front: "Why does a 5-minute spec fix become an 8-16 hour production fix for the same ambiguity?"
+    back: "BECAUSE each development phase embeds the wrong assumption deeper into code, tests, data, and user expectations, THEREFORE in production every layer must be independently found and corrected — multiplying the fix surface area exponentially."
+    tags: ["cost-multiplier", "ambiguity"]
+    difficulty: "advanced"
+    why: "The cost grows because each stage commits the assumption into more artifacts — a spec change is one sentence, but a production fix spans code, migrations, rollbacks, and communication."
+
+  - id: "ch05-06-refinement-via-interview-012"
+    type: recall
+    front: "What does the Pattern Selection ambiguity category cover?"
+    back: "Choosing between valid implementation alternatives discovered during research."
+    tags: ["ambiguity-categories", "pattern-selection"]
+    difficulty: "intermediate"

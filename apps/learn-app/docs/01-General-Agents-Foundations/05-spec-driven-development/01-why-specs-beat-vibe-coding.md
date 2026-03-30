@@ -282,3 +282,8 @@ How would your first draft have been different?
 ```
 
 **What you're learning:** The specification you DIDN'T write caused the iteration. With constraints (no speculation), audience (CTOs), and format (research report) defined upfront, Claude's first draft would have matched your needs. This is why specs beat vibe coding.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

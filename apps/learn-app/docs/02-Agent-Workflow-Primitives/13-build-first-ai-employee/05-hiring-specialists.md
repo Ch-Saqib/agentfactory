@@ -1,7 +1,6 @@
 ---
 sidebar_position: 5
 title: "Hiring Specialists"
-sidebar_label: "L05: Hiring Specialists"
 description: "Build three specialized email processing subagents for inbox triaging, response suggestion, and follow-up tracking. Your employee hires its own team."
 series: "email"
 series_position: 5

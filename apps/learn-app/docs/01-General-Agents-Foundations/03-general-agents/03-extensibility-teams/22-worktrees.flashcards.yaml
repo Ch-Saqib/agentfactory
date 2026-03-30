@@ -1,0 +1,118 @@
+deck:
+  id: ch03-22-worktrees
+  title: 'Worktrees: Parallel Agent Isolation'
+  description: Flashcards covering Claude Code worktrees — creation, lifecycle management, subagent isolation, cleanup, and recovery.
+  tags:
+  - worktrees
+  - git-worktree
+  - agent-isolation
+  - claude-code
+  version: 1
+cards:
+- id: ch03-22-worktrees-001
+  difficulty: basic
+  front: What flag starts Claude Code in an isolated worktree?
+  back: '`--worktree` (or `-w`), optionally followed by a name.'
+  tags:
+  - worktrees
+  - cli-flags
+- id: ch03-22-worktrees-002
+  difficulty: basic
+  front: Where does Claude Code create worktree directories?
+  back: Inside `<repo>/.claude/worktrees/<name>/`.
+  tags:
+  - worktrees
+  - directory-structure
+- id: ch03-22-worktrees-003
+  difficulty: basic
+  front: What branch name does `claude --worktree feature-auth` create?
+  back: '`worktree-feature-auth` — the name is prefixed with `worktree-`.'
+  tags:
+  - worktrees
+  - branch-naming
+- id: ch03-22-worktrees-004
+  difficulty: basic
+  front: What happens if you omit the name when running `claude --worktree`?
+  back: Claude auto-generates a random name like "bright-running-fox".
+  tags:
+  - worktrees
+  - auto-naming
+- id: ch03-22-worktrees-005
+  difficulty: intermediate
+  front: What branch does a worktree created with `claude --worktree` start from?
+  back: BECAUSE worktrees need a stable, shared starting point, THEREFORE they branch from the default remote branch (typically origin/main), NOT the current branch.
+  why: Prevents cascading dependencies — if worktrees inherited current branch bugs, every parallel session would be affected.
+  tags:
+  - worktrees
+  - base-branch
+- id: ch03-22-worktrees-006
+  difficulty: intermediate
+  front: What happens when you exit a worktree session with no changes?
+  back: BECAUSE there is nothing to preserve, THEREFORE the worktree directory and its branch are removed automatically without prompting.
+  why: Automatic cleanup prevents orphaned worktrees from accumulating.
+  tags:
+  - worktrees
+  - cleanup
+- id: ch03-22-worktrees-007
+  difficulty: intermediate
+  front: What happens when you exit a worktree session that has uncommitted changes or unpushed commits?
+  back: BECAUSE changes could be lost, THEREFORE Claude prompts you to keep (preserve directory and branch) or remove (delete directory, branch, and all unpushed work).
+  why: The prompt prevents accidental data loss while giving you the option to clean up disposable work.
+  tags:
+  - worktrees
+  - cleanup
+- id: ch03-22-worktrees-008
+  difficulty: advanced
+  front: Why is removing a worktree with unpushed commits destructive?
+  back: BECAUSE removing deletes both the worktree directory AND the local branch, THEREFORE any commits that were not pushed to the remote are permanently lost. Recovery is only possible via `git reflog` within 30 days if you know the commit hash.
+  why: Reinforces why pushing before cleanup is essential — the PR workflow naturally handles this.
+  tags:
+  - worktrees
+  - destructive-cleanup
+- id: ch03-22-worktrees-009
+  difficulty: intermediate
+  front: How do you configure a custom subagent to run in its own worktree?
+  back: "BECAUSE subagents editing overlapping files can cause conflicts, THEREFORE adding `isolation: worktree` to the subagent's YAML frontmatter gives each subagent its own copy of the repository."
+  why: Extends the isolation pattern from manual sessions to automated agent workflows.
+  tags:
+  - worktrees
+  - subagent-isolation
+- id: ch03-22-worktrees-010
+  difficulty: basic
+  front: How do you list all existing worktrees in a repository?
+  back: Run `git worktree list` to see all worktrees with their paths, commit hashes, and branch names.
+  tags:
+  - worktrees
+  - recovery
+- id: ch03-22-worktrees-011
+  difficulty: advanced
+  front: Why does Claude branch worktrees from the default remote instead of the current branch?
+  back: BECAUSE branching from the current branch would cascade its bugs and uncommitted state into every worktree, THEREFORE using the default remote gives each worktree a clean, stable foundation independent of the parent session's work.
+  why: Ensures worktree isolation is truly independent — each session starts from a known-good state.
+  tags:
+  - worktrees
+  - base-branch
+- id: ch03-22-worktrees-012
+  difficulty: intermediate
+  front: How do you clean up an orphaned worktree from a crashed session?
+  back: BECAUSE crashed sessions leave worktree directories without cleanup, THEREFORE use `git worktree list` to find them and `git worktree remove <path>` to clean them up. Use `--force` only if you are certain uncommitted changes can be discarded.
+  why: Orphaned worktrees consume disk space and can cause confusion with stale branches.
+  tags:
+  - worktrees
+  - recovery
+- id: ch03-22-worktrees-013
+  difficulty: advanced
+  front: How do you create a worktree that branches from a specific branch instead of origin/main?
+  back: BECAUSE `claude --worktree` always uses the default remote, THEREFORE you must use manual git commands instead, such as `git worktree add .claude/worktrees/name -b branch-name source-branch`, then start Claude in that directory.
+  why: Manual worktree creation gives full control over base branch, naming, and placement at the cost of automatic cleanup.
+  tags:
+  - worktrees
+  - manual-worktree
+- id: ch03-22-worktrees-014
+  difficulty: intermediate
+  front: What should you add to .gitignore when using worktrees?
+  back: BECAUSE worktree contents would appear as untracked files in your main repository, THEREFORE add `.claude/worktrees/` to your `.gitignore`.
+  why: Prevents worktree files from cluttering git status and accidentally being committed.
+  tags:
+  - worktrees
+  - configuration

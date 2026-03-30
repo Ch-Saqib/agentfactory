@@ -766,3 +766,8 @@ Now that Claude Code is installed, let's build confidence through safe explorati
 **🚀 Configure for Your Workflow:**
 
 > "I work primarily with [describe your tech stack: Python/JavaScript/Go/etc.]. Help me verify Claude Code can handle my environment: check for required tools, test reading my project structure, and suggest first productive task I could try that's relevant to my actual work."
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -298,3 +298,8 @@ Make it concrete. Show me the actual workflow.
 **What you're learning:** How the chapter's concepts integrate in practice. This synthesis exercise shows you how to apply the mental model to a real Digital FTE you might build.
 
 **Note**: Start with non-sensitive projects. Review changes before accepting.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

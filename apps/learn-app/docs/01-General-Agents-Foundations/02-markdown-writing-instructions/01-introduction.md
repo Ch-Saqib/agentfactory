@@ -527,3 +527,8 @@ Your AI will review your specification and suggest improvements like:
 - Adding acceptance criteria (how to know if it works)
 - Clarifying user flow (step-by-step interaction)
 - Specifying constraints (what it should NOT do)
+
+
+## Flashcards Study Aid
+
+<Flashcards />

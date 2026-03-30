@@ -411,3 +411,8 @@ Include rationale for each decision.
 ```
 
 **What you're learning:** Practical migration from overloaded setup to proper architecture.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

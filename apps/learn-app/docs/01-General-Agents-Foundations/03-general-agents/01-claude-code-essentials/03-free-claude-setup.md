@@ -1170,3 +1170,8 @@ Once your free setup is working, try these prompts to verify everything works:
 ---
 
 That's it. Proceed to **Lesson 05** to learn about teaching Claude your way of working.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

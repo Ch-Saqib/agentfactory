@@ -709,3 +709,8 @@ After we design it, help me actually set it up step by step.
 ### Safety Note
 
 When in doubt, start with more restrictions and ease into autonomy. It's always easier to loosen constraints later than to recover from a preventable incident. The best safety measure is a cautious approach—especially when you're just starting with AI collaboration.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

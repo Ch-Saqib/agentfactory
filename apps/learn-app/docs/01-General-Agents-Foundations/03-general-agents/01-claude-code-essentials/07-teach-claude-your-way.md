@@ -536,3 +536,8 @@ That's your personal style guide ready to become a skill!
 > "I want to create a skill for [your chosen task]. Let's practice! Ask me questions about how I like to do this task. Then show me how you'd describe my style as a simple guide someone else could follow."
 
 **What you're learning:** The interview-based approach to skill design. Claude asks questions, you provide expertise—this Three Roles pattern creates better skills than writing alone.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

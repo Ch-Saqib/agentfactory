@@ -15,7 +15,7 @@ from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..core.auth import CurrentUser
-from ..core.cache import invalidate_leaderboard_cache, invalidate_progress_cache
+from ..core.cache import invalidate_progress_cache
 from ..core.redis import get_redis
 from ..models.activity import ActivityDay
 from ..models.chapter import Chapter, ChapterAlias
@@ -139,6 +139,7 @@ async def update_user_progress(
     xp_delta: int = 0,
     quizzes_delta: int = 0,
     lessons_delta: int = 0,
+    flashcards_delta: int = 0,
     perfect_scores_delta: int = 0,
     badge_count_delta: int = 0,
     current_streak: int | None = None,
@@ -169,6 +170,7 @@ async def update_user_progress(
     progress.total_xp += xp_delta
     progress.quizzes_completed += quizzes_delta
     progress.lessons_completed += lessons_delta
+    progress.flashcards_completed += flashcards_delta
     progress.perfect_scores += perfect_scores_delta
     progress.badge_count += badge_count_delta
 
@@ -188,4 +190,3 @@ async def invalidate_user_cache(user_id: str) -> None:
     """Invalidate all cached data for a user (A3: skip if redis is None)."""
     redis = get_redis()
     await invalidate_progress_cache(redis, user_id)
-    await invalidate_leaderboard_cache(redis)

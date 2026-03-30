@@ -1,0 +1,142 @@
+deck:
+  id: "ch07-04-how-employee-works"
+  title: "How Your Employee Works"
+  description: "Architecture of an AI Employee: gateway, channels, sessions, agent loop, lane queue, memory, skills, and 7 universal patterns that appear across every agent framework."
+  tags: ["architecture", "agent-patterns", "openclaw", "cross-framework"]
+  version: 1
+
+cards:
+  - id: "ch07-04-how-employee-works-001"
+    type: recall
+    front: "What is the Gateway in an AI Employee system?"
+    back: "A long-running TypeScript/Node.js daemon binding a WebSocket server to 127.0.0.1:18789"
+    tags: ["gateway"]
+    difficulty: "basic"
+
+  - id: "ch07-04-how-employee-works-002"
+    type: thinking
+    front: "Why does centralizing all message traffic through a single Gateway benefit the system?"
+    back: "BECAUSE one coordination point means adding a new channel requires zero changes to agent logic, THEREFORE the Gateway decouples communication from intelligence."
+    tags: ["gateway", "orchestration"]
+    difficulty: "intermediate"
+    why: "How does centralization simplify extensibility?"
+
+  - id: "ch07-04-how-employee-works-003"
+    type: recall
+    front: "What five functions does the Gateway perform?"
+    back: "Message routing, session management, authentication, skill loading, queue coordination"
+    tags: ["gateway"]
+    difficulty: "basic"
+
+  - id: "ch07-04-how-employee-works-004"
+    type: recall
+    front: "Which library does each channel use: Telegram, WhatsApp, Discord, Slack?"
+    back: "Telegram uses grammY, WhatsApp uses Baileys, Discord uses Carbon, Slack uses Bolt"
+    tags: ["channels"]
+    difficulty: "basic"
+
+  - id: "ch07-04-how-employee-works-005"
+    type: thinking
+    front: "Why does the adapter pattern decouple intelligence from communication?"
+    back: "BECAUSE each channel adapter translates platform-specific messages to a common format, THEREFORE the agent processes channel-agnostic payloads and never knows which channel sent the message."
+    tags: ["channels", "io-adapters"]
+    difficulty: "intermediate"
+    why: "What does adding a new channel require when adapters are used?"
+
+  - id: "ch07-04-how-employee-works-006"
+    type: recall
+    front: "How are session transcripts stored in OpenClaw?"
+    back: "As append-only JSONL files, one JSON object per line"
+    tags: ["sessions"]
+    difficulty: "basic"
+
+  - id: "ch07-04-how-employee-works-007"
+    type: thinking
+    front: "Why do sessions reset daily at 4 AM with auto-compaction summarizing older history?"
+    back: "BECAUSE the model's context window is finite, THEREFORE auto-compaction summarizes old messages to fit the window while a silent memory flush preserves important information before summarization."
+    tags: ["sessions", "memory"]
+    difficulty: "intermediate"
+    why: "What problem does auto-compaction solve for long conversations?"
+
+  - id: "ch07-04-how-employee-works-008"
+    type: recall
+    front: "Name any 4 of the 6 phases of the agent loop."
+    back: "Ingestion\nAccess control\nContext assembly\nModel invocation\nTool execution\nResponse delivery"
+    tags: ["agent-loop"]
+    difficulty: "intermediate"
+
+  - id: "ch07-04-how-employee-works-009"
+    type: recall
+    front: "Name any 5 of the 7 bootstrap files that define an agent's identity before any conversation begins."
+    back: "AGENTS.md\nSOUL.md\nUSER.md\nIDENTITY.md\nMEMORY.md\nHEARTBEAT.md\nBOOT.md"
+    tags: ["agent-loop", "bootstrap"]
+    difficulty: "intermediate"
+
+  - id: "ch07-04-how-employee-works-010"
+    type: recall
+    front: "How does the lane queue handle per-session and cross-session concurrency?"
+    back: "Per-session concurrency is 1, main lane cap is 4, subagent lane cap is 8"
+    tags: ["lane-queue"]
+    difficulty: "intermediate"
+
+  - id: "ch07-04-how-employee-works-011"
+    type: thinking
+    front: "Why does per-session serialization coexist with cross-session parallelism?"
+    back: "BECAUSE serializing within a session prevents race conditions on the transcript and tools, THEREFORE parallel sessions enable scale while each individual conversation remains consistent."
+    tags: ["lane-queue", "concurrency"]
+    difficulty: "advanced"
+    why: "What would break if two agent runs touched the same session simultaneously?"
+
+  - id: "ch07-04-how-employee-works-012"
+    type: thinking
+    front: "Why does OpenClaw's memory system need three layers instead of one?"
+    back: "BECAUSE curated MEMORY.md captures identity, daily logs capture activity, and vector search enables retrieval across all history, THEREFORE each layer serves a different time horizon and access pattern that a single store cannot optimize for."
+    why: "What query type would fail if you removed the vector search layer?"
+    tags: ["memory"]
+    difficulty: "intermediate"
+
+  - id: "ch07-04-how-employee-works-013"
+    type: thinking
+    front: "How does the silent memory flush before auto-compaction prevent information loss?"
+    back: "BECAUSE a hidden agent turn reminds the model to write important information to disk before the session context gets summarized, THEREFORE nothing critical is lost when older history is compacted."
+    tags: ["memory"]
+    difficulty: "advanced"
+    why: "What would happen to unsaved context if compaction ran without a flush?"
+
+  - id: "ch07-04-how-employee-works-014"
+    type: recall
+    front: "From which three locations do skills load, in priority order?"
+    back: "Workspace skills (highest priority), managed skills, bundled defaults"
+    tags: ["skills"]
+    difficulty: "basic"
+
+  - id: "ch07-04-how-employee-works-015"
+    type: thinking
+    front: "Why do the seven universal agent patterns appear in every framework, not just OpenClaw?"
+    back: "BECAUSE each pattern solves a fundamental constraint of autonomous systems (routing, isolation, persistence, packaging, concurrency, autonomy), THEREFORE any framework that omits one will eventually reinvent it or suffer its absence."
+    why: "Which pattern would a simple chatbot wrapper lack first?"
+    tags: ["universal-patterns"]
+    difficulty: "intermediate"
+
+  - id: "ch07-04-how-employee-works-016"
+    type: thinking
+    front: "Why does removing any single universal pattern degrade an agent system in predictable ways?"
+    back: "BECAUSE each pattern solves a fundamental constraint (routing, isolation, persistence, packaging, concurrency, autonomy), THEREFORE skipping one creates a specific failure: data leaks, brittleness, corruption, or loss of autonomy."
+    tags: ["universal-patterns"]
+    difficulty: "advanced"
+    why: "Which failure mode results from removing state isolation specifically?"
+
+  - id: "ch07-04-how-employee-works-017"
+    type: thinking
+    front: "Why does heartbeat give the agent more autonomy than cron?"
+    back: "BECAUSE cron fires at fixed times regardless of context, while heartbeat triggers a periodic check where the agent reads HEARTBEAT.md and decides for itself what needs attention, THEREFORE the agent exercises judgment rather than blindly executing."
+    why: "What kind of task benefits from heartbeat's judgment that cron cannot handle?"
+    tags: ["autonomous-invocation"]
+    difficulty: "intermediate"
+
+  - id: "ch07-04-how-employee-works-018"
+    type: recall
+    front: "Which two frameworks share the same SKILL.md skill format?"
+    back: "OpenClaw and Claude Code"
+    tags: ["universal-patterns", "skills"]
+    difficulty: "basic"

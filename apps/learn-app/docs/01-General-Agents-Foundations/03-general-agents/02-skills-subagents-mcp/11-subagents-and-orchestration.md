@@ -453,3 +453,8 @@ Head to **Lesson 10: Agent Skills Exercises** for 27 hands-on exercises covering
 **🎯 Orchestrate Multiple Agents:**
 
 > "I need to understand this unfamiliar codebase. Use Explore to map the project structure, AND use Plan to create a learning path for understanding the architecture. Show me how the results combine."
+
+
+## Flashcards Study Aid
+
+<Flashcards />

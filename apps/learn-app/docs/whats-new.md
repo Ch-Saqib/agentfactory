@@ -17,6 +17,57 @@ Track meaningful updates to the book. This page is automatically updated when do
 
 <!-- CHANGELOG_START - Do not remove this marker -->
 
+### 2026-03-02
+
+- update OpenClaw chapter ([#800](https://github.com/panaversity/agentfactory/pull/800))
+
+### 2026-03-01
+
+- docs: add Chapter 17 — Finance Domain Agents ([#795](https://github.com/panaversity/agentfactory/pull/795))
+
+### 2026-02-28
+- Part2/update exercises ([#792](https://github.com/panaversity/agentfactory/pull/792))
+
+### 2026-02-28
+- docs: restructure Part 4 plan to 26 chapters / 9 phases (v2.8) ([#785](https://github.com/panaversity/agentfactory/pull/785))
+
+### 2026-02-28
+- docs: add Ch 15 (Development Environment) and Ch 16 (Reading Python) ([#782](https://github.com/panaversity/agentfactory/pull/782))
+
+### 2026-02-28
+
+- Fix Chapter 11 Quiz on Linux Operations for Agent Deployment ([#784](https://github.com/panaversity/agentfactory/pull/784))
+
+### 2026-02-27
+- Chapter 10 and 11 minor changes ([#778](https://github.com/panaversity/agentfactory/pull/778))
+
+### 2026-02-27
+- Improve/ch9 ([#781](https://github.com/panaversity/agentfactory/pull/781))
+
+### 2026-02-27
+- feat: Add teaching slides for ch12 ([#780](https://github.com/panaversity/agentfactory/pull/780))
+
+### 2026-02-27
+
+- feat: Add flashcards for ch12 ([#779](https://github.com/panaversity/agentfactory/pull/779))
+
+### 2026-02-26
+- Ch12 review ([#777](https://github.com/panaversity/agentfactory/pull/777))
+
+### 2026-02-26
+- Rename Part 4 to Programming in the AI Era ([#768](https://github.com/panaversity/agentfactory/pull/768))
+
+### 2026-02-26
+- Fix/quiz counter inflation ([#773](https://github.com/panaversity/agentfactory/pull/773))
+
+### 2026-02-26
+
+- Rewamp Chapter 11 ([#771](https://github.com/panaversity/agentfactory/pull/771))
+
+### 2026-02-24
+
+- Add Python course chapters 15 and 16 (Development Environment + Reading Python) ([#767](https://github.com/panaversity/agentfactory/pull/767))
+
 ### 2026-02-23
 
 - feat: flashcards with FSRS v6 spaced repetition ([#761](https://github.com/panaversity/agentfactory/pull/761))

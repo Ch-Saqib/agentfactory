@@ -1,0 +1,102 @@
+deck:
+  id: ch03-17-ralph-loop
+  title: 'Ralph Wiggum Loop: Autonomous Iteration Workflows'
+  description: Flashcards covering Ralph Wiggum Loop — autonomous iteration, Stop hooks, completion promises, and safety guardrails.
+  tags:
+  - ralph-loop
+  - autonomous-iteration
+  - stop-hook
+  - claude-code
+  version: 1
+cards:
+- id: ch03-17-ralph-loop-001
+  difficulty: basic
+  front: What is the Ralph Wiggum Loop?
+  back: A Claude Code plugin enabling autonomous iteration using Stop hooks.
+  tags: &id002
+  - ralph-loop
+  - stop-hook
+- id: ch03-17-ralph-loop-002
+  difficulty: intermediate
+  front: Why is max-iterations the primary safety net rather than the completion promise?
+  back: BECAUSE Claude may never produce the exact completion promise text due to context drift or novel errors, THEREFORE max-iterations guarantees termination regardless of output content.
+  why: Distinguishes guaranteed termination from content-dependent termination.
+  tags: &id001
+  - ralph-loop
+  - completion-promise
+- id: ch03-17-ralph-loop-003
+  difficulty: basic
+  front: What are the two termination conditions for the Ralph Wiggum Loop?
+  back: Completion promise found in output OR max-iterations reached.
+  tags: *id001
+- id: ch03-17-ralph-loop-004
+  difficulty: advanced
+  front: Why are multi-goal tasks poor candidates for the Ralph Wiggum Loop?
+  back: BECAUSE the completion promise is static and set once, THEREFORE it can only verify a single objective. Multiple goals require different success criteria that one fixed string cannot capture.
+  why: Connects the static completion promise constraint to task scope limitations.
+  tags: *id001
+- id: ch03-17-ralph-loop-005
+  difficulty: intermediate
+  front: What three hidden costs does manual iteration impose that Ralph Loop eliminates?
+  back: Waiting time, context switching, and error transcription.
+  tags:
+  - ralph-loop
+  - cost-management
+- id: ch03-17-ralph-loop-006
+  difficulty: intermediate
+  front: Why is the embedded promise pattern more reliable than matching natural tool output?
+  back: BECAUSE natural tool output varies unpredictably across runs and contexts, THEREFORE embedding a unique static string like a promise tag ensures exact matching without false positives or missed
+    completions.
+  why: Explains the fragility of parsing dynamic output versus controlled sentinel values.
+  tags:
+  - ralph-loop
+  - completion-promise
+- id: ch03-17-ralph-loop-007
+  difficulty: basic
+  front: What mechanism does the Ralph Wiggum Loop use to intercept Claude's exit?
+  back: The Stop hook, which reinjects a continuation prompt.
+  tags: *id002
+- id: ch03-17-ralph-loop-008
+  difficulty: advanced
+  front: How does context statefulness enable the Ralph Loop's self-correcting behavior?
+  back: BECAUSE each iteration retains the full conversation history including previous errors and fixes, THEREFORE Claude learns from its own failures within the session and avoids repeating the same mistakes.
+  why: Links conversation persistence to iterative improvement capability.
+  tags: &id003
+  - ralph-loop
+  - autonomous-iteration
+- id: ch03-17-ralph-loop-009
+  difficulty: intermediate
+  front: What is the rule of thumb for when Ralph Loop saves time over manual iteration?
+  back: When you expect more than 10 iterations.
+  tags: *id003
+- id: ch03-17-ralph-loop-010
+  difficulty: intermediate
+  front: Why should you start a fresh session instead of modifying the promise mid-loop?
+  back: BECAUSE the completion promise is static and set once at loop start, THEREFORE changing it requires restarting. A fresh session also clears accumulated context noise from failed iterations.
+  why: Connects the immutable promise design to practical recovery strategy.
+  tags: *id001
+- id: ch03-17-ralph-loop-011
+  difficulty: basic
+  front: What is the golden rule for when Ralph Loop excels?
+  back: When success is objective, verifiable, and deterministic.
+  tags:
+  - ralph-loop
+  - decision-framework
+- id: ch03-17-ralph-loop-012
+  difficulty: intermediate
+  front: How does the Ralph Loop connect to the Digital FTE vision of sellable agents?
+  back: BECAUSE sellable agents must operate without human babysitting, THEREFORE autonomous iteration is a core capability that transforms Claude from an interactive tool into a self-directed digital employee.
+  why: Links a technical plugin to the broader business model of agent products.
+  tags: *id003
+- id: ch03-17-ralph-loop-013
+  difficulty: intermediate
+  front: When should you cancel a Ralph Loop with /cancel-ralph?
+  back: When the same error appears 3+ times or iteration count outpaces progress.
+  tags: *id003
+- id: ch03-17-ralph-loop-014
+  difficulty: advanced
+  front: Why does completion promise matching use exact strings rather than semantic similarity?
+  back: BECAUSE semantic matching requires model inference which is non-deterministic and slow, THEREFORE exact string matching provides reliable, instant, and unambiguous termination without additional
+    API calls.
+  why: Contrasts deterministic string operations with probabilistic model evaluation.
+  tags: *id001

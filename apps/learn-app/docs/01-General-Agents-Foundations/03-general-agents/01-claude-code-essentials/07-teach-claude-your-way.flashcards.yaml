@@ -1,0 +1,97 @@
+deck:
+  id: "ch03-07-skills-intro"
+  title: "Teach Claude Your Way of Working"
+  description: "Introduction to Agent Skills: non-determinism, encoded expertise, automatic vs explicit activation, and mapping personal procedures for skill creation."
+  tags: ["skills", "non-determinism", "encoded-expertise", "customization"]
+  version: 1
+
+cards:
+  - id: "ch03-07-skills-intro-001"
+    type: recall
+    front: "What does 'non-deterministic' mean in the context of AI model outputs?"
+    back: "Same input can produce different outputs — results are not guaranteed identical."
+    tags: ["non-determinism", "ai-fundamentals"]
+    difficulty: "basic"
+
+  - id: "ch03-07-skills-intro-002"
+    type: thinking
+    front: "Why do AI outputs vary even when you intend the same request?"
+    back: "BECAUSE variation comes from two independent sources — you phrase requests differently each time, and the AI model itself is non-deterministic, THEREFORE consistent output requires constraining both sources simultaneously."
+    tags: ["non-determinism", "variation"]
+    difficulty: "intermediate"
+    why: "Skills address both sources: structured input constrains phrasing, encoded preferences constrain model output."
+
+  - id: "ch03-07-skills-intro-003"
+    type: thinking
+    front: "Why do skills constrain non-determinism more effectively than saved prompts?"
+    back: "BECAUSE skills include reasoning patterns, examples, and constraints rather than just text to paste, THEREFORE they keep output within your boundaries even when the model varies — defining exact structure and documented preferences."
+    tags: ["skills", "non-determinism"]
+    difficulty: "intermediate"
+    why: "What specific elements of a skill prevent drift that a saved prompt cannot?"
+
+  - id: "ch03-07-skills-intro-004"
+    type: recall
+    front: "What is an Agent Skill in Claude Code?"
+    back: "A folder with a SKILL.md file containing task-specific instructions, tone, and preferences."
+    tags: ["skills", "definition"]
+    difficulty: "basic"
+
+  - id: "ch03-07-skills-intro-005"
+    type: recall
+    front: "What are the two ways Claude Code can activate a skill?"
+    back: "1. Automatic detection (task matches skill)\n2. Explicit invocation (you name the skill)"
+    tags: ["skills", "activation"]
+    difficulty: "intermediate"
+
+  - id: "ch03-07-skills-intro-006"
+    type: thinking
+    front: "How does the Matrix helicopter scene illustrate how skills work?"
+    back: "BECAUSE Trinity instantly becomes an expert pilot when the program is uploaded, THEREFORE the analogy shows how Claude instantly gains your documented expertise — tone, structure, preferences — the moment a skill loads."
+    tags: ["skills", "matrix-analogy"]
+    difficulty: "intermediate"
+    why: "What is the key limitation of this analogy — how are skills different from Trinity's instant expertise?"
+
+  - id: "ch03-07-skills-intro-007"
+    type: recall
+    front: "CLAUDE.md provides project context. Skills provide?"
+    back: "Your personal style and repeated procedures."
+    tags: ["skills", "claude-md", "distinction"]
+    difficulty: "basic"
+
+  - id: "ch03-07-skills-intro-008"
+    type: thinking
+    front: "Why does running the same prompt with and without a skill demonstrate the value of encoded expertise?"
+    back: "BECAUSE output without a skill is generic and varies unpredictably, THEREFORE running the same prompt with a skill proves encoded expertise works — output consistently matches your personal tone, structure, and preferences."
+    tags: ["skills", "demonstration"]
+    difficulty: "intermediate"
+    why: "If both outputs are technically correct, why does consistency matter for professional work?"
+
+  - id: "ch03-07-skills-intro-009"
+    type: recall
+    front: "What does a skill include beyond what a saved prompt provides?"
+    back: "Reasoning patterns, worked examples, constraints, and personal style documentation."
+    tags: ["skills", "components"]
+    difficulty: "intermediate"
+
+  - id: "ch03-07-skills-intro-010"
+    type: thinking
+    front: "Why should you map your personal procedure before creating a skill?"
+    back: "BECAUSE you follow implicit preferences unconsciously — trigger conditions, style choices, distinctive touches, THEREFORE mapping forces you to articulate them explicitly; without this step the skill captures generic behavior instead of YOUR way of working."
+    tags: ["skills", "procedure-mapping"]
+    difficulty: "advanced"
+    why: "What kind of personal knowledge is hardest to articulate, and how does the mapping exercise surface it?"
+
+  - id: "ch03-07-skills-intro-011"
+    type: recall
+    front: "Do you need programming skills to create a Claude Code skill?"
+    back: "Skills are markdown files with instructions — no programming required."
+    tags: ["skills", "accessibility"]
+    difficulty: "basic"
+
+  - id: "ch03-07-skills-intro-012"
+    type: thinking
+    front: "Why is the study notes skill more effective than using the same prompt each time?"
+    back: "BECAUSE the skill encodes a proven study method (summary, key terms, practice questions, quick review) applied consistently to every lecture, THEREFORE it outperforms manual prompts that vary in structure and miss steps."
+    tags: ["skills", "study-notes", "consistency"]
+    difficulty: "advanced"
+    why: "How does consistent structure across all study materials improve long-term retention compared to varied formats?"

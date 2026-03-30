@@ -1,0 +1,119 @@
+deck:
+  id: "ch03-08-concept-behind-skills"
+  title: "The Concept Behind Skills"
+  description: "Covers Anthropic's skills architecture: the expertise gap, three-level loading, MCP complementarity, strategic value, and the stack analogy."
+  tags: ["skills", "architecture", "expertise", "mcp", "agent-stack"]
+  version: 1
+
+cards:
+  - id: "ch03-08-concept-behind-skills-001"
+    type: recall
+    front: "What is Anthropic's core conclusion about extending AI agents?"
+    back: "Stop building agents. Build skills instead."
+    tags: ["skills", "anthropic"]
+    difficulty: "basic"
+
+  - id: "ch03-08-concept-behind-skills-002"
+    type: thinking
+    front: "Why is expertise, not intelligence, the real bottleneck for AI agents?"
+    back: "Because agents already have intelligence and execution capability, but lack domain-specific knowledge that makes generic capability specifically useful for real work."
+    tags: ["expertise-gap"]
+    difficulty: "intermediate"
+    why: "Reframes the value question from making models smarter to encoding domain knowledge"
+
+  - id: "ch03-08-concept-behind-skills-003"
+    type: recall
+    front: "What analogy illustrates the expertise gap for AI agents?"
+    back: "Tax professional analogy: expertise beats raw intelligence for real work."
+    tags: ["expertise-gap", "analogy"]
+    difficulty: "basic"
+
+  - id: "ch03-08-concept-behind-skills-004"
+    type: recall
+    front: "What are the three levels of skill loading architecture?"
+    back: "L1: metadata (always loaded). L2: full instructions (on-demand). L3: supporting files (if needed)."
+    tags: ["three-level-loading"]
+    difficulty: "basic"
+
+  - id: "ch03-08-concept-behind-skills-005"
+    type: thinking
+    front: "How does three-level loading prevent context overload with many skills?"
+    back: "Because only brief metadata loads at startup, full instructions load only when a skill is activated, and supporting files load only during execution. This progressive disclosure keeps context efficient."
+    tags: ["three-level-loading"]
+    difficulty: "intermediate"
+    why: "Connects the smartphone apps analogy to the technical constraint of limited context windows"
+
+  - id: "ch03-08-concept-behind-skills-006"
+    type: recall
+    front: "What are the three sources of encoded expertise for skills?"
+    back: "Foundational skills, partner skills, and enterprise/custom skills."
+    tags: ["skill-sources"]
+    difficulty: "basic"
+
+  - id: "ch03-08-concept-behind-skills-007"
+    type: recall
+    front: "What does each component in the equation Intelligence + Code provide?"
+    back: "Models provide intelligence (reasoning, analysis). Code provides execution (APIs, file system, Python, output formatting)."
+    tags: ["intelligence-code"]
+    difficulty: "intermediate"
+
+  - id: "ch03-08-concept-behind-skills-008"
+    type: thinking
+    front: "How do skills and MCP servers complement each other rather than compete?"
+    back: "Because MCP provides connectivity to external data and tools, while skills provide expertise for using those connections effectively. Together they enable domain-specific agent capability."
+    tags: ["mcp", "complementarity"]
+    difficulty: "intermediate"
+    why: "Without either component alone, the agent produces generic output or has knowledge without action"
+
+  - id: "ch03-08-concept-behind-skills-009"
+    type: recall
+    front: "What does an MCP server provide that a skill cannot?"
+    back: "Connection to outside data, tools, and APIs."
+    tags: ["mcp"]
+    difficulty: "basic"
+
+  - id: "ch03-08-concept-behind-skills-010"
+    type: recall
+    front: "What does a skill provide that an MCP server cannot?"
+    back: "Domain expertise for using connections effectively."
+    tags: ["skills", "mcp"]
+    difficulty: "basic"
+
+  - id: "ch03-08-concept-behind-skills-011"
+    type: thinking
+    front: "Why can non-technical domain experts create high-value skills?"
+    back: "Because skills are markdown files with YAML metadata in folders, requiring clear instructions rather than programming. The barrier is willingness to articulate procedures, not technical skill."
+    tags: ["accessibility"]
+    difficulty: "intermediate"
+    why: "The simple format removes the traditional technical implementation barrier"
+
+  - id: "ch03-08-concept-behind-skills-012"
+    type: recall
+    front: "In the stack analogy, what do models, agent runtimes, and skills correspond to?"
+    back: "Models are processors. Agent runtimes are operating systems. Skills are applications."
+    tags: ["stack-analogy"]
+    difficulty: "intermediate"
+
+  - id: "ch03-08-concept-behind-skills-013"
+    type: thinking
+    front: "How do shared skills create an organizational multiplier effect?"
+    back: "Because when one person improves a skill, all agents using that skill library benefit. New team members inherit encoded expertise immediately, eliminating ramp-up time."
+    tags: ["compounding-value"]
+    difficulty: "advanced"
+    why: "Transforms individual expertise into a collective, evolving knowledge base"
+
+  - id: "ch03-08-concept-behind-skills-014"
+    type: thinking
+    front: "Why are skills considered strategic assets rather than just convenience features?"
+    back: "Because skills are reusable intellectual property that can be versioned, shared, integrated into custom agents, and monetized — unlike disposable conversation prompts that must be re-entered each time."
+    tags: ["strategic-assets"]
+    difficulty: "advanced"
+    why: "The shift from disposable prompts to persistent assets changes the economic model of AI expertise"
+
+  - id: "ch03-08-concept-behind-skills-015"
+    type: thinking
+    front: "How does the stack analogy explain why skill-building is the opportunity layer?"
+    back: "Because few companies build processors or operating systems, but millions build applications. Similarly, Anthropic builds the model and runtime, therefore the value creation opportunity is in the applications layer — skills encoding domain expertise."
+    tags: ["stack-analogy"]
+    difficulty: "advanced"
+    why: "Positions learners as builders of the most accessible and scalable layer"

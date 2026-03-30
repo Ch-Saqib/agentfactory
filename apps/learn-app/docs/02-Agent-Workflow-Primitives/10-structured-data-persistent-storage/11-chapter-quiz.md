@@ -27,7 +27,7 @@ Best practice: answer once without notes, then review misses and retake after ta
 - relationship and query reasoning
 - transaction integrity
 - Neon operations and security
-- Chapter 8 -> 9 -> 10 tool escalation judgment
+- File Processing -> Computation & Data Extraction -> Structured Data tool escalation judgment
 
 ## Question-to-Outcome Map
 
@@ -78,11 +78,11 @@ options: [
 "Hybrid from the start of every project"
 ],
 correctOption: 0,
-explanation: "Part 2 follows a constraint-driven escalation: Bash for file movement and orchestration (Chapter 8), Python for deterministic computation (Chapter 9), SQL for persistence and relational integrity (Chapter 10), and hybrid verification only when output risk justifies the overhead. Each tool enters when the previous one hits a boundary, not before.",
+explanation: "Part 2 follows a constraint-driven escalation: Bash for file movement and orchestration (File Processing), Python for deterministic computation (Computation & Data Extraction), SQL for persistence and relational integrity (Structured Data), and hybrid verification only when output risk justifies the overhead. Each tool enters when the previous one hits a boundary, not before.",
 source: "Chapter README"
 },
 {
-question: "Why does Chapter 9-style looping become risky at Chapter 10 scale?",
+question: "Why does Computation & Data Extraction-style looping become risky at Structured Data scale?",
 options: [
 "Neon rejects loop-generated inserts from Python scripts",
 "Python cannot handle dates or time zones reliably",
@@ -102,7 +102,7 @@ options: [
 "Bash was more accurate for small structured datasets"
 ],
 correctOption: 1,
-explanation: "SQL: 100% accuracy, $0.51, 45 seconds. Bash: 52.7% accuracy, $3.34, 401 seconds. The right tool for structured data is not just faster -- it is correct. This is the empirical basis for Chapter 10's escalation from scripts to SQL.",
+explanation: "SQL: 100% accuracy, $0.51, 45 seconds. Bash: 52.7% accuracy, $3.34, 401 seconds. The right tool for structured data is not just faster -- it is correct. This is the empirical basis for the Structured Data chapter's escalation from scripts to SQL.",
 source: "Chapter README / Lesson 0"
 },
 {
@@ -114,19 +114,19 @@ options: [
 "For structured data querying requiring accuracy and consistency"
 ],
 correctOption: 3,
-explanation: "Bash excels at file operations and orchestration -- that is Chapter 8 territory. For structured data queries requiring accuracy, SQL is the right escalation. The Braintrust benchmark showed Bash achieving only 52.7% accuracy on structured queries, making it unreliable for any scenario where correctness matters.",
+explanation: "Bash excels at file operations and orchestration -- that is File Processing territory. For structured data queries requiring accuracy, SQL is the right escalation. The Braintrust benchmark showed Bash achieving only 52.7% accuracy on structured queries, making it unreliable for any scenario where correctness matters.",
 source: "Chapter README / Lesson 0"
 },
 {
-question: "Safest money type for Expense.amount is:",
+question: "When directing an agent to store expense amounts, which description produces correct money storage?",
 options: [
-"Float with rounding applied after operations",
-"String parsed to decimal at query time",
-"Numeric(10, 2) for exact decimal semantics",
-"Boolean flag paired with integer cents field"
+"Store amounts as exact dollars and cents, no rounding",
+"Store amounts as approximate numbers and round totals in the application",
+"Store amounts as text and parse them to numbers at query time",
+"Store a boolean for income or expense paired with a separate transaction count"
 ],
-correctOption: 2,
-explanation: "Financial values need exact decimal semantics. Float stores 0.1 + 0.2 as 0.30000000000000004 -- acceptable for physics simulations, unacceptable for money. Numeric(10, 2) guarantees exact cents, which is why every payment system, bank ledger, and accounting tool uses fixed-point decimals instead of floating point.",
+correctOption: 0,
+explanation: "Computers cannot store 0.1 + 0.2 as exactly 0.3 -- they store it as 0.30000000000000004. Telling the agent 'approximate number' produces that drift on every transaction. Telling the agent 'exact dollars and cents, no rounding' makes the database handle precision automatically. That tiny error -- thousandths of a cent per transaction -- compounds to hundreds of dollars at production scale.",
 source: "Lesson 2"
 },
 {

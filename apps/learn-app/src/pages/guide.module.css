@@ -1,0 +1,157 @@
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.heroTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  color: var(--ifm-color-emphasis-600);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Flow visual */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 3rem;
+}
+
+.flowStep {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--ifm-color-emphasis-100);
+  font-weight: 500;
+  font-size: 1rem;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.flowIcon {
+  font-size: 1.25rem;
+}
+
+.flowArrow {
+  color: var(--ifm-color-emphasis-400);
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.25rem 0;
+}
+
+/* Section */
+.section {
+  scroll-margin-top: 80px;
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.sectionIntro {
+  font-size: 1.05rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.subsectionTitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-emphasis-800);
+}
+
+/* Card grid */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.cardTitle {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardBody {
+  font-size: 0.92rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.55;
+}
+
+.cardBody kbd {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.8rem;
+  font-family: var(--ifm-font-family-monospace);
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+/* Dark mode */
+[data-theme="dark"] .flowStep {
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme="dark"] .sectionIntro {
+  color: var(--ifm-color-emphasis-600);
+}
+
+[data-theme="dark"] .subsectionTitle {
+  color: var(--ifm-color-emphasis-700);
+}
+
+[data-theme="dark"] .card {
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme="dark"] .cardBody {
+  color: var(--ifm-color-emphasis-600);
+}
+
+[data-theme="dark"] .cardBody kbd {
+  background: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-300);
+}

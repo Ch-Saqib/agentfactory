@@ -1,0 +1,112 @@
+deck:
+  id: "ch07-01-ai-employee-moment"
+  title: "The AI Employee Moment"
+  description: "OpenClaw's unprecedented rise, the chatbot vs AI Employee distinction across six dimensions, and the five-component architecture that makes autonomous agents work."
+  tags: ["ai-employee", "openclaw", "agent-architecture", "chatbot-vs-agent"]
+  version: 1
+
+cards:
+  - id: "ch07-01-ai-employee-moment-001"
+    type: recall
+    front: "Who created the OpenClaw AI Employee project?"
+    back: "Peter Steinberger, founder of PSPDFKit."
+    tags: ["openclaw", "founder"]
+    difficulty: "basic"
+
+  - id: "ch07-01-ai-employee-moment-002"
+    type: thinking
+    front: "Why did messaging app integration drive OpenClaw's viral adoption faster than a web interface would have?"
+    back: "BECAUSE users could demo the product by simply forwarding a conversation to a friend on WhatsApp or Telegram, THEREFORE creating a viral loop impossible with traditional developer tool distribution."
+    tags: ["adoption", "viral-loop"]
+    difficulty: "intermediate"
+    why: "How does the demo friction of forwarding a chat compare to sharing a URL for a web dashboard?"
+
+  - id: "ch07-01-ai-employee-moment-003"
+    type: recall
+    front: "How many GitHub stars did OpenClaw accumulate by February 16, 2026?"
+    back: "209,000 stars in under three months."
+    tags: ["openclaw", "growth"]
+    difficulty: "basic"
+
+  - id: "ch07-01-ai-employee-moment-004"
+    type: thinking
+    front: "How does the architecture of an AI Employee differ from that of a chatbot, given both use the same underlying AI models?"
+    back: "BECAUSE a chatbot is designed for conversation while an AI Employee is designed for autonomous work, THEREFORE the difference is system design (persistent memory, scheduling, multi-step workflows), not intelligence."
+    tags: ["architecture", "chatbot-vs-agent"]
+    difficulty: "intermediate"
+    why: "What specific design components does an AI Employee add that a chatbot lacks?"
+
+  - id: "ch07-01-ai-employee-moment-005"
+    type: recall
+    front: "Name any 4 of the 6 dimensions that distinguish a chatbot from an AI Employee."
+    back: "Trigger\nScope\nMemory\nTools\nSchedule\nInterface"
+    tags: ["chatbot-vs-agent", "dimensions"]
+    difficulty: "basic"
+
+  - id: "ch07-01-ai-employee-moment-006"
+    type: thinking
+    front: "Why is persistent memory the capability that most separates an AI Employee from a chatbot?"
+    back: "BECAUSE without memory the agent forgets everything between sessions and cannot build on past interactions, THEREFORE persistent memory enables accumulating context, learning preferences, and improving over time — the foundation of autonomous work."
+    why: "What specific tasks become impossible without cross-session memory?"
+    tags: ["chatbot-vs-agent", "discrimination"]
+    difficulty: "intermediate"
+
+  - id: "ch07-01-ai-employee-moment-007"
+    type: thinking
+    front: "Why is enthusiasm without caution dangerous when deploying AI Employees like OpenClaw?"
+    back: "BECAUSE over 135,000 OpenClaw instances were found exposed on the public internet with 12,000+ vulnerable to remote code execution, THEREFORE an agent with access to email, calendar, and files is a high-value target requiring deliberate security."
+    tags: ["security", "risk"]
+    difficulty: "advanced"
+    why: "What makes an AI Employee a higher-value attack target than a simple chatbot?"
+
+  - id: "ch07-01-ai-employee-moment-008"
+    type: recall
+    front: "What are the five essential components every AI Employee system needs?"
+    back: "Gateway, channel adapters, agent loop, skills, and memory."
+    tags: ["architecture", "components"]
+    difficulty: "intermediate"
+
+  - id: "ch07-01-ai-employee-moment-009"
+    type: recall
+    front: "How many malicious skills did security auditors find on ClawHub?"
+    back: "341 out of 2,857 published (12%)."
+    tags: ["security", "clawhavoc"]
+    difficulty: "intermediate"
+
+  - id: "ch07-01-ai-employee-moment-010"
+    type: recall
+    front: "What vulnerability was CVE-2026-25253?"
+    back: "A critical RCE via WebSocket origin bypass (CVSS 8.8)."
+    tags: ["security", "vulnerability"]
+    difficulty: "intermediate"
+
+  - id: "ch07-01-ai-employee-moment-011"
+    type: thinking
+    front: "Why is OpenClaw described as the on-ramp rather than the destination for learning AI Employees?"
+    back: "BECAUSE the patterns OpenClaw validated (gateway architecture, channel adapters, persistent memory, teachable skills, autonomous scheduling) are universal, THEREFORE understanding those patterns through OpenClaw prepares you to build your own system in any framework."
+    tags: ["learning", "patterns"]
+    difficulty: "advanced"
+    why: "What happens to students who learn only OpenClaw-specific details instead of universal patterns?"
+
+  - id: "ch07-01-ai-employee-moment-012"
+    type: recall
+    front: "What happens on February 15, 2026 regarding Steinberger and OpenClaw?"
+    back: "Steinberger joins OpenAI; OpenClaw transitions to an independent open-source foundation with OpenAI sponsorship."
+    tags: ["openclaw", "timeline"]
+    difficulty: "basic"
+
+  - id: "ch07-01-ai-employee-moment-013"
+    type: thinking
+    front: "Why does removing persistent memory collapse an AI Employee back into a chatbot?"
+    back: "BECAUSE without cross-session memory the agent cannot recall past instructions, preferences, or work products, THEREFORE every interaction starts from zero — which is exactly the chatbot experience."
+    why: "Which of the six chatbot-vs-employee dimensions does memory loss directly affect?"
+    tags: ["architecture", "memory"]
+    difficulty: "intermediate"
+
+  - id: "ch07-01-ai-employee-moment-014"
+    type: thinking
+    front: "Why did OpenClaw reach 209,000 GitHub stars in three months when React took over a decade for 230,000?"
+    back: "BECAUSE OpenClaw spread through messaging apps where users could demo it by forwarding a chat, THEREFORE its distribution channel had zero friction compared to traditional developer tool adoption."
+    why: "How does the messaging-native distribution model differ from React's developer community growth?"
+    tags: ["adoption", "comparison"]
+    difficulty: "intermediate"

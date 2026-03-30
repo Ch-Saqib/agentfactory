@@ -1,7 +1,6 @@
 ---
 sidebar_position: 3
 title: "Teaching Professional Formats"
-sidebar_label: "L03: Professional Formats"
 description: "Build a reusable email-templates skill with variable substitution, template libraries, and intelligent selection logic for consistent professional communication."
 series: "email"
 series_position: 2

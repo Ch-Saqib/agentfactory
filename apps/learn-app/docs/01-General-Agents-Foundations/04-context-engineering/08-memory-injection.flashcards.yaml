@@ -1,0 +1,119 @@
+deck:
+  id: "ch04-08-memory-injection"
+  title: "Mid-Stream Memory: Injecting Context at Execution Time"
+  description: "How workflow drift makes prompt-time memory injection fail for long tasks, and how PreToolUse injection keeps context relevant throughout multi-step workflows."
+  tags: ["memory-injection", "workflow-drift", "pretooluse", "context-relevance"]
+  version: 1
+
+cards:
+  - id: "ch04-08-memory-injection-001"
+    type: recall
+    front: "What is workflow drift in AI memory injection?"
+    back: "The AI's context needs diverge from what was injected at conversation start."
+    tags: ["workflow-drift"]
+    difficulty: "basic"
+
+  - id: "ch04-08-memory-injection-002"
+    type: thinking
+    front: "Why do memories injected at turn 1 become ineffective by turn 20 of a multi-step workflow?"
+    back: "Because the AI's intent evolves during reasoning, so turn 1 memories match turn 1's purpose. By turn 20, those memories consume attention budget as irrelevant noise while needed memories remain uninjected."
+    tags: ["workflow-drift", "attention-budget"]
+    difficulty: "intermediate"
+    why: "How does stale context actively harm performance beyond just being irrelevant?"
+
+  - id: "ch04-08-memory-injection-003"
+    type: recall
+    front: "When does the UserPromptSubmit hook fire in Claude Code?"
+    back: "Once per user message at prompt submission."
+    tags: ["userpromptsubmit", "hook-timing"]
+    difficulty: "basic"
+
+  - id: "ch04-08-memory-injection-004"
+    type: recall
+    front: "When does the PreToolUse hook fire in Claude Code?"
+    back: "Before each tool execution, potentially many times per message."
+    tags: ["pretooluse", "hook-timing"]
+    difficulty: "basic"
+
+  - id: "ch04-08-memory-injection-005"
+    type: thinking
+    front: "Why are AI thinking blocks the ideal query for semantic memory retrieval?"
+    back: "Because thinking blocks contain current intent, decision context, and constraints, making them specific and narrow. Therefore they produce more relevant matches than the broad original user prompt."
+    tags: ["thinking-blocks", "semantic-search"]
+    difficulty: "intermediate"
+    why: "How does the specificity of a thinking block compare to a user prompt for matching?"
+
+  - id: "ch04-08-memory-injection-006"
+    type: recall
+    front: "What input does the PreToolUse hook receive instead of thinking blocks directly?"
+    back: "A transcript_path pointing to a JSONL file on disk."
+    tags: ["pretooluse", "implementation"]
+    difficulty: "intermediate"
+
+  - id: "ch04-08-memory-injection-007"
+    type: thinking
+    front: "How does PreToolUse injection maintain relevance across a long workflow?"
+    back: "Because the hook fires before each tool use, embeds the latest thinking block, and queries memory for the current action. Therefore memories adapt as intent evolves."
+    tags: ["pretooluse", "architecture"]
+    difficulty: "advanced"
+    why: "What would happen if you only injected memories at UserPromptSubmit during a 20-turn workflow?"
+
+  - id: "ch04-08-memory-injection-008"
+    type: recall
+    front: "Name any 3 of 4 things an AI thinking block reveals about its reasoning?"
+    back: "Current intent\nDecision context\nConstraints remembered\nAssumptions made"
+    tags: ["thinking-blocks", "reasoning"]
+    difficulty: "basic"
+
+  - id: "ch04-08-memory-injection-009"
+    type: recall
+    front: "What distinguishes high-value memories from low-value ones for injection?"
+    back: "High-value: non-obvious domain conventions.\nLow-value: standard practices AI knows."
+    tags: ["memory-corpus", "memory-quality"]
+    difficulty: "intermediate"
+
+  - id: "ch04-08-memory-injection-010"
+    type: recall
+    front: "What are the four sections of a well-structured memory entry?"
+    back: "Summary\nContext\nPattern\nWhen to Apply"
+    tags: ["memory-structure", "memory-corpus"]
+    difficulty: "basic"
+
+  - id: "ch04-08-memory-injection-011"
+    type: thinking
+    front: "Why does a focused corpus of 10-20 memories outperform a large collection?"
+    back: "Because a large collection introduces noise that dilutes retrieval relevance, while focused memories ensure each match is genuinely useful. Therefore specificity beats comprehensiveness for injection quality."
+    tags: ["memory-corpus", "corpus-design"]
+    difficulty: "intermediate"
+    why: "At what point does adding more memories start degrading retrieval quality?"
+
+  - id: "ch04-08-memory-injection-012"
+    type: thinking
+    front: "How do UserPromptSubmit and PreToolUse serve different purposes in a layered system?"
+    back: "Because UserPromptSubmit provides stable baseline context like project conventions, while PreToolUse provides adaptive execution-time context for the current action. Therefore combining both gives stability and adaptability."
+    tags: ["injection-strategy", "layered-approach"]
+    difficulty: "advanced"
+    why: "What would be lost if you used only PreToolUse without UserPromptSubmit?"
+
+  - id: "ch04-08-memory-injection-013"
+    type: recall
+    front: "What is the recommended starting size for a memory corpus?"
+    back: "10-20 memories."
+    tags: ["memory-corpus", "getting-started"]
+    difficulty: "basic"
+
+  - id: "ch04-08-memory-injection-014"
+    type: thinking
+    front: "Why does injecting more context at session start make the relevance problem worse?"
+    back: "Because extra upfront context consumes the AI's attention budget with information that becomes irrelevant as intent evolves. Therefore it competes for processing power with what actually matters at later turns."
+    tags: ["workflow-drift", "attention-budget", "anti-patterns"]
+    difficulty: "advanced"
+    why: "How does the attention budget concept explain why more initial context backfires?"
+
+  - id: "ch04-08-memory-injection-015"
+    type: thinking
+    front: "How does memory injection differ from CLAUDE.md in timing and behavior?"
+    back: "Because CLAUDE.md is static context loaded once at session start, while memory injection is dynamic context loaded at the moment of relevance. Therefore memory injection adapts to workflow evolution."
+    tags: ["claude-md", "memory-injection", "comparison"]
+    difficulty: "intermediate"
+    why: "In what scenario would CLAUDE.md be sufficient and memory injection unnecessary?"

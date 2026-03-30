@@ -1,0 +1,97 @@
+deck:
+  id: "ch05-01-why-specs-beat-vibe-coding"
+  title: "Why Specs Beat Vibe Coding"
+  description: "Failure modes of conversational AI coding and how specifications prevent them."
+  tags: ["sdd", "vibe-coding", "context-engineering", "specifications"]
+  version: 1
+
+cards:
+  - id: "ch05-01-why-specs-beat-vibe-coding-001"
+    type: recall
+    front: "What iterative cycle defines vibe coding?"
+    back: "Prompt, output, correct, repeat."
+    tags: ["vibe-coding", "definition"]
+    difficulty: "basic"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-002"
+    type: recall
+    front: "What are the three failure modes of vibe coding?"
+    back: "1. Context loss\n2. Assumption drift\n3. Pattern violations"
+    tags: ["vibe-coding", "failure-modes"]
+    difficulty: "basic"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-003"
+    type: recall
+    front: "What happens to early requirements after many correction turns?"
+    back: "They fade into background noise as newer instructions receive more attention weight."
+    tags: ["context-loss"]
+    difficulty: "basic"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-004"
+    type: recall
+    front: "What does assumption drift cause the AI to fill gaps with?"
+    back: "Reasonable defaults that compound into unintended audience, format, and scope."
+    tags: ["assumption-drift"]
+    difficulty: "intermediate"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-005"
+    type: recall
+    front: "What does the AI substitute for your project standards during pattern violations?"
+    back: "General best practices from its training data."
+    tags: ["pattern-violations"]
+    difficulty: "intermediate"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-006"
+    type: thinking
+    front: "Why do the three failure modes amplify each other over conversation turns?"
+    back: "Context loss prevents re-stating constraints, therefore assumption drift fills gaps with defaults, which then violate project patterns. Each mode feeds the next in a reinforcing cycle."
+    tags: ["compounding", "failure-modes"]
+    difficulty: "advanced"
+    why: "At what turn count does the compounding table show failure becoming structural?"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-007"
+    type: thinking
+    front: "Why does context loss occur even though Claude technically retains earlier tokens?"
+    back: "Because newer instructions receive disproportionate attention weight, making earlier tokens effectively invisible despite still being present in the context window."
+    tags: ["context-loss", "context-engineering"]
+    difficulty: "intermediate"
+    why: "How does this differ from the model literally forgetting earlier text?"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-008"
+    type: thinking
+    front: "Why is assumption drift a structural problem rather than a sign of bad prompts?"
+    back: "BECAUSE every prompt leaves gaps the AI must fill to produce output, THEREFORE defaults accumulate regardless of prompt quality since no prompt can specify every constraint."
+    tags: ["assumption-drift", "vibe-coding"]
+    difficulty: "advanced"
+    why: "What kind of artifact eliminates those gaps before the conversation starts?"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-009"
+    type: recall
+    front: "What four categories of information does Claude need upfront to avoid failure modes?"
+    back: "What exists, what to build, what NOT to build, and how to validate."
+    tags: ["specifications", "sdd"]
+    difficulty: "basic"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-010"
+    type: thinking
+    front: "How do specifications prevent all three failure modes simultaneously?"
+    back: "Specs front-load context before generation begins, therefore written requirements persist against context loss, explicit constraints eliminate assumption drift, and architecture docs prevent pattern violations."
+    tags: ["specifications", "failure-modes"]
+    difficulty: "advanced"
+    why: "Why is front-loading more effective than mid-conversation correction?"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-011"
+    type: thinking
+    front: "How do the three failure modes map to context engineering problems from Chapter 4?"
+    back: "BECAUSE each failure mode is a specific context engineering gap, THEREFORE context loss maps to persistence failure, assumption drift maps to missing constraints, and pattern violations map to absent architecture."
+    tags: ["context-engineering", "failure-modes"]
+    difficulty: "intermediate"
+    why: "Why does recognizing these mappings change which layer you fix?"
+
+  - id: "ch05-01-why-specs-beat-vibe-coding-012"
+    type: thinking
+    front: "Why does vibe coding work for simple tasks but fail for complex ones?"
+    back: "Simple tasks finish in few turns, therefore failure modes never compound. Complex tasks span enough turns for all three modes to reinforce each other past the point where correction works."
+    tags: ["vibe-coding", "compounding"]
+    difficulty: "intermediate"
+    why: "What property of simple tasks keeps failure modes from compounding?"

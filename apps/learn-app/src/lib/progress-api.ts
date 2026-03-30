@@ -3,15 +3,12 @@ import type {
   QuizSubmitResponse,
   LessonCompleteRequest,
   LessonCompleteResponse,
+  FlashcardCompleteRequest,
+  FlashcardCompleteResponse,
   ProgressResponse,
   LeaderboardResponse,
 } from "./progress-types";
-
-const getAuthHeaders = (): Record<string, string> => {
-  const token = localStorage.getItem("ainative_id_token");
-  if (!token) return {};
-  return { Authorization: `Bearer ${token}` };
-};
+import { getAuthHeaders } from "./api-utils";
 
 export async function submitQuizScore(
   baseUrl: string,
@@ -45,6 +42,24 @@ export async function completeLesson(
   });
   if (!response.ok) {
     throw new Error(`Lesson complete failed: ${response.status}`);
+  }
+  return response.json();
+}
+
+export async function completeFlashcardSession(
+  baseUrl: string,
+  data: FlashcardCompleteRequest,
+): Promise<FlashcardCompleteResponse> {
+  const response = await fetch(`${baseUrl}/api/v1/flashcard/complete`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error(`Flashcard complete failed: ${response.status}`);
   }
   return response.json();
 }

@@ -854,3 +854,8 @@ Which technique would have the most impact if I adopted it?
 ```
 
 **What you're learning:** Self-assessment against expert practice—identifying your highest-leverage improvement opportunity.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

@@ -1128,3 +1128,8 @@ This isn't abstract theory. You've built a production-quality agent for YOUR dom
 The Agent Factory thesis is now operational: you know how to manufacture Digital FTEs with quality control. Whether your expertise is in contracts, campaigns, citations, or code—the discipline you've learned here applies to all of them.
 
 Welcome to professional context engineering.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

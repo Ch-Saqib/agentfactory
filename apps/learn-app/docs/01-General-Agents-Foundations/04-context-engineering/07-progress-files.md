@@ -937,3 +937,8 @@ Format the output as a "Session Briefing" I can scan in 30 seconds.
 ```
 
 **What you're learning:** Consistency in session starts. By having Claude execute the same protocol every time, you build muscle memory. Eventually, you'll internalize the checklist. Until then, let the prompt be your checklist. You're learning that good processes can be encoded as prompts—whether you're resuming a legal brief, a marketing plan, or a software feature.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

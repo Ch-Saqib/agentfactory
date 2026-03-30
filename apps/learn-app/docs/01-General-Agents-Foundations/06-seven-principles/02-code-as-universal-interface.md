@@ -489,3 +489,8 @@ Your role in working with general agents is to **describe what you want clearly 
 ### Safety Note
 
 Code is powerful—but code that runs on your real data can cause real damage. Before letting an agent run generated code on important files, always: (1) work on copies, not originals, (2) review the code's intent even if you don't understand every line, and (3) verify the results before deleting your backups. The next lesson (Verification) covers this in depth.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

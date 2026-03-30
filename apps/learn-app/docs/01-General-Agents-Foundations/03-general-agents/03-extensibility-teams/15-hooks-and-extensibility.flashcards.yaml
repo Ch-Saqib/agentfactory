@@ -1,0 +1,96 @@
+deck:
+  id: ch03-15-hooks
+  title: 'Hooks: Event-Driven Automation'
+  description: Flashcards covering Claude Code hooks — event types, exit codes, configuration, and automation patterns.
+  tags:
+  - hooks
+  - automation
+  - claude-code
+  - extensibility
+  version: 1
+cards:
+- id: ch03-15-hooks-001
+  difficulty: basic
+  front: What are hooks in Claude Code?
+  back: Your commands that run automatically when Claude performs specific actions.
+  tags:
+  - hooks
+  - claude-code
+- id: ch03-15-hooks-002
+  difficulty: intermediate
+  front: Why do hooks guarantee behavior that CLAUDE.md only suggests?
+  back: BECAUSE CLAUDE.md is a prompt the model may ignore, THEREFORE hooks execute as app-level code that enforces rules deterministically regardless of model interpretation.
+  why: Distinguishes probabilistic instruction-following from deterministic code execution.
+  tags:
+  - hooks
+  - claude-md
+- id: ch03-15-hooks-003
+  difficulty: basic
+  front: What are the five main hook events in Claude Code?
+  back: PreToolUse, PostToolUse, UserPromptSubmit, SessionStart, and SessionEnd.
+  tags: &id001
+  - hooks
+  - event-types
+- id: ch03-15-hooks-004
+  difficulty: intermediate
+  front: Why can PreToolUse block an action but PostToolUse cannot?
+  back: BECAUSE PreToolUse fires before execution when the action can still be prevented, THEREFORE exit code 2 can cancel it. PostToolUse fires after completion when the action is already done.
+  why: Connects event timing to the logical possibility of intervention.
+  tags: *id001
+- id: ch03-15-hooks-005
+  difficulty: basic
+  front: What do exit codes 0 and 2 mean for a hook script?
+  back: Exit 0 means success with stdout processed; exit 2 blocks the action.
+  tags:
+  - hooks
+  - exit-codes
+- id: ch03-15-hooks-006
+  difficulty: advanced
+  front: How do hooks turn CLAUDE.md suggestions into enforceable rules?
+  back: BECAUSE hooks run as shell scripts triggered by specific events, THEREFORE they operate at the application layer with deterministic exit codes, converting soft instructions into hard constraints
+    that cannot be ignored.
+  why: Explains the architectural shift from prompt-level guidance to code-level enforcement.
+  tags: *id001
+- id: ch03-15-hooks-007
+  difficulty: intermediate
+  front: How do hook scripts receive input data from Claude Code?
+  back: Via JSON piped through stdin containing session_id, cwd, hook_event_name, tool_name, and tool_input.
+  tags: *id001
+- id: ch03-15-hooks-008
+  difficulty: intermediate
+  front: Why would you use an empty matcher pattern on a hook?
+  back: BECAUSE an empty or omitted matcher matches all tools, THEREFORE it creates a universal hook that fires for every tool invocation regardless of type.
+  why: Clarifies the catch-all behavior of matcher configuration.
+  tags: &id002
+  - hooks
+  - matchers
+- id: ch03-15-hooks-009
+  difficulty: intermediate
+  front: What matcher pattern would trigger a hook only for Write or Edit tool calls?
+  back: '"Write|Edit" — the pipe character acts as OR between tool names.'
+  tags: *id002
+- id: ch03-15-hooks-010
+  difficulty: advanced
+  front: How would you choose between SessionStart and PreToolUse for an automation task?
+  back: BECAUSE SessionStart fires once at launch while PreToolUse fires before each tool call, THEREFORE use SessionStart for one-time setup like environment checks, and PreToolUse for per-action guards
+    like blocking dangerous commands.
+  why: Maps event frequency to appropriate use cases.
+  tags:
+  - hooks
+  - pre-tool-use
+- id: ch03-15-hooks-011
+  difficulty: intermediate
+  front: Where do hook scripts live and where is their configuration stored?
+  back: Scripts in .claude/hooks/ directory; configuration in .claude/settings.json.
+  tags:
+  - hooks
+  - data-flow
+- id: ch03-15-hooks-012
+  difficulty: intermediate
+  front: Why should you test a hook script with manual echo piping before deploying it?
+  back: BECAUSE hooks receive JSON via stdin and run non-interactively, THEREFORE manual testing with echo '{...}' | bash script.sh catches parsing errors and permission issues before they silently fail
+    in production.
+  why: Connects the non-interactive execution model to the need for isolated testing.
+  tags:
+  - hooks
+  - data-flow

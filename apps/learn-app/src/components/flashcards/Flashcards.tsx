@@ -10,6 +10,11 @@ import { Rating } from "ts-fsrs";
 import FlashcardCard from "./FlashcardCard";
 import RatingButtons from "./RatingButtons";
 import { useFSRS } from "./useFSRS";
+import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useOptionalAuth } from "@/contexts/AuthContext";
+import { completeFlashcardSession } from "@/lib/progress-api";
+import type { FlashcardCompleteResponse } from "@/lib/progress-types";
 import styles from "./Flashcards.module.css";
 
 export default function Flashcards({ cards: deck }: FlashcardsProps) {
@@ -22,6 +27,21 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
   const [ratedCards, setRatedCards] = useState<Map<string, "missed" | "gotit">>(
     new Map(),
   );
+
+  // XP tracking state
+  const [xpResult, setXpResult] = useState<FlashcardCompleteResponse | null>(
+    null,
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const hasSubmittedRef = useRef(false);
+
+  const { siteConfig } = useDocusaurusContext();
+  const progressApiUrl =
+    (siteConfig.customFields?.progressApiUrl as string) ||
+    "http://localhost:8002";
+
+  const auth = useOptionalAuth();
+  const session = auth?.session ?? null;
 
   // Close fullscreen on Escape
   useEffect(() => {
@@ -151,14 +171,36 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
 
       // Wait for CSS animation to finish before advancing
       exitTimerRef.current = setTimeout(() => {
-        if (!isLastCard) {
+        // Check if there are unrated cards — if so, navigate to the first one
+        const updatedRated = new Map(ratedCards);
+        updatedRated.set(card.id, rating === Rating.Again ? "missed" : "gotit");
+
+        if (isLastCard && updatedRated.size < totalCards) {
+          // Find first unrated card and navigate there
+          const firstUnrated = deck!.cards.findIndex(
+            (c) => !updatedRated.has(c.id),
+          );
+          if (firstUnrated !== -1) {
+            // Map back through shuffled indices if shuffled
+            const targetIndex = shuffledIndices.indexOf(firstUnrated);
+            setCurrentIndex(targetIndex !== -1 ? targetIndex : firstUnrated);
+          }
+        } else if (!isLastCard) {
           setCurrentIndex((prev) => prev + 1);
         }
         setIsFlipped(false);
         setIsExiting(false);
       }, 250);
     },
-    [deck, shuffledIndices, currentIndex, isLastCard, rateCard],
+    [
+      deck,
+      shuffledIndices,
+      currentIndex,
+      isLastCard,
+      rateCard,
+      ratedCards,
+      totalCards,
+    ],
   );
 
   const handleShuffle = useCallback(() => {
@@ -225,13 +267,49 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
   // (currentIndex stays on last card after rating, but isFlipped resets to false)
   const allRated = ratedCards.size >= totalCards;
   const sessionDone = allRated && isLastCard && !isFlipped;
+
+  // Auto-submit to progress API when session completes
+  useEffect(() => {
+    if (!sessionDone || hasSubmittedRef.current || !session || !deck) return;
+    hasSubmittedRef.current = true;
+    setIsSubmitting(true);
+
+    // Derive chapter_slug from current URL path
+    const pathSegments = window.location.pathname.split("/");
+    const docsIndex = pathSegments.indexOf("docs");
+    const chapterSlug =
+      docsIndex >= 0
+        ? pathSegments.slice(docsIndex + 1, docsIndex + 3).join("/")
+        : "unknown";
+
+    completeFlashcardSession(progressApiUrl, {
+      deck_id: deck.deck.id,
+      chapter_slug: chapterSlug,
+      cards_correct: gotItCount,
+      cards_total: totalCards,
+    })
+      .then((result) => setXpResult(result))
+      .catch((err) => console.warn("[flashcards] XP submit failed:", err))
+      .finally(() => setIsSubmitting(false));
+  }, [sessionDone, session, deck, progressApiUrl, gotItCount, totalCards]);
+
   if (sessionDone) {
     const total = missedCount + gotItCount;
     const pct = total > 0 ? Math.round((gotItCount / total) * 100) : 0;
+    const estimatedXp = Math.round((gotItCount / Math.max(total, 1)) * 50);
     return (
       <div
         className={`${styles.container} ${isFullscreen ? styles.fullscreen : ""}`}
       >
+        {isFullscreen && (
+          <button
+            className={styles.closeButton}
+            onClick={() => setIsFullscreen(false)}
+            aria-label="Exit fullscreen"
+          >
+            &#x2715;
+          </button>
+        )}
         <div className={styles.sessionComplete}>
           <div className={styles.sessionCompleteTitle}>Session Complete</div>
           <div className={styles.sessionStats}>
@@ -243,12 +321,47 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
             </div>
           </div>
           <div className={styles.sessionPct}>{pct}% correct</div>
+
+          {/* XP result panel */}
+          {session && xpResult && (
+            <div className={styles.xpPanel}>
+              <span className={styles.xpAmount}>+{xpResult.xp_earned} XP</span>
+              {xpResult.is_first_completion && (
+                <span className={styles.firstCompletion}>
+                  First completion!
+                </span>
+              )}
+              {!xpResult.is_first_completion && xpResult.xp_earned === 0 && (
+                <span className={styles.firstCompletion}>Streak credited</span>
+              )}
+              {xpResult.new_badges.map((badge) => (
+                <span key={badge.id} className={styles.badge}>
+                  {badge.name}
+                </span>
+              ))}
+            </div>
+          )}
+          {session && isSubmitting && (
+            <div className={styles.xpPanel}>
+              <span className={styles.firstCompletion}>Saving...</span>
+            </div>
+          )}
+          {!session && (
+            <div className={styles.xpPanel}>
+              <Link className={styles.ctaLink} to="/auth/signin">
+                Sign in to earn ~{estimatedXp} XP
+              </Link>
+            </div>
+          )}
+
           <button
             className={styles.exitButton}
             onClick={() => {
               setCurrentIndex(0);
               setIsFlipped(false);
               setRatedCards(new Map());
+              hasSubmittedRef.current = false;
+              setXpResult(null);
             }}
           >
             Review Again
@@ -266,6 +379,15 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
     <div
       className={`${styles.container} ${isFullscreen ? styles.fullscreen : ""}`}
     >
+      {isFullscreen && (
+        <button
+          className={styles.closeButton}
+          onClick={() => setIsFullscreen(false)}
+          aria-label="Exit fullscreen"
+        >
+          &#x2715;
+        </button>
+      )}
       <div className={styles.browseLayout}>
         <button
           className={styles.navArrow}
@@ -322,6 +444,24 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
         </span>
       </div>
 
+      <div className={styles.keyboardHints}>
+        <span className={styles.keyHint}>
+          <kbd>Space</kbd> flip
+        </span>
+        <span className={styles.keyHint}>
+          <kbd>1</kbd> missed
+        </span>
+        <span className={styles.keyHint}>
+          <kbd>2</kbd> got it
+        </span>
+        <span className={styles.keyHint}>
+          <kbd>&#8592;&#8594;</kbd> navigate
+        </span>
+        <span className={styles.keyHint}>
+          <kbd>Esc</kbd> exit
+        </span>
+      </div>
+
       <div className={styles.utilityRow}>
         <button
           className={styles.utilityButton}
@@ -341,6 +481,14 @@ export default function Flashcards({ cards: deck }: FlashcardsProps) {
         >
           &#8645; Shuffle
         </button>
+        <Link
+          className={styles.utilityButton}
+          to="/guide#flashcards"
+          title="How flashcards work"
+          aria-label="How flashcards work"
+        >
+          &#9432; Guide
+        </Link>
         <div className={styles.downloadWrapper}>
           <button
             className={styles.utilityButton}

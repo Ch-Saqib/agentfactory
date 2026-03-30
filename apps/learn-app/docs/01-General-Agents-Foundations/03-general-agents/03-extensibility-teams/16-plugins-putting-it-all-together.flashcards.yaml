@@ -1,0 +1,97 @@
+deck:
+  id: "ch03-16-plugins"
+  title: "Plugins: Discover and Install"
+  description: "Flashcards covering Claude Code plugins — marketplace, installation scopes, plugin creation, and distribution."
+  tags: ["plugins", "marketplace", "claude-code", "extensibility"]
+  version: 1
+
+cards:
+  - id: "ch03-16-plugins-001"
+    type: recall
+    front: "What is a plugin in Claude Code?"
+    back: "An installable package bundling skills, commands, agents, hooks, and MCP servers."
+    tags: ["plugins", "definition"]
+    difficulty: "basic"
+
+  - id: "ch03-16-plugins-002"
+    type: thinking
+    front: "Why do plugins exist when you could manually add skills, hooks, and MCP configs yourself?"
+    back: "BECAUSE manual setup requires configuring each component separately across multiple files, a plugin collapses five setup steps into one install command. THEREFORE plugins eliminate configuration errors and save time."
+    why: "What problem does bundling solve that individual files don't?"
+    tags: ["plugins", "motivation"]
+    difficulty: "intermediate"
+
+  - id: "ch03-16-plugins-003"
+    type: recall
+    front: "What are the three installation scopes for a Claude Code plugin?"
+    back: "User (all projects, ~/.claude/), Project (everyone on repo), and Local (just you, this repo)."
+    tags: ["plugins", "installation-scopes"]
+    difficulty: "basic"
+
+  - id: "ch03-16-plugins-004"
+    type: thinking
+    front: "Why must LSP plugin users have the language server binary installed on their system?"
+    back: "BECAUSE Claude Code delegates language analysis to the external binary rather than reimplementing it. THEREFORE without the binary, the plugin has no language server to communicate with."
+    why: "What architectural choice makes the binary a hard dependency?"
+    tags: ["plugins", "lsp", "requirements"]
+    difficulty: "advanced"
+
+  - id: "ch03-16-plugins-005"
+    type: recall
+    front: "What four fields are required in a plugin manifest (plugin.json)?"
+    back: "name, description, version, and author."
+    tags: ["plugins", "manifest", "plugin-json"]
+    difficulty: "basic"
+
+  - id: "ch03-16-plugins-006"
+    type: thinking
+    front: "How does the relationship between a plugin and a marketplace mirror everyday software distribution?"
+    back: "BECAUSE a plugin is a self-contained capability package and a marketplace is a registry that indexes many plugins, they map directly to app versus app store. THEREFORE you can install plugins without a marketplace, but marketplaces make discovery easier."
+    why: "What role does the marketplace play beyond hosting?"
+    tags: ["plugins", "marketplace", "distribution"]
+    difficulty: "intermediate"
+
+  - id: "ch03-16-plugins-007"
+    type: recall
+    front: "Which command opens the Plugin Manager UI in Claude Code?"
+    back: "The /plugin command."
+    tags: ["plugins", "plugin-manager"]
+    difficulty: "basic"
+
+  - id: "ch03-16-plugins-008"
+    type: thinking
+    front: "Why do plugin components like skills/ and agents/ go at the repository root instead of inside .claude-plugin/?"
+    back: "BECAUSE Claude Code looks for components at standard root-level paths during loading. THEREFORE nesting them inside .claude-plugin/ would make them invisible to the loader."
+    why: "What convention does the plugin loader follow when scanning for components?"
+    tags: ["plugins", "directory-structure"]
+    difficulty: "intermediate"
+
+  - id: "ch03-16-plugins-009"
+    type: recall
+    front: "What file and folder must every plugin repository contain as its manifest?"
+    back: ".claude-plugin/plugin.json."
+    tags: ["plugins", "directory-structure", "manifest"]
+    difficulty: "intermediate"
+
+  - id: "ch03-16-plugins-010"
+    type: thinking
+    front: "How should you decide between installing an existing plugin and building a custom solution?"
+    back: "BECAUSE marketplace plugins are pre-tested and maintained by their authors, checking the marketplace first avoids duplicating proven work. THEREFORE only build custom when no existing plugin meets your specific need."
+    why: "What costs does building custom introduce that installing avoids?"
+    tags: ["plugins", "decision-making"]
+    difficulty: "intermediate"
+
+  - id: "ch03-16-plugins-011"
+    type: recall
+    front: "What are the four tabs shown in the Plugin Manager UI?"
+    back: "Discover, Installed, Marketplaces, and Errors."
+    tags: ["plugins", "plugin-manager", "ui"]
+    difficulty: "intermediate"
+
+  - id: "ch03-16-plugins-012"
+    type: thinking
+    front: "Why would a team choose Project scope over User scope when installing a plugin?"
+    back: "BECAUSE Project scope writes to .claude/settings.json which is committed to the repo, every contributor automatically gets the plugin. THEREFORE it ensures consistent tooling across the whole team without individual setup."
+    why: "What happens to teammates when only User scope is used?"
+    tags: ["plugins", "installation-scopes", "collaboration"]
+    difficulty: "advanced"

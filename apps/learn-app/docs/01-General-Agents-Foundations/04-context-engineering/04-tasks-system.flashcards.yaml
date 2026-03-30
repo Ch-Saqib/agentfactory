@@ -1,0 +1,150 @@
+deck:
+  id: "ch04-04-tasks-system"
+  title: "The Tasks System: Persistent State for Context Management"
+  description: "How Claude Code's filesystem-backed Tasks system enables aggressive context management through persistent state, dependency DAGs, and cross-session coordination."
+  tags: ["tasks", "persistent-state", "DAG", "cross-session", "context-management"]
+  version: 1
+
+cards:
+  - id: "ch04-04-tasks-system-001"
+    type: recall
+    front: "What is the ephemeral state problem in Claude Code?"
+    back: "Your project plan vanishes when you run /clear — plans lived only in conversation."
+    tags: ["ephemeral-state", "context-problem"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-002"
+    type: recall
+    front: "Where do Claude Code Tasks physically live on disk?"
+    back: "In ~/.claude/tasks/ as files on the filesystem."
+    tags: ["filesystem-persistence", "storage"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-003"
+    type: thinking
+    front: "Why was the shift from conversation-stored Todos to filesystem-stored Tasks a paradigm shift?"
+    back: "Because Todos disappeared with /clear or crashes, plans were tied to context lifetime. Filesystem storage decoupled the plan from conversation state, therefore enabling crash recovery, cross-session sharing, and dependency tracking that conversation storage could never support."
+    tags: ["todos-vs-tasks", "paradigm-shift"]
+    difficulty: "intermediate"
+    why: "What limitations of conversation storage made dependency graphs impossible?"
+
+  - id: "ch04-04-tasks-system-004"
+    type: thinking
+    front: "Why does storing the plan on disk enable aggressive context clearing?"
+    back: "Because the plan persists independently of conversation state, running /clear frees context tokens without destroying the roadmap. Therefore, you can maintain high output quality by clearing context whenever it fills up."
+    tags: ["plan-on-disk", "context-freedom"]
+    difficulty: "intermediate"
+    why: "What happens to output quality if you avoid /clear to preserve an in-context plan?"
+
+  - id: "ch04-04-tasks-system-005"
+    type: recall
+    front: "What three things do Tasks survive that old Todos did not?"
+    back: "1. /clear commands\n2. Terminal crashes\n3. Session boundaries"
+    tags: ["persistence", "durability"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-006"
+    type: recall
+    front: "How do you create and manage Tasks in Claude Code?"
+    back: "Describe what you need in natural language; Claude handles internal tool calls."
+    tags: ["task-interaction", "natural-language"]
+    difficulty: "intermediate"
+
+  - id: "ch04-04-tasks-system-007"
+    type: thinking
+    front: "Why must all three availability conditions be met before a Task can execute?"
+    back: "Because a task must be pending (not already done), unoccupied (no duplicate work), and have all dependencies complete (prerequisites satisfied). Therefore, skipping any condition risks redundant work, out-of-order execution, or conflicts between parallel agents."
+    tags: ["task-availability", "coordination"]
+    difficulty: "intermediate"
+    why: "What goes wrong if a task runs before its blocking dependencies complete?"
+
+  - id: "ch04-04-tasks-system-008"
+    type: thinking
+    front: "Why is describing goals in natural language better than calling TaskCreate directly?"
+    back: "Because Claude can decompose a high-level goal into discrete subtasks and wire up dependencies automatically. Therefore, you focus on what you need while Claude handles the structural mechanics of task creation."
+    tags: ["natural-language", "task-creation"]
+    difficulty: "intermediate"
+    why: "What coordination details might you miss if you manually created each task?"
+
+  - id: "ch04-04-tasks-system-009"
+    type: recall
+    front: "What does DAG stand for in the context of task dependencies?"
+    back: "Directed Acyclic Graph."
+    tags: ["DAG", "dependencies"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-010"
+    type: thinking
+    front: "How do task dependencies enable wave-based execution?"
+    back: "Because completing a blocking task automatically unblocks its dependents, independent tasks in each wave run in parallel. Therefore, execution flows in waves: first all unblocked tasks, then newly unblocked ones, continuing until all tasks complete."
+    tags: ["DAG", "wave-execution"]
+    difficulty: "intermediate"
+    why: "What would break if tasks had no dependency tracking and all ran simultaneously?"
+
+  - id: "ch04-04-tasks-system-011"
+    type: thinking
+    front: "Why does filesystem persistence give Tasks three distinct advantages over in-context state?"
+    back: "Because disk storage is independent of conversation lifecycle, tasks survive crashes (durability), consume zero context tokens (efficiency), and persist across /clear operations (freedom). Therefore, you get reliability, performance, and workflow flexibility simultaneously."
+    tags: ["filesystem-persistence", "benefits"]
+    difficulty: "intermediate"
+    why: "Which of the three benefits has the biggest impact on daily workflow?"
+
+  - id: "ch04-04-tasks-system-012"
+    type: thinking
+    front: "How do Tasks consume zero context tokens despite tracking a full project plan?"
+    back: "Because tasks are stored as files on disk rather than in conversation, a 50-task plan occupies no space in the context window. Therefore, the full context budget remains available for reasoning and actual work."
+    tags: ["context-tokens", "efficiency"]
+    difficulty: "intermediate"
+    why: "How would context usage differ if 50 tasks were tracked inside the conversation?"
+
+  - id: "ch04-04-tasks-system-013"
+    type: recall
+    front: "What are the three phases of the plan-clear-execute pattern?"
+    back: "1. Plan: create tasks with dependencies\n2. Clear: /clear when context fills (60-80%)\n3. Execute: ask what's next and continue"
+    tags: ["plan-clear-execute", "workflow"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-014"
+    type: thinking
+    front: "Why does the plan-clear-execute pattern maintain higher quality than keeping everything in context?"
+    back: "Because clearing context removes accumulated noise from prior work, each task executes with a fresh, focused context window. Therefore, reasoning quality stays high throughout long projects instead of degrading as context fills."
+    tags: ["plan-clear-execute", "quality"]
+    difficulty: "advanced"
+    why: "At what context usage percentage does the lesson recommend clearing?"
+
+  - id: "ch04-04-tasks-system-015"
+    type: recall
+    front: "What environment variable enables cross-session task sharing?"
+    back: "CLAUDE_CODE_TASK_LIST_ID"
+    tags: ["cross-session", "environment-variable"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-016"
+    type: thinking
+    front: "How does the Writer/Reviewer pattern use shared tasks across two sessions?"
+    back: "Session A writes code and marks implement-feature complete, which unblocks review-feature for Session B. If Session B finds issues, it creates fix-issues tasks that Session A picks up. Therefore, coordination happens through the shared task list without direct communication."
+    tags: ["writer-reviewer", "cross-session"]
+    difficulty: "advanced"
+    why: "What prevents the two sessions from doing duplicate work in this pattern?"
+
+  - id: "ch04-04-tasks-system-017"
+    type: recall
+    front: "What keyboard shortcut toggles the task list view in Claude Code?"
+    back: "The Ctrl+T keyboard shortcut."
+    tags: ["CLI", "shortcuts"]
+    difficulty: "basic"
+
+  - id: "ch04-04-tasks-system-018"
+    type: recall
+    front: "What is the difference between Tasks and Progress files?"
+    back: "Tasks track WHAT needs doing (action items and dependencies). Progress files track WHY (decisions and discoveries)."
+    tags: ["tasks-vs-progress", "comparison"]
+    difficulty: "intermediate"
+
+  - id: "ch04-04-tasks-system-019"
+    type: thinking
+    front: "Why does each wave of task execution maintain clean context even in large projects?"
+    back: "Because each task runs after a /clear with only its specific inputs, accumulated noise from prior tasks doesn't pollute the current one. Therefore, the agent working on a synthesis task gets focused findings rather than raw data from earlier research waves."
+    tags: ["wave-execution", "context-cleanliness"]
+    difficulty: "advanced"
+    why: "How would synthesis quality differ if the agent inherited all context from prior research tasks?"

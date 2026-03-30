@@ -1,7 +1,6 @@
 ---
 sidebar_position: 13
 title: "Chapter 13: Build Your First AI Employee Quiz"
-sidebar_label: "L13: Assessment"
 description: "Validate your Personal AI Employee knowledge with a 20-question tiered quiz covering vault setup, skills, subagents, MCP, watchers, HITL, scheduling, error recovery, and audit logging."
 keywords:
   - chapter quiz

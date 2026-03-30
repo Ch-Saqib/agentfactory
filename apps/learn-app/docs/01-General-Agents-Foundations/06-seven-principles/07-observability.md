@@ -644,3 +644,8 @@ Then, help me understand: What observability would have made this easier to debu
 ### Safety Note
 
 Observability is your defense against unexpected behavior. Always review activity logs when something seems wrong. The more you understand what the AI is doing, the better you can direct it and catch problems early.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

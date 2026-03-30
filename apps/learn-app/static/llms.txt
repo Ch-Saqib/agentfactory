@@ -35,9 +35,9 @@ Pedagogical approach: YAML frontmatter with Bloom's taxonomy objectives, CEFR A1
 - [Chapter 12: Version Control](https://agentfactory.panaversity.org/docs/Agent-Workflow-Primitives/version-control): Git workflows
 - [Chapter 13: Build Your First AI Employee](https://agentfactory.panaversity.org/docs/Agent-Workflow-Primitives/build-first-ai-employee): End-to-end AI employee construction
 
-## Part 3: Applied Domain Workflows
+## Part 3: Domain Agent Workflows
 
-- [Chapter 14: Ten Axioms of AI-Driven Development](https://agentfactory.panaversity.org/docs/Applied-Domain-Workflows/ten-axioms-of-programming-in-ai-driven-development): Axioms and SpecKit hands-on
+- Content coming soon — enterprise domain agent chapters (Ch 14–24)
 
 ## Part 4: Coding for Problem Solving
 

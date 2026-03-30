@@ -1,0 +1,82 @@
+deck:
+  id: "ch03-03-free-setup"
+  title: "Free Claude Code Setup"
+  description: "Backend abstraction architecture, free API routing with OpenRouter/Gemini/DeepSeek, and the three-layer CLI-Router-API pattern."
+  tags: ["free-setup", "api-routing", "backend-abstraction", "claude-code"]
+  version: 1
+
+cards:
+  - id: "ch03-03-free-setup-001"
+    type: recall
+    front: "What is the three-layer architecture that enables Claude Code to work with any AI backend?"
+    back: "CLI (Claude Code) → Router (API translator) → API (AI model provider)."
+    tags: ["architecture", "backend-abstraction"]
+    difficulty: "basic"
+
+  - id: "ch03-03-free-setup-002"
+    type: recall
+    front: "What are the three free or low-cost backend options for Claude Code covered in this lesson?"
+    back: "1. OpenRouter\n2. Google Gemini\n3. DeepSeek"
+    tags: ["backends", "free-setup"]
+    difficulty: "basic"
+
+  - id: "ch03-03-free-setup-003"
+    type: thinking
+    front: "Why can you swap the AI model behind Claude Code without changing how you use it?"
+    back: "BECAUSE the router translates between Claude Code's API format and each provider's format, THEREFORE the CLI layer is decoupled from the backend — all features (subagents, skills, MCP, hooks) work identically regardless of which model answers."
+    tags: ["backend-abstraction", "architecture"]
+    difficulty: "intermediate"
+    why: "What architectural principle does this demonstrate, and where else have you seen it?"
+
+  - id: "ch03-03-free-setup-004"
+    type: recall
+    front: "What is the daily two-terminal workflow for using Claude Code with a free backend?"
+    back: "Terminal 1: `ccr start` (router). Terminal 2: `ccr code` (Claude Code session)."
+    tags: ["workflow", "daily-usage"]
+    difficulty: "basic"
+
+  - id: "ch03-03-free-setup-005"
+    type: thinking
+    front: "Why do free backends provide identical Claude Code features despite using different underlying models?"
+    back: "BECAUSE Claude Code features (subagents, skills, MCP, hooks) are implemented in the CLI layer rather than the AI model, THEREFORE the agentic architecture is independent of which model generates responses — the model only provides reasoning."
+    tags: ["backend-abstraction", "features"]
+    difficulty: "intermediate"
+    why: "If the CLI provides all features, what is the only thing that actually changes when you switch backends?"
+
+  - id: "ch03-03-free-setup-006"
+    type: recall
+    front: "Is DeepSeek truly free for Claude Code usage?"
+    back: "It charges per token at ~$0.028-$0.42 per million tokens — low-cost but not free."
+    tags: ["deepseek", "pricing"]
+    difficulty: "basic"
+
+  - id: "ch03-03-free-setup-007"
+    type: thinking
+    front: "Why should users of free API tiers have backup backend options ready?"
+    back: "BECAUSE free tier limits change unpredictably (Google reduced Gemini limits 50-80% in December 2025), THEREFORE users need backup API keys pre-configured so the router architecture can switch backends painlessly."
+    tags: ["free-tier", "contingency", "rate-limits"]
+    difficulty: "intermediate"
+    why: "How does the router architecture turn a potential crisis into a simple config change?"
+
+  - id: "ch03-03-free-setup-008"
+    type: recall
+    front: "Where should API keys be stored when configuring Claude Code Router?"
+    back: "As environment variables, not hardcoded in config files."
+    tags: ["security", "api-keys"]
+    difficulty: "intermediate"
+
+  - id: "ch03-03-free-setup-009"
+    type: thinking
+    front: "Why does the router config use `$VARIABLE_NAME` placeholder instead of the actual API key?"
+    back: "BECAUSE the router reads the key from an environment variable at runtime, THEREFORE secrets are separated from configuration — preventing accidental exposure through version control or file sharing."
+    tags: ["security", "configuration"]
+    difficulty: "intermediate"
+    why: "What could happen if you hardcoded your API key directly in config.json and committed it to Git?"
+
+  - id: "ch03-03-free-setup-010"
+    type: thinking
+    front: "How does OpenRouter differ architecturally from using Gemini or DeepSeek directly?"
+    back: "BECAUSE OpenRouter aggregates multiple models under one API, THEREFORE you can switch between models without reconfiguring the router — gaining maximum flexibility from a single provider."
+    tags: ["openrouter", "model-aggregation"]
+    difficulty: "advanced"
+    why: "When would direct provider access be better than using an aggregator like OpenRouter?"

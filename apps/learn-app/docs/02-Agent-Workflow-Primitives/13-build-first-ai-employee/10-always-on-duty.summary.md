@@ -1,9 +1,3 @@
----
-title: "Summary: Always On Duty"
-sidebar_label: "Summary"
-sidebar_position: 10.5
----
-
 # Lesson 10 Summary: Always On Duty
 
 ## Key Concepts

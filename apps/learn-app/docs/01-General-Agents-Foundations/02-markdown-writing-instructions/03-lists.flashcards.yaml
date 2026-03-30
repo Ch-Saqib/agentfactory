@@ -1,0 +1,89 @@
+deck:
+  id: "ch02-03-lists"
+  title: "Lists - Organizing Ideas"
+  description: "Covers unordered and ordered list syntax, the decision rule for choosing between them, nested lists, and how list types communicate meaning to AI."
+  tags: ["markdown", "lists", "unordered", "ordered", "nested"]
+  version: 1
+
+cards:
+  - id: "ch02-03-lists-001"
+    type: recall
+    front: "What three characters can start an unordered list item in markdown?"
+    back: "Dash (-), asterisk (*), or plus sign (+), each followed by a space."
+    tags: ["lists", "unordered", "syntax"]
+    difficulty: "intermediate"
+
+  - id: "ch02-03-lists-002"
+    type: recall
+    front: "How do you create an ordered list in markdown?"
+    back: "Type a number followed by a period and a space (1. 2. 3.)."
+    tags: ["lists", "ordered", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-03-lists-003"
+    type: recall
+    front: "What single question determines whether to use an ordered or unordered list?"
+    back: "Does the order matter?"
+    tags: ["lists", "decision-rule"]
+    difficulty: "basic"
+
+  - id: "ch02-03-lists-004"
+    type: thinking
+    front: "Why does numbering app features as an ordered list mislead AI agents?"
+    back: "BECAUSE numbered lists signal sequential dependencies to AI, THEREFORE it may implement features in that specific order or treat them as dependent steps — when features are actually independent capabilities."
+    tags: ["lists", "ordered", "anti-pattern"]
+    difficulty: "intermediate"
+    why: "How would an AI's implementation differ if it sees features as bullet points vs numbered steps?"
+
+  - id: "ch02-03-lists-005"
+    type: recall
+    front: "How do you create a nested sub-item within a markdown list?"
+    back: "Indent 2 spaces before the dash or number."
+    tags: ["lists", "nested", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-03-lists-006"
+    type: thinking
+    front: "How do ordered lists communicate dependencies that affect AI code generation?"
+    back: "BECAUSE each numbered step implies the previous step must complete first, THEREFORE AI generates sequential code that respects the dependency chain — installing Python before running pip, navigating to a folder before executing scripts."
+    tags: ["lists", "ordered", "dependencies"]
+    difficulty: "intermediate"
+    why: "What would happen if an AI executed installation step 4 before step 1?"
+
+  - id: "ch02-03-lists-007"
+    type: recall
+    front: "What common syntax error prevents markdown list items from rendering?"
+    back: "Missing the space after the dash or number. -Item and 1.Item are wrong."
+    tags: ["lists", "syntax", "common-mistakes"]
+    difficulty: "basic"
+
+  - id: "ch02-03-lists-008"
+    type: thinking
+    front: "How do you decide between adding nested list items vs creating a new heading level?"
+    back: "BECAUSE detail belongs inside sections, not alongside them, THEREFORE use headings for major sections and nested lists for details within — if you're creating 10+ Level 3 headings, consolidate with nested lists instead."
+    tags: ["lists", "nested", "headings", "document-design"]
+    difficulty: "advanced"
+    why: "What readability problem arises when a spec has 15 Level 3 headings instead of using nested lists?"
+
+  - id: "ch02-03-lists-009"
+    type: recall
+    front: "Unordered list items: can be implemented in any order. Ordered list items?"
+    back: "Must be done in sequence — each depends on the previous one."
+    tags: ["lists", "discrimination"]
+    difficulty: "intermediate"
+
+  - id: "ch02-03-lists-010"
+    type: thinking
+    front: "Why does 'unordered' not mean 'less important' than 'ordered' in a specification?"
+    back: "BECAUSE 'unordered' means 'no required sequence' rather than lower priority, THEREFORE features in bullet points are equally important — importance is separate from ordering, and items simply don't depend on each other."
+    tags: ["lists", "misconceptions"]
+    difficulty: "intermediate"
+    why: "How would you signal priority differences between features if not through list type?"
+
+  - id: "ch02-03-lists-011"
+    type: thinking
+    front: "Why do properly formatted lists help AI turn vague intentions into working code?"
+    back: "BECAUSE lists make requirements countable and trackable with clear boundaries, THEREFORE AI can see exactly how many features exist and generate one function per item instead of guessing boundaries in a paragraph."
+    tags: ["lists", "ai-parsing", "requirements"]
+    difficulty: "advanced"
+    why: "What happens when an AI encounters a paragraph listing five features without clear separators?"

@@ -948,3 +948,8 @@ global vs session-scoped?
 ```
 
 **What you're learning:** The skill of memory scoping. Not all knowledge should persist—over-globalizing creates noise; under-globalizing causes repetition. This prompt helps you develop intuition for the distinction and apply it to real knowledge items.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

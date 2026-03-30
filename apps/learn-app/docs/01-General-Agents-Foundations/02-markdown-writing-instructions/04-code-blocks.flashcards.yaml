@@ -1,0 +1,89 @@
+deck:
+  id: "ch02-04-code-blocks"
+  title: "Code Blocks - Showing Examples"
+  description: "Covers fenced code blocks, language tags, inline code, and how showing exact output and examples guides AI toward precise implementation."
+  tags: ["markdown", "code-blocks", "language-tags", "inline-code"]
+  version: 1
+
+cards:
+  - id: "ch02-04-code-blocks-001"
+    type: recall
+    front: "How do you create a fenced code block in markdown?"
+    back: "Wrap content in triple backticks (```) on their own lines above and below."
+    tags: ["code-blocks", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-04-code-blocks-002"
+    type: recall
+    front: "How do you add a language tag to a fenced code block?"
+    back: "Type the language name immediately after the opening triple backticks with no space."
+    tags: ["code-blocks", "language-tags", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-04-code-blocks-003"
+    type: recall
+    front: "Name any 4 of the 6 common language tags for markdown code blocks?"
+    back: "python, bash, text, typescript, json, yaml"
+    tags: ["code-blocks", "language-tags"]
+    difficulty: "intermediate"
+
+  - id: "ch02-04-code-blocks-004"
+    type: thinking
+    front: "A spec says 'greet the user and show time.' Why does adding a code block with exact output format improve AI results?"
+    back: "BECAUSE AI could generate multiple different formats from a prose description alone, THEREFORE showing exact expected output in a code block eliminates ambiguity — AI builds to match the concrete example rather than guessing."
+    tags: ["code-blocks", "expected-output", "ambiguity"]
+    difficulty: "intermediate"
+    why: "What's the difference between describing output in prose vs showing it in a code block?"
+
+  - id: "ch02-04-code-blocks-005"
+    type: recall
+    front: "How do you format a short code reference within a sentence in markdown?"
+    back: "Wrap it in single backticks: `code here`."
+    tags: ["inline-code", "syntax"]
+    difficulty: "basic"
+
+  - id: "ch02-04-code-blocks-006"
+    type: recall
+    front: "Short command in a sentence: use inline code. Multi-line code example?"
+    back: "Use a fenced code block (triple backticks)."
+    tags: ["inline-code", "code-blocks", "discrimination"]
+    difficulty: "intermediate"
+
+  - id: "ch02-04-code-blocks-007"
+    type: thinking
+    front: "Why does tagging Python code as 'text' instead of 'python' degrade AI output quality?"
+    back: "BECAUSE language tags tell AI which syntax rules, libraries, and coding standards apply, THEREFORE a 'text' tag removes that context and AI may ignore Python conventions like PEP 8 or generate code in the wrong language entirely."
+    tags: ["language-tags", "ai-parsing"]
+    difficulty: "intermediate"
+    why: "How might an AI misinterpret terminal commands if they're tagged as python instead of bash?"
+
+  - id: "ch02-04-code-blocks-008"
+    type: thinking
+    front: "Why should you include edge case output (like an empty task list) in your spec's code blocks?"
+    back: "BECAUSE code blocks showing edge cases hint AI to handle those scenarios, THEREFORE if you don't show what 'empty' looks like, AI may not implement graceful handling for that state."
+    tags: ["code-blocks", "edge-cases", "specification"]
+    difficulty: "advanced"
+    why: "What other edge cases besides 'empty state' should a spec typically show?"
+
+  - id: "ch02-04-code-blocks-009"
+    type: thinking
+    front: "Why does showing expected output in code blocks work as an acceptance test for AI-generated code?"
+    back: "BECAUSE concrete examples are harder to misinterpret than abstract descriptions, THEREFORE the code block becomes a specification by example — both human and AI can compare actual output against the exact expected format to verify correctness."
+    tags: ["code-blocks", "specification-by-example"]
+    difficulty: "advanced"
+    why: "How does specification by example reduce the rework cycle between writing specs and reviewing AI output?"
+
+  - id: "ch02-04-code-blocks-010"
+    type: recall
+    front: "What four types of content should use inline code (single backticks) rather than fenced blocks?"
+    back: "Command names, variable names, file names, and function names."
+    tags: ["inline-code", "usage"]
+    difficulty: "intermediate"
+
+  - id: "ch02-04-code-blocks-011"
+    type: thinking
+    front: "How does wrapping a command like 'python tracker.py' in backticks provide semantic anchoring for AI?"
+    back: "BECAUSE backticks tell AI the wrapped text is a literal string rather than prose to translate or summarize, THEREFORE AI preserves the exact command name instead of hallucinating alternatives or paraphrasing executable instructions."
+    tags: ["inline-code", "semantic-anchoring"]
+    difficulty: "advanced"
+    why: "What could go wrong if AI treats an unformatted command name as regular prose?"

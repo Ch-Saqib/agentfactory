@@ -1,0 +1,111 @@
+deck:
+  id: ch03-20-agent-teams
+  title: 'Agent Teams: Coordinating Multiple Claude Sessions'
+  description: Flashcards covering Agent Teams — team creation, task coordination, delegation patterns, and multi-agent workflows.
+  tags:
+  - agent-teams
+  - multi-agent
+  - coordination
+  - claude-code
+  version: 1
+cards:
+- id: ch03-20-agent-teams-001
+  difficulty: basic
+  front: What are Agent Teams in Claude Code?
+  back: Independent Claude instances with peer-to-peer messaging and a shared task list.
+  tags: &id001
+  - agent-teams
+  - task-dependencies
+- id: ch03-20-agent-teams-002
+  difficulty: intermediate
+  front: Why does competing hypotheses prevent anchoring bias better than a single agent?
+  back: BECAUSE a single investigator stops at the first plausible explanation, THEREFORE multiple agents forced to disprove each other's hypotheses surface alternatives the first would have overlooked.
+  why: Connects cognitive bias mechanics to multi-agent investigation design.
+  tags: &id002
+  - agent-teams
+  - competing-hypotheses
+- id: ch03-20-agent-teams-003
+  difficulty: basic
+  front: What is the decision rule for choosing teams over subagents?
+  back: If agents need to talk to each other, use teams.
+  tags:
+  - agent-teams
+  - decision-framework
+- id: ch03-20-agent-teams-004
+  difficulty: advanced
+  front: Why don't teammates inherit the lead's conversation history?
+  back: BECAUSE each teammate is an independent Claude instance with its own context window, THEREFORE sharing history would consume token budget and bias teammates toward the lead's framing rather than
+    fresh analysis.
+  why: Explores the independence-versus-context tradeoff in multi-agent design.
+  tags: *id001
+- id: ch03-20-agent-teams-005
+  difficulty: intermediate
+  front: What does Delegate mode do, and how is it activated?
+  back: Shift+Tab activates it; prevents the lead from doing analysis directly.
+  tags:
+  - agent-teams
+  - delegate-mode
+- id: ch03-20-agent-teams-006
+  difficulty: intermediate
+  front: How do task dependency graphs enable coordination without lead intervention?
+  back: BECAUSE each task declares blocks/blockedBy relationships, THEREFORE blocked tasks auto-unblock when dependencies complete, letting teammates self-sequence without the lead routing work manually.
+  why: Distinguishes declarative coordination from imperative task assignment.
+  tags: *id001
+- id: ch03-20-agent-teams-007
+  difficulty: basic
+  front: What environment variable enables the Agent Teams experimental feature?
+  back: CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+  tags:
+  - agent-teams
+  - setup
+- id: ch03-20-agent-teams-008
+  difficulty: intermediate
+  front: Why does assigning section ownership prevent teammates from overwriting each other?
+  back: BECAUSE teammates operate with independent context windows, THEREFORE without explicit file ownership boundaries, two agents may edit the same file simultaneously and clobber each other's changes.
+  why: Links context isolation to the practical risk of concurrent file edits.
+  tags: *id001
+- id: ch03-20-agent-teams-009
+  difficulty: intermediate
+  front: What are the three Agent Team patterns covered in this lesson?
+  back: Parallel Investigation, Pipeline Build, and Competing Hypotheses.
+  tags: *id002
+- id: ch03-20-agent-teams-010
+  difficulty: advanced
+  front: How does Pipeline Build differ from Parallel Investigation in when agents communicate?
+  back: BECAUSE Pipeline Build uses sequential task dependencies where each stage blocks the next, THEREFORE agents communicate through completed artifacts. Parallel Investigation has no dependencies, so
+    agents work simultaneously and only converge at the end.
+  why: Contrasts dependency-driven handoffs with independent concurrent work.
+  tags:
+  - agent-teams
+  - pipeline-build
+- id: ch03-20-agent-teams-011
+  difficulty: intermediate
+  front: What do TeammateIdle hook exit codes 0 and 2 mean?
+  back: Exit 0 allows idle; exit 2 tells the teammate to keep working.
+  tags:
+  - agent-teams
+  - hooks
+- id: ch03-20-agent-teams-012
+  difficulty: intermediate
+  front: Why does plan approval exist before teammates execute their tasks?
+  back: BECAUSE teammates lack the lead's full context and may misinterpret the task, THEREFORE reviewing the approach first catches misalignment before work is wasted on the wrong direction.
+  why: Connects context asymmetry to the value of early validation.
+  tags:
+  - agent-teams
+  - plan-approval
+- id: ch03-20-agent-teams-013
+  difficulty: basic
+  front: What is the typical cost multiplier of Agent Teams compared to a single-agent session?
+  back: 3-5x what a single-agent session costs.
+  tags:
+  - agent-teams
+  - cost
+- id: ch03-20-agent-teams-014
+  difficulty: advanced
+  front: Why does the TaskCompleted hook use exit code 2 to reject rather than exit code 1?
+  back: BECAUSE exit code 1 conventionally signals a general error, THEREFORE using exit code 2 as a distinct rejection signal lets the system differentiate between 'task failed quality gate' and 'hook
+    script itself crashed.'
+  why: Explores the signaling design behind non-standard exit codes.
+  tags:
+  - agent-teams
+  - hooks

@@ -1,0 +1,127 @@
+deck:
+  id: "ch01-synthesis-digital-fte"
+  title: "Synthesis - The Digital FTE Vision"
+  description: "Synthesizes the Agent Factory paradigm into the Digital FTE vision, contrasting Vibe Coding with Spec-Driven Development and revealing AI's amplification effect on developer habits."
+  tags: ["digital-fte", "synthesis", "vibe-coding", "sdd", "amplification"]
+  version: 1
+
+cards:
+  - id: "ch01-synthesis-digital-fte-001"
+    type: recall
+    front: "What are the three levels in the Tools-to-Teammates-to-Digital-FTEs progression?"
+    back: "1. Tool — you prompt, it responds\n2. Teammate — reasons, remembers, acts\n3. Digital FTE — owns an entire function 24/7"
+    tags: ["progression", "digital-fte"]
+    difficulty: "basic"
+
+  - id: "ch01-synthesis-digital-fte-002"
+    type: thinking
+    front: "Why must a General Agent be deployed autonomously 24/7 to qualify as a Digital FTE?"
+    back: "BECAUSE a Digital FTE must monitor its domain, identify needs, and execute without human prompting — capabilities that require persistent autonomous operation, not session-based interaction."
+    tags: ["digital-fte", "autonomy"]
+    difficulty: "intermediate"
+    why: "What breaks if a Digital FTE only runs when a human starts it?"
+
+  - id: "ch01-synthesis-digital-fte-003"
+    type: recall
+    front: "What four components transform a General Agent into a Digital FTE?"
+    back: "1. Brain (General Model) — reasoning\n2. Hands (MCP & Tooling) — system access\n3. Training (Agent Skills) — domain SOPs\n4. Shift (Autonomous Loop) — 24/7 operation"
+    tags: ["digital-fte", "components"]
+    difficulty: "basic"
+
+  - id: "ch01-synthesis-digital-fte-004"
+    type: thinking
+    front: "Why is the Autonomous Loop the component that crosses the FTE threshold?"
+    back: "BECAUSE without the Autonomous Loop, an agent still waits for human prompts. THEREFORE it remains a teammate, not a functional owner — the loop provides the persistence and initiative that define employment-like reliability."
+    tags: ["autonomous-loop", "fte-threshold"]
+    difficulty: "advanced"
+    why: "How do the other three components change in value once autonomous operation is added?"
+
+  - id: "ch01-synthesis-digital-fte-005"
+    type: recall
+    front: "What defines the FTE Threshold for an AI agent?"
+    back: "The agent monitors its domain, identifies needs, and executes solutions without a human prompt."
+    tags: ["fte-threshold", "definition"]
+    difficulty: "intermediate"
+
+  - id: "ch01-synthesis-digital-fte-006"
+    type: thinking
+    front: "Why does Vibe Coding feel productive while creating compounding technical debt?"
+    back: "BECAUSE AI generates code faster than any human, features appear quickly. But each iteration introduces subtle bugs without specifications or validation, so debt compounds invisibly beneath confident-looking output."
+    tags: ["vibe-coding", "technical-debt"]
+    difficulty: "intermediate"
+    why: "How would you detect that Vibe Coding debt is accumulating before it causes failure?"
+
+  - id: "ch01-synthesis-digital-fte-007"
+    type: recall
+    front: "What is Vibe Coding?"
+    back: "Development by feel — prompting AI, adjusting, repeating with no specification, acceptance criteria, or systematic validation."
+    tags: ["vibe-coding", "definition"]
+    difficulty: "intermediate"
+
+  - id: "ch01-synthesis-digital-fte-008"
+    type: thinking
+    front: "Why does AI make engineering discipline more critical rather than less?"
+    back: "BECAUSE AI is an amplifier that accelerates your velocity in whatever direction you're heading. THEREFORE clear specs yield excellent results fast, while vague requirements yield terrible results equally fast."
+    tags: ["amplification", "discipline"]
+    difficulty: "intermediate"
+    why: "What happens to the feedback loop that normally catches bad habits when AI speeds up output?"
+
+  - id: "ch01-synthesis-digital-fte-009"
+    type: recall
+    front: "In the amplification table, what result does combining clear specifications with AI produce?"
+    back: "Excellent results, fast."
+    tags: ["amplification", "specs"]
+    difficulty: "basic"
+
+  - id: "ch01-synthesis-digital-fte-010"
+    type: thinking
+    front: "How does the virtuous cycle connect specifications to multiplied capacity?"
+    back: "Clear specs enable precise AI execution, which produces reliable Custom Agents, which become Digital FTEs, which multiply capacity. THEREFORE increased capacity demands even better specifications, reinforcing the cycle."
+    tags: ["virtuous-cycle", "compounding"]
+    difficulty: "advanced"
+    why: "What breaks the cycle if specification quality stagnates while AI capability grows?"
+
+  - id: "ch01-synthesis-digital-fte-011"
+    type: recall
+    front: "What does a Digital FTE own — a person's job or a function?"
+    back: "A specific function (e.g., tier-1 support, security auditing, code review), not a person's entire job."
+    tags: ["digital-fte", "scope"]
+    difficulty: "basic"
+
+  - id: "ch01-synthesis-digital-fte-012"
+    type: thinking
+    front: "Why does the gap between spec-driven and vibe-coding developers widen with each AI generation?"
+    back: "BECAUSE each generation amplifies existing practices more powerfully. Spec-driven developers compound reliable capabilities while vibe coders compound debt faster, so the divergence accelerates with every capability increase."
+    tags: ["amplification", "career-trajectory"]
+    difficulty: "advanced"
+    why: "How might an organization measure whether its developers are on the spec-driven or vibe-coding trajectory?"
+
+  - id: "ch01-synthesis-digital-fte-013"
+    type: recall
+    front: "What two paths does the lesson present as the critical fork for developers?"
+    back: "Path A: Vibe Coding (fast generation, no specs, compounding debt)\nPath B: Spec-Driven Development (clear specs, Digital FTEs, systematic capability)"
+    tags: ["critical-fork", "paths"]
+    difficulty: "basic"
+
+  - id: "ch01-synthesis-digital-fte-014"
+    type: thinking
+    front: "How does the chapter's connection table demonstrate that Digital FTEs require every preceding concept?"
+    back: "Each lesson contributes a necessary layer: the inflection point proves feasibility, LLM constraints shape design, Five Powers provide capabilities, AIFF ensures portability, and SDD provides the methodology. THEREFORE removing any layer breaks the Digital FTE."
+    tags: ["synthesis", "integration"]
+    difficulty: "intermediate"
+    why: "Which single missing layer would be most damaging to a Digital FTE deployment?"
+
+  - id: "ch01-synthesis-digital-fte-015"
+    type: recall
+    front: "What is the behavioral difference between an AI tool and a Digital FTE?"
+    back: "A tool waits for a prompt; a Digital FTE monitors its domain and acts autonomously."
+    tags: ["tool-vs-fte", "behavior"]
+    difficulty: "basic"
+
+  - id: "ch01-synthesis-digital-fte-016"
+    type: thinking
+    front: "Why does moving from 'AI as assistant' to 'AI as functional owner' require written specifications?"
+    back: "BECAUSE a functional owner operates without real-time human guidance. Without specifications defining scope, guardrails, and acceptance criteria, the agent has no reliable basis for autonomous decision-making."
+    tags: ["specifications", "functional-ownership"]
+    difficulty: "intermediate"
+    why: "How do specifications replace the judgment a human manager would provide in real-time?"

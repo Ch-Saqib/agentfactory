@@ -522,3 +522,8 @@ From **Prompt 1**: Your AI will confirm whether you chose the right list types (
 From **Prompt 2**: Your AI should be able to count items and understand sequence requirements from your list choices
 
 From **Prompt 3**: Your AI will suggest additional lists to strengthen your specification
+
+
+## Flashcards Study Aid
+
+<Flashcards />

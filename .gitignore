@@ -65,6 +65,7 @@ local/api/chatkit-server/.env
 .claude/logs/
 .claude/context/
 .claude/handoffs/
+.mcp.json
 .env
 
 
@@ -73,3 +74,7 @@ local/api/chatkit-server/.env
 exercises-pack/
 skills-exercises/
 evals/flashcards/reports/
+
+output/
+
+logs/

@@ -1,0 +1,69 @@
+deck:
+  id: "ch17-08-cross-app-orchestration"
+  title: "Cross-App Orchestration"
+  description: "Cross-app workflows, structural consistency, disconnection risk, and the agent-vs-assistant architectural distinction."
+  tags: ["cross-app-orchestration", "structural-consistency", "disconnection-risk", "agent-vs-assistant", "Cowork"]
+  version: 1
+
+cards:
+  - id: "ch17-08-cross-app-definition-001"
+    front: "What is cross-app orchestration?"
+    back: "The execution of multi-step workflows that span multiple applications in a single continuous pass. Instead of completing work in one application and manually transferring results to another, the agent carries context across applications and produces deliverables without manual data transfer."
+    tags: ["cross-app-orchestration", "definition"]
+    difficulty: "basic"
+
+  - id: "ch17-08-structural-consistency-002"
+    front: "What is structural consistency, and how does it differ from manual consistency?"
+    back: "Structural consistency means the output is produced from the source in a single pass — the numbers cannot be disconnected from their source. Manual consistency depends on the analyst remembering to update every reference after every revision. Structural consistency is guaranteed by architecture; manual consistency fails silently."
+    tags: ["structural-consistency", "manual-consistency"]
+    difficulty: "intermediate"
+
+  - id: "ch17-08-disconnection-risk-003"
+    front: "What is disconnection risk in a manual cross-app workflow?"
+    back: "The risk that numbers copied from a source application (e.g., Excel model) become stale in the target application (e.g., PowerPoint deck) after the source is revised. The error is invisible — the deck looks correct but contains old numbers. Every manual copy-paste step introduces this risk."
+    tags: ["disconnection-risk", "copy-paste", "stale-data"]
+    difficulty: "intermediate"
+
+  - id: "ch17-08-earnings-workflow-004"
+    front: "Describe the earnings-to-one-pager workflow with cross-app orchestration."
+    back: "The analyst runs /earnings in Cowork to update the Excel model with new actuals. Then asks Claude to build a two-slide PowerPoint summary. Claude carries the analysis context — numbers, beats, key drivers — from Excel directly into PowerPoint using the firm's branded template. Two separate tasks (45 min Excel + 30 min PowerPoint) become one continuous workflow."
+    tags: ["earnings-workflow", "one-pager", "example"]
+    difficulty: "basic"
+
+  - id: "ch17-08-agent-vs-assistant-005"
+    front: "What is the architectural difference between an AI assistant and an AI agent in the context of cross-app workflows?"
+    back: "An assistant operates within a single application — Claude in Excel helps inside one workbook. An agent operates across applications — Cowork carries context from Excel to PowerPoint and executes the full workflow. The assistant helps you do tasks; the agent executes workflows across application boundaries."
+    tags: ["agent-vs-assistant", "architecture"]
+    difficulty: "intermediate"
+
+  - id: "ch17-08-revision-handling-006"
+    front: "How does each workflow type handle model revisions?"
+    back: "Manual workflow: the analyst must remember to update every reference in every downstream deliverable — any missed update creates stale data. Orchestrated workflow: re-run the workflow and get a fresh output produced from the current model. Consistency is maintained automatically."
+    tags: ["revision-handling", "re-run", "consistency"]
+    difficulty: "intermediate"
+
+  - id: "ch17-08-access-requirements-007"
+    front: "What subscription level is required for cross-app orchestration between Excel and PowerPoint?"
+    back: "Cowork Team or Enterprise subscription with the financial-analysis plugin and PowerPoint add-in enabled. Claude in Excel alone (available without Cowork) is an assistant within one workbook and cannot orchestrate across applications."
+    tags: ["access-requirements", "Cowork", "subscription"]
+    difficulty: "basic"
+
+  - id: "ch17-08-production-pattern-008"
+    front: "What is the production pattern for financial services work using Claude?"
+    back: "Cowork orchestrates the cross-app workflow (generates deliverables spanning multiple applications). Claude in Excel audits the model (interrogates formulas, verifies data, checks assumptions within a single workbook). The two architectures complement each other — orchestration for production, embedded assistant for verification."
+    tags: ["production-pattern", "complementary-architectures"]
+    difficulty: "intermediate"
+
+  - id: "ch17-08-primary-advantage-009"
+    front: "Is the primary advantage of cross-app orchestration speed or consistency?"
+    back: "Consistency. The time saving (from 75 minutes to one continuous workflow) is a side effect. The primary advantage is structural consistency — eliminating the disconnection risk that manual copy-paste introduces. Speed is valuable but the elimination of silent data errors is architecturally significant."
+    tags: ["primary-advantage", "consistency-over-speed"]
+    difficulty: "intermediate"
+    why: "Tests whether students understand the deeper architectural point rather than focusing on the obvious time saving"
+
+  - id: "ch17-08-complementary-validation-010"
+    front: "Why would an organisation still require human review of cross-app orchestrated outputs?"
+    back: "Structural consistency guarantees data transfer accuracy, but not analytical judgment. The human reviewer checks whether the right data points were selected, whether the narrative interpretation is appropriate, whether the framing suits the audience, and whether the output meets compliance requirements. The agent ensures consistency; the human ensures appropriateness."
+    tags: ["human-review", "judgment", "compliance"]
+    difficulty: "intermediate"
+    why: "Tests understanding that structural consistency does not eliminate the need for professional judgment"

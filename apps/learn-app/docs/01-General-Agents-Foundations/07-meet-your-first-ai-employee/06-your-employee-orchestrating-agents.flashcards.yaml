@@ -1,0 +1,115 @@
+deck:
+  id: "ch07-06-delegation-claude-code"
+  title: "Your Employee Orchestrating Agents"
+  description: "The Agent Client Protocol (ACP) for delegating coding tasks to external harnesses, one-shot vs persistent modes, thread and focus binding, NLP dispatch, channel limitations, and verification over trust."
+  tags: ["acp", "delegation", "harnesses", "verification", "thread-binding", "nlp-dispatch"]
+  version: 4
+
+cards:
+  - id: "ch07-06-delegation-claude-code-001"
+    front: "What does the Agent Client Protocol (ACP) replace in OpenClaw's delegation model?"
+    back: "Ad-hoc natural language instructions with managed sessions, state tracking, and automatic lifecycle management."
+    tags: ["acp", "delegation"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-002"
+    front: "Why must delegation to a coding harness use a protocol rather than natural language?"
+    back: "BECAUSE natural language can produce plausible but false claims about actions never taken, THEREFORE a protocol like ACP either has a real tracked process or it does not — no middle ground for hallucination."
+    tags: ["delegation", "hallucination"]
+    difficulty: "intermediate"
+    why: "What specific false claims might an employee make about delegation without ACP?"
+
+  - id: "ch07-06-delegation-claude-code-003"
+    front: "What is the difference between one-shot and persistent ACP session modes?"
+    back: "One-shot runs a single task and closes. Persistent stays alive across multiple turns for follow-ups and iteration."
+    tags: ["acp", "sessions"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-004"
+    front: "What five coding harnesses does the acpx backend support?"
+    back: "Claude Code, Codex, Pi, OpenCode, Gemini CLI"
+    tags: ["acp", "harnesses"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-005"
+    front: "Why do persistent ACP sessions fail on WhatsApp and Telegram?"
+    back: "BECAUSE persistent sessions need message routing to the ACP session (via thread binding or focus), and WhatsApp/Telegram lack thread primitives, THEREFORE only one-shot mode works on these channels."
+    why: "What would need to change in WhatsApp for persistent ACP to work?"
+    tags: ["acp", "channels", "whatsapp"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-006"
+    front: "After /acp spawn on the TUI, what must you do before your messages reach the ACP session?"
+    back: "Run /focus <session-key> to bind the unbound session to the current conversation."
+    tags: ["acp", "tui", "focus"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-007"
+    front: "How does NLP dispatch trigger ACP without slash commands?"
+    back: "Plain language like 'Run this as a one-shot ACP session' is recognized by the employee's dispatch layer and routed to the default harness."
+    tags: ["acp", "nlp-dispatch"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-008"
+    front: "What does /acp steer do differently from sending a new task?"
+    back: "Sends guidance to the active session without replacing context — the harness receives the follow-up with full history of prior work."
+    tags: ["acp", "steer"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-009"
+    front: "What does --thread auto do when spawning an ACP session on Discord?"
+    back: "Binds the session to the current thread or creates a new one, routing all subsequent thread messages directly to the harness."
+    tags: ["thread-binding", "discord"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-010"
+    front: "ACP session: external coding harness. Sub-agent run?"
+    back: "OpenClaw-native delegated run using /subagents commands."
+    tags: ["acp", "sub-agents"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-011"
+    front: "What three roles make up the two-tier delegation pattern with ACP?"
+    back: "You (manager), your AI Employee (coordinator), coding harness via ACP (coder)"
+    tags: ["delegation", "two-tier"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-012"
+    front: "Why does /acp status confirming a session exist not mean the work is correct?"
+    back: "BECAUSE /acp status verifies the session ran but not whether the output is accurate, THEREFORE you still need to check that files exist, code runs without errors, and results match your request."
+    tags: ["verification"]
+    difficulty: "intermediate"
+    why: "What is the difference between process verification and outcome verification?"
+
+  - id: "ch07-06-delegation-claude-code-013"
+    front: "How does the research-then-build pattern combine employee and harness strengths?"
+    back: "BECAUSE the employee holds your context, memory, and web search for research while the harness specializes in writing code, THEREFORE splitting research (employee) from implementation (harness) uses each tool's strength."
+    tags: ["delegation", "research-build"]
+    difficulty: "advanced"
+    why: "Why is the employee better suited for the research phase than a coding harness?"
+
+  - id: "ch07-06-delegation-claude-code-014"
+    front: "ACP setup: operator runs in terminal. ACP usage?"
+    back: "Conversational — /acp spawn, /acp status, /acp steer, /acp close all happen in the messaging channel."
+    tags: ["acp", "configuration"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-015"
+    front: "Why can't the employee set up ACP itself instead of requiring operator CLI commands?"
+    back: "BECAUSE ACP is what enables delegation in the first place — the employee cannot bootstrap its own delegation protocol, THEREFORE setup must happen at the operator level before the employee can use conversational /acp commands."
+    why: "What other infrastructure in this chapter follows the same bootstrap pattern?"
+    tags: ["acp", "configuration", "bootstrap"]
+    difficulty: "intermediate"
+
+  - id: "ch07-06-delegation-claude-code-016"
+    front: "Why must you restart the gateway after changing ACP config?"
+    back: "Config changes write to openclaw.json but the running gateway uses its loaded config — restart forces it to read the new values."
+    tags: ["acp", "configuration", "gateway"]
+    difficulty: "basic"
+
+  - id: "ch07-06-delegation-claude-code-017"
+    front: "Why is setting acp.defaultAgent important for NLP dispatch?"
+    back: "BECAUSE without a default agent, the employee cannot resolve which harness to use from a plain language request like 'run this in ACP', THEREFORE NLP dispatch fails unless defaultAgent provides a fallback target."
+    why: "What error would a user see on WhatsApp without acp.defaultAgent set?"
+    tags: ["acp", "nlp-dispatch", "configuration"]
+    difficulty: "advanced"

@@ -46,12 +46,75 @@ Two kinds of cards. Each has a clear test for quality.
 - front: "What is SDD and what is MCP?"
   back: "SDD is spec-driven development. MCP is model context protocol."
 
+# BAD: Compound question — "and" joins two distinct questions
+- front: "What is a Golden Dataset, and what accuracy threshold is recommended?"
+  back: "50+ real-world scenarios. 97%+ accuracy."
+# FIXED: Split into two cards:
+#   Card A front: "What is a Golden Dataset?"  back: "50+ real-world scenarios representing actual agent work."
+#   Card B front: "What accuracy threshold is recommended before deploying an agent to production?"  back: "97%+"
+
 # BAD: Answer is a paragraph — violates minimum information principle
 - front: "What is a Digital FTE?"
   back: "A Digital FTE is an AI agent that functions as an autonomous employee,
     working 24/7 without breaks, capable of handling tasks that previously
     required human workers, and can be instantly cloned to scale operations
     exponentially rather than linearly."
+# FIXED: back: "An AI agent built, hired, and priced like a human employee — working 24/7."
+
+# BAD: Back has explanation — recall backs are JUST the fact
+- front: "In the Agent Factory era, what do companies manufacture?"
+  back: "AI employees — role-based systems that compose tools, spawn specialist
+    agents, and deliver outcomes at scale."
+# FIXED: back: "AI employees (Digital FTEs)"
+```
+
+### Discrimination Cards (recall subtype)
+
+When the source has comparison tables or contrasting pairs, generate either/or discrimination cards that force the student to classify.
+
+```yaml
+# Era transition — forces classification
+- id: "ch01-factory-paradigm-010"
+  front: "SaaS era product: software tools. Agent Factory era product?"
+  back: "AI employees."
+  tags: ["paradigm-shift"]
+  difficulty: "basic"
+
+# Before/after — forces discrimination between states
+- id: "ch01-factory-paradigm-011"
+  front: "SaaS scaling model: hire more humans. Agent Factory scaling model?"
+  back: "Clone the agent instantly."
+  tags: ["scaling"]
+  difficulty: "basic"
+
+# Role shift — forces pairing
+- id: "ch01-factory-paradigm-012"
+  front: "In SaaS, humans are operators. In the Agent Factory, humans are?"
+  back: "Supervisors and verifiers."
+  tags: ["human-role"]
+  difficulty: "intermediate"
+```
+
+**Trigger**: comparison tables, before/after lists, era transitions. These count as recall cards (no `why` field, basic/intermediate difficulty).
+
+### Mapping Cards (recall subtype)
+
+When the answer is a set of paired items, use multiline `\n` format. Word count applies to total words across all lines.
+
+```yaml
+# Three paired items — structured back
+- id: "ch05-reusable-skills-010"
+  front: "In SDD, what do specs, skills, and feedback loops each provide?"
+  back: "Specs: WHAT to do.\nSkills: HOW to do it.\nFeedback loops: IMPROVE over time."
+  tags: ["sdd", "components"]
+  difficulty: "intermediate"
+
+# Framework mapping
+- id: "ch01-factory-paradigm-013"
+  front: "What are the three Agent Factory pillars and what does each provide?"
+  back: "AI Agents: the workforce.\nCloud Infrastructure: the factory floor.\nBusiness Model: the revenue engine."
+  tags: ["agent-factory", "pillars"]
+  difficulty: "basic"
 ```
 
 ## Thinking Cards
@@ -92,6 +155,18 @@ Two kinds of cards. Each has a clear test for quality.
 # BAD: Just a recall card with "Why" stapled on — answer is a single fact
 - front: "Why is SDD important?"
   back: "Because specs are the source of truth."
+
+# BAD: Disguised recall — back is a memorizable before/after, not reasoning
+- front: "How does the human role change from SaaS to the Agent Factory era?"
+  back: "From operator to supervisor and verifier."
+# This is a FACT, not reasoning. A parrot could memorize it.
+# FIXED as recall: front: "In the Agent Factory, what is the human role?"  back: "Supervisor and verifier."
+# FIXED as thinking: front: "Why does shifting from operator to supervisor require fundamentally new skills?"
+
+# BAD: Formulaic front — sounds like an exam, not a flashcard
+- front: "Why does the lesson argue that open-source AI models are critical?"
+  back: "They prevent monopoly on intelligence."
+# FIXED: front: "Open-source AI models are free, yet governments still build proprietary ones. Why?"
 
 # BAD: Answer too short — no reasoning shown
 - front: "A company's AI agents keep failing in production. What's the likely cause?"

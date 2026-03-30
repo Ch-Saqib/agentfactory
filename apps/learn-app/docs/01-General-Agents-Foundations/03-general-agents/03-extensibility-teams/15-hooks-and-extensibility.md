@@ -531,3 +531,8 @@ Lesson 16 introduces **Plugins**—pre-packaged bundles of skills, hooks, agents
 > "My hook isn't running. Help me debug: How do I test the script manually? How do I check if settings.json is correct? What does claude --debug show?"
 
 **What you're learning:** Hook debugging methodology—the systematic approach when automation doesn't work. This skill saves significant debugging time.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

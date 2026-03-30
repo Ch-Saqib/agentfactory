@@ -1,0 +1,101 @@
+deck:
+  id: "ch05-04-parallel-research"
+  title: "Phase 1: Parallel Research with Subagents"
+  description: "Parallel research pattern, context isolation, effective decomposition, and finding synthesis using Claude's subagent architecture."
+  tags: ["sdd", "parallel-research", "subagents", "context-isolation"]
+  version: 1
+
+cards:
+  # ── RECALL CARDS (6) ──────────────────────────────────────────
+
+  - id: "ch05-04-parallel-research-001"
+    type: recall
+    front: "What trigger phrase activates parallel research in Claude Code?"
+    back: "\"Spin up multiple subagents for your research task.\""
+    tags: ["parallel-research", "prompt-pattern"]
+    difficulty: "basic"
+
+  - id: "ch05-04-parallel-research-002"
+    type: recall
+    front: "How many independent subagents does Claude typically spawn for parallel research?"
+    back: "3 to 5, depending on complexity."
+    tags: ["subagents", "parallel-research"]
+    difficulty: "basic"
+
+  - id: "ch05-04-parallel-research-003"
+    type: recall
+    front: "What four qualities define an effective research decomposition?"
+    back: "Independent, Focused, Bounded, Complementary."
+    tags: ["decomposition", "research-quality"]
+    difficulty: "basic"
+
+  - id: "ch05-04-parallel-research-004"
+    type: recall
+    front: "What four components does the decomposition template require?"
+    back: "Research task, spawn parallel subagents, reference material, return format."
+    tags: ["decomposition", "template"]
+    difficulty: "intermediate"
+
+  - id: "ch05-04-parallel-research-005"
+    type: recall
+    front: "In the IndexedDB example, how long did parallel research take versus sequential?"
+    back: "18 minutes versus 4 hours."
+    tags: ["parallel-research", "indexeddb-example"]
+    difficulty: "basic"
+
+  - id: "ch05-04-parallel-research-006"
+    type: recall
+    front: "Agent Teams use inter-agent debate. Subagents use what reporting model?"
+    back: "Independent reporting without cross-agent interaction."
+    tags: ["agent-teams", "subagents"]
+    difficulty: "intermediate"
+
+  # ── THINKING CARDS (6) ────────────────────────────────────────
+
+  - id: "ch05-04-parallel-research-007"
+    type: thinking
+    front: "Why does context isolation improve research quality, not just speed?"
+    back: "Each agent investigates without inheriting assumptions from other threads, THEREFORE findings reflect independent analysis rather than confirmation bias compounding across topics."
+    tags: ["context-isolation", "research-quality"]
+    difficulty: "intermediate"
+    why: "How would accumulated context cause a researcher to dismiss a valid alternative approach?"
+
+  - id: "ch05-04-parallel-research-008"
+    type: thinking
+    front: "Why are conflicts between parallel research agents valuable?"
+    back: "Contradictory findings surface genuine design decisions that sequential research hides through unconscious reconciliation, THEREFORE conflicts become explicit input for the Refinement phase."
+    tags: ["conflicts", "design-decisions"]
+    difficulty: "intermediate"
+    why: "What happens to hidden conflicts if they reach implementation without being surfaced?"
+
+  - id: "ch05-04-parallel-research-009"
+    type: thinking
+    front: "Why does sequential research hide conflicts while parallel research surfaces them?"
+    back: "Sequential context accumulates, so each new finding is filtered through prior conclusions. Parallel agents have no shared context, THEREFORE contradictions appear explicitly in independent reports."
+    tags: ["sequential-vs-parallel", "conflicts"]
+    difficulty: "advanced"
+    why: "How does early-finding bias in sequential research shape which evidence gets noticed later?"
+
+  - id: "ch05-04-parallel-research-010"
+    type: thinking
+    front: "Why is revision cost lower with parallel than sequential research?"
+    back: "BECAUSE agents work in isolation, THEREFORE re-running one thread leaves all other findings intact — whereas sequential shared assumptions mean a late correction cascades through earlier conclusions."
+    tags: ["revision", "context-isolation"]
+    difficulty: "intermediate"
+    why: "What property of sequential research causes late discoveries to invalidate earlier work?"
+
+  - id: "ch05-04-parallel-research-011"
+    type: thinking
+    front: "How do you choose between the three common research scenarios?"
+    back: "BECAUSE each scenario demands different subagent focus questions, THEREFORE match the goal: reference implementations for new builds, technology evaluation for comparisons, code auditing for improving existing systems."
+    tags: ["research-scenarios", "decomposition"]
+    difficulty: "intermediate"
+    why: "What happens if you apply a technology evaluation frame when you actually need a code audit?"
+
+  - id: "ch05-04-parallel-research-012"
+    type: thinking
+    front: "How do research findings feed into the Specification phase?"
+    back: "BECAUSE cross-agent patterns signal validated constraints and conflicts surface real design decisions, THEREFORE patterns map to the Reference Architecture section, conflicts become Refinement questions, and implications shape spec.md Constraints."
+    tags: ["synthesis", "spec-mapping", "sdd"]
+    difficulty: "advanced"
+    why: "Why do cross-agent patterns signal genuine constraints rather than coincidence?"

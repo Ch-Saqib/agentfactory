@@ -1,0 +1,82 @@
+deck:
+  id: "ch03-04-hello-world"
+  title: "Hello Claude: Your First Conversation"
+  description: "First conversation with Claude Code: natural language interface, the approval pattern, and the Five Extension Tools preview."
+  tags: ["hello-world", "approval-pattern", "extension-tools", "claude-code"]
+  version: 1
+
+cards:
+  - id: "ch03-04-hello-world-001"
+    type: recall
+    front: "What command starts a Claude Code session in the terminal?"
+    back: "The `claude` command in terminal."
+    tags: ["getting-started", "terminal"]
+    difficulty: "basic"
+
+  - id: "ch03-04-hello-world-002"
+    type: recall
+    front: "In Claude Code's approval workflow, what does pressing Enter do?"
+    back: "Approves the proposed action."
+    tags: ["approval-pattern", "controls"]
+    difficulty: "basic"
+
+  - id: "ch03-04-hello-world-003"
+    type: thinking
+    front: "Why does Claude Code ask for approval before reading, writing, or running commands instead of just executing?"
+    back: "BECAUSE Claude Code can delete files, run commands, and modify code, THEREFORE the approval workflow ensures you see exactly what will happen before any action executes — preventing accidental deletions or unintended modifications."
+    tags: ["approval-pattern", "security"]
+    difficulty: "intermediate"
+    why: "How does this approval model change your trust relationship with AI compared to tools that execute silently?"
+
+  - id: "ch03-04-hello-world-004"
+    type: thinking
+    front: "Why does Claude Code need five separate extension tools instead of one configuration system?"
+    back: "BECAUSE each tool solves a distinct limitation — context loss, procedure drift, task overload, external blindness, and quality inconsistency, THEREFORE separating them lets you adopt incrementally and compose only what your workflow needs."
+    tags: ["extension-tools", "architecture"]
+    difficulty: "intermediate"
+    why: "Modular extension points scale better than monolithic configuration."
+
+  - id: "ch03-04-hello-world-005"
+    type: thinking
+    front: "Why is rejecting Claude's proposal and redirecting (steering) better than starting a new session?"
+    back: "BECAUSE steering preserves conversation context and Claude adapts based on what you rejected, THEREFORE redirecting builds on accumulated understanding while starting over loses everything Claude learned about what you want."
+    tags: ["steering", "workflow"]
+    difficulty: "intermediate"
+    why: "What information does Claude gain from a rejection that it wouldn't have from a fresh start?"
+
+  - id: "ch03-04-hello-world-006"
+    type: recall
+    front: "If you need persistent context for every session, which extension tool solves this?"
+    back: "CLAUDE.md."
+    tags: ["extension-tools", "claude-md"]
+    difficulty: "intermediate"
+
+  - id: "ch03-04-hello-world-007"
+    type: recall
+    front: "If you need Claude to access external systems like APIs or databases, which extension tool solves this?"
+    back: "MCP (Model Context Protocol)."
+    tags: ["extension-tools", "mcp"]
+    difficulty: "basic"
+
+  - id: "ch03-04-hello-world-008"
+    type: thinking
+    front: "Why does Claude Code use natural language as its interface instead of requiring special command syntax?"
+    back: "BECAUSE the AI interprets intent from conversation rather than requiring exact syntax, THEREFORE natural language removes the learning barrier — anyone can use Claude's agentic capabilities without memorizing commands."
+    tags: ["natural-language", "interface-design"]
+    difficulty: "intermediate"
+    why: "What trade-offs come with natural language versus structured commands for repeatability?"
+
+  - id: "ch03-04-hello-world-009"
+    type: recall
+    front: "In Claude Code's approval workflow, what does pressing Esc do?"
+    back: "Rejects the proposed action and lets you redirect Claude."
+    tags: ["approval-pattern", "steering"]
+    difficulty: "basic"
+
+  - id: "ch03-04-hello-world-010"
+    type: thinking
+    front: "How does the pattern of individual extension tools combining into professional systems reflect the difference between amateur automation and professional architecture?"
+    back: "BECAUSE individual tools solve only isolated problems, THEREFORE professional systems compose them — CLAUDE.md for context, Skills for procedures, Hooks for quality gates — creating layered architecture where each component reinforces the others."
+    tags: ["extension-tools", "architecture", "systems-thinking"]
+    difficulty: "advanced"
+    why: "What breaks when you use only one extension tool instead of composing several?"

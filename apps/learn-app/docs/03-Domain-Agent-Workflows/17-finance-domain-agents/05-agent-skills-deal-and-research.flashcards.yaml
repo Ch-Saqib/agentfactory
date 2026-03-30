@@ -1,0 +1,69 @@
+deck:
+  id: "ch17-05-agent-skills-deal-and-research"
+  title: "The Six Agent Skills: Deal and Research"
+  description: "Due Diligence Data Pack, Company Teaser, Earnings Analysis, and Initiating Coverage Report — the four deal-focused and research-focused Agent Skills in Claude in Excel."
+  tags: ["due-diligence", "company-teaser", "earnings-analysis", "initiating-coverage", "agent-skills", "finance"]
+  version: 1
+
+cards:
+  - id: "ch17-05-dd-purpose-001"
+    front: "What does the Due Diligence Data Pack skill produce, and what is its primary purpose?"
+    back: "It produces a structured data pack for a target company: three-year financial summary (income statement, balance sheet, cash flow), key ratio analysis, capital structure summary, customer concentration data, and a flagging section that surfaces anomalies. Its purpose is to compress a first-pass DD assessment from hours of manual ratio analysis into a structured conversation."
+    tags: ["due-diligence", "data-pack"]
+    difficulty: "basic"
+
+  - id: "ch17-05-adjusted-ebitda-002"
+    front: "What is Adjusted EBITDA and why does it matter in due diligence?"
+    back: "Adjusted EBITDA removes one-off items to reveal true ongoing profitability. Add back: one-time restructuring costs, non-recurring legal settlements, above-market owner compensation. Subtract: revenue from discontinued contracts, above-normal asset sale gains. It matters because reported EBITDA may be inflated by non-recurring items, making the business appear more profitable than its run-rate earnings justify."
+    tags: ["due-diligence", "adjusted-ebitda", "quality-of-earnings"]
+    difficulty: "intermediate"
+
+  - id: "ch17-05-dd-red-flags-003"
+    front: "What are four red flags the Due Diligence Data Pack surfaces?"
+    back: "1. Revenue concentration (one customer at 40%+ of revenue). 2. Receivables growing faster than revenue (DSO expansion — may indicate aggressive revenue recognition). 3. Capex consistently below depreciation (underinvestment in the asset base). 4. Large undisclosed related-party transactions."
+    tags: ["due-diligence", "red-flags"]
+    difficulty: "intermediate"
+
+  - id: "ch17-05-teaser-purpose-004"
+    front: "What is an M&A teaser and what determines whether it is effective?"
+    back: "A teaser (blind profile) is a 1-2 page anonymous description of a business sent to potential buyers before the seller shares the company's identity. A well-written teaser generates 15-25 NDA signings; a weak one generates 3-5. The difference is how compellingly the business is characterised — framing and positioning drive buyer interest, not just financial metrics."
+    tags: ["company-teaser", "M-and-A"]
+    difficulty: "basic"
+
+  - id: "ch17-05-nda-cim-005"
+    front: "What happens after a buyer expresses interest in an M&A teaser?"
+    back: "The buyer signs a Non-Disclosure Agreement (NDA) and receives the full Confidential Information Memorandum (CIM) — a detailed document that includes the company's name, customer lists, financial projections, and management team. The teaser-to-NDA conversion rate is the key metric for teaser effectiveness."
+    tags: ["company-teaser", "NDA", "CIM"]
+    difficulty: "basic"
+
+  - id: "ch17-05-consensus-estimates-006"
+    front: "What are consensus estimates and why does the beat/miss against them matter more than absolute performance?"
+    back: "Consensus estimates are the average of analysts' published financial forecasts for a company. The beat/miss matters because stock prices move based on results relative to what was already expected and priced in — not whether results are good or bad in absolute terms. A company with strong growth can see its stock fall if growth was slightly below what analysts expected."
+    tags: ["earnings-analysis", "consensus-estimates"]
+    difficulty: "basic"
+
+  - id: "ch17-05-earnings-workflow-007"
+    front: "What are the five steps of the post-earnings analyst workflow, and how much time does the Earnings Analysis Skill save?"
+    back: "1. Compare actuals vs. consensus on revenue, EBITDA, and EPS. 2. Update the financial model for new actuals. 3. Revise forward estimates based on management guidance. 4. Update the price target if the valuation model changes. 5. Publish a note summarising the quarter. Previously 2-3 hours per company; approximately 45 minutes with the Skill."
+    tags: ["earnings-analysis", "workflow"]
+    difficulty: "intermediate"
+
+  - id: "ch17-05-initiating-coverage-008"
+    front: "What is an initiating coverage report and why is it the most time-intensive equity research deliverable?"
+    back: "An initiating coverage report is a comprehensive 25-50 page research document introducing an analyst's view on a company to institutional investors. It includes investment thesis, business description, industry overview, financial model (DCF and comps), valuation, key risks, and price target. It takes 4-8 weeks because it requires both structural framework (which the Skill handles, roughly 60% of time) and original insight (which the analyst provides)."
+    tags: ["initiating-coverage", "equity-research"]
+    difficulty: "intermediate"
+
+  - id: "ch17-05-insight-vs-framework-009"
+    front: "In an initiating coverage report, what does Claude handle and what must the analyst provide?"
+    back: "Claude handles the structural setup and data population: company overview, financial summary tables, DCF model, comps table, and investment thesis template — roughly 60% of the elapsed time. The analyst provides the differentiated insight: a non-consensus view on competitive position, a financial analysis that surfaces something the market is not pricing, or a variant view on the industry."
+    tags: ["initiating-coverage", "analyst-judgment"]
+    difficulty: "intermediate"
+    why: "Tests understanding of the human-AI division of labour in the most complex research deliverable"
+
+  - id: "ch17-05-boundaries-010"
+    front: "What are the four non-negotiable boundaries of Claude in Excel's financial Agent Skills?"
+    back: "1. Claude does not provide investment advice (no buy/sell recommendations — regulatory and fiduciary implications). 2. Claude makes mistakes and must be verified against underlying data. 3. Claude does not validate assumptions (it will build a model with unreasonable growth rates if instructed). 4. Claude does not replace an audit (outputs require the same professional review as non-AI work)."
+    tags: ["boundaries", "professional-responsibility"]
+    difficulty: "basic"
+    why: "Tests understanding of structural limitations that are features, not bugs"

@@ -1,7 +1,6 @@
 ---
 sidebar_position: 14
 title: "Hackathon 0: Build Your Personal AI Employee"
-sidebar_label: "L14: Hackathon 0"
 description: "The Hackathon 0 assignment challenges you to build a complete Personal AI Employee from scratch, applying every skill from Chapter 13. Choose your tier, plan your architecture, and start building."
 keywords:
   [

@@ -458,3 +458,8 @@ Don't build anything complex. Show me how Unix philosophy
 ### Safety Note
 
 Never run a command you don't understand. If an AI suggests a command and you're unsure what it does, ask: "Explain what this command does before running it." Pay special attention to commands with `rm`, `sudo`, `>` (redirect/overwrite), or `|` (pipe) operators. When in doubt, test on a folder with files you don't care about first.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

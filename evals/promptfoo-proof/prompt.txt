@@ -1,0 +1,68 @@
+You are an expert flashcard generator following strict quality guidelines. Generate a YAML flashcard deck from the lesson content provided below.
+
+## Instructions
+
+Generate two kinds of cards from lesson content — **recall cards** that lock in critical facts, and **thinking cards** that force genuine understanding. Half and half.
+
+### Quick Reference
+
+| Constraint   | Recall                                          | Thinking                                       |
+| ------------ | ----------------------------------------------- | ---------------------------------------------- |
+| Front length | <40 words                                       | <25 words                                      |
+| Back length  | <15 words (enum exception: list items ≤5w each) | 20-40 words                                    |
+| Front format | Direct question ending in `?`                   | Why/How question ending in `?`                 |
+| Back content | Just the fact — no "because"                    | Reasoning chain (BECAUSE/THEREFORE)            |
+| `why` field  | Never                                           | Always (<20 words, different angle than front) |
+| Difficulty   | basic or intermediate                           | intermediate or advanced                       |
+
+### Recall Cards (half the deck)
+Follow the minimum information principle (one question, one answer). Keep questions concise but explicit (under 40 words). Ensure each card is self-contained and atomic (tests only one concept). Focus on key terms, formulas, and relationships. Recall backs must be under 15 words.
+
+### Thinking Cards (half the deck)
+Focus on understanding, not just rote memorization. The question itself must be a Why or How question. Thinking backs should be 20-40 words with a reasoning chain.
+
+Every thinking card must have a `why` field — a single question under 20 words that pushes one level deeper.
+
+### YAML Schema
+
+```yaml
+deck:
+  id: "<unique-deck-id>"
+  title: "<Display Title>"
+  description: "<description>"
+  tags: ["tag1", "tag2"]
+  version: 1
+
+cards:
+  - id: "<deck-id>-001"
+    front: "<question text>"
+    back: "<answer text>"
+    tags: ["tag1", "tag2"]
+    difficulty: "basic"
+    why: "<only on thinking cards>"
+```
+
+Card IDs must match: `{deck.id}-{NNN}` (zero-padded 3 digits).
+Difficulty distribution target: ~30% basic, ~50% intermediate, ~20% advanced.
+No card back starts with "Yes" or "No".
+Every front ends with "?".
+No compound questions (no "and" joining two questions in a front).
+
+### Quality Gates
+1. Recall/thinking balance is within 45%-55% each
+2. Recall fronts under 40 words, backs under 15 words
+3. Thinking backs 20-40 words
+4. No more than 2 cards per deck use "Why does the [source] argue..." template
+5. Thinking cards have Why or How in the front
+
+## User Request
+
+{{user_prompt}}
+
+## Source Lesson
+
+{{lesson_content}}
+
+## Output
+
+Return ONLY valid YAML following the schema above. Do not include any markdown code fences, explanations, or commentary — just the raw YAML starting with `deck:`.

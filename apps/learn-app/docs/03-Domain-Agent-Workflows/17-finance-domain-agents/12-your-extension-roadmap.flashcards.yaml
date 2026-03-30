@@ -1,0 +1,56 @@
+deck:
+  id: "ch17-12-extension-roadmap"
+  title: "Your Extension Roadmap and Chapter Summary"
+  description: "Extension prioritisation framework, chapter synthesis, and the three-layer architecture of finance domain agents."
+  tags: ["extension-roadmap", "prioritisation", "chapter-summary", "finance-domain-agents"]
+  version: 1
+
+cards:
+  - id: "ch17-12-four-criteria-001"
+    front: "What are the four criteria for prioritising enterprise extensions?"
+    back: "Frequency of use (how often the workflow runs), current pain level (how much friction the generic plugin creates), data availability (whether the extension's data sources are accessible), and expertise availability (whether the domain expert can be reached for knowledge extraction)."
+    tags: ["prioritisation", "criteria"]
+    difficulty: "basic"
+
+  - id: "ch17-12-regulatory-override-002"
+    front: "What is the regulatory override rule in extension prioritisation?"
+    back: "An extension addressing compliance requirements (regulatory reporting, IPS compliance, credit risk classification) moves to the front of the queue regardless of its composite score. Non-compliance is a risk cost, not a friction cost — it overrides all other prioritisation criteria."
+    tags: ["regulatory", "prioritisation", "override"]
+    difficulty: "intermediate"
+
+  - id: "ch17-12-parallel-sequencing-003"
+    front: "What is the recommended first-quarter extension deployment strategy?"
+    back: "Run three extensions in parallel: one targeting the highest-volume workflow, one targeting the highest-risk compliance area, and one targeting the knowledge most at risk of leaving the organisation. These three do not compete for the same resources because they address different concerns."
+    tags: ["sequencing", "parallel", "first-quarter"]
+    difficulty: "intermediate"
+
+  - id: "ch17-12-three-layers-004"
+    front: "What are the three layers of the chapter's finance architecture?"
+    back: "Layer 1: Claude in Excel — an embedded assistant working within a single workbook (general intelligence + six Agent Skills). Layer 2: Cowork — an orchestrating agent working across multiple applications through finance plugins. Layer 3: Enterprise extensions — SKILL.md files that encode institutional knowledge on top of both layers."
+    tags: ["three-layers", "architecture"]
+    difficulty: "basic"
+
+  - id: "ch17-12-same-connectors-005"
+    front: "What does 'same connectors, different scope' mean in the chapter's architecture?"
+    back: "Claude in Excel and Cowork share the same MCP connector ecosystem. The difference is scope, not infrastructure: Claude in Excel uses connectors at workbook scope (embedded assistant), while Cowork uses the same connectors at multi-application scope (orchestrating agent). Enterprise extensions add institutional knowledge on top of both."
+    tags: ["MCP-connectors", "scope", "architecture"]
+    difficulty: "intermediate"
+    why: "Tests whether students understand the unifying architectural insight rather than treating the three parts as separate systems"
+
+  - id: "ch17-12-data-availability-006"
+    front: "Why is data availability described as a prerequisite rather than just another criterion?"
+    back: "An extension without accessible data sources cannot be built regardless of how high the pain level or frequency of use scores. If investment policy statements are in scanned PDFs without OCR, the IPS compliance extension cannot function until that data prerequisite is resolved. Data availability is a gate, not a score."
+    tags: ["data-availability", "prerequisite"]
+    difficulty: "intermediate"
+
+  - id: "ch17-12-knowledge-risk-007"
+    front: "What role does knowledge risk play in extension prioritisation?"
+    back: "Some extensions encode expertise held by a single person or small team. If that expertise could leave the organisation through retirement, resignation, or restructuring, the extension that captures it creates durable institutional value that no hiring process can replicate on short notice. Knowledge risk should inform judgment when two extensions score similarly on the four criteria."
+    tags: ["knowledge-risk", "institutional-value"]
+    difficulty: "intermediate"
+
+  - id: "ch17-12-chapter-to-18-008"
+    front: "How does Chapter 17 connect to Chapter 18 (Legal and Compliance Domain Agents)?"
+    back: "The Knowledge Extraction Method transfers directly — same five questions, same document extraction, same validation loop. What changes is the domain context: legal adds citation verification, jurisdictional specificity, and the absolute boundary between legal information and legal advice. The methodology does not change; the professional knowledge it surfaces does."
+    tags: ["chapter-bridge", "legal-domain", "knowledge-extraction"]
+    difficulty: "basic"

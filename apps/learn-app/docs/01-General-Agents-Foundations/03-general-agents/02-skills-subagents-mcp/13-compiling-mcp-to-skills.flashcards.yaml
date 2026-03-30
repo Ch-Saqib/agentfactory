@@ -1,0 +1,112 @@
+deck:
+  id: "ch03-13-compiling-mcp-skills"
+  title: "Compiling MCP to Skills"
+  description: "Token optimization through compiling MCP servers into lean skills using the code execution pattern."
+  tags: ["mcp", "skills", "token-optimization", "code-execution-pattern"]
+  version: 1
+
+cards:
+  - id: "ch03-13-compiling-mcp-skills-001"
+    type: recall
+    front: "How many tokens does an agent with 1,000 MCP tools load before its first request?"
+    back: "150,000 tokens"
+    tags: ["token-bloat"]
+    difficulty: "basic"
+
+  - id: "ch03-13-compiling-mcp-skills-002"
+    type: recall
+    front: "What percentage of MCP overhead does Tool Search handle automatically?"
+    back: "Approximately 85%"
+    tags: ["tool-search"]
+    difficulty: "basic"
+
+  - id: "ch03-13-compiling-mcp-skills-003"
+    type: recall
+    front: "What are the three components of a compiled skill's directory structure?"
+    back: "SKILL.md, references/ directory, and scripts/ directory"
+    tags: ["architecture"]
+    difficulty: "basic"
+
+  - id: "ch03-13-compiling-mcp-skills-004"
+    type: recall
+    front: "How many tokens does a compiled skill's SKILL.md consume when loaded?"
+    back: "Approximately 150 tokens"
+    tags: ["token-savings"]
+    difficulty: "basic"
+
+  - id: "ch03-13-compiling-mcp-skills-005"
+    type: thinking
+    front: "How does the code execution pattern achieve 99% token savings compared to direct MCP?"
+    back: "BECAUSE scripts run locally outside Claude's context window, only filtered results return to the conversation, THEREFORE tool definitions and intermediate data never consume context tokens."
+    tags: ["code-execution-pattern"]
+    difficulty: "intermediate"
+    why: "Token savings come from where execution happens, not what executes"
+
+  - id: "ch03-13-compiling-mcp-skills-006"
+    type: recall
+    front: "What is the approximate token range for direct MCP usage of Playwright across three calls?"
+    back: "15,000 to 24,000 tokens"
+    tags: ["token-bloat"]
+    difficulty: "intermediate"
+
+  - id: "ch03-13-compiling-mcp-skills-007"
+    type: thinking
+    front: "Why does progressive disclosure loading use three stages instead of loading the full skill immediately?"
+    back: "BECAUSE most skills are never activated in a session, loading only the description (~30 tokens) at discovery avoids wasting context, THEREFORE full SKILL.md loads only when relevant and scripts execute only when needed."
+    tags: ["progressive-disclosure"]
+    difficulty: "intermediate"
+    why: "Deferred loading prevents paying token costs for unused skills"
+
+  - id: "ch03-13-compiling-mcp-skills-008"
+    type: thinking
+    front: "Why does Stage 3 execution of a compiled skill consume zero tokens in Claude's context?"
+    back: "BECAUSE scripts execute MCP tools locally via bash commands on the user's machine, THEREFORE all heavy operations happen outside Claude's context window entirely."
+    tags: ["progressive-disclosure", "code-execution-pattern"]
+    difficulty: "intermediate"
+    why: "Local execution bypasses the token-counted conversation"
+
+  - id: "ch03-13-compiling-mcp-skills-009"
+    type: recall
+    front: "What three content-type filters does the fetch-library-docs skill support?"
+    back: "setup, examples, and api-ref"
+    tags: ["fetch-library-docs", "content-filtering"]
+    difficulty: "basic"
+
+  - id: "ch03-13-compiling-mcp-skills-010"
+    type: thinking
+    front: "How do skills function as intelligent guides rather than just executors?"
+    back: "BECAUSE SKILL.md can contain decision logic about task complexity and output requirements, THEREFORE the skill advises Claude whether to use Tool Search or compiled patterns for each request."
+    tags: ["intelligent-guides", "meta-pattern"]
+    difficulty: "advanced"
+    why: "Skills become advisors by encoding when-to-use-what logic"
+
+  - id: "ch03-13-compiling-mcp-skills-011"
+    type: thinking
+    front: "Why should an MCP server used 3+ times per session be compiled into a skill?"
+    back: "BECAUSE each direct MCP call reloads tool definitions into the context window, repeated calls multiply the token waste, THEREFORE compilation pays back its setup cost through cumulative savings across sessions."
+    tags: ["decision-framework"]
+    difficulty: "intermediate"
+    why: "Frequency amplifies the cost of uncompiled overhead"
+
+  - id: "ch03-13-compiling-mcp-skills-012"
+    type: thinking
+    front: "Why should a rapidly changing MCP API remain as direct MCP rather than compiled?"
+    back: "BECAUSE compiled skills wrap API calls in local scripts, frequent API changes would require constant script maintenance, THEREFORE the upkeep cost exceeds the token savings."
+    tags: ["decision-framework"]
+    difficulty: "intermediate"
+    why: "Maintenance burden can outweigh optimization benefits"
+
+  - id: "ch03-13-compiling-mcp-skills-013"
+    type: recall
+    front: "Which three AI coding agents support the Skills format for cross-agent portability?"
+    back: "Claude Code, OpenAI Codex, and Goose"
+    tags: ["portability"]
+    difficulty: "intermediate"
+
+  - id: "ch03-13-compiling-mcp-skills-014"
+    type: thinking
+    front: "Why does cross-agent portability make compiled skills a better investment than direct MCP configurations?"
+    back: "BECAUSE the SKILL.md format is supported by multiple agents, compiled skills transfer across tools without rewriting, THEREFORE investment in one skill pays off across your entire agent ecosystem."
+    tags: ["portability", "decision-framework"]
+    difficulty: "advanced"
+    why: "Portability multiplies the return on skill-building effort"

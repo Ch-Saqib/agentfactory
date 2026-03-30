@@ -38,7 +38,11 @@ const PROGRESS_API_URL =
 
 // Shorts Generator API URL - lesson shorts generation
 const SHORTS_API_URL =
-  process.env.SHORTS_API_URL || "http://localhost:8004";
+  process.env.SHORTS_API_URL || "http://localhost:8005";
+
+// Learner Profile API URL - personalized learning profiles
+const LEARNER_PROFILE_API_URL =
+  process.env.LEARNER_PROFILE_API_URL || "http://localhost:8004";
 
 // ChatKit domain key for OpenAI ChatKit (register at OpenAI dashboard for production)
 const CHATKIT_DOMAIN_KEY =
@@ -67,12 +71,21 @@ const config: Config = {
     chatkitDomainKey: CHATKIT_DOMAIN_KEY,
     progressApiUrl: PROGRESS_API_URL,
     shortsApiUrl: SHORTS_API_URL,
+    learnerProfileApiUrl: LEARNER_PROFILE_API_URL,
     practiceEnabled: PRACTICE_ENABLED,
   },
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    experimental_faster: {
+      swcJsLoader: true, // Use SWC to transpile JS (faster than Babel)
+      swcJsMinimizer: true, // Use SWC to minify JS (faster than Terser)
+      swcHtmlMinimizer: true, // Use SWC to minify HTML
+      lightningCssMinimizer: true, // Use Lightning CSS instead of cssnano
+      mdxCrossCompilerCache: true, // Compile MDX once instead of twice
+      // rspackBundler: false,  // Skip Rspack - use webpack (more stable with memory)
+    },
   },
 
   // Set the production url of your site here (from shared siteConfig)
@@ -149,17 +162,17 @@ const config: Config = {
     // See docs/ANALYTICS/ga4-setup.md for setup instructions
     ...(process.env.GA4_MEASUREMENT_ID
       ? [
-        {
-          tagName: "script",
-          attributes: {
-            async: "true",
-            src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GA4_MEASUREMENT_ID}`,
+          {
+            tagName: "script",
+            attributes: {
+              async: "true",
+              src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GA4_MEASUREMENT_ID}`,
+            },
           },
-        },
-        {
-          tagName: "script",
-          attributes: {},
-          innerHTML: `
+          {
+            tagName: "script",
+            attributes: {},
+            innerHTML: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
@@ -169,8 +182,8 @@ const config: Config = {
             'allow_ad_personalization_signals': false
           });
         `,
-        },
-      ]
+          },
+        ]
       : []),
     // OpenAI ChatKit CDN (for Study Mode)
     {
@@ -229,7 +242,24 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
-    locales: ["en"],
+    // Only enable locales with actual translated content
+    // Add others when translations are complete
+    locales: ["en", "ur"],
+    localeConfigs: {
+      en: {
+        label: "English",
+        direction: "ltr",
+        htmlLang: "en-US",
+        calendar: "gregory",
+      },
+      ur: {
+        label: "اردو",
+        direction: "ltr",
+        htmlLang: "ur-PK",
+        calendar: "gregory",
+        path: "ur",
+      },
+    },
   },
 
   presets: [
@@ -334,13 +364,13 @@ const config: Config = {
     ...(DEV_MODE
       ? []
       : [
-        [
-          "../../libs/docusaurus/summaries-plugin",
-          {
-            docsPath: docsPath, // Use same docs path as content-docs
-          },
-        ],
-      ]),
+          [
+            "../../libs/docusaurus/summaries-plugin",
+            {
+              docsPath: docsPath, // Use same docs path as content-docs
+            },
+          ],
+        ]),
     // Chapter Manifest Plugin - Enables chapter download for logged-in users
     [
       "../../libs/docusaurus/chapter-manifest-plugin",

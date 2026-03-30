@@ -11,9 +11,10 @@ class UserProgress(SQLModel, table=True):
     __tablename__ = "user_progress"
 
     user_id: str = Field(sa_column=Column(sa.String, sa.ForeignKey("users.id"), primary_key=True))
-    total_xp: int = Field(default=0)
+    total_xp: int = Field(default=0, index=True)
     quizzes_completed: int = Field(default=0)
     lessons_completed: int = Field(default=0)
+    flashcards_completed: int = Field(default=0)
     perfect_scores: int = Field(default=0)
     current_streak: int = Field(default=0)
     longest_streak: int = Field(default=0)

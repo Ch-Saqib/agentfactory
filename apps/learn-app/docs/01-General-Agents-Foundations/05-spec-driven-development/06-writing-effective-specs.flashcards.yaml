@@ -1,0 +1,101 @@
+deck:
+  id: "ch05-05-writing-effective-specs"
+  title: "Phase 2: Writing Effective Specifications"
+  description: "Four-part spec template, explicit constraints, measurable success criteria, anti-patterns, and why specs prevent Claude's silent assumptions."
+  tags: ["sdd", "specifications", "constraints", "success-criteria", "anti-patterns"]
+  version: 1
+
+cards:
+  # --- RECALL CARDS (6) ---
+
+  - id: "ch05-05-writing-effective-specs-001"
+    type: recall
+    front: "What are the four parts of the SDD specification template?"
+    back: "1. Reference Architecture Analysis\n2. Current Architecture Analysis\n3. Implementation Plan\n4. Implementation Checklist"
+    tags: ["spec-template", "sdd"]
+    difficulty: "basic"
+
+  - id: "ch05-05-writing-effective-specs-002"
+    type: recall
+    front: "What does the Reference Architecture Analysis section provide to Claude?"
+    back: "Patterns from research: what similar implementations do well and poorly."
+    tags: ["spec-template", "reference-architecture"]
+    difficulty: "basic"
+
+  - id: "ch05-05-writing-effective-specs-003"
+    type: recall
+    front: "What does the Current Architecture Analysis section cover?"
+    back: "Existing implementation, pain points, constraints, and affected files."
+    tags: ["spec-template", "current-architecture"]
+    difficulty: "basic"
+
+  - id: "ch05-05-writing-effective-specs-004"
+    type: recall
+    front: "According to Addy Osmani, what two qualities must an effective spec combine?"
+    back: "PRD thinking (why) with SRS precision (how it should behave)."
+    tags: ["spec-writing", "addy-osmani"]
+    difficulty: "intermediate"
+
+  - id: "ch05-05-writing-effective-specs-005"
+    type: recall
+    front: "What three qualities separate first-attempt specs from five-iteration specs?"
+    back: "1. Explicit constraints\n2. Measurable success criteria\n3. Checklist format for task extraction"
+    tags: ["spec-quality", "sdd"]
+    difficulty: "intermediate"
+
+  - id: "ch05-05-writing-effective-specs-006"
+    type: recall
+    front: "What are the three anti-patterns in specification writing?"
+    back: "1. Prescribing HOW instead of WHAT\n2. Missing constraints\n3. Vague success criteria"
+    tags: ["anti-patterns", "spec-writing"]
+    difficulty: "basic"
+
+  # --- THINKING CARDS (6) ---
+
+  - id: "ch05-05-writing-effective-specs-007"
+    type: thinking
+    front: "Why are explicit constraints often more important than requirements in a spec?"
+    back: "BECAUSE Claude optimizes for the general case by default, THEREFORE constraints encode your specific context and prevent reasonable but wrong choices that Claude would otherwise make silently."
+    tags: ["constraints", "spec-writing"]
+    difficulty: "intermediate"
+    why: "What reasonable but wrong choice might Claude make for a caching spec without constraints?"
+
+  - id: "ch05-05-writing-effective-specs-008"
+    type: thinking
+    front: "Why does Claude make silent assumptions instead of asking clarifying questions?"
+    back: "BECAUSE Claude is trained to produce complete output rather than pause to ask, THEREFORE it fills every gap with assumptions — making each spec ambiguity a potential bug in the result."
+    tags: ["spec-quality", "ai-collaboration"]
+    difficulty: "intermediate"
+    why: "How does writing explicit constraints reduce the number of silent assumptions Claude makes?"
+
+  - id: "ch05-05-writing-effective-specs-009"
+    type: thinking
+    front: "How does asking 'How would I know if this failed?' fix vague success criteria?"
+    back: "BECAUSE it forces observable failure conditions, THEREFORE vague criteria like 'works correctly' become concrete pass/fail boundaries like 'P95 latency under 100ms' that anyone can verify."
+    tags: ["success-criteria", "spec-writing"]
+    difficulty: "intermediate"
+    why: "What happens during Phase 4 delegation when a subagent receives 'should be fast' as acceptance criteria?"
+
+  - id: "ch05-05-writing-effective-specs-010"
+    type: thinking
+    front: "Why does describing behavior produce better code than prescribing implementation?"
+    back: "BECAUSE Claude often knows better patterns than the spec author, THEREFORE describing behavior like 'O(1) lookup preventing duplicates' unlocks its expertise, while prescribing 'use a HashMap' locks in your assumptions."
+    tags: ["anti-patterns", "spec-writing"]
+    difficulty: "advanced"
+    why: "When might prescribing a specific implementation detail actually be justified?"
+
+  - id: "ch05-05-writing-effective-specs-011"
+    type: thinking
+    front: "Why is a spec with no constraints section equivalent to vibe coding with extra steps?"
+    back: "BECAUSE without constraints Claude optimizes for a generic solution unchecked, THEREFORE the spec adds ceremony without precision — you lose control over critical architectural decisions just as in vibe coding."
+    tags: ["constraints", "anti-patterns"]
+    difficulty: "advanced"
+    why: "What distinguishes a useful constraint from an unnecessarily restrictive one?"
+
+  - id: "ch05-05-writing-effective-specs-012"
+    type: thinking
+    front: "Why must checklist items pass the 'junior developer test' of one-sentence explainability?"
+    back: "BECAUSE Phase 4 delegates each item to a subagent, THEREFORE vague tasks like 'set up the system' produce vague implementations — only atomic, one-sentence-explainable tasks enable reliable parallel delegation."
+    tags: ["checklist", "task-extraction"]
+    difficulty: "intermediate"
+    why: "What failure pattern emerges when a subagent receives a non-atomic checklist item?"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { getOAuthAuthorizationUrl } from "@/lib/auth-client";
 import { getHomeUrl } from "@/lib/url-utils";
@@ -25,10 +25,13 @@ import {
 import { useCredits } from "@/hooks/useCredits";
 import { useProgress } from "@/contexts/ProgressContext";
 import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { useHistory } from "@docusaurus/router";
 import XPCounter from "@/components/progress/XPCounter";
 
 export function NavbarAuth() {
-  const { session, isLoading, signOut, refreshUserData } = useAuth();
+  const history = useHistory();
+  const { session, isLoading, signOut } = useAuth();
   const { siteConfig } = useDocusaurusContext();
   const credits = useCredits();
   const { progress } = useProgress();
@@ -76,21 +79,10 @@ export function NavbarAuth() {
     return email ? email[0].toUpperCase() : "?";
   };
 
+  const profileHref = useBaseUrl("/profile");
   const handleEditProfile = () => {
-    const currentUrl =
-      typeof window !== "undefined" ? window.location.href : "";
-    const profileUrl = `${authUrl}/account/profile?redirect=${encodeURIComponent(currentUrl)}`;
-    localStorage.setItem("ainative_refresh_on_return", "true");
-    window.location.href = profileUrl;
+    history.push(profileHref);
   };
-
-  useEffect(() => {
-    const shouldRefresh = localStorage.getItem("ainative_refresh_on_return");
-    if (shouldRefresh === "true" && session?.user) {
-      localStorage.removeItem("ainative_refresh_on_return");
-      refreshUserData();
-    }
-  }, [session]);
 
   if (isLoading) {
     return <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />;
@@ -239,8 +231,17 @@ export function NavbarAuth() {
               onClick={handleEditProfile}
               className="cursor-pointer"
             >
+              <User className="mr-2 h-4 w-4" />
+              <span>Learner Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                window.location.href = `${authUrl}/account/profile`;
+              }}
+              className="cursor-pointer"
+            >
               <Settings className="mr-2 h-4 w-4" />
-              <span>Edit Profile</span>
+              <span>Account Settings</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => signOut()}

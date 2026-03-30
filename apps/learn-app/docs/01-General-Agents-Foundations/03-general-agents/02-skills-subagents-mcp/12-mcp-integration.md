@@ -529,3 +529,8 @@ Let's explore MCP integration through hands-on practice with external system acc
 > "The lesson emphasizes MCP security. I'm nervous about giving Claude Code external access. Help me establish safe boundaries: What types of MCP servers should I avoid as a beginner? What permissions are risky? How do I audit what an MCP server can access? Create an MCP safety checklist I can follow."
 
 **What you're learning:** Security-first thinking for AI external access—essential for production use where trust and verification matter.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

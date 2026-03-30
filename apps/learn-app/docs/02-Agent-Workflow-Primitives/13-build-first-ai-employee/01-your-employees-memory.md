@@ -1,7 +1,6 @@
 ---
 sidebar_position: 1
 title: "Your Employee's Memory"
-sidebar_label: "L01: Your Employee's Memory"
 description: "Set up your Personal AI Employee's memory system. Obsidian vault with AGENTS.md governance, CLAUDE.md context, and Claude Code as your operator."
 keywords:
   - Obsidian vault

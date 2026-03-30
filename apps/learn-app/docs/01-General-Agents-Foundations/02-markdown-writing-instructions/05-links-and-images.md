@@ -828,3 +828,8 @@ No tasks yet. Use option 1 to add a task.
 ### What's Next?
 
 In the **Chapter Quiz**, you'll test your markdown knowledge. Then in **Chapter 3**, you'll use these markdown skills to write real specifications for AI agents — turning structured documents into working software.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

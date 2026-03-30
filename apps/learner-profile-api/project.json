@@ -1,0 +1,67 @@
+{
+  "name": "learner-profile-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/learner-profile-api/src",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api",
+        "command": "uv run pytest tests/ -v --tb=short"
+      },
+      "cache": true,
+      "inputs": ["pythonInputs"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api",
+        "command": "uv run ruff check src/ tests/"
+      },
+      "cache": true,
+      "inputs": ["pythonInputs"]
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api",
+        "command": "uv run ruff format src/ tests/"
+      }
+    },
+    "format-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api",
+        "command": "uv run ruff format --check src/ tests/"
+      },
+      "cache": true,
+      "inputs": ["pythonInputs"]
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api",
+        "command": "uv run mypy src/"
+      },
+      "cache": true,
+      "inputs": ["pythonInputs"]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api/src",
+        "command": "uv run python -m uvicorn learner_profile_api.main:app --reload --host 127.0.0.1 --port 8004 --log-level info"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/learner-profile-api",
+        "command": "docker build -t learner-profile-api:latest ."
+      },
+      "cache": true,
+      "inputs": ["pythonInputs", "{projectRoot}/Dockerfile"]
+    }
+  }
+}

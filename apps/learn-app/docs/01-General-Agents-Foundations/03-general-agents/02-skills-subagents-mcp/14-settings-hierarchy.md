@@ -447,3 +447,8 @@ Let's understand how Claude Code's three-level settings hierarchy enables both t
 > "When I learn team workflows in Part 5, help me understand which settings level to use for different scenarios: personal preferences (my editor style, my default verbosity), team standards (shared coding conventions, security policies), and temporary experiments (testing new configurations). Explain the decision framework for choosing the right level."
 
 **What you're learning:** Configuration strategy—deciding where settings belong before creating them. Planning prevents the mess of scattered configurations.
+
+
+## Flashcards Study Aid
+
+<Flashcards />

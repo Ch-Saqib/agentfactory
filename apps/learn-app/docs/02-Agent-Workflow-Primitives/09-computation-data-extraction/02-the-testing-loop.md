@@ -84,7 +84,7 @@ teaching_guide:
     - "Have students run buggy_sum.py themselves and see exit code 0 alongside a wrong answer — the visceral experience of 'no error but wrong' is the lesson's core teaching moment"
     - "The exit code table is reference material, not the main point — spend more time on the verification pattern than on memorizing exit codes"
     - "Emphasize the division of labor: the agent creates multiple test cases (integers, decimals, negatives) but the human chose the known-answer approach in the first place"
-    - "Connect back to Chapter 8 Lesson 2's verification pattern — 'verify the backup is complete' uses the same zero-trust philosophy applied to file counts instead of calculations"
+    - "Connect back to File Processing Lesson 2's verification pattern — 'verify the backup is complete' uses the same zero-trust philosophy applied to file counts instead of calculations"
   assessment_quick_check:
     - "Ask: 'Your script outputs 186.38 with exit code 0. How do you know if that number is right?' — tests whether students reach for verification, not just trust the exit code"
     - "Give students a buggy scenario: 'A filter script keeps numbers > 20 from input 10, 30, 50 but only returns 30.' Ask what they would check first"
@@ -93,7 +93,7 @@ teaching_guide:
 
 # The Testing Loop
 
-Here's a script. It sums numbers from stdin, just like yours. Run it:
+Unix commands return exit codes for a reason — they tell the next command in the pipeline whether to proceed. But exit code 0 only means "didn't crash." It says nothing about whether the answer is right. Here's a script that sums numbers from stdin, just like yours. Run it:
 
 ```python
 # buggy_sum.py - Sums numbers from stdin
@@ -134,6 +134,8 @@ The output says `Total: 40.0`. The exit code is 0. No errors. No warnings. But t
 And here's the uncomfortable part: **if you'd only tested with 10, 20, 30, you'd never have known.** The bug is invisible on "nice" test data. It only surfaces when your input includes numbers starting with high digits — exactly the kind of thing real financial data is full of.
 
 This is the verification paradox. You built sum.py in Lesson 1. It ran. It produced a number. Exit code 0. But you have no evidence it's correct — you've been trusting code you never proved works.
+
+In the File Processing chapter's lessons, you learned to verify backups before deleting originals — the Safety-First Pattern from Lesson 2 drilled the habit of "check before you act." The same instinct applies here, except the stakes are different. A missing file is obvious. A wrong number is invisible.
 
 ## The Trick
 
@@ -210,24 +212,28 @@ Total: 40.0
 
 Exit code 0. No errors. No warnings. The answer is wrong — it should be 100 — but Bash says "success."
 
-| What Exit Code 0 Means | What Exit Code 0 Does NOT Mean |
-|---|---|
-| The script ran without crashing | The script produced the right answer |
-| Python didn't raise an exception | The logic is correct |
-| The process terminated normally | Your data is intact |
+| What Exit Code 0 Means           | What Exit Code 0 Does NOT Mean       |
+| -------------------------------- | ------------------------------------ |
+| The script ran without crashing  | The script produced the right answer |
+| Python didn't raise an exception | The logic is correct                 |
+| The process terminated normally  | Your data is intact                  |
 
 **Exit codes catch crashes. They don't catch logic errors.** The buggy script from the challenge had perfect exit codes on every run. Only your test data — specifically, testing with numbers starting with 6, 7, 8, 9 — exposed the bug.
 
 :::note Common Exit Codes (Reference)
 
-| Code | Meaning | Example |
-|------|---------|---------|
-| 0 | Success — didn't crash | Script ran, output appeared |
-| 1 | General error | Python raised an exception |
-| 127 | Command not found | Typo in script name |
-| 130 | Interrupted by Ctrl+C | You cancelled a long run |
+| Code | Meaning                | Example                     |
+| ---- | ---------------------- | --------------------------- |
+| 0    | Success — didn't crash | Script ran, output appeared |
+| 1    | General error          | Python raised an exception  |
+| 127  | Command not found      | Typo in script name         |
+| 130  | Interrupted by Ctrl+C  | You cancelled a long run    |
 
 `$?` holds the exit code of the **most recent** command — run `echo $?` immediately after the command you care about.
+:::
+
+:::note Why Your Totals Might Be Off by a Penny
+Python uses floating-point math, which can produce surprises: `0.1 + 0.2` gives `0.30000000000000004`, not `0.3`. For the amounts in this chapter, `round(total, 2)` handles it — and you'll verify the result against known answers anyway. If you ever need penny-perfect precision across thousands of transactions, tell Claude Code: "Use Python's Decimal module for exact arithmetic." For now, `float` plus your verification habit catches any drift before it matters.
 :::
 
 ### Your Python Scripts Return Exit Codes Too
@@ -262,6 +268,7 @@ echo $?
 ```
 
 **Output:**
+
 ```
 Error: no numbers received
 1
@@ -287,29 +294,16 @@ This works because:
 
 ### Pattern Variations
 
-| What You're Testing | The Prompt |
-|---------------------|------------|
-| Sum script | "Verify sum.py with test data 10, 20, 30 (expected: 60)" |
-| Average script | "Verify average.py with test data 10, 20, 30 (expected: 20)" |
-| Max script | "Verify max.py with test data 10, 50, 30 (expected: 50)" |
-| Filter script | "Verify filter.py keeps only numbers > 20 from 10, 30, 50 (expected: 30, 50)" |
+| What You're Testing | The Prompt                                                                    |
+| ------------------- | ----------------------------------------------------------------------------- |
+| Sum script          | "Verify sum.py with test data 10, 20, 30 (expected: 60)"                      |
+| Average script      | "Verify average.py with test data 10, 20, 30 (expected: 20)"                  |
+| Max script          | "Verify max.py with test data 10, 50, 30 (expected: 50)"                      |
+| Filter script       | "Verify filter.py keeps only numbers > 20 from 10, 30, 50 (expected: 30, 50)" |
 
 The tool changes. The verification pattern stays the same.
 
-## Who Directed What
-
-Step back and look at how the work actually divided in this lesson.
-
-| Decision | Who Made It | Why the Other Couldn't |
-|---|---|---|
-| Test with known-answer data | You | Only you know which answers are easy to verify mentally |
-| Include numbers starting with every digit 0-9 | You | Only you know real financial data includes amounts like $67.80 |
-| Volunteer decimal and negative test cases | Agent | Agent knows common failure modes for float arithmetic |
-| Write automated test assertions | Agent | Agent handles the mechanics of comparison |
-
-The agent is fast at generating test cases. But the agent cannot know which answers are easy for you to verify in your head, or which ranges your real bank data will include. Those decisions required your domain knowledge.
-
-This is the verification version of the director's move: **you set the evidence criteria, the agent generates the evidence.** The human contribution isn't writing Python — it's knowing what "correct" looks like before the test runs.
+The division of labor here is worth noticing: the agent is fast at generating test cases and knows common failure modes (decimals, negatives, empty input). But only you know which answers are easy to verify in your head, and only you know that real bank data includes amounts starting with every digit 0-9. **You set the evidence criteria, the agent generates the evidence.** The human contribution isn't writing Python — it's knowing what "correct" looks like before the test runs.
 
 ## Checkpoint: Verify YOUR sum.py
 
@@ -332,11 +326,15 @@ You: Test sum.py with these edge cases:
 
 If any test fails, you've discovered a bug before it touched real data. Fix it now — Lesson 3 builds on a working sum.py.
 
-You now have a verified script and a verification habit. That habit — test with known answers, check the math yourself, never trust exit code 0 — is more valuable than the script itself. The script handles numbers. The habit handles *everything you'll ever build*.
+You now have a verified script and a verification habit. That habit — test with known answers, check the math yourself, never trust exit code 0 — is more valuable than the script itself. The script handles numbers. The habit handles _everything you'll ever build_.
 
 Human provides the evidence criteria. Agent generates the code and tests. Neither alone can guarantee correctness — and that division is not a limitation. It's the primitive.
 
 Now try something. Download your actual bank statement as a CSV. Point sum.py at the amount column. Watch what happens when real-world data — with commas inside merchant names, dollar signs in amounts, and header rows that aren't numbers — hits a script that expects clean numbers, one per line.
+
+## Flashcards Study Aid
+
+<Flashcards />
 
 ---
 
@@ -350,7 +348,7 @@ Think about unusual inputs: empty files, non-numeric lines, very
 large numbers, special characters. List cases I should test.
 ```
 
-**What you're learning:** The director's first move in verification — getting the agent to surface failure modes you haven't considered. You ask for a list, not an answer. The agent contributes technical knowledge (dollar signs break float(), Unicode crashes, overflow is real). You contribute domain knowledge (which of these actually exist in your bank data). Between you, the test plan is more thorough than either could produce alone.
+**What you're learning:** Getting the agent to surface failure modes you haven't considered. You ask for a list, not an answer. The agent contributes technical knowledge (dollar signs break float(), Unicode crashes, overflow is real). You contribute domain knowledge (which of these actually exist in your bank data). Between you, the test plan is more thorough than either could produce alone.
 
 ### Prompt 2: Automate Verification
 
@@ -374,4 +372,4 @@ The script works fine on other inputs. Exit code is 0.
 Help me find the bug. What could cause 60 to be skipped?
 ```
 
-**What you're learning:** The debug version of the director's move. You bring the evidence (expected: 100, actual: 40, exit code: 0). The agent brings mechanism knowledge (line[0] checks, digit ranges, why high-digit numbers get dropped). Neither can debug without the other: you needed to *observe* that 60 was skipped; the agent needed to *know* what code patterns produce that symptom. The division of labor in debugging mirrors the division of labor in building.
+**What you're learning:** Collaborative debugging. You bring the evidence (expected: 100, actual: 40, exit code: 0). The agent brings mechanism knowledge (line[0] checks, digit ranges, why high-digit numbers get dropped). Neither can debug without the other: you needed to *observe* that 60 was skipped; the agent needed to *know* what code patterns produce that symptom.

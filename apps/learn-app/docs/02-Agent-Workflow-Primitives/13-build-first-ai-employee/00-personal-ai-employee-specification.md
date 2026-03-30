@@ -1,7 +1,6 @@
 ---
 sidebar_position: 0
 title: "The Personal AI Employee - Complete Specification"
-sidebar_label: "L00: Complete Specification"
 description: "Full architectural blueprint for building a Digital FTE - an AI agent that proactively manages your personal and business affairs 24/7 using Claude Code, Obsidian, and MCP."
 keywords:
   - Digital FTE

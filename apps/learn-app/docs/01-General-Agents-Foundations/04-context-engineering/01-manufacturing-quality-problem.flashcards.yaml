@@ -1,0 +1,112 @@
+deck:
+  id: "ch04-01-context-engineering"
+  title: "What Is Context Engineering?"
+  description: "The discipline of controlling what your AI sees to produce consistent, high-quality output — definitions, context vs prompts, and the four types of context rot."
+  tags: ["context-engineering", "context-window", "context-rot", "tokens"]
+  version: 1
+
+cards:
+  - id: "ch04-01-context-engineering-001"
+    type: recall
+    front: "What differentiates two agents built on the same AI model when one sells for $2,000/month and the other can't give it away?"
+    back: "Context quality."
+    tags: ["context-engineering", "competitive-moat"]
+    difficulty: "basic"
+
+  - id: "ch04-01-context-engineering-002"
+    type: recall
+    front: "How does Anthropic define context engineering?"
+    back: "Curating what enters the limited context window from the evolving universe of information."
+    tags: ["context-engineering", "definition"]
+    difficulty: "basic"
+
+  - id: "ch04-01-context-engineering-003"
+    type: recall
+    front: "What is a token in AI language models?"
+    back: "The unit AI models use to measure text, roughly 3/4 of a word."
+    tags: ["tokens", "definition"]
+    difficulty: "basic"
+
+  - id: "ch04-01-context-engineering-004"
+    type: recall
+    front: "What is the guiding principle of context engineering?"
+    back: "Find the smallest set of high-signal tokens that maximize the desired outcome's likelihood."
+    tags: ["context-engineering", "principle"]
+    difficulty: "intermediate"
+
+  - id: "ch04-01-context-engineering-005"
+    type: recall
+    front: "What percentage of the model's token budget do prompts versus context represent?"
+    back: "Prompts: 0.1%\nContext: 99.9%"
+    tags: ["prompts-vs-context", "token-budget"]
+    difficulty: "basic"
+
+  - id: "ch04-01-context-engineering-006"
+    type: recall
+    front: "What are the four types of context rot?"
+    back: "1. Poisoning (outdated info persists)\n2. Distraction (irrelevant content dilutes attention)\n3. Confusion (similar concepts conflate)\n4. Clash (contradictory instructions compete)"
+    tags: ["context-rot", "types"]
+    difficulty: "intermediate"
+
+  - id: "ch04-01-context-engineering-007"
+    type: recall
+    front: "What is the maximum context window size for Claude?"
+    back: "200,000 tokens."
+    tags: ["context-window", "claude"]
+    difficulty: "basic"
+
+  - id: "ch04-01-context-engineering-008"
+    type: thinking
+    front: "Why does optimizing prompts alone fail to produce high-quality Digital FTEs?"
+    back: "Prompts represent only 0.1% of what the model processes, therefore the other 99.9% — the context — determines output quality. Ignoring context means ignoring the dominant factor in model performance."
+    tags: ["prompts-vs-context", "digital-fte"]
+    difficulty: "intermediate"
+    why: "What happens to a legal assistant Digital FTE with perfect prompts but corrupted context?"
+
+  - id: "ch04-01-context-engineering-009"
+    type: thinking
+    front: "How does context poisoning degrade AI output over a long session?"
+    back: "Old decisions, renamed terms, or outdated information persist in context because they were discussed extensively earlier. The model references this stale information, therefore producing errors that contradict current requirements."
+    tags: ["context-rot", "poisoning"]
+    difficulty: "intermediate"
+    why: "What specific user action during a session creates the conditions for poisoning?"
+
+  - id: "ch04-01-context-engineering-010"
+    type: thinking
+    front: "How would you distinguish context distraction from the model simply being inaccurate?"
+    back: "Distraction shows a pattern: responses degrade after tangential discussions because irrelevant content competes for attention budget. Simple inaccuracy is random and unrelated to conversation history, therefore it lacks the temporal correlation that marks distraction rot."
+    tags: ["context-rot", "distraction"]
+    difficulty: "intermediate"
+    why: "What intervention would confirm whether degradation is caused by distraction versus a model limitation?"
+
+  - id: "ch04-01-context-engineering-011"
+    type: thinking
+    front: "How could you prevent confusion rot when working with two similar services in one session?"
+    back: "Use distinct, unambiguous names for each service because attention mechanisms match on token similarity. Overlapping terminology causes the model to conflate concepts, therefore unique naming prevents the model from applying patterns from one domain to the other."
+    tags: ["context-rot", "confusion"]
+    difficulty: "intermediate"
+    why: "Why does renaming alone sometimes fail to fix confusion rot in an ongoing session?"
+
+  - id: "ch04-01-context-engineering-012"
+    type: thinking
+    front: "How does context clash produce inconsistent AI decisions?"
+    back: "Early and later instructions contradict each other, and both remain in context. Because the model must reconcile them without knowing which is current, it may choose the wrong instruction, therefore producing decisions that seem arbitrary or inconsistent."
+    tags: ["context-rot", "clash"]
+    difficulty: "intermediate"
+    why: "Why can't the model simply prefer the most recent instruction over an earlier one?"
+
+  - id: "ch04-01-context-engineering-013"
+    type: thinking
+    front: "How does Claude Code's autocompact feature manage context automatically?"
+    back: "BECAUSE the context window fills with noise and stale decisions over long sessions, THEREFORE autocompact summarizes the conversation, preserves key decisions, and discards noise — preventing context rot without user intervention."
+    tags: ["autocompact", "context-management"]
+    difficulty: "advanced"
+    why: "Under what circumstances might automatic compaction lose important information?"
+
+  - id: "ch04-01-context-engineering-014"
+    type: thinking
+    front: "Why is context engineering — not model selection — the competitive moat for Digital FTEs?"
+    back: "Everyone accesses the same frontier models, therefore model choice provides no differentiation. Context quality varies between implementations because it depends on engineering discipline, making it the factor that separates a $50/month chatbot from a $5,000/month assistant."
+    tags: ["competitive-moat", "digital-fte"]
+    difficulty: "advanced"
+    why: "What would happen to market differentiation if context engineering became fully automated?"

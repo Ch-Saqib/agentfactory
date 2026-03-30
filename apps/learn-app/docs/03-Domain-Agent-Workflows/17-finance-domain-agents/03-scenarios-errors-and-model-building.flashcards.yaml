@@ -1,0 +1,81 @@
+deck:
+  id: "ch17-03-scenarios-errors-model-building"
+  title: "Scenarios, Errors, and Model Building"
+  description: "Sensitivity analysis, formula error diagnosis, EBITDA, DCF fundamentals, three-statement model linkages, and model specification writing."
+  tags: ["sensitivity-analysis", "formula-errors", "model-building", "EBITDA", "DCF", "three-statement-model"]
+  version: 1
+
+cards:
+  - id: "ch17-03-sensitivity-001"
+    front: "What is the difference between a one-way and a two-way sensitivity table?"
+    back: "A one-way table varies one input across a range to show its impact on a single output. A two-way table varies two inputs simultaneously, producing a grid that shows the combined impact of every combination of those two inputs."
+    tags: ["sensitivity-analysis"]
+    difficulty: "basic"
+
+  - id: "ch17-03-scenario-compounding-002"
+    front: "Why does the combined impact of two scenario changes typically differ from the sum of their individual impacts?"
+    back: "Because financial models contain non-linear interactions. Two changes that each reduce profit by 10% compound rather than add — the second change applies to an already-reduced base, producing a combined effect greater than 20%. Claude shows the actual combined impact rather than requiring you to calculate it manually."
+    tags: ["scenario-testing", "compounding"]
+    difficulty: "intermediate"
+
+  - id: "ch17-03-ref-error-003"
+    front: "What causes a #REF! error in Excel, and what is the most common trigger?"
+    back: "A #REF! error occurs when a formula points to a cell or range that no longer exists. The most common trigger is deleting rows or columns that were referenced by formulas, or structural changes that break OFFSET formulas."
+    tags: ["formula-errors", "REF"]
+    difficulty: "basic"
+
+  - id: "ch17-03-value-error-004"
+    front: "What causes a #VALUE! error, and how can you visually detect the most common source?"
+    back: "A #VALUE! error occurs when a formula tries to perform a mathematical operation on a non-numeric value. The most common source is numbers formatted as text. The visual indicator is left-alignment — numbers right-align by default in Excel, so a left-aligned number is likely text-formatted."
+    tags: ["formula-errors", "VALUE"]
+    difficulty: "basic"
+
+  - id: "ch17-03-text-number-005"
+    front: "Why does SUM silently exclude text-formatted numbers, and how do you fix them?"
+    back: "SUM treats text-formatted cells as non-numeric and skips them without any error message. This makes the problem invisible — the formula returns a number, just the wrong one. Fix: select the affected cells, go to Data → Text to Columns → Finish, which forces Excel to re-evaluate them as numbers."
+    tags: ["formula-errors", "text-number"]
+    difficulty: "intermediate"
+    why: "Tests understanding of the most common invisible error in imported financial data"
+
+  - id: "ch17-03-circular-ref-006"
+    front: "When are circular references acceptable in financial models, and what must be done to enable them?"
+    back: "Circular references are acceptable in advanced models where variables are genuinely interdependent — for example, interest expense depends on debt, which depends on cash, which depends on profit. They must be enabled explicitly via iterative calculation settings and carefully documented."
+    tags: ["formula-errors", "circular-reference"]
+    difficulty: "intermediate"
+
+  - id: "ch17-03-ebitda-007"
+    front: "What is EBITDA, and why is it used as the basis for most enterprise valuation multiples?"
+    back: "EBITDA is Earnings Before Interest, Tax, Depreciation and Amortisation. It measures operating profitability by removing financing decisions (interest), tax, and accounting policies for capital assets (D&A). It is used for valuation multiples because it allows comparison across companies with different capital structures and tax situations."
+    tags: ["EBITDA", "valuation"]
+    difficulty: "basic"
+
+  - id: "ch17-03-ebitda-limitation-008"
+    front: "What is the main limitation of EBITDA as a measure of business performance?"
+    back: "EBITDA ignores capital expenditure, working capital movements, and actual tax payments. A company with high EBITDA but high capex may generate very little actual free cash — making EBITDA a poor proxy for cash generation in capital-intensive businesses."
+    tags: ["EBITDA", "limitation"]
+    difficulty: "intermediate"
+
+  - id: "ch17-03-dcf-009"
+    front: "What are the three key components of a DCF valuation?"
+    back: "Free Cash Flow (the cash generated after operating costs and capex), Discount Rate or WACC (the required return of investors — higher rate means lower valuation), and Terminal Value (the value of all cash flows beyond the projection period, usually 5-10 years)."
+    tags: ["DCF", "valuation"]
+    difficulty: "basic"
+
+  - id: "ch17-03-dcf-sensitivity-010"
+    front: "Why does every professional DCF include a sensitivity table for WACC?"
+    back: "Because a DCF is highly sensitive to the discount rate. A 1 percentage point increase in WACC typically reduces the equity value by 10-20%. The sensitivity table shows value at different WACC and terminal growth rate combinations, making this sensitivity transparent to the reader."
+    tags: ["DCF", "sensitivity-analysis", "WACC"]
+    difficulty: "intermediate"
+
+  - id: "ch17-03-three-statements-011"
+    front: "How do the three financial statements link together when revenue increases?"
+    back: "Higher revenue → higher net income on the P&L → higher retained earnings on the balance sheet → higher operating cash flow on the cash flow statement → higher cash on the balance sheet. If the balance sheet does not balance after a revenue change, there is a linkage error."
+    tags: ["three-statement-model", "linkages"]
+    difficulty: "intermediate"
+    why: "Tests understanding of inter-statement linkages, the foundation of financial modelling"
+
+  - id: "ch17-03-model-spec-012"
+    front: "What makes a model-building specification specific enough to produce a usable starting point from Claude in Excel?"
+    back: "Three elements: named tabs (e.g., Assumptions, P&L, Cash Flow), explicit line items for each tab (e.g., revenue, COGS, gross profit, EBITDA), and stated linkage requirements (e.g., P&L net income flows to cash flow statement, depreciation references fixed assets on Assumptions). Without these, Claude must make assumptions that may not match your intent."
+    tags: ["model-building", "specification"]
+    difficulty: "intermediate"

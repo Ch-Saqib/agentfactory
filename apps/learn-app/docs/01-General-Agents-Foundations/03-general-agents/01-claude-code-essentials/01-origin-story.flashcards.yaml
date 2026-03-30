@@ -1,0 +1,112 @@
+deck:
+  id: "ch03-01-origin-story"
+  title: "Claude Code Origin Story"
+  description: "Core concepts from the Claude Code origin story: agentic vs passive AI, Product Overhang, OODA loop, General vs Custom Agents, and the Agent Factory model."
+  tags: ["claude-code", "agentic-ai", "general-agents", "paradigm-shift"]
+  version: 1
+
+cards:
+  - id: "ch03-01-origin-story-001"
+    type: recall
+    front: "What is the 'Product Overhang' that Anthropic discovered with Claude Code?"
+    back: "Capability already existed inside Claude — it just needed a product interface."
+    tags: ["product-overhang", "paradigm-shift"]
+    difficulty: "basic"
+
+  - id: "ch03-01-origin-story-002"
+    type: recall
+    front: "Who discovered the Product Overhang by giving Claude filesystem access in September 2024?"
+    back: "Boris Cherny."
+    tags: ["history", "claude-code"]
+    difficulty: "basic"
+
+  - id: "ch03-01-origin-story-003"
+    type: recall
+    front: "Passive AI assistant: you describe your problem and get generic advice. Agentic AI model?"
+    back: "You describe your goal; AI reads files, proposes changes, and executes with approval."
+    tags: ["agentic-ai", "paradigm-shift"]
+    difficulty: "intermediate"
+
+  - id: "ch03-01-origin-story-004"
+    type: thinking
+    front: "Why did Claude's agentic capability emerge from filesystem access rather than from a smarter model?"
+    back: "BECAUSE Claude already had reasoning ability but lacked access to project files, THEREFORE filesystem access — not a smarter model — unlocked agentic capability by letting Claude read code and follow imports autonomously."
+    tags: ["product-overhang", "filesystem-access"]
+    difficulty: "intermediate"
+    why: "What other AI capabilities might be waiting for the right product interface to unlock them?"
+
+  - id: "ch03-01-origin-story-005"
+    type: recall
+    front: "What are the four steps of the OODA Loop that Claude Code cycles through when debugging?"
+    back: "1. Observe\n2. Orient\n3. Decide\n4. Act"
+    tags: ["ooda-loop", "reasoning"]
+    difficulty: "basic"
+
+  - id: "ch03-01-origin-story-006"
+    type: recall
+    front: "General Agent analogy: senior consultant solving new problems. Custom Agent analogy?"
+    back: "Factory machine optimized for one specific task."
+    tags: ["general-agent", "custom-agent"]
+    difficulty: "intermediate"
+
+  - id: "ch03-01-origin-story-007"
+    type: thinking
+    front: "Why are General Agents positioned as builders rather than products in the Agent Factory model?"
+    back: "BECAUSE General Agents handle novel, unpredictable problems requiring flexibility, THEREFORE they serve as builders that design Custom Agents — which are optimized for one workflow and sellable as products with predictable outputs."
+    tags: ["agent-factory", "general-agent", "custom-agent"]
+    difficulty: "intermediate"
+    why: "What happens if you try to sell a General Agent as a product instead of building Custom Agents?"
+
+  - id: "ch03-01-origin-story-008"
+    type: thinking
+    front: "Why did Claude Code adoption reach 50% within five days of Anthropic's internal release?"
+    back: "BECAUSE the agentic model eliminated copy-paste friction by reading actual code and iterating autonomously, THEREFORE engineers experienced immediate productivity gains that drove explosive adoption."
+    tags: ["adoption", "dogfooding"]
+    difficulty: "intermediate"
+    why: "What does explosive internal adoption signal about product-market fit?"
+
+  - id: "ch03-01-origin-story-009"
+    type: recall
+    front: "What is an Agent Skill in Claude Code?"
+    back: "Encoded expertise — a SKILL.md document teaching Claude a procedure, reasoning pattern, or domain knowledge."
+    tags: ["agent-skills", "encoded-expertise"]
+    difficulty: "intermediate"
+
+  - id: "ch03-01-origin-story-010"
+    type: thinking
+    front: "Why did Anthropic create Cowork as a separate product rather than making Claude Code easier for non-developers?"
+    back: "BECAUSE the terminal is fundamental to developer power and simplifying it would compromise capability, THEREFORE Anthropic created Cowork as a separate desktop GUI that preserves the same Agent SDK while removing the terminal barrier for knowledge workers."
+    tags: ["cowork", "claude-code", "product-design"]
+    difficulty: "advanced"
+    why: "What does this separation suggest about the relationship between interface design and AI capability?"
+
+  - id: "ch03-01-origin-story-011"
+    type: thinking
+    front: "A company builds excellent AI agents with robust cloud infrastructure but revenue stalls. Why?"
+    back: "BECAUSE technology without a business model doesn't produce revenue, THEREFORE the Agent Factory requires all three pillars — agents, infrastructure, AND a model for selling verified outcomes."
+    tags: ["agent-factory", "business-model"]
+    difficulty: "intermediate"
+    why: "How does selling verified AI outcomes differ from selling software subscriptions?"
+
+  - id: "ch03-01-origin-story-012"
+    type: thinking
+    front: "How does the OODA Loop differentiate Claude Code from passive AI tools?"
+    back: "BECAUSE passive AI predicts one response and stops without feedback, THEREFORE the OODA Loop differentiates Claude Code by cycling observe-orient-decide-act repeatedly, testing and self-correcting until the problem is solved."
+    tags: ["ooda-loop", "agentic-ai"]
+    difficulty: "advanced"
+    why: "What types of problems benefit most from iterative reasoning versus single-shot responses?"
+
+  - id: "ch03-01-origin-story-013"
+    type: recall
+    front: "Approximately what percentage of Claude Code's own codebase was written by Claude Code itself?"
+    back: "Approximately 90%."
+    tags: ["claude-code", "self-authoring"]
+    difficulty: "basic"
+
+  - id: "ch03-01-origin-story-014"
+    type: thinking
+    front: "Why does the agentic model succeed at complex work where passive AI fails?"
+    back: "BECAUSE agentic AI accesses actual code, runs tests, and sees errors in a feedback loop, THEREFORE it can iterate through complex multi-step work that single-shot passive responses cannot handle."
+    tags: ["agentic-ai", "feedback-loop"]
+    difficulty: "advanced"
+    why: "What would break if you removed the iteration capability but kept filesystem access?"
