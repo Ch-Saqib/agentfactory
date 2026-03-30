@@ -77,6 +77,7 @@ const AGENT_FACTORY_CLIENT = {
     "http://localhost:3000/auth/callback",
     "https://agent-factory-interface.vercel.app/auth/callback",
     "https://agentfactory.panaversity.org/auth/callback",
+    "https://agentfactory-learn-app-groo.vercel.app/auth/callback",
   ].join(","),
   type: "public",
   disabled: false,
