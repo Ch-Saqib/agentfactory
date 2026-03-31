@@ -49,15 +49,16 @@ export function middleware(request: NextRequest) {
   // Get the origin from the request
   const origin = request.headers.get('origin');
 
-  // Check if origin is allowed
-  const isAllowedOrigin = origin ? allowedOrigins.has(origin) : false;
+  // Check if origin is allowed and derive a non-null value for headers
+  const isAllowedOrigin = !!origin && allowedOrigins.has(origin);
+  const allowedOrigin = isAllowedOrigin && origin ? origin : null;
 
   // Create response
   const response = NextResponse.next();
 
   // Set CORS headers
-  if (isAllowedOrigin) {
-    response.headers.set('Access-Control-Allow-Origin', origin);
+  if (isAllowedOrigin && allowedOrigin) {
+    response.headers.set('Access-Control-Allow-Origin', allowedOrigin);
     response.headers.set('Access-Control-Allow-Credentials', 'true');
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     response.headers.set(
