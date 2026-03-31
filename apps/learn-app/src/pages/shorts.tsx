@@ -596,7 +596,7 @@ export default function ShortsPage() {
       )}
 
       {!loading && !error && viewMode === "story" && shorts.length > 0 && (
-        <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-8">
+        <div className="mx-auto max-w-7xl px-3 py-4 sm:px-4 sm:py-6 md:px-6 md:py-8">
           {Object.entries(groupedShorts).map(([groupKey, groupShorts]) => {
             const { part, chapter } = parseLessonPath(groupShorts[0].lessonPath);
             return (
@@ -613,8 +613,8 @@ export default function ShortsPage() {
                   </div>
                 </div>
 
-                <div className="-mx-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  <div className="flex snap-x snap-mandatory gap-4 pb-4 sm:gap-5">
+                <div className="-mx-3 overflow-x-auto px-3 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-4 sm:px-4">
+                  <div className="flex snap-x snap-mandatory gap-3 pb-4 sm:gap-5">
                     {groupShorts.map((short) => {
                       const progress = currentProgress[short.id] || 0;
                       const isActive = activeVideo === short.id;
@@ -624,7 +624,7 @@ export default function ShortsPage() {
                         <button
                           key={short.id}
                           type="button"
-                          className={`group relative w-[78vw] min-w-[78vw] max-w-[340px] snap-start overflow-hidden rounded-[1.75rem] border text-left transition-all duration-300 sm:w-[320px] sm:min-w-[320px] ${
+                          className={`group relative w-[86vw] min-w-[86vw] max-w-[360px] snap-start overflow-hidden rounded-[1.5rem] border text-left transition-all duration-300 sm:w-[320px] sm:min-w-[320px] ${
                             isActive
                               ? "scale-[1.01] border-primary shadow-2xl shadow-primary/20"
                               : "border-border/70 bg-card hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
