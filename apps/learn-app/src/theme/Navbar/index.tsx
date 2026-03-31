@@ -72,6 +72,18 @@ export default function Navbar() {
 
           {/* RIGHT: Actions */}
           <div className="flex items-center gap-2">
+            {/* Desktop Shorts button - shows at 997px+ */}
+            <Button
+              variant="ghost"
+              asChild
+              className="hidden docs:inline-flex"
+            >
+              <Link to="/shorts">
+                <Play className="w-5 h-5 mr-1" />
+                <span>Shorts</span>
+              </Link>
+            </Button>
+
             {/* GitHub - Hidden on Homepage, shows at 997px+ */}
             {!isHomepage && (
               <Button
