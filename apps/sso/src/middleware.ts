@@ -1,5 +1,22 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { TRUSTED_CLIENTS } from './lib/trusted-clients';
+
+function getTrustedClientOrigins(): string[] {
+  const origins = new Set<string>();
+
+  for (const client of TRUSTED_CLIENTS) {
+    for (const redirectUrl of client.redirectUrls) {
+      try {
+        origins.add(new URL(redirectUrl).origin);
+      } catch {
+        // Ignore invalid URLs to avoid crashing middleware.
+      }
+    }
+  }
+
+  return Array.from(origins);
+}
 
 /**
  * CORS Middleware
@@ -16,16 +33,24 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Get allowed origins from environment variable
-  const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',').map(origin => origin.trim()) || [
-    'http://localhost:3000',
-  ];
+  // Get allowed origins from env + trusted OAuth client redirect URLs.
+  // This prevents browser CORS failures during OAuth token exchange
+  // when ALLOWED_ORIGINS isn't updated for a new client/app origin.
+  const envAllowedOrigins =
+    process.env.ALLOWED_ORIGINS?.split(',').map((origin) => origin.trim()) ||
+    (process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : []);
+
+  const trustedClientOrigins = getTrustedClientOrigins();
+  const allowedOrigins = new Set<string>([
+    ...envAllowedOrigins,
+    ...trustedClientOrigins,
+  ]);
 
   // Get the origin from the request
   const origin = request.headers.get('origin');
 
   // Check if origin is allowed
-  const isAllowedOrigin = origin && allowedOrigins.includes(origin);
+  const isAllowedOrigin = origin ? allowedOrigins.has(origin) : false;
 
   // Create response
   const response = NextResponse.next();
@@ -39,6 +64,7 @@ export function middleware(request: NextRequest) {
       'Access-Control-Allow-Headers',
       'Content-Type, Authorization, X-Requested-With'
     );
+    response.headers.set('Vary', 'Origin');
   }
 
   // Handle preflight OPTIONS request
